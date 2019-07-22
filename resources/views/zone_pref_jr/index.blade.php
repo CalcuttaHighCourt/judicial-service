@@ -4,6 +4,8 @@
 @extends('layouts.app') @section('title', 'JudicialOfficerPostingPreference')
 @section('page_heading') JudicialOfficerPostingPreference @endsection
 @section('center_main_content')
+
+<script src="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>                                                                                                                                                                                                       
 <style>
     .select2-container--default .select2-selection--multiple .select2-selection__choice{
         background-color:#111;
@@ -15,50 +17,51 @@
 </style>
 <!-- Bootstrap Boilerplate... -->
 <div id="info-panel" class="panel panel-default">
-	<!-- IIIIIIIIIII -->
-    <ul class="nav nav-tabs" role="tablist">
+    <!-- IIIIIIIIIII -->
+    <ul class="nav nav-pills" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="posting_details" style="border-style:outset" data-toggle="tab" href="#postings">Posting Details</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" id="judicial_dairy" style="border-style:outset" data-toggle="tab" href="#daily_dairy">Judicial Dairy</a>
+        </li>
     <li class="nav-item">
-      <a class="nav-link active" data-toggle="tab" href="#add_new">Posting Details</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#daily_dairy">Judicial Dairy</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#menu2">Annual Confidential Report</a>
+      <a class="nav-link active"  style="border-style:outset" data-toggle="tab" href="#acr">Annual Confidential Report</a>
     </li>
   </ul>
 	
 	<!-- IIIIIIIIIII -->
-	<div class="panel-body">
 
+    <div class="tab-content clearfix">
+        <div class="tab-pan" id="postings">
 		<!-- New Task Form -->
-		<form id="info-form add_new" class="form-horizontal" role="form" method="POST"
-			action="{{ url('/admin/JudicialOfficerPostingPreference') }}">
-			{{ csrf_field() }}
-			<input type="hidden" id="JudicialOfficerPostingPreference-id">
-			<div id="officer_name-group" class="form-group row our-form-group">
-                <label for="officer_name" class="col-md-5 ">Officer Name: {{Auth::user()->name}}</label>
-            </div>
-            <div id="jo_code-group" class="form-group row our-form-group">
-                <label for="jo_code" class="col-md-3">Code: {{Auth::user()->jo_code}}</label>
-            </div>
-            <div id="zone-group" class="form-group row our-form-group">
-                <label for="zone" class="col-md-2 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name">{{$zone_pref_details['current_zone']['zone_name']}}</span></label>
-            </div>
-            <div id="zone-group" class="form-group row our-form-group">
-                <label for="zone" class="col-md-2 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name">{{$zone_pref_details['just_prev_zone']['zone_name']}}</span></label>
-            </div>
+            
+       			<input type="hidden" id="JudicialOfficerPostingPreference-id">
+                <div id="officer_name-group" class="form-group row our-form-group">
+                    <label for="officer_name" class="col-md-5 ">Officer Name: {{Auth::user()->name}}</label>
+                </div>
+                <div id="jo_code-group" class="form-group row our-form-group">
+                    <label for="jo_code" class="col-md-3">Code: {{Auth::user()->jo_code}}</label>
+                </div>
+                <div id="zone-group" class="form-group row our-form-group">
+                    <label for="zone" class="col-md-2 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name">{{$zone_pref_details['current_zone']['zone_name']}}</span></label>
+                </div>
+                <div id="zone-group" class="form-group row our-form-group">
+                    <label for="zone" class="col-md-2 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name">{{$zone_pref_details['just_prev_zone']['zone_name']}}</span></label>
+                </div>
+            
             <hr>
         
             <div id="posting_pref-group" class="form-group row our-form-group">
                 
                 <div class="col-md-2">
-                <label for="posting_pref">Posting Preference </label>
-                <select id="posting_pref" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">
-                    
-							 @foreach($zone_pref_details['zones'] as $zone)
-                                    <option value="{{$zone->id}}">{{$zone->zone_name}}</option>
-                             @endforeach
+                    <label for="posting_pref">Posting Preference </label>
+                    <select id="posting_pref" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">
+                        
+                            @foreach($zone_pref_details['zones'] as $zone)
+                                <option value="{{$zone->id}}">{{$zone->zone_name}}</option>
+                            @endforeach
+
                     </select>
 				</div>
                          
@@ -71,36 +74,60 @@
 					</button>
 				</div>
             </div>
-            <br><br>
-
-            <div class="table-responsive" style="display:none;"  id="jo_details" name="jo_details">
-            <table class="table table-striped table-sm">
-              <thead>
-                <tr>
-                  <th>Officer Name</th>                    
-                  <th>JO Code</th>
-                  <th>Previous Zone</th>                  
-                  <th>Current Zone</th>
-                  <th>Court Complex</th>                  
-                  <th>Court</th>
-                  <th>Designation</th>                  
-                  <th>Date From</th>
-                  <th>Preference 1</th>
-                  <th>Preference 2</th>
-
-                </tr>
-              </thead>
-              <tbody>          
-              </tbody>
-            </table>
+        </div>
+        <br><br>
+        <div class="tab-pan" id="daily_diary" style="display:none;">     
+            <div class="form-group row">
+                <div class="date col-sm-offset-1 col-sm-2" data-provide="datepicker">
+                    <input type="text" class="form-control date diary_date" placeholder="Choose Date" autocomplete="off">
+                </div>
+                   
+                <div class="col-sm-offset-1 col-sm-3">
+                    <button id="submit_dairy" type="button"
+                        class="btn btn-primary add-button info-form-button">
+                        Submit
+                    </button>
+                </div>
+             </div>
+             <br>
+             <div class="box col-sm-offset-3">
+                <div class="box-header" id="dairy_editor" style="display:none;">
+                    <h3 class="box-title col-sm-offset-3" >DAILY WORKSHEET
+                        <small>of : <span id="date_span"></span></small>
+                    </h3>
+                
+            
+              <!-- tools box -->
+                <div class="pull-right box-tools">
+                        <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                        <i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip"
+                                title="Remove">
+                        <i class="fa fa-times"></i></button>
+                </div>
+              <!-- /. tools -->
+         
+            <!-- /.box-header -->
+            <div class="box-body pad col-sm-offset-1 col-sm-8">
+              <form>
+                <textarea class="textarea" placeholder="Place some text here"
+                          style="width: 100%; height: 100%; font-size: 100%; line-height: 80%x; border: 1px solid #dddddd; padding: 10px;"></textarea>
+              </form>
+            </div>
           </div>
-		</form>
-	</div>
-</div>
-
-
-
-	</div>
+        </div>
+        </div>
+        <!-- /.col-->
+      </div>
+         </div>
+            <!-- /.box-header -->
+            
+        </div>
+    
+        <!-- /.col-->
+       
+    </div>
 </div>
 <div id="test-div"></div>
 
@@ -134,7 +161,36 @@
             });
 
          /*LOADER*/
-   
+
+         /*date initialization:start */
+
+        	$(".diary_date").datepicker({
+                endDate:'0',
+                format: 'dd-mm-yyyy'
+            }).on('change', function () {
+                $('.datepicker').hide();
+            }); 
+
+        /*date initialization:end */
+
+        $(document).on("click","#judicial_dairy",function(){
+            $("#postings").hide();
+            $("#daily_diary").show();
+            
+         });
+
+         $(document).on("click","#posting_details",function(){
+            $("#daily_diary").hide();
+            $("#postings").show();
+            
+         });
+
+        $(document).on("click","#submit_dairy",function(){
+
+           $("#dairy_editor").show();
+            $("#date_span").html($(".diary_date").val());
+        });
+
         //Addition of Ps_Details starts
         
             $(document).on("click", "#search",function(){

@@ -9,16 +9,20 @@
 
 <script src="{{asset('js/datatable/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('js/datatable/dataTables.bootstrap.min.js')}}"></script>
-<script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
+ <!-- Date Picker -->    
+ <script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
 <!-- <script src="{{asset('js/datepicker/bootstrap-datepicker.min.js')}}"></script> -->
 
 <script src="{{asset('js/moment/moment.min.js')}}"></script>
-<script src="{{asset('js/datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
+
 
 <script src="{{asset('js/fileinput/fileinput.min.js')}}"></script>
 <script src="{{asset('js/Sweet Alert/sweetalert.min.js')}}"></script>
 <!-- Select-2 -->
 <script src="{{asset('js/select2.min.js')}}"></script>
+
+<!-- Editor -->
+<script src="{{asset('js/Sweet Alert/bootstrap3-wysihtml5.all.min.js')}}"></script>
 
 <script>
 function myHtmlEncode(value){

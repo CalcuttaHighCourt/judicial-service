@@ -9,13 +9,12 @@
 
 <link href="{{asset('css/datatable/dataTables.bootstrap.min.css')}}" rel="stylesheet">
 
-<!-- <link href="{{asset('css/datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet"> -->
-
-<link href="{{asset('css/datetimepicker/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
-
 <link href="{{asset('css/fileinput/fileinput.min.css')}}" rel="stylesheet">
 
 <!-- Select-2 -->
 <link rel="stylesheet" href="{{asset('css/select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/bootstrap-datepicker.css')}}">  
+
+<!-- Editor -->
+<link rel="stylesheet" href="{{asset('css/bootstrap3-wysihtml5.min.css')}}">
 @endsection

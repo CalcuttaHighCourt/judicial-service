@@ -9,13 +9,12 @@
 
 <link href="<?php echo e(asset('css/datatable/dataTables.bootstrap.min.css')); ?>" rel="stylesheet">
 
-<!-- <link href="<?php echo e(asset('css/datepicker/bootstrap-datepicker.min.css')); ?>" rel="stylesheet"> -->
-
-<link href="<?php echo e(asset('css/datetimepicker/bootstrap-datetimepicker.min.css')); ?>" rel="stylesheet">
-
 <link href="<?php echo e(asset('css/fileinput/fileinput.min.css')); ?>" rel="stylesheet">
 
 <!-- Select-2 -->
 <link rel="stylesheet" href="<?php echo e(asset('css/select2.min.css')); ?>">
 <link rel="stylesheet" href="<?php echo e(asset('css/bootstrap-datepicker.css')); ?>">  
+
+<!-- Editor -->
+<link rel="stylesheet" href="<?php echo e(asset('css/bootstrap3-wysihtml5.min.css')); ?>">
 <?php $__env->stopSection(); ?><?php /**PATH C:\laragon\www\Judicial-Service\resources\views/layouts/css.blade.php ENDPATH**/ ?>
