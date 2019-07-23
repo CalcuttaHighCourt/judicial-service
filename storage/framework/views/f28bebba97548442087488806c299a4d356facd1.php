@@ -1,5 +1,5 @@
- <?php $__env->startSection('title', 'Recruitment Batches'); ?>
-<?php $__env->startSection('page_heading'); ?> Recruitment Batches <?php $__env->stopSection(); ?>
+ <?php $__env->startSection('title', 'JudicialOfficerPostingPreference'); ?>
+<?php $__env->startSection('page_heading'); ?> JudicialOfficerPostingPreference <?php $__env->stopSection(); ?>
 <?php $__env->startSection('center_main_content'); ?>
 <!-- Bootstrap Boilerplate... -->
 <div id="info-panel" class="panel panel-default">
@@ -10,43 +10,55 @@
 
 		<!-- New Task Form -->
 		<form id="info-form" class="form-horizontal" role="form" method="POST"
-			action="<?php echo e(url('/admin/RecruitmentBatch')); ?>">
+			action="<?php echo e(url('/admin/JudicialOfficerPostingPreference')); ?>">
 			<?php echo e(csrf_field()); ?>
 
-			<input type="hidden" id="recruitment_batch_id">
-			<div id="recruitment_batch-group" class="form-group our-form-group">
-				<!-- IIIIIIIIIII -->
-				<label for="recruitment_batch" class="col-md-4 control-label">Recruitment Batch</label>
-
-				<div class="col-md-6">
-					<input id="recruitment_batch" type="text"
-						class="form-control info-form-control" name="recruitment_batch"> <span
-						id="recruitment_batch-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-						<strong id="recruitment_batch-strong" class="our-error-message-strong"></strong>
-						<!-- IIIIIIIIIII -->
-					</span>
-				</div>
-			</div>
-			<div id="recruitment_batch-group" class="form-group our-form-group">
-				<!-- IIIIIIIIIII -->
-				<label for="batch_year" class="col-md-4 control-label">Recruitment Year</label>
-
-				<div class="col-md-6">
-					<input id="batch_year" type="text"
-						class="form-control info-form-control" name="batch_year"> <span
-						id="batch_year-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-						<strong id="batch_year-strong" class="our-error-message-strong"></strong>
-						<!-- IIIIIIIIIII -->
-					</span>
-				</div>
-			</div>
+			<input type="hidden" id="JudicialOfficerPostingPreference-id">
+			<div id="officer_name-group" class="form-group row our-form-group">
+                <label for="officer_name" class="col-md-4 control-label">Officer Name</label>
+                <div class="col-md-6">
+                    <select id="officer_name" class="form-control info-form-control"
+                            name="officer_name"><option value="">Select an option</option>
+							 <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                    </select>
+                </div>
+            </div>
 			
+			<div id="Zone_name-group" class="form-group row our-form-group">
+                <label for="Zone_name" class="col-md-4 control-label">Zone</label>
+                <div class="col-md-6">
+                    <select id="Zone_name" class="form-control info-form-control"
+                            name="Zone_name"><option value="">Select an option</option>
+							 <?php echo $__env->make('zones.zone_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                    </select>
+                </div>
+            </div>
+			<div id="Notice_number-group" class="form-group row our-form-group">
+                <label for="Notice_number" class="col-md-4 control-label">Notice Number</label>
+				<div class="col-md-6">
+					<input id="Notice_number" type="text"
+						class="form-control info-form-control" name="Notice_number"> <span
+						id="Notice_number-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+						<strong id="Notice_number-strong" class="our-error-message-strong"></strong>
+						<!-- IIIIIIIIIII -->
+					</span>
+				</div>
+            </div>
+			<div id="Notice_date-group" class="form-group row our-form-group">
+                <label for="Notice_date" class="col-md-4 control-label">Notice Date</label>
+				<div class="col-md-6">
+					<div class="input-group date ">
+						<input id="Notice_date" type="text" class="form-control info-form-control datepicker" style="width:150px"  name="Notice_date">
+							
+					</div>
+				</div>
+            </div>
 
 			<div id="info-panel-buttons" class="form-group hide">
 				<div class="col-md-6 col-md-offset-4">
 					<button id="add-button" type="submit"
 						class="btn btn-primary add-button info-form-button">
-						<i class="fa fa-btn fa-plus-circle"></i> Add New Recruitment Batch
+						<i class="fa fa-btn fa-plus-circle"></i> Add Judicial Officer Posting Preference
 					</button>
 					<button id="save-button" type="submit"
 						class="btn btn-warning save-button info-form-button">
@@ -92,7 +104,8 @@
 
 <div id="datatable-panel" class="panel panel-default">
 	<div id="datatable-panel-heading" class="panel-heading clearfix">
-		<div class="panel-title pull-left">Recruitment Batch Master</div>
+		<div class="panel-title pull-left">Judicial Officer Posting Preference Master</div>
+		
 		<div class="pull-right">
 			<button id="add-new-button" type="submit" class="btn btn-primary add-new-button">
 				<i class="fa fa-plus-circle"></i> Add New
@@ -108,8 +121,10 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th>Recruitment Batch Desc</th>
-						<th>Batch Year</th>
+						<th>Judicial Officer Name</th>
+						<th>Zone Name</th>
+						<th>Notice Number</th>
+						<th>Notice Date</th>
 						<th>Action</th>
 						<th></th>
 						<th></th>
@@ -121,8 +136,10 @@
 				<tfoot>
 					<tr>
 						<th></th>
-						<th>Recruitment Batch Desc</th>
-						<th>Batch Year</th>
+						<th>Judicial Officer Name</th>
+						<th>Zone Name</th>
+						<th>Notice Number</th>
+						<th>Notice Date</th>
 						<th>Action</th>
 						<th></th>
 						<th></th>
@@ -150,12 +167,17 @@
 <script type="text/javascript">
 var table="";
 $(function() {
+	$(".datepicker").datepicker({
+                endDate:'0',
+                format: 'dd-mm-yyyy'
+         }); 
+
 	table = $('#datatable-table').DataTable({
 		"processing": true,
 		"serverSide": true,
 		"ajax":{
-			url:"<?php echo e(url('RecruitmentBatch')); ?>-Datatable-Server-Side",
-			dataSrc:"recruitmentbatches"
+			url:"<?php echo e(url('JudicialOfficerPostingPreference')); ?>-Datatable-Server-Side",
+			dataSrc:"judicial_officer_posting_preferences"
 		},
 
 		"columnDefs": 
@@ -192,11 +214,17 @@ $(function() {
 					"orderable": false,
 				},
 				{
-					"data": "recruitment_batch_desc",
-				},	
+					"data": "officer_name",
+				},		
 				{
-					"data": "batch_year",
-				},			
+					"data": "zone_name",
+				},
+				{
+                    "data": "notice_no",
+                 },
+				 {
+                    "data": "notice_date",
+                 },
 				{
 					"data": null
 				},
@@ -328,8 +356,8 @@ function info_buttons_hide(){
 	$(".info-form-button").hide();
 	$(".info-form-button").attr("disabled","disabled");
 	$(".info-form-button").removeClass("active");
+	//$(".info-form-button").addClass("disabled");
 }
-
 function messages_hide(){
 	$(".success-error-message").hide();
 	$("#message-div").hide();
@@ -345,13 +373,17 @@ function show_error(field,msg){
 	$("#"+field+"-group").addClass("has-error");
 }
 function populate_form(data){
-	$("#info-panel-heading").html("Displaying record of Recruitment Batch: <strong>"+data.type+"</strong>");
+	$("#info-panel-heading").html("Displaying record of Judicial Officer Posting Preference: <strong>"+data.officer_name+"</strong>");
 
-	$("#recruitment_batch_id").val(data.id);
-	
-	$("#recruitment_batch").val(data.recruitment_batch_desc);
+	$("#JudicialOfficerPostingPreference-id").val(data.id);
 
-	$("#batch_year").val(data.batch_year);
+	$("#officer_name").val(data.judicial_officer_id);
+		
+	$("#Zone_name").val(data.zone_id);
+
+	$("#Notice_number").val(data.notice_no);
+
+	$("#Notice_date").val(data.notice_date);
 }
 function show_button(type){
 	$("#"+type+"-button").show();
@@ -379,18 +411,25 @@ $(function(){
 });
 function send_ajax_and_set_errors_exceptions_success(type){
 	var formData = {
-		recruitment_batch_desc: $('#recruitment_batch').val(),
-        batch_year: $('#batch_year').val()
+		'judicial_officer_id': $('#officer_name').val(),
+		'zone_id': $('#Zone_name').val(),
+		'notice_no': $('#Notice_number').val(),
+		'notice_date':$('#Notice_date').val(),
+
+		
+						
 	};
-    ajax_url="";
+	ajax_url="";
 	operation="";
 	operated="";
 	request_type="POST";
 	if(type=="add"){
 		//request_type="POST";
 		formData["_method"]="POST";
-		ajax_url="<?php echo e(action('RecruitmentBatchController@store')); ?>";
-       
+		ajax_url="<?php echo e(action('JudicialOfficerPostingPreferenceController@store')); ?>";       
+
+		//formData["JudicialOfficerPostingPreference_name"]=$("#JudicialOfficerPostingPreference_name").val();
+
 		operation="add";
 		operated="added";
 	}
@@ -398,17 +437,18 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		//request_type="PUT";
 		formData["_method"]="PUT";
 		
-		ajax_url="<?php echo e(action('RecruitmentBatchController@update','')); ?>"+"/"+$("#recruitment_batch_id").val();
-		formData["id"]=$("#recruitment_batch_id").val();
+		ajax_url="<?php echo e(action('JudicialOfficerPostingPreferenceController@update','')); ?>"+"/"+$("#JudicialOfficerPostingPreference-id").val();
+		//formData["id"]=$("#JudicialOfficerPostingPreference-id").val();
 
 		operation="update";
 		operated="updated";
 	}
 	else if(type=="delete-confirm"){
+		//request_type="DELETE";
 		formData["_method"]="DELETE";
-		formData["id"]=$("#recruitment_batch_id").val();
+		formData["id"]=$("#officer_name").val();
 
-		ajax_url="<?php echo e(action('RecruitmentBatchController@destroy','')); ?>"+"/"+$("#recruitment_batch_id").val();
+		ajax_url="<?php echo e(action('JudicialOfficerPostingPreferenceController@destroy','')); ?>"+"/"+$("#JudicialOfficerPostingPreference-id").val();
 		
 
 		operation="delete";
@@ -420,59 +460,62 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		data: formData,
 		dataType: 'json',
 		success: function (data, textStatus, jqXHR) {
-			reset_info(true);
+			//console.log(jqXHR);
+			
 			msg="<strong>SUCCESS: </strong>";
-			if(!(data.recruitmentbatch===null) && data.recruitmentbatch.hasOwnProperty('recruitment_batch_desc')){
+			if(!(data.judicial_officer_posting_preference===null)){
 				
-				msg+="RecruitmentBatch: <strong>"+data.recruitmentbatch.recruitment_batch_desc+"</strong> successfully "+operated+".";
+				msg+="Judicial Officer Posting Preference of: <strong>"+$("#officer_name option:selected").text()+"</strong> successfully "+operated+".";
+				
 			}
 			else{
 				//delete case
-				if(!(data.recruitmentbatch===null) && data.recruitmentbatch>=1){
-					msg+="RecruitmentBatch: <strong>"+formData.recruitmentbatch+"</strong> successfully "+operated+".";
+				if(!(data.judicial_officer_posting_preference===null) && data.judicial_officer_posting_preference>=1){
+					msg+="Judicial Officer Posting Preference: <strong>"+$("#officer_name option:selected").text()+"</strong> successfully "+operated+".";
 				}
 				else{
-					msg+="Recruitment Batch already "+operated+"!";
+					msg+="Judicial Officer Posting Preference already "+operated+"!";
 				}
 			}
+			reset_info(true);
 			show_message_div("success",msg);
 			table.ajax.reload();
 
-			
+	
 			scrollToElement($('#message-div'));
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
-               console.log(jqXHR);
-                errors_reset();
-                messages_hide();
-                msg = "<strong>Failed to " + operation + " data.</strong><br/>";
-                if (jqXHR.status != 422 && jqXHR.status != 400) {
-                    msg += "<strong>" + jqXHR.status + ": " + errorThrown + "</strong>";
-                    //show_message_div("error",msg);
-                } 
-                else {
-                    if (jqXHR.responseJSON.hasOwnProperty('exception')) {
-                        msg += "Exception: <strong>" + jqXHR.responseJSON.exception_message + "</strong>";
-                        //show_message_div("error",msg);
-                    } else {
-                        msg += "Error(s):<strong><ul>";
-                        $.each(jqXHR.responseJSON.errors, function (key, value) {
-                            msg += "<li>" + value + "</li>";
-                            show_error(key, value);
-                            //return (this != "four"); // will stop running to skip "five"
-                        });
-                        msg += "</ul></strong>";
-
-                    }
-                }
-                show_message_div("error", msg);
-                scrollToElement($('#info-panel'));
-            }
+			
+			errors_reset();
+			messages_hide();
+			msg="<strong>Failed to "+operation+" data.</strong><br/>";
+			if(jqXHR.status!=422 && jqXHR.status!=400){
+				msg+="<strong>"+jqXHR.status+": "+errorThrown+"</strong>";
+			}
+			else{
+				if(jqXHR.responseJSON.hasOwnProperty('exception')){
+					msg+="Exception: <strong>"+jqXHR.responseJSON.exception_message+"</strong>";
+				}
+				else{
+					msg+="Error(s):<strong><ul>";
+					$.each(jqXHR.responseJSON.errors, function(key,value) {
+						msg+="<li>"+value+"</li>";
+						show_error(key,value);
+						
+					});
+					msg+="</ul></strong>";
+					
+				}
+			}
+			show_message_div("error",msg);
+			scrollToElement($('#info-panel'));
+		}
 	});
 }
+
 </script>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\Judicial-Service\resources\views/recruitmentbatches/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\Judicial-Service\resources\views/judicial_officer_posting_preferences/index.blade.php ENDPATH**/ ?>

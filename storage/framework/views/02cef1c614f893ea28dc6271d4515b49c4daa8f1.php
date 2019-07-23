@@ -1,5 +1,5 @@
- <?php $__env->startSection('title', 'Recruitment Batches'); ?>
-<?php $__env->startSection('page_heading'); ?> Recruitment Batches <?php $__env->stopSection(); ?>
+ <?php $__env->startSection('title', 'Modes'); ?>
+<?php $__env->startSection('page_heading'); ?> Modes <?php $__env->stopSection(); ?>
 <?php $__env->startSection('center_main_content'); ?>
 <!-- Bootstrap Boilerplate... -->
 <div id="info-panel" class="panel panel-default">
@@ -10,32 +10,19 @@
 
 		<!-- New Task Form -->
 		<form id="info-form" class="form-horizontal" role="form" method="POST"
-			action="<?php echo e(url('/admin/RecruitmentBatch')); ?>">
+			action="<?php echo e(url('/admin/Mode')); ?>">
 			<?php echo e(csrf_field()); ?>
 
-			<input type="hidden" id="recruitment_batch_id">
-			<div id="recruitment_batch-group" class="form-group our-form-group">
+			<input type="hidden" id="Posting_mode_id">
+			<div id="posting_mode-group" class="form-group our-form-group">
 				<!-- IIIIIIIIIII -->
-				<label for="recruitment_batch" class="col-md-4 control-label">Recruitment Batch</label>
+				<label for="posting_mode" class="col-md-4 control-label">Mode</label>
 
 				<div class="col-md-6">
-					<input id="recruitment_batch" type="text"
-						class="form-control info-form-control" name="recruitment_batch"> <span
-						id="recruitment_batch-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-						<strong id="recruitment_batch-strong" class="our-error-message-strong"></strong>
-						<!-- IIIIIIIIIII -->
-					</span>
-				</div>
-			</div>
-			<div id="recruitment_batch-group" class="form-group our-form-group">
-				<!-- IIIIIIIIIII -->
-				<label for="batch_year" class="col-md-4 control-label">Recruitment Year</label>
-
-				<div class="col-md-6">
-					<input id="batch_year" type="text"
-						class="form-control info-form-control" name="batch_year"> <span
-						id="batch_year-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-						<strong id="batch_year-strong" class="our-error-message-strong"></strong>
+					<input id="posting_mode" type="text"
+						class="form-control info-form-control" name="posting_mode"> <span
+						id="posting_mode-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+						<strong id="posting_mode-strong" class="our-error-message-strong"></strong>
 						<!-- IIIIIIIIIII -->
 					</span>
 				</div>
@@ -46,7 +33,7 @@
 				<div class="col-md-6 col-md-offset-4">
 					<button id="add-button" type="submit"
 						class="btn btn-primary add-button info-form-button">
-						<i class="fa fa-btn fa-plus-circle"></i> Add New Recruitment Batch
+						<i class="fa fa-btn fa-plus-circle"></i> Add New Mode
 					</button>
 					<button id="save-button" type="submit"
 						class="btn btn-warning save-button info-form-button">
@@ -92,7 +79,7 @@
 
 <div id="datatable-panel" class="panel panel-default">
 	<div id="datatable-panel-heading" class="panel-heading clearfix">
-		<div class="panel-title pull-left">Recruitment Batch Master</div>
+		<div class="panel-title pull-left">Mode Master</div>
 		<div class="pull-right">
 			<button id="add-new-button" type="submit" class="btn btn-primary add-new-button">
 				<i class="fa fa-plus-circle"></i> Add New
@@ -108,8 +95,7 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th>Recruitment Batch Desc</th>
-						<th>Batch Year</th>
+						<th>Mode Name</th>
 						<th>Action</th>
 						<th></th>
 						<th></th>
@@ -121,8 +107,7 @@
 				<tfoot>
 					<tr>
 						<th></th>
-						<th>Recruitment Batch Desc</th>
-						<th>Batch Year</th>
+						<th>Mode Name</th>
 						<th>Action</th>
 						<th></th>
 						<th></th>
@@ -154,8 +139,8 @@ $(function() {
 		"processing": true,
 		"serverSide": true,
 		"ajax":{
-			url:"<?php echo e(url('RecruitmentBatch')); ?>-Datatable-Server-Side",
-			dataSrc:"recruitmentbatches"
+			url:"<?php echo e(url('Mode')); ?>-Datatable-Server-Side",
+			dataSrc:"modes"
 		},
 
 		"columnDefs": 
@@ -192,11 +177,8 @@ $(function() {
 					"orderable": false,
 				},
 				{
-					"data": "recruitment_batch_desc",
-				},	
-				{
-					"data": "batch_year",
-				},			
+					"data": "posting_mode",
+				},				
 				{
 					"data": null
 				},
@@ -252,6 +234,10 @@ $(function() {
 		$('.edit-button').click(function(){
 			var data = table.row( $(this).parents('tr') ).data();
 			view_data( data );
+
+			
+			
+			
 			show_button("close");
 			show_button("save");
 			make_active_button("save");
@@ -345,13 +331,11 @@ function show_error(field,msg){
 	$("#"+field+"-group").addClass("has-error");
 }
 function populate_form(data){
-	$("#info-panel-heading").html("Displaying record of Recruitment Batch: <strong>"+data.type+"</strong>");
+	$("#info-panel-heading").html("Displaying record of Mode: <strong>"+data.type+"</strong>");
 
-	$("#recruitment_batch_id").val(data.id);
+	$("#Posting_mode_id").val(data.id);
 	
-	$("#recruitment_batch").val(data.recruitment_batch_desc);
-
-	$("#batch_year").val(data.batch_year);
+	$("#posting_mode").val(data.posting_mode);
 }
 function show_button(type){
 	$("#"+type+"-button").show();
@@ -379,18 +363,21 @@ $(function(){
 });
 function send_ajax_and_set_errors_exceptions_success(type){
 	var formData = {
-		recruitment_batch_desc: $('#recruitment_batch').val(),
-        batch_year: $('#batch_year').val()
+		posting_mode: $('#posting_mode').val()
+						
 	};
-    ajax_url="";
+	ajax_url="";
 	operation="";
 	operated="";
 	request_type="POST";
 	if(type=="add"){
 		//request_type="POST";
 		formData["_method"]="POST";
-		ajax_url="<?php echo e(action('RecruitmentBatchController@store')); ?>";
+		ajax_url="<?php echo e(action('ModeController@store')); ?>";
        
+
+		formData["posting_mode"]=$("#posting_mode").val();
+
 		operation="add";
 		operated="added";
 	}
@@ -398,17 +385,17 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		//request_type="PUT";
 		formData["_method"]="PUT";
 		
-		ajax_url="<?php echo e(action('RecruitmentBatchController@update','')); ?>"+"/"+$("#recruitment_batch_id").val();
-		formData["id"]=$("#recruitment_batch_id").val();
+		ajax_url="<?php echo e(action('ModeController@update','')); ?>"+"/"+$("#Posting_mode_id").val();
+		formData["id"]=$("#Posting_mode_id").val();
 
 		operation="update";
 		operated="updated";
 	}
 	else if(type=="delete-confirm"){
 		formData["_method"]="DELETE";
-		formData["id"]=$("#recruitment_batch_id").val();
+		formData["id"]=$("#Posting_mode_id").val();
 
-		ajax_url="<?php echo e(action('RecruitmentBatchController@destroy','')); ?>"+"/"+$("#recruitment_batch_id").val();
+		ajax_url="<?php echo e(action('ModeController@destroy','')); ?>"+"/"+$("#Posting_mode_id").val();
 		
 
 		operation="delete";
@@ -422,17 +409,17 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		success: function (data, textStatus, jqXHR) {
 			reset_info(true);
 			msg="<strong>SUCCESS: </strong>";
-			if(!(data.recruitmentbatch===null) && data.recruitmentbatch.hasOwnProperty('recruitment_batch_desc')){
+			if(!(data.mode===null) && data.mode.hasOwnProperty('posting_mode')){
 				
-				msg+="RecruitmentBatch: <strong>"+data.recruitmentbatch.recruitment_batch_desc+"</strong> successfully "+operated+".";
+				msg+="Mode: <strong>"+data.mode.posting_mode+"</strong> successfully "+operated+".";
 			}
 			else{
 				//delete case
-				if(!(data.recruitmentbatch===null) && data.recruitmentbatch>=1){
-					msg+="RecruitmentBatch: <strong>"+formData.recruitmentbatch+"</strong> successfully "+operated+".";
+				if(!(data.mode===null) && data.mode>=1){
+					msg+="Mode: <strong>"+formData.posting_mode+"</strong> successfully "+operated+".";
 				}
 				else{
-					msg+="Recruitment Batch already "+operated+"!";
+					msg+="Mode already "+operated+"!";
 				}
 			}
 			show_message_div("success",msg);
@@ -442,32 +429,31 @@ function send_ajax_and_set_errors_exceptions_success(type){
 			scrollToElement($('#message-div'));
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
-               console.log(jqXHR);
-                errors_reset();
-                messages_hide();
-                msg = "<strong>Failed to " + operation + " data.</strong><br/>";
-                if (jqXHR.status != 422 && jqXHR.status != 400) {
-                    msg += "<strong>" + jqXHR.status + ": " + errorThrown + "</strong>";
-                    //show_message_div("error",msg);
-                } 
-                else {
-                    if (jqXHR.responseJSON.hasOwnProperty('exception')) {
-                        msg += "Exception: <strong>" + jqXHR.responseJSON.exception_message + "</strong>";
-                        //show_message_div("error",msg);
-                    } else {
-                        msg += "Error(s):<strong><ul>";
-                        $.each(jqXHR.responseJSON.errors, function (key, value) {
-                            msg += "<li>" + value + "</li>";
-                            show_error(key, value);
-                            //return (this != "four"); // will stop running to skip "five"
-                        });
-                        msg += "</ul></strong>";
-
-                    }
-                }
-                show_message_div("error", msg);
-                scrollToElement($('#info-panel'));
-            }
+			
+			errors_reset();
+			messages_hide();
+			msg="<strong>Failed to "+operation+" data.</strong><br/>";
+			if(jqXHR.status!=422 && jqXHR.status!=400){
+				msg+="<strong>"+jqXHR.status+": "+errorThrown+"</strong>";
+			}
+			else{
+				if(jqXHR.responseJSON.hasOwnProperty('exception')){
+					msg+="Exception: <strong>"+jqXHR.responseJSON.exception_message+"</strong>";
+				}
+				else{
+					msg+="Error(s):<strong><ul>";
+					$.each(jqXHR.responseJSON.errors, function(key,value) {
+						msg+="<li>"+value+"</li>";
+						show_error(key,value);
+						
+					});
+					msg+="</ul></strong>";
+					
+				}
+			}
+			show_message_div("error",msg);
+			scrollToElement($('#info-panel'));
+		}
 	});
 }
 </script>
@@ -475,4 +461,4 @@ function send_ajax_and_set_errors_exceptions_success(type){
 
 <?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\Judicial-Service\resources\views/recruitmentbatches/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\Judicial-Service\resources\views/modes/index.blade.php ENDPATH**/ ?>

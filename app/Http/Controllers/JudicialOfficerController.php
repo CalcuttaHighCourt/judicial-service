@@ -305,11 +305,12 @@ class JudicialOfficerController extends Controller
     {
         $response = [
             'judicial_officer' => []
-        ]; // Should be changed #25
+        ]; 
         $statusCode = 200;
-        $judicial_officer = null; // Should be changed #26
+        $judicial_officer = null; 
+        
         try {
-            if (!is_numeric($id) || intval($id) != $id || !ctype_digit(strval($id))) {
+            if ( !ctype_digit(strval($id))) {
                 throw new \Exception('Please check input');
             }
             $judicial_officer = JudicialOfficer::find($id); // Should be changed #27

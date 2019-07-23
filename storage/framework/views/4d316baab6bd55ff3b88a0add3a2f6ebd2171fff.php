@@ -234,10 +234,6 @@ $(function() {
 		$('.edit-button').click(function(){
 			var data = table.row( $(this).parents('tr') ).data();
 			view_data( data );
-
-			
-			
-			
 			show_button("close");
 			show_button("save");
 			make_active_button("save");
@@ -374,9 +370,6 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		formData["_method"]="POST";
 		ajax_url="<?php echo e(action('StateController@store')); ?>";
 
-		
-
-		formData["file_prefix"]=$("#file_prefix").val();
 
 		operation="add";
 		operated="added";
@@ -425,7 +418,7 @@ function send_ajax_and_set_errors_exceptions_success(type){
 			show_message_div("success",msg);
 			table.ajax.reload();
 
-			update_notices_menu_section();
+			
 			
 			//setTimeout(function(){ scrollToElement($('#datatable-panel')); }, 200);
 			scrollToElement($('#message-div'));

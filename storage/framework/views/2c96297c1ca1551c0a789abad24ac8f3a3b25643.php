@@ -455,7 +455,8 @@
                 if (jqXHR.status != 422 && jqXHR.status != 400) {
                     msg += "<strong>" + jqXHR.status + ": " + errorThrown + "</strong>";
                     //show_message_div("error",msg);
-                } else {
+                } 
+                else {
                     if (jqXHR.responseJSON.hasOwnProperty('exception')) {
                         msg += "Exception: <strong>" + jqXHR.responseJSON.exception_message + "</strong>";
                         //show_message_div("error",msg);

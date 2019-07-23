@@ -84,7 +84,7 @@
 					<?php $__env->startSection('end_scripts_1'); ?>
 					<script type="text/javascript">
 					$(function(){
-						$(".js_date").datetimepicker({
+						$(".js_date").datepicker({
 							format: 'DD-MMM-YYYY',
 							showTodayButton:true,
 							showClear:true,

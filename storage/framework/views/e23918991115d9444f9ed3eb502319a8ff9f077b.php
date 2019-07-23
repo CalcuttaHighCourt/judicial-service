@@ -19,7 +19,7 @@
 	<div class="container-fluid custom-main-container">
 		<?php echo $__env->yieldContent('main_container'); ?>
 	</div>
-	<?php echo $__env->yieldContent('page_footer'); ?> <?php echo $__env->yieldContent('sticky_footer'); ?> <?php echo $__env->yieldContent('end_scripts'); ?>
+	 <?php echo $__env->yieldContent('sticky_footer'); ?> <?php echo $__env->yieldContent('end_scripts'); ?>
 </body>
 </html>
 <?php /**PATH C:\laragon\www\Judicial-Service\resources\views/layouts/app.blade.php ENDPATH**/ ?>

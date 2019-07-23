@@ -444,31 +444,32 @@ function send_ajax_and_set_errors_exceptions_success(type){
 			scrollToElement($('#message-div'));
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
-			
-			errors_reset();
-			messages_hide();
-			msg="<strong>Failed to "+operation+" data.</strong><br/>";
-			if(jqXHR.status!=422 && jqXHR.status!=400){
-				msg+="<strong>"+jqXHR.status+": "+errorThrown+"</strong>";
-			}
-			else{
-				if(jqXHR.responseJSON.hasOwnProperty('exception')){
-					msg+="Exception: <strong>"+jqXHR.responseJSON.exception_message+"</strong>";
-				}
-				else{
-					msg+="Error(s):<strong><ul>";
-					$.each(jqXHR.responseJSON.errors, function(key,value) {
-						msg+="<li>"+value+"</li>";
-						show_error(key,value);
-						
-					});
-					msg+="</ul></strong>";
-					
-				}
-			}
-			show_message_div("error",msg);
-			scrollToElement($('#info-panel'));
-		}
+               console.log(jqXHR);
+                errors_reset();
+                messages_hide();
+                msg = "<strong>Failed to " + operation + " data.</strong><br/>";
+                if (jqXHR.status != 422 && jqXHR.status != 400) {
+                    msg += "<strong>" + jqXHR.status + ": " + errorThrown + "</strong>";
+                    //show_message_div("error",msg);
+                } 
+                else {
+                    if (jqXHR.responseJSON.hasOwnProperty('exception')) {
+                        msg += "Exception: <strong>" + jqXHR.responseJSON.exception_message + "</strong>";
+                        //show_message_div("error",msg);
+                    } else {
+                        msg += "Error(s):<strong><ul>";
+                        $.each(jqXHR.responseJSON.errors, function (key, value) {
+                            msg += "<li>" + value + "</li>";
+                            show_error(key, value);
+                            //return (this != "four"); // will stop running to skip "five"
+                        });
+                        msg += "</ul></strong>";
+
+                    }
+                }
+                show_message_div("error", msg);
+                scrollToElement($('#info-panel'));
+            }
 	});
 }
 </script>

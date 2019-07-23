@@ -215,24 +215,30 @@ class RecruitmentBatchController extends Controller
     public function destroy($id) {
         $response = [
             'recruitmentbatch' => []
-        ]; // Should be changed #25
+        ];
         $statusCode = 200;
-        $recruitmentbatch = null; // Should be changed #26
+        $recruitmentbatch = null;
+
         try {
-            if ( !ctype_digit(strval($id))) {
+            if (!ctype_digit(strval($id))) {
                 throw new \Exception('Please check input');
             }
-            $recruitmentbatch = RecruitmentBatch::find($id); // Should be changed #27
+            $recruitmentbatch = RecruitmentBatch::find($id);
 
-            
-                if (!empty($recruitmentbatch)) { // Should be changed #30
+            if ($recruitmentbatch->judicial_officers->count() > 0) {
+                $response = array(
+                    'exception' => true,
+                    'exception_message' => "Record(s) of Recruitment Batch: " . $recruitmentbatch->recruitment_batch_desc . " exists in Judicial Officer table.",
+                );
+                $statusCode = 400;
+            }  else {
+                if (!empty($recruitmentbatch)) {
                     $recruitmentbatch->delete();
-                    //$recruitmentbatch = $recruitmentbatch->forceDelete ( $id ); // Should be changed #31 //only for admin elements.
                 }
                 $response = array(
                     'recruitmentbatch' => $recruitmentbatch
-                ); // Should be changed #32
-            
+                );
+            }
         } catch (\Exception $e) {
             $response = array(
                 'exception' => true,

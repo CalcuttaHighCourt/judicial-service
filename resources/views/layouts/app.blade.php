@@ -19,6 +19,6 @@
 	<div class="container-fluid custom-main-container">
 		@yield('main_container')
 	</div>
-	@yield('page_footer') @yield('sticky_footer') @yield('end_scripts')
+	 @yield('sticky_footer') @yield('end_scripts')
 </body>
 </html>

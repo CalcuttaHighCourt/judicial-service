@@ -22,7 +22,7 @@
 <script src="{{asset('js/select2.min.js')}}"></script>
 
 <!-- Editor -->
-<script src="{{asset('js/Sweet Alert/bootstrap3-wysihtml5.all.min.js')}}"></script>
+<script src="{{asset('js/bootstrap3-wysihtml5.all.min.js')}}"></script>
 
 <script>
 function myHtmlEncode(value){

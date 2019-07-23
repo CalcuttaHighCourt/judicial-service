@@ -1,8 +1,7 @@
  <?php $__env->startSection('title', 'JudicialOfficerPostingPreference'); ?>
 <?php $__env->startSection('page_heading'); ?> JudicialOfficerPostingPreference <?php $__env->stopSection(); ?>
 <?php $__env->startSection('center_main_content'); ?>
-
-<script src="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>                                                                                                                                                                                                       
+                                                                                                                                                                                                    
 <style>
     .select2-container--default .select2-selection--multiple .select2-selection__choice{
         background-color:#111;
@@ -75,11 +74,11 @@
         <br><br>
         <div class="tab-pan" id="daily_diary" style="display:none;">     
             <div class="form-group row">
-                <div class="date col-sm-offset-1 col-sm-2" data-provide="datepicker">
+                <div class="date col-sm-offset-2 col-sm-2" data-provide="datepicker">
                     <input type="text" class="form-control date diary_date" placeholder="Choose Date" autocomplete="off">
                 </div>
                    
-                <div class="col-sm-offset-1 col-sm-3">
+                <div class="col-sm-3">
                     <button id="submit_dairy" type="button"
                         class="btn btn-primary add-button info-form-button">
                         Submit
@@ -87,26 +86,16 @@
                 </div>
              </div>
              <br>
-             <div class="box col-sm-offset-3">
+             <div class="box col-sm-offset-1">
                 <div class="box-header" id="dairy_editor" style="display:none;">
                     <h3 class="box-title col-sm-offset-3" >DAILY WORKSHEET
                         <small>of : <span id="date_span"></span></small>
                     </h3>
                 
             
-              <!-- tools box -->
-                <div class="pull-right box-tools">
-                        <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip"
-                                title="Collapse">
-                        <i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip"
-                                title="Remove">
-                        <i class="fa fa-times"></i></button>
-                </div>
-              <!-- /. tools -->
-         
+                     
             <!-- /.box-header -->
-            <div class="box-body pad col-sm-offset-1 col-sm-8">
+            <div class="box-body pad col-sm-offset-1 col-sm-10">
               <form>
                 <textarea class="textarea" placeholder="Place some text here"
                           style="width: 100%; height: 100%; font-size: 100%; line-height: 80%x; border: 1px solid #dddddd; padding: 10px;"></textarea>
@@ -148,6 +137,7 @@
                 placeholder:"Select an option",
             });
 
+            $(".textarea").wysihtml5();
            /*LOADER*/
 
             $(document).ajaxStart(function() {
