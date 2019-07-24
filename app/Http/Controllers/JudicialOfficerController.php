@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\JudicialOfficer;
+use App\Dairy;
+use Carbon\Carbon;
 use Auth;
 
 
@@ -147,6 +149,41 @@ class JudicialOfficerController extends Controller
             return response()->json($response, $statusCode);
         }
     }
+
+     //Adding new STORAGE
+     public function store_worksheet(Request $request){
+
+        $this->validate ( $request, [                     
+            'date' => 'required',
+            'details' => 'required'                   
+
+        ] );
+        $date=strtoupper($request->input('date'));
+        $jo_code =Auth::user()->jo_code;
+        $textarea=$request->input('details');
+
+//        $count=Dairy::where([['date_of_schedule',$date],['jo_code',$jo_code]])->count();
+
+        Dairy::where([['date_of_schedule',$date],['jo_code',$jo_code]])->delete();
+          
+        Dairy::insert([
+            'jo_code'=>$jo_code,
+            'date_of_schedule'=>$date,
+            'description'=>$textarea,
+            'created_at'=>Carbon::today(),
+            'updated_at'=>Carbon::today()
+            ]);
+        return 1;
+    }
+
+    // public function show_worksheet(Request $request){
+
+    //     $this->validate ( $request, [                     
+    //         'date' => 'required'
+    //     ]);
+    //     $count=Dairy::where([['date_of_schedule',$date],['jo_code',$jo_code]])->count();
+        
+    // }
 
     public function index_for_datatable(Request $request) {
         $response = [ ];

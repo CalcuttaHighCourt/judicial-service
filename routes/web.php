@@ -55,6 +55,9 @@ Route::post('zone_pref/submit', 'JudicialOfficerPostingPreferenceController@stor
 
 Route::get('zone_pref_jr', 'JudicialOfficerPostingController@zone_pref_details_fetch');
 
+Route::post('zone_pref_jr/worksheet', 'JudicialOfficerController@store_worksheet');
+
+Route::post('zone_pref_jr/worksheet_show', 'JudicialOfficerController@show_worksheet');
 
 Route::resource('judicialofficerpostingpreferences', 'JudicialOfficerPostingPreferenceController')
 ->except(['create', 'edit']);

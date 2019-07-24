@@ -34,26 +34,26 @@
     <div class="tab-content clearfix">
         <div class="tab-pan" id="postings">
 		<!-- New Task Form -->
-            
+                <br><br>
        			<input type="hidden" id="JudicialOfficerPostingPreference-id">
                 <div id="officer_name-group" class="form-group row our-form-group">
-                    <label for="officer_name" class="col-md-5 ">Officer Name: {{Auth::user()->name}}</label>
+                    <label for="officer_name" class="col-sm-offset-1 col-md-5 ">Officer Name: {{Auth::user()->name}}</label>
                 </div>
                 <div id="jo_code-group" class="form-group row our-form-group">
-                    <label for="jo_code" class="col-md-3">Code: {{Auth::user()->jo_code}}</label>
+                    <label for="jo_code" id="jo_code" class="col-sm-offset-1 col-md-3">Code: {{Auth::user()->jo_code}}</label>
                 </div>
                 <div id="zone-group" class="form-group row our-form-group">
-                    <label for="zone" class="col-md-2 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name">{{$zone_pref_details['current_zone']['zone_name']}}</span></label>
+                    <label for="zone" class="col-sm-offset-1 col-md-2 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name">{{$zone_pref_details['current_zone']['zone_name']}}</span></label>
                 </div>
                 <div id="zone-group" class="form-group row our-form-group">
-                    <label for="zone" class="col-md-2 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name">{{$zone_pref_details['just_prev_zone']['zone_name']}}</span></label>
+                    <label for="zone" class="col-sm-offset-1 col-md-2 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name">{{$zone_pref_details['just_prev_zone']['zone_name']}}</span></label>
                 </div>
             
             <hr>
         
             <div id="posting_pref-group" class="form-group row our-form-group">
                 
-                <div class="col-md-2">
+                <div class="col-sm-offset-1 col-md-2">
                     <label for="posting_pref">Posting Preference </label>
                     <select id="posting_pref" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">
                         
@@ -77,8 +77,8 @@
         <br><br>
         <div class="tab-pan" id="daily_diary" style="display:none;">     
             <div class="form-group row">
-                <div class="date col-sm-offset-2 col-sm-2" data-provide="datepicker">
-                    <input type="text" class="form-control date diary_date" placeholder="Choose Date" autocomplete="off">
+                <div class="date col-sm-offset-2 col-sm-2"  data-provide="datepicker">
+                    <input type="text" class="form-control date diary_date" id="date" placeholder="Choose Date" autocomplete="off">
                 </div>
                    
                 <div class="col-sm-3">
@@ -100,11 +100,18 @@
             <!-- /.box-header -->
             <div class="box-body pad col-sm-offset-1 col-sm-10">
               <form>
-                <textarea class="textarea" placeholder="Place some text here"
+                <textarea class="textarea" id="textarea" placeholder="Place some text here"
                           style="width: 100%; height: 100%; font-size: 100%; line-height: 80%x; border: 1px solid #dddddd; padding: 10px;"></textarea>
               </form>
+              <div class="col-sm-offset-5 col-sm-3">
+                <button id="submit_worksheet" type="button"
+                    class="btn btn-warning add-button info-form-button">
+                    Submit
+                </button>
             </div>
-          </div>
+            </div>
+
+            </div>
         </div>
         </div>
         <!-- /.col-->
@@ -179,6 +186,58 @@
 
            $("#dairy_editor").show();
             $("#date_span").html($(".diary_date").val());
+            $("#submit_dairy").hide();
+
+            var date=$("#date").val();
+
+            //  $.ajax({
+
+            //             type:"POST",
+            //             url:"zone_pref_jr/worksheet_show",
+            //             data:{
+            //                 _token: $('meta[name="csrf-token"]').attr('content'),
+            //                 date:date
+            //             },
+            //             success:function(response){
+
+            //             },
+          
+            //     });
+        });
+
+        $(document).on("change","#date",function(){
+            $("#submit_dairy").show();
+        });
+
+
+        $(document).on("click","#submit_worksheet",function(){
+
+        
+            var date=$("#date").val();
+            var details=$("#textarea").val();
+
+            $.ajax({
+
+                type:"POST",
+                url:"zone_pref_jr/worksheet",
+                data:{
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    date:date,
+                    details:details
+                },
+                success:function(response)
+                {
+                    
+                    $("#date").val('');
+                    $("#textarea").val('');
+                    swal("Saved Successfully","","success");
+                },
+                error:function(response)
+                {
+                    swal("Error","","error");
+                }
+
+            });
         });
 
         //Addition of Ps_Details starts
