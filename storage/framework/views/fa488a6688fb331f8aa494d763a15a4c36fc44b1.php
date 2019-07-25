@@ -248,10 +248,6 @@ $(function() {
 		$('.edit-button').click(function(){
 			var data = table.row( $(this).parents('tr') ).data();
 			view_data( data );
-
-			
-			
-			
 			show_button("close");
 			show_button("save");
 			make_active_button("save");
@@ -401,7 +397,8 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		
 		ajax_url="<?php echo e(action('SubdivisionController@update','')); ?>"+"/"+$("#Subdivision-id").val();
 		formData["id"]=$("#Subdivision-id").val();
-
+		formData["subdivision_name"]=$("#subdivision_name").val();
+		formData["disrtict_id"]=$("#district").val();
 		operation="update";
 		operated="updated";
 	}

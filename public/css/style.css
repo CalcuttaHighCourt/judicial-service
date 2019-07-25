@@ -97,7 +97,7 @@ body {
 }
 @media ( min-width : 768px) and (max-width : 910px) {
 	.custom-navbar-brand-img{
-		height: 0px;	
+		height: 30px;	
 		display:none;
 	}
 	.custom-logo-2:after {
@@ -107,7 +107,7 @@ body {
 }
 @media ( min-width : 910px) and (max-width : 1050px) {
 	.custom-navbar-brand-img{
-		height: 0px;	
+		height: 30px;	
 		display:none;
 	}
 	.custom-logo-2:after {
@@ -117,7 +117,7 @@ body {
 }
 @media ( min-width : 1050px) {
 	.custom-navbar-brand-img {
-		height: 40px;
+		height: 30px;
 	}
 }
 
@@ -135,4 +135,19 @@ body {
 
 body {
     /*font-family: "Ubuntu",Tahoma,"Helvetica Neue",Helvetica,Arial,sans-serif;*/
+}
+
+
+
+
+@media (min-width : 910px) and (max-width : 1050px) {
+.nav li{
+float:left;	
+}
+}
+
+@media ( min-width : 768px) and (max-width : 910px) {
+.nav li{
+float:left;	
+}
 }

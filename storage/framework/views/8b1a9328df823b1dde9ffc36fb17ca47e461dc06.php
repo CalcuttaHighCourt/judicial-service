@@ -175,71 +175,64 @@
 
 			<div id="district_name-group" class="form-group our-form-group">
 				<!-- IIIIIIIIIII -->
-				<label for="district_name" class="col-md-4 control-label">District Name</label>
-
-				<div class="col-md-6">
-					<input id="district_name" type="text"
-						class="form-control info-form-control" name="district_name"> <span
-						id="district_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-						<strong id="district_name-strong" class="our-error-message-strong"></strong>
-						<!-- IIIIIIIIIII -->
-					</span>
+				<label for="district_name" class="col-md-4 control-label">Home District Name</label>
+					<div class="col-md-6">
+						<select id="district_name" class="form-control info-form-control"
+									name="district_name"> 
+									<option value="">Select District Name</option>
+									<?php echo $__env->make('districts.district_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+						</select>
+					</div>
 				</div>
-			</div>
                         
-                        <div id="state_name-group" class="form-group our-form-group">
+                <div id="state_name-group" class="form-group our-form-group">
 				<!-- IIIIIIIIIII -->
-				<label for="state_name" class="col-md-4 control-label">State Name</label>
+					<label for="state_name" class="col-md-4 control-label">State Name</label>
 
-				<div class="col-md-6">
-					<input id="state_name" type="text"
-						class="form-control info-form-control" name="state_name"> <span
-						id="state_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-						<strong id="state_name-strong" class="our-error-message-strong"></strong>
-						<!-- IIIIIIIIIII -->
-					</span>
+					<div class="col-md-6">
+							<select id="state_name" class="form-control info-form-control"
+										name="state_name"> 
+										<option value="">Select State Name</option>
+										<?php echo $__env->make('states.state_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+							</select>
+						</div>
 				</div>
-			</div>
                         
                         <div id="caste_name-group" class="form-group our-form-group">
 				<!-- IIIIIIIIIII -->
 				<label for="caste_name" class="col-md-4 control-label">Caste</label>
 
 				<div class="col-md-6">
-					<input id="caste_name" type="text"
-						class="form-control info-form-control" name="caste_name"> <span
-						id="caste_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-						<strong id="caste_name-strong" class="our-error-message-strong"></strong>
-						<!-- IIIIIIIIIII -->
-					</span>
+					<select id="caste_name" class="form-control info-form-control"
+								name="caste_name"> 
+								<option value="">Select Your Caste</option>
+								<?php echo $__env->make('castes.caste_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+					</select>
 				</div>
 			</div>
                         
-                        <div id="religion_name-group" class="form-group our-form-group">
+             <div id="religion_name-group" class="form-group our-form-group">
 				<!-- IIIIIIIIIII -->
 				<label for="religion_name" class="col-md-4 control-label">Religion</label>
-
 				<div class="col-md-6">
-					<input id="religion_name" type="text"
-						class="form-control info-form-control" name="religion_name"> <span
-						id="religion_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-						<strong id="religion_name-strong" class="our-error-message-strong"></strong>
-						<!-- IIIIIIIIIII -->
-					</span>
+					<select id="religion_name" class="form-control info-form-control"
+								name="religion_name"> 
+								<option value="">Select Your Religion</option>
+								<?php echo $__env->make('religions.religion_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+					</select>
 				</div>
 			</div>
                         
-                        <div id="recruitment_batch_desc-group" class="form-group our-form-group">
+            <div id="recruitment_batch_desc-group" class="form-group our-form-group">
 				<!-- IIIIIIIIIII -->
 				<label for="recruitment_batch_desc" class="col-md-4 control-label">Recruitment Batch</label>
 
 				<div class="col-md-6">
-					<input id="recruitment_batch_desc" type="text"
-						class="form-control info-form-control" name="recruitment_batch_desc"> <span
-						id="recruitment_batch_desc-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-						<strong id="recruitment_batch_desc-strong" class="our-error-message-strong"></strong>
-						<!-- IIIIIIIIIII -->
-					</span>
+					<select id="recruitment_batch_desc" class="form-control info-form-control"
+								name="recruitment_batch_desc"> 
+								<option value="">Select Recruitment Batch Year</option>
+								<?php echo $__env->make('recruitmentbatches.recruitmentbatch_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+					</select>
 				</div>
 			</div>
                         
@@ -289,13 +282,19 @@
 				<!-- IIIIIIIIIII -->
 				<label for="blood_group" class="col-md-4 control-label">Blood Group</label>
 
-				<div class="col-md-6">
-					<input id="blood_group" type="text"
-						class="form-control info-form-control" name="blood_group"> <span
-						id="blood_group-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-						<strong id="blood_group-strong" class="our-error-message-strong"></strong>
-						<!-- IIIIIIIIIII -->
-					</span>
+				<div class="col-md-6"><select id="blood_group" class="form-control info-form-control"
+							name="blood_group"> 
+							<option value="">Select your option</option>
+							<option value="A+">A+</option>
+							<option value="A-">A-</option>
+							<option value="B+">B+</option>
+							<option value="B-">B-</option>
+							<option value="O+">O+</option>							
+							<option value="O-">O-</option>
+							<option value="AB+">AB+</option>							
+							<option value="AB-">AB-</option>
+				</select>
+					
 				</div>
 			</div>
                         
@@ -421,7 +420,6 @@
 							<option value="">Select reviewing authority</option>
 							<?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     </select>
-					
 				</div>
 			</div>
                         
@@ -430,11 +428,11 @@
 				<label for="reviewing_officer_name" class="col-md-4 control-label">Reviewing Officer </label>
 
 				<div class="col-md-6">
-				<select id="jo_reporting" class="form-control info-form-control"
-							name="jo_reporting"> 
-							<option value="">Select reporting authority</option>
-							<?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                    </select>
+					<select id="jo_reporting" class="form-control info-form-control"
+								name="jo_reporting"> 
+								<option value="">Select reporting authority</option>
+								<?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+					</select>
 				</div>
 			</div>
 
@@ -758,7 +756,7 @@ function show_error(field,msg){
 function populate_form(data){
 	$("#info-panel-heading").html("Displaying record of JudicialOfficer: <strong>"+data.type+"</strong>");
 
-	$("#Posting_judicial_officer_id").val(data.id);
+	$("#judicial_officer_id").val(data.id);
 	
 	$("#officer_name").val(data.officer_name);
 
@@ -782,15 +780,15 @@ function populate_form(data){
 
 	$("#hometown").val(data.hometown);
 
-	$("#district_name").val(data.district_name);	
+	$("#district_name").val(data.home_district_id);	
 
-	$("#state_name").val(data.state_name);
+	$("#state_name").val(data.home_state_id);
 
-	$("#caste_name").val(data.caste_name);
+	$("#caste_name").val(data.caste_id);
 
-	$("#religion_name").val(data.religion_name);
+	$("#religion_name").val(data.religion_id);
 
-	$("#recruitment_batch_desc").val(data.recruitment_batch_desc);
+	$("#recruitment_batch_desc").val(data.recruitment_batch_id);
 
 	$("#aadhaar_no").val(data.aadhaar_no);
 
@@ -813,8 +811,8 @@ function populate_form(data){
 
 	//$("#photo").val(data.photo);
 	
-	$("#reporting_officer_name").val(data.reporting_officer_name);
-	$("#reviewing_officer_name").val(data.reviewing_officer_name);
+	$("#reporting_officer_name").val(data.reporting_officer_id);
+	$("#reviewing_officer_name").val(data.reviewing_officer_id);
 
 
 
@@ -868,17 +866,17 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		//request_type="PUT";
 		formData["_method"]="PUT";
 		
-		ajax_url="<?php echo e(action('JudicialOfficerController@update','')); ?>"+"/"+$("#Posting_judicial_officer_id").val();
-		formData["id"]=$("#Posting_judicial_officer_id").val();
+		ajax_url="<?php echo e(action('JudicialOfficerController@update','')); ?>"+"/"+$("#judicial_officer_id").val();
+		formData["id"]=$("#judicial_officer_id").val();
 
 		operation="update";
 		operated="updated";
 	}
 	else if(type=="delete-confirm"){
 		formData["_method"]="DELETE";
-		formData["id"]=$("#Posting_judicial_officer_id").val();
+		formData["id"]=$("#judicial_officer_id").val();
 
-		ajax_url="<?php echo e(action('JudicialOfficerController@destroy','')); ?>"+"/"+$("#Posting_judicial_officer_id").val();
+		ajax_url="<?php echo e(action('JudicialOfficerController@destroy','')); ?>"+"/"+$("#judicial_officer_id").val();
 		
 
 		operation="delete";

@@ -12,21 +12,24 @@
 			</button>
 
 			<!-- logo -->
-
 			<a class="navbar-brand" href="{{ url('/') }}"> <img
 				src="{{asset('images/ashok.png')}}"
 				class="img-responsive custom-navbar-brand-img"
 				alt="Calcutta High Court" />
 			</a>
-
 			<!-- /logo -->
-		</div>
-		<div id="navbar" class="navbar-collapse collapse">
 			<a class="navbar-brand" href="{{ url('/') }}"> <img
 				src="{{asset('images/logo-name.png')}}"
 				class="img-responsive custom-navbar-brand-img"
 				alt="Calcutta High Court"/>
 			</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			
+			
+			<div class="navbar-brand" style="margin-left:120px;line-height:1.2;"> 
+				<span style="font-family:'Vijaya'!important;font-size:28px;">INTEGRATED INFORMATION MANAGEMENT SYSTEM</span>
+			</div>
 			<!-- Right Side Of Navbar -->
 			<ul class="nav navbar-nav navbar-right">
 
@@ -54,9 +57,9 @@
 
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar" style="background-color:#404040;">
           <div class="sidebar-sticky">
-            <ul class="nav flex-column" style="margin-top:25px;">
+            <ul class="nav flex-column" style="margin-top:25%;">
 				
 				<li class="nav-item">
 			  	<li class="treeview">
@@ -198,20 +201,6 @@
 						</a>
 					</li>
 				</li>
-
-				
-				
-				
-
-
-				
-
-
-
-				
-
-				
-
 				
 			</ul>
 			</div>

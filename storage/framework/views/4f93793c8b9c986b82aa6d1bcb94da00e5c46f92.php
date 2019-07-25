@@ -1,5 +1,5 @@
- <?php $__env->startSection('title', 'Zones'); ?>
-<?php $__env->startSection('page_heading'); ?> Zones <?php $__env->stopSection(); ?>
+ <?php $__env->startSection('title', 'Religions'); ?>
+<?php $__env->startSection('page_heading'); ?> Religions <?php $__env->stopSection(); ?>
 <?php $__env->startSection('center_main_content'); ?>
 <!-- Bootstrap Boilerplate... -->
 <div id="info-panel" class="panel panel-default">
@@ -10,19 +10,19 @@
 
 		<!-- New Task Form -->
 		<form id="info-form" class="form-horizontal" role="form" method="POST"
-			action="<?php echo e(url('/admin/Zone')); ?>">
+			action="<?php echo e(url('/admin/Religion')); ?>">
 			<?php echo e(csrf_field()); ?>
 
-			<input type="hidden" id="Zone-id">
-			<div id="zone_name-group" class="form-group our-form-group">
+			<input type="hidden" id="religion-id">
+			<div id="religion_name-group" class="form-group our-form-group">
 				<!-- IIIIIIIIIII -->
-				<label for="zone_name" class="col-md-4 control-label">Zone</label>
+				<label for="religion_name" class="col-md-4 control-label">Religion</label>
 
 				<div class="col-md-6">
-					<input id="zone_name" type="text"
-						class="form-control info-form-control" name="zone_name"> <span
-						id="zone_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-						<strong id="zone_name-strong" class="our-error-message-strong"></strong>
+					<input id="religion_name" type="text"
+						class="form-control info-form-control" name="religion_name"> <span
+						id="religion_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+						<strong id="religion_name-strong" class="our-error-message-strong"></strong>
 						<!-- IIIIIIIIIII -->
 					</span>
 				</div>
@@ -33,7 +33,7 @@
 				<div class="col-md-6 col-md-offset-4">
 					<button id="add-button" type="submit"
 						class="btn btn-primary add-button info-form-button">
-						<i class="fa fa-btn fa-plus-circle"></i> Add New Zone
+						<i class="fa fa-btn fa-plus-circle"></i> Add Religion
 					</button>
 					<button id="save-button" type="submit"
 						class="btn btn-warning save-button info-form-button">
@@ -79,7 +79,7 @@
 
 <div id="datatable-panel" class="panel panel-default">
 	<div id="datatable-panel-heading" class="panel-heading clearfix">
-		<div class="panel-title pull-left">Zone Master</div>
+		<div class="panel-title pull-left">Religion Master</div>
 		<div class="pull-right">
 			<button id="add-new-button" type="submit" class="btn btn-primary add-new-button">
 				<i class="fa fa-plus-circle"></i> Add New
@@ -95,7 +95,7 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th>Zone Name</th>
+						<th>Religion Name</th>
 						<th>Action</th>
 						<th></th>
 						<th></th>
@@ -107,7 +107,7 @@
 				<tfoot>
 					<tr>
 						<th></th>
-						<th>Zone Name</th>
+						<th>Religion Name</th>
 						<th>Action</th>
 						<th></th>
 						<th></th>
@@ -139,8 +139,8 @@ $(function() {
 		"processing": true,
 		"serverSide": true,
 		"ajax":{
-			url:"<?php echo e(url('Zone')); ?>-Datatable-Server-Side",
-			dataSrc:"zones"
+			url:"<?php echo e(url('Religion')); ?>-Datatable-Server-Side",
+			dataSrc:"religions"
 		},
 
 		"columnDefs": 
@@ -177,7 +177,7 @@ $(function() {
 					"orderable": false,
 				},
 				{
-					"data": "zone_name",
+					"data": "religion_name",
 				},				
 				{
 					"data": null
@@ -331,11 +331,11 @@ function show_error(field,msg){
 	$("#"+field+"-group").addClass("has-error");
 }
 function populate_form(data){
-	$("#info-panel-heading").html("Displaying record of Zone: <strong>"+data.type+"</strong>");
+	$("#info-panel-heading").html("Displaying record of Religion: <strong>"+data.type+"</strong>");
 
-	$("#Zone-id").val(data.id);
+	$("#religion-id").val(data.id);
 	
-	$("#zone_name").val(data.zone_name);
+	$("#religion_name").val(data.religion_name);
 }
 function show_button(type){
 	$("#"+type+"-button").show();
@@ -363,7 +363,7 @@ $(function(){
 });
 function send_ajax_and_set_errors_exceptions_success(type){
 	var formData = {
-		zone_name:$("#zone_name").val(),				
+			religion_name: $('#religion_name').val()			
 	};
 	ajax_url="";
 	operation="";
@@ -372,30 +372,24 @@ function send_ajax_and_set_errors_exceptions_success(type){
 	if(type=="add"){
 		//request_type="POST";
 		formData["_method"]="POST";
-		ajax_url="<?php echo e(action('ZoneController@store')); ?>";
-       
-
-		
-
+		ajax_url="<?php echo e(action('ReligionController@store')); ?>";
 		operation="add";
 		operated="added";
 	}
 	else if(type=="save"){
 		//request_type="PUT";
-		formData["_method"]="PUT";
-		formData["id"]=$("#Zone-id").val();
-		ajax_url="<?php echo e(action('ZoneController@update','')); ?>"+"/"+$("#Zone-id").val();
-	
+		formData["_method"]="PUT";		
+		ajax_url="<?php echo e(action('ReligionController@update','')); ?>"+"/"+$("#religion-id").val();
+		formData["id"]=$("#religion-id").val();
 		operation="update";
 		operated="updated";
 	}
 	else if(type=="delete-confirm"){
 		//request_type="DELETE";
 		formData["_method"]="DELETE";
-		formData["id"]=$("#Zone-id").val();
-
-		ajax_url="<?php echo e(action('ZoneController@destroy','')); ?>"+"/"+$("#Zone-id").val();
 		
+		ajax_url="<?php echo e(action('ReligionController@destroy','')); ?>"+"/"+$("#religion-id").val();
+		formData["id"]=$("#religion-id").val();
 
 		operation="delete";
 		operated="deleted";
@@ -408,17 +402,17 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		success: function (data, textStatus, jqXHR) {
 			reset_info(true);
 			msg="<strong>SUCCESS: </strong>";
-			if(!(data.zone===null) && data.zone.hasOwnProperty('zone_name')){
-				
-				msg+="Zone: <strong>"+data.zone.zone_name+"</strong> successfully "+operated+".";
+			if(!(data.religion===null) && data.religion.hasOwnProperty('religion_name')){
+				//add and updattypeeDelete=> !(data.religion===null)
+				msg+="Religion: <strong>"+data.religion.religion_name+"</strong> successfully "+operated+".";
 			}
 			else{
 				//delete case
-				if(!(data.zone===null) && data.zone>=1){
-					msg+="Zone: <strong>"+formData.zone_name+"</strong> successfully "+operated+".";
+				if(!(data.religion===null) && data.religion>=1){
+					msg+="Religion: <strong>"+formData.religion_name+"</strong> successfully "+operated+".";
 				}
 				else{
-					msg+="Zone already "+operated+"!";
+					msg+="Religion already "+operated+"!";
 				}
 			}
 			show_message_div("success",msg);
@@ -426,26 +420,30 @@ function send_ajax_and_set_errors_exceptions_success(type){
 
 			update_notices_menu_section();
 			
+			//setTimeout(function(){ scrollToElement($('#datatable-panel')); }, 200);
 			scrollToElement($('#message-div'));
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
-			
+			//alert(JSON.stringify(jqXHR)+" : " + textStatus+" : "+errorThrown);
+			//alert(jqXHR.status);
 			errors_reset();
 			messages_hide();
 			msg="<strong>Failed to "+operation+" data.</strong><br/>";
 			if(jqXHR.status!=422 && jqXHR.status!=400){
 				msg+="<strong>"+jqXHR.status+": "+errorThrown+"</strong>";
+				//show_message_div("error",msg);
 			}
 			else{
 				if(jqXHR.responseJSON.hasOwnProperty('exception')){
 					msg+="Exception: <strong>"+jqXHR.responseJSON.exception_message+"</strong>";
+					//show_message_div("error",msg);
 				}
 				else{
 					msg+="Error(s):<strong><ul>";
 					$.each(jqXHR.responseJSON.errors, function(key,value) {
 						msg+="<li>"+value+"</li>";
 						show_error(key,value);
-						
+						//return (this != "four"); // will stop running to skip "five"
 					});
 					msg+="</ul></strong>";
 					
@@ -456,10 +454,18 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		}
 	});
 }
-
+function update_notices_menu_section(){
+	$.ajax({
+		type: "GET",
+		url: "<?php echo e(url('/Religion-Menu')); ?>",
+		success: function (data, textStatus, jqXHR) {
+			$("#notifications-menu-dropdown").html(data);
+		}
+	});
+}
 </script>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\Judicial-Service\resources\views/zones/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\Judicial-Service\resources\views/religions/index.blade.php ENDPATH**/ ?>

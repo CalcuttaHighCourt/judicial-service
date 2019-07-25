@@ -144,6 +144,9 @@ Route::get ( 'designation', function () {
 	return view ( 'designations.index' );
 } );
 
+Route::get ( 'lcr', function () {
+	return view ( 'lcr.index' );
+} );
 
 Auth::routes();
 

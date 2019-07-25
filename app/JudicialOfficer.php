@@ -66,7 +66,7 @@ class JudicialOfficer extends Model
     /**
      * Get the court complex that owns the court.
      */
-    public function judicial_officers()
+    public function subordinate_officers()
     {
         return $this->hasMany('App\JoReportingReviewing','judicial_officer_id','id');
     }

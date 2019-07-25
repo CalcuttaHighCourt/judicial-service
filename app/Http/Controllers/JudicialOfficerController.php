@@ -158,7 +158,7 @@ class JudicialOfficerController extends Controller
             'details' => 'required'                   
 
         ] );
-        $date=strtoupper($request->input('date'));
+        $date=$request->input('date');
         $jo_code =Auth::user()->jo_code;
         $textarea=$request->input('details');
 
@@ -176,14 +176,22 @@ class JudicialOfficerController extends Controller
         return 1;
     }
 
-    // public function show_worksheet(Request $request){
+    public function show_worksheet(Request $request){
 
-    //     $this->validate ( $request, [                     
-    //         'date' => 'required'
-    //     ]);
-    //     $count=Dairy::where([['date_of_schedule',$date],['jo_code',$jo_code]])->count();
+        $this->validate ( $request, [                     
+            'date' => 'required'
+        ]);
+        $date=Carbon::parse($request->input('date'))->format('Y-d-m');
+        $jo_code =Auth::user()->jo_code;
+        $data=Dairy::where([
+                                ['date_of_schedule',$date],
+                                ['jo_code',$jo_code]
+                            ])
+                    ->select('description')
+                    ->get();
+        return $data;
         
-    // }
+    }
 
     public function index_for_datatable(Request $request) {
         $response = [ ];
@@ -338,6 +346,7 @@ class JudicialOfficerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
         $response = [
@@ -353,19 +362,21 @@ class JudicialOfficerController extends Controller
             $judicial_officer = JudicialOfficer::find($id); // Should be changed #27
 
             //arpan
-            if ($judicial_officer->judicial_officers->count() > 0) { //Should be changed #28
+            if ($judicial_officer->subordinate_officers->count() > 0) { //Should be changed #28
                 //child row exists
                 $response = array(
                     'exception' => true,
-                    'exception_message' => "Records of judicial_officer: " . $judicial_officer->judicial_officer_name . " exists in Judicial Officers table.", //Should be changed #29
+                    'exception_message' => "Records of judicial_officer: " . $judicial_officer->judicial_officer_name . " exists in other table.", //Should be changed #29
                 );
                 $statusCode = 400;
-            } else {
+            } 
+            else {
 
                 if (!empty($judicial_officer)) { // Should be changed #30
                     $judicial_officer->delete();
                     //$judicial_officer = $judicial_officer->forceDelete ( $id ); // Should be changed #31 //only for admin elements.
                 }
+                //print_r($judicial_officer);exit;
                 $response = array(
                     'judicial_officer' => $judicial_officer
                 ); // Should be changed #32

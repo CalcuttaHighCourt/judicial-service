@@ -12,7 +12,7 @@
 	<!-- Wrapper for slides -->
 	<div class="carousel-inner" role="listbox">
 		<div class="item active">
-			<img src="<?php echo e(asset('images/carousel/1.jpg')); ?>" alt="Calcutta High Court Main Building">
+			<img src="<?php echo e(asset('images/carousel/1_1.jpg')); ?>" alt="Calcutta High Court Main Building">
 			<div class="carousel-caption">
 				<h3>Main Building</h3>
 				<p>Calcutta High Court</p>
@@ -20,7 +20,7 @@
 		</div>
 
 		<div class="item">
-			<img src="<?php echo e(asset('images/carousel/2.jpg')); ?>" alt="Calcutta High Court Centinary Building">
+			<img src="<?php echo e(asset('images/carousel/2_2.jpg')); ?>" alt="Calcutta High Court Centinary Building">
 			<div class="carousel-caption">
 				<h3>Centenary Building</h3>
 				<p>Calcutta High Court</p>
@@ -28,7 +28,7 @@
 		</div>
 
 		<div class="item">
-			<img src="<?php echo e(asset('images/carousel/3.jpg')); ?>" alt="Calcutta High Court Sesquicentinary Building">
+			<img src="<?php echo e(asset('images/carousel/3_3.jpg')); ?>" alt="Calcutta High Court Sesquicentinary Building">
 			<div class="carousel-caption">
 				<h3>Sesquicentenary Building</h3>
 				<p>Calcutta High Court</p>
@@ -36,7 +36,7 @@
 		</div>
 
 		<div class="item">
-			<img src="<?php echo e(asset('images/carousel/4.jpg')); ?>" alt="Calcutta High Court Corridor">
+			<img src="<?php echo e(asset('images/carousel/4_4.jpg')); ?>" alt="Calcutta High Court Corridor">
 			<div class="carousel-caption">
 				<h3>Corridor</h3>
 				<p>Calcutta High Court</p>
@@ -44,7 +44,7 @@
 		</div>
 		
 		<div class="item">
-			<img src="<?php echo e(asset('images/carousel/5.jpg')); ?>" alt="Calcutta High Court Letters Patent">
+			<img src="<?php echo e(asset('images/carousel/5_5.jpg')); ?>" alt="Calcutta High Court Letters Patent">
 			<div class="carousel-caption">
 				<h3>Letters Patent</h3>
 				<p>Calcutta High Court</p>
@@ -52,9 +52,17 @@
 		</div>
 		
 		<div class="item">
-			<img src="<?php echo e(asset('images/carousel/6.jpg')); ?>" alt="Calcutta High Court Main Building in 1945">
+			<img src="<?php echo e(asset('images/carousel/6_6.jpg')); ?>" alt="Calcutta High Court Main Building in 1945">
 			<div class="carousel-caption">
 				<h3>Main Building in 1945</h3>
+				<p>Calcutta High Court</p>
+			</div>
+		</div>
+		
+		<div class="item">
+			<img src="<?php echo e(asset('images/carousel/7.jpg')); ?>" alt="Calcutta High Court Main Building in 1945">
+			<div class="carousel-caption">
+				<h3>Main Building Top View</h3>
 				<p>Calcutta High Court</p>
 			</div>
 		</div>

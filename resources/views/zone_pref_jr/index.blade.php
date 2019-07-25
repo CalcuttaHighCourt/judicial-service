@@ -100,7 +100,7 @@
             <!-- /.box-header -->
             <div class="box-body pad col-sm-offset-1 col-sm-10">
               <form>
-                <textarea class="textarea" id="textarea" placeholder="Place some text here"
+                <textarea class="text_content" id="text_content" placeholder="Place some text here"
                           style="width: 100%; height: 100%; font-size: 100%; line-height: 80%x; border: 1px solid #dddddd; padding: 10px;"></textarea>
               </form>
               <div class="col-sm-offset-5 col-sm-3">
@@ -147,7 +147,7 @@
                 placeholder:"Select an option",
             });
 
-            $(".textarea").wysihtml5();
+            $(".text_content").wysihtml5();
            /*LOADER*/
 
             $(document).ajaxStart(function() {
@@ -190,19 +190,20 @@
 
             var date=$("#date").val();
 
-            //  $.ajax({
+             $.ajax({
 
-            //             type:"POST",
-            //             url:"zone_pref_jr/worksheet_show",
-            //             data:{
-            //                 _token: $('meta[name="csrf-token"]').attr('content'),
-            //                 date:date
-            //             },
-            //             success:function(response){
-
-            //             },
+                        type:"POST",
+                        url:"zone_pref_jr/worksheet_show",
+                        data:{
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            date:date
+                        },
+                        success:function(response){
+                            console.log(response['0'].description);
+                            $(".text_content").val(response['0'].description);
+                        },
           
-            //     });
+                });
         });
 
         $(document).on("change","#date",function(){
@@ -214,7 +215,7 @@
 
         
             var date=$("#date").val();
-            var details=$("#textarea").val();
+            var details=$("#text_content").val();
 
             $.ajax({
 
@@ -229,7 +230,7 @@
                 {
                     
                     $("#date").val('');
-                    $("#textarea").val('');
+                    $("#text_content").val('');
                     swal("Saved Successfully","","success");
                 },
                 error:function(response)
