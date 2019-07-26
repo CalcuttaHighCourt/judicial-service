@@ -18,6 +18,11 @@ Route::get('/', function () {
 Route::resource('users', 'UserController')->except(['create', 'edit']);
 
 Route::resource('court_complexes', 'CourtComplexController')->except(['create', 'edit']);
+Route::get ( 'Court_complexes-Datatable-Server-Side', 'CourtController@index2' );
+Route::get ( 'court_complex', function () {
+	return view ( 'court_complexes.index' );
+} );
+
 
 Route::resource('courts', 'CourtController')->except(['create', 'edit']);
 Route::get ( 'Court-Datatable-Server-Side', 'CourtController@index2' );
@@ -146,6 +151,14 @@ Route::get ( 'designation', function () {
 
 Route::get ( 'lcr', function () {
 	return view ( 'lcr.index' );
+} );
+
+Route::get ( 'lcr_view', function () {
+	return view ( 'lcr.lower_index' );
+} );
+
+Route::get ( 'lcr_compliance', function () {
+	return view ( 'lcr.lower_compliance' );
 } );
 
 Auth::routes();

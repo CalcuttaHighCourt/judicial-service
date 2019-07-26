@@ -24,8 +24,7 @@
 				alt="Calcutta High Court"/>
 			</a>
 		</div>
-		<div id="navbar" class="navbar-collapse collapse">
-			
+		<div id="navbar" class="navbar-collapse collapse">	
 			
 			<div class="navbar-brand" style="margin-left:120px;line-height:1.2;"> 
 				<span style="font-family:'Vijaya'!important;font-size:28px;">INTEGRATED INFORMATION MANAGEMENT SYSTEM</span>
@@ -198,6 +197,15 @@
 						<a class="nav-link" href="jo_reporting_reviewing">
 						<span data-feather="home"></span>
 							Reporting & reviewing officer
+						</a>
+					</li>
+				</li>
+				
+				<li class="nav-item">
+					<li class="treeview">
+						<a class="nav-link" href="lcr">
+						<span data-feather="home"></span>
+							Lower Court Report
 						</a>
 					</li>
 				</li>

@@ -19,11 +19,13 @@ class CreateCourtComplexesTable extends Migration
 			$table->double('latitude');
 			$table->double('longitude');
 			$table->unsignedBigInteger('district_id');
-			$table->unsignedBigInteger('zone_id');
+            $table->unsignedBigInteger('zone_id');
+            $table->unsignedBigInteger('subdivision_id');
 			$table->unsignedBigInteger('created_by');
             $table->timestamps();
 			$table->foreign('district_id')->references('id')->on('districts');
-			$table->foreign('zone_id')->references('id')->on('zones');
+            $table->foreign('zone_id')->references('id')->on('zones');
+            $table->foreign('subdivision_id')->references('id')->on('subdivisions');
 			$table->foreign('created_by')->references('id')->on('users');
         });
     }

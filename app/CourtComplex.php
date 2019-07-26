@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class CourtComplex extends Model
 {
+    protected $fillable = [
+        'court_complex_name','latitude','longitude','district_id',
+        'zone_id','created_by','subdivision_id'
+    ];
+
+    public $timestamps = true;
+
+    protected $table = 'court_complexes';
 
     
      /**
@@ -31,6 +39,13 @@ class CourtComplex extends Model
         return $this->belongsTo('App\Zone','zone_id','id');
     }
 
+    public function subdivisions()
+    {
+        return $this->belongsTo('App\Subdivision','subdivision_id','id');
+    }
+
+
+
     /**
      * Get the user that has ceated the JO reporting reviewing .
      */
@@ -55,7 +70,6 @@ class CourtComplex extends Model
     {
         return $this->hasMany('App\Court','court_complex_id','id');
     }
-
-
+    
     
 }

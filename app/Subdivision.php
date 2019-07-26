@@ -28,4 +28,9 @@ class Subdivision extends Model
     {
         return $this->belongsTo('App\District','district_id','id');
     }
+
+    public function court_complexes()
+    {
+        return $this->hasMany('App\CourtComplex','subdivision_id','id');
+    }
 }
