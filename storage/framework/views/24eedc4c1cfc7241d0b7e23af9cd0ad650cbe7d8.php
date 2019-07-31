@@ -74,7 +74,7 @@
         <br><br>
         <div class="tab-pan" id="daily_diary" style="display:none;">     
             <div class="form-group row">
-                <div class="date col-sm-offset-2 col-sm-2"  data-provide="datepicker">
+                <div class="date col-sm-offset-2 col-sm-2">
                     <input type="text" class="form-control date diary_date" id="date" placeholder="Choose Date" autocomplete="off">
                 </div>
                    
@@ -196,8 +196,10 @@
                             date:date
                         },
                         success:function(response){
-                            console.log(response['0'].description);
-                            $("#text_content").val(response);
+                            if(response.length>0)
+                                $("iframe").contents().find("html").find("body").html(response['0'].description);
+                            else
+                                $("iframe").contents().find("html").find("body").html("");
                         },
           
                 });

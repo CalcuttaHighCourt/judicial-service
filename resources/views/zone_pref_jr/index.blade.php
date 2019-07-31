@@ -199,8 +199,10 @@
                             date:date
                         },
                         success:function(response){
-                            console.log(response['0'].description);
-                            $("#text_content").val(response);
+                            if(response.length>0)
+                                $("iframe").contents().find("html").find("body").html(response['0'].description);
+                            else
+                                $("iframe").contents().find("html").find("body").html("");
                         },
           
                 });

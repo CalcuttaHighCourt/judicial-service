@@ -24,9 +24,9 @@ Home Page
                     <br>The Case Numbers are as follows : </span>
                 <div class="col-sm-offset-1 col-sm-11">
                     <br>
-                    <div class="col-sm-3"><span id="1">TS / 1/ 2019</span></div><div class="col-sm-3"><label><input type="checkbox" class="check1" value="1"> Available with me</label></div><br><br>
-                    <div class="col-sm-3"><span id="2">TS/ 5/ 2018</span></div><div class="col-sm-3"><label><input type="checkbox" class="check1"value="2"> Available with me</label></div><br><br>
-                    <div class="col-sm-3"><span id="3">TA / 50 / 2019</span></div><div class="col-sm-3"><label><input type="checkbox" class="check1" value="3"> Available with me</label></div><br><br>
+                    <div class="col-sm-3"><span class="check">TS / 1/ 2019</span></div><div class="col-sm-3"><label><input type="checkbox" class="check1" value="1"> Available with me</label></div><br><br>
+                    <div class="col-sm-3"><span class="check">TS/ 5/ 2018</span></div><div class="col-sm-3"><label><input type="checkbox" class="check1"value="2"> Available with me</label></div><br><br>
+                    <div class="col-sm-3"><span class="check">TA / 50 / 2019</span></div><div class="col-sm-3"><label><input type="checkbox" class="check1" value="3"> Available with me</label></div><br><br>
                     <div class="float-left">
                         <strong>Actions to be taken:</strong><br><br>
                         <button id="forward" type="button" class="btn btn-warning forward">
@@ -48,10 +48,12 @@ Home Page
             
                 <div class="col-sm-12">
                 <label for="remarks" class="col-sm-offset-1 col-sm-2 control-label">Remarks:</label> 
-                    <input id="remarks" type="text" class="form-control info-form-control" name="remarks" style="width:30%;margin-bottom:2%;"value="Sir, I am sending LCR of"> 
-                            <span id="remarks-span" class="help-block our-help-block">
+                    <input id="remarks" type="text" class="form-control info-form-control" name="remarks" style="width:30%;margin-bottom:2%;"value="Sir, I am forwarding LCR of"> 
+                         <div class="col-sm-offset-3">
+                            <span id="forward_remark-span" class="help-block our-help-block" style="float-left">
                                 <!-- IIIIIIIIIII -->
                             </span>
+                        </div>
                    <hr>
                     <label for="court_name" class="col-sm-offset-1 col-sm-2 control-label">Court Name</label>
 
@@ -109,7 +111,7 @@ Home Page
                 <div class="col-sm-12">
                     <label for="remarks" class="col-sm-offset-1 col-sm-2 control-label">Remarks:</label> 
                         <input id="remarks" type="text" class="form-control info-form-control" name="remarks" style="width:30%;margin-bottom:2%;"value="Sir, I am sending LCR of"> 
-                            <span id="remarks-span" class="help-block our-help-block">
+                            <span id="comply_remark-span" class="help-block our-help-block">
                                 <!-- IIIIIIIIIII -->
                             </span>
                             <hr>
@@ -190,13 +192,35 @@ Home Page
 
             $("#comply_div").hide();
             $("#forward_div").show();
+            var str="";
+            var count=0;
 
+                $(".check1").each(function(){
+                    if($(this). prop("checked") == false)
+                        count++;
+                })
             
-            if($(".check1").attr('checked',false)){
-                     alert("hello");
-            }
+                var i=0;
+                $(".check1").each(function(){                    
+                    if($(this). prop("checked") == false){ 
+                        i++;                      
+                       str+=$(this).parent().parent().prev().find(".check").html();
+                       if(count-i==1)
+                        str+=" and ";
+                      else if(i==count)
+                        str+="";
+                      else
+                        str+=" , ";
+                        //alert("Checkbox is unchecked." );
+                    }
+                    $("#forward_remark-span").html(str);
+            });
 
         });
+        // $('input[type="checkbox"]'). click(function(){
+            
+
+        // });
 
         $(document).on("click", "#comply", function () {
 
