@@ -9,8 +9,8 @@
 
 <script src="{{asset('js/datatable/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('js/datatable/dataTables.bootstrap.min.js')}}"></script>
- <!-- Date Picker -->    
- <script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
+<!-- Date Picker -->    
+<script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
 <!-- <script src="{{asset('js/datepicker/bootstrap-datepicker.min.js')}}"></script> -->
 
 <script src="{{asset('js/moment/moment.min.js')}}"></script>
@@ -25,15 +25,21 @@
 <script src="{{asset('js/bootstrap3-wysihtml5.all.min.js')}}"></script>
 
 <script>
-function myHtmlEncode(value){
-	//create a in-memory div, set it's inner text(which jQuery automatically encodes)
-	//then grab the encoded contents back out.  The div never exists on the page.
-	return $('<div/>').text(value).html();
+function myHtmlEncode(value) {
+    //create a in-memory div, set it's inner text(which jQuery automatically encodes)
+    //then grab the encoded contents back out.  The div never exists on the page.
+    return $('<div/>').text(value).html();
 }
 
-function myHtmlDecode(value){
-	return $('<div/>').html(value).text();
+function myHtmlDecode(value) {
+    return $('<div/>').html(value).text();
 }
+
+$(document).ready(function () {
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
+});
 </script>
 
 {{-- These section will be useful when we need to specify a js call at

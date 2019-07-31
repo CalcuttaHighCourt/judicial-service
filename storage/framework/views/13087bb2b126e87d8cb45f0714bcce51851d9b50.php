@@ -2,23 +2,23 @@
 
 use App\Http\Controllers\PageController;
 ?>
-@extends('layouts.app')
-{{--@include('services.display_board.display_board_block')--}}
+
+
 <?php
 $calendar_display = "month";
 ?>
 
 
 
-@section('title', 'Lower Court Records')
+<?php $__env->startSection('title', 'Lower Court Records'); ?>
 
-@section('page_heading')
+<?php $__env->startSection('page_heading'); ?>
 Lower Court Records
-@endsection
+<?php $__env->stopSection(); ?>
 
 
 
-@section('left_main_content')
+<?php $__env->startSection('left_main_content'); ?>
 <div class="panel custom-panel">
     <div class="col-sm-12">
         <div id="info-panel" class="panel panel-default">
@@ -29,7 +29,8 @@ Lower Court Records
 
                 <!-- Lower Court Request Form -->
                 <div id="lcr-form" class="form-horizontal">
-                    {{ csrf_field() }}
+                    <?php echo e(csrf_field()); ?>
+
                     <div class="col-md-12">Court Selection</div>
                     <div id="court_selection" class="form-group our-form-group">
                         <div class="col-md-4">
@@ -235,10 +236,10 @@ Lower Court Records
                         <div class="col-md-4">
                             <select id="year" type="text" class="form-control info-form-control" name="year"> 
                                 <option value="">Select Year</option>
-                                @for($year=date('Y');$year>=1900;$year--){
-                                "<option value='{{$year}}'>{{$year}}</option>
+                                <?php for($year=date('Y');$year>=1900;$year--): ?>{
+                                "<option value='<?php echo e($year); ?>'><?php echo e($year); ?></option>
                                 }
-                                @endfor
+                                <?php endfor; ?>
                             </select>
                         </div>
                     </div>
@@ -260,10 +261,10 @@ Lower Court Records
                         <div class="col-md-4" style="margin-bottom:10px;">
                             <select id="lccaseyear" type="text" class="form-control info-form-control" name="lccaseyear"> 
                                 <option value="">Select Year</option>
-                                @for($year=date('Y');$year>=1900;$year--){
-                                <option value='{{$year}}'>{{$year}}</option>
+                                <?php for($year=date('Y');$year>=1900;$year--): ?>{
+                                <option value='<?php echo e($year); ?>'><?php echo e($year); ?></option>
                                 }
-                                @endfor
+                                <?php endfor; ?>
                             </select>
                         </div>
                     </div><!-- lower_case_section ends -->
@@ -297,23 +298,23 @@ Lower Court Records
 
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('right_sidebar_content')
-
-
-@endsection
-@include('layouts.2_column_content')
+<?php $__env->startSection('right_sidebar_content'); ?>
 
 
-@section('main_container')
-@yield('2_column_content')
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.2_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-@section('body_attributes')
-@endsection
 
-@section('end_scripts_1')
+<?php $__env->startSection('main_container'); ?>
+<?php echo $__env->yieldContent('2_column_content'); ?>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('body_attributes'); ?>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('end_scripts_1'); ?>
 <script>
     $('#lcrrequired').datepicker({
         format: "dd-mm-yyyy",
@@ -330,7 +331,7 @@ Lower Court Records
 var i = 0;
     $("#addrow").on("click",function(){
 		i++;
-		$("#lower_case_selection").append('<div class="col-md-4 '+i+'" style="margin-bottom:10px;"><select id="lc_case_type'+i+'" type="text" class="form-control info-form-control" name="lc_case_tye"> <option value="">Select Case Type</option><option value="52">Act 39</option><option value="1">Act Viii Miscellaneous Case</option><option value="51">Act Xiv</option><option value="58">Bail</option><option value="59">CEX - Excise Case</option><option value="3">Civil Appeal</option><option value="4">Civil Execution</option><option value="5">Civil Misc</option><option value="6">Civil Revision</option><option value="7">Complaint Case</option><option value="55">C R Case</option><option value="8">Criminal Appeal</option><option value="9">Criminal Case</option><option value="11">Criminal Misc Case</option><option value="12">Criminal Revision</option><option value="10">Crl. Execution - Criminal Execution</option><option value="23">Divorce On Mutual Consent - Matri Suit Divorce Mutual Cons</option><option value="13">Electricity Act</option><option value="14">Estate Acquisition Appeal</option><option value="16">Gr Case</option><option value="17">Hindu Adapt. and Maint Act - Hindu Adapt. and Maint Case</option><option value="18">Insolvancy Petition</option><option value="19">L A C - Land Acquisition Cases</option><option value="20">L A Ex. - Land Acquisition Execution</option><option value="53">L A Suit</option><option value="21">M A C C - M.A.C.C</option><option value="22">M A C C Ex. - MACC Execution</option><option value="36">Maintenance Case - MR case for Maintenance</option><option value="24">Matrimonial Suit</option><option value="25">Mc - Misc Case</option><option value="54">M C Case</option><option value="29">Misc. Appeal</option><option value="26">Misc Case (pre-emption)</option><option value="30">Misc. Criminal Revision</option><option value="27">Misc Crl Case - Misc Criminal Case</option><option value="31">Misc. Execution Case</option><option value="57">Misc Petition (156) - Misc Petition</option><option value="28">Mjc - Misc Judicial Case</option><option value="32">Money Appeal</option><option value="33">Money Execution</option><option value="34">Money Suit</option><option value="35">M V Act - Motor Vehicle Case</option><option value="37">N D P S Case - NDPS Case</option><option value="38">NGR Case</option><option value="39">Other Appeal</option><option value="40">Other Suit</option><option value="41">Probate Suit</option><option value="15">S C C Ex. - Execution</option><option value="42">S C C Suit - SCC SUIT</option><option value="43">Sessions Case</option><option value="44">Sessions Trial</option><option value="45">Special Court Cases</option><option value="46">Succession Case</option><option value="47">Title Appeal</option><option value="48">Title Execution</option><option value="49">Title Suit</option><option value="50">Trust Suit</option></select></div><div class="col-md-4 '+i+'" style="margin-bottom:10px;"><input id="lccaseno'+i+'" type="text" class="form-control info-form-control" name="lccaseno"  placeholder="Enter Case No."></div><div class="col-md-4 '+i+'" style="margin-bottom:10px;"><select id="lccaseyear'+i+'" type="text" class="form-control info-form-control" name="lccaseyear"> <option value="">Select Year</option>@for($year=date("Y");$year>=1900;$year--){<option value="{{$year}}">{{$year}}</option>}@endfor</select></div>');
+		$("#lower_case_selection").append('<div class="col-md-4 '+i+'" style="margin-bottom:10px;"><select id="lc_case_type'+i+'" type="text" class="form-control info-form-control" name="lc_case_tye"> <option value="">Select Case Type</option><option value="52">Act 39</option><option value="1">Act Viii Miscellaneous Case</option><option value="51">Act Xiv</option><option value="58">Bail</option><option value="59">CEX - Excise Case</option><option value="3">Civil Appeal</option><option value="4">Civil Execution</option><option value="5">Civil Misc</option><option value="6">Civil Revision</option><option value="7">Complaint Case</option><option value="55">C R Case</option><option value="8">Criminal Appeal</option><option value="9">Criminal Case</option><option value="11">Criminal Misc Case</option><option value="12">Criminal Revision</option><option value="10">Crl. Execution - Criminal Execution</option><option value="23">Divorce On Mutual Consent - Matri Suit Divorce Mutual Cons</option><option value="13">Electricity Act</option><option value="14">Estate Acquisition Appeal</option><option value="16">Gr Case</option><option value="17">Hindu Adapt. and Maint Act - Hindu Adapt. and Maint Case</option><option value="18">Insolvancy Petition</option><option value="19">L A C - Land Acquisition Cases</option><option value="20">L A Ex. - Land Acquisition Execution</option><option value="53">L A Suit</option><option value="21">M A C C - M.A.C.C</option><option value="22">M A C C Ex. - MACC Execution</option><option value="36">Maintenance Case - MR case for Maintenance</option><option value="24">Matrimonial Suit</option><option value="25">Mc - Misc Case</option><option value="54">M C Case</option><option value="29">Misc. Appeal</option><option value="26">Misc Case (pre-emption)</option><option value="30">Misc. Criminal Revision</option><option value="27">Misc Crl Case - Misc Criminal Case</option><option value="31">Misc. Execution Case</option><option value="57">Misc Petition (156) - Misc Petition</option><option value="28">Mjc - Misc Judicial Case</option><option value="32">Money Appeal</option><option value="33">Money Execution</option><option value="34">Money Suit</option><option value="35">M V Act - Motor Vehicle Case</option><option value="37">N D P S Case - NDPS Case</option><option value="38">NGR Case</option><option value="39">Other Appeal</option><option value="40">Other Suit</option><option value="41">Probate Suit</option><option value="15">S C C Ex. - Execution</option><option value="42">S C C Suit - SCC SUIT</option><option value="43">Sessions Case</option><option value="44">Sessions Trial</option><option value="45">Special Court Cases</option><option value="46">Succession Case</option><option value="47">Title Appeal</option><option value="48">Title Execution</option><option value="49">Title Suit</option><option value="50">Trust Suit</option></select></div><div class="col-md-4 '+i+'" style="margin-bottom:10px;"><input id="lccaseno'+i+'" type="text" class="form-control info-form-control" name="lccaseno"  placeholder="Enter Case No."></div><div class="col-md-4 '+i+'" style="margin-bottom:10px;"><select id="lccaseyear'+i+'" type="text" class="form-control info-form-control" name="lccaseyear"> <option value="">Select Year</option><?php for($year=date("Y");$year>=1900;$year--): ?>{<option value="<?php echo e($year); ?>"><?php echo e($year); ?></option>}<?php endfor; ?></select></div>');
     });
 
 	
@@ -340,5 +341,10 @@ var i = 0;
 		i--;
 		}
     });
+
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/lcr/index.blade.php ENDPATH**/ ?>

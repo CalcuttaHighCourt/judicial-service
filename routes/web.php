@@ -51,9 +51,6 @@ Route::get ( 'jo_postings', function () {
 	return view ( 'jo_postings.index' );
 } );
 
-Route::get ( 'zone_pref_jr', function () {
-	return view ( 'zone_pref_jr.index' );
-} );
 Route::post('jo_posting/search', 'JudicialOfficerPostingController@jo_current_posting_details');
 
 Route::post('zone_pref/submit', 'JudicialOfficerPostingPreferenceController@store');

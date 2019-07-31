@@ -2,23 +2,23 @@
 
 use App\Http\Controllers\PageController;
 ?>
-@extends('layouts.app')
-{{--@include('services.display_board.display_board_block')--}}
+
+
 <?php
 $calendar_display = "month";
 ?>
 
 
 
-@section('title', 'Home')
+<?php $__env->startSection('title', 'Home'); ?>
 
-@section('page_heading')
+<?php $__env->startSection('page_heading'); ?>
 Home Page
-@endsection
+<?php $__env->stopSection(); ?>
 
 
 
-@section('left_main_content')
+<?php $__env->startSection('left_main_content'); ?>
 
 
 
@@ -52,21 +52,21 @@ Home Page
 
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('right_sidebar_content')
-
-
-@endsection
-@include('layouts.2_column_content')
+<?php $__env->startSection('right_sidebar_content'); ?>
 
 
-@section('main_container')
-@yield('2_column_content')
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.2_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-@section('body_attributes')
-@endsection
+
+<?php $__env->startSection('main_container'); ?>
+<?php echo $__env->yieldContent('2_column_content'); ?>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('body_attributes'); ?>
+<?php $__env->stopSection(); ?>
 
 <script type="text/javascript">
 
@@ -92,3 +92,5 @@ Home Page
 
 </script>
 
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/lcr/lower_index.blade.php ENDPATH**/ ?>

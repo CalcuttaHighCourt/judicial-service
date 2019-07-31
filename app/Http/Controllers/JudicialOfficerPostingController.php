@@ -222,10 +222,6 @@ class JudicialOfficerPostingController extends Controller {
         $id= auth()->user()->id;
         $user_type = Auth::user()->user_type;
 
-       // $jo_code=$request->input('jo_code');
-
-        //$jo_posting = array();
-
         $zone_pref_details['current_zone']= JudicialOfficerPosting:: join('court_complexes as cc','cc.id','=','judicial_officer_postings.court_complex_id')
                                                     ->join('zones','zones.id','=','cc.zone_id')
                                                     ->join('judicial_officers','judicial_officers.id','=','judicial_officer_postings.judicial_officer_id')

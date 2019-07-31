@@ -2,16 +2,16 @@
 
 use App\Http\Controllers\PageController;
 ?>
-@extends('layouts.app')
-{{--@include('services.display_board.display_board_block')--}}
+
+
 <?php
 $calendar_display = "month";
 ?>
-@section('title', 'Home')
-@section('page_heading')
+<?php $__env->startSection('title', 'Home'); ?>
+<?php $__env->startSection('page_heading'); ?>
 Home Page
-@endsection
-@section('left_main_content')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('left_main_content'); ?>
 <div class="panel custom-panel">
     <div class="col-sm-12">
         <div id="info-panel" class="panel panel-deafult">
@@ -57,7 +57,7 @@ Home Page
 
                     <select id="court_name" class="form-control info-form-control"name="court_name" style="width:30%;margin-bottom:2%;" >
                         <option value="">Select Court Name</option>
-                        @include('courts.court_options')
+                        <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     </select>
                 </div>
 
@@ -135,7 +135,7 @@ Home Page
                             <strong id="memo_date-strong" class="our-error-message-strong"></strong>
                             <!-- IIIIIIIIIII -->
                         </span>
-                        @section('end_scripts_1')
+                        <?php $__env->startSection('end_scripts_1'); ?>
                         <script type="text/javascript">
                             $(".memo_date").datepicker({
 
@@ -150,7 +150,7 @@ Home Page
                                 endDate: "today"
                             });
                         </script>
-                        @endsection
+                        <?php $__env->stopSection(); ?>
                     </div>
                 </div>
                 <div class="col-sm-offset-3 col-sm-3">
@@ -162,16 +162,16 @@ Home Page
         </div>
     </div>
 </div>
-@endsection
-@section('right_sidebar_content')
-@endsection
-@include('layouts.2_column_content')
-@section('main_container')
-@yield('2_column_content')
-@endsection
-@section('body_attributes')
-@endsection
-@section('end_scripts_2')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('right_sidebar_content'); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.2_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->startSection('main_container'); ?>
+<?php echo $__env->yieldContent('2_column_content'); ?>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('body_attributes'); ?>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('end_scripts_2'); ?>
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -211,4 +211,5 @@ Home Page
 
 
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/lcr/lower_compliance.blade.php ENDPATH**/ ?>
