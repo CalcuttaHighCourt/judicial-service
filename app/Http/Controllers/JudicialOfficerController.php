@@ -127,12 +127,20 @@ class JudicialOfficerController extends Controller
         $judicial_officer = null;
 
         $this->validate($request, [
+<<<<<<< HEAD
             'officer_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:judicial_officers,judicial_officer_name')
+=======
+            'judicial_officer_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:judicial_officers,judicial_officer_name')
+>>>>>>> aeac182c170bd59c96f0395d376b6ef0e8bd07a9
         ]);
 
 
         try {
+<<<<<<< HEAD
             $officer_name = strtoupper($request->input('officer_name'));
+=======
+            $judicial_officer_name = strtoupper($request->input('judicial_officer_name'));
+>>>>>>> aeac182c170bd59c96f0395d376b6ef0e8bd07a9
             $request['created_by'] = Auth::user()->id;
 
             $judicial_officer = JudicialOfficer::create($request->all());
@@ -162,7 +170,11 @@ class JudicialOfficerController extends Controller
         $jo_code =Auth::user()->jo_code;
         $textarea=$request->input('details');
 
+<<<<<<< HEAD
     // $count=Dairy::where([['date_of_schedule',$date],['jo_code',$jo_code]])->count();
+=======
+//        $count=Dairy::where([['date_of_schedule',$date],['jo_code',$jo_code]])->count();
+>>>>>>> aeac182c170bd59c96f0395d376b6ef0e8bd07a9
 
         Dairy::where([['date_of_schedule',$date],['jo_code',$jo_code]])->delete();
           
@@ -190,7 +202,10 @@ class JudicialOfficerController extends Controller
                     ->select('description')
                     ->get();
         return $data;
+<<<<<<< HEAD
         print_r($data);exit;
+=======
+>>>>>>> aeac182c170bd59c96f0395d376b6ef0e8bd07a9
         
     }
 
@@ -302,7 +317,11 @@ class JudicialOfficerController extends Controller
         $statusCode = 200;
         $judicial_officer = null;
         
+<<<<<<< HEAD
         if (!ctype_digit(strval($id))) {
+=======
+        if (!is_numeric($id) || intval($id) != $id || !ctype_digit(strval($id))) {
+>>>>>>> aeac182c170bd59c96f0395d376b6ef0e8bd07a9
             $response = array(
                 'exception' => true,
                 'exception_message' => 'Invalid Input'
@@ -313,7 +332,11 @@ class JudicialOfficerController extends Controller
         }
         
         $this->validate($request, [
+<<<<<<< HEAD
             'id' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:judicial_officers,id,'.$id.',id')
+=======
+            'judicial_officer_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:judicial_officers,judicial_officer_name,'.$id.',id'),
+>>>>>>> aeac182c170bd59c96f0395d376b6ef0e8bd07a9
         ]);
 
         try {
@@ -321,6 +344,7 @@ class JudicialOfficerController extends Controller
             if (!$judicial_officer) {
                 throw new \Exception('Invalid Input');
             }
+<<<<<<< HEAD
             $judicial_officer->id = $request->id;
             $judicial_officer->officer_name = $request->officer_name;
             $judicial_officer->guardian_name = $request->guardian_name;
@@ -358,6 +382,10 @@ class JudicialOfficerController extends Controller
 
 
             // $judicial_officer->created_by = Auth::user()->id;
+=======
+            $judicial_officer->judicial_officer_name = $request->judicial_officer_name;
+            $judicial_officer->created_by = Auth::user()->id;
+>>>>>>> aeac182c170bd59c96f0395d376b6ef0e8bd07a9
             $judicial_officer->save();
 
             $response = array(
