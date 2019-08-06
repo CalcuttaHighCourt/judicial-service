@@ -1,3 +1,0 @@
-<?php $__currentLoopData = App\Court::orderBy('court_name', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $court): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-	<option value="<?php echo e($court->id); ?>" <?php if(old('court') == $court->court_name): ?> selected="selected" <?php endif; ?>><?php echo e($court->court_name); ?></option>
-<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/courts/court_options.blade.php ENDPATH**/ ?>

@@ -1,3 +1,0 @@
-<?php $__currentLoopData = App\Zone::orderBy('zone_name', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $zone): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-		<option value="<?php echo e($zone->id); ?>" <?php if(old('zone') == $zone->zone_name): ?> selected="selected" <?php endif; ?>><?php echo e($zone->zone_name); ?></option>
-<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php /**PATH C:\laragon\www\Judicial-Service\resources\views/zones/zone_options.blade.php ENDPATH**/ ?>
