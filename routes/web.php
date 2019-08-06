@@ -18,7 +18,7 @@ Route::get('/', function () {
 Route::resource('users', 'UserController')->except(['create', 'edit']);
 
 Route::resource('court_complexes', 'CourtComplexController')->except(['create', 'edit']);
-Route::get ( 'Court_complexes-Datatable-Server-Side', 'CourtController@index2' );
+Route::get ( 'Court_complex-Datatable-Server-Side', 'CourtComplexController@index2' );
 Route::get ( 'court_complex', function () {
 	return view ( 'court_complexes.index' );
 } );

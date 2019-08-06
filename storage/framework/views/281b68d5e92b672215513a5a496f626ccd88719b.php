@@ -1,9 +1,6 @@
-{{--
-<!-- views/judicial_officers/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'JudicialOfficers')
-@section('page_heading') JudicialOfficers @endsection
-@section('center_main_content')
+ <?php $__env->startSection('title', 'JudicialOfficers'); ?>
+<?php $__env->startSection('page_heading'); ?> JudicialOfficers <?php $__env->stopSection(); ?>
+<?php $__env->startSection('center_main_content'); ?>
 <!-- Bootstrap Boilerplate... -->
 <div id="info-panel" class="panel panel-default">
 	<!-- IIIIIIIIIII -->
@@ -13,8 +10,9 @@
 
 		<!-- New Task Form -->
 		<form id="info-form" class="form-horizontal" role="form" method="POST"
-			action="{{ url('/admin/JudicialOfficer') }}">
-			{{ csrf_field() }}
+			action="<?php echo e(url('/admin/JudicialOfficer')); ?>">
+			<?php echo e(csrf_field()); ?>
+
 			<input type="hidden" id="judicial_officer_id">
 			<div id="officer_name-group" class="form-group our-form-group">
 				<!-- IIIIIIIIIII -->
@@ -83,7 +81,7 @@
 						<strong id="date_of_birth-strong" class="our-error-message-strong"></strong>
 						<!-- IIIIIIIIIII -->
 					</span>
-					@section('end_scripts_1')
+					<?php $__env->startSection('end_scripts_1'); ?>
 					<script type="text/javascript">
 					$(function(){
 						$(".date").datepicker({
@@ -93,7 +91,7 @@
 						});
 					});
 					</script>
-					@endsection
+					<?php $__env->stopSection(); ?>
 				</div>
 			</div>
 
@@ -182,7 +180,7 @@
 						<select id="district_name" class="form-control info-form-control"
 									name="district_name"> 
 									<option value="">Select District Name</option>
-									@include('districts.district_options')
+									<?php echo $__env->make('districts.district_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 						</select>
 					</div>
 				</div>
@@ -195,7 +193,7 @@
 							<select id="state_name" class="form-control info-form-control"
 										name="state_name"> 
 										<option value="">Select State Name</option>
-										@include('states.state_options')
+										<?php echo $__env->make('states.state_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 							</select>
 						</div>
 				</div>
@@ -208,7 +206,7 @@
 					<select id="caste_name" class="form-control info-form-control"
 								name="caste_name"> 
 								<option value="">Select Your Caste</option>
-								@include('castes.caste_options')
+								<?php echo $__env->make('castes.caste_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 					</select>
 				</div>
 			</div>
@@ -220,7 +218,7 @@
 					<select id="religion_name" class="form-control info-form-control"
 								name="religion_name"> 
 								<option value="">Select Your Religion</option>
-								@include('religions.religion_options')
+								<?php echo $__env->make('religions.religion_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 					</select>
 				</div>
 			</div>
@@ -233,7 +231,7 @@
 					<select id="recruitment_batch_desc" class="form-control info-form-control"
 								name="recruitment_batch_desc"> 
 								<option value="">Select Recruitment Batch Year</option>
-								@include('recruitmentbatches.recruitmentbatch_options')
+								<?php echo $__env->make('recruitmentbatches.recruitmentbatch_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 					</select>
 				</div>
 			</div>
@@ -420,7 +418,7 @@
 				<div class="col-md-6"><select id="reporting_officer_id" class="form-control info-form-control"
 							name="reporting_officer_id"> 
 							<option value="">Select reporting authority</option>
-							@include('judicial_officers.judicial_officer_options')
+							<?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     </select>
 				</div>
 			</div>
@@ -433,7 +431,7 @@
 					<select id="reviewing_officer_id" class="form-control info-form-control"
 								name="reviewing_officer_id"> 
 								<option value="">Select reviewing authority</option>
-								@include('judicial_officers.judicial_officer_options')
+								<?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 					</select>
 				</div>
 			</div>
@@ -458,7 +456,7 @@
 					</button>
 				</div>
 			</div>
-			{{--@foreach($errors->all() as $error) {{$error}}@endforeach--}}
+			
 			<div id="message-div" class="form-group">
 				<div class="col-md-6 col-md-offset-4">
 					<div id="message-success-div"
@@ -535,17 +533,17 @@
 </div>
 <div id="test-div"></div>
 
-@endsection @include('layouts.1_column_content')
+<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
-@section('main_container') @yield('1_column_content') @endsection
+<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
 
-@section('meta')
-@parent
-<meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
+<?php $__env->startSection('meta'); ?>
+##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
+<meta name="_token" content="<?php echo csrf_token(); ?>" />
+<?php $__env->stopSection(); ?>
 
-@section('end_scripts') @parent
+<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
 
 <script type="text/javascript">
 var table="";
@@ -554,7 +552,7 @@ $(function() {
 		"processing": true,
 		"serverSide": true,
 		"ajax":{
-			url:"{{url('JudicialOfficer')}}-Datatable-Server-Side",
+			url:"<?php echo e(url('JudicialOfficer')); ?>-Datatable-Server-Side",
 			dataSrc:"judicial_officers"
 		},
 
@@ -910,7 +908,7 @@ function send_ajax_and_set_errors_exceptions_success(type){
 	if(type=="add"){
 		//request_type="POST";
 		formData["_method"]="POST";
-		ajax_url="{{ action('JudicialOfficerController@store') }}";
+		ajax_url="<?php echo e(action('JudicialOfficerController@store')); ?>";
        
 
 		operation="add";
@@ -920,7 +918,7 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		//request_type="PUT";
 		formData["_method"]="PUT";
 		
-		ajax_url="{{ action('JudicialOfficerController@update','') }}"+"/"+$("#judicial_officer_id").val();
+		ajax_url="<?php echo e(action('JudicialOfficerController@update','')); ?>"+"/"+$("#judicial_officer_id").val();
 		formData["id"]=$("#judicial_officer_id").val();
 
 		operation="update";
@@ -930,7 +928,7 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		formData["_method"]="DELETE";
 		formData["id"]=$("#judicial_officer_id").val();
 
-		ajax_url="{{ action('JudicialOfficerController@destroy','') }}"+"/"+$("#judicial_officer_id").val();
+		ajax_url="<?php echo e(action('JudicialOfficerController@destroy','')); ?>"+"/"+$("#judicial_officer_id").val();
 		
 
 		operation="delete";
@@ -992,6 +990,8 @@ function send_ajax_and_set_errors_exceptions_success(type){
 	});
 }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('body_attributes') @parent class="" @endsection
+<?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/judicial_officers/index.blade.php ENDPATH**/ ?>

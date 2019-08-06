@@ -127,12 +127,12 @@ class JudicialOfficerController extends Controller
         $judicial_officer = null;
 
         $this->validate($request, [
-            'judicial_officer_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:judicial_officers,judicial_officer_name')
+            'officer_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:judicial_officers,judicial_officer_name')
         ]);
 
 
         try {
-            $judicial_officer_name = strtoupper($request->input('judicial_officer_name'));
+            $officer_name = strtoupper($request->input('officer_name'));
             $request['created_by'] = Auth::user()->id;
 
             $judicial_officer = JudicialOfficer::create($request->all());
@@ -162,7 +162,7 @@ class JudicialOfficerController extends Controller
         $jo_code =Auth::user()->jo_code;
         $textarea=$request->input('details');
 
-//        $count=Dairy::where([['date_of_schedule',$date],['jo_code',$jo_code]])->count();
+    // $count=Dairy::where([['date_of_schedule',$date],['jo_code',$jo_code]])->count();
 
         Dairy::where([['date_of_schedule',$date],['jo_code',$jo_code]])->delete();
           
@@ -190,6 +190,7 @@ class JudicialOfficerController extends Controller
                     ->select('description')
                     ->get();
         return $data;
+        print_r($data);exit;
         
     }
 
@@ -301,7 +302,7 @@ class JudicialOfficerController extends Controller
         $statusCode = 200;
         $judicial_officer = null;
         
-        if (!is_numeric($id) || intval($id) != $id || !ctype_digit(strval($id))) {
+        if (!ctype_digit(strval($id))) {
             $response = array(
                 'exception' => true,
                 'exception_message' => 'Invalid Input'
@@ -312,7 +313,7 @@ class JudicialOfficerController extends Controller
         }
         
         $this->validate($request, [
-            'judicial_officer_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:judicial_officers,judicial_officer_name,'.$id.',id'),
+            'id' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:judicial_officers,id,'.$id.',id')
         ]);
 
         try {
@@ -320,8 +321,43 @@ class JudicialOfficerController extends Controller
             if (!$judicial_officer) {
                 throw new \Exception('Invalid Input');
             }
-            $judicial_officer->judicial_officer_name = $request->judicial_officer_name;
-            $judicial_officer->created_by = Auth::user()->id;
+            $judicial_officer->id = $request->id;
+            $judicial_officer->officer_name = $request->officer_name;
+            $judicial_officer->guardian_name = $request->guardian_name;
+            $judicial_officer->gurdian_relation = $request->gurdian_relation;
+            $judicial_officer->jo_code = $request->jo_code;
+            $judicial_officer->date_of_birth = $request->date_of_birth;
+            $judicial_officer->date_of_joining = $request->date_of_joining;
+            $judicial_officer->date_of_confirmation = $request->date_of_confirmation;
+            $judicial_officer->date_of_retirement = $request->date_of_retirement;
+            $judicial_officer->present_address = $request->present_address;
+            $judicial_officer->permanent_address = $request->permanent_address;
+            $judicial_officer->hometown = $request->hometown;
+            $judicial_officer->home_district_id = $request->home_district_id;
+            $judicial_officer->home_state_id = $request->home_state_id;
+            $judicial_officer->caste_id = $request->caste_id;
+            $judicial_officer->religion_id = $request->religion_id;
+            $judicial_officer->recruitment_batch_id = $request->recruitment_batch_id;
+            $judicial_officer->aadhaar_no  = $request->aadhaar_no;
+            $judicial_officer->pan_no = $request->pan_no;
+            $judicial_officer->pf_no = $request->pf_no; 
+            $judicial_officer->blood_group = $request->blood_group; 
+            $judicial_officer->identification_marks_1 = $request->identification_marks_1; 
+            $judicial_officer->identification_marks_2 = $request->identification_marks_2; 
+            $judicial_officer->mobile_no_1 = $request->mobile_no_1; 
+            $judicial_officer->mobile_no_2 = $request->mobile_no_2; 
+            $judicial_officer->mobile_no_3 = $request->mobile_no_3; 
+            $judicial_officer->email_id_1 = $request->email_id_1; 
+            $judicial_officer->email_id_2 = $request->email_id_2; 
+            $judicial_officer->email_id_3 = $request->email_id_3; 
+            $judicial_officer->reporting_officer_id = $request->reporting_officer_id; 
+            $judicial_officer->reviewing_officer_id = $request->reviewing_officer_id; 
+
+
+
+
+
+            // $judicial_officer->created_by = Auth::user()->id;
             $judicial_officer->save();
 
             $response = array(

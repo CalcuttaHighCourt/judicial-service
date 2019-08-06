@@ -48,12 +48,13 @@ Home Page
             
                 <div class="col-sm-12">
                 <label for="remarks" class="col-sm-offset-1 col-sm-2 control-label">Remarks:</label> 
-                    <input id="remarks" type="text" class="form-control info-form-control" name="remarks" style="width:30%;margin-bottom:2%;"value="Sir, I am forwarding LCR of"> 
-                         <div class="col-sm-offset-3">
-                            <span id="forward_remark-span" class="help-block our-help-block" style="float-left">
-                                <!-- IIIIIIIIIII -->
-                            </span>
-                        </div>
+                <textarea class="form-control" rows="2" id="remarks" style="width:30%;margin-bottom:2%;">forwarding the required LCRs</textarea>
+              
+                    <label for="remarks" class="col-sm-offset-1 col-sm-2 control-label">Record No.: </label> 
+                        <span id="forward_remark-span" class="help-block our-help-block" style="float-left">
+                            <!-- IIIIIIIIIII -->
+                        </span>
+                    
                    <hr>
                     <label for="court_name" class="col-sm-offset-1 col-sm-2 control-label">Court Name</label>
 
@@ -110,10 +111,13 @@ Home Page
             <div class="panel-body" >
                 <div class="col-sm-12">
                     <label for="remarks" class="col-sm-offset-1 col-sm-2 control-label">Remarks:</label> 
-                        <input id="remarks" type="text" class="form-control info-form-control" name="remarks" style="width:30%;margin-bottom:2%;"value="Sir, I am sending LCR of"> 
-                            <span id="comply_remark-span" class="help-block our-help-block">
-                                <!-- IIIIIIIIIII -->
-                            </span>
+                    <textarea class="form-control" rows="2" id="remarks" style="width:30%;margin-bottom:2%;">Sir, I am sending LCR of</textarea>
+                    <label for="remarks" class="col-sm-offset-1 col-sm-2 control-label">Record No.: </label> 
+                            <div class="col-sm-offset-3">
+                                <span id="comply_remark-span" class="help-block our-help-block">
+                                    <!-- IIIIIIIIIII -->
+                                </span>
+                            </div>
                             <hr>
                             <label for="memo_no" class="col-sm-offset-1 col-sm-2 control-label">Memo No.</label>
 
@@ -156,7 +160,7 @@ Home Page
                     </div>
                 </div>
                 <div class="col-sm-offset-3 col-sm-3">
-                    <button id="submit_forward" type="button" class="btn btn-success submit_forward">
+                    <button id="submit_comply" type="button" class="btn btn-success submit_comply">
                         Submit
                     </button>
                 </div>
@@ -200,6 +204,11 @@ Home Page
                         count++;
                 })
             
+            if(count==0)
+            {
+                swal("Can not Forward","Atleast 1 should be unchecked","error");
+                $("#forward_div").hide();
+            }
                 var i=0;
                 $(".check1").each(function(){                    
                     if($(this). prop("checked") == false){ 
@@ -217,17 +226,63 @@ Home Page
             });
 
         });
-        // $('input[type="checkbox"]'). click(function(){
-            
-
-        // });
+      
 
         $(document).on("click", "#comply", function () {
 
             $("#forward_div").hide();
             $("#comply_div").show();
 
+             var str="";
+            var count=0;
+
+                $(".check1").each(function(){
+                    if($(this). prop("checked") == true)
+                        count++;
+                })
+
+                if(count<3){
+                    swal("Can not Comply","Comply only when all the records are with you","error");
+                    $("#comply_div").hide();
+                }
+
+                        
+                var i=0;
+                $(".check1").each(function(){                    
+                    if($(this). prop("checked") == true){ 
+                        i++;                      
+                       str+=$(this).parent().parent().prev().find(".check").html();
+                       if(count-i==1)
+                        str+=" and ";
+                      else if(i==count)
+                        str+="";
+                      else
+                        str+=" , ";
+                        //alert("Checkbox is unchecked." );
+                    }
+                    $("#comply_remark-span").html(str);
+            });
+
         });
+
+ $(document).on("click", "#submit_comply", function () {
+
+    //  var remarks="";
+    //  var memo_no="";
+    //  var memo_date="";
+
+
+    
+    swal("Successfully Complied","The requested LCR has been submitted","success");
+ 
+ });
+
+ $(document).on("click", "#submit_forward", function () {
+    
+    swal("Successfully Forwarded","The required LCR has been forwarded","success");
+ 
+ });    
+
 
 
 
