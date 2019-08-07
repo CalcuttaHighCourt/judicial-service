@@ -209,6 +209,7 @@
         });
 
         $(document).on("change","#date",function(){
+
             $("#submit_dairy").show();
         });
 

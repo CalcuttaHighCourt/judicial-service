@@ -53,21 +53,23 @@ Home Page
             <div class="panel-body">
             
                 <div class="col-sm-12">
-                <label for="remarks" class="col-sm-offset-1 col-sm-2 control-label">Remarks:</label> 
-                <textarea class="form-control" rows="2" id="remarks" style="width:30%;margin-bottom:2%;">forwarding the required LCRs</textarea>
-              
-                    <label for="remarks" class="col-sm-offset-1 col-sm-2 control-label">Record No.: </label> 
-                        <span id="forward_remark-span" class="help-block our-help-block" style="float-left">
-                            <!-- IIIIIIIIIII -->
-                        </span>
-                    
-                   <hr>
-                    <label for="court_name" class="col-sm-offset-1 col-sm-2 control-label">Court Name</label>
+                    <h4><strong>Forwarding</strong></h4>
+                    <hr>
+                    <label for="remarks" class="col-sm-offset-1 col-sm-2 control-label">Remarks:</label> 
+                    <textarea class="form-control" rows="2" id="remarks" style="width:30%;margin-bottom:2%;">forwarding the required LCRs</textarea>
+                
+                        <label for="remarks" class="col-sm-offset-1 col-sm-2 control-label">Record No.: </label> 
+                            <span id="forward_remark-span" class="help-block our-help-block" style="float-left">
+                                <!-- IIIIIIIIIII -->
+                            </span>
+                        
+                    <hr>
+                        <label for="court_name" class="col-sm-offset-1 col-sm-2 control-label">Court Name</label>
 
-                    <select id="court_name" class="form-control info-form-control"name="court_name" style="width:30%;margin-bottom:2%;" >
-                        <option value="">Select Court Name</option>
-                        <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                    </select>
+                        <select id="court_name" class="form-control info-form-control"name="court_name" style="width:30%;margin-bottom:2%;" >
+                            <option value="">Select Court Name</option>
+                            <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                        </select>
                 </div>
 
                 <div id="memo_no-group" class="form-group our-form-group">
@@ -174,6 +176,39 @@ Home Page
         </div>
     </div>
 </div>
+<div class="panel custom-panel" id="pray_for_time_div" style="display:none;">
+    <div class="col-sm-12">
+        <div id="info-panel" class="panel panel-deafult">
+            <div class="panel-body">
+                <div id="pray_for_time_remarks-group" class="form-group our-form-group">
+                    <!-- IIIIIIIIIII -->
+                    <div class="col-sm-12">
+                    <h4><strong>Praying for Time to the Hon'ble High Court</strong></h4>
+                    <hr>
+                        <label for="pray_for_time_remarks" class="col-sm-offset-1 col-sm-2 control-label">Remarks</label>
+                         <textarea class="form-control" rows="2" id="pray_for_time_remarks" style="width:30%;margin-bottom:2%;">Write your remakrs here</textarea>
+                        
+                    </div>
+                    <div id="memo_no-group" class="form-group our-form-group">
+                        <!-- IIIIIIIIIII -->
+                        <div class="col-sm-12">
+                            <label for="memo_no" class="col-sm-offset-1 col-sm-2 control-label">Memo No.</label>
+                            <input id="memo_no" type="text"
+                                class="form-control info-form-control" name="memo_no" style="width:30%;margin-bottom:2%;"> 
+                        </div>
+                    </div>
+                
+                    <br>
+                    <div class="col-sm-offset-3 col-sm-3">
+                        <button id="submit_pray_for_time" type="button" class="btn btn-success submit_pray_for_time">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="panel custom-panel" id="not_found_div" style="display:none;">
     <div class="col-sm-12">
         <div id="info-panel" class="panel panel-deafult">
@@ -181,6 +216,8 @@ Home Page
                 <div id="not_found_remarks-group" class="form-group our-form-group">
                     <!-- IIIIIIIIIII -->
                     <div class="col-sm-12">
+                        <h4><strong>No Valid Record Found</strong></h4>
+                        <hr>
                         <label for="not_found_remarks" class="col-sm-offset-1 col-sm-2 control-label">Remarks</label>
                          <textarea class="form-control" rows="2" id="remarks" style="width:30%;margin-bottom:2%;">Write your remakrs here</textarea>
                         
@@ -233,6 +270,9 @@ Home Page
 
             $("#comply_div").hide();
             $("#forward_div").show();
+            $("#not_found_div").hide();
+            $("#pray_for_time_div").hide();
+
             var str="";
             var count=0;
 
@@ -270,6 +310,7 @@ Home Page
             $("#forward_div").hide();
             $("#comply_div").show();
             $("#not_found_div").hide();
+            $("#pray_for_time_div").hide();
 
              var str="";
             var count=0;
@@ -307,7 +348,18 @@ Home Page
 
             $("#forward_div").hide();
             $("#comply_div").hide();
+            $("#pray_for_time_div").hide();
             $("#not_found_div").show();
+
+        });
+
+         $(document).on("click","#pray_for_time", function () {
+
+            $("#forward_div").hide();
+            $("#comply_div").hide();
+            $("#pray_for_time_div").show();
+            $("#not_found_div").hide();
+         
         });
 
         $(document).on("click", "#submit_comply", function () {
