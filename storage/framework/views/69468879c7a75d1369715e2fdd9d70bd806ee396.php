@@ -35,6 +35,12 @@ Home Page
                         <button id="comply" type="button" class="btn btn-success comply">
                             Comply
                         </button>
+                        <button id="pray_for_time" type="button" class="btn btn-info pray_for_time">
+                            Pray For Time
+                        </button>
+                        <button id="not_found" type="button" class="btn btn-danger not_found">
+                            Not Found
+                        </button>
                     </div>
                 </div>
             </div>
@@ -113,23 +119,23 @@ Home Page
                     <label for="remarks" class="col-sm-offset-1 col-sm-2 control-label">Remarks:</label> 
                     <textarea class="form-control" rows="2" id="remarks" style="width:30%;margin-bottom:2%;">Sir, I am sending LCR of</textarea>
                     <label for="remarks" class="col-sm-offset-1 col-sm-2 control-label">Record No.: </label> 
-                            <div class="col-sm-offset-3">
-                                <span id="comply_remark-span" class="help-block our-help-block">
-                                    <!-- IIIIIIIIIII -->
-                                </span>
-                            </div>
-                            <hr>
-                            <label for="memo_no" class="col-sm-offset-1 col-sm-2 control-label">Memo No.</label>
-
-                            <input id="memo_no" type="text"
-                                class="form-control info-form-control" name="memo_no" style="width:30%;margin-bottom:2%;"> 
-                            <span
-                                id="memo_no-span" class="help-block our-help-block">
-                                <!-- IIIIIIIIIII -->
-                                <strong id="memo_no-strong" class="our-error-message-strong"></strong>
-                                <!-- IIIIIIIIIII -->
-                            </span>
+                    <div class="col-sm-offset-3">
+                        <span id="comply_remark-span" class="help-block our-help-block">
+                            <!-- IIIIIIIIIII -->
+                        </span>
                     </div>
+                    <hr>
+                    <label for="memo_no" class="col-sm-offset-1 col-sm-2 control-label">Memo No.</label>
+
+                    <input id="memo_no" type="text"
+                        class="form-control info-form-control" name="memo_no" style="width:30%;margin-bottom:2%;"> 
+                    <span
+                        id="memo_no-span" class="help-block our-help-block">
+                        <!-- IIIIIIIIIII -->
+                        <strong id="memo_no-strong" class="our-error-message-strong"></strong>
+                        <!-- IIIIIIIIIII -->
+                    </span>
+                </div>
                 <div class="col-sm-12">
                     <div id="memo_date-group" class="form-group our-form-group">
                         <!-- IIIIIIIIIII -->
@@ -163,6 +169,37 @@ Home Page
                     <button id="submit_comply" type="button" class="btn btn-success submit_comply">
                         Submit
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel custom-panel" id="not_found_div" style="display:none;">
+    <div class="col-sm-12">
+        <div id="info-panel" class="panel panel-deafult">
+            <div class="panel-body">
+                <div id="not_found_remarks-group" class="form-group our-form-group">
+                    <!-- IIIIIIIIIII -->
+                    <div class="col-sm-12">
+                        <label for="not_found_remarks" class="col-sm-offset-1 col-sm-2 control-label">Remarks</label>
+                         <textarea class="form-control" rows="2" id="remarks" style="width:30%;margin-bottom:2%;">Write your remakrs here</textarea>
+                        
+                    </div>
+                    <div id="memo_no-group" class="form-group our-form-group">
+                        <!-- IIIIIIIIIII -->
+                        <div class="col-sm-12">
+                            <label for="memo_no" class="col-sm-offset-1 col-sm-2 control-label">Memo No.</label>
+                            <input id="memo_no" type="text"
+                                class="form-control info-form-control" name="memo_no" style="width:30%;margin-bottom:2%;"> 
+                        </div>
+                    </div>
+                
+                    <br>
+                    <div class="col-sm-offset-3 col-sm-3">
+                        <button id="submit_not_found" type="button" class="btn btn-success submit_not_found">
+                            Submit
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -232,6 +269,7 @@ Home Page
 
             $("#forward_div").hide();
             $("#comply_div").show();
+            $("#not_found_div").hide();
 
              var str="";
             var count=0;
@@ -265,25 +303,36 @@ Home Page
 
         });
 
- $(document).on("click", "#submit_comply", function () {
+        $(document).on("click","#not_found", function () {
 
-    //  var remarks="";
-    //  var memo_no="";
-    //  var memo_date="";
+            $("#forward_div").hide();
+            $("#comply_div").hide();
+            $("#not_found_div").show();
+        });
 
+        $(document).on("click", "#submit_comply", function () {
 
-    
-    swal("Successfully Complied","The requested LCR has been submitted","success");
- 
- });
-
- $(document).on("click", "#submit_forward", function () {
-    
-    swal("Successfully Forwarded","The required LCR has been forwarded","success");
- 
- });    
+            //  var remarks="";
+            //  var memo_no="";
+            //  var memo_date="";
 
 
+            
+            swal("Successfully Complied","The requested LCR has been submitted","success");
+        
+        });
+
+        $(document).on("click", "#submit_forward", function () {
+            
+            swal("Successfully Forwarded","The required LCR has been forwarded","success");
+        
+        });    
+
+        $(document).on("click", "#submit_not_found", function () {
+        
+            swal("Successfully Sent","Your remark has been sent","success");
+
+        });
 
 
     });

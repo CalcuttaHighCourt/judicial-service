@@ -405,6 +405,36 @@ class JudicialOfficerController extends Controller
                 );
                 $statusCode = 400;
             } 
+            if ($judicial_officer->judicial_officer_postings->count() > 0) {
+                $response = array(
+                    'exception' => true,
+                    'exception_message' => "Records of judicial_officer: " . $judicial_officer->judicial_officer_posting . " exists in Judicial Officer table.",
+                );
+                $statusCode = 400;
+            }
+            if ($judicial_officer->judicial_officer_qualifications->count() > 0) {
+                $response = array(
+                    'exception' => true,
+                    'exception_message' => "Records of judicial_officer: " . $judicial_officer->judicial_officer_qualification . " exists in Judicial Officer table.",
+                );
+                $statusCode = 400;
+            }
+            if ($judicial_officer->judicial_officer_qualifications->count() > 0) {
+                $response = array(
+                    'exception' => true,
+                    'exception_message' => "Records of judicial_officer: " . $judicial_officer->judicial_officer_qualification . " exists in Judicial Officer table.",
+                );
+                $statusCode = 400;
+            }
+            if ($judicial_officer->judicial_officers->count() > 0) {
+                $response = array(
+                    'exception' => true,
+                    'exception_message' => "Record(s) of judicial_officer: " . $judicial_officer->district_name . " exists in Judicial Officer table.",
+                );
+                $statusCode = 400;
+            
+            }
+
             else {
 
                 if (!empty($judicial_officer)) { // Should be changed #30
