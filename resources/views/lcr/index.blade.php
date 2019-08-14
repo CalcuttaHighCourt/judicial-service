@@ -35,46 +35,19 @@ Lower Court Records
                         <div class="col-md-4">
                             <select id="dist_name" type="text" class="form-control info-form-control" name="dist_name"> 
                                 <option value="">Select District</option>
-                                <option value="303">24 PARAGANAS NORTH</option>
-                                <!-- <option value="304">24 PARAGANAS SOUTH</option> 
-                                <option value="664">ALIPURDUAR</option> 
-                                <option value="305">BANKURA</option> 
-                                <option value="307">BIRBHUM</option> 
-                                <option value="308">COOCHBEHAR</option> 
-                                <option value="309">DARJEELING</option> 
-                                <option value="310">DINAJPUR DAKSHIN</option> 
-                                <option value="311">DINAJPUR UTTAR</option> 
-                                <option value="312">HOOGHLY</option> 
-                                <option value="313">HOWRAH</option> 
-                                <option value="314">JALPAIGURI</option> 
-                                <option value="703">JHARGRAM</option> 
-                                <option value="702">KALIMPONG</option> 
-                                <option value="315">KOLKATA</option> 
-                                <option value="316">MALDAH</option> 
-                                <option value="317">MEDINIPUR EAST</option> 
-                                <option value="318">MEDINIPUR WEST</option> 
-                                <option value="319">MURSHIDABAD</option> 
-                                <option value="320">NADIA</option> 
-                                <option value="704">PASCHIM BARDHAMAN</option>
-                                <option value="306">PURBA BARDHAMAN</option>
-                                <option value="321">PURULIA</option>
-                                -->
+                                @include('districts.district_options')
                             </select>
                         </div>
                         <div class="col-md-4">
                             <select id="courtcomplex" type="text" class="form-control info-form-control" name="courtcomplex"> 
-                                <option value="">Court Complex</option>
-                                <option value="1">BARRACKPUR COURT COMPLEX</option>
-                                <option value="2">BASIRHAT COURT COMPLEX</option>
-                                <option value="3">BIDHANAGAR COURT COMPLEX</option>
-                                <option value="4">BONGAO COURT COMPLEX</option>
-                                <option value="5">JUVENILE COURT COMPLEX SALT LAKE</option>
-                                <option value="6">BARASAT DISTRICT COURT COMPLEX</option>
+                                <option value="">Select Court Complex</option>
+								@include('court_complexes.court_complex_options')
                             </select>
                         </div>
                         <div class="col-md-4">
                             <select id="lowercourt" type="text" class="form-control info-form-control" name="lowercourt"> 
                                 <option value="">Select Court</option>
+								@include('courts.court_options')
                             </select>
                         </div>
                     </div>
@@ -84,7 +57,7 @@ Lower Court Records
                         <div class="col-md-4">
                             <select id="hc_case_type" type="text" class="form-control info-form-control" name="hc_case_type"> 
                                 <option value="">Select Case Type</option>
-                                <option value="AA" >AA | ARBRITATION APPL.</option>
+                               <!-- <option value="AA" >AA | ARBRITATION APPL.</option>
                                 <option value="ABWA" >ABWA | APPL.UND.BENGAL WAKFS ACT</option>
                                 <option value="AC" >AC | AWARD CASES</option>
                                 <option value="ACA" >ACA | APPL.UNDER CHARTERED ACCOUNTANTS ACT, 1949</option>
@@ -227,6 +200,10 @@ Lower Court Records
                                 <option value="WP.ST" >WP.ST | WP(STATE ADMIN TRIBUNAL)</option>
                                 <option value="WP.TT" >WP.TT | WP(WB TAX TRIBUNAL)</option>
                                 <option value="WP.WT" >WP.WT | WAKF TRIBUNAL (227)</option>
+								-->
+								@foreach(App\Hc_case_type::orderBy('type_name', 'asc')->get() as $casetype)
+								<option value="{{$casetype->id }}" @if (old('hc_case_type') == $casetype->type_name) selected="selected" @endif>{{$casetype->type_name}}</option>
+								@endforeach
                             </select>
                         </div>
                         <div class="col-md-4">
@@ -249,7 +226,63 @@ Lower Court Records
                         <div class="col-md-4" style="margin-bottom:10px;">
                             <select id="lc_case_type" type="text" class="form-control info-form-control" name="lc_case_tye"> 
                                 <option value="">Select Case Type</option>
-                                <option value="52">Act 39</option><option value="1">Act Viii Miscellaneous Case</option><option value="51">Act Xiv</option><option value="58">Bail</option><option value="59">CEX - Excise Case</option><option value="3">Civil Appeal</option><option value="4">Civil Execution</option><option value="5">Civil Misc</option><option value="6">Civil Revision</option><option value="7">Complaint Case</option><option value="55">C R Case</option><option value="8">Criminal Appeal</option><option value="9">Criminal Case</option><option value="11">Criminal Misc Case</option><option value="12">Criminal Revision</option><option value="10">Crl. Execution - Criminal Execution</option><option value="23">Divorce On Mutual Consent - Matri Suit Divorce Mutual Cons</option><option value="13">Electricity Act</option><option value="14">Estate Acquisition Appeal</option><option value="16">Gr Case</option><option value="17">Hindu Adapt. and Maint Act - Hindu Adapt. and Maint Case</option><option value="18">Insolvancy Petition</option><option value="19">L A C - Land Acquisition Cases</option><option value="20">L A Ex. - Land Acquisition Execution</option><option value="53">L A Suit</option><option value="21">M A C C - M.A.C.C</option><option value="22">M A C C Ex. - MACC Execution</option><option value="36">Maintenance Case - MR case for Maintenance</option><option value="24">Matrimonial Suit</option><option value="25">Mc - Misc Case</option><option value="54">M C Case</option><option value="29">Misc. Appeal</option><option value="26">Misc Case (pre-emption)</option><option value="30">Misc. Criminal Revision</option><option value="27">Misc Crl Case - Misc Criminal Case</option><option value="31">Misc. Execution Case</option><option value="57">Misc Petition (156) - Misc Petition</option><option value="28">Mjc - Misc Judicial Case</option><option value="32">Money Appeal</option><option value="33">Money Execution</option><option value="34">Money Suit</option><option value="35">M V Act - Motor Vehicle Case</option><option value="37">N D P S Case - NDPS Case</option><option value="38">NGR Case</option><option value="39">Other Appeal</option><option value="40">Other Suit</option><option value="41">Probate Suit</option><option value="15">S C C Ex. - Execution</option><option value="42">S C C Suit - SCC SUIT</option><option value="43">Sessions Case</option><option value="44">Sessions Trial</option><option value="45">Special Court Cases</option><option value="46">Succession Case</option><option value="47">Title Appeal</option><option value="48">Title Execution</option><option value="49">Title Suit</option><option value="50">Trust Suit</option>
+                                <option value="52">Act 39</option>
+                                <option value="1">Act Viii Miscellaneous Case</option>
+                                <option value="51">Act Xiv</option>
+                                <option value="58">Bail</option>
+                                <option value="59">CEX - Excise Case</option>
+                                <option value="3">Civil Appeal</option>
+                                <option value="4">Civil Execution</option>
+                                <option value="5">Civil Misc</option>
+                                <option value="6">Civil Revision</option>
+                                <option value="7">Complaint Case</option>
+                                <option value="55">C R Case</option>
+                                <option value="8">Criminal Appeal</option>
+                                <option value="9">Criminal Case</option>
+                                <option value="11">Criminal Misc Case</option>
+                                <option value="12">Criminal Revision</option>
+                                <option value="10">Crl. Execution - Criminal Execution</option>
+                                <option value="23">Divorce On Mutual Consent - Matri Suit Divorce Mutual Cons</option>
+                                <option value="13">Electricity Act</option>
+                                <option value="14">Estate Acquisition Appeal</option>
+                                <option value="16">Gr Case</option>
+                                <option value="17">Hindu Adapt. and Maint Act - Hindu Adapt. and Maint Case</option>
+                                <option value="18">Insolvancy Petition</option>
+                                <option value="19">L A C - Land Acquisition Cases</option>
+                                <option value="20">L A Ex. - Land Acquisition Execution</option>
+                                <option value="53">L A Suit</option>
+                                <option value="21">M A C C - M.A.C.C</option>
+                                <option value="22">M A C C Ex. - MACC Execution</option>
+                                <option value="36">Maintenance Case - MR case for Maintenance</option>
+                                <option value="24">Matrimonial Suit</option>
+                                <option value="25">Mc - Misc Case</option>
+                                <option value="54">M C Case</option>
+                                <option value="29">Misc. Appeal</option>
+                                <option value="26">Misc Case (pre-emption)</option>
+                                <option value="30">Misc. Criminal Revision</option>
+                                <option value="27">Misc Crl Case - Misc Criminal Case</option>
+                                <option value="31">Misc. Execution Case</option>
+                                <option value="57">Misc Petition (156) - Misc Petition</option>
+                                <option value="28">Mjc - Misc Judicial Case</option>
+                                <option value="32">Money Appeal</option>
+                                <option value="33">Money Execution</option>
+                                <option value="34">Money Suit</option>
+                                <option value="35">M V Act - Motor Vehicle Case</option>
+                                <option value="37">N D P S Case - NDPS Case</option>
+                                <option value="38">NGR Case</option>
+                                <option value="39">Other Appeal</option>
+                                <option value="40">Other Suit</option>
+                                <option value="41">Probate Suit</option>
+                                <option value="15">S C C Ex. - Execution</option>
+                                <option value="42">S C C Suit - SCC SUIT</option>
+                                <option value="43">Sessions Case</option>
+                                <option value="44">Sessions Trial</option>
+                                <option value="45">Special Court Cases</option>
+                                <option value="46">Succession Case</option>
+                                <option value="47">Title Appeal</option>
+                                <option value="48">Title Execution</option>
+                                <option value="49">Title Suit</option>
+                                <option value="50">Trust Suit</option>
                             </select>
                         </div>
 

@@ -36,46 +36,19 @@ Lower Court Records
                         <div class="col-md-4">
                             <select id="dist_name" type="text" class="form-control info-form-control" name="dist_name"> 
                                 <option value="">Select District</option>
-                                <option value="303">24 PARAGANAS NORTH</option>
-                                <!-- <option value="304">24 PARAGANAS SOUTH</option> 
-                                <option value="664">ALIPURDUAR</option> 
-                                <option value="305">BANKURA</option> 
-                                <option value="307">BIRBHUM</option> 
-                                <option value="308">COOCHBEHAR</option> 
-                                <option value="309">DARJEELING</option> 
-                                <option value="310">DINAJPUR DAKSHIN</option> 
-                                <option value="311">DINAJPUR UTTAR</option> 
-                                <option value="312">HOOGHLY</option> 
-                                <option value="313">HOWRAH</option> 
-                                <option value="314">JALPAIGURI</option> 
-                                <option value="703">JHARGRAM</option> 
-                                <option value="702">KALIMPONG</option> 
-                                <option value="315">KOLKATA</option> 
-                                <option value="316">MALDAH</option> 
-                                <option value="317">MEDINIPUR EAST</option> 
-                                <option value="318">MEDINIPUR WEST</option> 
-                                <option value="319">MURSHIDABAD</option> 
-                                <option value="320">NADIA</option> 
-                                <option value="704">PASCHIM BARDHAMAN</option>
-                                <option value="306">PURBA BARDHAMAN</option>
-                                <option value="321">PURULIA</option>
-                                -->
+                                <?php echo $__env->make('districts.district_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                             </select>
                         </div>
                         <div class="col-md-4">
                             <select id="courtcomplex" type="text" class="form-control info-form-control" name="courtcomplex"> 
-                                <option value="">Court Complex</option>
-                                <option value="1">BARRACKPUR COURT COMPLEX</option>
-                                <option value="2">BASIRHAT COURT COMPLEX</option>
-                                <option value="3">BIDHANAGAR COURT COMPLEX</option>
-                                <option value="4">BONGAO COURT COMPLEX</option>
-                                <option value="5">JUVENILE COURT COMPLEX SALT LAKE</option>
-                                <option value="6">BARASAT DISTRICT COURT COMPLEX</option>
+                                <option value="">Select Court Complex</option>
+								<?php echo $__env->make('court_complexes.court_complex_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                             </select>
                         </div>
                         <div class="col-md-4">
                             <select id="lowercourt" type="text" class="form-control info-form-control" name="lowercourt"> 
                                 <option value="">Select Court</option>
+								<?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                             </select>
                         </div>
                     </div>
@@ -85,7 +58,7 @@ Lower Court Records
                         <div class="col-md-4">
                             <select id="hc_case_type" type="text" class="form-control info-form-control" name="hc_case_type"> 
                                 <option value="">Select Case Type</option>
-                                <option value="AA" >AA | ARBRITATION APPL.</option>
+                               <!-- <option value="AA" >AA | ARBRITATION APPL.</option>
                                 <option value="ABWA" >ABWA | APPL.UND.BENGAL WAKFS ACT</option>
                                 <option value="AC" >AC | AWARD CASES</option>
                                 <option value="ACA" >ACA | APPL.UNDER CHARTERED ACCOUNTANTS ACT, 1949</option>
@@ -228,6 +201,10 @@ Lower Court Records
                                 <option value="WP.ST" >WP.ST | WP(STATE ADMIN TRIBUNAL)</option>
                                 <option value="WP.TT" >WP.TT | WP(WB TAX TRIBUNAL)</option>
                                 <option value="WP.WT" >WP.WT | WAKF TRIBUNAL (227)</option>
+								-->
+								<?php $__currentLoopData = App\Hc_case_type::orderBy('type_name', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $casetype): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+								<option value="<?php echo e($casetype->id); ?>" <?php if(old('hc_case_type') == $casetype->type_name): ?> selected="selected" <?php endif; ?>><?php echo e($casetype->type_name); ?></option>
+								<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                         <div class="col-md-4">

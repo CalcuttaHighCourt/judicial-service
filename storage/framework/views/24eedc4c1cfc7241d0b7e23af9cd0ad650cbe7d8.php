@@ -208,7 +208,6 @@
         $(document).on("change","#date",function(){
 
             $("#submit_dairy").show();
-            $("#text_content").val();
         });
 
 
