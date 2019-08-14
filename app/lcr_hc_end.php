@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class lcr_hc_end extends Model
+class Lcr_hc_end extends Model
 {
     //
 }

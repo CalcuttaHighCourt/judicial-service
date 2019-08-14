@@ -150,6 +150,10 @@ Route::get ( 'lcr', function () {
 	return view ( 'lcr.index' );
 } );
 
+Route::post('lcr_hc_end_populate/court_complex', 'LcrController@hc_index_court_complex');
+
+Route::post('lcr_hc_end_populate/court', 'LcrController@hc_index_court');
+
 Route::get ( 'lcr_view', function () {
 	return view ( 'lcr.lower_index' );
 } );
