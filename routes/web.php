@@ -154,6 +154,8 @@ Route::post('lcr_hc_end_populate/court_complex', 'LcrController@hc_index_court_c
 
 Route::post('lcr_hc_end_populate/court', 'LcrController@hc_index_court');
 
+Route::post('lcr_request_by_hc/databaseentry', 'LcrController@database_entry');
+
 Route::get ( 'lcr_view', function () {
 	return view ( 'lcr.lower_index' );
 } );
