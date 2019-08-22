@@ -1,5 +1,6 @@
 @section('header')
 <!-- Fixed navbar -->
+<!--
 <nav id="sidebar">
     <div class="sidebar-header">
         <h3>Bootstrap Sidebar</h3>
@@ -74,7 +75,7 @@
         </li>
     </ul>
 </nav>
-
+-->
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
@@ -139,7 +140,7 @@
                 <a href="#">
                     <i class="fa fa-edit"></i>
                     <span ><u>Master Maintainence</u></span>
-                    <span class="pull-right-container" style="color:#ffffff;font-size:17px;"><i class="fa fa-angle-left pull-right"></i></span>
+                    <span class="pull-right-container" style="color:#ffffff;font-size:17px;"></span>
             </li>
             </li>
 
@@ -258,9 +259,16 @@
 
 
                 <li class="nav-item">
-                    <a class="nav-link" href="lcr">
+                    <a class="nav-link" href="lcr_hc">
                         <span data-feather="home"></span>
-                        Lower Court Report
+                        Request for Lower Court Report 
+                    </a>
+                </li>
+				
+				<li class="nav-item">
+                    <a class="nav-link" href="lcr_view">
+                        <span data-feather="home"></span>
+                        Response to LCR Request
                     </a>
                 </li>
 

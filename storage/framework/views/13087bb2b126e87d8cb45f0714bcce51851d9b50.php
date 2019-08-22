@@ -258,7 +258,6 @@ Lower Court Records
 						lc_case_no.push($("#lc_case_no"+j).val());
 						lc_case_year.push($("#lc_case_year"+j+" option:selected").val());
 					}
-					/*
 					if(district==""){
 						swal("District is mandetory","You must select a district","error");
 						return false;
@@ -302,8 +301,6 @@ Lower Court Records
 						return false;
 					}
 					
-					*/
-					
 					$.ajax({
                         url:"lcr_request_by_hc/databaseentry",
                         method: "POST",
@@ -320,16 +317,7 @@ Lower Court Records
 							deadline:deadline
                         },
                         success: function(response){   
-							if(response == 1.5){swal("district can not be empty");}
-							else if(response == 2.5){swal("court complex can not be empty");}
-							else if(response == 3.5){swal("court can not be empty");}
-							else if(response == 4.5){swal("HC case type can not be empty");}
-							else if(response == 5.5){swal("HC case no. can not be empty");}
-							else if(response == 6.5){swal("HC case year can not be empty");}
-							else if(response == 1000){swal("Any one of the LOWER COURT CASE RECORDS is empty");}
-							else if(response == 10.5){swal("LCR required within date can not be empty");}
-                            else
-							swal("LOWER COURT RECORD REQUESTED SUCCESSFULLY","WITHIN - "+deadline,"success")
+							swal("LOWER COURT RECORD REQUESTED SUCCESSFULLY","WITHIN - "+deadline,"success");
                         },
 						error: function(jqXHR, textStatus, errorThrown) {
                             alert("Some Server Error Occured! Please Try Again.");
@@ -351,10 +339,14 @@ Lower Court Records
                      $("#hc_case_no").val("");
                      $("#hc_case_year").val("");
                      
-					 $(".lc_case_type").val("");
-                     $(".lc_case_no").val("");
-                     $(".lc_case_year").val("");
-                     
+					 $("#lc_case_type0").val("");
+                     $("#lc_case_no0").val("");
+                     $("#lc_case_year0").val("");
+					 
+					 for(j=i;j>0;j--){
+						$('.'+j).remove();
+					 }
+					 
 					 $("#deadline").val("");                
                 });
     

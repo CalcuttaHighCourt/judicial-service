@@ -14,6 +14,7 @@ use Auth;
 
 class LcrController extends Controller
 {
+
     public function hc_index_court_complex(Request $request){
 
         $district=$request->input('district');
@@ -41,6 +42,19 @@ class LcrController extends Controller
 	
 	//lcr request data entry into database
 	public function database_entry(Request $request){
+		
+		
+		$request->validate([
+			'district' => 'required',
+			'court_complex' => 'required',
+			'court' => 'required',
+			'hc_case_type' => 'required',
+			'hc_case_no' => 'required',
+			'hc_case_year' => 'required',
+			'deadline' => 'required'
+		]);
+		
+		
 		$district=$request->input('district');
 		$court_complex=$request->input('court_complex');
 		$court=$request->input('court');
@@ -55,35 +69,6 @@ class LcrController extends Controller
 		
 		
 		
-		if(district==""){
-			echo "1.5";
-		}
-		else if(court_complex==""){
-			echo "2.5";
-		}
-		else if(court==""){
-			echo "3.5";
-		}
-		else if(hc_case_type==""){
-			echo "4.5";
-		}
-		else if(hc_case_no==""){
-			echo "5.5";
-		}
-		else if(hc_case_year==""){
-			echo "6.5";
-		}
-		for($j=0;$j<sizeof($lc_case_type);$j++){
-			else if(lc_case_type[$j] == "" || lc_case_no[$j] == "" || lc_case_year[$j] == ""){
-				echo "1000";
-			}
-		}
-		else if(deadline == ""){
-			echo "10.5";
-		}
-		
-		
-		else{
 		$hc_id = Lcr_hc_end::insertGetId(
 		[
 			'district' => $district,
@@ -108,6 +93,49 @@ class LcrController extends Controller
 			]
 			);
 		}//for loop ends
-	} //else ends
-	} //database_entry function ends
-}
+	}//database_entry function ends
+
+	public function fetch_details(Request $request){
+
+		$data= array();
+
+		/*
+		$hc_records=Lcr_hc_end::join('hc_case_types','hc_case_types.id','=','lcr_hc_ends.hc_case_record')
+		->select('hc_case_types.type_name','hc_case_no','hc_case_year','deadline')->get();
+		*/
+		$hc_records=Lcr_hc_end::with('case_type','lcr_case_details.lower_case_type')->get();
+		$data["hc_records"]=$hc_records;
+		/*
+		//join('lcr_lc_details','lcr_lc_details.hc_id','=','lcr_hc_ends.id')
+										join('hc_case_types','hc_case_types.id','=','lcr_hc_ends.id')
+										//->join('lower_case_types','lower_case_types.id','=','lcr_lc_details.id')
+										->distinct()
+										->select('hc_case_types.type_name','hc_case_no','hc_case_year')
+										->get();
+		*/
+		$i=0;
+		$strings[]="";
+		
+		// foreach($hc_records as $hc_record)
+		// {
+		// 	foreach($hc_record->lcr_case_details as $lcr_case_detail)
+		// 	{
+		// 		echo $lcr_case_detail->lower_case_type->type_name."/".$lcr_case_detail->lower_case_no."/".$lcr_case_detail->lower_case_year."<br/>";
+		// 	}
+		// 	echo "in ".$hc_record->case_type->type_name."/".$hc_record->hc_case_no."/".$hc_record->hc_case_year."<br/><br/>";
+			// foreach($data[$i] as $lcr)			
+			// 	$strings[$i]+=$lcr['lower_case_type'].'/'.$lcr['lower_case_no'].'/'.$lcr['lower_case_year'].'is required by Hon’ble High Court in the Case No:'.$lcr['hc_case_type'].$lcr['hc_case_no'].$lcr['hc_case_year'].' within '.date('d-m-Y',strtotime($lcr[0]['deadline'])).'.';
+			// $i++;
+		//}
+    // echo "<pre>";
+    //     print_r($data);
+    // echo "</pre>";
+    // exit();
+
+		//return view('lcr.lower_index',compact('data'));
+		return view('lcr.lower_index')->with('data',$data);
+		//return view('lcr.lower_index')->with(compact('data',$data));
+
+	}
+
+}//class lcrcontroller ends

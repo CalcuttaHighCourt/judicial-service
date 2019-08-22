@@ -35,7 +35,32 @@ Home Page
                 <!-- Lower Court Request Form -->
                 <span><strong>Notification:</strong> There are some LCR request received<br><br>
                     1. TS / 1/ 2019, TS/ 5/ 2018 and TA / 50 / 2019 is required by Hon’ble High Court in the Case No: <a href="lcr_compliance" >CRM / 10/ 2019</a> within 05/12/2019. 
+                <br>
+
+
+	
+ 
+
+ 
+ <?php $__currentLoopData = $data['hc_records']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $hc_record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+        <?php $__currentLoopData = $hc_record['lcr_case_details']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <br>
+            <?php echo e(($lc['lower_case_type']['type_name'])); ?>/<?php echo e(($lc['lower_case_no'])); ?>/<?php echo e(($lc['lower_case_year'])); ?>,
+
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        ok &nbsp;
+
+        
+        
+
+<br>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+	
+                    <hr>
+                    
                 </span>
+                <pre>
 
                 <!--loader starts-->
                 <div class="col-md-offset-5 col-md-3" id="wait" style="display:none;">
@@ -83,9 +108,7 @@ Home Page
 
         /*LOADER*/
 
-        $(document).on("click", "#case_details", function () {
-            $("#case_details").
-        })
+      
 
     });
 

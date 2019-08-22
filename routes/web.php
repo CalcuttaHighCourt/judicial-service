@@ -146,9 +146,13 @@ Route::get ( 'designation', function () {
 	return view ( 'designations.index' );
 } );
 
-Route::get ( 'lcr', function () {
+Route::get ( 'lcr_hc', function () {
 	return view ( 'lcr.index' );
 } );
+
+// Route::get ( 'lcr_response', function () {
+// 	return view ( 'lcr.lower_index' );
+// } );
 
 Route::post('lcr_hc_end_populate/court_complex', 'LcrController@hc_index_court_complex');
 
@@ -156,9 +160,11 @@ Route::post('lcr_hc_end_populate/court', 'LcrController@hc_index_court');
 
 Route::post('lcr_request_by_hc/databaseentry', 'LcrController@database_entry');
 
-Route::get ( 'lcr_view', function () {
-	return view ( 'lcr.lower_index' );
-} );
+// Route::get ( 'lcr_view', function () {
+// 	return view ( 'lcr.lower_index' );
+// } );
+
+Route::get('lcr_view', 'LcrController@fetch_details');
 
 Route::get ( 'lcr_compliance', function () {
 	return view ( 'lcr.lower_compliance' );

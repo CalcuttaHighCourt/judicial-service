@@ -35,7 +35,29 @@ Home Page
                 <!-- Lower Court Request Form -->
                 <span><strong>Notification:</strong> There are some LCR request received<br><br>
                     1. TS / 1/ 2019, TS/ 5/ 2018 and TA / 50 / 2019 is required by Hon’ble High Court in the Case No: <a href="lcr_compliance" >CRM / 10/ 2019</a> within 05/12/2019. 
+                <br>
+
+
+ 
+ @foreach($data['hc_records'] as $hc_record)
+
+        @foreach($hc_record['lcr_case_details'] as $lc)
+            <br>
+            {{($lc['lower_case_type']['type_name'])}}/{{($lc['lower_case_no'])}}/{{($lc['lower_case_year'])}},
+
+        @endforeach
+        ok &nbsp;
+
+        
+        
+
+<br>
+@endforeach
+	
+                    <hr>
+                    
                 </span>
+                <pre>
 
                 <!--loader starts-->
                 <div class="col-md-offset-5 col-md-3" id="wait" style="display:none;">
@@ -83,9 +105,7 @@ Home Page
 
         /*LOADER*/
 
-        $(document).on("click", "#case_details", function () {
-            $("#case_details").
-        })
+      
 
     });
 
