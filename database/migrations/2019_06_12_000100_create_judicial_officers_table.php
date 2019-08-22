@@ -71,6 +71,7 @@ class CreateJudicialOfficersTable extends Migration
      */
     public function down()
     {
+		
         Schema::dropIfExists('judicial_officers');
     }
 }
