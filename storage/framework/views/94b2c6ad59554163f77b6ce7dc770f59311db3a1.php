@@ -1,6 +1,5 @@
 <?php $__env->startSection('header'); ?>
 <!-- Fixed navbar -->
-<!--
 <nav id="sidebar">
     <div class="sidebar-header">
         <h3>Bootstrap Sidebar</h3>
@@ -25,11 +24,30 @@
                 </li>
             </ul>
         </li>
-        <li>
+		<li>
+            <a href="#masterSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-edit"></i>Master Maintenance</a>
+            <ul class="collapse list-unstyled" id="masterSubmenu">
+                <li class="nav-item">
+                    <a class="nav-link" href="court">
+                        <span data-feather="home"></span>
+                        Court Master
+                    </a>
+                </li>
+                <li>
+                    <a href="#">Page 2</a>
+                </li>
+                <li>
+                    <a href="#">Page 3</a>
+                </li>
+            </ul>
+        </li>
+		<li>
             <a href="#">
                 <i class="fa fa-briefcase"></i>
                 About
             </a>
+		</li>
+		<li>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fa fa-copy"></i>
                 Pages
@@ -66,16 +84,9 @@
         </li>
     </ul>
 
-    <ul class="list-unstyled CTAs">
-        <li>
-            <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
-        </li>
-        <li>
-            <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
-        </li>
-    </ul>
+    
 </nav>
--->
+
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
@@ -103,9 +114,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">	
 
-            <div class="navbar-brand" style="margin-left:120px;line-height:1.2;"> 
+            <!--<div class="navbar-brand" style="margin-left:120px;line-height:1.2;"> 
                 <span style="font-family:'Vijaya'!important;font-size:28px;">INTEGRATED INFORMATION MANAGEMENT SYSTEM</span>
-            </div>
+            </div>-->
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
 
@@ -129,7 +140,7 @@
         <!--/.nav-collapse -->
     </div>
 </nav>
-
+<!--
 <nav class="col-md-2 d-none d-md-block bg-light sidebar" style="background-color:#404040;">
     <div class="sidebar-sticky">
         <ul class="nav flex-column" style="margin-top:25%;">
@@ -274,4 +285,5 @@
             </ul>
     </div>
 </nav>
+-->
 <?php $__env->stopSection(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/layouts/header_menu.blade.php ENDPATH**/ ?>
