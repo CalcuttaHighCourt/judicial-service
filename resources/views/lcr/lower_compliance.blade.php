@@ -20,7 +20,8 @@ Home Page
             <!-- IIIIIIIIIII -->
             <hr>
             <div class="panel-body">
-                <span>As Per the requirement from the High Court Case Number:CRM / 10/ 2019 the following records to be complied within 05/12/2019.
+            {{$lcr_id}}
+            <span>As Per the requirement from the High Court Case Number:CRM / 10/ 2019 the following records to be complied within 05/12/2019.
                     <br>The Case Numbers are as follows : </span>
                 <div class="col-sm-offset-1 col-sm-11">
                     <br>

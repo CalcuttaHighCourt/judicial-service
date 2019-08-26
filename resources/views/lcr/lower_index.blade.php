@@ -34,30 +34,30 @@ Home Page
 
                 <!-- Lower Court Request Form -->
                 <span><strong>Notification:</strong> There are some LCR request received<br><br>
-                    1. TS / 1/ 2019, TS/ 5/ 2018 and TA / 50 / 2019 is required by Hon’ble High Court in the Case No: <a href="lcr_compliance" >CRM / 10/ 2019</a> within 05/12/2019. 
-                <br>
+                   
 
+    @foreach($data['hc_records'] as $hc_record)
 
- 
- @foreach($data['hc_records'] as $hc_record)
+     
+            @foreach($hc_record['lcr_case_details'] as $lc)
 
-        @foreach($hc_record['lcr_case_details'] as $lc)
+                
+                <span id="lower" style="background-color:#ffffff;color:#C11111;"><strong>{{($lc['lower_case_type']['type_name'])}}/{{($lc['lower_case_no'])}}/{{($lc['lower_case_year'])}}</strong></span>
+
+            @endforeach
+            &nbsp;
+            is required by Hon’ble High Court in the Case No: <a href="{{url('lcr_compliance/'.$hc_record['id'])}}">{{($hc_record['case_type']['type_name'])}}/{{$hc_record['hc_case_no']}}/{{$hc_record['hc_case_year']}}</a>
+            <br> within <span id="deadline" style="background-color:#ffffff;color:#C11111;"><strong>{{$hc_record['deadline']}}</strong></span>
             <br>
-            {{($lc['lower_case_type']['type_name'])}}/{{($lc['lower_case_no'])}}/{{($lc['lower_case_year'])}},
+            <hr>
 
-        @endforeach
-        ok &nbsp;
+    @endforeach 
 
-        
-        
 
-<br>
-@endforeach
-	
                     <hr>
                     
                 </span>
-                <pre>
+              
 
                 <!--loader starts-->
                 <div class="col-md-offset-5 col-md-3" id="wait" style="display:none;">

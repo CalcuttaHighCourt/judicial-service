@@ -99,43 +99,17 @@ class LcrController extends Controller
 
 		$data= array();
 
-		/*
-		$hc_records=Lcr_hc_end::join('hc_case_types','hc_case_types.id','=','lcr_hc_ends.hc_case_record')
-		->select('hc_case_types.type_name','hc_case_no','hc_case_year','deadline')->get();
-		*/
 		$hc_records=Lcr_hc_end::with('case_type','lcr_case_details.lower_case_type')->get();
 		$data["hc_records"]=$hc_records;
-		/*
-		//join('lcr_lc_details','lcr_lc_details.hc_id','=','lcr_hc_ends.id')
-										join('hc_case_types','hc_case_types.id','=','lcr_hc_ends.id')
-										//->join('lower_case_types','lower_case_types.id','=','lcr_lc_details.id')
-										->distinct()
-										->select('hc_case_types.type_name','hc_case_no','hc_case_year')
-										->get();
-		*/
+		
+		
 		$i=0;
 		$strings[]="";
-		
-		// foreach($hc_records as $hc_record)
-		// {
-		// 	foreach($hc_record->lcr_case_details as $lcr_case_detail)
-		// 	{
-		// 		echo $lcr_case_detail->lower_case_type->type_name."/".$lcr_case_detail->lower_case_no."/".$lcr_case_detail->lower_case_year."<br/>";
-		// 	}
-		// 	echo "in ".$hc_record->case_type->type_name."/".$hc_record->hc_case_no."/".$hc_record->hc_case_year."<br/><br/>";
-			// foreach($data[$i] as $lcr)			
-			// 	$strings[$i]+=$lcr['lower_case_type'].'/'.$lcr['lower_case_no'].'/'.$lcr['lower_case_year'].'is required by Hon’ble High Court in the Case No:'.$lcr['hc_case_type'].$lcr['hc_case_no'].$lcr['hc_case_year'].' within '.date('d-m-Y',strtotime($lcr[0]['deadline'])).'.';
-			// $i++;
-		//}
-    // echo "<pre>";
-    //     print_r($data);
-    // echo "</pre>";
-    // exit();
-
-		//return view('lcr.lower_index',compact('data'));
+	
 		return view('lcr.lower_index')->with('data',$data);
-		//return view('lcr.lower_index')->with(compact('data',$data));
+	
 
 	}
+
 
 }//class lcrcontroller ends
