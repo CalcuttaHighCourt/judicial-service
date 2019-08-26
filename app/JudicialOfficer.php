@@ -35,7 +35,7 @@ class JudicialOfficer extends Model
      */
     public function district()
     {
-        return $this->belongsTo('App\District','district_id','id');
+        return $this->belongsTo('App\District','home_district_id','id');
     }
 
     /**
@@ -77,14 +77,14 @@ class JudicialOfficer extends Model
      */
     public function jo_repoting_officers()
     {
-        return $this->hasMany('App\JoReportingReviewing','reporting_officer_id','id');
+        return $this->hasMany('App\JudicialOfficer','reporting_officer_id','id');
     }
 /**
      * Get the court complex that owns the court.
      */
     public function jo_reviewing_officers()
     {
-        return $this->hasMany('App\JoReportingReviewing','reviewing_officer_id','id');
+        return $this->hasMany('App\JudicialOfficer','reviewing_officer_id','id');
     }
     
 }
