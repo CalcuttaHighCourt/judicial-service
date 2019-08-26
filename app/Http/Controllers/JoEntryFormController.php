@@ -12,14 +12,14 @@ class JoEntryFormController extends Controller
     
     public function index()
     {
-       $JOdetails = JudicialOfficer::with('district','state','religion','recruitment_batch',
-                                            'jo_repoting_officers','jo_reviewing_officers',
+		$JOdetails = JudicialOfficer::where('id',13)->with('district','state','religion','recruitment_batch',
+                                            'jo_repoting_officer','jo_reviewing_officer',
                                             'judicial_officer_qualifications.qualification',
-                                            'judicial_officer_postings.designation'
+                                            'judicial_officer_postings.designation','judicial_officer_postings.mode'
                                     )->get();
-        dd($JOdetails);
+        //echo $JOdetails;
 
-        //return response()->json($JOdetails);
+        return response()->json($JOdetails);
     }
     
     public function store(Request $request)
