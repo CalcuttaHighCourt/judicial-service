@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-<?php /**PATH C:\laragon\www\judicial-service\resources\views/layouts/carousel.blade.php ENDPATH**/ ?>
-=======
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
@@ -80,4 +77,3 @@
                              aria-hidden="true"></span> <span class="sr-only">Next</span>
     </a>
 </div><?php /**PATH C:\laragon\www\judicial-service\resources\views/layouts/carousel.blade.php ENDPATH**/ ?>
->>>>>>> 99ec6e9fa2743f6614b6f6ab8f57817f7e182bc5

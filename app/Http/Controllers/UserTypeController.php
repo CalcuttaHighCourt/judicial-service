@@ -8,6 +8,39 @@ use App\Usertype;
 
 class UserTypeController extends Controller
 {
+
+    public function store(Request $request)
+    {
+        $response = [ 
+            'user_type' => [ ] 
+        ];
+        $statusCode = 200;
+        
+        $this->validate ( $request, [ 
+                'type_name' => array('required','max:75','regex:/^[\pL\d\s]+$/u','unique:user_types,type_name') 
+        ] );
+
+        try {
+            $request['created_by'] = Auth::user()->id;
+
+            $user_type = Usertype::create ( $request->all () );
+            $response = array (
+                    'user_type' => $user_type 
+            );   
+
+        } catch ( \Exception $e ) {
+            $response = array (
+                    'exception' => true,
+                    'exception_message' => $e->getMessage () 
+            );
+            $statusCode = 400;
+        } finally{
+            return response ()->json ( $response, $statusCode );           
+        }
+    }
+
+
+
     public function index_for_datatable(Request $request) {
 		$response = [ ];
 		$statusCode = 200;
