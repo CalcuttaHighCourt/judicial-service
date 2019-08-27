@@ -2,8 +2,8 @@
 <!-- Fixed navbar -->
 <nav id="sidebar">
     <div class="sidebar-header">
-        <h3>Bootstrap Sidebar</h3>
-        <strong>BS</strong>
+        <h3>Integrated Informations Management System</h3>
+        <strong>IIMS</strong>
     </div>
 
     <ul class="list-unstyled components">
@@ -30,14 +30,144 @@
                 <li class="nav-item">
                     <a class="nav-link" href="court">
                         <span data-feather="home"></span>
+                        <i class="fa fa-gavel" aria-hidden="true"></i>
                         Court Master
                     </a>
                 </li>
-                <li>
-                    <a href="#">Page 2</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="subdivision">
+                        <span data-feather="file"></span>
+                        
+                        <i class="fa fa-crosshairs" aria-hidden="true"></i>
+                        Subdivision Master
+                    </a>
                 </li>
-                <li>
-                    <a href="#">Page 3</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="district">
+                    <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                          District Master 
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="zone">
+                        <span data-feather="file"></span>
+                        <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                        Zone Master
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="state">
+                        <span data-feather="file"></span>
+                        <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                        State Master 
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="judicial_officer">
+                        <span data-feather="file"></span>
+                        <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                        Judicial Officer
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="user_type">
+                        <span data-feather="home"></span>
+                        <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                        User Type 
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="designation">
+                        <span data-feather="file"></span>
+                        <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                        Designation Master
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="mode">
+                        <span data-feather="file"></span>
+                        <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                        Mode Master
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="qualification">
+                        <span data-feather="file"></span>
+                        <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                        Qualification Master
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="recruitmentbatch">
+                        <span data-feather="file"></span>
+                        <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                        Recruitment Batch
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="jo_postings">
+                        <span data-feather="file"></span>
+                        <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                        Posting Preference HC
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="zone_pref_jr">
+                        <span data-feather="file"></span>
+                        <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                        Zone Preference JO
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="religion">
+                        <span data-feather="file"></span>
+                        <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                        Religion
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="caste">
+                        <span data-feather="home"></span>
+                        <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                        Caste Master
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="jo_reporting_reviewing">
+                        <span data-feather="home"></span>
+                        <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                        Reporting & reviewing officer
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="lcr_hc">
+                        <span data-feather="home"></span>
+                        <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                        Request for LCR
+                    </a>
+                </li>
+				
+				<li class="nav-item">
+                    <a class="nav-link" href="lcr_view">
+                        <span data-feather="home"></span>
+                        <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                        Response to LCR Request
+                    </a>
                 </li>
             </ul>
         </li>
@@ -114,10 +244,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">	
 
-            <!--<div class="navbar-brand" style="margin-left:120px;line-height:1.2;"> 
-                <span style="font-family:'Vijaya'!important;font-size:28px;">INTEGRATED INFORMATION MANAGEMENT SYSTEM</span>
-            </div>-->
-            <!-- Right Side Of Navbar -->
+         <img src="<?php echo e(asset('images/calhc.jpg')); ?>" class="img-rounded" >
             <ul class="nav navbar-nav navbar-right">
 
                 <!-- Authentication Links -->
@@ -141,149 +268,5 @@
     </div>
 </nav>
 <!--
-<nav class="col-md-2 d-none d-md-block bg-light sidebar" style="background-color:#404040;">
-    <div class="sidebar-sticky">
-        <ul class="nav flex-column" style="margin-top:25%;">
 
-
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-edit"></i>
-                    <span ><u>Master Maintainence</u></span>
-                    <span class="pull-right-container" style="color:#ffffff;font-size:17px;"></span>
-            </li>
-            </li>
-
-
-            <ul class="treeview-menu">
-                <li class="nav-item">
-                    <a class="nav-link" href="court">
-                        <span data-feather="home"></span>
-                        Court Master
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="subdivision">
-                        <span data-feather="file"></span>
-                        Subdivision Master
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="district">
-                        <span data-feather="home"></span>
-                        District Master 
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="zone">
-                        <span data-feather="file"></span>
-                        Zone Master
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="state">
-                        <span data-feather="file"></span>
-                        State Master 
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="judicial_officer">
-                        <span data-feather="file"></span>
-                        Judicial Officer
-                    </a>
-                </li>
-
-
-                <li class="nav-item">
-                    <a class="nav-link" href="designation">
-                        <span data-feather="file"></span>
-                        Designation Master
-                    </a>
-                </li>
-
-
-                <li class="nav-item">
-                    <a class="nav-link" href="mode">
-                        <span data-feather="file"></span>
-                        Mode Master
-                    </a>
-                </li>
-
-
-                <li class="nav-item">
-                    <a class="nav-link" href="qualification">
-                        <span data-feather="file"></span>
-                        Qualification Master
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="recruitmentbatch">
-                        <span data-feather="file"></span>
-                        Recruitment Batch
-                    </a>
-                </li>
-
-
-                <li class="nav-item">
-                    <a class="nav-link" href="jo_postings">
-                        <span data-feather="file"></span>
-                        Posting Preference HC
-                    </a>
-                </li>
-
-
-                <li class="nav-item">
-                    <a class="nav-link" href="zone_pref_jr">
-                        <span data-feather="file"></span>
-                        Zone Preference JO
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="religion">
-                        <span data-feather="file"></span>
-                        Religion
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="caste">
-                        <span data-feather="home"></span>
-                        Caste Master
-                    </a>
-                </li>
-
-
-                <li class="nav-item">
-                    <a class="nav-link" href="jo_reporting_reviewing">
-                        <span data-feather="home"></span>
-                        Reporting & reviewing officer
-                    </a>
-                </li>
-
-
-                <li class="nav-item">
-                    <a class="nav-link" href="lcr_hc">
-                        <span data-feather="home"></span>
-                        Request for Lower Court Report 
-                    </a>
-                </li>
-				
-				<li class="nav-item">
-                    <a class="nav-link" href="lcr_view">
-                        <span data-feather="home"></span>
-                        Response to LCR Request
-                    </a>
-                </li>
-
-            </ul>
-    </div>
-</nav>
--->
 <?php $__env->stopSection(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/layouts/header_menu.blade.php ENDPATH**/ ?>

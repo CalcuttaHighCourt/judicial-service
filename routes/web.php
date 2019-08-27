@@ -39,7 +39,11 @@ Route::get ( 'district', function () {
 } );
 
 
+Route::get ( 'user_type', function () {
+	return view ( 'user_types.index' );
+	} );
 
+Route::get ( 'User_types-Datatable-Server-Side', 'UserTypeController@index_for_datatable' );
 
 Route::resource('judicial_officer_postings', 'JudicialOfficerPostingController')
 ->except(['create', 'edit']);

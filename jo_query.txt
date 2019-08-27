@@ -1,0 +1,17 @@
+CREATE TABLE jo_photos
+(
+  id bigserial NOT NULL,
+  judicial_officer_id bigint,
+  photo bytea,
+  created_at timestamp(0) without time zone,
+  updated_at timestamp(0) without time zone,
+  CONSTRAINT jo_photos_pkey PRIMARY KEY (id),
+  CONSTRAINT jo_photos_judicial_officer_id_foreign FOREIGN KEY (judicial_officer_id)
+      REFERENCES judicial_officers (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE jo_photos
+  OWNER TO postgres;
