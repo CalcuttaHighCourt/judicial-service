@@ -44,6 +44,10 @@ Route::get ( 'user_type', function () {
 	} );
 
 Route::get ( 'User_types-Datatable-Server-Side', 'UserTypeController@index_for_datatable' );
+Route::resource('usertypes', 'UserTypeController')->except(['create', 'edit']);
+
+
+
 
 Route::resource('judicial_officer_postings', 'JudicialOfficerPostingController')
 ->except(['create', 'edit']);

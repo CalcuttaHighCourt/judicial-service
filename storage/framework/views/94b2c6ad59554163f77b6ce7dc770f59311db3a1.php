@@ -244,7 +244,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">	
 
-         <img src="<?php echo e(asset('images/calhc.jpg')); ?>" class="img-rounded" >
+       
             <ul class="nav navbar-nav navbar-right">
 
                 <!-- Authentication Links -->

@@ -1,8 +1,8 @@
 {{--
 <!-- views/subdivisions/index.blade.php -->
 --}}
-@extends('layouts.app') @section('title', 'Subdivision')
-@section('page_heading') Subdivision @endsection
+@extends('layouts.app') @section('title', 'User_type')
+@section('page_heading') User_type @endsection
 @section('center_main_content')
 <!-- Bootstrap Boilerplate... -->
 <div id="info-panel" class="panel panel-default">
@@ -13,18 +13,18 @@
 
 		<!-- New Task Form -->
 		<form id="info-form" class="form-horizontal" role="form" method="POST"
-			action="{{ url('/admin/Subdivision') }}">
+			action="{{ url('/admin/User_type') }}">
 			{{ csrf_field() }}
-			<input type="hidden" id="Subdivision-id">
-			<div id="subdivision_name-group" class="form-group our-form-group">
+			<input type="hidden" id="User_type-id">
+			<div id="User_type_name-group" class="form-group our-form-group">
 				<!-- IIIIIIIIIII -->
-				<label for="user_type" class="col-md-4 control-label">User Type</label>
+				<label for="type_name" class="col-md-4 control-label">User Type</label>
 
 				<div class="col-md-6">
-					<input id="subdivision_name" type="text"
-						class="form-control info-form-control" name="subdivision_name"> <span
-						id="subdivision_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-						<strong id="subdivision_name-strong" class="our-error-message-strong"></strong>
+					<input id="type_name" type="text"
+						class="form-control info-form-control" name="type_name"> <span
+						id="type_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+						<strong id="type_name-strong" class="our-error-message-strong"></strong>
 						<!-- IIIIIIIIIII -->
 					</span>
 				</div>
@@ -34,7 +34,7 @@
 				<div class="col-md-6 col-md-offset-4">
 					<button id="add-button" type="submit"
 						class="btn btn-primary add-button info-form-button">
-						<i class="fa fa-btn fa-plus-circle"></i> Add New User Type
+						<i class="fa fa-btn fa-plus-circle"></i> Add New User_type
 					</button>
 					<button id="save-button" type="submit"
 						class="btn btn-warning save-button info-form-button">
@@ -96,8 +96,9 @@
 				<!-- Table Headings -->
 				<thead>
 					<tr>
-						<th></th>
-						<th>Type Name</th>
+						
+                        <th>#</th>
+						<th>type_name</th>
 						<th>Action</th>
 						<th></th>
 						<th></th>
@@ -108,9 +109,10 @@
 				<!-- Table Footer -->
 				<tfoot>
 					<tr>
-						<th></th>
-						<th>Type Name</th>
-						<th>Action</th>
+						
+                        <th>#</th>
+						<th>type_name</th>
+						th>Action</th>
 						<th></th>
 						<th></th>
 					</tr>
@@ -178,6 +180,7 @@ $(function() {
 					"searchable": false,
 					"orderable": false,
 				},
+                
 				{
 					"data": "type_name",
 				},		
@@ -329,8 +332,12 @@ function show_error(field,msg){
 	$("#"+field+"-group").addClass("has-error");
 }
 function populate_form(data){
-	$("#info-panel-heading").html("Displaying record of User Type: <strong>"+data.type+"</strong>");
+	$("#info-panel-heading").html("Displaying record of User type: <strong>"+data.type+"</strong>");
 
+	$("#Subdivision-id").val(data.id);
+	$("#district").val(data.district_id);
+	
+	$("#type_name").val(data.type_name);
 }
 function show_button(type){
 	$("#"+type+"-button").show();
@@ -367,10 +374,10 @@ function send_ajax_and_set_errors_exceptions_success(type){
 	if(type=="add"){
 		//request_type="POST";
 		formData["_method"]="POST";
-		ajax_url="{{ action('SubdivisionController@store') }}";
+		ajax_url="{{ action('UserTypeController@store') }}";
        
 
-		formData["subdivision_name"]=$("#subdivision_name").val();
+		formData["type_name"]=$("#type_name").val();
 
 		operation="add";
 		operated="added";
@@ -452,7 +459,7 @@ function send_ajax_and_set_errors_exceptions_success(type){
 			show_message_div("error",msg);
 			scrollToElement($('#info-panel'));
 		}
-    });
+	});
 }
 
 </script>
