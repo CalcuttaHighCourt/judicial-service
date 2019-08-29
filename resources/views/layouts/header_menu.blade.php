@@ -1,10 +1,13 @@
 @section('header')
 <!-- Fixed navbar -->
-<nav id="sidebar" >
+<nav id="sidebar" class="navbar-fixed-top">
     <div class="container-fluid">
-        <div class="sidebar-header">
+        <div class="sidebar-header" style="background-color:#077E70">
+            <div class="row">
+                &nbsp;
+            </div>
             <h3>Integrated Informations Management System</h3>
-            <strong>IIMS</strong>
+           
         </div>
         
         <ul class="list-unstyled components">

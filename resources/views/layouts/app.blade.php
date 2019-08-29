@@ -16,8 +16,14 @@
     </head>
     <body @section('body_attributes') class="custom-background" @show>
            @yield('header')
-              <div class="container-fluid custom-main-container col-sm-offset-2 col-sm-10">
-            @yield('main_container')
+           <div class="container-fluid custom-main-container ">
+                <div class="row">
+                    <div class="col-sm-offset-3 col-sm-9 ">
+                    @yield('main_container')
+                    </div>
+                </div>
+            </div>
+           
             
         </div>
         @yield('sticky_footer') @yield('end_scripts')
