@@ -332,7 +332,7 @@ function show_error(field,msg){
 function populate_form(data){
 	$("#info-panel-heading").html("Displaying record of User type: <strong>"+data.type+"</strong>");
 
-	$("#Subdivision-id").val(data.id);
+	$("#User_type-id").val(data.id);
 	$("#district").val(data.district_id);
 	
 	$("#type_name").val(data.type_name);
@@ -384,19 +384,18 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		//request_type="PUT";
 		formData["_method"]="PUT";
 		
-		ajax_url="<?php echo e(action('SubdivisionController@update','')); ?>"+"/"+$("#Subdivision-id").val();
-		formData["id"]=$("#Subdivision-id").val();
-		formData["subdivision_name"]=$("#subdivision_name").val();
-		formData["disrtict_id"]=$("#district").val();
+		ajax_url="<?php echo e(action('UserTypeController@update','')); ?>"+"/"+$("#User_type-id").val();
+		formData["id"]=$("#User_type-id").val();
+		formData["type_name"]=$("#type_name").val();
 		operation="update";
 		operated="updated";
 	}
 	else if(type=="delete-confirm"){
 		//request_type="DELETE";
 		formData["_method"]="DELETE";
-		formData["id"]=$("#Subdivision-id").val();
+		formData["id"]=$("#User_type-id").val();
 
-		ajax_url="<?php echo e(action('SubdivisionController@destroy','')); ?>"+"/"+$("#Subdivision-id").val();
+		ajax_url="<?php echo e(action('UserTypeController@destroy','')); ?>"+"/"+$("#User_type-id").val();
 		
 
 		operation="delete";
@@ -410,19 +409,19 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		success: function (data, textStatus, jqXHR) {
 			reset_info(true);
 			msg="<strong>SUCCESS: </strong>";
-			if(!(data.subdivision===null) && data.subdivision.hasOwnProperty('subdivision_name')){
+			if(!(data.user_type===null) && data.user_type.hasOwnProperty('type_name')){
 				
-				msg+="Subdivision: <strong>"+data.subdivision.subdivision_name+"</strong> successfully "+operated+".";
+				msg+="user_type: <strong>"+data.user_type.type_name+"</strong> successfully "+operated+".";
 				
 			}
 			else{
 				//delete case
-				if(!(data.subdivision===null) && data.subdivision>=1){
-					msg+="Subdivision: <strong>"+formData.type+"</strong> successfully "+operated+".";
+				if(!(data.user_type===null) && data.user_type>=1){
+					msg+="User type: <strong>"+formData.type+"</strong> successfully "+operated+".";
 				
 				}
 				else{
-					msg+="Subdivision already "+operated+"!";
+					msg+="User type already "+operated+"!";
 				}
 			}
 			show_message_div("success",msg);

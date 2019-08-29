@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\UserType;
+use Auth;
 
 class UserTypeController extends Controller
 {
@@ -87,8 +88,35 @@ class UserTypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    { 
+        $response = [ 
+            'user_type' => [ ] 
+        ];
+        $statusCode = 200;
+       
+
+        $this->validate ( $request, [ 
+                'type_name' => array('required','max:75','regex:/^[\pL\d\s]+$/u','unique:user_types,type_name') 
+        ] );
+
+        try {
+            $request['created_by'] = 11;//Auth::user()->id;
+
+            $user_type = UserType::create ( $request->all () );
+            $response = array (
+                    'user_type' => $user_type 
+            );   
+
+        } catch ( \Exception $e ) {
+            $response = array (
+                    'exception' => true,
+                    'exception_message' => $e->getMessage () 
+            );
+            $statusCode = 400;
+        } finally{
+            return response ()->json ( $response, $statusCode );           
+        }
+    
     }
 
     /**
@@ -122,7 +150,50 @@ class UserTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $response = [ 
+            'user_type' => [ ] 
+        ];
+        $statusCode = 200;
+        $user_type = null;
+
+        if(!ctype_digit(strval($id))){
+            $response = array (
+                'exception' => true,
+                'exception_message' => 'Invalid Input'
+            );
+
+            $statusCode = 400;
+            return response ()->json ( $response, $statusCode );
+        }
+
+        $this->validate($request, [
+            'type_name' => array('required', 'unique:user_types,type_name'),
+        ]);
+        
+        try {            
+            $user_type = UserType::find($id);
+            if(!$user_type){
+                throw new \Exception('Invalid Input');
+            }
+            
+            $user_type->type_name = $request->type_name;
+           
+            $user_type->created_by = 11;//Auth::user()->id;
+            
+            $user_type->save();
+            
+            $response = array (
+                'user_type' => $user_type 
+            );
+        } catch ( \Exception $e ) {
+            $response = array (
+                    'exception' => true,
+                    'exception_message' => $e->getMessage () 
+            );
+            $statusCode = 400;
+        } finally{
+            return response ()->json ( $response, $statusCode );
+        }
     }
 
     /**
@@ -133,6 +204,35 @@ class UserTypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $response = [
+            'user_type' => []
+        ]; // Should be changed #25
+        $statusCode = 200;
+        $user_type = null; // Should be changed #26
+        try {
+            if ( !ctype_digit(strval($id))) {
+                throw new \Exception('Please check input');
+            }
+            $user_type = UserType::find($id); // Should be changed #27
+
+            
+                if (!empty($user_type)) { // Should be changed #30
+                    $user_type->delete();
+                    //$user_type = $user_type->forceDelete ( $id ); // Should be changed #31 //only for admin elements.
+                }
+                $response = array(
+                    'user_type' => $user_type
+                ); // Should be changed #32
+            
+        } catch (\Exception $e) {
+            $response = array(
+                'exception' => true,
+                'exception_message' => $e->getMessage()
+            );
+            $statusCode = 400;
+        } finally {
+            return response()->json($response, $statusCode);
+        }
     }
+    
 }

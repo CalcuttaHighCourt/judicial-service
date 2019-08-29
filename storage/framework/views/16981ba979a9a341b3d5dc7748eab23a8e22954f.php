@@ -16,8 +16,9 @@
     </head>
     <body <?php $__env->startSection('body_attributes'); ?> class="custom-background" <?php echo $__env->yieldSection(); ?>>
            <?php echo $__env->yieldContent('header'); ?>
-           <div class="container-fluid custom-main-container">
+              <div class="container-fluid custom-main-container col-sm-offset-2 col-sm-10">
             <?php echo $__env->yieldContent('main_container'); ?>
+            
         </div>
         <?php echo $__env->yieldContent('sticky_footer'); ?> <?php echo $__env->yieldContent('end_scripts'); ?>
     </body>
