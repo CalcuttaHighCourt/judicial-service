@@ -16,15 +16,15 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
                         
-                        <div class="form-group{{ $errors->has('userid') ? ' has-error' : '' }}">
-                            <label for="userid" class="col-md-4 control-label">Userid</label>
+                        <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
+                            <label for="user_id" class="col-md-4 control-label">Userid</label>
 
                             <div class="col-md-6">
-                                <input id="userid" type="text" class="form-control" name="userid" value="{{ old('userid') }}">
+                                <input id="user_id" type="text" class="form-control" name="user_id" value="{{ old('userid') }}">
 
-                                @if ($errors->has('userid'))
+                                @if ($errors->has('user_id'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('userid') }}</strong>
+                                        <strong>{{ $errors->first('user_id') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -35,12 +35,46 @@
 
                             <div class="col-md-6">
                                 <select id="usertype"  class="form-control" name="usertype">
+                                <option value="">Select an Option...</option>
                                 @include('user_types.user_type_options')
                                 </select>
 
                                 @if ($errors->has('usertype'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('usertype') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('court') ? ' has-error' : '' }}" id="court-div" name="court-div" style="display:none;">
+                            <label for="court" class="col-md-4 control-label">Court</label>
+
+                            <div class="col-md-6" >
+                                <select id="court"  class="form-control" name="court">
+                                <option value="">Select an Option...</option>
+                                @include('courts.court_options')
+                                </select>
+
+                                @if ($errors->has('court'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('court') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('judicial_officers') ? ' has-error' : '' }}" id="jo-div" name="jo-div" style="display:none;">
+                            <label for="jo" class="col-md-4 control-label">Judicial Officer</label>
+
+                            <div class="col-md-6" >
+                                <select id="jo"  class="form-control" name="jo">
+                                <option value="">Select an Option...</option>
+                                @include('judicial_officers.judicial_officer_options')
+                                </select>
+
+                                @if ($errors->has('judicial_officers'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('judicial_officers') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -127,7 +161,35 @@
     </div>
 </div>
 @endsection
+@section('end_scripts_1')
+<script>
+    $(function() {
 
+            //customizable select box with support for searching
+            $('#court').select2();
+            $('#jo').select2();
+
+    });
+
+    $("#usertype").change (function(){
+
+        var user_type = $("#usertype option:selected").text();
+        $("#court-div").hide();
+        $("#jo-div").hide();
+        
+        if( user_type == "Court")
+        {            
+            $("#court-div").show();
+        }            
+        else if( user_type == "Judicial Officer")
+        {            
+            $("#jo-div").show();
+        }   
+
+    });
+
+</script>
+@endsection
 @include('layouts.1_column_content')
 
 

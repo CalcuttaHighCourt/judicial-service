@@ -183,6 +183,12 @@ Route::get ( 'lcr_compliance/{lcr_id}', function ($lcr_id) {
 
 Route::resource('jo_entry', 'JoEntryFormController')->except(['create', 'edit']);
 
+
+
+Route::get ( 'register', 'Auth\RegisterController@showRegistrationForm' );
+Route::post ( 'register', 'Auth\RegisterController@register' );
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

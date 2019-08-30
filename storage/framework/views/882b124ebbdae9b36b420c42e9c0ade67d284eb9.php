@@ -1,3 +1,0 @@
-<?php $__currentLoopData = App\Subdivision::orderBy('subdivision_name', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subdivision): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-	<option value="<?php echo e($subdivision->id); ?>" <?php if(old('subdivision') == $subdivision->subdivision_name): ?> selected="selected" <?php endif; ?>><?php echo e($subdivision->subdivision_name); ?></option>
-<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php /**PATH C:\laragon\www\Judicial-Service\resources\views/subdivisions/subdivision_options.blade.php ENDPATH**/ ?>

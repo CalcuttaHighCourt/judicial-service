@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -28,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -37,7 +39,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+       // $this->middleware('guest');
     }
 
     /**
@@ -49,7 +51,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'user_id' => ['required','unique:users,user_id'],
+           'name' => ['required', 'string', 'max:255'],
+            'usertype' => ['required', 'max:255','exists:user_types,id'],
+            'court' => ['nullable','max:255','exists:courts,id'],
+            'jo' => ['nullable','max:255','exists:judicial_officers,id'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -63,10 +69,45 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        
+
+        if(!empty($data['court']))
+        {
+            $data['jo'] ="";
+        }
+
+        if(!empty($data['jo']))
+        {
+           $data['court'] ="";
+        }
+
+        //dd($data['user_id']) ;exit;
+
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+        'name' => $data['name'],
+        'user_type_id'=> $data['usertype'],
+        'court_id'=>$data['court'],
+        'judicial_officer_id'=> $data['jo'],
+        'email' => $data['email'],
+        'user_id' => $data['user_id'],
+        'password' => Hash::make($data['password']),
+        
         ]);
+
+    }
+
+    public function register(Request $request)
+    {
+        
+        
+        $this->validator($request->all())->validate();
+        
+        event(new Registered($user = $this->create($request->all())));
+
+        //$this->guard()->login($user);
+        
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+
     }
 }
