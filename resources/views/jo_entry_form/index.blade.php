@@ -95,10 +95,10 @@
                  </div>
                  <div class="form-group">
                     <div class="col-xs-4">
-                        <label for="caste_id">
-                            <h4>Caste</h4>
+                        <label for="category_id">
+                            <h4>Category</h4>
                         </label>
-                        <select id="caste_id" class="form-control info-form-control select2" name="caste_id">
+                        <select id="category_id" class="form-control info-form-control select2" name="category_id">
                             <option value="">Select an Option</option>
                             @include('castes.caste_options')
                         </select>
