@@ -188,6 +188,9 @@ Route::resource('jo_entry', 'JoEntryFormController')->except(['create', 'edit'])
 Route::get ( 'register', 'Auth\RegisterController@showRegistrationForm' );
 Route::post ( 'register', 'Auth\RegisterController@register' );
 
+Route::get ('jo_entry_form', function () {
+	return view ('jo_entry_form.index');
+});
 
 Auth::routes();
 
