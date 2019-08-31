@@ -1,13 +1,19 @@
-@extends('layouts.app') @section('title', 'States')
-@section('page_heading') States @endsection
+@extends('layouts.app') @section('title', 'Judicial Officer Entry')
+@section('page_heading') Judicial Officer Entry @endsection
 @section('center_main_content')
+<!-- styling the font color of options displaying in the select2 dropdown -->
+<style>
+.select2-results__option{
+    color:#d43c3c;
+}
+</style>
 <div id="info-panel" class="panel panel-default">
    <div class="row">
       <div class="col-sm-3">
          <!--left col-->
       </div>
       <!--/col-3-->
-      <div class="col-sm-9">
+      <div class="col-sm-9" id="nav_tabs">
          <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#basic_details"><h4>Basic Details</h4></a></li>
             <li><a data-toggle="tab" href="#contact_details"><h4>Contact Details</h4></a></li>
@@ -87,7 +93,7 @@
                         <label for="religion_id">
                             <h4>Religion</h4>
                         </label>
-                        <select id="religion_id" class="form-control info-form-control select2" name="religion_id">
+                        <select id="religion_id" class="form-control info-form-control select2" name="religion_id" style="width:100%">
                             <option value="">Select an Option</option>
                             @include('religions.religion_options')
                         </select>
@@ -98,7 +104,7 @@
                         <label for="category_id">
                             <h4>Category</h4>
                         </label>
-                        <select id="category_id" class="form-control info-form-control select2" name="category_id">
+                        <select id="category_id" class="form-control info-form-control select2" name="category_id" style="width:100%">
                             <option value="">Select an Option</option>
                             @include('castes.caste_options')
                         </select>
@@ -109,7 +115,7 @@
                         <label for="recruitment_batch_id">
                             <h4>Recruitment Batch</h4>
                         </label>
-                        <select id="recruitment_batch_id" class="form-control info-form-control select2" name="recruitment_batch_id">
+                        <select id="recruitment_batch_id" class="form-control info-form-control select2" name="recruitment_batch_id" style="width:100%">
                             <option value="">Select an Option</option>
                             @include('recruitmentbatches.recruitmentbatch_options')
                         </select>
@@ -177,6 +183,7 @@
                   <div class="text-center">
                      <div class="col-xs-12">
                         <br><br>
+                        <button class="btn btn-lg btn-info next"><i class="glyphicon glyphicon-forward"></i> Next</button>
                         <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
                         <button class="btn btn-lg btn-danger" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
                      </div>
@@ -186,7 +193,7 @@
             <!--/tab-pane-->
 
             <div class="tab-pane" id="contact_details">
-               <form class="form" action="##" method="post">
+               <form class="form" action="##" method="">
                     <div class="form-group">
                         <div class="col-xs-4">
                             <label for="email_id_1">
@@ -240,7 +247,7 @@
                             <label for="home_state">
                                 <h4>Home State</h4>
                             </label>
-                            <select id="home_state" class="form-control info-form-control select2" name="home_state">
+                            <select id="home_state" class="form-control info-form-control select2" name="home_state" style="width:100%">
                                 <option value="">Select an Option</option>
                                     @include('states.state_options')
                             </select>
@@ -251,7 +258,7 @@
                             <label for="home_state">
                                 <h4>Home District</h4>
                             </label>
-                            <select id="home_district" class="form-control info-form-control select2" name="home_district">
+                            <select id="home_district" class="form-control info-form-control select2" name="home_district" style="width:100%">
                                 <option value="">Select an Option</option>
                                 @include('districts.district_options')
                             </select>
@@ -287,9 +294,11 @@
                     </div>    
                   <div class="text-center">                
                      <div class="col-xs-12">
-                            <br><br>
+                        <br><br>                        
+                        <button class="btn btn-lg btn-info next"><i class="glyphicon glyphicon-forward"></i> Next</button>
                         <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
                         <button class="btn btn-lg btn-danger" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                        <button class="btn btn-lg btn-info previous"><i class="glyphicon glyphicon-backward"></i> Previous</button>
                      </div>
                   </div>
                </form>
@@ -297,37 +306,49 @@
             <!--/tab-pane-->
 
             <div class="tab-pane" id="qualification_details">
-               <form class="form" action="##" method="post">
-                    <div class="form-group">
-                        <div class="col-xs-5">
-                            <label for="degree_id">
-                                <h4>Degree</h4>
-                            </label>
-                            <select id="degree_id" class="form-control info-form-control select2" name="degree_id">
-                                <option value="">Select an Option</option>
-                                @include('qualifications.qualification_options')
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-5">
-                            <label for="dop">
-                                <h4>Date of Passing</h4>
-                            </label>
-                            <input type="text" class="form-control date" name="dop" id="dop" placeholder="dd-mm-yyyy">                            
-                        </div>
-                    </div>   
-                    <div class="form-group">
-                        <div class="col-xs-2">
-                            <br><br>
-                            <img src="{{asset('images/details_open.png')}}">
-                        </div>
-                    </div>                    
+               <form class="form" action="##" method="">
+                    <div class="div_add_more_qualification">
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-5"><br/>
+                                    <label for="degree_id">
+                                        <h4>Degree</h4>
+                                    </label>
+                                    <select id="degree_id" class="form-control info-form-control select2" name="degree_id" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        @include('qualifications.qualification_options')
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label for="yop">
+                                        <h4>Year of Passing</h4>
+                                    </label>
+                                    <select id="yop" class="form-control info-form-control select2" name="yop" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        @for($i=Date('Y');$i>=1947;$i--)
+                                            <option value="{{$i}}">{{$i}}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                            </div>   
+                            <div class="form-group">
+                                <div class="col-xs-2">
+                                    <br><br>
+                                    <img src="{{asset('images/details_open.png')}}" class="img_add_more_qualification" id="add_more_qualification">
+                                </div>
+                            </div>
+                        </div>                          
+                        <hr/>                     
+                    </div>           
                     <div class="text-center">                
                         <div class="col-xs-12">
-                            <br><br>
+                            <br><br>                            
+                            <button class="btn btn-lg btn-info next"><i class="glyphicon glyphicon-forward"></i> Next</button>
                             <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
                             <button class="btn btn-lg btn-danger" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                            <button class="btn btn-lg btn-info previous"><i class="glyphicon glyphicon-backward"></i> Previous</button>
                         </div>
                     </div>
                </form>
@@ -335,78 +356,191 @@
          <!--/tab-pane-->
 
          <div class="tab-pane" id="posting_details">
-                <form class="form" action="##" method="post">
-                    <div class="form-group">
-                        <div class="col-xs-3">
-                            <label for="posting_from_date">
-                                <h4>From Date</h4>
-                            </label>
-                            <input type="text" class="form-control date" name="posting_from_date" id="posting_from_date" placeholder="dd-mm-yyyy">                            
-                        </div>
-                    </div>  
-                    <div class="form-group">
-                        <div class="col-xs-4">
-                            <label for="designation_id">
-                                <h4>Designation</h4>
-                            </label>
-                            <select id="designation_id" class="form-control info-form-control select2" name="designation_id">
-                                <option value="">Select an Option</option>
-                                @include('designations.designation_options')
-                            </select>
-                        </div>
+                <form class="form" action="##" method="">
+                    <div class="text-center">
+                        <h3 style="color:#d06666"><u>Present Posting Details</u></h3>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-xs-3">
+                                <label>
+                                    <h4>From Date</h4>
+                                </label>
+                                <input type="text" class="form-control date" placeholder="dd-mm-yyyy">                            
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="col-xs-3">
+                                <label>
+                                    <h4>Designation</h4>
+                                </label>
+                                <select class="form-control info-form-control designation_id select2" style="width:100%">
+                                    <option value="">Select an Option</option>
+                                    @include('designations.designation_options')
+                                </select>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="col-xs-3">
+                                <label>
+                                    <h4>Posting Mode</h4>
+                                </label>
+                                <select class="form-control info-form-control mode_id select2" style="width:100%">
+                                    <option value="">Select an Option</option>
+                                    @include('modes.mode_options')
+                                </select>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-xs-3">
+                                <br/>
+                                <label>
+                                    <h4>Court Complex</h4>
+                                </label>
+                                <select class="form-control info-form-control court_complex_id select2" style="width:100%">
+                                    <option value="">Select an Option</option>
+                                    @include('court_complexes.court_complex_options')
+                                </select>
+                            </div>
+                        </div>                     
+                        <div class="form-group">
+                            <div class="col-xs-3">
+                                <label>
+                                    <h4>Court</h4>
+                                </label>
+                                <select class="form-control info-form-control court_id select2" style="width:100%">
+                                    <option value="">Select an Option</option>
+                                    @include('courts.court_options')
+                                </select>
+                            </div>
+                        </div>  
+                        <div class="form-group">
+                            <div class="col-xs-3">
+                                <label>
+                                    <h4>Reporting Officer</h4>
+                                </label>
+                                <select class="form-control info-form-control reporting_officer_id select2" style="width:100%">
+                                    <option value="">Select an Option</option>
+                                    @include('judicial_officers.judicial_officer_options')
+                                </select>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="col-xs-3">
+                                <label>
+                                    <h4>Reviewing Officer</h4>
+                                </label>
+                                <select class="form-control info-form-control reviewing_officer_id select2" style="width:100%">
+                                    <option value="">Select an Option</option>
+                                    @include('judicial_officers.judicial_officer_options')
+                                </select>
+                            </div>
+                        </div> 
                     </div> 
-                    <div class="form-group">
-                        <div class="col-xs-3">
-                            <label for="mode_id">
-                                <h4>Posting Mode</h4>
-                            </label>
-                            <select id="mode_id" class="form-control info-form-control select2" name="mode_id">
-                                <option value="">Select an Option</option>
-                                @include('modes.mode_options')
-                            </select>
+
+                    <hr>
+
+                    <div class="text-center">
+                        <h3 style="color:#d06666"><u>Previous Posting Details</u></h3>
+                    </div>
+                    <div class="div_add_more_posting">
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label>
+                                        <h4>Posting Tenure</h4>
+                                    </label>
+                                    <input type="text" class="form-control posting_tenure" placeholder="dd-mm-yyyy TO dd-mm-yyyy">                            
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label>
+                                        <h4>Designation</h4>
+                                    </label>
+                                    <select class="form-control info-form-control designation_id select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        @include('designations.designation_options')
+                                    </select>
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label>
+                                        <h4>Posting Mode</h4>
+                                    </label>
+                                    <select class="form-control info-form-control mode_id select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        @include('modes.mode_options')
+                                    </select>
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <div class="col-xs-2">
+                                    <br><br>
+                                    <img src="{{asset('images/details_open.png')}}" class="img_add_more_posting" id="add_more_posting">
+                                </div>
+                            </div> 
                         </div>
-                    </div> 
-                    <div class="form-group">
-                        <div class="col-xs-3">
-                            <label for="court_complex_id">
-                                <h4>Court Complex</h4>
-                            </label>
-                            <select id="court_complex_id" class="form-control info-form-control select2" name="court_complex_id">
-                                <option value="">Select an Option</option>
-                                @include('court_complexes.court_complex_options')
-                            </select>
-                        </div>
-                    </div>                     
-                    <div class="form-group">
-                        <div class="col-xs-4">
-                            <label for="court_id">
-                                <h4>Court</h4>
-                            </label>
-                            <select id="court_id" class="form-control info-form-control select2" name="court_id">
-                                <option value="">Select an Option</option>
-                                @include('courts.court_options')
-                            </select>
-                        </div>
-                    </div>                     
-                    <div class="form-group">
-                        <div class="col-xs-3">
-                            <label for="to_date">
-                                <h4>To Date</h4>
-                            </label>
-                            <input type="text" class="form-control date" name="to_date" id="to_date" placeholder="dd-mm-yyyy">                            
-                        </div>
-                    </div>  
-                    <div class="form-group">
-                        <div class="col-xs-2">
-                            <br><br>
-                            <img src="{{asset('images/details_open.png')}}">
-                        </div>
-                    </div>   
-                     <div class="text-center">                                       
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <br/>
+                                    <label>
+                                        <h4>Court Complex</h4>
+                                    </label>
+                                    <select class="form-control info-form-control court_complex_id select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        @include('court_complexes.court_complex_options')
+                                    </select>
+                                </div>
+                            </div>                     
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label>
+                                        <h4>Court</h4>
+                                    </label>
+                                    <select class="form-control info-form-control court_id select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        @include('courts.court_options')
+                                    </select>
+                                </div>
+                            </div>  
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label>
+                                        <h4>Reporting Officer</h4>
+                                    </label>
+                                    <select class="form-control info-form-control reporting_officer_id select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        @include('judicial_officers.judicial_officer_options')
+                                    </select>
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label>
+                                        <h4>Reviewing Officer</h4>
+                                    </label>
+                                    <select class="form-control info-form-control reviewing_officer_id select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        @include('judicial_officers.judicial_officer_options')
+                                    </select>
+                                </div>
+                            </div> 
+                        </div> 
+                        <hr>
+                    </div>                   
+                    
+                    <div class="text-center">                                       
                          <div class="col-xs-12">
                              <br><br>
-                             <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                             <button class="btn btn-lg btn-danger" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                             <button class="btn btn-lg btn-info next"><i class="glyphicon glyphicon-forward"></i> Next</button>
+                            <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                            <button class="btn btn-lg btn-danger" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                            <button class="btn btn-lg btn-info previous"><i class="glyphicon glyphicon-backward"></i> Previous</button>
                          </div>
                      </div>
                 </form>
@@ -414,15 +548,16 @@
           <!--/tab-pane-->     
 
          <div class="tab-pane" id="upload_photo">
-                <form class="form" action="##" method="post">
+                <form class="form" action="##" method="">
                      <div class="text-center">  
                         <img src="{{asset('images/FacelessMan.png')}}" class="avatar img-circle img-thumbnail" alt="avatar" style="height:30%;width:20%">
                         <h6>Upload Photo...</h6>
                         <input type="file" class="text-center center-block file-upload">              
                          <div class="col-xs-12">
-                             <br><br>
-                             <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                             <button class="btn btn-lg btn-danger" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                            <br><br>                             
+                            <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                            <button class="btn btn-lg btn-danger" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                            <button class="btn btn-lg btn-info previous"><i class="glyphicon glyphicon-backward"></i> Previous</button>
                          </div>
                      </div>
                 </form>
@@ -440,7 +575,8 @@
 @section('end_scripts') @parent
 
 <script>
-   $(document).ready(function() {      
+   $(document).ready(function() {   
+       /* Display the selected image while uploading the file :: STARTS */   
         var readURL = function(input) {
             if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -457,6 +593,94 @@
         $(".file-upload").on('change', function(){
             readURL(this);
         });
+        /* Display the selected image while uploading the file :: ENDS */   
+
+        // Datepicker Initialization
+        $(".date").datepicker({
+            format: "dd-mm-yyyy",
+            weekStart: 1,
+            todayBtn: "linked",
+            clearBtn: true,
+            daysOfWeekHighlighted: "0,6",
+            autoclose: true,
+            todayHighlight: true,
+            toggleActive: false,
+            endDate: "today"
+        });
+
+        // Select2 initialization
+        $(".select2").select2();
+
+        //next button event
+        $('.next').click(function(){
+			$('.nav > .active').next('li').find('a').trigger('click');
+			$('html, body').animate({
+				scrollTop: $("#nav_tabs").offset().top
+			}, 1000)
+		});
+
+        //previous button event
+		$('.previous').click(function(){
+			$('.nav > .active').prev('li').find('a').trigger('click');
+			$('html, body').animate({
+				scrollTop: $("#nav_tabs").offset().top
+			}, 1000)
+		});	
+
+        // Prevent default form submit
+        $("form").submit(function(e){
+            return false;
+        });   
+
+
+        /*If multiple posting details added :: STARTS*/
+		$(document).on("click","#add_more_posting", function(){
+			$(".div_add_more_posting:first").clone().insertAfter(".div_add_more_posting:last");
+			$(".img_add_more_posting:last").attr({src:"images/details_close.png",
+                                                    class:"remove_posting", 
+                                                    alt:"remove_posting",
+                                                    id:""
+                                                });
+			$(".date").datepicker({
+				format: "dd-mm-yyyy",
+                weekStart: 1,
+                todayBtn: "linked",
+                clearBtn: true,
+                daysOfWeekHighlighted: "0,6",
+                autoclose: true,
+                todayHighlight: true,
+                toggleActive: false,
+                endDate: "today"
+			}); // Date picker re-initialization
+			
+		})
+	    /*If multiple posting details added :: ENDS*/    
+
+        /*If any posting details row needs to remove :: STARTS*/
+        $(document).on("click",".remove_posting", function(){
+			$(this).closest(".div_add_more_posting").remove();
+		}) 
+        /*If any posting details row needs to remove :: ENDS*/
+
+        /*If multiple posting details added :: STARTS*/
+		$(document).on("click","#add_more_qualification", function(){
+			$(".div_add_more_qualification:first").clone().insertAfter(".div_add_more_qualification:last");
+			$(".img_add_more_qualification:last").attr({src:"images/details_close.png",
+                                                    class:"remove_qualification", 
+                                                    alt:"remove_qualification",
+                                                    id:""
+                                                });
+			
+		})
+	    /*If multiple posting details added :: ENDS*/    
+
+        /*If any posting details row needs to remove :: STARTS*/
+        $(document).on("click",".remove_qualification", function(){
+			$(this).closest(".div_add_more_qualification").remove();
+		}) 
+        /*If any posting details row needs to remove :: ENDS*/
+        
+
    });
 </script>
 

@@ -21,6 +21,9 @@
 <!-- Select-2 -->
 <script src="{{asset('js/select2.min.js')}}"></script>
 
+<!-- Daterange Picker -->
+<script src="{{asset('js/daterangepicker.min.js')}}"></script>
+
 <!-- Editor -->
 <script src="{{asset('js/bootstrap3-wysihtml5.all.min.js')}}"></script>
 
