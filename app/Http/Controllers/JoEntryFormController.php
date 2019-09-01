@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\JudicialOfficer;
+use App\State;
+use App\CourtComplex;
 use Auth;
 
 class JoEntryFormController extends Controller
@@ -42,5 +44,23 @@ class JoEntryFormController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function fetch_district(Request $request){
+        $state = $request->input('state');
+        $districts = State::with('districts')
+                            ->where('states.id',$state)
+                            ->get();
+
+        return response()->json($districts);
+    }
+
+    public function fetch_court(Request $request){
+        $court_complex_id = $request->input('court_complex');
+        $courts = CourtComplex::with('courts')
+                                ->where('court_complexes.id',$court_complex_id)
+                                ->get();
+
+        return response()->json($courts);
     }
 }
