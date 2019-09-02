@@ -43,7 +43,7 @@
                   <div class="form-group required">
                      <div class="col-xs-6">
                         <label for="guardian_name" class="control-label">
-                           Guardian's name
+                           Guardian's Name
                         </label>
                         <input type="text" class="form-control" name="guardian_name" id="guardian_name" placeholder="Judicial Officer Guardian Name">
                      </div>
@@ -310,10 +310,10 @@
                         <div class="row">
                             <div class="form-group required">
                                 <div class="col-xs-5"><br/>
-                                    <label for="degree_id" class="control-label">
+                                    <label class="control-label">
                                          Degree 
                                     </label>
-                                    <select id="degree_id" class="form-control info-form-control select2" name="degree_id" style="width:100%">
+                                    <select class="form-control info-form-control select2 degree_id" style="width:100%">
                                         <option value="">Select an Option</option>
                                         <?php echo $__env->make('qualifications.qualification_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
@@ -321,10 +321,10 @@
                             </div>
                             <div class="form-group required">
                                 <div class="col-xs-3">
-                                    <label for="yop" class="control-label">
+                                    <label class="control-label">
                                          Year of Passing 
                                     </label>
-                                    <select id="yop" class="form-control info-form-control select2" name="yop" style="width:100%">
+                                    <select class="form-control info-form-control select2 yop" style="width:100%">
                                         <option value="">Select an Option</option>
                                         <?php for($i=Date('Y');$i>=1947;$i--): ?>
                                             <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
@@ -458,7 +458,7 @@
                                     <label class="control-label">
                                          Designation 
                                     </label>
-                                    <select class="form-control info-form-control designation_id select2" style="width:100%">
+                                    <select class="form-control info-form-control posting_select2 designation_id select2" style="width:100%">
                                         <option value="">Select an Option</option>
                                         <?php echo $__env->make('designations.designation_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
@@ -469,7 +469,7 @@
                                     <label class="control-label">
                                          Posting Mode 
                                     </label>
-                                    <select class="form-control info-form-control mode_id select2" style="width:100%">
+                                    <select class="form-control info-form-control posting_select2 mode_id select2" style="width:100%">
                                         <option value="">Select an Option</option>
                                         <?php echo $__env->make('modes.mode_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
@@ -489,7 +489,7 @@
                                     <label class="control-label">
                                          Court Complex 
                                     </label>
-                                    <select class="form-control info-form-control court_complex_id select2" style="width:100%">
+                                    <select class="form-control info-form-control posting_select2 court_complex_id select2" style="width:100%">
                                         <option value="">Select an Option</option>
                                         <?php echo $__env->make('court_complexes.court_complex_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
@@ -500,29 +500,29 @@
                                     <label>
                                          Court 
                                     </label>
-                                    <select class="form-control info-form-control court_id select2" style="width:100%">
+                                    <select class="form-control info-form-control posting_select2 court_id select2" style="width:100%">
                                         <option value="">Select an Option</option>
                                         <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
                                 </div>
                             </div>  
-                            <div class="form-group required">
+                            <div class="form-group">
                                 <div class="col-xs-3">
-                                    <label class="control-label">
+                                    <label>
                                          Reporting Officer 
                                     </label>
-                                    <select class="form-control info-form-control reporting_officer_id select2" style="width:100%">
+                                    <select class="form-control info-form-control posting_select2 reporting_officer_id select2" style="width:100%">
                                         <option value="">Select an Option</option>
                                         <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
                                 </div>
                             </div> 
-                            <div class="form-group required">
+                            <div class="form-group">
                                 <div class="col-xs-3">
-                                    <label class="control-label">
+                                    <label>
                                          Reviewing Officer 
                                     </label>
-                                    <select class="form-control info-form-control reviewing_officer_id select2" style="width:100%">
+                                    <select class="form-control info-form-control posting_select2 reviewing_officer_id select2" style="width:100%">
                                         <option value="">Select an Option</option>
                                         <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
@@ -537,7 +537,7 @@
                              <br><br>
                              <button class="btn btn-lg btn-info next"><i class="glyphicon glyphicon-forward"></i> Next</button>
                             <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                            <button class="btn btn-lg btn-danger" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                            <button  id="reset" class="btn btn-lg btn-danger" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
                             <button class="btn btn-lg btn-info previous"><i class="glyphicon glyphicon-backward"></i> Previous</button>
                          </div>
                      </div>
@@ -585,7 +585,9 @@
 
 <script>
    $(document).ready(function() {   
+        
        /* Display the selected image while uploading the file :: STARTS */   
+     
         var readURL = function(input) {
             if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -602,8 +604,9 @@
         $(".file-upload").on('change', function(){
             readURL(this);
         });
-        /* Display the selected image while uploading the file :: ENDS */   
+        /* Display the selected image while uploading the file :: ENDS */  
 
+        
         // Datepicker Initialization
         $(".date").datepicker({
             format: "dd-mm-yyyy",
@@ -619,6 +622,7 @@
 
         // Select2 initialization
         $(".select2").select2();
+        var clone_element = $(".div_add_more_posting").clone();
 
         //next button event
         $('.next').click(function(){
@@ -641,26 +645,40 @@
             return false;
         });   
 
-
+        
         /*If multiple posting details added :: STARTS*/
 		$(document).on("click","#add_more_posting", function(){
-			$(".div_add_more_posting:first").clone().insertAfter(".div_add_more_posting:last");
-			$(".img_add_more_posting:last").attr({src:"images/details_close.png",
-                                                    class:"remove_posting", 
-                                                    alt:"remove_posting",
-                                                    id:""
-                                                });
-			$(".date").datepicker({
-				format: "dd-mm-yyyy",
-                weekStart: 1,
-                todayBtn: "linked",
-                clearBtn: true,
-                daysOfWeekHighlighted: "0,6",
-                autoclose: true,
-                todayHighlight: true,
-                toggleActive: false,
-                endDate: "today"
-			}); // Date picker re-initialization
+            // var posting_tenure = $(".div_add_more_posting:last").find(".posting_tenure").val();
+            // var designation_id = $(".div_add_more_posting:last").find(".designation_id").val();
+            // var mode_id = $(".div_add_more_posting:last").find(".mode_id").val();
+            // var court_complex_id = $(".div_add_more_posting:last").find(".court_complex_id").val();
+
+            //if(posting_tenure!="" && designation_id!="" && mode_id!="" && court_complex_id!=""){
+                // cloned row           
+                //$(".posting_select2").select2("destroy");
+
+                var clone_element2 = clone_element;//.clone();//.removeClass("div_add_more_posting");
+
+                // adding the cloned row at the right position
+                clone_element2.insertAfter(".div_add_more_posting:last");
+                var i=0;
+                
+                $(".posting_select2").select2();
+                
+                $(".img_add_more_posting:last").attr({src:"images/details_close.png",
+                                                        class:"remove_posting", 
+                                                        alt:"remove_posting",
+                                                        id:""
+                                                    });
+               // $(".div_add_more_posting:last").find(".posting_tenure").val('');
+
+                // enabling select2 for the newly created row
+                //$(".select2").select2();
+            // }
+            // else{
+            //     swal("Invalid Entry","Entry all mandatory fields before adding a new posting details","error");
+            //     return false;
+            // }
 			
 		})
 	    /*If multiple posting details added :: ENDS*/    
@@ -673,12 +691,36 @@
 
         /*If multiple posting details added :: STARTS*/
 		$(document).on("click","#add_more_qualification", function(){
-			$(".div_add_more_qualification:first").clone().insertAfter(".div_add_more_qualification:last");
-			$(".img_add_more_qualification:last").attr({src:"images/details_close.png",
-                                                    class:"remove_qualification", 
-                                                    alt:"remove_qualification",
-                                                    id:""
-                                                });
+            var degree = $(".div_add_more_qualification:last").find(".degree_id").val();
+            var passing_year = $(".div_add_more_qualification:last").find(".yop").val();
+            
+            if(degree!="" && passing_year!=""){
+                // destroying the parent row's select2 function before cloning
+                $(".div_add_more_qualification:last").find(".degree_id").select2("destroy");
+                $(".div_add_more_qualification:last").find(".yop").select2("destroy");
+
+                // cloned row
+                var clone_element = $(".div_add_more_qualification:first").clone();
+
+                // reinitializing select2 for the parent cloned row
+                $(".div_add_more_qualification:last").find(".degree_id").select2();
+                $(".div_add_more_qualification:last").find(".yop").select2();
+                
+                // adding the cloned row at the right position
+                clone_element.insertAfter(".div_add_more_qualification:last");
+                $(".img_add_more_qualification:last").attr({src:"images/details_close.png",
+                                                        class:"remove_qualification", 
+                                                        alt:"remove_qualification",
+                                                        id:""
+                                                    });
+
+                // enabling select2 for the newly created row
+                $(".select2").select2();
+            }
+            else{
+                swal("Invalid Entry","Entry both the fields before adding a new degree","error");
+                return false;
+            }
 			
 		})
 	    /*If multiple posting details added :: ENDS*/    
@@ -757,6 +799,11 @@
         });
         /*Current Address is Same As Permanenet Address :: ENDS*/
         
+   });
+
+   $("#reset").click(function(e){
+        e.preventDefault();
+        $(".posting_select2").select2();
    });
 </script>
 
