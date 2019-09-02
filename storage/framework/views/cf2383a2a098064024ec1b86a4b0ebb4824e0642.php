@@ -21,6 +21,9 @@
 <!-- Select-2 -->
 <script src="<?php echo e(asset('js/select2.min.js')); ?>"></script>
 
+<!-- Daterange Picker -->
+<script src="<?php echo e(asset('js/daterangepicker.min.js')); ?>"></script>
+
 <!-- Editor -->
 <script src="<?php echo e(asset('js/bootstrap3-wysihtml5.all.min.js')); ?>"></script>
 
