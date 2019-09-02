@@ -1,12 +1,38 @@
-<?php $__env->startSection('title', 'Login'); ?>
+<!DOCTYPE html>
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 
-<?php $__env->startSection('page_heading'); ?>
-	Login Page
-<?php $__env->stopSection(); ?>
+<head>
+<link rel="icon" href="<?php echo e(asset('images/favicon.ico')); ?>">
+<!-- Bootstrap core CSS -->
+<link href="<?php echo e(asset('css/bootstrap.min.css')); ?>" rel="stylesheet">
+<!--  our CSS -->
+<link href="<?php echo e(asset('css/style.css')); ?>" rel="stylesheet">
+<link href="<?php echo e(asset('css/bootstrap-submenu.min.css')); ?>" rel="stylesheet">
+<link href="<?php echo e(asset('css/font-awesome.min.css')); ?>" rel="stylesheet">
 
-<?php $__env->startSection('center_main_content'); ?>
+<link href="<?php echo e(asset('css/datatable/dataTables.bootstrap.min.css')); ?>" rel="stylesheet">
 
-<div class="panel panel-default">
+<link href="<?php echo e(asset('css/fileinput/fileinput.min.css')); ?>" rel="stylesheet">
+
+<!-- Select-2 -->
+<link rel="stylesheet" href="<?php echo e(asset('css/select2.min.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/bootstrap-datepicker.css')); ?>">  
+
+<!-- Editor -->
+<link rel="stylesheet" href="<?php echo e(asset('css/bootstrap3-wysihtml5.min.css')); ?>">
+
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="Welcome to the Judicial Officers Portal of Calcutta High Court. NIC-WBSC and Calcutta High Court's Software development unit have developed this web portal.">
+<meta name="author" content="Sankalpa Roy(NIC-WBSC), Anabil Bhattacharya (Software Developer, CHC), Rupsa Bose (Software Developer, CHC), Arpan Kr. Roy (Software Developer, CHC)">
+
+
+
+</head>
+<div class="panel panel-default col-sm-offset-3 col-sm-5">
     <div class="panel-heading">Login</div>
     <div class="panel-body">
         <form class="form-horizontal" role="form" method="POST" action="<?php echo e(url('/login')); ?>" autocomplete="off">
@@ -17,7 +43,7 @@
                     <label for="email" class="col-sm-offset-1 col-sm-4 control-label">Username <span class="text-muted">or</span> E-Mail Address</label>
 
                     <div class="col-sm-6">
-                    <!-- <input id="email" type="email" class="form-control" name="email" value="<?php echo e(old('email')); ?>"> -->
+                   
                         <input id="email"  type="email" class="form-control" name="email" value="<?php echo e(old('email')); ?>">
 
                         <?php if($errors->has('email')): ?>
@@ -48,25 +74,23 @@
                             <label>
                                 <input type="checkbox" name="remember"> Remember Me
                             </label>
+                            <a class="btn btn-link" href="<?php echo e(url('/password/reset')); ?>">Forgot Your Password?</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <div class="col-md-6 col-md-offset-4">
+                    <div class="col-sm-offset-4 col-sm-2 ">
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-btn fa-sign-in"></i> Login
                         </button>
-
-                        <a class="btn btn-link" href="<?php echo e(url('/password/reset')); ?>">Forgot Your Password?</a>
-                    </div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
-<?php $__env->stopSection(); ?>
+</div>
 
-<?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
 
 
 <?php $__env->startSection('main_container'); ?>
@@ -77,5 +101,4 @@
 
 <?php $__env->startSection('body_attributes'); ?>
 	class=""
-<?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/auth/login.blade.php ENDPATH**/ ?>
+<?php $__env->stopSection(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/auth/login.blade.php ENDPATH**/ ?>

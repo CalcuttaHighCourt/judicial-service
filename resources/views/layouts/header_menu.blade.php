@@ -67,7 +67,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="judicial_officer">
+                        <a class="nav-link" href="jo_entry_form">
                             <span data-feather="file"></span>
                             <i class="fa fa-star" aria-hidden="true"></i>
                             Judicial Officer
