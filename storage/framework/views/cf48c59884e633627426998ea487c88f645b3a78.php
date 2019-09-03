@@ -1,11 +1,8 @@
-{{--
-<!-- views/Districts/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'Districts')
-@section('page_heading') Districts @endsection
-@section('center_main_content')
-<!-- Bootstrap Boilerplate... -->
+ <?php $__env->startSection('title', 'Castes'); ?>
+<?php $__env->startSection('page_heading'); ?> Castes <?php $__env->stopSection(); ?>
+<?php $__env->startSection('center_main_content'); ?>
 <div class="col-sm-12">
+    <!-- Bootstrap Boilerplate... -->
     <div id="info-panel" class="panel panel-default">
         <!-- IIIIIIIIIII -->
         <div id="info-panel-heading" class="panel-heading">ADD NEW</div>
@@ -14,27 +11,20 @@
 
             <!-- New Task Form -->
             <form id="info-form" class="form-horizontal" role="form" method="POST"
-                action="{{ url('/admin/District') }}">
-                {{ csrf_field() }}
-                <input type="hidden" id="district-id">
-                <div id="District_name-group" class="form-group row our-form-group">
-                    <label for="District_name" class="col-md-4 control-label">District</label>
+                action="<?php echo e(url('/admin/Cast            e')); ?>">
+                {            { csrf_field() }}
+                <input type="hidden" id="caste_id">
+                <div id="caste-group" class="form-group our-form-group">
+                    <!-- IIIIIIIIIII -->
+                    <label for="caste_name" class="col-md-4 control-label">Category</label>
+
                     <div class="col-md-6">
-                        <input id="District_name" type="text"
-                            class="form-control info-form-control" name="District_name"> <span
-                            id="District_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-                            <strong id="District_name-strong" class="our-error-message-strong"></strong>
+                        <input id="caste_name" type="text"
+                            class="form-control info-form-control" name="caste_name"> <span
+                            id="caste_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+                            <strong id="caste_name-strong" class="our-error-message-strong"></strong>
                             <!-- IIIIIIIIIII -->
                         </span>
-                    </div>
-                </div>
-
-                <div id="State_name-group" class="form-group row our-form-group">
-                    <label for="State_name" class="col-md-4 control-label">State</label>
-                    <div class="col-md-6">
-                        <select id="state" class="form-control info-form-control"
-                                name="state"> @include('states.state_options')
-                        </select>
                     </div>
                 </div>
 
@@ -43,7 +33,7 @@
                     <div class="col-md-6 col-md-offset-4">
                         <button id="add-button" type="submit"
                                 class="btn btn-primary add-button info-form-button">
-                            <i class="fa fa-btn fa-plus-circle"></i> Add District
+                            <i class="fa fa-btn fa-plus-circle"></i> Add New Caste
                         </button>
                         <button id="save-button" type="submit"
                                 class="btn btn-warning save-button info-form-button">
@@ -59,7 +49,7 @@
                         </button>
                     </div>
                 </div>
-                {{--@foreach($errors->all() as $error) {{$error}}@endforeach--}}
+                
                 <div id="message-div" class="form-group">
                     <div class="col-md-6 col-md-offset-4">
                         <div id="message-success-div"
@@ -89,7 +79,7 @@
 
     <div id="datatable-panel" class="panel panel-default">
         <div id="datatable-panel-heading" class="panel-heading clearfix">
-            <div class="panel-title pull-left">District Master</div>
+            <div class="panel-title pull-left">Caste Master</div>
             <div class="pull-right">
                 <button id="add-new-button" type="submit" class="btn btn-primary add-new-button">
                     <i class="fa fa-plus-circle"></i> Add New
@@ -105,8 +95,7 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>District Name</th>
-                            <th>State Name</th>
+                            <th>Caste Name</th>
                             <th>Action</th>
                             <th></th>
                             <th></th>
@@ -118,8 +107,7 @@
                     <tfoot>
                         <tr>
                             <th></th>
-                            <th>District Name</th>
-                            <th>State Name</th>
+                            <th>Caste Name</th>
                             <th>Action</th>
                             <th></th>
                             <th></th>
@@ -133,31 +121,27 @@
 </div>
 <div id="test-div"></div>
 
-@endsection @include('layouts.1_column_content')
+<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
-@section('main_container') @yield('1_column_content') @endsection
+<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
 
-@section('meta')
-@parent
-<meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
+<?php $__env->startSection('meta'); ?>
+##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
+<meta name="_token" content="<?php echo csrf_token(); ?>" />
+<?php $__env->stopSection(); ?>
 
-@section('end_scripts') @parent
+<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
 
 <script type="text/javascript">
     var table = "";
     $(function () {
-
-        $(".select2").select2(); // select2 initialization
-
-
         table = $('#datatable-table').DataTable({
             "processing": true,
             "serverSide": true,
             "ajax": {
-                url: "{{url('District')}}-Datatable-Server-Side",
-                dataSrc: "districts"
+                url: "<?php echo e(url('Caste')); ?>-Datatable-Server-Side",
+                dataSrc: "castes"
             },
 
             "columnDefs":
@@ -194,10 +178,7 @@
                             "orderable": false,
                         },
                         {
-                            "data": "district_name",
-                        },
-                        {
-                            "data": "state_name",
+                            "data": "caste_name",
                         },
                         {
                             "data": null
@@ -276,25 +257,22 @@
     $(function () {
         reset_info(false);
         scrollToElement($('#datatable-panel'));
+        //$('#datatable-panel').scrollIntoView();
     });
-
     $(function () {
         $("[data-hide]").on("click", function () {
             $(this).closest("." + $(this).attr("data-hide")).hide();
         });
     });
-
     function reset_info(reset_form_forced) {
         clear_form(reset_form_forced);
         show_button("add");
         $("#info-panel-heading").html("ADD NEW");
     }
-
     function view_data(data) {
         clear_form(true);
         populate_form(data);
     }
-
     function clear_form(reset_form_forced) {
         info_panel_heading_clear();
         make_form_readonly(false);
@@ -305,11 +283,9 @@
         info_buttons_hide();
         messages_hide();
     }
-
     function info_panel_heading_clear() {
         $("#info-panel-heading").html("");
     }
-
     function make_form_readonly(make_readonly) {
         if (make_readonly) {
             $('#info-form input').attr('readonly', 'readonly');
@@ -334,8 +310,8 @@
         $(".info-form-button").hide();
         $(".info-form-button").attr("disabled", "disabled");
         $(".info-form-button").removeClass("active");
-        //$(".info-form-button").addClass("disabled");
     }
+
     function messages_hide() {
         $(".success-error-message").hide();
         $("#message-div").hide();
@@ -351,14 +327,11 @@
         $("#" + field + "-group").addClass("has-error");
     }
     function populate_form(data) {
-        $("#info-panel-heading").html("Displaying record of District: <strong>" + data.type + "</strong>");
+        $("#info-panel-heading").html("Displaying record of Caste: <strong>" + data.caste_name + "</strong>");
 
-        $("#district-id").val(data.id);
+        $("#caste_id").val(data.id);
 
-        $("#District_name").val(data.district_name);
-        $("#state").val(data.state_id);
-        //alert(data.state_id+"|"+data.state_name);
-        //$('#state').select2('data', {id: data.state_id, text: data.state_name});
+        $("#caste_name").val(data.caste_name);
     }
     function show_button(type) {
         $("#" + type + "-button").show();
@@ -386,8 +359,7 @@
     });
     function send_ajax_and_set_errors_exceptions_success(type) {
         var formData = {
-            district_name: $('#District_name').val(),
-            state_id: $("#state").val()
+            caste_name: $('#caste_name').val(),
         };
         ajax_url = "";
         operation = "";
@@ -396,30 +368,20 @@
         if (type == "add") {
             //request_type="POST";
             formData["_method"] = "POST";
-            ajax_url = "{{ action('DistrictController@store') }}";
-
-
-
-            formData["file_prefix"] = $("#file_prefix").val();
-
+            ajax_url = "<?php echo e(action('CasteController@store')); ?>";
             operation = "add";
             operated = "added";
         } else if (type == "save") {
             //request_type="PUT";
             formData["_method"] = "PUT";
-
-            ajax_url = "{{ action('DistrictController@update','') }}" + "/" + $("#district-id").val();
-            formData["id"] = $("#district-id").val();
-
+            formData["id"] = $("#caste_id").val();
+            ajax_url = "<?php echo e(action('CasteController@update','')); ?>" + "/" + $("#caste_id").val();
             operation = "update";
             operated = "updated";
         } else if (type == "delete-confirm") {
-            //request_type="DELETE";
             formData["_method"] = "DELETE";
-
-            ajax_url = "{{ action('DistrictController@destroy','') }}" + "/" + $("#district-id").val();
-            formData["id"] = $("#district-id").val();
-
+            formData["id"] = $("#caste_id").val();
+            ajax_url = "<?php echo e(action('CasteController@destroy','')); ?>" + "/" + $("#caste_id").val();
             operation = "delete";
             operated = "deleted";
         }
@@ -431,45 +393,37 @@
             success: function (data, textStatus, jqXHR) {
                 reset_info(true);
                 msg = "<strong>SUCCESS: </strong>";
-                if (!(data.district === null) && data.district.hasOwnProperty('district_name')) {
-                    //add and updattypeeDelete=> !(data.District===null)
-                    msg += "District: <strong>" + data.district.district_name + "</strong> successfully " + operated + ".";
+                if (!(data.caste === null) && data.caste.hasOwnProperty('caste_name')) {
+
+                    msg += "Caste: <strong>" + data.caste.caste_name + "</strong> successfully " + operated + ".";
                 } else {
                     //delete case
-                    if (!(data.district === null) && data.district >= 1) {
-                        msg += "District: <strong>" + formData.district_name + "</strong> successfully " + operated + ".";
+                    if (!(data.caste === null) && data.caste >= 1) {
+                        msg += "Caste: <strong>" + formData.posting_caste + "</strong> successfully " + operated + ".";
                     } else {
-                        msg += "District already " + operated + "!";
+                        msg += "Caste already " + operated + "!";
                     }
                 }
                 show_message_div("success", msg);
                 table.ajax.reload();
-
-                update_notices_menu_section();
-
-                //setTimeout(function(){ scrollToElement($('#datatable-panel')); }, 200);
                 scrollToElement($('#message-div'));
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                //alert(JSON.stringify(jqXHR)+" : " + textStatus+" : "+errorThrown);
-                //alert(jqXHR.status);
+
                 errors_reset();
                 messages_hide();
                 msg = "<strong>Failed to " + operation + " data.</strong><br/>";
                 if (jqXHR.status != 422 && jqXHR.status != 400) {
                     msg += "<strong>" + jqXHR.status + ": " + errorThrown + "</strong>";
-                    //show_message_div("error",msg);
-                } 
-                else {
+                } else {
                     if (jqXHR.responseJSON.hasOwnProperty('exception')) {
                         msg += "Exception: <strong>" + jqXHR.responseJSON.exception_message + "</strong>";
-                        //show_message_div("error",msg);
                     } else {
                         msg += "Error(s):<strong><ul>";
                         $.each(jqXHR.responseJSON.errors, function (key, value) {
                             msg += "<li>" + value + "</li>";
                             show_error(key, value);
-                            //return (this != "four"); // will stop running to skip "five"
+
                         });
                         msg += "</ul></strong>";
 
@@ -480,16 +434,9 @@
             }
         });
     }
-    function update_notices_menu_section() {
-        $.ajax({
-            type: "GET",
-            url: "{{ url('/district-Menu') }}",
-            success: function (data, textStatus, jqXHR) {
-                $("#notifications-menu-dropdown").html(data);
-            }
-        });
-    }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('body_attributes') @parent class="" @endsection
+<?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/castes/index.blade.php ENDPATH**/ ?>

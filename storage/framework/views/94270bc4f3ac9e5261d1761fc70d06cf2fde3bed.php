@@ -1,9 +1,6 @@
-{{--
-<!-- views/Districts/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'Districts')
-@section('page_heading') Districts @endsection
-@section('center_main_content')
+ <?php $__env->startSection('title', 'Districts'); ?>
+<?php $__env->startSection('page_heading'); ?> Districts <?php $__env->stopSection(); ?>
+<?php $__env->startSection('center_main_content'); ?>
 <!-- Bootstrap Boilerplate... -->
 <div class="col-sm-12">
     <div id="info-panel" class="panel panel-default">
@@ -14,8 +11,9 @@
 
             <!-- New Task Form -->
             <form id="info-form" class="form-horizontal" role="form" method="POST"
-                action="{{ url('/admin/District') }}">
-                {{ csrf_field() }}
+                action="<?php echo e(url('/admin/District')); ?>">
+                <?php echo e(csrf_field()); ?>
+
                 <input type="hidden" id="district-id">
                 <div id="District_name-group" class="form-group row our-form-group">
                     <label for="District_name" class="col-md-4 control-label">District</label>
@@ -33,7 +31,7 @@
                     <label for="State_name" class="col-md-4 control-label">State</label>
                     <div class="col-md-6">
                         <select id="state" class="form-control info-form-control"
-                                name="state"> @include('states.state_options')
+                                name="state"> <?php echo $__env->make('states.state_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         </select>
                     </div>
                 </div>
@@ -59,7 +57,7 @@
                         </button>
                     </div>
                 </div>
-                {{--@foreach($errors->all() as $error) {{$error}}@endforeach--}}
+                
                 <div id="message-div" class="form-group">
                     <div class="col-md-6 col-md-offset-4">
                         <div id="message-success-div"
@@ -133,17 +131,17 @@
 </div>
 <div id="test-div"></div>
 
-@endsection @include('layouts.1_column_content')
+<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
-@section('main_container') @yield('1_column_content') @endsection
+<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
 
-@section('meta')
-@parent
-<meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
+<?php $__env->startSection('meta'); ?>
+##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
+<meta name="_token" content="<?php echo csrf_token(); ?>" />
+<?php $__env->stopSection(); ?>
 
-@section('end_scripts') @parent
+<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
 
 <script type="text/javascript">
     var table = "";
@@ -156,7 +154,7 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                url: "{{url('District')}}-Datatable-Server-Side",
+                url: "<?php echo e(url('District')); ?>-Datatable-Server-Side",
                 dataSrc: "districts"
             },
 
@@ -396,7 +394,7 @@
         if (type == "add") {
             //request_type="POST";
             formData["_method"] = "POST";
-            ajax_url = "{{ action('DistrictController@store') }}";
+            ajax_url = "<?php echo e(action('DistrictController@store')); ?>";
 
 
 
@@ -408,7 +406,7 @@
             //request_type="PUT";
             formData["_method"] = "PUT";
 
-            ajax_url = "{{ action('DistrictController@update','') }}" + "/" + $("#district-id").val();
+            ajax_url = "<?php echo e(action('DistrictController@update','')); ?>" + "/" + $("#district-id").val();
             formData["id"] = $("#district-id").val();
 
             operation = "update";
@@ -417,7 +415,7 @@
             //request_type="DELETE";
             formData["_method"] = "DELETE";
 
-            ajax_url = "{{ action('DistrictController@destroy','') }}" + "/" + $("#district-id").val();
+            ajax_url = "<?php echo e(action('DistrictController@destroy','')); ?>" + "/" + $("#district-id").val();
             formData["id"] = $("#district-id").val();
 
             operation = "delete";
@@ -483,13 +481,15 @@
     function update_notices_menu_section() {
         $.ajax({
             type: "GET",
-            url: "{{ url('/district-Menu') }}",
+            url: "<?php echo e(url('/district-Menu')); ?>",
             success: function (data, textStatus, jqXHR) {
                 $("#notifications-menu-dropdown").html(data);
             }
         });
     }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('body_attributes') @parent class="" @endsection
+<?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/districts/index.blade.php ENDPATH**/ ?>

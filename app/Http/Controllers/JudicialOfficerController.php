@@ -68,7 +68,7 @@ class JudicialOfficerController extends Controller
             $filtered = JudicialOfficer::where('judicial_officers.officer_name', 'ilike', '%' . $search . '%')
                                         ->join('districts','districts.id','=','judicial_officers.home_district_id')
                                         ->join('states','states.id','=','judicial_officers.home_state_id')
-                                        ->join('castes','castes.id','=','judicial_officers.caste_id')
+                                        ->join('castes','castes.id','=','judicial_officers.category_id')
                                         ->join('religions','religions.id','=','judicial_officers.religion_id')
                                         ->join('recruitment_batches','recruitment_batches.id','=','judicial_officers.recruitment_batch_id')
                                         ->select('judicial_officers.*','districts.district_name','states.state_name','castes.caste_name','religions.religion_name','recruitment_batches.recruitment_batch_desc');
@@ -334,7 +334,7 @@ class JudicialOfficerController extends Controller
             $judicial_officer->hometown = $request->hometown;
             $judicial_officer->home_district_id = $request->home_district_id;
             $judicial_officer->home_state_id = $request->home_state_id;
-            $judicial_officer->caste_id = $request->caste_id;
+            $judicial_officer->category_id = $request->category_id;
             $judicial_officer->religion_id = $request->religion_id;
             $judicial_officer->recruitment_batch_id = $request->recruitment_batch_id;
             $judicial_officer->aadhaar_no  = $request->aadhaar_no;

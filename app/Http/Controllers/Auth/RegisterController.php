@@ -73,12 +73,12 @@ class RegisterController extends Controller
 
         if(!empty($data['court']))
         {
-            $data['jo'] ="";
+            $data['jo'] =null;
         }
 
         if(!empty($data['jo']))
         {
-           $data['court'] ="";
+           $data['court'] =null;
         }
 
         //dd($data['user_id']) ;exit;

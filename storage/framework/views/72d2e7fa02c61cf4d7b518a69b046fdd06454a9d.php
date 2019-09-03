@@ -180,11 +180,14 @@
         if( user_type == "Court")
         {            
             $("#court-div").show();
-        }            
+        }
+
         else if( user_type == "Judicial Officer")
         {            
             $("#jo-div").show();
-        }   
+        }
+        
+          
 
     });
 

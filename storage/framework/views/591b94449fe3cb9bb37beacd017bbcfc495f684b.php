@@ -1,130 +1,133 @@
  <?php $__env->startSection('title', 'Courts'); ?>
 <?php $__env->startSection('page_heading'); ?> Courts <?php $__env->stopSection(); ?>
 <?php $__env->startSection('center_main_content'); ?>
-<!-- Bootstrap Boilerplate... -->
-<div id="info-panel" class="panel panel-default">
-    <!-- IIIIIIIIIII -->
-    <div id="info-panel-heading" class="panel-heading">ADD NEW</div>
-    <!-- IIIIIIIIIII -->
-    <div class="panel-body">
+<div class="col-sm-12">
 
-        <!-- New Task Form -->
-        <form id="info-form" class="form-horizontal" role="form" method="POST"
-              action="<?php echo e(url('/admin/Court')); ?>">
-            <?php echo e(csrf_field()); ?>
+    <!-- Bootstrap Boilerplate... -->
+    <div id="info-panel" class="panel panel-default">
+        <!-- IIIIIIIIIII -->
+        <div id="info-panel-heading" class="panel-heading">ADD NEW</div>
+        <!-- IIIIIIIIIII -->
+        <div class="panel-body">
 
-            <input type="hidden" id="court-id">
-            <div id="Court_name-group" class="form-group row our-form-group">
-                <label for="court_name" class="col-md-4 control-label">Court</label>
-                <div class="col-md-6">
-                    <input id="court_name" type="text"
-                           class="form-control info-form-control" name="court_name"> <span
-                           id="court_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-                        <strong id="court_name-strong" class="our-error-message-strong"></strong>
-                        <!-- IIIIIIIIIII -->
-                    </span>
+            <!-- New Task Form -->
+            <form id="info-form" class="form-horizontal" role="form" method="POST"
+                action="<?php echo e(url('/admin/Court')); ?>">
+                <?php echo e(csrf_field()); ?>
+
+                <input type="hidden" id="court-id">
+                <div id="Court_name-group" class="form-group row our-form-group">
+                    <label for="court_name" class="col-md-4 control-label">Court</label>
+                    <div class="col-md-6">
+                        <input id="court_name" type="text"
+                            class="form-control info-form-control" name="court_name"> <span
+                            id="court_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+                            <strong id="court_name-strong" class="our-error-message-strong"></strong>
+                            <!-- IIIIIIIIIII -->
+                        </span>
+                    </div>
                 </div>
-            </div>
 
-            <div id="State_name-group" class="form-group row our-form-group">
-                <label for="court_complex_name" class="col-md-4 control-label">Court Complex</label>
-                <div class="col-md-6">
-                    <select id="court_complex" class="form-control info-form-control"
-                            name="court_complex"> <?php echo $__env->make('court_complexes.court_complex_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                    </select>
+                <div id="State_name-group" class="form-group row our-form-group">
+                    <label for="court_complex_name" class="col-md-4 control-label">Court Complex</label>
+                    <div class="col-md-6">
+                        <select id="court_complex" class="form-control info-form-control"
+                                name="court_complex"> <?php echo $__env->make('court_complexes.court_complex_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                        </select>
+                    </div>
                 </div>
-            </div>
 
 
-            <div id="info-panel-buttons" class="form-group hide">
-                <div class="col-md-6 col-md-offset-4">
-                    <button id="add-button" type="submit"
-                            class="btn btn-primary add-button info-form-button">
-                        <i class="fa fa-btn fa-plus-circle"></i> Add District
-                    </button>
-                    <button id="save-button" type="submit"
-                            class="btn btn-warning save-button info-form-button">
-                        <i class="fa fa-btn fa-floppy-o"></i> Save
-                    </button>
-                    <button id="delete-confirm-button" type="submit"
-                            class="btn btn-danger delete-confirm-button info-form-button">
-                        <i class="fa fa-btn fa-trash-o"></i> Confirm Delete
-                    </button>
-                    <button id="close-button" type="submit"
-                            class="btn btn-info close-button info-form-button">
-                        <i class="fa fa-btn fa-times-circle"></i> Close
-                    </button>
+                <div id="info-panel-buttons" class="form-group hide">
+                    <div class="col-md-6 col-md-offset-4">
+                        <button id="add-button" type="submit"
+                                class="btn btn-primary add-button info-form-button">
+                            <i class="fa fa-btn fa-plus-circle"></i> Add District
+                        </button>
+                        <button id="save-button" type="submit"
+                                class="btn btn-warning save-button info-form-button">
+                            <i class="fa fa-btn fa-floppy-o"></i> Save
+                        </button>
+                        <button id="delete-confirm-button" type="submit"
+                                class="btn btn-danger delete-confirm-button info-form-button">
+                            <i class="fa fa-btn fa-trash-o"></i> Confirm Delete
+                        </button>
+                        <button id="close-button" type="submit"
+                                class="btn btn-info close-button info-form-button">
+                            <i class="fa fa-btn fa-times-circle"></i> Close
+                        </button>
+                    </div>
                 </div>
-            </div>
-            
-			<div id="message-div" class="form-group">
-				<div class="col-md-6 col-md-offset-4">
-					<div id="message-success-div"
-						class="alert alert-success alert-dismissible success-error-message"
-						role="alert">
-						<button type="button" class="close" data-hide="alert"
-							aria-label=            "Close">
-            <span aria-hidden="true">&times;</span>
+                
+                <div id="message-div" class="form-group">
+                    <div class="col-md-6 col-md-offset-4">
+                        <div id="message-success-div"
+                            class="alert alert-success alert-dismissible success-error-message"
+                            role="alert">
+                            <button type="button" class="close" data-hide="alert"
+                                aria-label=            "Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                <span id="message-success-span"></span>
+        </div>
+        <div id="message-error-div"
+            class="alert alert-danger alert-dismissible success-error-message"
+            role="alert">
+            <button type="button" class="close" data-hide="alert"
+                    aria-label="Close">
+                <span aria-hidden="true">&times;</span>
             </button>
-            <span id="message-success-span"></span>
-    </div>
-    <div id="message-error-div"
-         class="alert alert-danger alert-dismissible success-error-message"
-         role="alert">
-        <button type="button" class="close" data-hide="alert"
-                aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <span id="message-error-span"></span>
-    </div>
-</div>
-</div>
-
-</form>
-</div>
-</div>
-
-<div id="datatable-panel" class="panel panel-default">
-    <div id="datatable-panel-heading" class="panel-heading clearfix">
-        <div class="panel-title pull-left">District Master</div>
-        <div class="pull-right">
-            <button id="add-new-button" type="submit" class="btn btn-primary add-new-button">
-                <i class="fa fa-plus-circle"></i> Add New
-            </button>
+            <span id="message-error-span"></span>
         </div>
     </div>
-    <div class="panel-body">
-        <div class="table-responsive">
-            <table class="table table-striped notice-types-table"
-                   id="datatable-table" style="width: 100%;">
+    </div>
 
-                <!-- Table Headings -->
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Court Name</th>
-                        <th>Court Complex Name</th>
-                        <th>Action</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
+    </form>
+    </div>
+    </div>
 
-                </thead>
-                <tbody></tbody>
-                <!-- Table Footer -->
-                <tfoot>
-                    <tr>
-                        <th></th>
-                        <th>Court Name</th>
-                        <th>Court Complex Name</th>
-                        <th>Action</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </tfoot>
-            </table>
+    <div id="datatable-panel" class="panel panel-default">
+        <div id="datatable-panel-heading" class="panel-heading clearfix">
+            <div class="panel-title pull-left">District Master</div>
+            <div class="pull-right">
+                <button id="add-new-button" type="submit" class="btn btn-primary add-new-button">
+                    <i class="fa fa-plus-circle"></i> Add New
+                </button>
+            </div>
         </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped notice-types-table"
+                    id="datatable-table" style="width: 100%;">
 
+                    <!-- Table Headings -->
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Court Name</th>
+                            <th>Court Complex Name</th>
+                            <th>Action</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+
+                    </thead>
+                    <tbody></tbody>
+                    <!-- Table Footer -->
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th>Court Name</th>
+                            <th>Court Complex Name</th>
+                            <th>Action</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
     </div>
 </div>
 <div id="test-div"></div>
