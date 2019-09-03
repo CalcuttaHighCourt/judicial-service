@@ -55,12 +55,4 @@ class JoEntryFormController extends Controller
         return response()->json($districts);
     }
 
-    public function fetch_court(Request $request){
-        $court_complex_id = $request->input('court_complex');
-        $courts = CourtComplex::with('courts')
-                                ->where('court_complexes.id',$court_complex_id)
-                                ->get();
-
-        return response()->json($courts);
-    }
 }

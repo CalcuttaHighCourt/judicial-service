@@ -15,11 +15,11 @@
       <!--/col-3-->
       <div class="col-sm-9" id="nav_tabs">
          <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#basic_details"> Basic Details </a></li>
-            <li><a data-toggle="tab" href="#contact_details"> Contact Details </a></li>
-            <li><a data-toggle="tab" href="#qualification_details"> Qualification Detals </a></li>
-            <li><a data-toggle="tab" href="#posting_details"> Posting Details </a></li>
-            <li><a data-toggle="tab" href="#upload_photo"> Upload Photo </a></li>
+            <li class="active"><a data-toggle="tab" class="my-tab-navigation" href="#basic_details"> Basic Details </a></li>
+            <li><a data-toggle="tab" class="my-tab-navigation" href="#contact_details"> Contact Details </a></li>
+            <li><a data-toggle="tab" class="my-tab-navigation" href="#qualification_details"> Qualification Detals </a></li>
+            <li><a data-toggle="tab" class="my-tab-navigation" href="#posting_details"> Posting Details </a></li>
+            <li><a data-toggle="tab" class="my-tab-navigation" href="#upload_photo"> Upload Photo </a></li>
          </ul>
          <div class="tab-content">
             <div class="tab-pane active" id="basic_details">
@@ -179,15 +179,7 @@
                     <label class="form-check-label" style="font-size:medium">
                         Other
                     </label>
-                </div>             
-                  <div class="text-center">
-                     <div class="col-xs-12">
-                        <br><br>
-                        <button class="btn btn-lg btn-info next"><i class="glyphicon glyphicon-forward"></i> Next</button>
-                        <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                        <button class="btn btn-lg btn-danger" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
-                     </div>
-                  </div>
+                </div> 
                </form>
             </div>
             <!--/tab-pane-->
@@ -273,10 +265,10 @@
                     </div>                                 
                     <div class="form-group required">
                         <div class="col-xs-6">
-                        <label for="permanent_address" class="control-label">
-                             Permanent Address 
-                        </label>
-                        <textarea class="form-control" name="permanent_address" id="permanent_address" placeholder="Permanent Address"></textarea>
+                            <label for="permanent_address" class="control-label">
+                                Permanent Address 
+                            </label>
+                            <textarea class="form-control" name="permanent_address" id="permanent_address" placeholder="Permanent Address"></textarea>
                         </div>
                     </div>                  
                     <div class="form-group required">
@@ -290,16 +282,7 @@
                             </label>
                             <textarea class="form-control" name="current_address" id="current_address" placeholder="Current Address"></textarea>
                         </div>
-                    </div>    
-                  <div class="text-center">                
-                     <div class="col-xs-12">
-                        <br><br>                        
-                        <button class="btn btn-lg btn-info next"><i class="glyphicon glyphicon-forward"></i> Next</button>
-                        <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                        <button class="btn btn-lg btn-danger" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
-                        <button class="btn btn-lg btn-info previous"><i class="glyphicon glyphicon-backward"></i> Previous</button>
-                     </div>
-                  </div>
+                    </div> 
                </form>
             </div>
             <!--/tab-pane-->
@@ -334,22 +317,13 @@
                             </div>   
                             <div class="form-group">
                                 <div class="col-xs-2">
-                                    <br><br>
+                                    <br>
                                     <img src="{{asset('images/details_open.png')}}" class="img_add_more_qualification" id="add_more_qualification">
                                 </div>
                             </div>
                         </div>                          
                         <hr/>                     
-                    </div>           
-                    <div class="text-center">                
-                        <div class="col-xs-12">
-                            <br><br>                            
-                            <button class="btn btn-lg btn-info next"><i class="glyphicon glyphicon-forward"></i> Next</button>
-                            <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                            <button class="btn btn-lg btn-danger" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
-                            <button class="btn btn-lg btn-info previous"><i class="glyphicon glyphicon-backward"></i> Previous</button>
-                        </div>
-                    </div>
+                    </div> 
                </form>
             </div>            
          <!--/tab-pane-->
@@ -391,19 +365,7 @@
                             </div>
                         </div> 
                     </div>
-                    <div class="row">
-                        <div class="form-group required">
-                            <div class="col-xs-3">
-                                <br/>
-                                <label class="control-label">
-                                     Court Complex 
-                                </label>
-                                <select class="form-control info-form-control court_complex_id select2" style="width:100%">
-                                    <option value="">Select an Option</option>
-                                    @include('court_complexes.court_complex_options')
-                                </select>
-                            </div>
-                        </div>                     
+                    <div class="row">                                        
                         <div class="form-group">
                             <div class="col-xs-3">
                                 <label>
@@ -419,7 +381,7 @@
                                 <label class="control-label">
                                      Reporting Officer 
                                 </label>
-                                <select class="form-control info-form-control reporting_officer_id select2" style="width:100%">
+                                <select id="reporting_officer_id" class="form-control info-form-control select2" style="width:100%">
                                     <option value="">Select an Option</option>
                                     @include('judicial_officers.judicial_officer_options')
                                 </select>
@@ -430,7 +392,7 @@
                                 <label class="control-label">
                                      Reviewing Officer 
                                 </label>
-                                <select class="form-control info-form-control reviewing_officer_id select2" style="width:100%">
+                                <select id="reviewing_officer_id" class="form-control info-form-control reviewing_officer_id select2" style="width:100%">
                                     <option value="">Select an Option</option>
                                     @include('judicial_officers.judicial_officer_options')
                                 </select>
@@ -474,27 +436,9 @@
                                         @include('modes.mode_options')
                                     </select>
                                 </div>
-                            </div> 
-                            <div class="form-group">
-                                <div class="col-xs-2">
-                                    <br><br>
-                                    <img src="{{asset('images/details_open.png')}}" class="img_add_more_posting" id="add_more_posting">
-                                </div>
-                            </div> 
+                            </div>                             
                         </div>
-                        <div class="row">
-                            <div class="form-group required">
-                                <div class="col-xs-3">
-                                    <br/>
-                                    <label class="control-label">
-                                         Court Complex 
-                                    </label>
-                                    <select class="form-control info-form-control posting_select2 court_complex_id select2" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        @include('court_complexes.court_complex_options')
-                                    </select>
-                                </div>
-                            </div>                     
+                        <div class="row">                                                                   
                             <div class="form-group">
                                 <div class="col-xs-3">
                                     <label>
@@ -528,19 +472,15 @@
                                     </select>
                                 </div>
                             </div> 
+                            <div class="form-group">
+                                <div class="col-xs-2">
+                                    <br>
+                                    <img src="{{asset('images/details_open.png')}}" class="img_add_more_posting" id="add_more_posting">
+                                </div>
+                            </div> 
                         </div> 
                         <hr>
-                    </div>                   
-                    
-                    <div class="text-center">                                       
-                         <div class="col-xs-12">
-                             <br><br>
-                             <button class="btn btn-lg btn-info next"><i class="glyphicon glyphicon-forward"></i> Next</button>
-                            <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                            <button  id="reset" class="btn btn-lg btn-danger" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
-                            <button class="btn btn-lg btn-info previous"><i class="glyphicon glyphicon-backward"></i> Previous</button>
-                         </div>
-                     </div>
+                    </div>                     
                 </form>
           </div>
           <!--/tab-pane-->     
@@ -551,17 +491,29 @@
                         <img src="{{asset('images/FacelessMan.png')}}" class="avatar img-circle img-thumbnail" alt="avatar" style="height:30%;width:20%">
                         <h6>Upload Photo...</h6>
                         <input type="file" class="text-center center-block file-upload">              
-                         <div class="col-xs-12">
-                            <br><br>                             
-                            <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                            <button class="btn btn-lg btn-danger" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
-                            <button class="btn btn-lg btn-info previous"><i class="glyphicon glyphicon-backward"></i> Previous</button>
-                         </div>
+                         
                      </div>
                 </form>
           </div>
+
+          
           <!--/tab-pane-->        
+		  <div class="row">
+          <br/><br/>
+        <div class="col-sm-12">
+            <div class="col-sm-4 text-left">
+                <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
+            </div>
+            <div class="col-sm-4 text-center">
+                <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+            </div>
+            <div class="col-sm-4 text-right">
+                <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
+            </div>
+        </div>    
       </div>
+      </div>
+      
       <!--/tab-content-->
    </div>
    <!--/col-9-->
@@ -585,7 +537,8 @@
 
 <script>
    $(document).ready(function() {   
-        var clone_element = $(".div_add_more_posting").clone();
+        var clone_element_posting = $(".div_add_more_posting").clone();
+        var clone_element_qualification = $(".div_add_more_qualification").clone();
 
        /* Display the selected image while uploading the file :: STARTS */ 
         var readURL = function(input) {
@@ -625,10 +578,10 @@
 
         //next button event
         $('.next').click(function(){
-			$('.nav > .active').next('li').find('a').trigger('click');
+            $('.nav > .active').next('li').find('a').trigger('click');
 			$('html, body').animate({
 				scrollTop: $("#nav_tabs").offset().top
-			}, 1000)
+			}, 1000);
 		});
 
         //previous button event
@@ -639,6 +592,31 @@
 			}, 1000)
 		});	
 
+        function prev_next_btn_display(){
+            var target_tab_index=$(e.target).closest('li').index() + 1;
+            var tab_length=$('#nav_tabs > ul > li').length;
+            if(target_tab_index==1){
+                $('.previous').hide();
+                $('.next').show();
+            }
+            else if(target_tab_index==tab_length){
+                $('.previous').show();
+                $('.next').hide();
+            }
+            else{
+                $('.previous').show();
+                $('.next').show();
+            }
+        }
+
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            //e.target // activated tab
+            //e.relatedTarget // previous tab
+            //alert( $(e.target).closest('li').index() + 1 );
+            //console.log($('#nav_tabs > ul > li').length+" "+$('.nav > .active').next('li').index());
+            prev_next_btn_display();
+        });
         // Prevent default form submit
         $("form").submit(function(e){
             return false;
@@ -647,37 +625,25 @@
         
         /*If multiple posting details added :: STARTS*/
 		$(document).on("click","#add_more_posting", function(){
-            // var posting_tenure = $(".div_add_more_posting:last").find(".posting_tenure").val();
-            // var designation_id = $(".div_add_more_posting:last").find(".designation_id").val();
-            // var mode_id = $(".div_add_more_posting:last").find(".mode_id").val();
-            // var court_complex_id = $(".div_add_more_posting:last").find(".court_complex_id").val();
+            var posting_tenure = $(".div_add_more_posting:last").find(".posting_tenure").val();
+            var designation_id = $(".div_add_more_posting:last").find(".designation_id").val();
+            var mode_id = $(".div_add_more_posting:last").find(".mode_id").val();
+            var court_complex_id = $(".div_add_more_posting:last").find(".court_complex_id").val();
 
-            //if(posting_tenure!="" && designation_id!="" && mode_id!="" && court_complex_id!=""){
-                // cloned row           
-                //$(".posting_select2").select2("destroy");
-
-                var clone_element2 = clone_element;//.clone();//.removeClass("div_add_more_posting");
-
-                // adding the cloned row at the right position
-                clone_element2.insertAfter(".div_add_more_posting:last");
-                var i=0;
-                
-                $(".posting_select2").select2();
-                
+            if(posting_tenure!="" && designation_id!="" && mode_id!="" && court_complex_id!=""){                
+                var clone_element2 = clone_element_posting.clone();
+                clone_element2.insertAfter(".div_add_more_posting:last");                
+                $(".select2").select2();                
                 $(".img_add_more_posting:last").attr({src:"images/details_close.png",
                                                         class:"remove_posting", 
-                                                        alt:"remove_posting",
-                                                        id:""
+                                                        alt:"remove_posting"
                                                     });
-               // $(".div_add_more_posting:last").find(".posting_tenure").val('');
-
-                // enabling select2 for the newly created row
-                //$(".select2").select2();
-            // }
-            // else{
-            //     swal("Invalid Entry","Entry all mandatory fields before adding a new posting details","error");
-            //     return false;
-            // }
+                $(".remove_posting:last").removeAttr("id");
+            }
+            else{
+                swal("Invalid Entry","Entry all mandatory fields before adding a new posting details","error");
+                return false;
+            }
 			
 		})
 	    /*If multiple posting details added :: ENDS*/    
@@ -688,32 +654,19 @@
 		}) 
         /*If any posting details row needs to remove :: ENDS*/
 
-        /*If multiple posting details added :: STARTS*/
+        /*If multiple Qualification details added :: STARTS*/
 		$(document).on("click","#add_more_qualification", function(){
             var degree = $(".div_add_more_qualification:last").find(".degree_id").val();
             var passing_year = $(".div_add_more_qualification:last").find(".yop").val();
             
             if(degree!="" && passing_year!=""){
-                // destroying the parent row's select2 function before cloning
-                $(".div_add_more_qualification:last").find(".degree_id").select2("destroy");
-                $(".div_add_more_qualification:last").find(".yop").select2("destroy");
-
-                // cloned row
-                var clone_element = $(".div_add_more_qualification:first").clone();
-
-                // reinitializing select2 for the parent cloned row
-                $(".div_add_more_qualification:last").find(".degree_id").select2();
-                $(".div_add_more_qualification:last").find(".yop").select2();
-                
-                // adding the cloned row at the right position
-                clone_element.insertAfter(".div_add_more_qualification:last");
+                var clone_element2 = clone_element_qualification.clone();                
+                clone_element2.insertAfter(".div_add_more_qualification:last");
                 $(".img_add_more_qualification:last").attr({src:"images/details_close.png",
                                                         class:"remove_qualification", 
-                                                        alt:"remove_qualification",
-                                                        id:""
+                                                        alt:"remove_qualification"
                                                     });
-
-                // enabling select2 for the newly created row
+                $(".remove_qualification").removeAttr("id");
                 $(".select2").select2();
             }
             else{
@@ -722,13 +675,13 @@
             }
 			
 		})
-	    /*If multiple posting details added :: ENDS*/    
+	    /*If multiple Qualification details added :: ENDS*/    
 
-        /*If any posting details row needs to remove :: STARTS*/
+        /*If any Qualification details row needs to remove :: STARTS*/
         $(document).on("click",".remove_qualification", function(){
 			$(this).closest(".div_add_more_qualification").remove();
 		}) 
-        /*If any posting details row needs to remove :: ENDS*/
+        /*If any Qualification details row needs to remove :: ENDS*/
 
 
         /*Fetch corresponding Districts of selected State :: STARTS*/
@@ -758,35 +711,6 @@
         /*Fetch corresponding Districts of selected State :: ENDS*/
         
 
-        /*Fetch corresponding Courts of selected Court Complex :: STARTS*/
-        $(document).on("change",".court_complex_id",function(){
-            var element = $(this);
-            var court_complex_id = element.val();
-
-            if(home_state!=""){
-                $.ajax({
-                    url:"{{route('fetch_court')}}",
-                    type:"post",
-                    data:{
-                        _token: $('meta[name="_token"]').attr('content'),
-                        court_complex:court_complex_id
-                    },
-                    success:function(response){
-                        element.parent().parent().next().find('.court_id').children('option:not(:first)').remove();
-                        $.each(response[0].courts,function(index,value){							
-                            element.parent().parent().next().find('.court_id').append('<option value="'+value.id+'">'+value.court_name+'</option>');											
-                        })
-                    },
-                    error:function (jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus);
-                    }
-                })
-            }
-        })
-
-        /*Fetch corresponding Courts of selected Court Complex :: ENDS*/
-
-
         /*Current Address is Same As Permanenet Address :: STARTS*/
         $(document).on("change","#same_address", function(){
             if(this.checked)
@@ -797,13 +721,82 @@
             
         });
         /*Current Address is Same As Permanenet Address :: ENDS*/
+
+        function ajax_data(){
+            var designation_id = new Array();
+            var court_id = new Array();
+            var court_complex_id = new Array();
+            var mode_id = new Array();
+            var from_date = new Array();
+            var to_id = new Array();
+            var qualification_id = new Array();
+            var passing_year = new Array();
+
+            var formData = {
+                jo_code: $("#jo_code").val(),
+
+                officer_name: $("#jo_name").val(),
+
+                gender: $("input[name='gender']:checked").val(),
+
+                guardian_name:$("#guardian_name").val(),
+
+                gurdian_relation:$("#guardian_relationship").val(),
+
+                date_of_birth: $("#dob").val(),
+
+                home_state_id:$("#home_state").val(),
+
+                home_district_id:$("#home_district").val(),	
+
+                hometown:$("#home_town").val(),
+
+                present_address:$("#current_address").val(),
+
+                permanent_address:$("#permanent_address").val(),
+
+                religion_id:$("#religion_id").val(),
+
+                category_id:$("#category_id").val(),   
+
+                blood_group:$("#blood_group").val(),
+
+                identification_mark:$("#identification_mark").val(),  
+
+                aadhaar_no:$("#aadhaar_no").val(),
+
+                pan_no:$("#pan_no").val(),
+
+                pf_no:$("#pf_no").val(), 
+
+                mobile_no_1:$("#ph_no_1").val(),
+
+                mobile_no_2:$("#ph_no_2").val(),
+
+                mobile_no_3:$("#ph_no_3").val(),
+
+                email_id_1:$("#email_id_1").val(),
+
+                email_id_2:$("#email_id_2").val(),
+
+                email_id_3:$("#email_id_3").val(),
+
+                recruitment_batch_id:$("#recruitment_batch_id").val(),
+
+                date_of_joining:$("#doj").val(),
+
+                date_of_confirmation:$("#doc").val(),
+
+                date_of_retirement:$("#dor").val(),
+            
+                present_reporting_officer_id:$("#reporting_officer_id").val(),
+
+                reviewing_officer_id:$("#reviewing_officer_id").val(),	
+            };
+        }
         
    });
 
-   $("#reset").click(function(e){
-        e.preventDefault();
-        $(".posting_select2").select2();
-   });
 </script>
 
 @endsection
