@@ -67,7 +67,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="jo_entry_form">
+                        <a class="nav-link" href="judicial_officer">
                             <span data-feather="file"></span>
                             <i class="fa fa-star" aria-hidden="true"></i>
                             Judicial Officer
@@ -177,8 +177,9 @@
             </li>
             <li>
                 <a href="#">
+                    <a class="nav-link" href="jo_entry_form">
                     <i class="fa fa-briefcase"></i>
-                    About
+                    JO Related Entry
                 </a>
             </li>
             <li>

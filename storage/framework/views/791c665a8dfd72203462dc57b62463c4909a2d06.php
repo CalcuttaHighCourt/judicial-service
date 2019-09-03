@@ -585,9 +585,9 @@
 
 <script>
    $(document).ready(function() {   
-        
-       /* Display the selected image while uploading the file :: STARTS */   
-     
+        var clone_element = $(".div_add_more_posting").clone();
+
+       /* Display the selected image while uploading the file :: STARTS */ 
         var readURL = function(input) {
             if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -622,7 +622,6 @@
 
         // Select2 initialization
         $(".select2").select2();
-        var clone_element = $(".div_add_more_posting").clone();
 
         //next button event
         $('.next').click(function(){

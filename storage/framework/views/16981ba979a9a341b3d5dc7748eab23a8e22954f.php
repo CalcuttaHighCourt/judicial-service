@@ -18,7 +18,7 @@
            <?php echo $__env->yieldContent('header'); ?>
            <div class="container-fluid custom-main-container ">
                 <div class="row">
-                    <div class="col-sm-offset-3 col-sm-9 ">
+                    <div class="col-sm-offset-2 col-sm-9 ">
                     <?php echo $__env->yieldContent('main_container'); ?>
                     </div>
                 </div>
