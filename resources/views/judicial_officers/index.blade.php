@@ -448,9 +448,9 @@
 					<label for="gender" class="col-md-4 control-label">Gender</label>
 
 					<div class="col-md-6">
-						<label><input type="radio" name="gender" checked>Male</label>
-						<label><input type="radio" name="gender">Female</label>
-						<label><input type="radio" name="gender">Other</label>
+						<label><input type="radio" id="gender" name="gender" checked>Male</label>
+						<label><input type="radio" id="gender" name="gender">Female</label>
+						<label><input type="radio" id="gender" name="gender">Other</label>
 					</div>
 				</div>
 
@@ -861,7 +861,7 @@ function send_ajax_and_set_errors_exceptions_success(type){
 
 	var formData = {
 		
-		id: $("#judicial_officer_id").val(),
+		//id: $("#judicial_officer_id").val(),
 	
 		officer_name: $("#officer_name").val(),
 
@@ -918,6 +918,7 @@ function send_ajax_and_set_errors_exceptions_success(type){
 	
 	reporting_officer_id:$("#reporting_officer_id").val(),
 	reviewing_officer_id:$("#reviewing_officer_id").val(),	
+	gender:$("#gender").val(),	
 	};
 
 	ajax_url="";

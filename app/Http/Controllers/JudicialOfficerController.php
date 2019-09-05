@@ -126,9 +126,9 @@ class JudicialOfficerController extends Controller
         $statusCode = 200;
         $judicial_officer = null;
 
-        $this->validate($request, [
-            'officer_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:judicial_officers,judicial_officer_name')
-        ]);
+        // $this->validate($request, [
+        //     'officer_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:judicial_officers,jo_code')
+        // ]);
 
 
         try {

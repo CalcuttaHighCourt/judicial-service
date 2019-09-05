@@ -1,6 +1,6 @@
 <?php $__env->startSection('header'); ?>
 <!-- Fixed navbar -->
-<nav id="sidebar" class="navbar-fixed-top">
+<nav id="sidebar" class="navbar-fixed-top" scroll="yes">
     <div class="container-fluid">
         <div class="sidebar-header" style="background-color:#077E70">
             <div class="row">
@@ -11,7 +11,7 @@
         </div>
         
         <ul class="list-unstyled components">
-            <li class="active">
+            <!-- <li class="active">
                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <i class="fa fa-home"></i>
                     Home
@@ -27,7 +27,7 @@
                         <a href="#">Home 3</a>
                     </li>
                 </ul>
-            </li>
+            </li> -->
             <li>
                 <a href="#masterSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-edit"></i>Master Maintenance</a>
                 <ul class="collapse list-unstyled" id="masterSubmenu">

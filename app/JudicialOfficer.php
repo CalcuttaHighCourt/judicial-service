@@ -6,6 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class JudicialOfficer extends Model
 {
+
+    protected $fillable = [
+        'jo_code', 'officer_name', 
+        'gender','court_id',
+        'guardian_name','date_of_birth',
+        'home_state_id','home_district_id',
+        'hometown','present_address',
+        'permanent_address','religion_id',
+        'category_id','blood_group',
+        'identification_mark','',
+        '','',
+    ];
+
     /**
      * Get the recruitment batch that owns the Judicial officer.
      */
