@@ -15,8 +15,15 @@ class JudicialOfficer extends Model
         'hometown','present_address',
         'permanent_address','religion_id',
         'category_id','blood_group',
-        'identification_mark','',
-        '','',
+        'identification_mark','gurdian_relation',
+        'identification_mark','aadhaar_no',
+        'pan_no','pf_no',
+        'mobile_no_1','mobile_no_1',
+        'mobile_no_2','mobile_no_3',
+        'email_id_1','email_id_2',
+        'email_id_3','recruitment_batch_id',
+        'date_of_joining','date_of_confirmation',
+        'date_of_retirement',
     ];
 
     /**

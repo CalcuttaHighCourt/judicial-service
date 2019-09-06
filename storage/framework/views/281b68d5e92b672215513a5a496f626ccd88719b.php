@@ -203,14 +203,14 @@
 							</div>
 					</div>
 							
-							<div id="catagory_id-group" class="form-group our-form-group">
+							<div id="category_id-group" class="form-group our-form-group">
 					<!-- IIIIIIIIIII -->
-					<label for="catagory_id" class="col-md-4 control-label">Catagory</label>
+					<label for="category_id" class="col-md-4 control-label">Category</label>
 
 					<div class="col-md-6">
-						<select id="catagory_id" class="form-control info-form-control"
-									name="catagory_id"> 
-									<option value="">Select Your Catagory</option>
+						<select id="category_id" class="form-control info-form-control"
+									name="category_id"> 
+									<option value="">Select Your Category</option>
 									<?php echo $__env->make('castes.caste_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 						</select>
 					</div>
@@ -416,39 +416,14 @@
 				</div>
 
 							
-				<div id="current_reporting_officer_id-group" class="form-group our-form-group">
-					<!-- IIIIIIIIIII -->
-					<label for="current_reporting_officer_id" class="col-md-4 control-label">Current Reporting Officer </label>
-
-					<div class="col-md-6"><select id="current_reporting_officer_id" class="form-control info-form-control"
-								name="current_reporting_officer_id"> 
-								<option value="">Select current reporting authority</option>
-								<?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-						</select>
-					</div>
-				</div>
-							
-							<div id="current_reviewing_officer_id-group" class="form-group our-form-group">
-					<!-- IIIIIIIIIII -->
-					<label for="current_reviewing_officer_id" class="col-md-4 control-label">Current Reviewing Officer </label>
-
-					<div class="col-md-6">
-						<select id="current_reviewing_officer_id" class="form-control info-form-control"
-									name="current_reviewing_officer_id"> 
-									<option value="">Select current reviewing authority</option>
-									<?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-						</select>
-					</div>
-				</div>
-
 				<div id="jo_code-group" class="form-group our-form-group">
 					<!-- IIIIIIIIIII -->
 					<label for="gender" class="col-md-4 control-label">Gender</label>
 
 					<div class="col-md-6">
-						<label><input type="radio" id="gender" name="gender" checked>Male</label>
-						<label><input type="radio" id="gender" name="gender">Female</label>
-						<label><input type="radio" id="gender" name="gender">Other</label>
+						<label><input type="radio" id="gender" name="gender" value="m" checked>Male</label>
+						<label><input type="radio" id="gender" name="gender" value="f">Female</label>
+						<label><input type="radio" id="gender" name="gender"value="o">Other</label>
 					</div>
 				</div>
 
@@ -797,7 +772,7 @@ function populate_form(data){
 
 	$("#state_name").val(data.home_state_id);
 
-	$("#caste_name").val(data.caste_id);
+	$("#category_id").val(data.category_id);
 
 	$("#religion_name").val(data.religion_id);
 
@@ -823,12 +798,6 @@ function populate_form(data){
 	$("#email_id_3").val(data.email_id_3);
 
 	//$("#photo").val(data.photo);
-	
-	$("#reporting_officer_id").val(data.reporting_officer_id);
-	$("#reviewing_officer_id").val(data.reviewing_officer_id);
-
-
-
 	
 }
 function show_button(type){
@@ -887,7 +856,7 @@ function send_ajax_and_set_errors_exceptions_success(type){
 
 		home_state_id:$("#state_name").val(),
 
-		caste_id:$("#caste_name").val(),
+		category_id:$("#category_id").val(),
 
 		religion_id:$("#religion_name").val(),
 

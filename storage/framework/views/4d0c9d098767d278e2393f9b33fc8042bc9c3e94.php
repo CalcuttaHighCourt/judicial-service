@@ -6,6 +6,7 @@
 <link href="<?php echo e(asset('css/style.css')); ?>" rel="stylesheet">
 <link href="<?php echo e(asset('css/bootstrap-submenu.min.css')); ?>" rel="stylesheet">
 <link href="<?php echo e(asset('css/font-awesome.min.css')); ?>" rel="stylesheet">
+<link rel="stylesheet" href="<?php echo e(asset('css/scrollsidebar.css')); ?>">  
 
 <link href="<?php echo e(asset('css/datatable/dataTables.bootstrap.min.css')); ?>" rel="stylesheet">
 

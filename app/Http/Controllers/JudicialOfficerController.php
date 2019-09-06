@@ -129,10 +129,14 @@ class JudicialOfficerController extends Controller
         // $this->validate($request, [
         //     'officer_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:judicial_officers,jo_code')
         // ]);
-
+       
 
         try {
-            $officer_name = strtoupper($request->input('officer_name'));
+            $request['date_of_birth']=Carbon::parse($request['date_of_birth'])->format('Y-m-d');
+            $request['date_of_joining']=Carbon::parse($request['date_of_joining'])->format('Y-m-d');
+            $request['date_of_confirmation']=Carbon::parse($request['date_of_confirmation'])->format('Y-m-d');
+            $request['date_of_retirement']=Carbon::parse($request['date_of_retirement'])->format('Y-m-d');
+            
             $request['created_by'] = Auth::user()->id;
 
             $judicial_officer = JudicialOfficer::create($request->all());
@@ -349,8 +353,7 @@ class JudicialOfficerController extends Controller
             $judicial_officer->email_id_1 = $request->email_id_1; 
             $judicial_officer->email_id_2 = $request->email_id_2; 
             $judicial_officer->email_id_3 = $request->email_id_3; 
-            $judicial_officer->reporting_officer_id = $request->reporting_officer_id; 
-            $judicial_officer->reviewing_officer_id = $request->reviewing_officer_id; 
+           
 
 
 
@@ -439,6 +442,7 @@ class JudicialOfficerController extends Controller
 
                 if (!empty($judicial_officer)) { // Should be changed #30
                     $judicial_officer->delete();
+                    
                     //$judicial_officer = $judicial_officer->forceDelete ( $id ); // Should be changed #31 //only for admin elements.
                 }
                 //print_r($judicial_officer);exit;

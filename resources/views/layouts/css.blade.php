@@ -6,6 +6,7 @@
 <link href="{{asset('css/style.css')}}" rel="stylesheet">
 <link href="{{asset('css/bootstrap-submenu.min.css')}}" rel="stylesheet">
 <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
+<link rel="stylesheet" href="{{asset('css/scrollsidebar.css')}}">  
 
 <link href="{{asset('css/datatable/dataTables.bootstrap.min.css')}}" rel="stylesheet">
 
