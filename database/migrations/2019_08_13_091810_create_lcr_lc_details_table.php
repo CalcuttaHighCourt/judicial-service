@@ -23,6 +23,7 @@ class CreateLcrLcDetailsTable extends Migration
             $table->timestamps();
 
             $table->foreign('hc_id')->references('id')->on('lcr_hc_ends');
+            $table->foreign('created_by')->references('id')->on('users');
         });
     }
 

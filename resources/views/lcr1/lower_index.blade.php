@@ -1,6 +1,29 @@
-@extends('layouts.app') @section('title', 'LCR Lower Court End')
-@section('page_heading') LCR Lower Court End @endsection
-@section('center_main_content')
+<?php
+
+use App\Http\Controllers\PageController;
+?>
+@extends('layouts.app')
+{{--@include('services.display_board.display_board_block')--}}
+<?php
+$calendar_display = "month";
+?>
+
+
+
+@section('title', 'Home')
+
+@section('page_heading')
+Home Page
+@endsection
+
+
+
+@section('left_main_content')
+
+
+
+
+
 <div class="panel custom-panel">
     <div class="col-sm-12">
         <div id="info-panel" class="panel panel-danger">
@@ -49,17 +72,23 @@
     </div>
 </div>
 
-@endsection @include('layouts.1_column_content')
 
 
-@section('main_container') @yield('1_column_content') @endsection
-
-@section('meta')
-@parent
-<meta name="_token" content="{!! csrf_token() !!}" />
 @endsection
 
-@section('end_scripts') @parent
+@section('right_sidebar_content')
+
+
+@endsection
+@include('layouts.2_column_content')
+
+
+@section('main_container')
+@yield('2_column_content')
+@endsection
+
+@section('body_attributes')
+@endsection
 
 <script type="text/javascript">
 

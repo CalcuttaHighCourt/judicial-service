@@ -422,13 +422,13 @@ class JudicialOfficerController extends Controller
                 );
                 $statusCode = 400;
             }
-            else if ($judicial_officer->judicial_officer_qualifications->count() > 0) {
-                $response = array(
-                    'exception' => true,
-                    'exception_message' => "Records of judicial_officer: " . $judicial_officer->judicial_officer_qualification . " exists in Judicial Officer table.",
-                );
-                $statusCode = 400;
-            }
+            // else if ($judicial_officer->judicial_officer_qualifications->count() > 0) {
+            //     $response = array(
+            //         'exception' => true,
+            //         'exception_message' => "Records of judicial_officer: " . $judicial_officer->judicial_officer_qualification . " exists in Judicial Officer table.",
+            //     );
+            //     $statusCode = 400;
+            // }
             else if ($judicial_officer->judicial_officers->count() > 0) {
                 $response = array(
                     'exception' => true,

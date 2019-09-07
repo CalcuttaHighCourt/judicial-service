@@ -66,11 +66,6 @@ class JudicialOfficerPostingController extends Controller {
                     ->join('courts', 'judicial_officer_postings.court_id', '=', 'courts.id')
                     ->join('court_complexes', 'judicial_officer_postings.court_complex_id', '=', 'court_complexes.id')
                     ->join('modes', 'judicial_officer_postings.mode_id', '=', 'modes.id')
-                    /*->where('judicial_officers.officer_name', 'ilike', '%' . $search . '%')
-                    ->orWhere('designations.designation_name', 'ilike', '%' . $search . '%')
-                    ->orWhere('courts.court_name', 'ilike', '%' . $search . '%')
-                    ->orWhere('court_complexes.court_complex_name', 'ilike', '%' . $search . '%')
-                    ->orWhere('modes.posting_mode', 'ilike', '%' . $search . '%')*/
                     ->select('judicial_officer_postings.*', 'judicial_officers.officer_name as officer_name', 'designations.designation_name as designation_name', 'courts.court_name as court_name', 'court_complexes.court_complex_name as court_complex_name', 'modes.posting_mode as posting_mode');
 
             $records_filtered_count = $filtered->count();
@@ -117,14 +112,14 @@ class JudicialOfficerPostingController extends Controller {
         $judicial_officer_posting = null;
         $request['created_by'] = Auth::user()->id;
         $this->validate($request, [
-            'judicial_officer_id' => array('required', 'exists:judicial_officers,id'),
-            'designation_id' => array('required', 'exists:designations,id'),
-            'court_id' => array('required', 'exists:courts,id'),
-            'court_complex_id' => array('required', 'exists:court_complexes,id'),
-            'mode_id' => array('required', 'exists:modes,id'),
-            'from_date' => array('required', 'date', 'date_format:d-M-Y'),
+            'judicial_officer_id' => array('required','integer','exists:judicial_officers,id'),
+            'designation_id' => array('required','integer','exists:designations,id'),
+            'court_id' => array('required','integer','exists:courts,id'),
+            'court_complex_id' => array('required','integer','exists:court_complexes,id'),
+            'mode_id' => array('required','integer','exists:modes,id'),
+            'from_date' => array('required', 'date','date_format:d-M-Y'),
             'to_date' => array('date', 'date_format:d-M-Y'),
-            'created_by' => array('required', 'exists:users,id'),
+            'created_by' => array('required','integer','exists:users,id'),
         ]);
         try {
             $judicial_officer_posting = JudicialOfficerPosting::create($request->all());
@@ -220,17 +215,17 @@ class JudicialOfficerPostingController extends Controller {
     {
        
         $id= auth()->user()->id;
-        $user_type = Auth::user()->user_type;
+        $user_type = Auth::user()->user_type_id;
 
         $zone_pref_details['current_zone']= JudicialOfficerPosting:: join('court_complexes as cc','cc.id','=','judicial_officer_postings.court_complex_id')
                                                     ->join('zones','zones.id','=','cc.zone_id')
-                                                    ->join('judicial_officers','judicial_officers.id','=','judicial_officer_postings.judicial_officer_id')
+                                                    ->leftjoin('judicial_officers','judicial_officers.id','=','judicial_officer_postings.judicial_officer_id')
                                                     ->where('judicial_officer_postings.judicial_officer_id',$id)
                                                     ->orderBy('from_date', 'desc')
                                                     ->select('zones.zone_name as zone_name','zones.id as zone_id','judicial_officer_postings.from_date as current_from_date', 'zones.min_service_days as min_service_days','judicial_officers.date_of_retirement as date_of_retirement')
                                                     ->first();
                                              
-                                                   
+                                                
 
 
        $zone_pref_details['just_prev_zone']= JudicialOfficerPosting:: join('court_complexes as cc','cc.id','=','judicial_officer_postings.court_complex_id')
@@ -243,7 +238,7 @@ class JudicialOfficerPostingController extends Controller {
                                                     ->select('zones.zone_name as zone_name','zones.id as zone_id')
                                                     ->first();
 
-          //print_r($zone_pref_details['current_zone']['zone_name']);exit;
+          
 
         $count= JudicialOfficerPosting:: join('court_complexes as cc','cc.id','=','judicial_officer_postings.court_complex_id')
                                                     ->join('zones','zones.id','=','cc.zone_id')

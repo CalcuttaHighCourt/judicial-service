@@ -27,7 +27,8 @@ class CreateLcrHcEndsTable extends Migration
 			
 			$table->foreign('court')->references('id')->on('courts');
             $table->foreign('complex')->references('id')->on('court_complexes');
-			$table->foreign('district')->references('id')->on('districts');
+            $table->foreign('district')->references('id')->on('districts');
+            $table->foreign('created_by')->references('id')->on('users');
         });
     }
 

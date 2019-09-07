@@ -26,8 +26,8 @@ class CreateJudicialOfficersTable extends Migration
 			$table->string('hometown');
 			$table->text('present_address');
 			$table->text('permanent_address');
-			$table->unsignedBigInteger('religion_id');
-			$table->unsignedBigInteger('category_id');
+			$table->unsignedBigInteger('religion_id')->nullable();	
+			$table->unsignedBigInteger('category_id')->nullable();	
 			$table->string('blood_group')->nullable();
 			$table->string('identification_mark')->nullable();			
 			$table->char('aadhaar_no',12)->nullable()->unique();
