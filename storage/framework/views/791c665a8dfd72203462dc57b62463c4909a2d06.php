@@ -828,8 +828,8 @@
                 success: function (data, textStatus, jqXHR) {
                     if(data.judicial_officer!=null){
                         swal("Judicial Officer"+operated+" Successfully","","success");
-                        //$("form").trigger("reset");   
-                        //$(".select2").val('').trigger('change');
+                        $("form").trigger("reset");   
+                        $(".select2").val('').trigger('change');
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
