@@ -23,7 +23,7 @@ class CreateJoReportingReviewingsTable extends Migration
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
 
-            $table->unique('judicial_officer_id', 'reporting_officer_id', 'reviewing_officer_id');
+            $table->unique(['judicial_officer_id', 'reporting_officer_id', 'reviewing_officer_id']);
             
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
             $table->foreign('reporting_officer_id')->references('id')->on('judicial_officers');

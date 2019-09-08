@@ -32,7 +32,7 @@ class CreateJudicialOfficersTable extends Migration
 			$table->string('identification_mark')->nullable();			
 			$table->char('aadhaar_no',12)->nullable()->unique();
 			$table->char('pan_no',10)->nullable()->unique();
-			$table->string('pf_no')->nullable()->unique();
+			$table->string('gpf_no')->nullable()->unique();
 			$table->string('mobile_no_1')->unique();
 			$table->string('mobile_no_2')->nullable()->unique();
 			$table->string('mobile_no_3')->nullable()->unique();
@@ -43,7 +43,7 @@ class CreateJudicialOfficersTable extends Migration
 			$table->date('date_of_joining');
 			$table->date('date_of_confirmation');
 			$table->date('date_of_retirement');
-			$table->unsignedBigInteger('present_reporting_officer_id');
+			$table->unsignedBigInteger('present_reporting_officer_id')->nullable();
             $table->unsignedBigInteger('present_reviewing_officer_id')->nullable();			
 			$table->timestamps();
 			

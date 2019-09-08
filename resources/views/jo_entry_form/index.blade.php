@@ -334,78 +334,61 @@
                         <h3 style="color:#d06666"><u>Posting Details (From Present to Past)</u></h3>
                     </div>
                     <div class="div_add_more_posting">
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-xs-3">
-                                    <label>
-                                         Posting Tenure 
-                                    </label>
-                                    <input type="text" class="form-control posting_tenure" placeholder="dd-mm-yyyy TO dd-mm-yyyy">                            
-                                </div>
-                            </div> 
-                            <div class="form-group">
-                                <div class="col-xs-3">
-                                    <label>
-                                         Designation 
-                                    </label>
-                                    <select class="form-control info-form-control posting_select2 designation_id select2" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        @include('designations.designation_options')
-                                    </select>
-                                </div>
-                            </div> 
-                            <div class="form-group">
-                                <div class="col-xs-3">
-                                    <label>
-                                         Posting Mode 
-                                    </label>
-                                    <select class="form-control info-form-control posting_select2 mode_id select2" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        @include('modes.mode_options')
-                                    </select>
-                                </div>
-                            </div>                             
-                        </div>
-                        <div class="row">                                                                   
-                            <div class="form-group">
-                                <div class="col-xs-3">
-                                    <label>
-                                         Court 
-                                    </label>
-                                    <select class="form-control info-form-control posting_select2 court_id select2" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        @include('courts.court_options')
-                                    </select>
-                                </div>
-                            </div>  
-                            <div class="form-group">
-                                <div class="col-xs-3">
-                                    <label>
-                                         Reporting Officer 
-                                    </label>
-                                    <select class="form-control info-form-control posting_select2 reporting_officer_id select2" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        @include('judicial_officers.judicial_officer_options')
-                                    </select>
-                                </div>
-                            </div> 
-                            <div class="form-group">
-                                <div class="col-xs-3">
-                                    <label>
-                                         Reviewing Officer 
-                                    </label>
-                                    <select class="form-control info-form-control posting_select2 reviewing_officer_id select2" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        @include('judicial_officers.judicial_officer_options')
-                                    </select>
-                                </div>
-                            </div> 
-                            <div class="form-group">
-                                <div class="col-xs-2">
-                                    <br>
-                                    <img src="{{asset('images/details_open.png')}}" class="img_add_more_posting" id="add_more_posting">
-                                </div>
-                            </div> 
+                        <div class="row"> 
+                            <div class="col-xs-3">
+                                <label>
+                                        Designation 
+                                </label>
+                                <select class="form-control info-form-control posting_select2 designation_id select2" style="width:100%">
+                                    <option value="">Select an Option</option>
+                                    @include('designations.designation_options')
+                                </select>
+                            </div>
+                            <div class="col-xs-3">
+                                <label>
+                                        Posting Mode 
+                                </label>
+                                <select class="form-control info-form-control posting_select2 mode_id select2" style="width:100%">
+                                    <option value="">Select an Option</option>
+                                    @include('modes.mode_options')
+                                </select>
+                            </div>
+                            <div class="col-xs-3">
+                                <label>
+                                        Court 
+                                </label>
+                                <select class="form-control info-form-control posting_select2 court_id select2" style="width:100%">
+                                    <option value="">Select an Option</option>
+                                    @include('courts.court_options')
+                                </select>
+                            </div>                   
+                        </div><br/>
+                        <div class="row"> 
+                            <div class="col-xs-3">
+                                <label>
+                                        Reporting Officer 
+                                </label>
+                                <select class="form-control info-form-control posting_select2 reporting_officer_id select2" style="width:100%">
+                                    <option value="">Select an Option</option>
+                                    @include('judicial_officers.judicial_officer_options')
+                                </select>
+                            </div>
+                            <div class="col-xs-3">
+                                <label>
+                                        From Date 
+                                </label>
+                                <input type="text" class="form-control date from_date" placeholder="dd-mm-yyyy">
+                            </div>
+                            <div class="col-xs-3">
+                                <label>
+                                        To Date 
+                                </label>
+                                <input type="text" class="form-control date to_date" placeholder="dd-mm-yyyy">
+                            </div>
+                            <div class="col-xs-2">
+                                <br>
+                                <img src="{{asset('images/details_open.png')}}" class="img_add_more_posting" id="add_more_posting">
+                            </div>
                         </div> 
                         <hr>
                     </div>                     
@@ -469,10 +452,10 @@
         var clone_element_qualification = $(".div_add_more_qualification").clone();
 
         $.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-		}
-	});
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
 
        /* Display the selected image while uploading the file :: STARTS */ 
         var readURL = function(input) {
@@ -510,6 +493,7 @@
         // Select2 initialization
         $(".select2").select2();
 
+       
         //next button event
         $('.next').click(function(){
             $('.nav > .active').next('li').find('a').trigger('click');
@@ -551,6 +535,7 @@
             //console.log($('#nav_tabs > ul > li').length+" "+$('.nav > .active').next('li').index());
             prev_next_btn_display();
         });
+
         // Prevent default form submit
         $("form").submit(function(e){
             return false;
@@ -559,15 +544,30 @@
         
         /*If multiple posting details added :: STARTS*/
 		$(document).on("click","#add_more_posting", function(){
-            var posting_tenure = $(".div_add_more_posting:last").find(".posting_tenure").val();
+            var from_date = $(".div_add_more_posting:last").find(".from_date").val();
             var designation_id = $(".div_add_more_posting:last").find(".designation_id").val();
             var mode_id = $(".div_add_more_posting:last").find(".mode_id").val();
-            var court_complex_id = $(".div_add_more_posting:last").find(".court_complex_id").val();
+            var court_id = $(".div_add_more_posting:last").find(".court_id").val();
 
-            if(posting_tenure!="" && designation_id!="" && mode_id!="" && court_complex_id!=""){                
+            if(from_date!="" && designation_id!="" && mode_id!=""){                
                 var clone_element2 = clone_element_posting.clone();
                 clone_element2.insertAfter(".div_add_more_posting:last");                
-                $(".select2").select2();                
+                // Select2 Re-initialization
+                $(".select2").select2();  
+
+                // Datepicker Re-initialization
+                $(".date").datepicker({
+                    format: "dd-mm-yyyy",
+                    weekStart: 1,
+                    todayBtn: "linked",
+                    clearBtn: true,
+                    daysOfWeekHighlighted: "0,6",
+                    autoclose: true,
+                    todayHighlight: true,
+                    toggleActive: false,
+                    endDate: "today"
+                });
+              
                 $(".img_add_more_posting:last").attr({src:"images/details_close.png",
                                                         class:"remove_posting", 
                                                         alt:"remove_posting"
@@ -660,13 +660,13 @@
             var designation_id = new Array();
             var court_id = new Array();
             var court_complex_id = new Array();
-            var mode_id = new Array();
-            var from_date = new Array();
-            var to_date = new Array();
+            var mode_id = new Array();            
             var qualification_id = new Array();
             var passing_year = new Array();
             var reporting_officer_id = new Array();
             var reviewing_officer_id = new Array();
+            var from_date = new Array();
+            var to_date = new Array();
 
             designation_id = [];
             $(".designation_id").each(function(){
@@ -682,7 +682,7 @@
             court_complex_id = [];
             $(".court_id").each(function(){
                 court_id.push($(this).val());
-                court_complex_id.push($(this).data('court_complex_id'));
+                court_complex_id.push($(this).find(':selected').attr('data-court_complex_id'));
             })
 
             reporting_officer_id = [];
@@ -703,6 +703,16 @@
             passing_year = [];
             $(".yop").each(function(){
                 passing_year.push($(this).val());
+            })
+
+            from_date = [];
+            $(".from_date").each(function(){
+                from_date.push($(this).val());
+            })
+
+            to_date = [];
+            $(".to_date").each(function(){
+                to_date.push($(this).val());
             })
          
 
@@ -766,21 +776,21 @@
 
             formData.append("file",	$("#file_input").prop('files')[0]);
 
-            formData.append("qualification_id[]",qualification_id);
+            formData.append("qualification_id",JSON.stringify(qualification_id));
 
-            formData.append("passing_year[]",passing_year);
+            formData.append("passing_year",JSON.stringify(passing_year));
 
-            formData.append("designation_id[]",designation_id);
+            formData.append("designation_id",JSON.stringify(designation_id));
 
-            formData.append("court_id[]",court_id);
+            formData.append("court_id",JSON.stringify(court_id));
 
-            formData.append("court_complex_id[]",court_complex_id);
+            formData.append("court_complex_id",JSON.stringify(court_complex_id));
 
-            formData.append("mode_id[]",mode_id);
+            formData.append("mode_id",JSON.stringify(mode_id));
 
-            formData.append("from_date[]",from_date);
+            formData.append("from_date",JSON.stringify(from_date));
 
-            formData.append("to_date[]",from_date);
+            formData.append("to_date",JSON.stringify(to_date));
             
         
             
@@ -817,7 +827,9 @@
                 contentType: false,
                 success: function (data, textStatus, jqXHR) {
                     if(data.judicial_officer!=null){
-                        swal("Judicial Officer"+operated+"Successfully","","success");
+                        swal("Judicial Officer"+operated+" Successfully","","success");
+                        $("form").trigger("reset");   
+                        $(".select2").val('').trigger('change');
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
