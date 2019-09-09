@@ -36,59 +36,25 @@
 		<!-- New Task Form -->
                 <br><br>
        			<input type="hidden" id="JudicialOfficerPostingPreference-id">
-                <div id="officer_name-group" class="form-group row our-form-group">
-                    <label for="officer_name" class="col-sm-offset-1 col-md-5 ">Officer Name: {{Auth::user()->name}}</label>
-                </div>
-                <div id="jo_code-group" class="form-group row our-form-group">
-                    <label for="jo_code" id="jo_code" class="col-sm-offset-1 col-sm-3">Code: </label>
-                </div>
-                <div id="zone-group" class="form-group row our-form-group">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> {{$zone_pref_details['current_zone']['zone_name']}}</span></label>
-                </div>
-                <div id="zone-group" class="form-group row our-form-group">
-                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> {{$zone_pref_details['just_prev_zone']['zone_name']}}</span></label>
-=======
-<<<<<<< HEAD
->>>>>>> c635937b653c1d2226b4a5c511fa152087894b9f
-                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name" data-cur_zone_val="{{$zone_pref_details['current_zone']['zone_id']}}"> {{$zone_pref_details['current_zone']['zone_name']}}</span></label>
-                </div>
-                <div id="zone-group" class="form-group row our-form-group">
-                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"  data-pre_zone_val="{{$zone_pref_details['just_prev_zone']['zone_id']}}"> {{$zone_pref_details['just_prev_zone']['zone_name']}}</span></label>
-<<<<<<< HEAD
-=======
-=======
-                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> {{$zone_pref_details['current_zone']['zone_name']}}</span></label>
-                </div>
-                <div id="zone-group" class="form-group row our-form-group">
-                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> {{$zone_pref_details['just_prev_zone']['zone_name']}}</span></label>
->>>>>>> 085ba25beb3373603c49a166582df24431fa75be
->>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
->>>>>>> c635937b653c1d2226b4a5c511fa152087894b9f
-                </div>
-            
-            <hr>
+                
+                    <div id="officer_name-group" class="form-group row our-form-group">
+                        <label for="officer_name" class="col-sm-offset-1 col-sm-5 ">Officer Name: {{Auth::user()->name}}</label>
+                        <label for="jo_code" id="jo_code" class="col-sm-offset-1 col-sm-5">Code: </label>
+                    </div>
+                    <div id="zone-group" class="form-group row our-form-group">
+
+                        <label for="zone" class="col-sm-offset-1 col-sm-5 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> {{$zone_pref_details['current_zone']['zone_name']}}</span></label>
+                        <label for="zone" class="col-sm-offset-1 col-sm-5 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> {{$zone_pref_details['just_prev_zone']['zone_name']}}</span></label>
+
+                    </div>      
+                 <hr>
         
             <div id="posting_pref-group" class="form-group row our-form-group">
                 
                 <div class="col-sm-offset-1 col-md-2">
                     <label for="posting_pref1">Posting Preference </label>
-<<<<<<< HEAD
-                    <select id="posting_pref" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">
-=======
-<<<<<<< HEAD
-                    <select id="posting_pref" onkeypress="myFunction()" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">
-=======
-<<<<<<< HEAD
-                    <select id="posting_pref" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">
-=======
-                    <select id="posting_pref" onkeypress="myFunction()" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">
->>>>>>> 085ba25beb3373603c49a166582df24431fa75be
->>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
->>>>>>> c635937b653c1d2226b4a5c511fa152087894b9f
-                        
+
+                    <select id="posting_pref" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">                   
                     @include('zones.zone_options')
                     </select>
 				</div>
