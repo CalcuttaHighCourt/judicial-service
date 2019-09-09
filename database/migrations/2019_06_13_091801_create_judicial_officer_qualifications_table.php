@@ -21,7 +21,7 @@ class CreateJudicialOfficerQualificationsTable extends Migration
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
 
-            $table->unique('judicial_officer_id', 'qualification_id');
+            $table->unique(['judicial_officer_id', 'qualification_id']);
             
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
             $table->foreign('qualification_id')->references('id')->on('qualifications');

@@ -17,8 +17,6 @@ class CreateJudicialOfficerPostingPreferencesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('judicial_officer_id');
             $table->unsignedBigInteger('zone_id');
-            // $table->string('notice_no');
-            // $table->date('notice_date');
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
 

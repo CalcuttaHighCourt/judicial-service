@@ -1,6 +1,24 @@
-@extends('layouts.app') @section('title', 'LCR HC End')
-@section('page_heading') LCR HC End @endsection
-@section('center_main_content')
+<?php
+
+use App\Http\Controllers\PageController;
+?>
+@extends('layouts.app')
+{{--@include('services.display_board.display_board_block')--}}
+<?php
+$calendar_display = "month";
+?>
+
+
+
+@section('title', 'Lower Court Records')
+
+@section('page_heading')
+Lower Court Records
+@endsection
+
+
+
+@section('left_main_content')
 <div class="panel custom-panel">
     <div class="col-sm-12">
         <div id="info-panel" class="panel panel-default">
@@ -63,7 +81,7 @@
                         <div class="col-md-4" style="margin-bottom:10px;">
                             <select id="lc_case_type0" type="text" class="form-control info-form-control lc_case_type" name="lc_case_tye"> 
                                 <option value="">Select Case type</option>
-                                    @foreach(App\lower_case_type::orderBy('type_name', 'asc')->get() as $casetype)
+                                    @foreach(App\Lower_case_type::orderBy('type_name', 'asc')->get() as $casetype)
                                         <option value="{{$casetype->id }}" @if (old('lower_case_type') == $casetype->type_name) selected="selected" @endif>{{$casetype->type_name}}</option>
                                     @endforeach
                             </select>
@@ -108,17 +126,23 @@
     </div>
 </div>
 
-@endsection @include('layouts.1_column_content')
-
-
-@section('main_container') @yield('1_column_content') @endsection
-
-@section('meta')
-@parent
-<meta name="_token" content="{!! csrf_token() !!}" />
 @endsection
 
-@section('end_scripts') @parent
+@section('right_sidebar_content')
+
+
+@endsection
+@include('layouts.2_column_content')
+
+
+@section('main_container')
+@yield('2_column_content')
+@endsection
+
+@section('body_attributes')
+@endsection
+
+@section('end_scripts_1')
 <script>
 
         $(document).ready(function(){

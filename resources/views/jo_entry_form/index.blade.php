@@ -8,7 +8,7 @@
 }
 </style>
 <div id="info-panel" class="panel panel-default">
-   <div class="row" style="margin-left:-250px">
+   <div class="row" style="margin-left:-200px">
       <div class="col-sm-3">
          <!--left col-->
       </div>
@@ -88,9 +88,9 @@
                         <input type="text" class="form-control date" name="dor" id="dor" placeholder="dd-mm-yyyy">
                     </div>
                  </div>      
-                 <div class="form-group required">
+                 <div class="form-group">
                     <div class="col-xs-4">
-                        <label for="religion_id" class="control-label">
+                        <label for="religion_id">
                              Religion 
                         </label>
                         <select id="religion_id" class="form-control info-form-control select2" name="religion_id" style="width:100%">
@@ -99,9 +99,9 @@
                         </select>
                     </div>
                  </div>
-                 <div class="form-group required">
+                 <div class="form-group">
                     <div class="col-xs-4">
-                        <label for="category_id" class="control-label">
+                        <label for="category_id">
                              Category 
                         </label>
                         <select id="category_id" class="form-control info-form-control select2" name="category_id" style="width:100%">
@@ -126,7 +126,7 @@
                         <label for="aadhar_no">
                              Aadhar No. 
                         </label>
-                        <input type="text" class="form-control" name="aadhar_no" id="aadhar_no" placeholder="Aadhar Card No.">
+                        <input type="integer" class="form-control" name="aadhar_no" id="aadhar_no" placeholder="Aadhar Card No.">
                     </div>
                  </div>    
                  <div class="form-group">
@@ -139,10 +139,10 @@
                  </div>    
                  <div class="form-group">
                     <div class="col-xs-4">
-                        <label for="pf_no">
-                             PF No. 
+                        <label for="gpf_no">
+                             GPF No. 
                         </label>
-                        <input type="text" class="form-control" name="pf_no" id="pf_no" placeholder="Profident Fund A/C No.">
+                        <input type="integer" class="form-control" name="gpf_no" id="gpf_no" placeholder="Profident Fund A/C No.">
                     </div>
                  </div>    
                  <div class="form-group">
@@ -215,7 +215,7 @@
                             <label for="ph_no_1" class="control-label">
                                  Primary Contact No. 
                             </label>
-                            <input type="text" class="form-control" name="ph_no_1" id="ph_no_1" placeholder="First Phone No.">
+                            <input type="integer" class="form-control" name="ph_no_1" id="ph_no_1" placeholder="First Phone No.">
                         </div>
                     </div>    
                     <div class="form-group">
@@ -223,7 +223,7 @@
                             <label for="ph_no_2">
                                  Secondary Contact No. 
                             </label>
-                            <input type="text" class="form-control" name="ph_no_2" id="ph_no_2" placeholder="Second Phone No.">
+                            <input type="integer" class="form-control" name="ph_no_2" id="ph_no_2" placeholder="Second Phone No.">
                         </div>
                     </div>    
                     <div class="form-group">
@@ -231,7 +231,7 @@
                             <label for="ph_no_3">
                                  Alternative Contact No. 
                             </label>
-                            <input type="text" class="form-control" name="ph_no_3" id="ph_no_3" placeholder="Third Phone No.">
+                            <input type="integer" class="form-control" name="ph_no_3" id="ph_no_3" placeholder="Third Phone No.">
                         </div>
                     </div>    
                     <div class="form-group required">
@@ -291,9 +291,9 @@
                <form class="form" action="##" method="">
                     <div class="div_add_more_qualification">
                         <div class="row">
-                            <div class="form-group required">
+                            <div class="form-group">
                                 <div class="col-xs-5"><br/>
-                                    <label class="control-label">
+                                    <label>
                                          Degree 
                                     </label>
                                     <select class="form-control info-form-control select2 degree_id" style="width:100%">
@@ -302,9 +302,9 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group required">
+                            <div class="form-group">
                                 <div class="col-xs-3">
-                                    <label class="control-label">
+                                    <label>
                                          Year of Passing 
                                     </label>
                                     <select class="form-control info-form-control select2 yop" style="width:100%">
@@ -329,155 +329,66 @@
          <!--/tab-pane-->
 
          <div class="tab-pane" id="posting_details">
-                <form class="form" action="##" method="">
+                <form class="form" action="##" method="">                    
                     <div class="text-center">
-                        <h3 style="color:#d06666"><u>Present Posting Details</u></h3>
+                        <h3 style="color:#d06666"><u>Posting Details (From Present to Past)</u></h3>
                     </div>
-                    <div class="row">
-                        <div class="form-group required">
+                    <div class="div_add_more_posting">
+                        <div class="row"> 
                             <div class="col-xs-3">
-                                <label class="control-label">
-                                     From Date 
+                                <label>
+                                        Designation 
                                 </label>
-                                <input type="text" class="form-control date" placeholder="dd-mm-yyyy">                            
-                            </div>
-                        </div> 
-                        <div class="form-group required">
-                            <div class="col-xs-3">
-                                <label class="control-label">
-                                     Designation 
-                                </label>
-                                <select class="form-control info-form-control designation_id select2" style="width:100%">
+                                <select class="form-control info-form-control posting_select2 designation_id select2" style="width:100%">
                                     <option value="">Select an Option</option>
                                     @include('designations.designation_options')
                                 </select>
                             </div>
-                        </div> 
-                        <div class="form-group required">
                             <div class="col-xs-3">
-                                <label class="control-label">
-                                     Posting Mode 
+                                <label>
+                                        Posting Mode 
                                 </label>
-                                <select class="form-control info-form-control mode_id select2" style="width:100%">
+                                <select class="form-control info-form-control posting_select2 mode_id select2" style="width:100%">
                                     <option value="">Select an Option</option>
                                     @include('modes.mode_options')
                                 </select>
                             </div>
-                        </div> 
-                    </div>
-                    <div class="row">                                        
-                        <div class="form-group">
                             <div class="col-xs-3">
                                 <label>
-                                     Court 
+                                        Court 
                                 </label>
-                                <select class="form-control info-form-control court_id select2" style="width:100%">
+                                <select class="form-control info-form-control posting_select2 court_id select2" style="width:100%">
                                     <option value="">Select an Option</option>
+                                    @include('courts.court_options')
                                 </select>
-                            </div>
-                        </div>  
-                        <div class="form-group required">
+                            </div>                   
+                        </div><br/>
+                        <div class="row"> 
                             <div class="col-xs-3">
-                                <label class="control-label">
-                                     Reporting Officer 
+                                <label>
+                                        Reporting Officer 
                                 </label>
-                                <select id="reporting_officer_id" class="form-control info-form-control select2" style="width:100%">
+                                <select class="form-control info-form-control posting_select2 reporting_officer_id select2" style="width:100%">
                                     <option value="">Select an Option</option>
                                     @include('judicial_officers.judicial_officer_options')
                                 </select>
                             </div>
-                        </div> 
-                        <div class="form-group required">
                             <div class="col-xs-3">
-                                <label class="control-label">
-                                     Reviewing Officer 
+                                <label>
+                                        From Date 
                                 </label>
-                                <select id="reviewing_officer_id" class="form-control info-form-control reviewing_officer_id select2" style="width:100%">
-                                    <option value="">Select an Option</option>
-                                    @include('judicial_officers.judicial_officer_options')
-                                </select>
+                                <input type="text" class="form-control date from_date" placeholder="dd-mm-yyyy">
                             </div>
-                        </div> 
-                    </div> 
-
-                    <hr>
-
-                    <div class="text-center">
-                        <h3 style="color:#d06666"><u>Previous Posting Details</u></h3>
-                    </div>
-                    <div class="div_add_more_posting">
-                        <div class="row">
-                            <div class="form-group required">
-                                <div class="col-xs-3">
-                                    <label class="control-label">
-                                         Posting Tenure 
-                                    </label>
-                                    <input type="text" class="form-control posting_tenure" placeholder="dd-mm-yyyy TO dd-mm-yyyy">                            
-                                </div>
-                            </div> 
-                            <div class="form-group required">
-                                <div class="col-xs-3">
-                                    <label class="control-label">
-                                         Designation 
-                                    </label>
-                                    <select class="form-control info-form-control posting_select2 designation_id select2" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        @include('designations.designation_options')
-                                    </select>
-                                </div>
-                            </div> 
-                            <div class="form-group required">
-                                <div class="col-xs-3">
-                                    <label class="control-label">
-                                         Posting Mode 
-                                    </label>
-                                    <select class="form-control info-form-control posting_select2 mode_id select2" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        @include('modes.mode_options')
-                                    </select>
-                                </div>
-                            </div>                             
-                        </div>
-                        <div class="row">                                                                   
-                            <div class="form-group">
-                                <div class="col-xs-3">
-                                    <label>
-                                         Court 
-                                    </label>
-                                    <select class="form-control info-form-control posting_select2 court_id select2" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        @include('courts.court_options')
-                                    </select>
-                                </div>
-                            </div>  
-                            <div class="form-group">
-                                <div class="col-xs-3">
-                                    <label>
-                                         Reporting Officer 
-                                    </label>
-                                    <select class="form-control info-form-control posting_select2 reporting_officer_id select2" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        @include('judicial_officers.judicial_officer_options')
-                                    </select>
-                                </div>
-                            </div> 
-                            <div class="form-group">
-                                <div class="col-xs-3">
-                                    <label>
-                                         Reviewing Officer 
-                                    </label>
-                                    <select class="form-control info-form-control posting_select2 reviewing_officer_id select2" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        @include('judicial_officers.judicial_officer_options')
-                                    </select>
-                                </div>
-                            </div> 
-                            <div class="form-group">
-                                <div class="col-xs-2">
-                                    <br>
-                                    <img src="{{asset('images/details_open.png')}}" class="img_add_more_posting" id="add_more_posting">
-                                </div>
-                            </div> 
+                            <div class="col-xs-3">
+                                <label>
+                                        To Date 
+                                </label>
+                                <input type="text" class="form-control date to_date" placeholder="dd-mm-yyyy">
+                            </div>
+                            <div class="col-xs-2">
+                                <br>
+                                <img src="{{asset('images/details_open.png')}}" class="img_add_more_posting" id="add_more_posting">
+                            </div>
                         </div> 
                         <hr>
                     </div>                     
@@ -490,7 +401,7 @@
                      <div class="text-center">  
                         <img src="{{asset('images/FacelessMan.png')}}" class="avatar img-circle img-thumbnail" alt="avatar" style="height:30%;width:20%">
                         <h6>Upload Photo...</h6>
-                        <input type="file" class="text-center center-block file-upload">              
+                        <input type="file" id="file_input" class="text-center center-block file-upload">              
                          
                      </div>
                 </form>
@@ -505,7 +416,7 @@
                 <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
             </div>
             <div class="col-sm-4 text-center">
-                <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+                <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
             </div>
             <div class="col-sm-4 text-right">
                 <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
@@ -539,6 +450,12 @@
    $(document).ready(function() {   
         var clone_element_posting = $(".div_add_more_posting").clone();
         var clone_element_qualification = $(".div_add_more_qualification").clone();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
 
        /* Display the selected image while uploading the file :: STARTS */ 
         var readURL = function(input) {
@@ -576,6 +493,7 @@
         // Select2 initialization
         $(".select2").select2();
 
+       
         //next button event
         $('.next').click(function(){
             $('.nav > .active').next('li').find('a').trigger('click');
@@ -617,6 +535,7 @@
             //console.log($('#nav_tabs > ul > li').length+" "+$('.nav > .active').next('li').index());
             prev_next_btn_display();
         });
+
         // Prevent default form submit
         $("form").submit(function(e){
             return false;
@@ -625,15 +544,30 @@
         
         /*If multiple posting details added :: STARTS*/
 		$(document).on("click","#add_more_posting", function(){
-            var posting_tenure = $(".div_add_more_posting:last").find(".posting_tenure").val();
+            var from_date = $(".div_add_more_posting:last").find(".from_date").val();
             var designation_id = $(".div_add_more_posting:last").find(".designation_id").val();
             var mode_id = $(".div_add_more_posting:last").find(".mode_id").val();
-            var court_complex_id = $(".div_add_more_posting:last").find(".court_complex_id").val();
+            var court_id = $(".div_add_more_posting:last").find(".court_id").val();
 
-            if(posting_tenure!="" && designation_id!="" && mode_id!="" && court_complex_id!=""){                
+            if(from_date!="" && designation_id!="" && mode_id!=""){                
                 var clone_element2 = clone_element_posting.clone();
                 clone_element2.insertAfter(".div_add_more_posting:last");                
-                $(".select2").select2();                
+                // Select2 Re-initialization
+                $(".select2").select2();  
+
+                // Datepicker Re-initialization
+                $(".date").datepicker({
+                    format: "dd-mm-yyyy",
+                    weekStart: 1,
+                    todayBtn: "linked",
+                    clearBtn: true,
+                    daysOfWeekHighlighted: "0,6",
+                    autoclose: true,
+                    todayHighlight: true,
+                    toggleActive: false,
+                    endDate: "today"
+                });
+              
                 $(".img_add_more_posting:last").attr({src:"images/details_close.png",
                                                         class:"remove_posting", 
                                                         alt:"remove_posting"
@@ -722,78 +656,206 @@
         });
         /*Current Address is Same As Permanenet Address :: ENDS*/
 
-        function ajax_data(){
+        function ajax_data(type){
             var designation_id = new Array();
             var court_id = new Array();
             var court_complex_id = new Array();
-            var mode_id = new Array();
-            var from_date = new Array();
-            var to_id = new Array();
+            var mode_id = new Array();            
             var qualification_id = new Array();
             var passing_year = new Array();
+            var reporting_officer_id = new Array();
+            var reviewing_officer_id = new Array();
+            var from_date = new Array();
+            var to_date = new Array();
 
-            var formData = {
-                jo_code: $("#jo_code").val(),
+            designation_id = [];
+            $(".designation_id").each(function(){
+                designation_id.push($(this).val());
+            })
 
-                officer_name: $("#jo_name").val(),
+            mode_id = [];
+            $(".mode_id").each(function(){
+                mode_id.push($(this).val());
+            })
 
-                gender: $("input[name='gender']:checked").val(),
+            court_id = [];
+            court_complex_id = [];
+            $(".court_id").each(function(){
+                court_id.push($(this).val());
+                court_complex_id.push($(this).find(':selected').attr('data-court_complex_id'));
+            })
 
-                guardian_name:$("#guardian_name").val(),
+            reporting_officer_id = [];
+            $(".reporting_officer_id").each(function(){
+                reporting_officer_id.push($(this).val());
+            })
 
-                gurdian_relation:$("#guardian_relationship").val(),
+            reviewing_officer_id = [];
+            $(".reviewing_officer_id").each(function(){
+                reviewing_officer_id.push($(this).val());
+            })
 
-                date_of_birth: $("#dob").val(),
+            qualification_id = [];
+            $(".degree_id").each(function(){
+                qualification_id.push($(this).val());
+            })
 
-                home_state_id:$("#home_state").val(),
+            passing_year = [];
+            $(".yop").each(function(){
+                passing_year.push($(this).val());
+            })
 
-                home_district_id:$("#home_district").val(),	
+            from_date = [];
+            $(".from_date").each(function(){
+                from_date.push($(this).val());
+            })
 
-                hometown:$("#home_town").val(),
+            to_date = [];
+            $(".to_date").each(function(){
+                to_date.push($(this).val());
+            })
+         
 
-                present_address:$("#current_address").val(),
-
-                permanent_address:$("#permanent_address").val(),
-
-                religion_id:$("#religion_id").val(),
-
-                category_id:$("#category_id").val(),   
-
-                blood_group:$("#blood_group").val(),
-
-                identification_mark:$("#identification_mark").val(),  
-
-                aadhaar_no:$("#aadhaar_no").val(),
-
-                pan_no:$("#pan_no").val(),
-
-                pf_no:$("#pf_no").val(), 
-
-                mobile_no_1:$("#ph_no_1").val(),
-
-                mobile_no_2:$("#ph_no_2").val(),
-
-                mobile_no_3:$("#ph_no_3").val(),
-
-                email_id_1:$("#email_id_1").val(),
-
-                email_id_2:$("#email_id_2").val(),
-
-                email_id_3:$("#email_id_3").val(),
-
-                recruitment_batch_id:$("#recruitment_batch_id").val(),
-
-                date_of_joining:$("#doj").val(),
-
-                date_of_confirmation:$("#doc").val(),
-
-                date_of_retirement:$("#dor").val(),
+            var formData = new FormData();
             
-                present_reporting_officer_id:$("#reporting_officer_id").val(),
+            formData.append("jo_code", $("#jo_code").val());
 
-                reviewing_officer_id:$("#reviewing_officer_id").val(),	
-            };
-        }
+            formData.append("officer_name", $("#jo_name").val());
+
+            formData.append("gender", $("input[name='gender']").val());
+
+            formData.append("guardian_name",$("#guardian_name").val());
+
+            formData.append("gurdian_relation",$("#guardian_relationship").val());
+
+            formData.append("date_of_birth", $("#dob").val());
+
+            formData.append("home_state_id",$("#home_state").val());
+
+            formData.append("home_district_id",$("#home_district").val());	
+
+            formData.append("hometown",$("#home_town").val());
+
+            formData.append("present_address",$("#current_address").val());
+
+            formData.append("permanent_address",$("#permanent_address").val());
+
+            formData.append("religion_id",$("#religion_id").val());
+
+            formData.append("category_id",$("#category_id").val());   
+
+            formData.append("blood_group",$("#blood_group").val());
+
+            formData.append("identification_mark",$("#identification_mark").val());  
+
+            formData.append("aadhaar_no",$("#aadhar_no").val());
+
+            formData.append("pan_no",$("#pan_no").val());
+
+            formData.append("gpf_no",$("#gpf_no").val()); 
+
+            formData.append("mobile_no_1",$("#ph_no_1").val());
+
+            formData.append("mobile_no_2",$("#ph_no_2").val());
+
+            formData.append("mobile_no_3",$("#ph_no_3").val());
+
+            formData.append("email_id_1",$("#email_id_1").val());
+
+            formData.append("email_id_2",$("#email_id_2").val());
+
+            formData.append("email_id_3",$("#email_id_3").val());
+
+            formData.append("recruitment_batch_id",$("#recruitment_batch_id").val());
+
+            formData.append("date_of_joining",$("#doj").val());
+
+            formData.append("date_of_confirmation",$("#doc").val());
+
+            formData.append("date_of_retirement",$("#dor").val());
+
+            formData.append("file",	$("#file_input").prop('files')[0]);
+
+            formData.append("qualification_id",JSON.stringify(qualification_id));
+
+            formData.append("passing_year",JSON.stringify(passing_year));
+
+            formData.append("designation_id",JSON.stringify(designation_id));
+
+            formData.append("court_id",JSON.stringify(court_id));
+
+            formData.append("court_complex_id",JSON.stringify(court_complex_id));
+
+            formData.append("mode_id",JSON.stringify(mode_id));
+
+            formData.append("from_date",JSON.stringify(from_date));
+
+            formData.append("to_date",JSON.stringify(to_date));
+            
+        
+            
+
+            // for (var pair of formData.entries()) {
+            //     console.log(pair[0]+ ', ' + pair[1]); 
+            // }
+
+            ajax_url="";
+            operation="";
+            operated="";
+            request_type="POST";
+            if(type=="add"){
+                formData["_method"]="POST";
+                ajax_url="jo_entry";       
+
+                operation="add";
+                operated="Added";
+            }
+            else if(type=="update"){
+                formData["_method"]="PUT";            
+                ajax_url="jo_entry/"+formdata.jo_code;
+
+                operation="update";
+                operated="Updated";
+            } 
+
+            $.ajax({
+                type: request_type,
+                url: ajax_url,
+                data: formData,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function (data, textStatus, jqXHR) {
+                    if(data.judicial_officer!=null){
+                        swal("Judicial Officer"+operated+" Successfully","","success");
+                        $("form").trigger("reset");   
+                        $(".select2").val('').trigger('change');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    if(jqXHR.status!=422 && jqXHR.status!=400){
+                        swal("Failed to "+operation+" Judicial Officer",errorThrown,"error");
+                    }
+                    else{
+                        msg = ""
+                        $.each(jqXHR.responseJSON.errors, function(key,value) {
+                            msg+=value+"\n";						
+                        });
+
+                        swal("Failed to "+operation+" Judicial Officer",msg,"error");
+                    }
+                }
+            })
+        }   
+
+
+        $("#submit").click(function(){
+            ajax_data('add');
+        })  
+
+        $("#update").click(function(){
+            ajax_data('update');
+        })    
         
    });
 
