@@ -214,7 +214,7 @@ class JudicialOfficerPostingController extends Controller {
     public function zone_pref_details_fetch(Request $request)
     {
        
-        $id= auth()->user()->id;
+        $id= auth()->user()->judicial_officer_id;
         $user_type = Auth::user()->user_type_id;
 
         $zone_pref_details['current_zone']= JudicialOfficerPosting:: join('court_complexes as cc','cc.id','=','judicial_officer_postings.court_complex_id')
@@ -224,8 +224,6 @@ class JudicialOfficerPostingController extends Controller {
                                                     ->orderBy('from_date', 'desc')
                                                     ->select('zones.zone_name as zone_name','zones.id as zone_id','judicial_officer_postings.from_date as current_from_date', 'zones.min_service_days as min_service_days','judicial_officers.date_of_retirement as date_of_retirement')
                                                     ->first();
-                                             
-                                                
 
 
        $zone_pref_details['just_prev_zone']= JudicialOfficerPosting:: join('court_complexes as cc','cc.id','=','judicial_officer_postings.court_complex_id')

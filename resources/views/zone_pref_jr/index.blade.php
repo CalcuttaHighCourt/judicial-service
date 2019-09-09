@@ -22,7 +22,7 @@
             <a class="nav-link active" id="posting_details" style="border-style:outset" data-toggle="tab" href="#postings">Posting Details</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" id="judicial_dairy" style="border-style:outset" data-toggle="tab" href="#daily_dairy">Judicial Dairy</a>
+            <a class="nav-link active" id="judicial_diary" style="border-style:outset" data-toggle="tab" href="#daily_diary">Judicial diary</a>
         </li>
     <li class="nav-item">
       <a class="nav-link active"  style="border-style:outset" data-toggle="tab" href="#acr">Annual Confidential Report</a>
@@ -43,10 +43,24 @@
                     <label for="jo_code" id="jo_code" class="col-sm-offset-1 col-sm-3">Code: </label>
                 </div>
                 <div id="zone-group" class="form-group row our-form-group">
+<<<<<<< HEAD
                     <label for="zone" class="col-sm-offset-1 col-sm-2 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> {{$zone_pref_details['current_zone']['zone_name']}}</span></label>
                 </div>
                 <div id="zone-group" class="form-group row our-form-group">
                     <label for="zone" class="col-sm-offset-1 col-sm-2 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> {{$zone_pref_details['just_prev_zone']['zone_name']}}</span></label>
+=======
+<<<<<<< HEAD
+                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name" data-cur_zone_val="{{$zone_pref_details['current_zone']['zone_id']}}"> {{$zone_pref_details['current_zone']['zone_name']}}</span></label>
+                </div>
+                <div id="zone-group" class="form-group row our-form-group">
+                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"  data-pre_zone_val="{{$zone_pref_details['just_prev_zone']['zone_id']}}"> {{$zone_pref_details['just_prev_zone']['zone_name']}}</span></label>
+=======
+                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> {{$zone_pref_details['current_zone']['zone_name']}}</span></label>
+                </div>
+                <div id="zone-group" class="form-group row our-form-group">
+                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> {{$zone_pref_details['just_prev_zone']['zone_name']}}</span></label>
+>>>>>>> 085ba25beb3373603c49a166582df24431fa75be
+>>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
                 </div>
             
             <hr>
@@ -55,7 +69,15 @@
                 
                 <div class="col-sm-offset-1 col-md-2">
                     <label for="posting_pref1">Posting Preference </label>
+<<<<<<< HEAD
                     <select id="posting_pref" onkeypress="myFunction()" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">
+=======
+<<<<<<< HEAD
+                    <select id="posting_pref" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">
+=======
+                    <select id="posting_pref" onkeypress="myFunction()" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">
+>>>>>>> 085ba25beb3373603c49a166582df24431fa75be
+>>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
                         
                     @include('zones.zone_options')
                     </select>
@@ -79,7 +101,7 @@
                 </div>
                    
                 <div class="col-sm-3">
-                    <button id="submit_dairy" type="button"
+                    <button id="submit_diary" type="button"
                         class="btn btn-primary add-button info-form-button">
                         Submit
                     </button>
@@ -87,7 +109,7 @@
              </div>
              <br>
              <div class="box col-sm-offset-1">
-                <div class="box-header" id="dairy_editor" style="display:none;">
+                <div class="box-header" id="diary_editor" style="display:none;">
                     <h3 class="box-title col-sm-offset-3" >DAILY WORKSHEET
                         <small>of : <span id="date_span"></span></small>
                     </h3>
@@ -167,7 +189,7 @@
 
         /*date initialization:end */
 
-        $(document).on("click","#judicial_dairy",function(){
+        $(document).on("click","#judicial_diary",function(){
             $("#postings").hide();
             $("#daily_diary").show();
             
@@ -179,34 +201,24 @@
             
          });
 
-function myFunction() {
 
-    var cur_zone_name= $("#cur_zone_name").html();
-            var pre_zone_name = $("#pre_zone_name").html();
+    //To remove current zone & previous zone, from drop down list : start
 
-alert(cur_zone_name);
-            // $("#posting_pref").find("option[value="+cur_zone_name+"]").remove();
-            // $("#posting_pref").find("option[value="+pre_zone_name+"]").remove();
-                    $("#posting_pref option[value='"+cur_zone_name+"']").remove();
+        var cur_zone_name= $("#cur_zone_name").data('cur_zone_val');
+        var pre_zone_name = $("#pre_zone_name").data('pre_zone_val');;
+
+        $("#posting_pref option[value='"+cur_zone_name+"']").remove();
         $("#posting_pref option[value='"+pre_zone_name+"']").remove();
-}
+
+    //To remove current zone & previous zone, from drop down list : end
 
 
+       
+        $(document).on("click","#submit_diary",function(){
 
-
-
-
-// $("#posting_pref option[value="+cur_zone_name+"]").remove();
-
-
-        // $("#posting_pref option[value='"+cur_zone_name+"']").remove();
-        // $("#posting_pref option[value='"+pre_zone_name+"']").remove();
-        
-        $(document).on("click","#submit_dairy",function(){
-
-           $("#dairy_editor").show();
+           $("#diary_editor").show();
             $("#date_span").html($(".diary_date").val());
-            $("#submit_dairy").hide();
+            $("#submit_diary").hide();
 
             var date=$("#date").val();
 
@@ -230,7 +242,7 @@ alert(cur_zone_name);
 
         $(document).on("change","#date",function(){
 
-            $("#submit_dairy").show();
+            $("#submit_diary").show();
         });
 
 

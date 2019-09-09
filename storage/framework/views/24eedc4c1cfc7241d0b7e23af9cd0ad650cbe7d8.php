@@ -19,7 +19,7 @@
             <a class="nav-link active" id="posting_details" style="border-style:outset" data-toggle="tab" href="#postings">Posting Details</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" id="judicial_dairy" style="border-style:outset" data-toggle="tab" href="#daily_dairy">Judicial Dairy</a>
+            <a class="nav-link active" id="judicial_diary" style="border-style:outset" data-toggle="tab" href="#daily_diary">Judicial diary</a>
         </li>
     <li class="nav-item">
       <a class="nav-link active"  style="border-style:outset" data-toggle="tab" href="#acr">Annual Confidential Report</a>
@@ -40,10 +40,17 @@
                     <label for="jo_code" id="jo_code" class="col-sm-offset-1 col-sm-3">Code: </label>
                 </div>
                 <div id="zone-group" class="form-group row our-form-group">
+<<<<<<< HEAD
                     <label for="zone" class="col-sm-offset-1 col-sm-2 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> <?php echo e($zone_pref_details['current_zone']['zone_name']); ?></span></label>
                 </div>
                 <div id="zone-group" class="form-group row our-form-group">
                     <label for="zone" class="col-sm-offset-1 col-sm-2 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> <?php echo e($zone_pref_details['just_prev_zone']['zone_name']); ?></span></label>
+=======
+                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name" data-cur_zone_val="<?php echo e($zone_pref_details['current_zone']['zone_id']); ?>"> <?php echo e($zone_pref_details['current_zone']['zone_name']); ?></span></label>
+                </div>
+                <div id="zone-group" class="form-group row our-form-group">
+                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"  data-pre_zone_val="<?php echo e($zone_pref_details['just_prev_zone']['zone_id']); ?>"> <?php echo e($zone_pref_details['just_prev_zone']['zone_name']); ?></span></label>
+>>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
                 </div>
             
             <hr>
@@ -52,7 +59,11 @@
                 
                 <div class="col-sm-offset-1 col-md-2">
                     <label for="posting_pref1">Posting Preference </label>
+<<<<<<< HEAD
                     <select id="posting_pref" onkeypress="myFunction()" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">
+=======
+                    <select id="posting_pref" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">
+>>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
                         
                     <?php echo $__env->make('zones.zone_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     </select>
@@ -76,7 +87,11 @@
                 </div>
                    
                 <div class="col-sm-3">
+<<<<<<< HEAD
                     <button id="submit_dairy" type="button"
+=======
+                    <button id="submit_diary" type="button"
+>>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
                         class="btn btn-primary add-button info-form-button">
                         Submit
                     </button>
@@ -84,7 +99,11 @@
              </div>
              <br>
              <div class="box col-sm-offset-1">
+<<<<<<< HEAD
                 <div class="box-header" id="dairy_editor" style="display:none;">
+=======
+                <div class="box-header" id="diary_editor" style="display:none;">
+>>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
                     <h3 class="box-title col-sm-offset-3" >DAILY WORKSHEET
                         <small>of : <span id="date_span"></span></small>
                     </h3>
@@ -164,7 +183,11 @@
 
         /*date initialization:end */
 
+<<<<<<< HEAD
         $(document).on("click","#judicial_dairy",function(){
+=======
+        $(document).on("click","#judicial_diary",function(){
+>>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
             $("#postings").hide();
             $("#daily_diary").show();
             
@@ -176,6 +199,7 @@
             
          });
 
+<<<<<<< HEAD
 function myFunction() {
 
     var cur_zone_name= $("#cur_zone_name").html();
@@ -204,6 +228,26 @@ alert(cur_zone_name);
            $("#dairy_editor").show();
             $("#date_span").html($(".diary_date").val());
             $("#submit_dairy").hide();
+=======
+
+    //To remove current zone & previous zone, from drop down list : start
+
+        var cur_zone_name= $("#cur_zone_name").data('cur_zone_val');
+        var pre_zone_name = $("#pre_zone_name").data('pre_zone_val');;
+
+        $("#posting_pref option[value='"+cur_zone_name+"']").remove();
+        $("#posting_pref option[value='"+pre_zone_name+"']").remove();
+
+    //To remove current zone & previous zone, from drop down list : end
+
+
+       
+        $(document).on("click","#submit_diary",function(){
+
+           $("#diary_editor").show();
+            $("#date_span").html($(".diary_date").val());
+            $("#submit_diary").hide();
+>>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
 
             var date=$("#date").val();
 
@@ -227,7 +271,11 @@ alert(cur_zone_name);
 
         $(document).on("change","#date",function(){
 
+<<<<<<< HEAD
             $("#submit_dairy").show();
+=======
+            $("#submit_diary").show();
+>>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
         });
 
 
