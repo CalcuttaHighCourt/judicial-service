@@ -17,7 +17,10 @@ class CreateHcCaseTypesTable extends Migration
             $table->bigIncrements('id');
             $table->string('type_name');
             $table->string('full_form');
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
+
+            $table->foreign('created_by')->references('id')->on('users');
         });
     }
 
