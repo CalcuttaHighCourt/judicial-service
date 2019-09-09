@@ -486,8 +486,7 @@
             daysOfWeekHighlighted: "0,6",
             autoclose: true,
             todayHighlight: true,
-            toggleActive: false,
-            endDate: "today"
+            toggleActive: false            
         });
 
         // Select2 initialization
