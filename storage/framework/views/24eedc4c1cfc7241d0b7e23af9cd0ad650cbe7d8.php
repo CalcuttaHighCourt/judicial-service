@@ -339,7 +339,7 @@
                             success:function(response){
                                                                  
                                 swal("Preference Added Successfully","Successful","success");
-                                table.api().ajax.reload();   
+                                
 
                             },
                             error:function(response) {  

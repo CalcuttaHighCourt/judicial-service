@@ -43,17 +43,10 @@
                     <label for="jo_code" id="jo_code" class="col-sm-offset-1 col-sm-3">Code: </label>
                 </div>
                 <div id="zone-group" class="form-group row our-form-group">
-<<<<<<< HEAD
                     <label for="zone" class="col-sm-offset-1 col-sm-2 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name" data-cur_zone_val="{{$zone_pref_details['current_zone']['zone_id']}}"> {{$zone_pref_details['current_zone']['zone_name']}}</span></label>
                 </div>
                 <div id="zone-group" class="form-group row our-form-group">
                     <label for="zone" class="col-sm-offset-1 col-sm-2 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"  data-pre_zone_val="{{$zone_pref_details['just_prev_zone']['zone_id']}}"> {{$zone_pref_details['just_prev_zone']['zone_name']}}</span></label>
-=======
-                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> {{$zone_pref_details['current_zone']['zone_name']}}</span></label>
-                </div>
-                <div id="zone-group" class="form-group row our-form-group">
-                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> {{$zone_pref_details['just_prev_zone']['zone_name']}}</span></label>
->>>>>>> 085ba25beb3373603c49a166582df24431fa75be
                 </div>
             
             <hr>
@@ -62,11 +55,7 @@
                 
                 <div class="col-sm-offset-1 col-md-2">
                     <label for="posting_pref1">Posting Preference </label>
-<<<<<<< HEAD
                     <select id="posting_pref" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">
-=======
-                    <select id="posting_pref" onkeypress="myFunction()" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">
->>>>>>> 085ba25beb3373603c49a166582df24431fa75be
                         
                     @include('zones.zone_options')
                     </select>
@@ -353,7 +342,7 @@
                             success:function(response){
                                                                  
                                 swal("Preference Added Successfully","Successful","success");
-                                table.api().ajax.reload();   
+                                
 
                             },
                             error:function(response) {  
