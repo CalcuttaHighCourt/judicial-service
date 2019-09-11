@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\JudicialOfficer;
 use App\Dairy;
 use Carbon\Carbon;
+use App\User;
 use Auth;
 
 
@@ -162,16 +163,20 @@ class JudicialOfficerController extends Controller
             'details' => 'required'                   
 
         ] );
-        $date=$request->input('date');
-        $jo_code =Auth::user()->jo_code;
-        $textarea=$request->input('details');
 
+       
+        $date=$request->input('date');
+        $judicial_officer_id =Auth::user()->judicial_officer_id;
+        $textarea=$request->input('details');
+        $JO_Code=User::where('judicial_officer_id',$judicial_officer_id)->with('judicial_officer')->get();
+        print_r($JO_Code);
+       
+        exit;
     // $count=Dairy::where([['date_of_schedule',$date],['jo_code',$jo_code]])->count();
 
-        Dairy::where([['date_of_schedule',$date],['jo_code',$jo_code]])->delete();
+        Dairy::where([['date_of_schedule',$date],['judicial_officer_id',$judicial_officer_id]])->delete();
           
         Dairy::insert([
-            'jo_code'=>$jo_code,
             'date_of_schedule'=>$date,
             'description'=>$textarea,
             'created_at'=>Carbon::today(),
@@ -186,10 +191,10 @@ class JudicialOfficerController extends Controller
             'date' => 'required'
         ]);
         $date=Carbon::parse($request->input('date'))->format('Y-d-m');
-        $jo_code =Auth::user()->jo_code;
+        $judicial_officer_id =Auth::user()->judicial_officer_id;
         $data=Dairy::where([
                                 ['date_of_schedule',$date],
-                                ['jo_code',$jo_code]
+                                ['judicial_officer_id',$judicial_officer_id]
                             ])
                     ->select('description')
                     ->get();
@@ -343,10 +348,9 @@ class JudicialOfficerController extends Controller
             $judicial_officer->recruitment_batch_id = $request->recruitment_batch_id;
             $judicial_officer->aadhaar_no  = $request->aadhaar_no;
             $judicial_officer->pan_no = $request->pan_no;
-            $judicial_officer->pf_no = $request->pf_no; 
+            $judicial_officer->gpf_no = $request->pf_no; 
             $judicial_officer->blood_group = $request->blood_group; 
-            $judicial_officer->identification_marks_1 = $request->identification_marks_1; 
-            $judicial_officer->identification_marks_2 = $request->identification_marks_2; 
+            $judicial_officer->identification_mark= $request->identification_marks_1; 
             $judicial_officer->mobile_no_1 = $request->mobile_no_1; 
             $judicial_officer->mobile_no_2 = $request->mobile_no_2; 
             $judicial_officer->mobile_no_3 = $request->mobile_no_3; 

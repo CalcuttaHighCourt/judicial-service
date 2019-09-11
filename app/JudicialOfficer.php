@@ -106,4 +106,5 @@ class JudicialOfficer extends Model
         return $this->belongsTo('App\JudicialOfficer','present_reviewing_officer_id','id');
     }
     
+    
 }
