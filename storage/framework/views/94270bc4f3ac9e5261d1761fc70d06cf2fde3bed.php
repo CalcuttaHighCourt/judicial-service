@@ -1,12 +1,8 @@
-{{--
-<!-- views/Courts/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'Courts')
-@section('page_heading') Courts @endsection
-@section('center_main_content')
+ <?php $__env->startSection('title', 'Districts'); ?>
+<?php $__env->startSection('page_heading'); ?> Districts <?php $__env->stopSection(); ?>
+<?php $__env->startSection('center_main_content'); ?>
+<!-- Bootstrap Boilerplate... -->
 <div class="col-sm-12">
-
-    <!-- Bootstrap Boilerplate... -->
     <div id="info-panel" class="panel panel-default">
         <!-- IIIIIIIIIII -->
         <div id="info-panel-heading" class="panel-heading">ADD NEW</div>
@@ -15,26 +11,27 @@
 
             <!-- New Task Form -->
             <form id="info-form" class="form-horizontal" role="form" method="POST"
-                action="{{ url('/admin/Court') }}">
-                {{ csrf_field() }}
-                <input type="hidden" id="court-id">
-                <div id="Court_name-group" class="form-group row our-form-group">
-                    <label for="court_name" class="col-md-4 control-label">Court</label>
+                action="<?php echo e(url('/admin/District')); ?>">
+                <?php echo e(csrf_field()); ?>
+
+                <input type="hidden" id="district-id">
+                <div id="District_name-group" class="form-group row our-form-group">
+                    <label for="District_name" class="col-md-4 control-label">District</label>
                     <div class="col-md-6">
-                        <input id="court_name" type="text"
-                            class="form-control info-form-control" name="court_name"> <span
-                            id="court_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-                            <strong id="court_name-strong" class="our-error-message-strong"></strong>
+                        <input id="District_name" type="text"
+                            class="form-control info-form-control" name="District_name"> <span
+                            id="District_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+                            <strong id="District_name-strong" class="our-error-message-strong"></strong>
                             <!-- IIIIIIIIIII -->
                         </span>
                     </div>
                 </div>
 
                 <div id="State_name-group" class="form-group row our-form-group">
-                    <label for="court_complex_name" class="col-md-4 control-label">Court Complex</label>
+                    <label for="State_name" class="col-md-4 control-label">State</label>
                     <div class="col-md-6">
-                        <select id="court_complex" class="form-control info-form-control"
-                                name="court_complex"> @include('court_complexes.court_complex_options')
+                        <select id="state" class="form-control info-form-control"
+                                name="state"> <?php echo $__env->make('states.state_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         </select>
                     </div>
                 </div>
@@ -44,7 +41,7 @@
                     <div class="col-md-6 col-md-offset-4">
                         <button id="add-button" type="submit"
                                 class="btn btn-primary add-button info-form-button">
-                            <i class="fa fa-btn fa-plus-circle"></i> Add Court
+                            <i class="fa fa-btn fa-plus-circle"></i> Add District
                         </button>
                         <button id="save-button" type="submit"
                                 class="btn btn-warning save-button info-form-button">
@@ -60,7 +57,7 @@
                         </button>
                     </div>
                 </div>
-                {{--@foreach($errors->all() as $error) {{$error}}@endforeach--}}
+                
                 <div id="message-div" class="form-group">
                     <div class="col-md-6 col-md-offset-4">
                         <div id="message-success-div"
@@ -90,7 +87,7 @@
 
     <div id="datatable-panel" class="panel panel-default">
         <div id="datatable-panel-heading" class="panel-heading clearfix">
-            <div class="panel-title pull-left">Court Master</div>
+            <div class="panel-title pull-left">District Master</div>
             <div class="pull-right">
                 <button id="add-new-button" type="submit" class="btn btn-primary add-new-button">
                     <i class="fa fa-plus-circle"></i> Add New
@@ -106,8 +103,8 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Court Name</th>
-                            <th>Court Complex Name</th>
+                            <th>District Name</th>
+                            <th>State Name</th>
                             <th>Action</th>
                             <th></th>
                             <th></th>
@@ -119,8 +116,8 @@
                     <tfoot>
                         <tr>
                             <th></th>
-                            <th>Court Name</th>
-                            <th>Court Complex Name</th>
+                            <th>District Name</th>
+                            <th>State Name</th>
                             <th>Action</th>
                             <th></th>
                             <th></th>
@@ -134,17 +131,17 @@
 </div>
 <div id="test-div"></div>
 
-@endsection @include('layouts.1_column_content')
+<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
-@section('main_container') @yield('1_column_content') @endsection
+<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
 
-@section('meta')
-@parent
-<meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
+<?php $__env->startSection('meta'); ?>
+##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
+<meta name="_token" content="<?php echo csrf_token(); ?>" />
+<?php $__env->stopSection(); ?>
 
-@section('end_scripts') @parent
+<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
 
 <script type="text/javascript">
     var table = "";
@@ -157,8 +154,8 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                url: "{{url('Court')}}-Datatable-Server-Side",
-                dataSrc: "courts"
+                url: "<?php echo e(url('District')); ?>-Datatable-Server-Side",
+                dataSrc: "districts"
             },
 
             "columnDefs":
@@ -195,10 +192,10 @@
                             "orderable": false,
                         },
                         {
-                            "data": "court_name",
+                            "data": "district_name",
                         },
                         {
-                            "data": "court_complex_name",
+                            "data": "state_name",
                         },
                         {
                             "data": null
@@ -335,6 +332,7 @@
         $(".info-form-button").hide();
         $(".info-form-button").attr("disabled", "disabled");
         $(".info-form-button").removeClass("active");
+        //$(".info-form-button").addClass("disabled");
     }
     function messages_hide() {
         $(".success-error-message").hide();
@@ -353,10 +351,12 @@
     function populate_form(data) {
         $("#info-panel-heading").html("Displaying record of District: <strong>" + data.type + "</strong>");
 
-        $("#court-id").val(data.id);
+        $("#district-id").val(data.id);
 
-        $("#court_name").val(data.court_name);
-        $("#court_complex").val(data.court_complex_id);
+        $("#District_name").val(data.district_name);
+        $("#state").val(data.state_id);
+        //alert(data.state_id+"|"+data.state_name);
+        //$('#state').select2('data', {id: data.state_id, text: data.state_name});
     }
     function show_button(type) {
         $("#" + type + "-button").show();
@@ -369,7 +369,8 @@
         $("#" + type + "-button").addClass("active");
     }
     function scrollToElement(ele) {
-
+// 	alert(ele.html());
+// 	$(window).scrollTop(ele.offset().top-60).scrollLeft(ele.offset().left);
         $('html, body').animate({
             scrollTop: ele.offset().top - 60,
         }, 1000);
@@ -383,29 +384,40 @@
     });
     function send_ajax_and_set_errors_exceptions_success(type) {
         var formData = {
-            court_name: $('#court_name').val(),
-            court_complex_id: $("#court_complex").val()
+            district_name: $('#District_name').val(),
+            state_id: $("#state").val()
         };
         ajax_url = "";
         operation = "";
         operated = "";
         request_type = "POST";
-        if (type == "add") {            
+        if (type == "add") {
+            //request_type="POST";
             formData["_method"] = "POST";
-            ajax_url = "{{ action('CourtController@store') }}";
+            ajax_url = "<?php echo e(action('DistrictController@store')); ?>";
+
+
+
             formData["file_prefix"] = $("#file_prefix").val();
+
             operation = "add";
             operated = "added";
         } else if (type == "save") {
+            //request_type="PUT";
             formData["_method"] = "PUT";
-            ajax_url = "{{ action('CourtController@update','') }}" + "/" + $("#court-id").val();
-            formData["id"] = $("#court-id").val();
+
+            ajax_url = "<?php echo e(action('DistrictController@update','')); ?>" + "/" + $("#district-id").val();
+            formData["id"] = $("#district-id").val();
+
             operation = "update";
             operated = "updated";
-        } else if (type == "delete-confirm") {            
+        } else if (type == "delete-confirm") {
+            //request_type="DELETE";
             formData["_method"] = "DELETE";
-            ajax_url = "{{ action('CourtController@destroy','') }}" + "/" + $("#court-id").val();
-            formData["id"] = $("#court-id").val();
+
+            ajax_url = "<?php echo e(action('DistrictController@destroy','')); ?>" + "/" + $("#district-id").val();
+            formData["id"] = $("#district-id").val();
+
             operation = "delete";
             operated = "deleted";
         }
@@ -417,13 +429,15 @@
             success: function (data, textStatus, jqXHR) {
                 reset_info(true);
                 msg = "<strong>SUCCESS: </strong>";
-                if (!(data.court === null) && data.court.hasOwnProperty('court_name')) {
-                    msg += "Court: <strong>" + data.court.court_name + "</strong> successfully " + operated + ".";
+                if (!(data.district === null) && data.district.hasOwnProperty('district_name')) {
+                    //add and updattypeeDelete=> !(data.District===null)
+                    msg += "District: <strong>" + data.district.district_name + "</strong> successfully " + operated + ".";
                 } else {
-                    if (!(data.court === null) && data.court >= 1) {
-                        msg += "Court: <strong>" + formData.court_name + "</strong> successfully " + operated + ".";
+                    //delete case
+                    if (!(data.district === null) && data.district >= 1) {
+                        msg += "District: <strong>" + formData.district_name + "</strong> successfully " + operated + ".";
                     } else {
-                        msg += "Court already " + operated + "!";
+                        msg += "District already " + operated + "!";
                     }
                 }
                 show_message_div("success", msg);
@@ -443,7 +457,8 @@
                 if (jqXHR.status != 422 && jqXHR.status != 400) {
                     msg += "<strong>" + jqXHR.status + ": " + errorThrown + "</strong>";
                     //show_message_div("error",msg);
-                } else {
+                } 
+                else {
                     if (jqXHR.responseJSON.hasOwnProperty('exception')) {
                         msg += "Exception: <strong>" + jqXHR.responseJSON.exception_message + "</strong>";
                         //show_message_div("error",msg);
@@ -462,8 +477,19 @@
                 scrollToElement($('#info-panel'));
             }
         });
-    }    
+    }
+    function update_notices_menu_section() {
+        $.ajax({
+            type: "GET",
+            url: "<?php echo e(url('/district-Menu')); ?>",
+            success: function (data, textStatus, jqXHR) {
+                $("#notifications-menu-dropdown").html(data);
+            }
+        });
+    }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('body_attributes') @parent class="" @endsection
+<?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/districts/index.blade.php ENDPATH**/ ?>

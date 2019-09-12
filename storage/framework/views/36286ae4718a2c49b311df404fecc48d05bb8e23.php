@@ -1,9 +1,6 @@
-{{--
-<!-- views/subdivisions/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'Subdivision')
-@section('page_heading') Subdivision @endsection
-@section('center_main_content')
+ <?php $__env->startSection('title', 'Subdivision'); ?>
+<?php $__env->startSection('page_heading'); ?> Subdivision <?php $__env->stopSection(); ?>
+<?php $__env->startSection('center_main_content'); ?>
 <!-- Bootstrap Boilerplate... -->
 <div class="col-sm-12">
 	<div id="info-panel" class="panel panel-default">
@@ -14,8 +11,9 @@
 
 			<!-- New Task Form -->
 			<form id="info-form" class="form-horizontal" role="form" method="POST"
-				action="{{ url('/admin/Subdivision') }}">
-				{{ csrf_field() }}
+				action="<?php echo e(url('/admin/Subdivision')); ?>">
+				<?php echo e(csrf_field()); ?>
+
 				<input type="hidden" id="Subdivision-id">
 				<div id="subdivision_name-group" class="form-group our-form-group">
 					<!-- IIIIIIIIIII -->
@@ -34,7 +32,7 @@
 					<label for="District_name" class="col-md-4 control-label">District</label>
 					<div class="col-md-6">
 						<select id="district" class="form-control info-form-control"
-								name="district"> @include('districts.district_options')
+								name="district"> <?php echo $__env->make('districts.district_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 						</select>
 					</div>
 				</div>
@@ -60,7 +58,7 @@
 						</button>
 					</div>
 				</div>
-				{{--@foreach($errors->all() as $error) {{$error}}@endforeach--}}
+				
 				<div id="message-div" class="form-group">
 					<div class="col-md-6 col-md-offset-4">
 						<div id="message-success-div"
@@ -135,17 +133,17 @@
 </div>
 <div id="test-div"></div>
 
-@endsection @include('layouts.1_column_content')
+<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
-@section('main_container') @yield('1_column_content') @endsection
+<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
 
-@section('meta')
-@parent
-<meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
+<?php $__env->startSection('meta'); ?>
+##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
+<meta name="_token" content="<?php echo csrf_token(); ?>" />
+<?php $__env->stopSection(); ?>
 
-@section('end_scripts') @parent
+<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
 
 <script type="text/javascript">
 var table="";
@@ -154,7 +152,7 @@ $(function() {
 		"processing": true,
 		"serverSide": true,
 		"ajax":{
-			url:"{{url('Subdivision')}}-Datatable-Server-Side",
+			url:"<?php echo e(url('Subdivision')); ?>-Datatable-Server-Side",
 			dataSrc:"subdivisions"
 		},
 
@@ -387,7 +385,7 @@ function send_ajax_and_set_errors_exceptions_success(type){
 	if(type=="add"){
 		//request_type="POST";
 		formData["_method"]="POST";
-		ajax_url="{{ action('SubdivisionController@store') }}";
+		ajax_url="<?php echo e(action('SubdivisionController@store')); ?>";
        
 
 		formData["subdivision_name"]=$("#subdivision_name").val();
@@ -399,7 +397,7 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		//request_type="PUT";
 		formData["_method"]="PUT";
 		
-		ajax_url="{{ action('SubdivisionController@update','') }}"+"/"+$("#Subdivision-id").val();
+		ajax_url="<?php echo e(action('SubdivisionController@update','')); ?>"+"/"+$("#Subdivision-id").val();
 		formData["id"]=$("#Subdivision-id").val();
 		formData["subdivision_name"]=$("#subdivision_name").val();
 		formData["disrtict_id"]=$("#district").val();
@@ -411,7 +409,7 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		formData["_method"]="DELETE";
 		formData["id"]=$("#Subdivision-id").val();
 
-		ajax_url="{{ action('SubdivisionController@destroy','') }}"+"/"+$("#Subdivision-id").val();
+		ajax_url="<?php echo e(action('SubdivisionController@destroy','')); ?>"+"/"+$("#Subdivision-id").val();
 		
 
 		operation="delete";
@@ -476,6 +474,8 @@ function send_ajax_and_set_errors_exceptions_success(type){
 }
 
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('body_attributes') @parent class="" @endsection
+<?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/subdivisions/index.blade.php ENDPATH**/ ?>

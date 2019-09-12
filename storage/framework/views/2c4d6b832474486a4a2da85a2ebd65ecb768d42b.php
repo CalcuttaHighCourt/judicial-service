@@ -1,11 +1,8 @@
-{{--
-<!-- views/subdivisions/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'Subdivision')
-@section('page_heading') Subdivision @endsection
-@section('center_main_content')
-<!-- Bootstrap Boilerplate... -->
+ <?php $__env->startSection('title', 'Qualifications'); ?>
+<?php $__env->startSection('page_heading'); ?> Qualifications <?php $__env->stopSection(); ?>
+<?php $__env->startSection('center_main_content'); ?>
 <div class="col-sm-12">
+	<!-- Bootstrap Boilerplate... -->
 	<div id="info-panel" class="panel panel-default">
 		<!-- IIIIIIIIIII -->
 		<div id="info-panel-heading" class="panel-heading">ADD NEW</div>
@@ -14,37 +11,30 @@
 
 			<!-- New Task Form -->
 			<form id="info-form" class="form-horizontal" role="form" method="POST"
-				action="{{ url('/admin/Subdivision') }}">
-				{{ csrf_field() }}
-				<input type="hidden" id="Subdivision-id">
-				<div id="subdivision_name-group" class="form-group our-form-group">
+				action="<?php echo e(url('/admin/Qualification')); ?>">
+				<?php echo e(csrf_field()); ?>
+
+				<input type="hidden" id="Qualification-id">
+				<div id="qualification_name-group" class="form-group our-form-group">
 					<!-- IIIIIIIIIII -->
-					<label for="subdivision_name" class="col-md-4 control-label">Subdivision</label>
+					<label for="qualification_name" class="col-md-4 control-label">Qualification</label>
 
 					<div class="col-md-6">
-						<input id="subdivision_name" type="text"
-							class="form-control info-form-control" name="subdivision_name"> <span
-							id="subdivision_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-							<strong id="subdivision_name-strong" class="our-error-message-strong"></strong>
+						<input id="qualification_name" type="text"
+							class="form-control info-form-control" name="qualification_name"> <span
+							id="qualification_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+							<strong id="qualification_name-strong" class="our-error-message-strong"></strong>
 							<!-- IIIIIIIIIII -->
 						</span>
 					</div>
 				</div>
-				<div id="District_name-group" class="form-group row our-form-group">
-					<label for="District_name" class="col-md-4 control-label">District</label>
-					<div class="col-md-6">
-						<select id="district" class="form-control info-form-control"
-								name="district"> @include('districts.district_options')
-						</select>
-					</div>
-				</div>
-
+				
 
 				<div id="info-panel-buttons" class="form-group hide">
 					<div class="col-md-6 col-md-offset-4">
 						<button id="add-button" type="submit"
 							class="btn btn-primary add-button info-form-button">
-							<i class="fa fa-btn fa-plus-circle"></i> Add New Subdivision
+							<i class="fa fa-btn fa-plus-circle"></i> Add New Qualification
 						</button>
 						<button id="save-button" type="submit"
 							class="btn btn-warning save-button info-form-button">
@@ -60,7 +50,7 @@
 						</button>
 					</div>
 				</div>
-				{{--@foreach($errors->all() as $error) {{$error}}@endforeach--}}
+				
 				<div id="message-div" class="form-group">
 					<div class="col-md-6 col-md-offset-4">
 						<div id="message-success-div"
@@ -90,8 +80,7 @@
 
 	<div id="datatable-panel" class="panel panel-default">
 		<div id="datatable-panel-heading" class="panel-heading clearfix">
-			<div class="panel-title pull-left">Subdivision Master</div>
-			
+			<div class="panel-title pull-left">Qualification Master</div>
 			<div class="pull-right">
 				<button id="add-new-button" type="submit" class="btn btn-primary add-new-button">
 					<i class="fa fa-plus-circle"></i> Add New
@@ -107,8 +96,7 @@
 					<thead>
 						<tr>
 							<th></th>
-							<th>Subdivision Name</th>
-							<th>District</th>
+							<th>Qualification Name</th>
 							<th>Action</th>
 							<th></th>
 							<th></th>
@@ -120,8 +108,7 @@
 					<tfoot>
 						<tr>
 							<th></th>
-							<th>Subdivision Name</th>
-							<th>District</th>
+							<th>Qualification Name</th>
 							<th>Action</th>
 							<th></th>
 							<th></th>
@@ -135,17 +122,17 @@
 </div>
 <div id="test-div"></div>
 
-@endsection @include('layouts.1_column_content')
+<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
-@section('main_container') @yield('1_column_content') @endsection
+<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
 
-@section('meta')
-@parent
-<meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
+<?php $__env->startSection('meta'); ?>
+##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
+<meta name="_token" content="<?php echo csrf_token(); ?>" />
+<?php $__env->stopSection(); ?>
 
-@section('end_scripts') @parent
+<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
 
 <script type="text/javascript">
 var table="";
@@ -154,8 +141,8 @@ $(function() {
 		"processing": true,
 		"serverSide": true,
 		"ajax":{
-			url:"{{url('Subdivision')}}-Datatable-Server-Side",
-			dataSrc:"subdivisions"
+			url:"<?php echo e(url('Qualification')); ?>-Datatable-Server-Side",
+			dataSrc:"qualifications"
 		},
 
 		"columnDefs": 
@@ -192,11 +179,8 @@ $(function() {
 					"orderable": false,
 				},
 				{
-					"data": "subdivision_name",
-				},		
-				{
-                    "data": "district_name",
-                 },	
+					"data": "qualification_name",
+				},				
 				{
 					"data": null
 				},
@@ -252,6 +236,10 @@ $(function() {
 		$('.edit-button').click(function(){
 			var data = table.row( $(this).parents('tr') ).data();
 			view_data( data );
+
+			
+			
+			
 			show_button("close");
 			show_button("save");
 			make_active_button("save");
@@ -328,8 +316,8 @@ function info_buttons_hide(){
 	$(".info-form-button").hide();
 	$(".info-form-button").attr("disabled","disabled");
 	$(".info-form-button").removeClass("active");
-	//$(".info-form-button").addClass("disabled");
 }
+
 function messages_hide(){
 	$(".success-error-message").hide();
 	$("#message-div").hide();
@@ -345,12 +333,11 @@ function show_error(field,msg){
 	$("#"+field+"-group").addClass("has-error");
 }
 function populate_form(data){
-	$("#info-panel-heading").html("Displaying record of Subdivision: <strong>"+data.type+"</strong>");
+	$("#info-panel-heading").html("Displaying record of Qualification: <strong>"+data.type+"</strong>");
 
-	$("#Subdivision-id").val(data.id);
-	$("#district").val(data.district_id);
+	$("#Qualification-id").val(data.id);
 	
-	$("#subdivision_name").val(data.subdivision_name);
+	$("#qualification_name").val(data.qualification_name);
 }
 function show_button(type){
 	$("#"+type+"-button").show();
@@ -378,6 +365,7 @@ $(function(){
 });
 function send_ajax_and_set_errors_exceptions_success(type){
 	var formData = {
+		qualification_name: $('#qualification_name').val()
 						
 	};
 	ajax_url="";
@@ -387,10 +375,10 @@ function send_ajax_and_set_errors_exceptions_success(type){
 	if(type=="add"){
 		//request_type="POST";
 		formData["_method"]="POST";
-		ajax_url="{{ action('SubdivisionController@store') }}";
+		ajax_url="<?php echo e(action('QualificationController@store')); ?>";
        
 
-		formData["subdivision_name"]=$("#subdivision_name").val();
+		formData["qualification_name"]=$("#qualification_name").val();
 
 		operation="add";
 		operated="added";
@@ -399,19 +387,17 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		//request_type="PUT";
 		formData["_method"]="PUT";
 		
-		ajax_url="{{ action('SubdivisionController@update','') }}"+"/"+$("#Subdivision-id").val();
-		formData["id"]=$("#Subdivision-id").val();
-		formData["subdivision_name"]=$("#subdivision_name").val();
-		formData["disrtict_id"]=$("#district").val();
+		ajax_url="<?php echo e(action('QualificationController@update','')); ?>"+"/"+$("#Qualification-id").val();
+		formData["id"]=$("#Qualification-id").val();
+
 		operation="update";
 		operated="updated";
 	}
 	else if(type=="delete-confirm"){
-		//request_type="DELETE";
 		formData["_method"]="DELETE";
-		formData["id"]=$("#Subdivision-id").val();
+		formData["id"]=$("#Qualification-id").val();
 
-		ajax_url="{{ action('SubdivisionController@destroy','') }}"+"/"+$("#Subdivision-id").val();
+		ajax_url="<?php echo e(action('QualificationController@destroy','')); ?>"+"/"+$("#Qualification-id").val();
 		
 
 		operation="delete";
@@ -425,25 +411,23 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		success: function (data, textStatus, jqXHR) {
 			reset_info(true);
 			msg="<strong>SUCCESS: </strong>";
-			if(!(data.subdivision===null) && data.subdivision.hasOwnProperty('subdivision_name')){
+			if(!(data.qualification===null) && data.qualification.hasOwnProperty('qualification_name')){
 				
-				msg+="Subdivision: <strong>"+data.subdivision.subdivision_name+"</strong> successfully "+operated+".";
-				
+				msg+="Qualification: <strong>"+data.qualification.qualification_name+"</strong> successfully "+operated+".";
 			}
 			else{
 				//delete case
-				if(!(data.subdivision===null) && data.subdivision>=1){
-					msg+="Subdivision: <strong>"+formData.type+"</strong> successfully "+operated+".";
-				
+				if(!(data.qualification===null) && data.qualification>=1){
+					msg+="Qualification: <strong>"+formData.qualification_name+"</strong> successfully "+operated+".";
 				}
 				else{
-					msg+="Subdivision already "+operated+"!";
+					msg+="Qualification already "+operated+"!";
 				}
 			}
 			show_message_div("success",msg);
 			table.ajax.reload();
 
-	
+			
 			scrollToElement($('#message-div'));
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
@@ -474,8 +458,9 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		}
 	});
 }
-
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('body_attributes') @parent class="" @endsection
+<?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/qualifications/index.blade.php ENDPATH**/ ?>

@@ -11,110 +11,120 @@
     background-color: #28415b;
 }
 </style>
-<!-- Bootstrap Boilerplate... -->
-<div id="info-panel" class="panel panel-default">
-    <!-- IIIIIIIIIII -->
-    <ul class="nav nav-pills" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="posting_details" style="border-style:outset" data-toggle="tab" href="#postings">Posting Details</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" id="judicial_diary" style="border-style:outset" data-toggle="tab" href="#daily_diary">Judicial diary</a>
-        </li>
-    <li class="nav-item">
-      <a class="nav-link active"  style="border-style:outset" data-toggle="tab" href="#acr">Annual Confidential Report</a>
-    </li>
-  </ul>
-	
-	<!-- IIIIIIIIIII -->
 
-    <div class="tab-content clearfix">
-        <div class="tab-pan" id="postings">
-		<!-- New Task Form -->
-                <br><br>
-       			<input type="hidden" id="JudicialOfficerPostingPreference-id">
-                
-                    <div id="officer_name-group" class="form-group row our-form-group">
-                        <label for="officer_name" class="col-sm-offset-1 col-sm-5 ">Officer Name: <?php echo e(Auth::user()->name); ?></label>
-                        <label for="jo_code" id="jo_code" class="col-sm-offset-1 col-sm-5">Code: </label>
-                    </div>
-                    <div id="zone-group" class="form-group row our-form-group">
+<div class="col-sm-12">
 
-                        <label for="zone" class="col-sm-offset-1 col-sm-5 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> <?php echo e($zone_pref_details['current_zone']['zone_name']); ?></span></label>
-                        <label for="zone" class="col-sm-offset-1 col-sm-5 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> <?php echo e($zone_pref_details['just_prev_zone']['zone_name']); ?></span></label>
-
-                    </div>      
-                 <hr>
-        
-            <div id="posting_pref-group" class="form-group row our-form-group">
-                
-                <div class="col-sm-offset-1 col-md-2">
-                    <label for="posting_pref1">Posting Preference </label>
-
-                    <select id="posting_pref" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">                   
-                    <?php echo $__env->make('zones.zone_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                    </select>
-				</div>
-                         
-
-				<div class="col-md-2">
-                    <br>
-					<button id="submit" type="button"
-						class="btn btn-primary add-button info-form-button">
-						Submit
-					</button>
-				</div>
-            </div>
+    <!-- Bootstrap Boilerplate... -->
+    <div id="info-panel" class="panel panel-default">
+    <br>
+        <div class="col-sm-offset-1 col-sm-11">
+            <!-- IIIIIIIIIII -->
+            <ul class="nav nav-pills" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="posting_details" style="border-style:outset" data-toggle="tab" href="#postings">Posting Details</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" id="judicial_diary" style="border-style:outset" data-toggle="tab" href="#daily_diary">Judicial diary</a>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link active"  style="border-style:outset" data-toggle="tab" href="#acr">Annual Confidential Report</a>
+                </li>
+            </ul>
         </div>
-        <br><br>
-        <div class="tab-pan" id="daily_diary" style="display:none;">     
-            <div class="form-group row">
-                <div class="date col-sm-offset-2 col-sm-2">
-                    <input type="text" class="form-control date diary_date" id="date" placeholder="Choose Date" autocomplete="off">
+        
+        <!-- IIIIIIIIIII -->
+
+        <div class="tab-content clearfix">
+            <div class="tab-pan" id="postings">
+            <!-- New Task Form -->
+                <div class="col-sm-offset-1 col-sm-11">
+                    <br><br>
+                    <input type="hidden" id="JudicialOfficerPostingPreference-id">
+                    
+                        <div id="officer_name-group" class="form-group row our-form-group">
+                            <label for="officer_name" class="col-sm-offset-1 col-sm-4 ">Officer Name: <?php echo e(Auth::user()->name); ?></label>
+                            <label for="jo_code" id="jo_code" class="col-sm-offset-1 col-sm-4">Code: </label>
+                        </div>
+                        <div id="zone-group" class="form-group row our-form-group">
+
+                            <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name" data-cur_zone_val="<?php echo e($zone_pref_details['current_zone']['zone_id']); ?>"> <?php echo e($zone_pref_details['current_zone']['zone_name']); ?></span></label>
+                            <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name" data-pre_zone_val="<?php echo e($zone_pref_details['just_prev_zone']['zone_id']); ?>"> <?php echo e($zone_pref_details['just_prev_zone']['zone_name']); ?></span></label>
+
+                        </div>      
+                        <hr>
+            
+                    <div id="posting_pref-group" class="form-group row our-form-group">
+                    
+                        <div class="col-sm-offset-1 col-sm-3">
+                            <label for="posting_pref1">Posting Preference </label>
+                            <select id="posting_pref" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">                   
+                            <?php echo $__env->make('zones.zone_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                            </select>
+                        </div>
+                            
+                        <div class="col-sm-offset-1 col-sm-2">
+                            <br>
+                            <button id="submit" type="button"
+                                class="btn btn-primary add-button info-form-button">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                   
-                <div class="col-sm-3">
-                    <button id="submit_diary" type="button"
-                        class="btn btn-primary add-button info-form-button">
+            </div>
+            <br><br>
+            <div class="tab-pan" id="daily_diary" style="display:none;">     
+                <div class="col-sm-offset-1 col-sm-11">
+                        <br><br>
+                    <div class="form-group row">
+                        <div class="date col-sm-offset-2 col-sm-2">
+                            <input type="text" class="form-control date diary_date" id="date" placeholder="Choose Date" autocomplete="off">
+                        </div>
+                        
+                        <div class="col-sm-3">
+                            <button id="submit_diary" type="button"
+                                class="btn btn-primary add-button info-form-button">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="box col-sm-offset-1">
+                    <div class="box-header" id="diary_editor" style="display:none;">
+                        <h3 class="box-title col-sm-offset-3" >DAILY WORKSHEET
+                            <small>of : <span id="date_span"></span></small>
+                        </h3>
+                    
+                
+                        
+                <!-- /.box-header -->
+                <div class="box-body pad col-sm-offset-1 col-sm-10">
+                <form>
+                    <textarea class="text_content" id="text_content" placeholder="Place some text here"
+                            style="width: 100%; height: 100%; font-size: 100%; line-height: 80%x; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                </form>
+                <div class="col-sm-offset-5 col-sm-3">
+                    <button id="submit_worksheet" type="button"
+                        class="btn btn-warning add-button info-form-button">
                         Submit
                     </button>
                 </div>
-             </div>
-             <br>
-             <div class="box col-sm-offset-1">
-                <div class="box-header" id="diary_editor" style="display:none;">
-                    <h3 class="box-title col-sm-offset-3" >DAILY WORKSHEET
-                        <small>of : <span id="date_span"></span></small>
-                    </h3>
-                
-            
-                     
-            <!-- /.box-header -->
-            <div class="box-body pad col-sm-offset-1 col-sm-10">
-              <form>
-                <textarea class="text_content" id="text_content" placeholder="Place some text here"
-                          style="width: 100%; height: 100%; font-size: 100%; line-height: 80%x; border: 1px solid #dddddd; padding: 10px;"></textarea>
-              </form>
-              <div class="col-sm-offset-5 col-sm-3">
-                <button id="submit_worksheet" type="button"
-                    class="btn btn-warning add-button info-form-button">
-                    Submit
-                </button>
-            </div>
-            </div>
+                </div>
 
+                </div>
             </div>
+            </div>
+            <!-- /.col-->
         </div>
+            </div>
+                <!-- /.box-header -->
+                
+            </div>
+        
+            <!-- /.col-->
+        
         </div>
-        <!-- /.col-->
-      </div>
-         </div>
-            <!-- /.box-header -->
-            
-        </div>
-    
-        <!-- /.col-->
-       
     </div>
 </div>
 <div id="test-div"></div>
@@ -249,13 +259,13 @@
             });
         });
 
-        //Addition of Ps_Details starts
+        
         
             $(document).on("click", "#search",function(){
 
                 var jo_code = $("#officer_name").val();
 
-            //    $("#jo_details").show();
+           
                 
                 $.ajax({
 

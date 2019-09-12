@@ -1,50 +1,39 @@
-{{--
-<!-- views/subdivisions/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'Subdivision')
-@section('page_heading') Subdivision @endsection
-@section('center_main_content')
-<!-- Bootstrap Boilerplate... -->
+ <?php $__env->startSection('title', 'User_type'); ?>
+<?php $__env->startSection('page_heading'); ?> User_type <?php $__env->stopSection(); ?>
+<?php $__env->startSection('center_main_content'); ?>
 <div class="col-sm-12">
+	<!-- Bootstrap Boilerplate... -->
 	<div id="info-panel" class="panel panel-default">
 		<!-- IIIIIIIIIII -->
-		<div id="info-panel-heading" class="panel-heading">ADD NEW</div>
+		<div id="info-panel-heading" class="panel-heading">ADD NEW USER TYPE</div>
 		<!-- IIIIIIIIIII -->
 		<div class="panel-body">
 
 			<!-- New Task Form -->
 			<form id="info-form" class="form-horizontal" role="form" method="POST"
-				action="{{ url('/admin/Subdivision') }}">
-				{{ csrf_field() }}
-				<input type="hidden" id="Subdivision-id">
-				<div id="subdivision_name-group" class="form-group our-form-group">
+				action="<?php echo e(url('/admin/User_type')); ?>">
+				<?php echo e(csrf_field()); ?>
+
+				<input type="hidden" id="User_type-id">
+				<div id="User_type_name-group" class="form-group our-form-group">
 					<!-- IIIIIIIIIII -->
-					<label for="subdivision_name" class="col-md-4 control-label">Subdivision</label>
+					<label for="type_name" class="col-md-4 control-label">User Type</label>
 
 					<div class="col-md-6">
-						<input id="subdivision_name" type="text"
-							class="form-control info-form-control" name="subdivision_name"> <span
-							id="subdivision_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-							<strong id="subdivision_name-strong" class="our-error-message-strong"></strong>
+						<input id="type_name" type="text"
+							class="form-control info-form-control" name="type_name"> <span
+							id="type_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+							<strong id="type_name-strong" class="our-error-message-strong"></strong>
 							<!-- IIIIIIIIIII -->
 						</span>
 					</div>
 				</div>
-				<div id="District_name-group" class="form-group row our-form-group">
-					<label for="District_name" class="col-md-4 control-label">District</label>
-					<div class="col-md-6">
-						<select id="district" class="form-control info-form-control"
-								name="district"> @include('districts.district_options')
-						</select>
-					</div>
-				</div>
-
-
+				
 				<div id="info-panel-buttons" class="form-group hide">
 					<div class="col-md-6 col-md-offset-4">
 						<button id="add-button" type="submit"
 							class="btn btn-primary add-button info-form-button">
-							<i class="fa fa-btn fa-plus-circle"></i> Add New Subdivision
+							<i class="fa fa-btn fa-plus-circle"></i> Add New User_type
 						</button>
 						<button id="save-button" type="submit"
 							class="btn btn-warning save-button info-form-button">
@@ -60,7 +49,7 @@
 						</button>
 					</div>
 				</div>
-				{{--@foreach($errors->all() as $error) {{$error}}@endforeach--}}
+				
 				<div id="message-div" class="form-group">
 					<div class="col-md-6 col-md-offset-4">
 						<div id="message-success-div"
@@ -90,7 +79,7 @@
 
 	<div id="datatable-panel" class="panel panel-default">
 		<div id="datatable-panel-heading" class="panel-heading clearfix">
-			<div class="panel-title pull-left">Subdivision Master</div>
+			<div class="panel-title pull-left">User Type Master</div>
 			
 			<div class="pull-right">
 				<button id="add-new-button" type="submit" class="btn btn-primary add-new-button">
@@ -106,9 +95,9 @@
 					<!-- Table Headings -->
 					<thead>
 						<tr>
-							<th></th>
-							<th>Subdivision Name</th>
-							<th>District</th>
+							
+							<th>#</th>
+							<th>type_name</th>
 							<th>Action</th>
 							<th></th>
 							<th></th>
@@ -119,9 +108,9 @@
 					<!-- Table Footer -->
 					<tfoot>
 						<tr>
-							<th></th>
-							<th>Subdivision Name</th>
-							<th>District</th>
+							
+							<th>#</th>
+							<th>type_name</th>
 							<th>Action</th>
 							<th></th>
 							<th></th>
@@ -132,20 +121,20 @@
 
 		</div>
 	</div>
-</div>
+</div>	
 <div id="test-div"></div>
 
-@endsection @include('layouts.1_column_content')
+<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
-@section('main_container') @yield('1_column_content') @endsection
+<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
 
-@section('meta')
-@parent
-<meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
+<?php $__env->startSection('meta'); ?>
+##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
+<meta name="_token" content="<?php echo csrf_token(); ?>" />
+<?php $__env->stopSection(); ?>
 
-@section('end_scripts') @parent
+<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
 
 <script type="text/javascript">
 var table="";
@@ -154,8 +143,8 @@ $(function() {
 		"processing": true,
 		"serverSide": true,
 		"ajax":{
-			url:"{{url('Subdivision')}}-Datatable-Server-Side",
-			dataSrc:"subdivisions"
+			url:"<?php echo e(url('User_types')); ?>-Datatable-Server-Side",
+			dataSrc:"user_types"
 		},
 
 		"columnDefs": 
@@ -191,12 +180,10 @@ $(function() {
 					"searchable": false,
 					"orderable": false,
 				},
+                
 				{
-					"data": "subdivision_name",
+					"data": "type_name",
 				},		
-				{
-                    "data": "district_name",
-                 },	
 				{
 					"data": null
 				},
@@ -345,12 +332,12 @@ function show_error(field,msg){
 	$("#"+field+"-group").addClass("has-error");
 }
 function populate_form(data){
-	$("#info-panel-heading").html("Displaying record of Subdivision: <strong>"+data.type+"</strong>");
+	$("#info-panel-heading").html("Displaying record of User type: <strong>"+data.type+"</strong>");
 
-	$("#Subdivision-id").val(data.id);
+	$("#User_type-id").val(data.id);
 	$("#district").val(data.district_id);
 	
-	$("#subdivision_name").val(data.subdivision_name);
+	$("#type_name").val(data.type_name);
 }
 function show_button(type){
 	$("#"+type+"-button").show();
@@ -387,10 +374,10 @@ function send_ajax_and_set_errors_exceptions_success(type){
 	if(type=="add"){
 		//request_type="POST";
 		formData["_method"]="POST";
-		ajax_url="{{ action('SubdivisionController@store') }}";
+		ajax_url="<?php echo e(action('UserTypeController@store')); ?>";
        
 
-		formData["subdivision_name"]=$("#subdivision_name").val();
+		formData["type_name"]=$("#type_name").val();
 
 		operation="add";
 		operated="added";
@@ -399,19 +386,18 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		//request_type="PUT";
 		formData["_method"]="PUT";
 		
-		ajax_url="{{ action('SubdivisionController@update','') }}"+"/"+$("#Subdivision-id").val();
-		formData["id"]=$("#Subdivision-id").val();
-		formData["subdivision_name"]=$("#subdivision_name").val();
-		formData["disrtict_id"]=$("#district").val();
+		ajax_url="<?php echo e(action('UserTypeController@update','')); ?>"+"/"+$("#User_type-id").val();
+		formData["id"]=$("#User_type-id").val();
+		formData["type_name"]=$("#type_name").val();
 		operation="update";
 		operated="updated";
 	}
 	else if(type=="delete-confirm"){
 		//request_type="DELETE";
 		formData["_method"]="DELETE";
-		formData["id"]=$("#Subdivision-id").val();
+		formData["id"]=$("#User_type-id").val();
 
-		ajax_url="{{ action('SubdivisionController@destroy','') }}"+"/"+$("#Subdivision-id").val();
+		ajax_url="<?php echo e(action('UserTypeController@destroy','')); ?>"+"/"+$("#User_type-id").val();
 		
 
 		operation="delete";
@@ -425,19 +411,19 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		success: function (data, textStatus, jqXHR) {
 			reset_info(true);
 			msg="<strong>SUCCESS: </strong>";
-			if(!(data.subdivision===null) && data.subdivision.hasOwnProperty('subdivision_name')){
+			if(!(data.user_type===null) && data.user_type.hasOwnProperty('type_name')){
 				
-				msg+="Subdivision: <strong>"+data.subdivision.subdivision_name+"</strong> successfully "+operated+".";
+				msg+="user_type: <strong>"+data.user_type.type_name+"</strong> successfully "+operated+".";
 				
 			}
 			else{
 				//delete case
-				if(!(data.subdivision===null) && data.subdivision>=1){
-					msg+="Subdivision: <strong>"+formData.type+"</strong> successfully "+operated+".";
+				if(!(data.user_type===null) && data.user_type>=1){
+					msg+="User type: <strong>"+formData.type+"</strong> successfully "+operated+".";
 				
 				}
 				else{
-					msg+="Subdivision already "+operated+"!";
+					msg+="User type already "+operated+"!";
 				}
 			}
 			show_message_div("success",msg);
@@ -476,6 +462,8 @@ function send_ajax_and_set_errors_exceptions_success(type){
 }
 
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('body_attributes') @parent class="" @endsection
+<?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/user_types/index.blade.php ENDPATH**/ ?>

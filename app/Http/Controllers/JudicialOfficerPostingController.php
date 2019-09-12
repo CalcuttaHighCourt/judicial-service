@@ -298,7 +298,7 @@ class JudicialOfficerPostingController extends Controller {
         }
         
 
-
+// print_r( $zone_pref_details);exit;
                 return view('zone_pref_jr.index',compact('zone_pref_details'));
                 //return($jo_posting);
     }
