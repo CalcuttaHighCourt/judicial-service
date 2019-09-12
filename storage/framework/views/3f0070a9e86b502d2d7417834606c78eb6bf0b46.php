@@ -263,8 +263,10 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" onclick="$('#logout_form').submit();"><i
-                                        class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+
+                            <li><a href="<?php echo e(route('profile')); ?>"><i class="fa fa-btn fa-sign-out"></i>Profile</a></li>
+                            
+                            <li><a href="#" onclick="$('#logout_form').submit();"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                         </ul>
                     </li> <?php endif; ?>
 
@@ -277,4 +279,4 @@
 </nav>
 
 
-<?php $__env->stopSection(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/layouts/header_menu.blade.php ENDPATH**/ ?>
+<?php $__env->stopSection(); ?><?php /**PATH F:\laragon\www\judicial-service\resources\views/layouts/header_menu.blade.php ENDPATH**/ ?>

@@ -165,17 +165,17 @@
                      &nbsp 
                  </label>
                  <div class="form-check form-check-inline"> 
-                    <input class="form-check-input" name="gender" type="radio" value="male">
+                    <input class="form-check-input" name="gender" type="radio" value="M">
                     <label class="form-check-label" style="font-size:medium">
                         Male
                     </label>
         
-                    <input class="form-check-input" name="gender" type="radio" value="female">
+                    <input class="form-check-input" name="gender" type="radio" value="F">
                     <label class="form-check-label" style="font-size:medium">
                         Female
                     </label>
 
-                    <input class="form-check-input" name="gender" type="radio" value="other">
+                    <input class="form-check-input" name="gender" type="radio" value="O">
                     <label class="form-check-label" style="font-size:medium">
                         Other
                     </label>
@@ -486,8 +486,7 @@
             daysOfWeekHighlighted: "0,6",
             autoclose: true,
             todayHighlight: true,
-            toggleActive: false,
-            endDate: "today"
+            toggleActive: false            
         });
 
         // Select2 initialization
@@ -864,4 +863,4 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/jo_entry_form/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH F:\laragon\www\judicial-service\resources\views/jo_entry_form/index.blade.php ENDPATH**/ ?>

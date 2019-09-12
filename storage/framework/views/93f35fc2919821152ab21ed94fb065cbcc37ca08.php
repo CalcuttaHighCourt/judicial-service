@@ -29,4 +29,4 @@
         <?php echo $__env->yieldContent('sticky_footer'); ?> <?php echo $__env->yieldContent('end_scripts'); ?>
     </body>
 </html>
-<?php /**PATH C:\laragon\www\judicial-service\resources\views/layouts/app.blade.php ENDPATH**/ ?>
+<?php /**PATH F:\laragon\www\judicial-service\resources\views/layouts/app.blade.php ENDPATH**/ ?>

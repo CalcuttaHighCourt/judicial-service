@@ -55,4 +55,4 @@ $(document).ready(function () {
 <?php $__env->startSection('end_scripts_9'); ?> <?php echo $__env->yieldSection(); ?> <?php $__env->startSection('end_scripts_10'); ?> <?php echo $__env->yieldSection(); ?>
 
 <?php $__env->stopSection(); ?>
-<?php /**PATH C:\laragon\www\judicial-service\resources\views/layouts/end_scripts.blade.php ENDPATH**/ ?>
+<?php /**PATH F:\laragon\www\judicial-service\resources\views/layouts/end_scripts.blade.php ENDPATH**/ ?>

@@ -18,4 +18,4 @@
 
 <!-- Editor -->
 <link rel="stylesheet" href="<?php echo e(asset('css/bootstrap3-wysihtml5.min.css')); ?>">
-<?php $__env->stopSection(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/layouts/css.blade.php ENDPATH**/ ?>
+<?php $__env->stopSection(); ?><?php /**PATH F:\laragon\www\judicial-service\resources\views/layouts/css.blade.php ENDPATH**/ ?>
