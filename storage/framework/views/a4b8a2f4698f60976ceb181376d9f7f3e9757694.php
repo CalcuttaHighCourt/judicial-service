@@ -17,4 +17,4 @@
     </div>
 </footer>
 <?php $__env->stopSection(); ?>
-<?php /**PATH C:\laragon\www\judicial-service\resources\views/layouts/page_footer.blade.php ENDPATH**/ ?>
+<?php /**PATH F:\laragon\www\judicial-service\resources\views/layouts/page_footer.blade.php ENDPATH**/ ?>

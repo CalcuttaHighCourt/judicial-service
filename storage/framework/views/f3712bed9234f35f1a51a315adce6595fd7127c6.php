@@ -76,4 +76,4 @@
             data-slide="next"> <span class="glyphicon glyphicon-chevron-right"
                              aria-hidden="true"></span> <span class="sr-only">Next</span>
     </a>
-</div><?php /**PATH C:\laragon\www\judicial-service\resources\views/layouts/carousel.blade.php ENDPATH**/ ?>
+</div><?php /**PATH F:\laragon\www\judicial-service\resources\views/layouts/carousel.blade.php ENDPATH**/ ?>

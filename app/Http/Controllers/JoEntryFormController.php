@@ -47,7 +47,8 @@ class JoEntryFormController extends Controller
         
 
         try{
-            DB::beginTransaction();
+            //DB::beginTransaction();
+            DB::transaction(function ($request) {
 
                 /*JO Basic Details :: START*/
                 $request['date_of_birth']=Carbon::parse($request['date_of_birth'])->format('Y-m-d');
@@ -139,10 +140,11 @@ class JoEntryFormController extends Controller
                     'posting_details' => $posting_details,
                 ); 
 
-                DB::commit();
+            }, 1);
+                //DB::commit();
            
         } catch (\Exception $e) {
-            DB::rollBack();
+            //DB::rollBack();
 
             $response = array(
                 'exception' => true,
@@ -157,7 +159,21 @@ class JoEntryFormController extends Controller
     
     public function show($id)
     {
-        //
+        $profile = JudicialOfficer:: where('judicial_officers.id',$id)
+                                        ->with('district','state','religion','recruitment_batch',
+                                                'jo_repoting_officer','jo_reviewing_officer',
+                                                'judicial_officer_qualifications.qualification',
+                                                'judicial_officer_postings.designation','judicial_officer_postings.mode',
+                                                'subordinate_officers'
+                                        )
+                                        ->get();
+           
+        return view('profile.index')->with('profile',$profile);
+    }
+
+    public function profile()
+    {
+        return $this->show(Auth::user()->judicial_officer_id);
     }
 
     
