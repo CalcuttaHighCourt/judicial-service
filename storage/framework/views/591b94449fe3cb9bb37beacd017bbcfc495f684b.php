@@ -1,9 +1,6 @@
-{{--
-<!-- views/Courts/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'Courts')
-@section('page_heading') Courts @endsection
-@section('center_main_content')
+ <?php $__env->startSection('title', 'Courts'); ?>
+<?php $__env->startSection('page_heading'); ?> Courts <?php $__env->stopSection(); ?>
+<?php $__env->startSection('center_main_content'); ?>
 <div class="col-sm-12">
 
     <!-- Bootstrap Boilerplate... -->
@@ -15,8 +12,9 @@
 
             <!-- New Task Form -->
             <form id="info-form" class="form-horizontal" role="form" method="POST"
-                action="{{ url('/admin/Court') }}">
-                {{ csrf_field() }}
+                action="<?php echo e(url('/admin/Court')); ?>">
+                <?php echo e(csrf_field()); ?>
+
                 <input type="hidden" id="court-id">
                 <div id="Court_name-group" class="form-group row our-form-group">
                     <label for="court_name" class="col-md-4 control-label">Court</label>
@@ -34,7 +32,7 @@
                     <label for="court_complex_name" class="col-md-4 control-label">Court Complex</label>
                     <div class="col-md-6">
                         <select id="court_complex" class="form-control info-form-control"
-                                name="court_complex"> @include('court_complexes.court_complex_options')
+                                name="court_complex"> <?php echo $__env->make('court_complexes.court_complex_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         </select>
                     </div>
                 </div>
@@ -60,7 +58,7 @@
                         </button>
                     </div>
                 </div>
-                {{--@foreach($errors->all() as $error) {{$error}}@endforeach--}}
+                
                 <div id="message-div" class="form-group">
                     <div class="col-md-6 col-md-offset-4">
                         <div id="message-success-div"
@@ -134,17 +132,17 @@
 </div>
 <div id="test-div"></div>
 
-@endsection @include('layouts.1_column_content')
+<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
-@section('main_container') @yield('1_column_content') @endsection
+<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
 
-@section('meta')
-@parent
-<meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
+<?php $__env->startSection('meta'); ?>
+##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
+<meta name="_token" content="<?php echo csrf_token(); ?>" />
+<?php $__env->stopSection(); ?>
 
-@section('end_scripts') @parent
+<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
 
 <script type="text/javascript">
     var table = "";
@@ -157,7 +155,7 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                url: "{{url('Court')}}-Datatable-Server-Side",
+                url: "<?php echo e(url('Court')); ?>-Datatable-Server-Side",
                 dataSrc: "courts"
             },
 
@@ -392,19 +390,19 @@
         request_type = "POST";
         if (type == "add") {            
             formData["_method"] = "POST";
-            ajax_url = "{{ action('CourtController@store') }}";
+            ajax_url = "<?php echo e(action('CourtController@store')); ?>";
             formData["file_prefix"] = $("#file_prefix").val();
             operation = "add";
             operated = "added";
         } else if (type == "save") {
             formData["_method"] = "PUT";
-            ajax_url = "{{ action('CourtController@update','') }}" + "/" + $("#court-id").val();
+            ajax_url = "<?php echo e(action('CourtController@update','')); ?>" + "/" + $("#court-id").val();
             formData["id"] = $("#court-id").val();
             operation = "update";
             operated = "updated";
         } else if (type == "delete-confirm") {            
             formData["_method"] = "DELETE";
-            ajax_url = "{{ action('CourtController@destroy','') }}" + "/" + $("#court-id").val();
+            ajax_url = "<?php echo e(action('CourtController@destroy','')); ?>" + "/" + $("#court-id").val();
             formData["id"] = $("#court-id").val();
             operation = "delete";
             operated = "deleted";
@@ -464,6 +462,8 @@
         });
     }    
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('body_attributes') @parent class="" @endsection
+<?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/courts/index.blade.php ENDPATH**/ ?>

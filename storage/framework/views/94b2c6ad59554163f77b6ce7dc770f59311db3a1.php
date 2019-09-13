@@ -1,4 +1,4 @@
-@section('header')
+<?php $__env->startSection('header'); ?>
 <!-- Fixed navbar -->
 <nav id="sidebar" class="navbar-fixed-top" scroll="yes">
     <div class="container-fluid">
@@ -16,14 +16,14 @@
                 <a href="#masterSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-edit"></i>Master Maintenance</a>
                 <ul class="collapse list-unstyled" id="masterSubmenu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('court')}}">
+                        <a class="nav-link" href="<?php echo e(url('court')); ?>">
                             <span data-feather="home"></span>
                             <i class="fa fa-gavel" aria-hidden="true"></i>
                             Court Master
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('subdivision')}}">
+                        <a class="nav-link" href="<?php echo e(url('subdivision')); ?>">
                             <span data-feather="file"></span>
                             
                             <i class="fa fa-crosshairs" aria-hidden="true"></i>
@@ -31,41 +31,41 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('district')}}">
+                        <a class="nav-link" href="<?php echo e(url('district')); ?>">
                         <i class="fa fa-location-arrow" aria-hidden="true"></i>
                             District Master 
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('zone')}}">
+                        <a class="nav-link" href="<?php echo e(url('zone')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-thumb-tack" aria-hidden="true"></i>
                             Zone Master
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('state')}}">
+                        <a class="nav-link" href="<?php echo e(url('state')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-map-marker" aria-hidden="true"></i>
                             State Master 
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('judicial_officer')}}">
+                        <a class="nav-link" href="<?php echo e(url('judicial_officer')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-star" aria-hidden="true"></i>
                             Judicial Officer
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('user_type')}}">
+                        <a class="nav-link" href="<?php echo e(url('user_type')); ?>">
                             <span data-feather="home"></span>
                             <i class="fa fa-user" aria-hidden="true"></i>
                             User Type 
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('designation')}}">
+                        <a class="nav-link" href="<?php echo e(url('designation')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-sun-o" aria-hidden="true"></i>
                             Designation Master
@@ -74,7 +74,7 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('mode')}}">
+                        <a class="nav-link" href="<?php echo e(url('mode')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                             Mode Master
@@ -83,7 +83,7 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('qualification')}}">
+                        <a class="nav-link" href="<?php echo e(url('qualification')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-certificate" aria-hidden="true"></i>
                             Qualification Master
@@ -91,7 +91,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('recruitmentbatch')}}">
+                        <a class="nav-link" href="<?php echo e(url('recruitmentbatch')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-cog" aria-hidden="true"></i>
                             Recruitment Batch
@@ -100,7 +100,7 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('jo_postings')}}">
+                        <a class="nav-link" href="<?php echo e(url('jo_postings')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-crosshairs" aria-hidden="true"></i>
                             Posting Preference HC
@@ -109,7 +109,7 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('zone_pref_jr')}}">
+                        <a class="nav-link" href="<?php echo e(url('zone_pref_jr')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-square" aria-hidden="true"></i>
                             Zone Preference JO
@@ -117,7 +117,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('religion')}}">
+                        <a class="nav-link" href="<?php echo e(url('religion')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                             Religion
@@ -125,7 +125,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('caste')}}">
+                        <a class="nav-link" href="<?php echo e(url('caste')); ?>">
                             <span data-feather="home"></span>
                             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                             Caste Master
@@ -134,7 +134,7 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('jo_reporting_reviewing')}}">
+                        <a class="nav-link" href="<?php echo e(url('jo_reporting_reviewing')); ?>">
                             <span data-feather="home"></span>
                             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                             Reporting & reviewing officer
@@ -143,7 +143,7 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('lcr_hc')}}">
+                        <a class="nav-link" href="<?php echo e(url('lcr_hc')); ?>">
                             <span data-feather="home"></span>
                             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                             Request for LCR
@@ -151,7 +151,7 @@
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('lcr_view')}}">
+                        <a class="nav-link" href="<?php echo e(url('lcr_view')); ?>">
                             <span data-feather="home"></span>
                             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                             Response to LCR Request
@@ -161,7 +161,7 @@
             </li>
             <li>
                 <a href="#">
-                    <a class="nav-link" href="{{url('jo_entry_form')}}">
+                    <a class="nav-link" href="<?php echo e(url('jo_entry_form')); ?>">
                     <i class="fa fa-briefcase"></i>
                     JO Related Entry
                 </a>
@@ -220,14 +220,14 @@
                 </button>
 
                 <!-- logo -->
-                <a class="navbar-brand" href="{{ url('/') }}"> <img
-                        src="{{asset('images/ashok.png')}}"
+                <a class="navbar-brand" href="<?php echo e(url('/')); ?>"> <img
+                        src="<?php echo e(asset('images/ashok.png')); ?>"
                         class="img-responsive custom-navbar-brand-img"
                         alt="Calcutta High Court" />
                 </a>
                 <!-- /logo -->
-                <a class="navbar-brand" href="{{ url('/') }}"> <img
-                        src="{{asset('images/logo-name.png')}}"
+                <a class="navbar-brand" href="<?php echo e(url('/')); ?>"> <img
+                        src="<?php echo e(asset('images/logo-name.png')); ?>"
                         class="img-responsive custom-navbar-brand-img"
                         alt="Calcutta High Court"/>
                 </a>
@@ -238,25 +238,24 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     <!-- Authentication Links -->
-                    @if (Auth::guest())
-                    <li><a href="{{ url('/login') }}">Login</a></li>
-                    <li><a href="{{ url('/register') }}">Register</a></li>
-                    @else
+                    <?php if(Auth::guest()): ?>
+                    <li><a href="<?php echo e(url('/login')); ?>">Login</a></li>
+                    <li><a href="<?php echo e(url('/register')); ?>">Register</a></li>
+                    <?php else: ?>
                     <li class="dropdown"><a href="#" class="dropdown-toggle"
-                                            data-toggle="dropdown" role="button" aria-expanded="false"> {{
-                            Auth::user()->name }} <span class="caret"></span>
+                                            data-toggle="dropdown" role="button" aria-expanded="false"> <?php echo e(Auth::user()->name); ?> <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
 
-                            <li><a href="{{route('profile')}}"><i class="fa fa-btn fa-sign-out"></i>Profile</a></li>
+                            <li><a href="<?php echo e(route('profile')); ?>"><i class="fa fa-btn fa-sign-out"></i>Profile</a></li>
                             
                             <li><a href="#" onclick="$('#logout_form').submit();"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                         </ul>
-                    </li> @endif
+                    </li> <?php endif; ?>
 
                 </ul>
-                <form id="logout_form" action="{{ url('/logout') }}" name="logout_form" method="POST"></form>
+                <form id="logout_form" action="<?php echo e(url('/logout')); ?>" name="logout_form" method="POST"></form>
             </div>
             <!--/.nav-collapse -->
         </div>
@@ -264,4 +263,4 @@
 </nav>
 
 
-@endsection
+<?php $__env->stopSection(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/layouts/header_menu.blade.php ENDPATH**/ ?>

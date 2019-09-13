@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\JudicialOfficer;
-use App\Dairy;
+use App\Diary;
 use Carbon\Carbon;
 use App\User;
 use Auth;
@@ -165,23 +165,22 @@ class JudicialOfficerController extends Controller
         ] );
 
        
-        $date=$request->input('date');
+        //$date=$request->input('date');
+        $date=Carbon::parse($request->input('date'))->format('Y-m-d');
         $judicial_officer_id =Auth::user()->judicial_officer_id;
         $textarea=$request->input('details');
-        $JO_Code=User::where('judicial_officer_id',$judicial_officer_id)->with('judicial_officer')->get();
-        print_r($JO_Code);
-       
-        exit;
-    // $count=Dairy::where([['date_of_schedule',$date],['jo_code',$jo_code]])->count();
 
-        Dairy::where([['date_of_schedule',$date],['judicial_officer_id',$judicial_officer_id]])->delete();
+
+    Diary::where([['date_of_schedule',$date],['judicial_officer_id',$judicial_officer_id]])->delete();
           
-        Dairy::insert([
+    Diary::insert([
+            'judicial_officer_id'=>$judicial_officer_id,
             'date_of_schedule'=>$date,
             'description'=>$textarea,
             'created_at'=>Carbon::today(),
             'updated_at'=>Carbon::today()
             ]);
+
         return 1;
     }
 
@@ -190,9 +189,9 @@ class JudicialOfficerController extends Controller
         $this->validate ( $request, [                     
             'date' => 'required'
         ]);
-        $date=Carbon::parse($request->input('date'))->format('Y-d-m');
+        $date=Carbon::parse($request->input('date'))->format('Y-m-d');
         $judicial_officer_id =Auth::user()->judicial_officer_id;
-        $data=Dairy::where([
+        $data=Diary::where([
                                 ['date_of_schedule',$date],
                                 ['judicial_officer_id',$judicial_officer_id]
                             ])
@@ -415,33 +414,17 @@ class JudicialOfficerController extends Controller
             else if ($judicial_officer->judicial_officer_postings->count() > 0) {
                 $response = array(
                     'exception' => true,
-                    'exception_message' => "Records of judicial_officer: " . $judicial_officer->judicial_officer_posting . " exists in Judicial Officer table.",
+                    'exception_message' => "Records of judicial_officer: " . $judicial_officer->judicial_officer_posting . " exists in Judicial Officer Posting table.",
                 );
                 $statusCode = 400;
             }
             else if ($judicial_officer->judicial_officer_qualifications->count() > 0) {
                 $response = array(
                     'exception' => true,
-                    'exception_message' => "Records of judicial_officer: " . $judicial_officer->judicial_officer_qualification . " exists in Judicial Officer table.",
+                    'exception_message' => "Records of judicial_officer: " . $judicial_officer->judicial_officer_qualification . " exists in Judicial Officer Qualification table.",
                 );
                 $statusCode = 400;
             }
-            // else if ($judicial_officer->judicial_officer_qualifications->count() > 0) {
-            //     $response = array(
-            //         'exception' => true,
-            //         'exception_message' => "Records of judicial_officer: " . $judicial_officer->judicial_officer_qualification . " exists in Judicial Officer table.",
-            //     );
-            //     $statusCode = 400;
-            // }
-            else if ($judicial_officer->judicial_officers->count() > 0) {
-                $response = array(
-                    'exception' => true,
-                    'exception_message' => "Record(s) of judicial_officer: " . $judicial_officer->district_name . " exists in Judicial Officer table.",
-                );
-                $statusCode = 400;
-            
-            }
-
             else {
 
                 if (!empty($judicial_officer)) { // Should be changed #30

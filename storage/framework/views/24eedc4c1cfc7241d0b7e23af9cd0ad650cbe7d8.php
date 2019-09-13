@@ -1,9 +1,6 @@
-{{--
-<!-- views/JudicialOfficerPostingPreference/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'JudicialOfficerPostingPreference')
-@section('page_heading') JudicialOfficerPostingPreference @endsection
-@section('center_main_content')
+ <?php $__env->startSection('title', 'JudicialOfficerPostingPreference'); ?>
+<?php $__env->startSection('page_heading'); ?> JudicialOfficerPostingPreference <?php $__env->stopSection(); ?>
+<?php $__env->startSection('center_main_content'); ?>
                                                                                                                                                                                                     
 <style>
     .select2-container--default .select2-selection--multiple .select2-selection__choice{
@@ -45,13 +42,13 @@
                     <input type="hidden" id="JudicialOfficerPostingPreference-id">
                     
                         <div id="officer_name-group" class="form-group row our-form-group">
-                            <label for="officer_name" class="col-sm-offset-1 col-sm-4 ">Officer Name: {{Auth::user()->name}}</label>
+                            <label for="officer_name" class="col-sm-offset-1 col-sm-4 ">Officer Name: <?php echo e(Auth::user()->name); ?></label>
                             <label for="jo_code" id="jo_code" class="col-sm-offset-1 col-sm-4">Code: </label>
                         </div>
                         <div id="zone-group" class="form-group row our-form-group">
 
-                            <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name" data-cur_zone_val="{{$zone_pref_details['current_zone']['zone_id']}}"> {{$zone_pref_details['current_zone']['zone_name']}}</span></label>
-                            <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name" data-pre_zone_val="{{$zone_pref_details['just_prev_zone']['zone_id']}}"> {{$zone_pref_details['just_prev_zone']['zone_name']}}</span></label>
+                            <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name" data-cur_zone_val="<?php echo e($zone_pref_details['current_zone']['zone_id']); ?>"> <?php echo e($zone_pref_details['current_zone']['zone_name']); ?></span></label>
+                            <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name" data-pre_zone_val="<?php echo e($zone_pref_details['just_prev_zone']['zone_id']); ?>"> <?php echo e($zone_pref_details['just_prev_zone']['zone_name']); ?></span></label>
 
                         </div>      
                         <hr>
@@ -61,7 +58,7 @@
                         <div class="col-sm-offset-1 col-sm-3">
                             <label for="posting_pref1">Posting Preference </label>
                             <select id="posting_pref" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">                   
-                            @include('zones.zone_options')
+                            <?php echo $__env->make('zones.zone_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                             </select>
                         </div>
                             
@@ -132,17 +129,17 @@
 </div>
 <div id="test-div"></div>
 
-@endsection @include('layouts.1_column_content')
+<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
-@section('main_container') @yield('1_column_content') @endsection
+<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
 
-@section('meta')
-@parent
-<meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
+<?php $__env->startSection('meta'); ?>
+##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
+<meta name="_token" content="<?php echo csrf_token(); ?>" />
+<?php $__env->stopSection(); ?>
 
-@section('end_scripts') @parent
+<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
 
 
 <script type="text/javascript">
@@ -376,6 +373,8 @@
 
 
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('body_attributes') @parent class="" @endsection
+<?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/zone_pref_jr/index.blade.php ENDPATH**/ ?>
