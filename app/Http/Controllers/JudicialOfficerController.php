@@ -197,7 +197,6 @@ class JudicialOfficerController extends Controller
                             ])
                     ->select('description')
                     ->get();
-                    print_r($data);
         return $data;
         
     }
