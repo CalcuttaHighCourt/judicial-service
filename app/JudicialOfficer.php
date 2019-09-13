@@ -46,7 +46,7 @@ class JudicialOfficer extends Model
      */
     public function caste()
     {
-        return $this->belongsTo('App\Caste','caste_id','id');
+        return $this->belongsTo('App\Caste','category_id','id');
     }
 
     /**
@@ -106,5 +106,7 @@ class JudicialOfficer extends Model
         return $this->belongsTo('App\JudicialOfficer','present_reviewing_officer_id','id');
     }
     
+
+
     
 }
