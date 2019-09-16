@@ -62,7 +62,7 @@
                   <div class="form-group">
                     <div class="col-xs-6">
                         <label for="dob" class="control-label">
-                             Date of Birth: <?php echo e(date('d-m-Y', strtotime($profile[0]['date_of_birth']))); ?>
+                             Date of Birth: <?php echo e($profile[0]['date_of_birth']); ?>
 
                         </label>                        
                     </div>
@@ -70,7 +70,7 @@
                  <div class="form-group">
                     <div class="col-xs-6">
                         <label for="doj" class="control-label">
-                             Date of Joining: <?php echo e(date('d-m-Y', strtotime($profile[0]['date_of_joining']))); ?>
+                             Date of Joining: <?php echo e($profile[0]['date_of_joining']); ?>
 
                         </label>                        
                     </div>
@@ -79,7 +79,7 @@
                  <div class="form-group">
                     <div class="col-xs-6">
                         <label for="doc" class="control-label">
-                             Date of Confirmation: <?php echo e(date('d-m-Y', strtotime($profile[0]['date_of_confirmation']))); ?>
+                             Date of Confirmation: <?php echo e($profile[0]['date_of_confirmation']); ?>
 
                         </label>                        
                     </div>
@@ -87,7 +87,7 @@
                  <div class="form-group">
                     <div class="col-xs-6">
                         <label for="dor" class="control-label">
-                             Date of Superannuation: <?php echo e(date('d-m-Y', strtotime($profile[0]['date_of_retirement']))); ?>
+                             Date of Superannuation: <?php echo e($profile[0]['date_of_retirement']); ?>
 
                         </label>                      
                     </div>
@@ -153,15 +153,9 @@
                  <div class="form-group">
                     <div class="col-xs-6">
                         <label for="blood_group">
-							Gender: 
-							<?php if($profile[0]['gender'] =="M"): ?>
-								<?php echo e("Male"); ?>
+							Gender: <?php echo e($profile[0]['gender']); ?>
 
-							<?php elseif($profile[0]['gender'] =="F"): ?>
-								<?php echo e("Female"); ?>	
-							<?php elseif($profile[0]['gender'] =="O"): ?>
-								<?php echo e("Other"); ?>															
-							<?php endif; ?>
+
                         </label>                        
                     </div>
 				 </div>           
@@ -313,74 +307,82 @@
          <div class="tab-pane" id="posting_details">
                 <form class="form" action="##" method="">                    
                     <div class="text-center">
-                        <h3 style="color:#d06666"><u>Posting Details (From Present to Past)</u></h3>
+                        <h3 style="color:#d06666"><u>Posting Details (From Past to Present)</u></h3>
                     </div>
+                    <br>
+
                     <div class="div_add_more_posting">
                         <div class="row"> 
-                            <div class="col-xs-3">
-                                <label>   Designation </label>
-								
+                            <div class="col-xs-2">
+                                <label>   Designation </label>								
                                 
                             </div>
                             <div class="col-xs-2">
                                 <label> Posting Mode </label>
 
                             </div>
-                            <div class="col-xs-3">
-                                <label>    Court           </label>
+                            <div class="col-xs-2">
+                                <label>   Court  </label>
 
                             </div>                   
                             <div class="col-xs-2">
-                                <label>    Reporting Officer         </label>
+                                <label>  Reporting Officer  </label>
 
                             </div>
-                            <div class="col-xs-1">
-                                <label>        From      </label>
+
+                            <div class="col-xs-2">
+                                <label>  From  </label>
 
                             </div>
-                            <div class="col-xs-1">
-                                <label>  To       </label>
+                            <div class="col-xs-2">
+                                <label>  To  </label>
 
                             </div>
 
 						</div> 
 
-						<hr>
+						<?php ($i=0); ?>
+                        <?php $__currentLoopData = $profile[0]->judicial_officer_postings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            
+                            <hr>
+                            <?php ($reporting_officer_name= $profile[0]->subordinate_officers[$i]->reporting_officer['officer_name']); ?>
+
+                            <?php ($from_date = $details->from_date); ?>
+
+                            <?php ($to_date = $details->to_date); ?>
+
+                            <div class="row"> 
+                                    <div class="col-xs-2">
+                                        <label>   <?php echo e($details['designation']['designation_name']); ?></label>                                        
+                                        
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <label> <?php echo e($details['mode']['posting_mode']); ?> </label>
+
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <label>  <?php echo e($details['court']['court_name']); ?>   </label>
+
+                                    </div>                   
+                                    <div class="col-xs-2">
+                                        <label>  <?php echo e($reporting_officer_name); ?>   </label>
+
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <label>  <?php echo e($from_date); ?>  </label>
+
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <label>  <?php echo e($to_date); ?>  </label>
+
+                                    </div>
+
+                            </div> 
+                            <?php ($i++); ?>
+					    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 						
-						<?php $__currentLoopData = $profile[0]->judicial_officer_postings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-						<div class="row"> 
-								<div class="col-xs-3">
-									<label>   <?php echo e($details['designation']['designation_name']); ?></label>
-									
-									
-								</div>
-								<div class="col-xs-2">
-									<label> <?php echo e($details['mode']['posting_mode']); ?> </label>
-
-								</div>
-								<div class="col-xs-3">
-									<label>    <?php echo e($details['court']['court_name']); ?>         </label>
-
-								</div>                   
-								<div class="col-xs-2">
-									<label>   <?php echo e($details['court']['court_name']); ?>        </label>
-
-								</div>
-								<div class="col-xs-1">
-									<label>        From      </label>
-
-								</div>
-								<div class="col-xs-1">
-									<label>  To       </label>
-
-								</div>
-
-						</div> 
-						<hr>      
-					<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-						
-						
-					</div>                     
+                    </div>   
+                    <hr>                  
 				</form>			
           </div>
           <!--/tab-pane-->     
@@ -404,8 +406,8 @@
             <div class="col-sm-4 text-left">
                 <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
             </div>
-            <div class="col-sm-4 text-center">
-                <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+            <div class="col-sm-offset-4 text-center">
+                &nbsp;
             </div>
             <div class="col-sm-4 text-right">
                 <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>

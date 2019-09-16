@@ -160,15 +160,38 @@ class JoEntryFormController extends Controller
     public function show($id)
     {
         $profile = JudicialOfficer:: where('judicial_officers.id',$id)
-                                        ->with('district','state','religion','recruitment_batch','caste',
-                                                'jo_repoting_officer','jo_reviewing_officer',
-                                                'judicial_officer_qualifications.qualification',
-                                                'judicial_officer_postings.designation','judicial_officer_postings.mode',
-                                                'subordinate_officers','judicial_officer_postings.court', 
-                                                'subordinate_officers.reporting_officer','subordinate_officers.reviewing_officer'
-                                        )
-                                        ->get();
+                                     ->with('district','state','religion','recruitment_batch','caste',
+                                            'judicial_officer_qualifications.qualification',
+                                            'judicial_officer_postings.designation','judicial_officer_postings.mode',
+                                            'subordinate_officers','judicial_officer_postings.court', 
+                                            'subordinate_officers.reporting_officer'
+                                     )
+                                     ->get();
+
+
            
+        $profile[0]['date_of_birth'] = date('d-m-Y', strtotime($profile[0]['date_of_birth']));
+        $profile[0]['date_of_joining'] = date('d-m-Y', strtotime($profile[0]['date_of_joining']));
+        $profile[0]['date_of_confirmation'] = date('d-m-Y', strtotime($profile[0]['date_of_confirmation']));
+        $profile[0]['date_of_retirement'] = date('d-m-Y', strtotime($profile[0]['date_of_retirement']));
+
+
+        if ($profile[0]['gender'] =="M")
+            $profile[0]['gender']= "Male" ;
+        else if ($profile[0]['gender'] =="F")
+            $profile[0]['gender']= "Female" ;
+        elseif ($profile[0]['gender'] =="O")
+            $profile[0]['gender']= "Other" ;												
+
+                                        
+
+        
+        foreach($profile[0]->judicial_officer_postings  as $details)
+        {
+            $details->from_date = date('d-m-Y', strtotime($details->from_date));
+            $details->to_date = (!$details->to_date) ? '' : date('d-m-Y', strtotime($details->to_date)) ;
+
+        }
         return view('profile.index')->with('profile',$profile);
     }
 

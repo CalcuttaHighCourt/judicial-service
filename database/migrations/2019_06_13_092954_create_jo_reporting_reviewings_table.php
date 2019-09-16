@@ -19,7 +19,7 @@ class CreateJoReportingReviewingsTable extends Migration
             $table->unsignedBigInteger('reporting_officer_id');
             $table->unsignedBigInteger('reviewing_officer_id');
             $table->date('from_date');
-            $table->date('to_date');
+            $table->date('to_date')->nullable(true);
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
 
