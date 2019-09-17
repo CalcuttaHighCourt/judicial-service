@@ -99,7 +99,8 @@ class LcrController extends Controller
 
 		$data= array();
 
-		$hc_records=Lcr_hc_end::with('case_type','lcr_case_details.lower_case_type')->get();
+		$hc_records=Lcr_hc_end::with('case_type','lcr_case_details.lower_case_type')
+					->where('court','=',Auth::user()->court_id)->get();
 		$data["hc_records"]=$hc_records;
 		
 		
@@ -111,20 +112,20 @@ class LcrController extends Controller
 
 	}
 
-	public function complaince_details(Request $request){
+	public function complaince_details($id){
 
 		
 
 			$data= array();
 	
-			$hc_records=Lcr_hc_end::with('case_type','lcr_case_details.lower_case_type')->get();
+			$hc_records=Lcr_hc_end::with('case_type','lcr_case_details.lower_case_type')
+						->where([
+									['court','=',Auth::user()->court_id],
+									['id','=',$id]
+						])
+						->get();
 			$data["hc_records"]=$hc_records;
-			echo '<pre>';
-			print_r($data["hc_records"]);echo '<pre>';exit;
-			
-			$i=0;
-			$strings[]="";
-		
+
 			return view('lcr.lower_compliance')->with('data',$data);
 		
 	}

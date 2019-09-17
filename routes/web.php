@@ -174,9 +174,8 @@ Route::post('lcr_request_by_hc/databaseentry', 'LcrController@database_entry');
 
 Route::get('lcr_view', 'LcrController@fetch_details');
 
-Route::get ( 'lcr_compliance/{lcr_id}', function ($lcr_id) {
-	return view ( 'lcr.lower_compliance' )->with('lcr_id',$lcr_id);
-} );
+Route::get ( 'lcr_compliance/{lcr_id}', 'LcrController@complaince_details' );
+
 
 
 // Route::post('lcr_compliance/{lcr_id}', 'LcrController@show');

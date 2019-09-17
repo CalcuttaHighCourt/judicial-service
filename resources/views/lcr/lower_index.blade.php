@@ -11,7 +11,7 @@
 
                 <!-- Lower Court Request Form -->
                 <span><strong>Notification:</strong> There are some LCR request received<br><br>
-                   
+                
 
     @foreach($data['hc_records'] as $hc_record)
 

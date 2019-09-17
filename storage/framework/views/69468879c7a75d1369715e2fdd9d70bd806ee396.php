@@ -9,15 +9,29 @@
             <!-- IIIIIIIIIII -->
             <hr>
             <div class="panel-body">
-            <?php echo e($lcr_id); ?>
+            <?php $__currentLoopData = $data['hc_records']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $hc_record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-            <span>As Per the requirement from the High Court Case Number:CRM / 10/ 2019 the following records to be complied within 05/12/2019.
-                    <br>The Case Numbers are as follows : </span>
-                <div class="col-sm-offset-1 col-sm-11">
+            
+            <span id="hc_case_no"> As Per the requirement from the High Court Case Number : <span id="lower" style="background-color:#ffffff;color:#C11111;"><strong><?php echo e(($hc_record['case_type']['type_name'])); ?>/<?php echo e($hc_record['hc_case_no']); ?>/<?php echo e($hc_record['hc_case_year']); ?></strong></span>
+                    the following records to be complied  within </span><span id="deadline" style="background-color:#ffffff;color:#C11111;"><strong><?php echo e($hc_record['deadline']); ?></strong></span>
                     <br>
-                    <div class="col-sm-3"><span class="check">TS / 1/ 2019</span></div><div class="col-sm-3"><label><input type="checkbox" class="check1" value="1"> Available with me</label></div><br><br>
-                    <div class="col-sm-3"><span class="check">TS/ 5/ 2018</span></div><div class="col-sm-3"><label><input type="checkbox" class="check1"value="2"> Available with me</label></div><br><br>
-                    <div class="col-sm-3"><span class="check">TA / 50 / 2019</span></div><div class="col-sm-3"><label><input type="checkbox" class="check1" value="3"> Available with me</label></div><br><br>
+                    <br>
+                 <?php $__currentLoopData = $hc_record['lcr_case_details']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+                    <div class="col-sm-6">
+                        <span id="lower" style="background-color:#ffffff;color:#C11111;">
+                            <strong><?php echo e(($lc['lower_case_type']['type_name'])); ?>/<?php echo e(($lc['lower_case_no'])); ?>/<?php echo e(($lc['lower_case_year'])); ?></strong>
+                        </span>
+                    </div>
+                    <div class="col-sm-3">
+                        <label><input type="checkbox" class="check1" value="1"> Available with me</label>
+                    </div>
+                    <br><br>
+                    
+                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    
+                    <hr>
+             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
                     <div class="float-left">
                         <strong>Actions to be taken:</strong><br><br>
                         <button id="forward" type="button" class="btn btn-warning forward">
@@ -278,11 +292,12 @@
                 swal("Can not Forward","Atleast 1 should be unchecked","error");
                 $("#forward_div").hide();
             }
+
                 var i=0;
                 $(".check1").each(function(){                    
                     if($(this). prop("checked") == false){ 
                         i++;                      
-                       str+=$(this).parent().parent().prev().find(".check").html();
+                       str+=$(this).parent().parent().prev().find("#lower").html();
                        if(count-i==1)
                         str+=" and ";
                       else if(i==count)
@@ -322,7 +337,7 @@
                 $(".check1").each(function(){                    
                     if($(this). prop("checked") == true){ 
                         i++;                      
-                       str+=$(this).parent().parent().prev().find(".check").html();
+                       str+=$(this).parent().parent().prev().find("#lower").html();
                        if(count-i==1)
                         str+=" and ";
                       else if(i==count)
