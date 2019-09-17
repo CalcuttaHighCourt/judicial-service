@@ -61,14 +61,14 @@
                   <div class="form-group">
                     <div class="col-xs-6">
                         <label for="dob" class="control-label">
-                             Date of Birth: {{ date('d-m-Y', strtotime($profile[0]['date_of_birth']))}}
+                             Date of Birth: {{$profile[0]['date_of_birth']}}
                         </label>                        
                     </div>
                  </div>    
                  <div class="form-group">
                     <div class="col-xs-6">
                         <label for="doj" class="control-label">
-                             Date of Joining: {{ date('d-m-Y', strtotime($profile[0]['date_of_joining'])) }}
+                             Date of Joining: {{ $profile[0]['date_of_joining'] }}
                         </label>                        
                     </div>
 				 </div>    
@@ -76,14 +76,14 @@
                  <div class="form-group">
                     <div class="col-xs-6">
                         <label for="doc" class="control-label">
-                             Date of Confirmation: {{ date('d-m-Y', strtotime($profile[0]['date_of_confirmation'])) }}
+                             Date of Confirmation: {{ $profile[0]['date_of_confirmation'] }}
                         </label>                        
                     </div>
                  </div>  
                  <div class="form-group">
                     <div class="col-xs-6">
                         <label for="dor" class="control-label">
-                             Date of Superannuation: {{ date('d-m-Y', strtotime($profile[0]['date_of_retirement'])) }}
+                             Date of Superannuation: {{ $profile[0]['date_of_retirement'] }}
                         </label>                      
                     </div>
 				 </div>      
@@ -136,7 +136,7 @@
                  <div class="form-group">
                     <div class="col-xs-6">
                         <label for="blood_group">
-                             Blood Group: {{ $profile[0]['blood_group']}}	
+                             Blood Group: {{ $profile[0]['blood_group'] }}	
                         </label>
                         
                     </div>
@@ -144,14 +144,8 @@
                  <div class="form-group">
                     <div class="col-xs-6">
                         <label for="blood_group">
-							Gender: 
-							@if ($profile[0]['gender'] =="M")
-								{{  "Male" }}
-							@elseif ($profile[0]['gender'] =="F")
-								{{  "Female" }}	
-							@elseif ($profile[0]['gender'] =="O")
-								{{  "Other" }}															
-							@endif
+							Gender: {{ $profile[0]['gender'] }}
+
                         </label>                        
                     </div>
 				 </div>           
@@ -159,7 +153,7 @@
                  <div class="form-group">
                     <div class="col-xs-6">
                         <label for="identification_mark">
-                             Identification Mark: {{ $profile[0]['identification_mark']}}
+                             Identification Mark: {{ $profile[0]['identification_mark'] }}
                         </label>
                         
                     </div>
@@ -176,14 +170,14 @@
                     <div class="form-group">
                         <div class="col-xs-6">
                             <label for="email_id_1" class="control-label">
-                                 Primary Email ID: {{ $profile[0]['email_id_1']}}
+                                 Primary Email ID: {{ $profile[0]['email_id_1'] }}
                             </label>                            
                         </div>
                     </div> 
                     <div class="form-group">
                         <div class="col-xs-6">
                             <label for="email_id_2">
-                                 Secondary Email ID: {{ $profile[0]['email_id_1']}}
+                                 Secondary Email ID: {{ $profile[0]['email_id_1'] }}
                             </label>                            
                         </div>
 					</div>  
@@ -191,14 +185,14 @@
                     <div class="form-group">
                         <div class="col-xs-6">
                             <label for="email_id_3">
-                                 Alternative Email ID: {{ $profile[0]['email_id_3']}}
+                                 Alternative Email ID: {{ $profile[0]['email_id_3'] }}
                             </label>                            
                         </div>
                     </div> 
                     <div class="form-group">
                         <div class="col-xs-6">
                             <label for="ph_no_1" class="control-label">
-                                 Primary Contact No.: {{ $profile[0]['mobile_no_1']}}
+                                 Primary Contact No.: {{ $profile[0]['mobile_no_1'] }}
                             </label>                            
                         </div>
 					</div>    
@@ -206,14 +200,14 @@
                     <div class="form-group">
                         <div class="col-xs-6">
                             <label for="ph_no_2">
-                                 Secondary Contact No.: {{ $profile[0]['mobile_no_2']}}
+                                 Secondary Contact No.: {{ $profile[0]['mobile_no_2'] }}
                             </label>							
                         </div>
                     </div>    
                     <div class="form-group">
                         <div class="col-xs-6">
                             <label for="ph_no_3">
-                                 Alternative Contact No.: {{ $profile[0]['mobile_no_3']}}
+                                 Alternative Contact No.: {{ $profile[0]['mobile_no_3'] }}
                             </label>							
                         </div>
 					</div> 
@@ -221,7 +215,7 @@
                     <div class="form-group">
                         <div class="col-xs-6">
                             <label for="home_state" class="control-label">
-                                 Home State: {{ $profile[0]->state['state_name']}}
+                                 Home State: {{ $profile[0]->state['state_name'] }}
                             </label>
                             
                         </div>
@@ -229,7 +223,7 @@
                     <div class="form-group">
                         <div class="col-xs-6">
                             <label for="home_district" class="control-label">
-                                 Home District: {{ $profile[0]->district['district_name']}}
+                                 Home District: {{ $profile[0]->district['district_name'] }}
                             </label>                            
                         </div>
 					</div>
@@ -237,7 +231,7 @@
                     <div class="form-group">
                         <div class="col-xs-6">
                             <label for="home_town" class="control-label">
-                                 Home Town: {{ $profile[0]['hometown']}}
+                                 Home Town: {{ $profile[0]['hometown'] }}
                             </label>                            
                         </div>
 					</div>    
@@ -254,7 +248,7 @@
                     <div class="form-group">
                         <div class="col-xs-6">
                             <label for="current_address" class="control-label">
-                                 Current Address:  {{ $profile[0]['present_address']}}	
+                                 Current Address:  {{ $profile[0]['present_address'] }}	
                             </label>							
                         </div>
                     </div> 
@@ -292,74 +286,82 @@
          <div class="tab-pane" id="posting_details">
                 <form class="form" action="##" method="">                    
                     <div class="text-center">
-                        <h3 style="color:#d06666"><u>Posting Details (From Present to Past)</u></h3>
+                        <h3 style="color:#d06666"><u>Posting Details (From Past to Present)</u></h3>
                     </div>
+                    <br>
+
                     <div class="div_add_more_posting">
                         <div class="row"> 
-                            <div class="col-xs-3">
-                                <label>   Designation </label>
-								
+                            <div class="col-xs-2">
+                                <label>   Designation </label>								
                                 
                             </div>
                             <div class="col-xs-2">
                                 <label> Posting Mode </label>
 
                             </div>
-                            <div class="col-xs-3">
-                                <label>    Court           </label>
+                            <div class="col-xs-2">
+                                <label>   Court  </label>
 
                             </div>                   
                             <div class="col-xs-2">
-                                <label>    Reporting Officer         </label>
+                                <label>  Reporting Officer  </label>
 
                             </div>
-                            <div class="col-xs-1">
-                                <label>        From      </label>
+
+                            <div class="col-xs-2">
+                                <label>  From  </label>
 
                             </div>
-                            <div class="col-xs-1">
-                                <label>  To       </label>
+                            <div class="col-xs-2">
+                                <label>  To  </label>
 
                             </div>
 
 						</div> 
 
-						<hr>
+						@php ($i=0)
+                        @foreach($profile[0]->judicial_officer_postings  as $details)
+                            
+                            <hr>
+                            @php ($reporting_officer_name= $profile[0]->subordinate_officers[$i]->reporting_officer['officer_name'])
+
+                            @php ($from_date = $details->from_date)
+
+                            @php ($to_date = $details->to_date)
+
+                            <div class="row"> 
+                                    <div class="col-xs-2">
+                                        <label>   {{$details['designation']['designation_name'] }}</label>                                        
+                                        
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <label> {{$details['mode']['posting_mode'] }} </label>
+
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <label>  {{$details['court']['court_name'] }}   </label>
+
+                                    </div>                   
+                                    <div class="col-xs-2">
+                                        <label>  {{$reporting_officer_name}}   </label>
+
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <label>  {{$from_date}}  </label>
+
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <label>  {{$to_date}}  </label>
+
+                                    </div>
+
+                            </div> 
+                            @php ($i++)
+					    @endforeach
 						
-						@foreach($profile[0]->judicial_officer_postings  as $details)
-						<div class="row"> 
-								<div class="col-xs-3">
-									<label>   {{$details['designation']['designation_name'] }}</label>
-									
-									
-								</div>
-								<div class="col-xs-2">
-									<label> {{$details['mode']['posting_mode'] }} </label>
-
-								</div>
-								<div class="col-xs-3">
-									<label>    {{$details['court']['court_name'] }}         </label>
-
-								</div>                   
-								<div class="col-xs-2">
-									<label>   {{$details['court']['court_name'] }}        </label>
-
-								</div>
-								<div class="col-xs-1">
-									<label>        From      </label>
-
-								</div>
-								<div class="col-xs-1">
-									<label>  To       </label>
-
-								</div>
-
-						</div> 
-						<hr>      
-					@endforeach
-						
-						
-					</div>                     
+                    </div>   
+                    <hr>                  
 				</form>			
           </div>
           <!--/tab-pane-->     
@@ -383,8 +385,8 @@
             <div class="col-sm-4 text-left">
                 <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
             </div>
-            <div class="col-sm-4 text-center">
-                <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+            <div class="col-sm-offset-4 text-center">
+                &nbsp;
             </div>
             <div class="col-sm-4 text-right">
                 <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
