@@ -164,7 +164,7 @@ class JoEntryFormController extends Controller
                                             'judicial_officer_qualifications.qualification',
                                             'judicial_officer_postings.designation','judicial_officer_postings.mode',
                                             'subordinate_officers','judicial_officer_postings.court', 
-                                            'subordinate_officers.reporting_officer'
+                                            'subordinate_officers.reporting_officer','jo_photos'
                                      )
                                      ->get();
 

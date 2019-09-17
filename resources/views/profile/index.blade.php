@@ -291,7 +291,7 @@
                     <br>
 
                     <div class="div_add_more_posting">
-                        <div class="row"> 
+                        <div class="row" > 
                             <div class="col-xs-2">
                                 <label>   Designation </label>								
                                 
@@ -332,11 +332,11 @@
 
                             <div class="row"> 
                                     <div class="col-xs-2">
-                                        <label>   {{$details['designation']['designation_name'] }}</label>                                        
+                                        <label>  {{$details['designation']['designation_name'] }}</label>                                        
                                         
                                     </div>
                                     <div class="col-xs-2">
-                                        <label> {{$details['mode']['posting_mode'] }} </label>
+                                        <label>  {{$details['mode']['posting_mode'] }} </label>
 
                                     </div>
                                     <div class="col-xs-2">

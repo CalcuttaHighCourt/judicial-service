@@ -98,7 +98,8 @@ class JudicialOfficer extends Model
     {
         return $this->belongsTo('App\JudicialOfficer','present_reporting_officer_id','id');
     }
-/**
+    
+    /**
      * Get the court complex that owns the court.
      */
     public function jo_reviewing_officer()
@@ -107,6 +108,14 @@ class JudicialOfficer extends Model
     }
     
 
+    /**
+     * Get the court complex that owns the court.
+     */
+    public function jo_photos()
+    {
+        return $this->belongsTo('App\JudicialOfficer','judicial_officer_id','id');
+    }
+    
 
     
 }
