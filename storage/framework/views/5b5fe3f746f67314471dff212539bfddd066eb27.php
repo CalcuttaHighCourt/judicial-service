@@ -11,7 +11,7 @@
 
                 <!-- Lower Court Request Form -->
                 <span><strong>Notification:</strong> There are some LCR request received<br><br>
-                   
+                
 
     <?php $__currentLoopData = $data['hc_records']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $hc_record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
