@@ -836,7 +836,7 @@
                         swal("Failed to "+operation+" Judicial Officer",errorThrown,"error");
                     }
                     else{
-                        msg = ""
+                        msg = "";
                         $.each(jqXHR.responseJSON.errors, function(key,value) {
                             msg+=value+"\n";						
                         });

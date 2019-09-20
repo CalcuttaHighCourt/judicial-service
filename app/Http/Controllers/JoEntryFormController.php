@@ -26,7 +26,8 @@ class JoEntryFormController extends Controller
                                             'jo_repoting_officer','jo_reviewing_officer',
                                             'judicial_officer_qualifications.qualification',
                                             'judicial_officer_postings.designation','judicial_officer_postings.mode',
-                                            'subordinate_officers'
+                                            'subordinate_officers', 'judicial_officer_postings.court',
+                                            'judicial_officer_postings.court_complex'
                                     )->get();
    
         return response()->json($JOdetails)->header('Content-Type','application/json');
