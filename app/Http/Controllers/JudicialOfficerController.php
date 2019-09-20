@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\JudicialOfficer;
-use App\Dairy;
+use App\Diary;
 use Carbon\Carbon;
+use App\User;
 use Auth;
 
 
@@ -162,21 +163,24 @@ class JudicialOfficerController extends Controller
             'details' => 'required'                   
 
         ] );
-        $date=$request->input('date');
-        $jo_code =Auth::user()->jo_code;
+
+       
+        //$date=$request->input('date');
+        $date=Carbon::parse($request->input('date'))->format('Y-m-d');
+        $judicial_officer_id =Auth::user()->judicial_officer_id;
         $textarea=$request->input('details');
 
-    // $count=Dairy::where([['date_of_schedule',$date],['jo_code',$jo_code]])->count();
 
-        Dairy::where([['date_of_schedule',$date],['jo_code',$jo_code]])->delete();
+    Diary::where([['date_of_schedule',$date],['judicial_officer_id',$judicial_officer_id]])->delete();
           
-        Dairy::insert([
-            'jo_code'=>$jo_code,
+    Diary::insert([
+            'judicial_officer_id'=>$judicial_officer_id,
             'date_of_schedule'=>$date,
             'description'=>$textarea,
             'created_at'=>Carbon::today(),
             'updated_at'=>Carbon::today()
             ]);
+
         return 1;
     }
 
@@ -185,11 +189,11 @@ class JudicialOfficerController extends Controller
         $this->validate ( $request, [                     
             'date' => 'required'
         ]);
-        $date=Carbon::parse($request->input('date'))->format('Y-d-m');
-        $jo_code =Auth::user()->jo_code;
-        $data=Dairy::where([
+        $date=Carbon::parse($request->input('date'))->format('Y-m-d');
+        $judicial_officer_id =Auth::user()->judicial_officer_id;
+        $data=Diary::where([
                                 ['date_of_schedule',$date],
-                                ['jo_code',$jo_code]
+                                ['judicial_officer_id',$judicial_officer_id]
                             ])
                     ->select('description')
                     ->get();
@@ -343,10 +347,9 @@ class JudicialOfficerController extends Controller
             $judicial_officer->recruitment_batch_id = $request->recruitment_batch_id;
             $judicial_officer->aadhaar_no  = $request->aadhaar_no;
             $judicial_officer->pan_no = $request->pan_no;
-            $judicial_officer->pf_no = $request->pf_no; 
+            $judicial_officer->gpf_no = $request->pf_no; 
             $judicial_officer->blood_group = $request->blood_group; 
-            $judicial_officer->identification_marks_1 = $request->identification_marks_1; 
-            $judicial_officer->identification_marks_2 = $request->identification_marks_2; 
+            $judicial_officer->identification_mark= $request->identification_marks_1; 
             $judicial_officer->mobile_no_1 = $request->mobile_no_1; 
             $judicial_officer->mobile_no_2 = $request->mobile_no_2; 
             $judicial_officer->mobile_no_3 = $request->mobile_no_3; 
@@ -411,33 +414,17 @@ class JudicialOfficerController extends Controller
             else if ($judicial_officer->judicial_officer_postings->count() > 0) {
                 $response = array(
                     'exception' => true,
-                    'exception_message' => "Records of judicial_officer: " . $judicial_officer->judicial_officer_posting . " exists in Judicial Officer table.",
+                    'exception_message' => "Records of judicial_officer: " . $judicial_officer->judicial_officer_posting . " exists in Judicial Officer Posting table.",
                 );
                 $statusCode = 400;
             }
             else if ($judicial_officer->judicial_officer_qualifications->count() > 0) {
                 $response = array(
                     'exception' => true,
-                    'exception_message' => "Records of judicial_officer: " . $judicial_officer->judicial_officer_qualification . " exists in Judicial Officer table.",
+                    'exception_message' => "Records of judicial_officer: " . $judicial_officer->judicial_officer_qualification . " exists in Judicial Officer Qualification table.",
                 );
                 $statusCode = 400;
             }
-            // else if ($judicial_officer->judicial_officer_qualifications->count() > 0) {
-            //     $response = array(
-            //         'exception' => true,
-            //         'exception_message' => "Records of judicial_officer: " . $judicial_officer->judicial_officer_qualification . " exists in Judicial Officer table.",
-            //     );
-            //     $statusCode = 400;
-            // }
-            else if ($judicial_officer->judicial_officers->count() > 0) {
-                $response = array(
-                    'exception' => true,
-                    'exception_message' => "Record(s) of judicial_officer: " . $judicial_officer->district_name . " exists in Judicial Officer table.",
-                );
-                $statusCode = 400;
-            
-            }
-
             else {
 
                 if (!empty($judicial_officer)) { // Should be changed #30

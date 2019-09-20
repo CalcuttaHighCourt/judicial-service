@@ -174,9 +174,8 @@ Route::post('lcr_request_by_hc/databaseentry', 'LcrController@database_entry');
 
 Route::get('lcr_view', 'LcrController@fetch_details');
 
-Route::get ( 'lcr_compliance/{lcr_id}', function ($lcr_id) {
-	return view ( 'lcr.lower_compliance' )->with('lcr_id',$lcr_id);
-} );
+Route::get ( 'lcr_compliance/{lcr_id}', 'LcrController@complaince_details' );
+
 
 
 // Route::post('lcr_compliance/{lcr_id}', 'LcrController@show');
@@ -187,6 +186,8 @@ Route::get ('jo_entry_form', function () {
 	return view ('jo_entry_form.index');
 });
 
+Route::get ('profile', 'JoEntryFormController@profile')->name('profile');
+
 Route::post('jo_entry/fetch_district','JoEntryFormController@fetch_district')->name('fetch_district');
 
 Route::post('jo_entry/fetch_court','JoEntryFormController@fetch_court')->name('fetch_court');
@@ -194,16 +195,6 @@ Route::post('jo_entry/fetch_court','JoEntryFormController@fetch_court')->name('f
 
 Route::get ( 'register', 'Auth\RegisterController@showRegistrationForm' );
 Route::post ( 'register', 'Auth\RegisterController@register' );
-
-Route::resource('jo_entry', 'JoEntryFormController')->except(['create', 'edit']);
-
-Route::get ('jo_entry_form', function () {
-	return view ('jo_entry_form.index');
-});
-
-Route::post('jo_entry/fetch_district','JoEntryFormController@fetch_district')->name('fetch_district');
-
-
 
 
 Auth::routes();

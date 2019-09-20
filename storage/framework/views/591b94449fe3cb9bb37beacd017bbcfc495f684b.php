@@ -88,7 +88,11 @@
 
     <div id="datatable-panel" class="panel panel-default">
         <div id="datatable-panel-heading" class="panel-heading clearfix">
+<<<<<<< HEAD
             <div class="panel-title pull-left">District Master</div>
+=======
+            <div class="panel-title pull-left">Court Master</div>
+>>>>>>> 5720abf59644810e10d042aad30eaa777e5ce90a
             <div class="pull-right">
                 <button id="add-new-button" type="submit" class="btn btn-primary add-new-button">
                     <i class="fa fa-plus-circle"></i> Add New

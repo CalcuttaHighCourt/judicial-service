@@ -11,131 +11,120 @@
     background-color: #28415b;
 }
 </style>
-<!-- Bootstrap Boilerplate... -->
-<div id="info-panel" class="panel panel-default">
-    <!-- IIIIIIIIIII -->
-    <ul class="nav nav-pills" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="posting_details" style="border-style:outset" data-toggle="tab" href="#postings">Posting Details</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" id="judicial_diary" style="border-style:outset" data-toggle="tab" href="#daily_diary">Judicial diary</a>
-        </li>
-    <li class="nav-item">
-      <a class="nav-link active"  style="border-style:outset" data-toggle="tab" href="#acr">Annual Confidential Report</a>
-    </li>
-  </ul>
-	
-	<!-- IIIIIIIIIII -->
 
-    <div class="tab-content clearfix">
-        <div class="tab-pan" id="postings">
-		<!-- New Task Form -->
-                <br><br>
-       			<input type="hidden" id="JudicialOfficerPostingPreference-id">
-                <div id="officer_name-group" class="form-group row our-form-group">
-                    <label for="officer_name" class="col-sm-offset-1 col-md-5 ">Officer Name: <?php echo e(Auth::user()->name); ?></label>
-                </div>
-                <div id="jo_code-group" class="form-group row our-form-group">
-                    <label for="jo_code" id="jo_code" class="col-sm-offset-1 col-sm-3">Code: </label>
-                </div>
-                <div id="zone-group" class="form-group row our-form-group">
-<<<<<<< HEAD
-                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> <?php echo e($zone_pref_details['current_zone']['zone_name']); ?></span></label>
-                </div>
-                <div id="zone-group" class="form-group row our-form-group">
-                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> <?php echo e($zone_pref_details['just_prev_zone']['zone_name']); ?></span></label>
-=======
-                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name" data-cur_zone_val="<?php echo e($zone_pref_details['current_zone']['zone_id']); ?>"> <?php echo e($zone_pref_details['current_zone']['zone_name']); ?></span></label>
-                </div>
-                <div id="zone-group" class="form-group row our-form-group">
-                    <label for="zone" class="col-sm-offset-1 col-sm-2 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"  data-pre_zone_val="<?php echo e($zone_pref_details['just_prev_zone']['zone_id']); ?>"> <?php echo e($zone_pref_details['just_prev_zone']['zone_name']); ?></span></label>
->>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
-                </div>
-            
-            <hr>
-        
-            <div id="posting_pref-group" class="form-group row our-form-group">
-                
-                <div class="col-sm-offset-1 col-md-2">
-                    <label for="posting_pref1">Posting Preference </label>
-<<<<<<< HEAD
-                    <select id="posting_pref" onkeypress="myFunction()" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">
-=======
-                    <select id="posting_pref" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">
->>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
-                        
-                    <?php echo $__env->make('zones.zone_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                    </select>
-				</div>
-                         
+<div class="col-sm-12">
 
-				<div class="col-md-2">
-                    <br>
-					<button id="submit" type="button"
-						class="btn btn-primary add-button info-form-button">
-						Submit
-					</button>
-				</div>
-            </div>
+    <!-- Bootstrap Boilerplate... -->
+    <div id="info-panel" class="panel panel-default">
+    <br>
+        <div class="col-sm-offset-1 col-sm-11">
+            <!-- IIIIIIIIIII -->
+            <ul class="nav nav-pills" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="posting_details" style="border-style:outset" data-toggle="tab" href="#postings">Posting Details</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" id="judicial_diary" style="border-style:outset" data-toggle="tab" href="#daily_diary">Judicial diary</a>
+                </li>
+                <li class="nav-item">
+                     <a class="nav-link active"  style="border-style:outset" data-toggle="tab" href="#acr">Annual Confidential Report</a>
+                </li>
+            </ul>
         </div>
-        <br><br>
-        <div class="tab-pan" id="daily_diary" style="display:none;">     
-            <div class="form-group row">
-                <div class="date col-sm-offset-2 col-sm-2">
-                    <input type="text" class="form-control date diary_date" id="date" placeholder="Choose Date" autocomplete="off">
+        
+        <!-- IIIIIIIIIII -->
+
+        <div class="tab-content clearfix">
+            <div class="tab-pan" id="postings">
+            <!-- New Task Form -->
+                <div class="col-sm-offset-1 col-sm-11">
+                    <br><br>
+                    <input type="hidden" id="JudicialOfficerPostingPreference-id">
+                    
+                        <div id="officer_name-group" class="form-group row our-form-group">
+                            <label for="officer_name" class="col-sm-offset-1 col-sm-4 ">Officer Name: <?php echo e(Auth::user()->name); ?></label>
+                            <label for="jo_code" id="jo_code" class="col-sm-offset-1 col-sm-4">Code: </label>
+                        </div>
+                        <div id="zone-group" class="form-group row our-form-group">
+
+                            <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name" data-cur_zone_val="<?php echo e($zone_pref_details['current_zone']['zone_id']); ?>"> <?php echo e($zone_pref_details['current_zone']['zone_name']); ?></span></label>
+                            <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name" data-pre_zone_val="<?php echo e($zone_pref_details['just_prev_zone']['zone_id']); ?>"> <?php echo e($zone_pref_details['just_prev_zone']['zone_name']); ?></span></label>
+
+                        </div>      
+                        <hr>
+            
+                    <div id="posting_pref-group" class="form-group row our-form-group">
+                    
+                        <div class="col-sm-offset-1 col-sm-3">
+                            <label for="posting_pref1">Posting Preference </label>
+                            <select id="posting_pref" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">                   
+                            <?php echo $__env->make('zones.zone_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                            </select>
+                        </div>
+                            
+                        <div class="col-sm-offset-1 col-sm-2">
+                            <br>
+                            <button id="submit" type="button"
+                                class="btn btn-primary add-button info-form-button">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                   
-                <div class="col-sm-3">
-<<<<<<< HEAD
-                    <button id="submit_dairy" type="button"
-=======
-                    <button id="submit_diary" type="button"
->>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
-                        class="btn btn-primary add-button info-form-button">
+            </div>
+            <br><br>
+            <div class="tab-pan" id="daily_diary" style="display:none;">     
+                <div class="col-sm-offset-1 col-sm-11">
+                        <br><br>
+                    <div class="form-group row">
+                        <div class="date col-sm-offset-2 col-sm-2">
+                            <input type="text" class="form-control date diary_date" id="date" placeholder="Choose Date" autocomplete="off">
+                        </div>
+                        
+                        <div class="col-sm-3">
+                            <button id="submit_diary" type="button"
+                                class="btn btn-primary add-button info-form-button">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="box col-sm-offset-1">
+                    <div class="box-header" id="diary_editor" style="display:none;">
+                        <h3 class="box-title col-sm-offset-3" >DAILY WORKSHEET
+                            <small>of : <span id="date_span"></span></small>
+                        </h3>
+                    
+                
+                        
+                <!-- /.box-header -->
+                <div class="box-body pad col-sm-offset-1 col-sm-10">
+                <form>
+                    <textarea class="text_content" id="text_content" placeholder="Place some text here"
+                            style="width: 100%; height: 100%; font-size: 100%; line-height: 80%x; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                </form>
+                <div class="col-sm-offset-5 col-sm-3">
+                    <button id="submit_worksheet" type="button"
+                        class="btn btn-warning add-button info-form-button">
                         Submit
                     </button>
                 </div>
-             </div>
-             <br>
-             <div class="box col-sm-offset-1">
-<<<<<<< HEAD
-                <div class="box-header" id="dairy_editor" style="display:none;">
-=======
-                <div class="box-header" id="diary_editor" style="display:none;">
->>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
-                    <h3 class="box-title col-sm-offset-3" >DAILY WORKSHEET
-                        <small>of : <span id="date_span"></span></small>
-                    </h3>
-                
-            
-                     
-            <!-- /.box-header -->
-            <div class="box-body pad col-sm-offset-1 col-sm-10">
-              <form>
-                <textarea class="text_content" id="text_content" placeholder="Place some text here"
-                          style="width: 100%; height: 100%; font-size: 100%; line-height: 80%x; border: 1px solid #dddddd; padding: 10px;"></textarea>
-              </form>
-              <div class="col-sm-offset-5 col-sm-3">
-                <button id="submit_worksheet" type="button"
-                    class="btn btn-warning add-button info-form-button">
-                    Submit
-                </button>
-            </div>
-            </div>
+                </div>
 
+                </div>
             </div>
+            </div>
+            <!-- /.col-->
         </div>
+            </div>
+                <!-- /.box-header -->
+                
+            </div>
+        
+            <!-- /.col-->
+        
         </div>
-        <!-- /.col-->
-      </div>
-         </div>
-            <!-- /.box-header -->
-            
-        </div>
-    
-        <!-- /.col-->
-       
     </div>
 </div>
 <div id="test-div"></div>
@@ -183,11 +172,7 @@
 
         /*date initialization:end */
 
-<<<<<<< HEAD
-        $(document).on("click","#judicial_dairy",function(){
-=======
         $(document).on("click","#judicial_diary",function(){
->>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
             $("#postings").hide();
             $("#daily_diary").show();
             
@@ -199,36 +184,6 @@
             
          });
 
-<<<<<<< HEAD
-function myFunction() {
-
-    var cur_zone_name= $("#cur_zone_name").html();
-            var pre_zone_name = $("#pre_zone_name").html();
-
-alert(cur_zone_name);
-            // $("#posting_pref").find("option[value="+cur_zone_name+"]").remove();
-            // $("#posting_pref").find("option[value="+pre_zone_name+"]").remove();
-                    $("#posting_pref option[value='"+cur_zone_name+"']").remove();
-        $("#posting_pref option[value='"+pre_zone_name+"']").remove();
-}
-
-
-
-
-
-
-// $("#posting_pref option[value="+cur_zone_name+"]").remove();
-
-
-        // $("#posting_pref option[value='"+cur_zone_name+"']").remove();
-        // $("#posting_pref option[value='"+pre_zone_name+"']").remove();
-        
-        $(document).on("click","#submit_dairy",function(){
-
-           $("#dairy_editor").show();
-            $("#date_span").html($(".diary_date").val());
-            $("#submit_dairy").hide();
-=======
 
     //To remove current zone & previous zone, from drop down list : start
 
@@ -247,7 +202,6 @@ alert(cur_zone_name);
            $("#diary_editor").show();
             $("#date_span").html($(".diary_date").val());
             $("#submit_diary").hide();
->>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
 
             var date=$("#date").val();
 
@@ -260,8 +214,10 @@ alert(cur_zone_name);
                             date:date
                         },
                         success:function(response){
+                        
                             if(response.length>0)
                                 $("iframe").contents().find("html").find("body").html(response['0'].description);
+                               
                             else
                                 $("iframe").contents().find("html").find("body").html("");
                         },
@@ -271,11 +227,7 @@ alert(cur_zone_name);
 
         $(document).on("change","#date",function(){
 
-<<<<<<< HEAD
-            $("#submit_dairy").show();
-=======
             $("#submit_diary").show();
->>>>>>> 2e2720d541665bc05fe0124bae015783e68693dd
         });
 
 
@@ -309,13 +261,13 @@ alert(cur_zone_name);
             });
         });
 
-        //Addition of Ps_Details starts
+        
         
             $(document).on("click", "#search",function(){
 
                 var jo_code = $("#officer_name").val();
 
-            //    $("#jo_details").show();
+           
                 
                 $.ajax({
 
@@ -397,7 +349,7 @@ alert(cur_zone_name);
                             success:function(response){
                                                                  
                                 swal("Preference Added Successfully","Successful","success");
-                                table.api().ajax.reload();   
+                                
 
                             },
                             error:function(response) {  

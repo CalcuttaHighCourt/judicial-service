@@ -271,15 +271,15 @@
 					</div>
 				</div>
 							
-							<div id="pf_no-group" class="form-group our-form-group">
+				<div id="gpf_no-group" class="form-group our-form-group">
 					<!-- IIIIIIIIIII -->
-					<label for="pf_no" class="col-md-4 control-label">PF No.</label>
+					<label for="gpf_no" class="col-md-4 control-label">GPF No.</label>
 
 					<div class="col-md-6">
-						<input id="pf_no" type="text"
-							class="form-control info-form-control" name="pf_no"> <span
-							id="pf_no-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-							<strong id="pf_no-strong" class="our-error-message-strong"></strong>
+						<input id="gpf_no" type="text"
+							class="form-control info-form-control" name="gpf_no"> <span
+							id="gpf_no-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+							<strong id="gpf_no-strong" class="our-error-message-strong"></strong>
 							<!-- IIIIIIIIIII -->
 						</span>
 					</div>
@@ -305,35 +305,21 @@
 					</div>
 				</div>
 							
-							<div id="identification_marks_1-group" class="form-group our-form-group">
+				<div id="identification_mark-group" class="form-group our-form-group">
 					<!-- IIIIIIIIIII -->
-					<label for="identification_marks_1" class="col-md-4 control-label">Identification Marks 1</label>
+					<label for="identification_mark" class="col-md-4 control-label">Identification Mark</label>
 
 					<div class="col-md-6">
-						<input id="identification_marks_1" type="text"
-							class="form-control info-form-control" name="identification_marks_1"> <span
-							id="identification_marks_1-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-							<strong id="identification_marks_1-strong" class="our-error-message-strong"></strong>
+						<input id="identification_mark" type="text"
+							class="form-control info-form-control" name="identification_mark"> <span
+							id="identification_mark-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+							<strong id="identification_mark-strong" class="our-error-message-strong"></strong>
 							<!-- IIIIIIIIIII -->
 						</span>
 					</div>
 				</div>
-							
-							<div id="identification_marks_2-group" class="form-group our-form-group">
-					<!-- IIIIIIIIIII -->
-					<label for="identification_marks_1" class="col-md-4 control-label">Identification Marks 2</label>
-
-					<div class="col-md-6">
-						<input id="identification_marks_2" type="text"
-							class="form-control info-form-control" name="identification_marks_2"> <span
-							id="identification_marks_2-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-							<strong id="identification_marks_2-strong" class="our-error-message-strong"></strong>
-							<!-- IIIIIIIIIII -->
-						</span>
-					</div>
-				</div>
-							
-							<div id="mobile_no_1-group" class="form-group our-form-group">
+											
+				<div id="mobile_no_1-group" class="form-group our-form-group">
 					<!-- IIIIIIIIIII -->
 					<label for="mobile_no_1" class="col-md-4 control-label">Mobile No</label>
 
@@ -784,13 +770,12 @@ function populate_form(data){
 
 	$("#pan_no").val(data.pan_no);
 
-	$("#pf_no").val(data.pf_no);
+	$("#gpf_no").val(data.gpf_no);
 
 	$("#blood_group").val(data.blood_group);
 
-	$("#identification_marks_1").val(data.identification_marks_1);
-	$("#identification_marks_2").val(data.identification_marks_2);
-
+	$("#identification_mark").val(data.identification_mark);
+	
 	$("#mobile_no_1").val(data.mobile_no_1);
 	$("#mobile_no_2").val(data.mobile_no_2);
 	$("#mobile_no_3").val(data.mobile_no_3);
@@ -868,13 +853,12 @@ function send_ajax_and_set_errors_exceptions_success(type){
 
 		pan_no:$("#pan_no").val(),
 
-		pf_no:$("#pf_no").val(),
+		gpf_no:$("#gpf_no").val(),
 
 		blood_group:$("#blood_group").val(),
 
-		identification_marks_1:$("#identification_marks_1").val(),
-		identification_marks_2:$("#identification_marks_2").val(),
-
+		identification_mark:$("#identification_mark").val(),
+		
 		mobile_no_1:$("#mobile_no_1").val(),
 		mobile_no_2:$("#mobile_no_2").val(),
 		mobile_no_3:$("#mobile_no_3").val(),
@@ -916,7 +900,6 @@ function send_ajax_and_set_errors_exceptions_success(type){
 	else if(type=="delete-confirm"){
 		formData["_method"]="DELETE";
 		formData["id"]=$("#judicial_officer_id").val();
-
 		ajax_url="{{ action('JudicialOfficerController@destroy','') }}"+"/"+$("#judicial_officer_id").val();
 		
 
