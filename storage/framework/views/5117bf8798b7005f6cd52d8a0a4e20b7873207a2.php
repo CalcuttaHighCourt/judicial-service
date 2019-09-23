@@ -312,7 +312,7 @@
                     <br>
 
                     <div class="div_add_more_posting">
-                        <div class="row"> 
+                        <div class="row" > 
                             <div class="col-xs-2">
                                 <label>   Designation </label>								
                                 
