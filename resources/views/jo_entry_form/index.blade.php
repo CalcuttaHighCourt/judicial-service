@@ -165,17 +165,17 @@
                      &nbsp 
                  </label>
                  <div class="form-check form-check-inline"> 
-                    <input class="form-check-input" name="gender" type="radio" value="male">
+                    <input class="form-check-input" name="gender" type="radio" value="M">
                     <label class="form-check-label" style="font-size:medium">
                         Male
                     </label>
         
-                    <input class="form-check-input" name="gender" type="radio" value="female">
+                    <input class="form-check-input" name="gender" type="radio" value="F">
                     <label class="form-check-label" style="font-size:medium">
                         Female
                     </label>
 
-                    <input class="form-check-input" name="gender" type="radio" value="other">
+                    <input class="form-check-input" name="gender" type="radio" value="O">
                     <label class="form-check-label" style="font-size:medium">
                         Other
                     </label>
@@ -486,8 +486,7 @@
             daysOfWeekHighlighted: "0,6",
             autoclose: true,
             todayHighlight: true,
-            toggleActive: false,
-            endDate: "today"
+            toggleActive: false            
         });
 
         // Select2 initialization

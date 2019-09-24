@@ -1,17 +1,6 @@
-<?php
-
-use App\Http\Controllers\PageController;
-?>
-@extends('layouts.app')
-{{--@include('services.display_board.display_board_block')--}}
-<?php
-$calendar_display = "month";
-?>
-@section('title', 'Home')
-@section('page_heading')
-Home Page
-@endsection
-@section('left_main_content')
+ <?php $__env->startSection('title', 'LCR Lower Court End'); ?>
+<?php $__env->startSection('page_heading'); ?> LCR Lower Court End <?php $__env->stopSection(); ?>
+<?php $__env->startSection('center_main_content'); ?>
 <div class="panel custom-panel">
     <div class="col-sm-12">
         <div id="info-panel" class="panel panel-deafult">
@@ -20,14 +9,29 @@ Home Page
             <!-- IIIIIIIIIII -->
             <hr>
             <div class="panel-body">
-            {{$lcr_id}}
-            <span>As Per the requirement from the High Court Case Number:CRM / 10/ 2019 the following records to be complied within 05/12/2019.
-                    <br>The Case Numbers are as follows : </span>
-                <div class="col-sm-offset-1 col-sm-11">
+            <?php $__currentLoopData = $data['hc_records']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $hc_record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+            
+            <span id="hc_case_no"> As Per the requirement from the High Court Case Number : <span id="lower" style="background-color:#ffffff;color:#C11111;"><strong><?php echo e(($hc_record['case_type']['type_name'])); ?>/<?php echo e($hc_record['hc_case_no']); ?>/<?php echo e($hc_record['hc_case_year']); ?></strong></span>
+                    the following records to be complied  within </span><span id="deadline" style="background-color:#ffffff;color:#C11111;"><strong><?php echo e($hc_record['deadline']); ?></strong></span>
                     <br>
-                    <div class="col-sm-3"><span class="check">TS / 1/ 2019</span></div><div class="col-sm-3"><label><input type="checkbox" class="check1" value="1"> Available with me</label></div><br><br>
-                    <div class="col-sm-3"><span class="check">TS/ 5/ 2018</span></div><div class="col-sm-3"><label><input type="checkbox" class="check1"value="2"> Available with me</label></div><br><br>
-                    <div class="col-sm-3"><span class="check">TA / 50 / 2019</span></div><div class="col-sm-3"><label><input type="checkbox" class="check1" value="3"> Available with me</label></div><br><br>
+                    <br>
+                 <?php $__currentLoopData = $hc_record['lcr_case_details']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+                    <div class="col-sm-6">
+                        <span id="lower" style="background-color:#ffffff;color:#C11111;">
+                            <strong><?php echo e(($lc['lower_case_type']['type_name'])); ?>/<?php echo e(($lc['lower_case_no'])); ?>/<?php echo e(($lc['lower_case_year'])); ?></strong>
+                        </span>
+                    </div>
+                    <div class="col-sm-3">
+                        <label><input type="checkbox" class="check1" value="1"> Available with me</label>
+                    </div>
+                    <br><br>
+                    
+                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    
+                    <hr>
+             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
                     <div class="float-left">
                         <strong>Actions to be taken:</strong><br><br>
                         <button id="forward" type="button" class="btn btn-warning forward">
@@ -69,7 +73,7 @@ Home Page
 
                         <select id="court_name" class="form-control info-form-control"name="court_name" style="width:30%;margin-bottom:2%;" >
                             <option value="">Select Court Name</option>
-                            @include('courts.court_options')
+                            <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         </select>
                 </div>
 
@@ -150,7 +154,7 @@ Home Page
                             <strong id="memo_date-strong" class="our-error-message-strong"></strong>
                             <!-- IIIIIIIIIII -->
                         </span>
-                        @section('end_scripts_1')
+                        <?php $__env->startSection('end_scripts_1'); ?>
                         <script type="text/javascript">
                             $(".memo_date").datepicker({
 
@@ -165,7 +169,7 @@ Home Page
                                 endDate: "today"
                             });
                         </script>
-                        @endsection
+                        <?php $__env->stopSection(); ?>
                     </div>
                 </div>
                 <div class="col-sm-offset-3 col-sm-3">
@@ -243,16 +247,17 @@ Home Page
         </div>
     </div>
 </div>
-@endsection
-@section('right_sidebar_content')
-@endsection
-@include('layouts.2_column_content')
-@section('main_container')
-@yield('2_column_content')
-@endsection
-@section('body_attributes')
-@endsection
-@section('end_scripts_2')
+<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+
+<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('meta'); ?>
+##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
+<meta name="_token" content="<?php echo csrf_token(); ?>" />
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -287,11 +292,12 @@ Home Page
                 swal("Can not Forward","Atleast 1 should be unchecked","error");
                 $("#forward_div").hide();
             }
+
                 var i=0;
                 $(".check1").each(function(){                    
                     if($(this). prop("checked") == false){ 
                         i++;                      
-                       str+=$(this).parent().parent().prev().find(".check").html();
+                       str+=$(this).parent().parent().prev().find("#lower").html();
                        if(count-i==1)
                         str+=" and ";
                       else if(i==count)
@@ -331,7 +337,7 @@ Home Page
                 $(".check1").each(function(){                    
                     if($(this). prop("checked") == true){ 
                         i++;                      
-                       str+=$(this).parent().parent().prev().find(".check").html();
+                       str+=$(this).parent().parent().prev().find("#lower").html();
                        if(count-i==1)
                         str+=" and ";
                       else if(i==count)
@@ -392,4 +398,5 @@ Home Page
 
 
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/lcr/lower_compliance.blade.php ENDPATH**/ ?>

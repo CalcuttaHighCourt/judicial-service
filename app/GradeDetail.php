@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Dairy extends Model
+class GradeDetail extends Model
 {
     //
 }

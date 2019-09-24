@@ -1,24 +1,6 @@
-<?php
-
-use App\Http\Controllers\PageController;
-?>
-@extends('layouts.app')
-{{--@include('services.display_board.display_board_block')--}}
-<?php
-$calendar_display = "month";
-?>
-
-
-
-@section('title', 'Lower Court Records')
-
-@section('page_heading')
-Lower Court Records
-@endsection
-
-
-
-@section('left_main_content')
+ <?php $__env->startSection('title', 'LCR HC End'); ?>
+<?php $__env->startSection('page_heading'); ?> LCR HC End <?php $__env->stopSection(); ?>
+<?php $__env->startSection('center_main_content'); ?>
 <div class="panel custom-panel">
     <div class="col-sm-12">
         <div id="info-panel" class="panel panel-default">
@@ -29,13 +11,14 @@ Lower Court Records
 
                 <!-- Lower Court Request Form -->
                 <div id="lcr-form" class="form-horizontal">
-                    {{ csrf_field() }}
+                    <?php echo e(csrf_field()); ?>
+
                     <div class="col-md-12">Court Selection</div>
                     <div id="court_selection" class="form-group our-form-group">
                         <div class="col-md-4">
                             <select id="district" type="text" class="form-control info-form-control district" name="district"> 
                                 <option value="">Select District</option>
-                                @include('districts.district_options')
+                                <?php echo $__env->make('districts.district_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                             </select>
                         </div>
                         <div class="col-md-4">
@@ -56,9 +39,9 @@ Lower Court Records
                         <div class="col-md-4">
                             <select id="hc_case_type" type="text" class="form-control info-form-control hc_case_type" name="hc_case_type"> 
                                 <option value="">Select Case Type</option>
-                                    @foreach(App\Hc_case_type::orderBy('type_name', 'asc')->get() as $casetype)
-                                        <option value="{{$casetype->id }}" @if (old('hc_case_type') == $casetype->type_name) selected="selected" @endif>{{$casetype->type_name}}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = App\Hc_case_type::orderBy('type_name', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $casetype): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($casetype->id); ?>" <?php if(old('hc_case_type') == $casetype->type_name): ?> selected="selected" <?php endif; ?>><?php echo e($casetype->type_name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                         <div class="col-md-4">
@@ -67,10 +50,10 @@ Lower Court Records
                         <div class="col-md-4">
                             <select id="hc_case_year" type="text" class="form-control info-form-control hc_case_year" name="hc_case_year"> 
                                 <option value="">Select Year</option>
-                                @for($hc_case_year=date('Y');$hc_case_year>=1900;$hc_case_year--){
-                                "<option value='{{$hc_case_year}}'>{{$hc_case_year}}</option>
+                                <?php for($hc_case_year=date('Y');$hc_case_year>=1900;$hc_case_year--): ?>{
+                                "<option value='<?php echo e($hc_case_year); ?>'><?php echo e($hc_case_year); ?></option>
                                 }
-                                @endfor
+                                <?php endfor; ?>
                             </select>
                         </div>
                     </div>
@@ -81,9 +64,9 @@ Lower Court Records
                         <div class="col-md-4" style="margin-bottom:10px;">
                             <select id="lc_case_type0" type="text" class="form-control info-form-control lc_case_type" name="lc_case_tye"> 
                                 <option value="">Select Case type</option>
-                                    @foreach(App\Lower_case_type::orderBy('type_name', 'asc')->get() as $casetype)
-                                        <option value="{{$casetype->id }}" @if (old('lower_case_type') == $casetype->type_name) selected="selected" @endif>{{$casetype->type_name}}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = App\lower_case_type::orderBy('type_name', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $casetype): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($casetype->id); ?>" <?php if(old('lower_case_type') == $casetype->type_name): ?> selected="selected" <?php endif; ?>><?php echo e($casetype->type_name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
 
@@ -93,10 +76,10 @@ Lower Court Records
                         <div class="col-md-4" style="margin-bottom:10px;">
                             <select id="lc_case_year0" type="text" class="form-control info-form-control lc_case_year" name="lc_case_year"> 
                                 <option value="">Select Year</option>
-                                    @for($lc_case_year=date('Y');$lc_case_year>=1900;$lc_case_year--){
-                                        <option value='{{$lc_case_year}}'>{{$lc_case_year}}</option>
+                                    <?php for($lc_case_year=date('Y');$lc_case_year>=1900;$lc_case_year--): ?>{
+                                        <option value='<?php echo e($lc_case_year); ?>'><?php echo e($lc_case_year); ?></option>
                                         }
-                                    @endfor
+                                    <?php endfor; ?>
                             </select>
                         </div>
                     </div><!-- lower_case_section ends -->
@@ -126,23 +109,17 @@ Lower Court Records
     </div>
 </div>
 
-@endsection
-
-@section('right_sidebar_content')
+<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
-@endsection
-@include('layouts.2_column_content')
+<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
 
+<?php $__env->startSection('meta'); ?>
+##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
+<meta name="_token" content="<?php echo csrf_token(); ?>" />
+<?php $__env->stopSection(); ?>
 
-@section('main_container')
-@yield('2_column_content')
-@endsection
-
-@section('body_attributes')
-@endsection
-
-@section('end_scripts_1')
+<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
 <script>
 
         $(document).ready(function(){
@@ -162,7 +139,7 @@ Lower Court Records
             var i = 0;
                 $("#addrow").on("click",function(){
                     i++;
-                    $("#lower_case_selection").append('<div class="col-md-4 '+i+'" style="margin-bottom:10px;"><select id="lc_case_type'+i+'" type="text" class="form-control info-form-control lc_case_type" name="lc_case_tye"><option value="">Select Case Type</option>@foreach(App\Lower_case_type::orderBy("type_name", "asc")->get() as $casetype)<option value="{{$casetype->id }}" @if (old("lower_case_type") == $casetype->type_name) selected="selected" @endif>{{$casetype->type_name}}</option>@endforeach</select></div><div class="col-md-4 '+i+'" style="margin-bottom:10px;"><input id="lc_case_no'+i+'" type="text" class="form-control info-form-control lc_case_no" name="lc_case_no"  placeholder="Enter Case No."></div><div class="col-md-4 '+i+'" style="margin-bottom:10px;"><select id="lc_case_year'+i+'" type="text" class="form-control info-form-control lc_case_year" name="lc_case_year"> <option value="">Select Year</option>@for($lc_case_year=date("Y");$lc_case_year>=1900;$lc_case_year--){<option value="{{$lc_case_year}}">{{$lc_case_year}}</option>}@endfor</select></div>');
+                    $("#lower_case_selection").append('<div class="col-md-4 '+i+'" style="margin-bottom:10px;"><select id="lc_case_type'+i+'" type="text" class="form-control info-form-control lc_case_type" name="lc_case_tye"><option value="">Select Case Type</option><?php $__currentLoopData = App\Lower_case_type::orderBy("type_name", "asc")->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $casetype): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><option value="<?php echo e($casetype->id); ?>" <?php if(old("lower_case_type") == $casetype->type_name): ?> selected="selected" <?php endif; ?>><?php echo e($casetype->type_name); ?></option><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></select></div><div class="col-md-4 '+i+'" style="margin-bottom:10px;"><input id="lc_case_no'+i+'" type="text" class="form-control info-form-control lc_case_no" name="lc_case_no"  placeholder="Enter Case No."></div><div class="col-md-4 '+i+'" style="margin-bottom:10px;"><select id="lc_case_year'+i+'" type="text" class="form-control info-form-control lc_case_year" name="lc_case_year"> <option value="">Select Year</option><?php for($lc_case_year=date("Y");$lc_case_year>=1900;$lc_case_year--): ?>{<option value="<?php echo e($lc_case_year); ?>"><?php echo e($lc_case_year); ?></option>}<?php endfor; ?></select></div>');
                 });
 
                 
@@ -351,4 +328,5 @@ Lower Court Records
     
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/lcr/index.blade.php ENDPATH**/ ?>

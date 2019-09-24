@@ -47,7 +47,8 @@ class JoEntryFormController extends Controller
         
 
         try{
-            DB::beginTransaction();
+            //DB::beginTransaction();
+            DB::transaction(function ($request) {
 
                 /*JO Basic Details :: START*/
                 $request['date_of_birth']=Carbon::parse($request['date_of_birth'])->format('Y-m-d');
@@ -139,10 +140,11 @@ class JoEntryFormController extends Controller
                     'posting_details' => $posting_details,
                 ); 
 
-                DB::commit();
+            }, 1);
+                //DB::commit();
            
         } catch (\Exception $e) {
-            DB::rollBack();
+            //DB::rollBack();
 
             $response = array(
                 'exception' => true,
@@ -157,7 +159,45 @@ class JoEntryFormController extends Controller
     
     public function show($id)
     {
-        //
+        $profile = JudicialOfficer:: where('judicial_officers.id',$id)
+                                     ->with('district','state','religion','recruitment_batch','caste',
+                                            'judicial_officer_qualifications.qualification',
+                                            'judicial_officer_postings.designation','judicial_officer_postings.mode',
+                                            'subordinate_officers','judicial_officer_postings.court', 
+                                            'subordinate_officers.reporting_officer','jo_photos'
+                                     )
+                                     ->get();
+
+
+           
+        $profile[0]['date_of_birth'] = date('d-m-Y', strtotime($profile[0]['date_of_birth']));
+        $profile[0]['date_of_joining'] = date('d-m-Y', strtotime($profile[0]['date_of_joining']));
+        $profile[0]['date_of_confirmation'] = date('d-m-Y', strtotime($profile[0]['date_of_confirmation']));
+        $profile[0]['date_of_retirement'] = date('d-m-Y', strtotime($profile[0]['date_of_retirement']));
+
+
+        if ($profile[0]['gender'] =="M")
+            $profile[0]['gender']= "Male" ;
+        else if ($profile[0]['gender'] =="F")
+            $profile[0]['gender']= "Female" ;
+        elseif ($profile[0]['gender'] =="O")
+            $profile[0]['gender']= "Other" ;												
+
+                                        
+
+        
+        foreach($profile[0]->judicial_officer_postings  as $details)
+        {
+            $details->from_date = date('d-m-Y', strtotime($details->from_date));
+            $details->to_date = (!$details->to_date) ? '' : date('d-m-Y', strtotime($details->to_date)) ;
+
+        }
+        return view('profile.index')->with('profile',$profile);
+    }
+
+    public function profile()
+    {
+        return $this->show(Auth::user()->judicial_officer_id);
     }
 
     

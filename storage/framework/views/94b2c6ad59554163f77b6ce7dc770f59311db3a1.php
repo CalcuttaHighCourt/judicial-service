@@ -1,4 +1,5 @@
 <?php $__env->startSection('header'); ?>
+
 <!-- Fixed navbar -->
 <nav id="sidebar" class="navbar-fixed-top" scroll="yes">
     <div class="container-fluid">
@@ -6,40 +7,25 @@
             <div class="row">
                 &nbsp;
             </div>
-            <h3>Integrated Informations Management System</h3>
+               <h3>Integrated Informations Management System</h3>
            
         </div>
-        
+
         <ul class="list-unstyled components">
-            <!-- <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <i class="fa fa-home"></i>
-                    Home
-                </a>
-                <ul class="collapse list-unstyled" id="homeSubmenu">
-                    <li>
-                        <a href="#">Home 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Home 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Home 3</a>
-                    </li>
-                </ul>
-            </li> -->
+
+            <?php if(Auth::check() && Auth::user()->user_type->type_name=="Administrator"): ?>
             <li>
                 <a href="#masterSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-edit"></i>Master Maintenance</a>
                 <ul class="collapse list-unstyled" id="masterSubmenu">
                     <li class="nav-item">
-                        <a class="nav-link" href="court">
+                        <a class="nav-link" href="<?php echo e(url('court')); ?>">
                             <span data-feather="home"></span>
                             <i class="fa fa-gavel" aria-hidden="true"></i>
                             Court Master
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="subdivision">
+                        <a class="nav-link" href="<?php echo e(url('subdivision')); ?>">
                             <span data-feather="file"></span>
                             
                             <i class="fa fa-crosshairs" aria-hidden="true"></i>
@@ -47,41 +33,57 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="district">
+                        <a class="nav-link" href="<?php echo e(url('district')); ?>">
                         <i class="fa fa-location-arrow" aria-hidden="true"></i>
                             District Master 
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="zone">
+                        <a class="nav-link" href="<?php echo e(url('zone')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-thumb-tack" aria-hidden="true"></i>
                             Zone Master
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="state">
+                        <a class="nav-link" href="<?php echo e(url('state')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-map-marker" aria-hidden="true"></i>
                             State Master 
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="judicial_officer">
+                        <a class="nav-link" href="<?php echo e(url('judicial_officer')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-star" aria-hidden="true"></i>
                             Judicial Officer
                         </a>
                     </li>
+                    <li class="nav-item">           
+                        <a class="nav-link" href="<?php echo e(url('jo_entry_form')); ?>">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-briefcase"></i>
+                            JO Related Entry
+                         </a>
+                    </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="user_type">
+                        <a class="nav-link" href="<?php echo e(url('jo_postings')); ?>">
+                             <span data-feather="file"></span>
+                             <i class="fa fa-crosshairs" aria-hidden="true"></i>
+                                Posting Preference HC
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo e(url('user_type')); ?>">
                             <span data-feather="home"></span>
                             <i class="fa fa-user" aria-hidden="true"></i>
                             User Type 
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="designation">
+                        <a class="nav-link" href="<?php echo e(url('designation')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-sun-o" aria-hidden="true"></i>
                             Designation Master
@@ -90,7 +92,7 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="mode">
+                        <a class="nav-link" href="<?php echo e(url('mode')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                             Mode Master
@@ -99,7 +101,7 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="qualification">
+                        <a class="nav-link" href="<?php echo e(url('qualification')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-certificate" aria-hidden="true"></i>
                             Qualification Master
@@ -107,7 +109,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="recruitmentbatch">
+                        <a class="nav-link" href="<?php echo e(url('recruitmentbatch')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-cog" aria-hidden="true"></i>
                             Recruitment Batch
@@ -115,25 +117,10 @@
                     </li>
 
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="jo_postings">
-                            <span data-feather="file"></span>
-                            <i class="fa fa-crosshairs" aria-hidden="true"></i>
-                            Posting Preference HC
-                        </a>
-                    </li>
-
+                   
 
                     <li class="nav-item">
-                        <a class="nav-link" href="zone_pref_jr">
-                            <span data-feather="file"></span>
-                            <i class="fa fa-square" aria-hidden="true"></i>
-                            Zone Preference JO
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="religion">
+                        <a class="nav-link" href="<?php echo e(url('religion')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                             Religion
@@ -141,7 +128,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="caste">
+                        <a class="nav-link" href="<?php echo e(url('caste')); ?>">
                             <span data-feather="home"></span>
                             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                             Caste Master
@@ -150,24 +137,53 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="jo_reporting_reviewing">
+                        <a class="nav-link" href="<?php echo e(url('jo_reporting_reviewing')); ?>">
                             <span data-feather="home"></span>
                             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                             Reporting & reviewing officer
                         </a>
                     </li>
-
-
                     <li class="nav-item">
-                        <a class="nav-link" href="lcr_hc">
+                        <a class="nav-link" href="<?php echo e(url('acr/grade')); ?>">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-crosshairs" aria-hidden="true"></i>
+                            ACR Grade Master
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <?php endif; ?>
+
+            <?php if(Auth::check() && Auth::user()->user_type->type_name=="Judicial Officer"): ?>
+            
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo e(url('zone_pref_jr')); ?>">
+                    <span data-feather="file"></span>
+                    <i class="fa fa-square" aria-hidden="true"></i>
+                    Zone Preference JO
+                </a>
+            </li>
+            <?php endif; ?>
+           
+            <?php if(Auth::check() && Auth::user()->user_type->type_name=="Court"): ?>
+            <li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fa fa-copy"></i>
+                    Lower Court Record
+                </a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo e(url('lcr_hc')); ?>">
                             <span data-feather="home"></span>
                             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                             Request for LCR
                         </a>
+                        
                     </li>
-                    
                     <li class="nav-item">
-                        <a class="nav-link" href="lcr_view">
+                        <a class="nav-link" href="<?php echo e(url('lcr_view')); ?>">
                             <span data-feather="home"></span>
                             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                             Response to LCR Request
@@ -175,30 +191,8 @@
                     </li>
                 </ul>
             </li>
-            <li>
-                <a href="#">
-                    <a class="nav-link" href="jo_entry_form">
-                    <i class="fa fa-briefcase"></i>
-                    JO Related Entry
-                </a>
-            </li>
-            <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <i class="fa fa-copy"></i>
-                    Pages
-                </a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a href="#">Page 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 3</a>
-                    </li>
-                </ul>
-            </li>
+            <?php endif; ?>
+
             <li>
                 <a href="#">
                     <i class="fa fa-image"></i>
@@ -263,8 +257,10 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" onclick="$('#logout_form').submit();"><i
-                                        class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+
+                            <li><a href="<?php echo e(route('profile')); ?>"><i class="fa fa-btn fa-sign-out"></i>Profile</a></li>
+                            
+                            <li><a href="#" onclick="$('#logout_form').submit();"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                         </ul>
                     </li> <?php endif; ?>
 
