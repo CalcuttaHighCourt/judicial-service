@@ -16,20 +16,24 @@ Auth::routes();
 
     // Route::get('/', function () {
     //     return redirect()->route('login');
-    // });
-
+	// });
+	
 Route::get('/', function () {
     return view('index');
 });
 
-Route::group(['middleware' => ['auth']],function (){
+
+Route::group(['middleware' => ['auth','role_manager:Administrator']],function (){
 
 	Route::resource('users', 'UserController')->except(['create', 'edit']);
+	
 
 	/*Court complex*/
 
 	Route::resource('court_complexes', 'CourtComplexController')->except(['create', 'edit']);
+
 	Route::get ( 'Court_complex-Datatable-Server-Side', 'CourtComplexController@index2' );
+
 	Route::get ( 'court_complex', function () {
 		return view ( 'court_complexes.index' );
 	} );
@@ -38,7 +42,9 @@ Route::group(['middleware' => ['auth']],function (){
 	/*Court*/
 
 	Route::resource('courts', 'CourtController')->except(['create', 'edit']);
+
 	Route::get ( 'Court-Datatable-Server-Side', 'CourtController@index2' );
+	
 	Route::get ( 'court', function () {
 		return view ( 'courts.index' );
 	} );
@@ -47,7 +53,9 @@ Route::group(['middleware' => ['auth']],function (){
 	/*District*/
 
 	Route::resource('districts', 'DistrictController')->except(['create', 'edit']);
+
 	Route::get ( 'District-Datatable-Server-Side', 'DistrictController@index2' );
+
 	Route::get ( 'district', function () {
 		return view ( 'districts.index' );
 	} );
@@ -82,24 +90,33 @@ Route::group(['middleware' => ['auth']],function (){
 	Route::post('jo_posting/search', 'JudicialOfficerPostingController@jo_current_posting_details');
 
 
-	/*Posting zone preference*/
-
-	Route::post('zone_pref/submit', 'JudicialOfficerPostingPreferenceController@store');
-
-	Route::get('zone_pref_jr', 'JudicialOfficerPostingController@zone_pref_details_fetch');
-
-	Route::post('zone_pref_jr/worksheet', 'JudicialOfficerController@store_worksheet');
-
-	Route::post('zone_pref_jr/worksheet_show', 'JudicialOfficerController@show_worksheet');
-
-	Route::resource('judicialofficerpostingpreferences', 'JudicialOfficerPostingPreferenceController')
+	
+	/*Judicial Officer */
+	
+	Route::resource('judicial_officers', 'JudicialOfficerController')
 	->except(['create', 'edit']);
 
-	Route::get ( 'JudicialOfficerPostingPreference-Datatable-Server-Side', 'JudicialOfficerPostingPreferenceController@index_for_datatable' );
+	Route::get ( 'JudicialOfficer-Datatable-Server-Side', 'JudicialOfficerController@index2' );
 
-	Route::get ( 'judicialofficerpostingpreference', function () {
-		return view ( 'judicial_officer_posting_preferences.index' );
+	Route::get ( 'judicial_officer', function () {
+		return view ( 'judicial_officers.index' );
 	} );
+
+
+
+	/*Jo Entry Details */
+
+	Route::resource('jo_entry', 'JoEntryFormController')->except(['create', 'edit']);
+
+	Route::get ('jo_entry_form', function () {
+		return view ('jo_entry_form.index');
+	});
+
+	Route::get ('profile', 'JoEntryFormController@profile')->name('profile');
+
+	Route::post('jo_entry/fetch_district','JoEntryFormController@fetch_district')->name('fetch_district');
+
+	Route::post('jo_entry/fetch_court','JoEntryFormController@fetch_court')->name('fetch_court');
 
 
 	/*Qualification*/
@@ -137,6 +154,16 @@ Route::group(['middleware' => ['auth']],function (){
 		return view ( 'states.index' );
 	} );
 
+
+	/* Grade */
+
+	Route::resource('acr/grade', 'GradeController')->except(['create', 'edit']);
+
+	Route::get ( 'Grade-Datatable-Server-Side', 'GradeController@index2' );
+
+	Route::get ( 'acr/grade', function () {
+		return view ( 'acr.grade_details' );
+	} );
 
 	/*Subdivision */
 
@@ -204,19 +231,6 @@ Route::group(['middleware' => ['auth']],function (){
 		return view ( 'jo_reporting_reviewings.index' );
 	} );
 
-
-	/*Judicial Officer */
-
-	Route::resource('judicial_officers', 'JudicialOfficerController')
-	->except(['create', 'edit']);
-
-	Route::get ( 'JudicialOfficer-Datatable-Server-Side', 'JudicialOfficerController@index2' );
-
-	Route::get ( 'judicial_officer', function () {
-		return view ( 'judicial_officers.index' );
-	} );
-
-
 	/*Designation*/
 
 	Route::resource('designations', 'DesignationController')->except(['create', 'edit']);
@@ -227,42 +241,6 @@ Route::group(['middleware' => ['auth']],function (){
 		return view ( 'designations.index' );
 	} );
 
-
-	/*LCR */
-
-	Route::post('lcr_hc_end_populate/court_complex', 'LcrController@hc_index_court_complex');
-
-	Route::post('lcr_hc_end_populate/court', 'LcrController@hc_index_court');
-
-	Route::post('lcr_request_by_hc/databaseentry', 'LcrController@database_entry');
-
-	Route::get('lcr_view', 'LcrController@fetch_details');
-
-	Route::get ( 'lcr_compliance/{lcr_id}', 'LcrController@complaince_details' );
-
-	Route::get ( 'lcr_hc', function () {
-		return view ( 'lcr.index' );
-	} );
-
-
-
-	// Route::post('lcr_compliance/{lcr_id}', 'LcrController@show');
-
-	/*Jo Entry Details */
-
-	Route::resource('jo_entry', 'JoEntryFormController')->except(['create', 'edit']);
-
-	Route::get ('jo_entry_form', function () {
-		return view ('jo_entry_form.index');
-	});
-
-	Route::get ('profile', 'JoEntryFormController@profile')->name('profile');
-
-	Route::post('jo_entry/fetch_district','JoEntryFormController@fetch_district')->name('fetch_district');
-
-	Route::post('jo_entry/fetch_court','JoEntryFormController@fetch_court')->name('fetch_court');
-
-
 	/*Register */
 
 	Route::get ( 'register', 'Auth\RegisterController@showRegistrationForm' );
@@ -270,6 +248,57 @@ Route::group(['middleware' => ['auth']],function (){
 	Route::post ( 'register', 'Auth\RegisterController@register' );
 
 
+
 });
+
+Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function (){
+
+
+	/*Posting zone preference*/
+
+	Route::post('zone_pref/submit', 'JudicialOfficerPostingPreferenceController@store');
+
+	Route::get('zone_pref_jr', 'JudicialOfficerPostingController@zone_pref_details_fetch');
+
+	Route::post('zone_pref_jr/worksheet', 'JudicialOfficerController@store_worksheet');
+
+	Route::post('zone_pref_jr/worksheet_show', 'JudicialOfficerController@show_worksheet');
+
+	Route::resource('judicialofficerpostingpreferences', 'JudicialOfficerPostingPreferenceController')
+	->except(['create', 'edit']);
+
+	Route::get ( 'JudicialOfficerPostingPreference-Datatable-Server-Side', 'JudicialOfficerPostingPreferenceController@index_for_datatable' );
+
+	Route::get ( 'judicialofficerpostingpreference', function () {
+		return view ( 'judicial_officer_posting_preferences.index' );
+	} );
+
+});
+
+	Route::group(['middleware' => ['auth','role_manager:Court']],function (){
+
+		/*LCR */
+
+		Route::post('lcr_hc_end_populate/court_complex', 'LcrController@hc_index_court_complex');
+
+		Route::post('lcr_hc_end_populate/court', 'LcrController@hc_index_court');
+
+		Route::post('lcr_request_by_hc/databaseentry', 'LcrController@database_entry');
+
+		Route::get('lcr_view', 'LcrController@fetch_details');
+
+		Route::get ( 'lcr_compliance/{lcr_id}', 'LcrController@complaince_details' );
+
+		Route::get ( 'lcr_hc', function () {
+			return view ( 'lcr.index' );
+		} );
+
+	});
+
+	// Route::post('lcr_compliance/{lcr_id}', 'LcrController@show');
+
+	
+
+	
 
 Route::get('/home', 'HomeController@index')->name('home');
