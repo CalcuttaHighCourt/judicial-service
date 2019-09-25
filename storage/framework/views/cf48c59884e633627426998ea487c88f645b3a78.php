@@ -1,8 +1,7 @@
- <?php $__env->startSection('title', 'Courts'); ?>
-<?php $__env->startSection('page_heading'); ?> Courts <?php $__env->stopSection(); ?>
+ <?php $__env->startSection('title', 'Castes'); ?>
+<?php $__env->startSection('page_heading'); ?> Castes <?php $__env->stopSection(); ?>
 <?php $__env->startSection('center_main_content'); ?>
 <div class="col-sm-12">
-
     <!-- Bootstrap Boilerplate... -->
     <div id="info-panel" class="panel panel-default">
         <!-- IIIIIIIIIII -->
@@ -12,28 +11,21 @@
 
             <!-- New Task Form -->
             <form id="info-form" class="form-horizontal" role="form" method="POST"
-                action="<?php echo e(url('/admin/Court')); ?>">
+                action="<?php echo e(url('/admin/Cast            e')); ?>">
                 <?php echo e(csrf_field()); ?>
 
-                <input type="hidden" id="court-id">
-                <div id="Court_name-group" class="form-group row our-form-group">
-                    <label for="court_name" class="col-md-4 control-label">Court</label>
+                <input type="hidden" id="caste_id">
+                <div id="caste-group" class="form-group our-form-group">
+                    <!-- IIIIIIIIIII -->
+                    <label for="caste_name" class="col-md-4 control-label">Category</label>
+
                     <div class="col-md-6">
-                        <input id="court_name" type="text"
-                            class="form-control info-form-control" name="court_name"> <span
-                            id="court_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-                            <strong id="court_name-strong" class="our-error-message-strong"></strong>
+                        <input id="caste_name" type="text"
+                            class="form-control info-form-control" name="caste_name"> <span
+                            id="caste_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+                            <strong id="caste_name-strong" class="our-error-message-strong"></strong>
                             <!-- IIIIIIIIIII -->
                         </span>
-                    </div>
-                </div>
-
-                <div id="State_name-group" class="form-group row our-form-group">
-                    <label for="court_complex_name" class="col-md-4 control-label">Court Complex</label>
-                    <div class="col-md-6">
-                        <select id="court_complex" class="form-control info-form-control"
-                                name="court_complex"> <?php echo $__env->make('court_complexes.court_complex_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                        </select>
                     </div>
                 </div>
 
@@ -42,7 +34,7 @@
                     <div class="col-md-6 col-md-offset-4">
                         <button id="add-button" type="submit"
                                 class="btn btn-primary add-button info-form-button">
-                            <i class="fa fa-btn fa-plus-circle"></i> Add Court
+                            <i class="fa fa-btn fa-plus-circle"></i> Add New Caste
                         </button>
                         <button id="save-button" type="submit"
                                 class="btn btn-warning save-button info-form-button">
@@ -66,28 +58,29 @@
                             role="alert">
                             <button type="button" class="close" data-hide="alert"
                                 aria-label=            "Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                                <span id="message-success-span"></span>
-                        </div>
-                        <div id="message-error-div"
-                            class="alert alert-danger alert-dismissible success-error-message"
-                            role="alert">
-                            <button type="button" class="close" data-hide="alert"
-                                    aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <span id="message-error-span"></span>
-                         </div>
-                    </div>
-                </div>
-            </form>
+                <span aria-hidden="true">&times;</span>
+                </button>
+                <span id="message-success-span"></span>
         </div>
+        <div id="message-error-div"
+            class="alert alert-danger alert-dismissible success-error-message"
+            role="alert">
+            <button type="button" class="close" data-hide="alert"
+                    aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <span id="message-error-span"></span>
+        </div>
+    </div>
+    </div>
+
+    </form>
+    </div>
     </div>
 
     <div id="datatable-panel" class="panel panel-default">
         <div id="datatable-panel-heading" class="panel-heading clearfix">
-            <div class="panel-title pull-left">Court Master</div>
+            <div class="panel-title pull-left">Caste Master</div>
             <div class="pull-right">
                 <button id="add-new-button" type="submit" class="btn btn-primary add-new-button">
                     <i class="fa fa-plus-circle"></i> Add New
@@ -103,8 +96,7 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Court Name</th>
-                            <th>Court Complex Name</th>
+                            <th>Caste Name</th>
                             <th>Action</th>
                             <th></th>
                             <th></th>
@@ -116,8 +108,7 @@
                     <tfoot>
                         <tr>
                             <th></th>
-                            <th>Court Name</th>
-                            <th>Court Complex Name</th>
+                            <th>Caste Name</th>
                             <th>Action</th>
                             <th></th>
                             <th></th>
@@ -146,16 +137,12 @@
 <script type="text/javascript">
     var table = "";
     $(function () {
-
-        $(".select2").select2(); // select2 initialization
-
-
         table = $('#datatable-table').DataTable({
             "processing": true,
             "serverSide": true,
             "ajax": {
-                url: "<?php echo e(url('Court')); ?>-Datatable-Server-Side",
-                dataSrc: "courts"
+                url: "<?php echo e(url('Caste')); ?>-Datatable-Server-Side",
+                dataSrc: "castes"
             },
 
             "columnDefs":
@@ -192,10 +179,7 @@
                             "orderable": false,
                         },
                         {
-                            "data": "court_name",
-                        },
-                        {
-                            "data": "court_complex_name",
+                            "data": "caste_name",
                         },
                         {
                             "data": null
@@ -274,25 +258,22 @@
     $(function () {
         reset_info(false);
         scrollToElement($('#datatable-panel'));
+        //$('#datatable-panel').scrollIntoView();
     });
-
     $(function () {
         $("[data-hide]").on("click", function () {
             $(this).closest("." + $(this).attr("data-hide")).hide();
         });
     });
-
     function reset_info(reset_form_forced) {
         clear_form(reset_form_forced);
         show_button("add");
         $("#info-panel-heading").html("ADD NEW");
     }
-
     function view_data(data) {
         clear_form(true);
         populate_form(data);
     }
-
     function clear_form(reset_form_forced) {
         info_panel_heading_clear();
         make_form_readonly(false);
@@ -303,11 +284,9 @@
         info_buttons_hide();
         messages_hide();
     }
-
     function info_panel_heading_clear() {
         $("#info-panel-heading").html("");
     }
-
     function make_form_readonly(make_readonly) {
         if (make_readonly) {
             $('#info-form input').attr('readonly', 'readonly');
@@ -333,6 +312,7 @@
         $(".info-form-button").attr("disabled", "disabled");
         $(".info-form-button").removeClass("active");
     }
+
     function messages_hide() {
         $(".success-error-message").hide();
         $("#message-div").hide();
@@ -348,12 +328,11 @@
         $("#" + field + "-group").addClass("has-error");
     }
     function populate_form(data) {
-        $("#info-panel-heading").html("Displaying record of District: <strong>" + data.type + "</strong>");
+        $("#info-panel-heading").html("Displaying record of Caste: <strong>" + data.caste_name + "</strong>");
 
-        $("#court-id").val(data.id);
+        $("#caste_id").val(data.id);
 
-        $("#court_name").val(data.court_name);
-        $("#court_complex").val(data.court_complex_id);
+        $("#caste_name").val(data.caste_name);
     }
     function show_button(type) {
         $("#" + type + "-button").show();
@@ -366,7 +345,8 @@
         $("#" + type + "-button").addClass("active");
     }
     function scrollToElement(ele) {
-
+// 	alert(ele.html());
+// 	$(window).scrollTop(ele.offset().top-60).scrollLeft(ele.offset().left);
         $('html, body').animate({
             scrollTop: ele.offset().top - 60,
         }, 1000);
@@ -380,29 +360,29 @@
     });
     function send_ajax_and_set_errors_exceptions_success(type) {
         var formData = {
-            court_name: $('#court_name').val(),
-            court_complex_id: $("#court_complex").val()
+            caste_name: $('#caste_name').val(),
         };
         ajax_url = "";
         operation = "";
         operated = "";
         request_type = "POST";
-        if (type == "add") {            
+        if (type == "add") {
+            //request_type="POST";
             formData["_method"] = "POST";
-            ajax_url = "<?php echo e(action('CourtController@store')); ?>";
-            formData["file_prefix"] = $("#file_prefix").val();
+            ajax_url = "<?php echo e(action('CasteController@store')); ?>";
             operation = "add";
             operated = "added";
         } else if (type == "save") {
+            //request_type="PUT";
             formData["_method"] = "PUT";
-            ajax_url = "<?php echo e(action('CourtController@update','')); ?>" + "/" + $("#court-id").val();
-            formData["id"] = $("#court-id").val();
+            formData["id"] = $("#caste_id").val();
+            ajax_url = "<?php echo e(action('CasteController@update','')); ?>" + "/" + $("#caste_id").val();
             operation = "update";
             operated = "updated";
-        } else if (type == "delete-confirm") {            
+        } else if (type == "delete-confirm") {
             formData["_method"] = "DELETE";
-            ajax_url = "<?php echo e(action('CourtController@destroy','')); ?>" + "/" + $("#court-id").val();
-            formData["id"] = $("#court-id").val();
+            formData["id"] = $("#caste_id").val();
+            ajax_url = "<?php echo e(action('CasteController@destroy','')); ?>" + "/" + $("#caste_id").val();
             operation = "delete";
             operated = "deleted";
         }
@@ -414,42 +394,37 @@
             success: function (data, textStatus, jqXHR) {
                 reset_info(true);
                 msg = "<strong>SUCCESS: </strong>";
-                if (!(data.court === null) && data.court.hasOwnProperty('court_name')) {
-                    msg += "Court: <strong>" + data.court.court_name + "</strong> successfully " + operated + ".";
+                if (!(data.caste === null) && data.caste.hasOwnProperty('caste_name')) {
+
+                    msg += "Caste: <strong>" + data.caste.caste_name + "</strong> successfully " + operated + ".";
                 } else {
-                    if (!(data.court === null) && data.court >= 1) {
-                        msg += "Court: <strong>" + formData.court_name + "</strong> successfully " + operated + ".";
+                    //delete case
+                    if (!(data.caste === null) && data.caste >= 1) {
+                        msg += "Caste: <strong>" + formData.posting_caste + "</strong> successfully " + operated + ".";
                     } else {
-                        msg += "Court already " + operated + "!";
+                        msg += "Caste already " + operated + "!";
                     }
                 }
                 show_message_div("success", msg);
                 table.ajax.reload();
-
-                update_notices_menu_section();
-
-                //setTimeout(function(){ scrollToElement($('#datatable-panel')); }, 200);
                 scrollToElement($('#message-div'));
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                //alert(JSON.stringify(jqXHR)+" : " + textStatus+" : "+errorThrown);
-                //alert(jqXHR.status);
+
                 errors_reset();
                 messages_hide();
                 msg = "<strong>Failed to " + operation + " data.</strong><br/>";
                 if (jqXHR.status != 422 && jqXHR.status != 400) {
                     msg += "<strong>" + jqXHR.status + ": " + errorThrown + "</strong>";
-                    //show_message_div("error",msg);
                 } else {
                     if (jqXHR.responseJSON.hasOwnProperty('exception')) {
                         msg += "Exception: <strong>" + jqXHR.responseJSON.exception_message + "</strong>";
-                        //show_message_div("error",msg);
                     } else {
                         msg += "Error(s):<strong><ul>";
                         $.each(jqXHR.responseJSON.errors, function (key, value) {
                             msg += "<li>" + value + "</li>";
                             show_error(key, value);
-                            //return (this != "four"); // will stop running to skip "five"
+
                         });
                         msg += "</ul></strong>";
 
@@ -459,10 +434,10 @@
                 scrollToElement($('#info-panel'));
             }
         });
-    }    
+    }
 </script>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/courts/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/castes/index.blade.php ENDPATH**/ ?>

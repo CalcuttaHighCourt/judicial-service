@@ -145,13 +145,20 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo e(url('acr/grade')); ?>">
+                        <a class="nav-link" href="<?php echo e(url('grade')); ?>">
                             <span data-feather="file"></span>
                             <i class="fa fa-crosshairs" aria-hidden="true"></i>
                             ACR Grade Master
                         </a>
                     </li>
                 </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo e(url('acr_history')); ?>">
+                    <span data-feather="file"></span>
+                    <i class="fa fa-square" aria-hidden="true"></i>
+                    ACR History
+                </a>
             </li>
             <?php endif; ?>
 
@@ -166,6 +173,8 @@
                     Zone Preference JO
                 </a>
             </li>
+
+            
             <?php endif; ?>
            
             <?php if(Auth::check() && Auth::user()->user_type->type_name=="Court"): ?>
@@ -195,7 +204,7 @@
             <?php endif; ?>
 
             <li>
-                <a href="#">
+                <a href="acr_history">
                     <i class="fa fa-image"></i>
                     Portfolio
                 </a>

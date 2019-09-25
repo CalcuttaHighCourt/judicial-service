@@ -152,12 +152,21 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	/* Grade */
 
-	Route::resource('acr/grade', 'GradeController')->except(['create', 'edit']);
+	Route::resource('grades', 'GradeController')->except(['create', 'edit']);
 
-	Route::get ( 'Grade-Datatable-Server-Side', 'GradeController@index2' );
+	Route::Post('show_grades', 'GradeController@get_all_grade_data' );
 
-	Route::get ( 'acr/grade', function () {
+
+	//Route::get ( 'Grade-Datatable-Server-Side', 'GradeController@index2' );
+
+	Route::get ( 'grade', function () {
 		return view ( 'acr.grade_details' );
+	} );
+
+	/*ACR History*/
+
+	Route::get ( 'acr_history', function () {
+		return view ( 'acr.acr_history' );
 	} );
 
 	/*Subdivision */

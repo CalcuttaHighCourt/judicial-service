@@ -15,7 +15,7 @@
             <!-- New Task Form -->
             <form id="info-form" class="form-horizontal" role="form" method="POST"
                 action="{{ url('/admin/Cast            e') }}">
-                {            { csrf_field() }}
+                {{ csrf_field() }}
                 <input type="hidden" id="caste_id">
                 <div id="caste-group" class="form-group our-form-group">
                     <!-- IIIIIIIIIII -->

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\GradeDetail;
+use Carbon\Carbon;
 use Auth;
 
 class gradeController extends Controller
@@ -59,36 +60,25 @@ class gradeController extends Controller
      */
     public function store(Request $request)
     {
-        $response = [ 
-            'grade' => [ ] 
-        ];
-        $statusCode = 200;
-        $grade = null;
-
+        
         $this->validate ( $request, [ 
-                'grade_name' => array('required','max:75','regex:/^[\pL\d\s]+$/u','unique:grade_details,grade_name') 
-        ] );
+            'grade_name' => 'required|max:75|unique:grade_details,grade_name' 
+        ]);
 
-        try {
-
-            $grade_name = strtoupper($request->input('grade_name'));
-            $request['created_by'] = Auth::user()->id;
-            $mode = GradeDetail::create ($request->all ());
-
-            $response = array (
-                    'grade' => $grade 
-            );   
-
-        } catch ( \Exception $e ) {
-            $response = array (
-                    'exception' => true,
-                    'exception_message' => $e->getMessage () 
-            );
-            $statusCode = 400;
-        } finally{
-            return response ()->json ( $response, $statusCode );           
+        
+            $grade_name =$request->input('grade_name');
+            $created_by = Auth::user()->id;
+           
+            GradeDetail::insert([
+                'grade_name'=>$grade_name,
+                'created_by'=>$created_by,
+                'created_at'=>Carbon::today(),
+                'updated_at'=>Carbon::today()
+            ]);
+            return 1;
         }
-    }
+    
+   
 
   
 
@@ -98,34 +88,65 @@ class gradeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        // $response = [
-            //         'state' => []
-            //     ];
-            //     $statusCode = 200;
-            //     $state = null;
-        
-            //     try {
-            //         if (!ctype_digit(strval($id))) {
-            //             throw new \Exception('Invalid Input');
-            //         }
-            //         $state = State::find($id);
-            //         $response = array(
-            //             'state' => $state
-            //         );
-            //     } catch (\Exception $e) {
-            //         $response = array(
-            //             'exception' => true,
-            //             'exception_message' => $e->getMessage()
-            //         );
-            //         $statusCode = 400;
-            //     } finally {
-            //         return response()->json($response, $statusCode);
-            //     }
-    }
+      public function get_all_grade_data(Request $request){
+            $columns = array( 
+                0 =>'ID', 
+                1 =>'GRADE NAME',
+                2 =>'ACTION'
+            );
 
-    /**
+            $totalData = GradeDetail::count();
+
+            $totalFiltered = $totalData; 
+
+            $limit = $request->input('length');
+            $start = $request->input('start');
+            $order = $columns[$request->input('order.0.column')];
+            $dir = $request->input('order.0.dir');
+
+            if(empty($request->input('search.value'))){
+                $grades = GradeDetail::offset($start)
+                                            ->limit($limit)
+                                            ->orderBy('grade_name',$dir)
+                                            ->get();
+                $totalFiltered = GradeDetail::count();
+            }
+            else{
+                $search = $request->input('search.value');
+                $grades = GradeDetail::where('id','ilike',"%{$search}%")
+                                    ->orWhere('grade_name','ilike',"%{$search}%")
+                                    ->offset($start)
+                                    ->limit($limit)
+                                    ->orderBy('grade_name',$dir)
+                                    ->get();
+                $totalFiltered = GradeDetail::where('id','ilike',"%{$search}%")
+                                        ->orWhere('grade_name','ilike',"%{$search}%")
+                                        ->count();
+                }
+
+                $data = array();
+
+                if($grades){
+                    foreach($grades as $grade){
+                        $nestedData['ID'] = $grade->id;
+                        $nestedData['GRADE NAME'] = $grade->grade_name;
+                        $nestedData['ACTION'] = "<i class='fa fa-trash' aria-hidden='true'></i>";
+        
+                        $data[] = $nestedData;
+                    }
+                        $json_data = array(
+                            "draw" => intval($request->input('draw')),
+                            "recordsTotal" => intval($totalData),
+                            "recordsFiltered" =>intval($totalFiltered),
+                            "data" => $data
+                        );
+                
+                        echo json_encode($json_data);
+                    }
+        
+                }
+
+   /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -196,46 +217,8 @@ class gradeController extends Controller
      */
     public function destroy($id)
      {
-        $response = [
-                'grade' => []
-            ]; 
-            $statusCode = 200;
-            $state = null; 
-            try {
-                if (!ctype_digit(strval($id))) {
-                    throw new \Exception('Please check input');
-                }
-                $grade = Grade::find($id); 
-    
-                if ($grade->count() > 0) {
-                    $response = array(
-                        'exception' => true,
-                        'exception_message' => "Records of grade: " . $grade->grade_name . " exists in Grade table.", //Should be changed #29
-                    );
-                    $statusCode = 400;
-                } elseif ($grade->judicial_officers->count() > 0) { 
-                    $response = array(
-                        'exception' => true,
-                        'exception_message' => "Records of grade: " . $grade->grade_name . " exists in Judicial Officers table.", //Should be changed #29
-                    );
-                    $statusCode = 400;
-                } else {
-    
-                    if (!empty($grade)) { 
-                        $grade=$grade->delete();                    
-                    }
-                    $response = array(
-                        'grade' => $grade
-                    ); 
-                }
-            } catch (\Exception $e) {
-                $response = array(
-                    'exception' => true,
-                    'exception_message' => $e->getMessage()
-                );
-                $statusCode = 400;
-            } finally {
-                return response()->json($response, $statusCode);
-            }
+            $id = $request->input('id');
+            GradeDetail::where('id',$id)->delete();
+            return 1;
     }
 }

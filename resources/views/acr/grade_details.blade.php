@@ -2,7 +2,7 @@
 <!-- views/grades/index.blade.php -->
 --}}
 @extends('layouts.app') @section('title', 'Grade_details')
-@section('page_heading') Garde_Details @endsection
+@section('page_heading') Grade_Details @endsection
 @section('center_main_content')
 <div class="col-sm-12">
 	<!-- Bootstrap Boilerplate... -->
@@ -11,15 +11,15 @@
 		<div id="info-panel-heading" class="panel-heading">ADD GRADES OF ACR</div>
 		<!-- IIIIIIIIIII -->
 		<div class="panel-body">
+		<br><br>
 
 			<!-- New Task Form -->
-			<form id="info-form" class="form-horizontal" role="form" method="POST"
-				action="{{ url('/admin/Grade_details') }}">
+		
 				{{ csrf_field() }}
 				<input type="hidden" id="grade-id">
 				<div id="grade_name-group" class="form-group our-form-group">
 					<!-- IIIIIIIIIII -->
-					<label for="grade_name" class="col-md-4 control-label">Grade Name</label>
+					<label for="grade_name" class="col-sm-2 col-sm-offset-1 control-label">Grade Name</label>
 
 					<div class="col-sm-3">
 						<input id="grade_name" type="text"
@@ -45,7 +45,7 @@
                     <div class="col-md-6 col-md-offset-4">
                         <button id="add-button" type="submit"
                                 class="btn btn-primary add-button info-form-button">
-                            <i class="fa fa-btn fa-plus-circle"></i> Add Court
+                            <i class="fa fa-btn fa-plus-circle"></i> Add Grade
                         </button>
                         <button id="save-button" type="submit"
                                 class="btn btn-warning save-button info-form-button">
@@ -82,11 +82,9 @@
 					<!-- Table Headings -->
 					<thead>
 						<tr>
-							<th></th>
+							<th>#</th>
 							<th>Grade Name</th>
 							<th>Action</th>
-							<th></th>
-							<th></th>
 						</tr>
 
 					</thead>
@@ -94,11 +92,9 @@
 					<!-- Table Footer -->
 					<tfoot>
 						<tr>
-							<th></th>
+							<th>#</th>
 							<th>Grade Name</th>
 							<th>Action</th>
-							<th></th>
-							<th></th>
 						</tr>
 					</tfoot>
 				</table>
@@ -107,6 +103,16 @@
 		</div>
 	</div>
 </div>
+
+<!--loader starts-->
+
+<div class="col-md-offset-5 col-md-3" id="wait" style="display:none;">
+    <img src='images/loader.gif'width="25%" height="10%" />
+      <br>Loading..
+</div>
+   
+<!--loader ends-->
+
 <div id="test-div"></div>
 
 @endsection @include('layouts.1_column_content')
@@ -122,6 +128,70 @@
 @section('end_scripts') @parent
 
 <!--  -->
+
+<script>
+		$(document).ready(function() {
+
+		/*LOADER*/
+
+			$(document).ajaxStart(function() {
+                    $("#wait").css("display", "block");
+                });
+                $(document).ajaxComplete(function() {
+                    $("#wait").css("display", "none");
+                });
+
+            /*LOADER*/
+				
+			$(document).on("click","#add-button",function(){
+				var grade_name= $("#grade_name").val();
+
+				$.ajax({
+						type:"POST",
+						url:"grades",
+						data:{
+							  _token: $('meta[name="csrf-token"]').attr('content'), 
+							  grade_name:grade_name
+						}, 
+						success:function(response)
+						{
+							$("#grade_name").val("");
+							swal("Successful","ACR Grade has been added successfully","success");
+							table.ajax.reload();  
+						},
+						error:function(response)
+						{
+							swal("Failed","ACR Grade can not be added","error");
+						}
+					})
+				});
+
+				
+            //Datatable Code For Showing Data :: START
+
+			var table= $("#datatable-table").dataTable({
+						"processing":true,
+					  	"serverSide":true,
+						  "ajax":{
+                                    "url": "show_grades",
+                                    "dataType": "json",
+                                    "type": "POST",
+                                    "data":{ 
+                                        _token: $('meta[name="csrf-token"]').attr('content')}
+                                    },
+                            "columns": [                
+                                {"class": "id",
+                                  "data": "ID" },
+                                {"class": "grade name",
+                                  "data": "GRADE NAME" },
+                                {"class": "delete",
+                                  "data": "ACTION" }
+                            ]
+                        }); 
+
+			});
+
+</script>
 
 @endsection
 
