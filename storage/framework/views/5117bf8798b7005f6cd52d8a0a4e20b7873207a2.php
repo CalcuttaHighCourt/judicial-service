@@ -353,11 +353,11 @@
 
                             <div class="row"> 
                                     <div class="col-xs-2">
-                                        <label>   <?php echo e($details['designation']['designation_name']); ?></label>                                        
+                                        <label>  <?php echo e($details['designation']['designation_name']); ?></label>                                        
                                         
                                     </div>
                                     <div class="col-xs-2">
-                                        <label> <?php echo e($details['mode']['posting_mode']); ?> </label>
+                                        <label>  <?php echo e($details['mode']['posting_mode']); ?> </label>
 
                                     </div>
                                     <div class="col-xs-2">
