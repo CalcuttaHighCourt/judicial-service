@@ -112,12 +112,7 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 		return view ('jo_entry_form.index');
 	});
 
-	Route::get ('profile', 'JoEntryFormController@profile')->name('profile');
-
-	Route::post('jo_entry/fetch_district','JoEntryFormController@fetch_district')->name('fetch_district');
-
-	Route::post('jo_entry/fetch_court','JoEntryFormController@fetch_court')->name('fetch_court');
-
+	
 
 	/*Qualification*/
 
@@ -247,6 +242,17 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	Route::post ( 'register', 'Auth\RegisterController@register' );
 
+
+
+});
+
+Route::group(['middleware' => ['auth','role_manager:Administrator|Judicial Officer']],function (){
+
+	Route::get ('profile', 'JoEntryFormController@profile')->name('profile');
+
+	Route::post('jo_entry/fetch_district','JoEntryFormController@fetch_district')->name('fetch_district');
+
+	Route::post('jo_entry/fetch_court','JoEntryFormController@fetch_court')->name('fetch_court');
 
 
 });

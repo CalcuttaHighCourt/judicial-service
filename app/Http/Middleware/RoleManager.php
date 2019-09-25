@@ -30,7 +30,8 @@ class RoleManager
             : explode('|', $role);
         
         $user_role = UserType::where('id','=',Auth::user()->user_type_id)
-                                ->select('type_name')->get();
+                                ->select('type_name')
+                                ->get();
 
         //echo $user_role[0]['type_name']; exit;
 
