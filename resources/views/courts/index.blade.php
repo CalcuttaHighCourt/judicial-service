@@ -68,24 +68,23 @@
                             role="alert">
                             <button type="button" class="close" data-hide="alert"
                                 aria-label=            "Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-                <span id="message-success-span"></span>
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                                <span id="message-success-span"></span>
+                        </div>
+                        <div id="message-error-div"
+                            class="alert alert-danger alert-dismissible success-error-message"
+                            role="alert">
+                            <button type="button" class="close" data-hide="alert"
+                                    aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <span id="message-error-span"></span>
+                         </div>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div id="message-error-div"
-            class="alert alert-danger alert-dismissible success-error-message"
-            role="alert">
-            <button type="button" class="close" data-hide="alert"
-                    aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <span id="message-error-span"></span>
-        </div>
-    </div>
-    </div>
-
-    </form>
-    </div>
     </div>
 
     <div id="datatable-panel" class="panel panel-default">
