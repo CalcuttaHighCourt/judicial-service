@@ -70,7 +70,7 @@ class JudicialOfficer extends Model
      */
     public function judicial_officer_postings()
     {
-        return $this->hasMany('App\JudicialOfficerPosting','judicial_officer_id','id');
+        return $this->hasMany('App\JudicialOfficerPosting','judicial_officer_id','id')->orderBy('from_date', 'DESC');
     }
 
 

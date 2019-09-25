@@ -1,3 +1,0 @@
-<?php $__currentLoopData = App\JudicialOfficer::orderBy('officer_name', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $judicial_officer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-	<option value="<?php echo e($judicial_officer->id); ?>" <?php if(old('judicial_officer') == $judicial_officer->officer_name): ?> selected="selected" <?php endif; ?>><?php echo e($judicial_officer->officer_name); ?></option>
-<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/judicial_officers/judicial_officer_options.blade.php ENDPATH**/ ?>

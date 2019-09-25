@@ -285,13 +285,15 @@
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-sm-offset-3 col-xs-5"><br/>
-                                    <label>									 
-										<?php $__currentLoopData = $profile[0]->judicial_officer_qualifications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $qualification): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-											<?php echo e($qualification['qualification']['qualification_name']); ?> (<?php echo e($qualification['passing_year']); ?>)
-											<?php if(!$loop->last): ?>
-												 <?php echo e(", "); ?>&nbsp;
-											<?php endif; ?>
-										<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <label>							
+                                        <?php if(sizeof($profile[0]->judicial_officer_qualifications) != 0): ?> 		 
+                                            <?php $__currentLoopData = $profile[0]->judicial_officer_qualifications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $qualification): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <?php echo e($qualification['qualification']['qualification_name']); ?> (<?php echo e($qualification['passing_year']); ?>)
+                                                <?php if(!$loop->last): ?>
+                                                    <?php echo e(", "); ?>&nbsp;
+                                                <?php endif; ?>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php endif; ?>
 									</label>
                                 </div>
                             </div>
@@ -307,80 +309,54 @@
          <div class="tab-pane" id="posting_details">
                 <form class="form" action="##" method="">                    
                     <div class="text-center">
-                        <h3 style="color:#d06666"><u>Posting Details (From Past to Present)</u></h3>
+                        <h3 style="color:#d06666"><u>Posting Details (Present to Past)</u></h3>
                     </div>
                     <br>
 
                     <div class="div_add_more_posting">
-                        <div class="row" > 
-                            <div class="col-xs-2">
-                                <label>   Designation </label>								
-                                
-                            </div>
-                            <div class="col-xs-2">
-                                <label> Posting Mode </label>
 
-                            </div>
-                            <div class="col-xs-2">
-                                <label>   Court  </label>
+                        <table >
+                            <tr style="background-color: #F3FE8C; color:black">
+                                <th style="width:150px;  border-collapse: collapse;  border: 1px solid black;">Designation</th>                                
+                                <th style="width:150px;  border-collapse: collapse;  border: 1px solid black;">Posting Mode</th> 
+                                <th style="width:150px;  border-collapse: collapse;  border: 1px solid black;">Court</th> 
+                                <th style="width:200px;  border-collapse: collapse;  border: 1px solid black;">Reporting Officer</th> 
+                                <th style="width:100px;  border-collapse: collapse;  border: 1px solid black;">From</th> 
+                                <th style="width:100px;  border-collapse: collapse;  border: 1px solid black;">To</th> 
+                            </tr>
 
-                            </div>                   
-                            <div class="col-xs-2">
-                                <label>  Reporting Officer  </label>
+                        <?php ($i=0); ?>
 
-                            </div>
+                        <?php if(sizeof($profile[0]->judicial_officer_postings) != 0): ?> 	
 
-                            <div class="col-xs-2">
-                                <label>  From  </label>
+                            <?php $__currentLoopData = $profile[0]->judicial_officer_postings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                            </div>
-                            <div class="col-xs-2">
-                                <label>  To  </label>
+                                <?php if(sizeof($profile[0]->subordinate_officers) != 0 ): ?>
+                                    <?php ($reporting_officer_name= $profile[0]->subordinate_officers[$i]->reporting_officer['officer_name']); ?>
+                                <?php endif; ?>
 
-                            </div>
+                                <?php ($from_date = $details->from_date); ?>
 
-						</div> 
+                                <?php ($to_date = $details->to_date); ?>
 
-						<?php ($i=0); ?>
-                        <?php $__currentLoopData = $profile[0]->judicial_officer_postings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            
-                            <hr>
-                            <?php ($reporting_officer_name= $profile[0]->subordinate_officers[$i]->reporting_officer['officer_name']); ?>
+                                <tr style="background-color: #2AFCB6; color:black">
+                                    <td  style="width:150px;  border-collapse: collapse;  border: 1px solid black;"><?php echo e($details['designation']['designation_name']); ?></td> 
+                                    <td  style="width:150px;  border-collapse: collapse;  border: 1px solid black;"><?php echo e($details['mode']['posting_mode']); ?></td>
+                                    <td  style="width:150px;  border-collapse: collapse;  border: 1px solid black;"><?php echo e($details['court']['court_name']); ?></td>
+                                    <th  style="width:200px;  border-collapse: collapse;  border: 1px solid black;">
+                                        <?php if(sizeof($profile[0]->subordinate_officers) != 0 ): ?>
+                                            <?php echo e($reporting_officer_name); ?>   
+                                        <?php endif; ?>
+                                    </td>
+                                    <td  style="width:100px;  border-collapse: collapse;  border: 1px solid black;"><?php echo e($from_date); ?></td>
+                                    <td  style="width:100px;  border-collapse: collapse;  border: 1px solid black;"><?php echo e($to_date); ?></td>
+                                </tr>                                                                       
 
-                            <?php ($from_date = $details->from_date); ?>
-
-                            <?php ($to_date = $details->to_date); ?>
-
-                            <div class="row"> 
-                                    <div class="col-xs-2">
-                                        <label>   <?php echo e($details['designation']['designation_name']); ?></label>                                        
-                                        
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <label> <?php echo e($details['mode']['posting_mode']); ?> </label>
-
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <label>  <?php echo e($details['court']['court_name']); ?>   </label>
-
-                                    </div>                   
-                                    <div class="col-xs-2">
-                                        <label>  <?php echo e($reporting_officer_name); ?>   </label>
-
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <label>  <?php echo e($from_date); ?>  </label>
-
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <label>  <?php echo e($to_date); ?>  </label>
-
-                                    </div>
-
-                            </div> 
-                            <?php ($i++); ?>
-					    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-						
+                                <?php ($i++); ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endif; ?>
+                        </table>   
+                        
                     </div>   
                     <hr>                  
 				</form>			
