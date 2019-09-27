@@ -68,11 +68,11 @@
 	<div id="datatable-panel" class="panel panel-default">
 		<div id="datatable-panel-heading" class="panel-heading clearfix">
 			<div class="panel-title pull-left">ACR Grade Master</div>
-			<div class="pull-right">
+			<!-- <div class="pull-right">
 				<button id="add-new-button" type="submit" class="btn btn-primary add-new-button">
 					<i class="fa fa-plus-circle"></i> Add New
 				</button>
-			</div>
+			</div> -->
 		</div>
 		<div class="panel-body">
 			<div class="table-responsive">

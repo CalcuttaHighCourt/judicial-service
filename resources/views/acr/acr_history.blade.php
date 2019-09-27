@@ -19,33 +19,35 @@
 		<br><br>
 
 			<!-- New Task Form -->
-		
+            <div class="row">
 				{{ csrf_field() }}
 				<input type="hidden" id="grade-id">
 				<div id="jo_name-group" class="form-group our-form-group">
 					<!-- IIIIIIIIIII -->
 					<label for="jo_name" class="col-sm-3 col-sm-offset-1 control-label">Judicial Officer Name</label>
-                    <label for="year" class="col-sm-3 control-label">Year of Assessment</label>
-                    <label for="grade" class="col-sm-3 control-label">Grade</label>
-					<div class="col-sm-3 col-sm-offset-1">
-                    <div id="recruitment_batch_desc-group" class="form-group our-form-group">
-					<!-- IIIIIIIIIII -->
-							<select id="recruitment_batch_desc" class="form-control select2 info-form-control"
-									name="recruitment_batch_desc"> 
+                   
+					<div class="col-sm-3">
+                        <div id="judicial_officer-group" class="form-group our-form-group">
+                        <!-- IIIIIIIIIII -->
+							<select id="judicial_officer" class="form-control select2 info-form-control judicial_officer"
+									name="judicial_officer"> 
 									<option value="">Select Judicial Officer</option>
 									@include('judicial_officers.judicial_officer_options')
-						</select>
-					</div>
-				</div>
-					</div>
-                    
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
 
-               <div class="div_add_more form-group required row">
-                                    
-                        <div id="year_of_assessment-group" class="form-group our-form-group">
-                        <!-- IIIIIIIIIII -->
-                        
-                        <div class="col-sm-3">
+               <div class="form-group required row">
+                    <!-- IIIIIIIIIII -->
+                     <div class="row">
+                            <label for="year" class="col-sm-3 col-sm-offset-1 control-label">Year of Assessment</label>
+                            <label for="grade" class="col-sm-3 col-sm-offset-1 control-label">Grade</label>
+                    </div>
+                    <div id="year_of_assessment-group" class="form-group our-form-group div_add_more ">
+                        <div class="col-sm-3  col-sm-offset-1">
                             <input id="year_of_assessment" type="text"
                                 class="form-control info-form-control year_of_assessment date" name="year_of_assessment"> <span
                                 id="year_of_assessment-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
@@ -67,25 +69,31 @@
                             </script>
                             @endsection
                         </div>
-                    </div>
-                    <div class="col-sm-3 form-group our-form-group" id="grades-group">
+                        <div class="col-sm-3 col-sm-offset-1 form-group our-form-group" id="grades-group">
                         
-                        <select id="grade_id" class="form-control info-form-control" name="grades"> 
-                                <option value="">Select ACR Grade</option>
-                                @include('acr.grade_options')
-                        </select>
+                            <select id="grade_id" class="form-control info-form-control grades" name="grades"> 
+                                    <option value="">Select ACR Grade</option>
+                                    @include('acr.grade_options')
+                            </select>
+                        </div>
+            
+                        <div class="col-sm-1">
+                            <button id="add-new-button" type="button" class="fa fa-plus-circle btn btn-primary add-new-button">
+                               Add New
+                            </button>
+                        <br><br>
+                        </div>
+                        
                     </div>
-                
-          
-               
-			<div class="col-sm-1">
-				<button id="add-new-button" type="submit" class="btn btn-primary add-new-button">
-					<i class="fa fa-plus-circle"></i> Add New
-				</button>
-            </div>
-        </div>
-
-            <br><br>
+                   
+                    <div class="col-sm-1 col-sm-offset-4">
+                        <button id="submit" type="button" class="btn btn-success submit">
+                            Submit
+                        </button>
+                    </div>
+                 
+                </div>
+           
            
 
 			
@@ -168,22 +176,73 @@
             var div_clone = $(".div_add_more:first").clone();
 
             $(document).on("click","#add-new-button", function(){
-                    
-                $(".div_add_more:first").clone().insertAfter(".div_add_more:last");
-                // $(".seizure_add_more:last").attr({src:"images/details_close.png",
-                // 									class:"remove_add_more_seizure", 
-                // 									alt:"remove",
-                // 									id:""});
+
+                 div_clone.clone().insertAfter(".div_add_more:last");   
+               
+                $(".add-new-button:last").attr({
+                                        class:"btn btn-danger remove fa fa-minus-circle", 
+										id:""});
+                $(".remove").text("Remove");
+               
                 $(".year_of_assessment:last").val('');
                 $(".date").datepicker({
-                    endDate:'0',
                     format: 'yyyy',
+                    showTodayButton:true,
+                    showClear:true,
                     viewMode: "years", 
                     minViewMode: "years"
                 }); // Date picker re-initialization
-			
-		    });         
-		});
+			});  
+
+            
+        /*If multiple grades and year of assessment one wants to enter and want to remove one :: STARTS*/
+            $(document).on("click",".remove", function(){
+                $(this).closest(".div_add_more").remove();
+            });     
+		
+        $(document).on("click","#submit", function(){
+
+
+            var grades = new Array();
+            var year_of_assessment = new Array();
+
+            var judicial_officer=$("#judicial_officer").val();
+            var jo_code=$("#judicial_officer option:selected").data('jo_code');    
+
+            grades=[];
+
+            $(".grades").each(function(){
+                grades.push($(this).val());
+            })
+
+            year_of_assessment=[];
+            $(".year_of_assessment").each(function(){
+            year_of_assessment.push($(this).val());
+            })
+
+            $.ajax({
+
+                type: "POST",
+                url:"acr_history/store",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    judicial_officer,
+                    grades,
+                    year_of_assessment,
+                    jo_code
+                },
+                success:function(response)
+                {
+                    swal("Submitted successfully","ACR has been submitted","success");
+                },
+                error:function(response)
+                {
+                    swal("Error","ACR has been submitted","error");
+                }
+
+            });
+        });
+    });
 
 </script>
 
