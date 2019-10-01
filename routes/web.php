@@ -171,6 +171,14 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	Route::Post('acr_history/store', 'ACRController@acr_history_save' );
 
+	/*ACR Serach*/
+
+	Route::get ( 'acr_fetch', function () {
+		return view ( 'acr.acr_fetch' );
+	} );
+
+	Route::Post('acr_fetch/search', 'ACRController@fetch_acr_history' );
+
 	/*Subdivision */
 
 	Route::resource('subdivisions', 'SubdivisionController')->except(['create', 'edit']);

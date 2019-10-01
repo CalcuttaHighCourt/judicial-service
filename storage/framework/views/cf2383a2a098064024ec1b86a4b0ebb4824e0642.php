@@ -9,6 +9,12 @@
 
 <script src="<?php echo e(asset('js/datatable/jquery.dataTables.min.js')); ?>"></script>
 <script src="<?php echo e(asset('js/datatable/dataTables.bootstrap.min.js')); ?>"></script>
+
+<script src="<?php echo e(asset('js/datatable/dataTables.buttons.min.js')); ?>"></script>
+<script src="<?php echo e(asset('js/datatable/pdfmake.min.js')); ?>"></script>
+<script src="<?php echo e(asset('js/datatable/vfs_fonts.js')); ?>"></script>
+<script src="<?php echo e(asset('js/datatable/buttons.html5.min.js')); ?>"></script>
+
 <!-- Date Picker -->    
 <script src="<?php echo e(asset('js/bootstrap-datepicker.js')); ?>"></script>
 <!-- <script src="<?php echo e(asset('js/datepicker/bootstrap-datepicker.min.js')); ?>"></script> -->

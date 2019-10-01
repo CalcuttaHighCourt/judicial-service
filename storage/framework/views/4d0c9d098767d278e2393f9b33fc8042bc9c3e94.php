@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="<?php echo e(asset('css/scrollsidebar.css')); ?>">  
 
 <link href="<?php echo e(asset('css/datatable/dataTables.bootstrap.min.css')); ?>" rel="stylesheet">
+<link href="<?php echo e(asset('css/datatable/buttons.dataTables.min.css')); ?>" rel="stylesheet">
 
 <link href="<?php echo e(asset('css/fileinput/fileinput.min.css')); ?>" rel="stylesheet">
 

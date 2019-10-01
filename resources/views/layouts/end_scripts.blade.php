@@ -9,6 +9,12 @@
 
 <script src="{{asset('js/datatable/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('js/datatable/dataTables.bootstrap.min.js')}}"></script>
+
+<script src="{{asset('js/datatable/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('js/datatable/pdfmake.min.js')}}"></script>
+<script src="{{asset('js/datatable/vfs_fonts.js')}}"></script>
+<script src="{{asset('js/datatable/buttons.html5.min.js')}}"></script>
+
 <!-- Date Picker -->    
 <script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
 <!-- <script src="{{asset('js/datepicker/bootstrap-datepicker.min.js')}}"></script> -->

@@ -22,6 +22,8 @@ class CreateAcrHistoriesTable extends Migration
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
 
+            $table->unique(['judicial_officer_id','year']);
+
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
             $table->foreign('grade_id')->references('id')->on('grade_details');
             $table->foreign('created_by')->references('id')->on('users');

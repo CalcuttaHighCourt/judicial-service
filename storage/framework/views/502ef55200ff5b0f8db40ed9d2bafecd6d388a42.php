@@ -89,6 +89,12 @@
                             Submit
                         </button>
                     </div>
+
+                    <div class="col-sm-1 col-sm-offset-1">
+                        <button id="reset" type="button" class="btn btn-danger reset">
+                            Reset
+                        </button>
+                    </div>
                  
                 </div>
            
@@ -229,17 +235,33 @@
                     year_of_assessment,
                     jo_code
                 },
-                success:function(response)
-                {
-                    swal("Submitted successfully","ACR has been submitted","success");
+                success:function(response){
+                    swal("ACR Has Been Submitted","","success");
+                    setTimeout(function(){
+                            window.location.reload(true);
+                    },2000);
                 },
-                error:function(response)
-                {
-                    swal("Error","ACR has been submitted","error");
+                error: function (jqXHR, textStatus, errorThrown) {
+                    if(jqXHR.status!=422 && jqXHR.status!=400){
+                        swal("Server Error",errorThrown,"error");
+                    }
+                    else{
+                        msg = "";
+                        $.each(jqXHR.responseJSON.errors, function(key,value) {
+                            msg+=value+"\n";						
+                        });
+                        swal("Invalid Input",msg,"error");
+                    }
                 }
-
             });
         });
+        $(document).on("click","#reset", function(){
+            $(".grades").val(" ");
+            $(".judicial_officer").val(" ");
+            $(".year_of_assessment").val(" ");
+        
+        });
+
     });
 
 </script>

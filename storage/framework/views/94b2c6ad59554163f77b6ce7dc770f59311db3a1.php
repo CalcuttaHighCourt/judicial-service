@@ -160,6 +160,13 @@
                     ACR History
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo e(url('acr_fetch')); ?>">
+                    <span data-feather="file"></span>
+                    <i class="fa fa-crosshairs" aria-hidden="true"></i>
+                    ACR Fetch
+                </a>
+            </li>
             <?php endif; ?>
 
             <?php if(Auth::check() && Auth::user()->user_type->type_name=="Judicial Officer"): ?>
