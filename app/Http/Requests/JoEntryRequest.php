@@ -26,14 +26,14 @@ class JoEntryRequest extends FormRequest
     {        
         return [
             'jo_code' => 'required|unique:judicial_officers,jo_code|alpha_dash',
-            'officer_name' => 'required|string|max:50',
+            'officer_name' => 'required|regex:/^[\pL\s\-]+$/u|max:50',
             'gender' => 'required|alpha|max:10',
-            'guardian_name' => 'required|string|max:50',
-            'gurdian_relation' => 'required|string|max:30',
+            'guardian_name' => 'required|regex:/^[\pL\s\-]+$/u|max:50',
+            'gurdian_relation' => 'required|regex:/^[\pL\s\-]+$/u|max:30',
             'date_of_birth' => 'required|date_format:d-m-Y',
             'home_state_id' => 'required|integer|exists:states,id',
             'home_district_id' => 'required|integer|exists:districts,id',
-            'hometown' => 'required|string|max:50',
+            'hometown' => 'required|regex:/^[\pL\s\-]+$/u|max:50',
             'present_address' => 'required|string|max:255',
             'permanent_address' => 'required|string|max:255',
             'religion_id' => 'nullable|integer|exists:religions,id',

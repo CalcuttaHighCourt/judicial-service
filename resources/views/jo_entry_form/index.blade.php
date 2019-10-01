@@ -164,7 +164,9 @@
                  <label for="identification_mark_1">
                      &nbsp 
                  </label>
-                 <div class="form-check form-check-inline"> 
+                 <div class="form-group required form-check form-check-inline"> 
+                    <label class="control-label">Gender:</label>
+                    &nbsp &nbsp
                     <input class="form-check-input" name="gender" type="radio" value="M">
                     <label class="form-check-label" style="font-size:medium">
                         Male

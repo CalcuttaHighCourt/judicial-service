@@ -29,3 +29,4 @@
         @yield('sticky_footer') @yield('end_scripts')
     </body>
 </html>
+ 

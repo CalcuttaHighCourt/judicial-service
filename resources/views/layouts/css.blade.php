@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="{{asset('css/scrollsidebar.css')}}">  
 
 <link href="{{asset('css/datatable/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{asset('css/datatable/buttons.dataTables.min.css')}}" rel="stylesheet">
 
 <link href="{{asset('css/fileinput/fileinput.min.css')}}" rel="stylesheet">
 

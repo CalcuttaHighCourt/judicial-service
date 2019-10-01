@@ -1,5 +1,4 @@
 
-
 @extends('layouts.app') @section('title', 'Judicial Officer Entry')
 @section('page_heading') Judicial Officer Entry @endsection
 @section('center_main_content')
@@ -264,13 +263,15 @@
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-sm-offset-3 col-xs-5"><br/>
-                                    <label>									 
-										@foreach($profile[0]->judicial_officer_qualifications  as $qualification)
-											{{$qualification['qualification']['qualification_name']}} ({{$qualification['passing_year']}})
-											@if(!$loop->last)
-												 {{", "}}&nbsp;
-											@endif
-										@endforeach
+                                    <label>							
+                                        @if(sizeof($profile[0]->judicial_officer_qualifications) != 0) 		 
+                                            @foreach($profile[0]->judicial_officer_qualifications  as $qualification)
+                                                {{$qualification['qualification']['qualification_name']}} ({{$qualification['passing_year']}})
+                                                @if(!$loop->last)
+                                                    {{", "}}&nbsp;
+                                                @endif
+                                            @endforeach
+                                        @endif
 									</label>
                                 </div>
                             </div>
@@ -286,80 +287,54 @@
          <div class="tab-pane" id="posting_details">
                 <form class="form" action="##" method="">                    
                     <div class="text-center">
-                        <h3 style="color:#d06666"><u>Posting Details (From Past to Present)</u></h3>
+                        <h3 style="color:#d06666"><u>Posting Details (Present to Past)</u></h3>
                     </div>
                     <br>
 
                     <div class="div_add_more_posting">
-                        <div class="row" > 
-                            <div class="col-xs-2">
-                                <label>   Designation </label>								
-                                
-                            </div>
-                            <div class="col-xs-2">
-                                <label> Posting Mode </label>
 
-                            </div>
-                            <div class="col-xs-2">
-                                <label>   Court  </label>
+                        <table >
+                            <tr style="background-color: #F3FE8C; color:black">
+                                <th style="width:150px;  border-collapse: collapse;  border: 1px solid black;">Designation</th>                                
+                                <th style="width:150px;  border-collapse: collapse;  border: 1px solid black;">Posting Mode</th> 
+                                <th style="width:150px;  border-collapse: collapse;  border: 1px solid black;">Court</th> 
+                                <th style="width:200px;  border-collapse: collapse;  border: 1px solid black;">Reporting Officer</th> 
+                                <th style="width:100px;  border-collapse: collapse;  border: 1px solid black;">From</th> 
+                                <th style="width:100px;  border-collapse: collapse;  border: 1px solid black;">To</th> 
+                            </tr>
 
-                            </div>                   
-                            <div class="col-xs-2">
-                                <label>  Reporting Officer  </label>
+                        @php ($i=0)
 
-                            </div>
+                        @if(sizeof($profile[0]->judicial_officer_postings) != 0) 	
 
-                            <div class="col-xs-2">
-                                <label>  From  </label>
+                            @foreach($profile[0]->judicial_officer_postings  as $details)
 
-                            </div>
-                            <div class="col-xs-2">
-                                <label>  To  </label>
+                                @if(sizeof($profile[0]->subordinate_officers) != 0 )
+                                    @php ($reporting_officer_name= $profile[0]->subordinate_officers[$i]->reporting_officer['officer_name'])
+                                @endif
 
-                            </div>
+                                @php ($from_date = $details->from_date)
 
-						</div> 
+                                @php ($to_date = $details->to_date)
 
-						@php ($i=0)
-                        @foreach($profile[0]->judicial_officer_postings  as $details)
-                            
-                            <hr>
-                            @php ($reporting_officer_name= $profile[0]->subordinate_officers[$i]->reporting_officer['officer_name'])
+                                <tr style="background-color: #2AFCB6; color:black">
+                                    <td  style="width:150px;  border-collapse: collapse;  border: 1px solid black;">{{$details['designation']['designation_name'] }}</td> 
+                                    <td  style="width:150px;  border-collapse: collapse;  border: 1px solid black;">{{$details['mode']['posting_mode'] }}</td>
+                                    <td  style="width:150px;  border-collapse: collapse;  border: 1px solid black;">{{$details['court']['court_name'] }}</td>
+                                    <th  style="width:200px;  border-collapse: collapse;  border: 1px solid black;">
+                                        @if(sizeof($profile[0]->subordinate_officers) != 0 )
+                                            {{$reporting_officer_name}}   
+                                        @endif
+                                    </td>
+                                    <td  style="width:100px;  border-collapse: collapse;  border: 1px solid black;">{{$from_date}}</td>
+                                    <td  style="width:100px;  border-collapse: collapse;  border: 1px solid black;">{{$to_date}}</td>
+                                </tr>                                                                       
 
-                            @php ($from_date = $details->from_date)
-
-                            @php ($to_date = $details->to_date)
-
-                            <div class="row"> 
-                                    <div class="col-xs-2">
-                                        <label>  {{$details['designation']['designation_name'] }}</label>                                        
-                                        
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <label>  {{$details['mode']['posting_mode'] }} </label>
-
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <label>  {{$details['court']['court_name'] }}   </label>
-
-                                    </div>                   
-                                    <div class="col-xs-2">
-                                        <label>  {{$reporting_officer_name}}   </label>
-
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <label>  {{$from_date}}  </label>
-
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <label>  {{$to_date}}  </label>
-
-                                    </div>
-
-                            </div> 
-                            @php ($i++)
-					    @endforeach
-						
+                                @php ($i++)
+                            @endforeach
+                        @endif
+                        </table>   
+                        
                     </div>   
                     <hr>                  
 				</form>			

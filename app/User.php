@@ -36,10 +36,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function user_type()
+    {
+        return $this->belongsTo('App\UserType','user_type_id','id');
+    }
 
-
-
-
+   
 
     /**
      * Get the user that has ceated the JO reporting reviewing .
