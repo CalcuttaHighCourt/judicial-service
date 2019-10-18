@@ -1,9 +1,6 @@
-{{--
-<!-- views/grades/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'ACRFetch')
-@section('page_heading') ACRFetch @endsection
-@section('center_main_content')
+ <?php $__env->startSection('title', 'ACRFetch'); ?>
+<?php $__env->startSection('page_heading'); ?> ACRFetch <?php $__env->stopSection(); ?>
+<?php $__env->startSection('center_main_content'); ?>
 <style>
    .select2-results__option{
    color:#d43c3c;
@@ -19,7 +16,8 @@
 <br><br>
 <!-- New Task Form -->
 <div class="row">
-   {{ csrf_field() }}
+   <?php echo e(csrf_field()); ?>
+
    <input type="hidden" id="grade-id">
    <div id="jo_name-group" class="form-group our-form-group">
       <!-- IIIIIIIIIII -->
@@ -30,7 +28,7 @@
             <select id="judicial_officer" class="form-control select2 info-form-control judicial_officer"
                name="judicial_officer">
                <option value="">Select Judicial Officer</option>
-               @include('judicial_officers.judicial_officer_options')
+               <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </select>
          </div>
       </div>
@@ -45,7 +43,7 @@
             <!-- IIIIIIIIIII -->
             <select id="grade" class="form-control select2 info-form-control grade"name="grade">
                <option value="">Select Grade</option>
-               @include('acr.grade_options')
+               <?php echo $__env->make('acr.grade_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </select>
          </div>
       </div>
@@ -60,7 +58,7 @@
             <!-- IIIIIIIIIII -->
             <select id="designation" class="form-control select2 info-form-control designation"name="designation">
                <option value="">Select Designation</option>
-               @include('designations.designation_options')
+               <?php echo $__env->make('designations.designation_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </select>
          </div>
       </div>
@@ -98,7 +96,7 @@
                   <strong id="from_assessment_year-strong" class="our-error-message-strong"></strong>
                   <!-- IIIIIIIIIII -->
                </span>
-               @section('end_scripts_1')
+               <?php $__env->startSection('end_scripts_1'); ?>
                <script type="text/javascript">
                   $(function(){
                       $(".date").datepicker({
@@ -111,7 +109,7 @@
                   
                   });
                </script>
-               @endsection
+               <?php $__env->stopSection(); ?>
             </div>
             <div class="col-sm-3  col-sm-offset-1">
                <input id="to_assessment_year" type="text"
@@ -122,7 +120,7 @@
                   <strong id="to_assessment_year-strong" class="our-error-message-strong"></strong>
                   <!-- IIIIIIIIIII -->
                </span>
-               @section('end_scripts_1')
+               <?php $__env->startSection('end_scripts_1'); ?>
                <script type="text/javascript">
                   $(function(){
                       $(".date").datepicker({
@@ -135,7 +133,7 @@
                   
                   });
                </script>
-               @endsection
+               <?php $__env->stopSection(); ?>
             </div>
             <div class="col-sm-1">
                <button id="search-button" type="button" class="btn btn-primary search-button">
@@ -181,13 +179,13 @@
 </div>
 <!--loader ends-->
 <div id="test-div"></div>
-@endsection @include('layouts.1_column_content')
-@section('main_container') @yield('1_column_content') @endsection
-@section('meta')
-@parent
-<meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
-@section('end_scripts') @parent
+<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
+<?php $__env->startSection('meta'); ?>
+##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
+<meta name="_token" content="<?php echo csrf_token(); ?>" />
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
 <!--  -->
 <script>
    $(document).ready(function() {
@@ -319,5 +317,6 @@
      });
    
 </script>
-@endsection
-@section('body_attributes') @parent class="" @endsection
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/acr/acr_fetch.blade.php ENDPATH**/ ?>
