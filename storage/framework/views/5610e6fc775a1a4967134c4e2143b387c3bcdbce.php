@@ -71,7 +71,7 @@
       <div class="col-sm-3">
          <div id="jo_code-group" class="form-group our-form-group">
             <!-- IIIIIIIIIII -->
-           <input type="text"  class="form-control jo_code" id="jo_code"  placeholder="Jo Code">
+           <input type="text" id="jo_code" class="form-control jo_code"   placeholder="Jo Code">
          </div>
       </div>
    </div>
@@ -214,7 +214,9 @@
         var to_assessment_year= $("#to_assessment_year").val();
         var from_assessment_year= $("#from_assessment_year").val();
         var jo_code=$("#judicial_officer option:selected").data('jo_code');  
-   
+        var grade=$("#grade option:selected").val();
+        var designation=$("#designation option:selected").val();
+
         if(to_assessment_year<=from_assessment_year)
         {
             swal("date range is improper","","error");
@@ -235,7 +237,9 @@
                 judicial_officer:judicial_officer,
                 to_assessment_year: to_assessment_year,
                 from_assessment_year:from_assessment_year,
-                jo_code:jo_code
+                jo_code:jo_code,
+                grade:grade,
+                designation:designation
             },
             success:function(response)
             {                       

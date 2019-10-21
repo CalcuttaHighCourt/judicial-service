@@ -52,24 +52,47 @@ class ACRController extends Controller
             'judicial_officer' => array('required', 'max:75'),
             'to_assessment_year' => array('required'),
             'from_assessment_year' => array('required'),
-            'jo_code' => array('required')
+            'jo_code' => array('required'),
+            'grade' => array('required'),
+            'jo_code' => array('required'),
         ]);
 
         $judicial_officer = $request->input('judicial_officer');
         $jo_code = $request->input('jo_code');
         $to_assessment_year =  $request->input('to_assessment_year');
         $from_assessment_year =  $request->input('from_assessment_year');
-        
-        $acr_details['grade_details']= AcrHistory::where([
-                                        ['year','>',$from_assessment_year],
-                                        ['year','<',$to_assessment_year],
-                                        ['jo_code','=',$jo_code]
-                                    ])->with('grade_detail')->get();
+        $grade =  $request->input('grade');
+        $designation =  $request->input('designation');
 
-        $acr_details['current_posting']= JudicialOfficerPosting::where('judicial_officer_id','=',$judicial_officer)
-                                        ->whereNull('to_date')  
-                                        ->with('court_complex.zone')
-                                        ->get();
+        // $acr_details['grade_details']= AcrHistory::where([
+        //                                 ['year','>',$from_assessment_year],
+        //                                 ['year','<',$to_assessment_year],
+        //                                 ['jo_code','=',$jo_code]
+        //                             ])->with('grade_detail')->get();
+
+        $select = "SELECT  acr.jo_code, jo.officer_name,acr.year,gd.grade_name,desig.designation_name
+        FROM acr_histories acr LEFT OUTER JOIN judicial_officers jo ON acr.judicial_officer_id=jo.id
+        LEFT OUTER JOIN grade_details gd ON gd.id=acr.grade_id
+        LEFT OUTER JOIN judicial_officer_postings jop ON jop.judicial_officer_id=jo.id
+        LEFT OUTER JOIN designations desig ON desig.id=jop.designation_id";
+
+        // $acr_details['current_posting']= JudicialOfficerPosting::where('judicial_officer_id','=',$judicial_officer)
+        //                                 ->whereNull('to_date')  
+        //                                 ->with('court_complex.zone')
+        //                                 ->get();\
+
+
+         // Default WHERE condition
+         $where = ' WHERE acr.jo_code IS NOT NULL';
+
+          // Default Order By query
+        $orderBy = ' ORDER BY jo.officer_name ';
+
+        if(!empty($grade))
+            $where = $where.' AND gd.gd_id ='.$grade;
+
+        if(!empty($designation))
+            $where = $where.' AND desig.designation_name ='.$designation;
 
 
         return $acr_details;
