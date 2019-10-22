@@ -9,6 +9,7 @@ use App\AcrHistory;
 use App\JudicialOfficerPosting;
 use Carbon\Carbon;
 use Auth;
+use DB;
 
 class ACRController extends Controller
 {
@@ -47,18 +48,18 @@ class ACRController extends Controller
 
     public function fetch_acr_history(Request $request)
 
-    {
-        $this->validate($request, [
-            'judicial_officer' => array('required', 'max:75'),
-            'to_assessment_year' => array('required'),
-            'from_assessment_year' => array('required'),
-            'jo_code' => array('required'),
-            'grade' => array('required'),
-            'jo_code' => array('required'),
-        ]);
+     {
+    //     $this->validate($request, [
+    //         'judicial_officer' => array('required', 'max:75'),
+    //         'to_assessment_year' => array('required'),
+    //         'from_assessment_year' => array('required'),
+    //         'jo_code' => array('required'),
+    //         'grade' => array('required'),
+    //         'jo_code' => array('required'),
+    //     ]);
 
         $judicial_officer = $request->input('judicial_officer');
-        $jo_code = $request->input('jo_code');
+        $jo_code = trim($request->input('jo_code'));
         $to_assessment_year =  $request->input('to_assessment_year');
         $from_assessment_year =  $request->input('from_assessment_year');
         $grade =  $request->input('grade');
@@ -83,18 +84,26 @@ class ACRController extends Controller
 
 
          // Default WHERE condition
-         $where = ' WHERE acr.jo_code IS NOT NULL';
+         $where = ' WHERE 1=1 ';
 
           // Default Order By query
         $orderBy = ' ORDER BY jo.officer_name ';
 
+        if(!empty($judicial_officer))
+            $where = $where.' AND jo.id ='.$judicial_officer;
+
         if(!empty($grade))
-            $where = $where.' AND gd.gd_id ='.$grade;
+            $where = $where.' AND gd.id ='.$grade;
+
+        if(!empty($jo_code))
+            $where = $where." AND acr.jo_code ilike '%".$jo_code."%'";
 
         if(!empty($designation))
-            $where = $where.' AND desig.designation_name ='.$designation;
+            $where = $where.' AND desig.id ='.$designation;
 
+        if(!empty($to_assessment_year))
+            $where = $where.' AND year BETWEEN '.$from_assessment_year.' AND '.$to_assessment_year;
 
-        return $acr_details;
+        return $details=DB::select($select.$where.$orderBy);
     }
 }

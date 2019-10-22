@@ -162,7 +162,6 @@
                      <th>Officer Name</th>
                      <th>JO Code</th>
                      <th>Designation</th>
-                     <th>Current Posting</th>
                      <th>Assessment year</th>
                      <th>Grade</th>
                   </tr>
@@ -209,26 +208,26 @@
    		
    	$(document).on("click","#search-button",function(){
    
-        $("#grade_details_result").dataTable().fnDestroy();
+        $("#grade_details_result").DataTable().destroy();
    
    
    		var judicial_officer= $("#judicial_officer").val();
         var to_assessment_year= $("#to_assessment_year").val();
         var from_assessment_year= $("#from_assessment_year").val();
-        var jo_code=$("#judicial_officer option:selected").data('jo_code');  
+        var jo_code=$("#jo_code").val();  
         var grade=$("#grade option:selected").val();
         var designation=$("#designation option:selected").val();
 
-        if(to_assessment_year<=from_assessment_year)
-        {
-            swal("date range is improper","","error");
-            $("#to_assessment_year").val('');
-            $("#from_assessment_year").val('');
-            $("#view_details").hide();
-        }
-        else{
-            $("#view_details").show();
-        }
+        // if(to_assessment_year<=from_assessment_year)
+        // {
+        //     swal("date range is improper","","error");
+        //     $("#to_assessment_year").val('');
+        //     $("#from_assessment_year").val('');
+        //     $("#view_details").hide();
+        // }
+        // else{
+        //     $("#view_details").show();
+        // }
 
         $.ajax({
 
@@ -246,12 +245,7 @@
             success:function(response)
             {                       
             console.log(response);
-            if(response['grade_details']!="")
-                $("#jo_code").html(response['grade_details'][0]['jo_code']);
-
-            if(response['current_posting']!="")
-                $("#current_posting").html(response['current_posting'][0]['court_complex']['zone']['zone_name']);
-            
+                     
             var d = new Date();
                 var month = d.getMonth()+1;
                 var day = d.getDate();
@@ -260,22 +254,21 @@
                     d.getFullYear() ;
 
             var str = "";                       
-            $.each(response.grade_details, function(key,value){
+            $.each(response, function(key,value){
                 str += "<tr>"+
                             "<td>"+ (key+1) +"</td>"+
-                            "<td>"+ " " + "</td>"+
+                            "<td>"+ value.officer_name + "</td>"+
                             "<td>"+ value.jo_code + "</td>"+
-                            "<td>"+ " " + "</td>"+
-                            "<td>"+ " " + "</td>"+
+                            "<td>"+ value.designation_name + "</td>"+
                             "<td>"+ value.year + "</td>"+
-                            "<td>"+ value.grade_detail.grade_name + "</td>"+
+                            "<td>"+ value.grade_name + "</td>"+
                         "</tr>";
             })
 
             
 
             $("#tbody").html(str);
-            $("table").dataTable({
+            $(".table").DataTable({
                 dom: 'Blfrtip',
                 buttons: [
                     {
@@ -292,6 +285,7 @@
                     }
                 ]
             });
+            $("#view_details").show();
             }
                  //     error: function (jqXHR, textStatus, errorThrown) {
                  //     if(jqXHR.status!=422 && jqXHR.status!=400){
@@ -314,9 +308,12 @@
          /*If multiple grades and year of assessment one wants to enter and want to remove one :: STARTS*/
               
          $(document).on("click","#reset-button",function(){
-             $("#judicial_officer").val(" ");
-             $("#to_assessment_year").val(" ");
-             $("#from_assessment_year").val(" ");
+             $("#judicial_officer").val("").trigger("change");
+             $("#grade").val("").trigger("change");
+             $("#designation").val("").trigger("change");
+             $("#jo_code").val("");
+             $("#to_assessment_year").val("");
+             $("#from_assessment_year").val("");
             
          });
    
