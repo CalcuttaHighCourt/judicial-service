@@ -71,10 +71,11 @@ class ACRController extends Controller
         //                                 ['jo_code','=',$jo_code]
         //                             ])->with('grade_detail')->get();
 
-        $select = "SELECT  acr.jo_code, jo.officer_name,acr.year,gd.grade_name,desig.designation_name
+        $select = "SELECT  acr.jo_code, jo.officer_name,acr.year,gd.grade_name,desig.designation_name,c.court_name
         FROM acr_histories acr LEFT OUTER JOIN judicial_officers jo ON acr.judicial_officer_id=jo.id
         LEFT OUTER JOIN grade_details gd ON gd.id=acr.grade_id
         LEFT OUTER JOIN judicial_officer_postings jop ON jop.judicial_officer_id=jo.id
+        LEFT OUTER JOIN courts c ON c.id=jop.court_id
         LEFT OUTER JOIN designations desig ON desig.id=jop.designation_id";
 
         // $acr_details['current_posting']= JudicialOfficerPosting::where('judicial_officer_id','=',$judicial_officer)
@@ -90,7 +91,7 @@ class ACRController extends Controller
         $orderBy = ' ORDER BY jo.officer_name ';
 
         if(!empty($judicial_officer))
-            $where = $where.' AND jo.id ='.$judicial_officer;
+            $where = $where.' AND jo.id ='.$judicial_officer.' AND to_date is NULL';
 
         if(!empty($grade))
             $where = $where.' AND gd.id ='.$grade;
@@ -104,6 +105,6 @@ class ACRController extends Controller
         if(!empty($to_assessment_year))
             $where = $where.' AND year BETWEEN '.$from_assessment_year.' AND '.$to_assessment_year;
 
-        return $details=DB::select($select.$where.$orderBy);
+            return $details=DB::select($select.$where.$orderBy);
     }
 }

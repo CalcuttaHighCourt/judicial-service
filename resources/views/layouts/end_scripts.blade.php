@@ -12,6 +12,7 @@
 
 <script src="{{asset('js/datatable/dataTables.buttons.min.js')}}"></script>
 <script src="{{asset('js/datatable/pdfmake.min.js')}}"></script>
+<script src="{{asset('js/datatable/jszip.min.js')}}"></script>
 <script src="{{asset('js/datatable/vfs_fonts.js')}}"></script>
 <script src="{{asset('js/datatable/buttons.html5.min.js')}}"></script>
 

@@ -71,7 +71,7 @@
       <div class="col-sm-3">
          <div id="jo_code-group" class="form-group our-form-group">
             <!-- IIIIIIIIIII -->
-           <input type="text" id="jo_code" class="form-control jo_code"   placeholder="Jo Code">
+            <input type="text" id="jo_code" class="form-control jo_code"   placeholder="Jo Code">
          </div>
       </div>
    </div>
@@ -148,9 +148,8 @@
          </div>
       </div>
       <div id="view_details" class="panel-body" style="display:none;">
-         <div class="row">
-            <span class="col-sm-2 col-sm-offset-3"><strong>Jo Code:</strong>&nbsp;&nbsp;<span id="jo_code"></span></span>
-            <span class="col-sm-2 col-sm-offset-1"><strong>Current Posting:</strong>&nbsp;&nbsp;<span id="current_posting"></span></span>
+         <div class="row place_of_posting" id="place_of_posting">
+            <span class="col-sm-5 col-sm-offset-4"><strong>Current Place of Posting:</strong>&nbsp;&nbsp;<span id="current_place_of_posting" style="color:yellow"></span></span>
          </div>
          <div class="table-responsive">
             <table class="table table-bordered table-striped" id="grade_details_result" style="width: 100%;">
@@ -197,7 +196,7 @@
         $(document).ajaxComplete(function() {
             $("#wait").css("display", "none");
         });
-
+   
     /*LOADER*/
    
     /* select2 initialisation */
@@ -215,7 +214,7 @@
         var jo_code=$("#jo_code").val();  
         var grade=$("#grade option:selected").val();
         var designation=$("#designation option:selected").val();
-
+   
         // if(to_assessment_year<=from_assessment_year)
         // {
         //     swal("date range is improper","","error");
@@ -226,9 +225,9 @@
         // else{
         //     $("#view_details").show();
         // }
-
+   
         $.ajax({
-
+   
             type: "POST",
             url:"acr_fetch/search",
             data: {
@@ -250,21 +249,22 @@
             var current_date = (day<10 ? '0' : '') + day + '-' +
                     (month<10 ? '0' : '') + month + '-' + 
                     d.getFullYear() ;
-
+   
             var str = "";                       
             $.each(response, function(key,value){
                 str += "<tr>"+
                             "<td>"+ (key+1) +"</td>"+
                             "<td>"+ value.officer_name + "</td>"+
-                            "<td>"+ value.jo_code + "</td>"+
+                            "<td bgcolor=blue><strong>"+ value.jo_code + "</strong></td>"+
                             "<td>"+ value.designation_name + "</td>"+
                             "<td>"+ value.year + "</td>"+
                             "<td>"+ value.grade_name + "</td>"+
                         "</tr>";
             })
-
-            
-
+   
+        
+            $("#current_place_of_posting").html(response[0].court_name);
+        
             $("#tbody").html(str);
             $(".table").DataTable({
                 dom: 'Blfrtip',
@@ -274,49 +274,41 @@
                         orientation: 'portrait',
                         pageSize: 'LEGAL',
                         title: 'Calcutta High Court',
-                        messageTop: 'Grade Details of '+$("#judicial_officer option:selected").html()+' from: '+from_assessment_year+' To '+to_assessment_year,
+                        messageTop: 'ACR Grade History Details',
                         messageBottom: 'Printed On '+current_date,
                         customize: function(doc) {                                
-                            doc.content[1].margin = [ 200, 0, 0, 20 ] //left, top, right, bottom   
-                            doc.content[2].margin = [ 200, 0, 0, 20 ] //left, top, right, bottom                                    
+                            doc.content[1].margin = [ 210, 0, 0, 20 ] //left, top, right, bottom   
+                            doc.content[2].margin = [ 50, 0, 0, 20 ] //left, top, right, bottom                                    
                         }
                     }
                 ]
             });
-            $("#view_details").show();
-            }
-                 //     error: function (jqXHR, textStatus, errorThrown) {
-                 //     if(jqXHR.status!=422 && jqXHR.status!=400){
-                 //         swal("Server Error",errorThrown,"error");
-                 //     }
-                 //     else{
-                 //         msg = "";
-                 //         $.each(jqXHR.responseJSON.errors, function(key,value) {
-                 //             msg+=value+"\n";						
-                 //         });
-                 //         swal("Invalid Input",msg,"error");
-                 //     }
-                 // }
-                 });
-             });
    
-             /*Cloning of Year and Grades */
+            $("#view_details").show();
+        }
+       
+    });
+        
+   });
+             
+   
+   /*Cloning of Year and Grades */
    
              
-         /*If multiple grades and year of assessment one wants to enter and want to remove one :: STARTS*/
-              
-         $(document).on("click","#reset-button",function(){
-             $("#judicial_officer").val("").trigger("change");
-             $("#grade").val("").trigger("change");
-             $("#designation").val("").trigger("change");
-             $("#jo_code").val("");
-             $("#to_assessment_year").val("");
-             $("#from_assessment_year").val("");
-            
-         });
+   /*If multiple grades and year of assessment one wants to enter and want to remove one :: STARTS*/
+        
+    $(document).on("click","#reset-button",function(){
+        $("#judicial_officer").val("").trigger("change");
+        $("#grade").val("").trigger("change");
+        $("#designation").val("").trigger("change");
+        $("#jo_code").val("");
+        $("#to_assessment_year").val("");
+        $("#from_assessment_year").val("");
+        $("#view_details").hide();
+    
+    });
    
-     });
-   
+   });
 </script>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
