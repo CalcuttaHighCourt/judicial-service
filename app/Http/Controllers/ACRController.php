@@ -58,53 +58,98 @@ class ACRController extends Controller
     //         'jo_code' => array('required'),
     //     ]);
 
-        $judicial_officer = $request->input('judicial_officer');
-        $jo_code = trim($request->input('jo_code'));
+        $judicial_officer = $request->input('judicial_officer');        
         $to_assessment_year =  $request->input('to_assessment_year');
         $from_assessment_year =  $request->input('from_assessment_year');
         $grade =  $request->input('grade');
         $designation =  $request->input('designation');
 
-        // $acr_details['grade_details']= AcrHistory::where([
-        //                                 ['year','>',$from_assessment_year],
-        //                                 ['year','<',$to_assessment_year],
-        //                                 ['jo_code','=',$jo_code]
-        //                             ])->with('grade_detail')->get();
+       
+        $select = "SELECT  distinct jop.judicial_officer_id,jo.jo_code,jo.officer_name,year,grade_id
+        FROM acr_histories acr LEFT OUTER JOIN judicial_officers jo ON acr.judicial_officer_id=jo.id 
+        LEFT OUTER JOIN judicial_officer_postings jop ON jop.judicial_officer_id=jo.id";
 
-        $select = "SELECT  acr.jo_code, jo.officer_name,acr.year,gd.grade_name,desig.designation_name,c.court_name
-        FROM acr_histories acr LEFT OUTER JOIN judicial_officers jo ON acr.judicial_officer_id=jo.id
-        LEFT OUTER JOIN grade_details gd ON gd.id=acr.grade_id
-        LEFT OUTER JOIN judicial_officer_postings jop ON jop.judicial_officer_id=jo.id
-        LEFT OUTER JOIN courts c ON c.id=jop.court_id
-        LEFT OUTER JOIN designations desig ON desig.id=jop.designation_id";
-
-        // $acr_details['current_posting']= JudicialOfficerPosting::where('judicial_officer_id','=',$judicial_officer)
-        //                                 ->whereNull('to_date')  
-        //                                 ->with('court_complex.zone')
-        //                                 ->get();\
-
-
+        
          // Default WHERE condition
          $where = ' WHERE 1=1 ';
 
           // Default Order By query
-        $orderBy = ' ORDER BY jo.officer_name ';
+        $orderBy = ' ORDER BY year,grade_id,jo.officer_name';
 
         if(!empty($judicial_officer))
-            $where = $where.' AND jo.id ='.$judicial_officer.' AND to_date is NULL';
+            $where = $where.' AND jo.id ='.$judicial_officer;
 
         if(!empty($grade))
-            $where = $where.' AND gd.id ='.$grade;
-
-        if(!empty($jo_code))
-            $where = $where." AND acr.jo_code ilike '%".$jo_code."%'";
-
+            $where = $where.' AND acr.grade_id ='.$grade;
+        
         if(!empty($designation))
-            $where = $where.' AND desig.id ='.$designation;
+            $where = $where.' AND jop.designation_id ='.$designation;
 
         if(!empty($to_assessment_year))
             $where = $where.' AND year BETWEEN '.$from_assessment_year.' AND '.$to_assessment_year;
 
-            return $details=DB::select($select.$where.$orderBy);
+        $jo_code=DB::select($select.$where.$orderBy);
+
+        $columns = array( 
+            0 =>'jo_code', 
+            1 =>'officer_name',
+            2 =>'designation_name',
+            3 =>'court_name',
+            4=>'year',
+            5 =>'grade_name'
+        );
+
+        $data = array();
+        
+        foreach($jo_code as $code)
+        {
+            $grades=DB::select('SELECT grade_name,year 
+            from acr_histories acr inner join grade_details on acr.grade_id=grade_details.id
+            where acr.judicial_officer_id='.$code->judicial_officer_id.' AND year ='.$code->year);
+
+            $nestedData['jo_code']=$code->jo_code;
+
+            $nestedData['officer_name']=$code->officer_name;
+            
+            if($judicial_officer!=""){
+                $nestedData['place_of_posting'] = DB::select('select court_name, from_date from judicial_officer_postings inner join courts
+                on judicial_officer_postings.court_id = courts.id 
+                where judicial_officer_postings.judicial_officer_id='.$code->judicial_officer_id.' order by from_date desc
+                limit 1');
+            }
+            else
+                $nestedData['place_of_posting']="";
+        
+            foreach($grades as $grade)
+            {
+                $nestedData['grade_name']=$grade->grade_name;
+                $nestedData['year']=$grade->year;
+                
+                $designations=DB::select('SELECT from_date,to_date,designation_id,designation_name,court_name from judicial_officer_postings jop 
+                                          inner join designations on jop.designation_id=designations.id
+                                          inner join courts on jop.court_id=courts.id
+                where judicial_officer_id='.$code->judicial_officer_id." AND from_date >= '".$code->year."-01-01' AND from_date <= '".$code->year."-12-31'
+                order by from_date desc");
+            
+            
+                $str=""; 
+                $str1="";               
+                foreach($designations as $key=>$designation)
+                {
+                    $str=$str.' '.$designation->designation_name.'</br></br>';                    
+
+                    $str1=$str1.' '.$designation->court_name.'</br></br>';
+
+                    $nestedData['designation_name']=$str;    
+                    $nestedData['court_name']=$str1;                
+                    
+                }
+               
+            }
+
+            $data[] = $nestedData;
+        }
+        
+        return $data;
     }
 }

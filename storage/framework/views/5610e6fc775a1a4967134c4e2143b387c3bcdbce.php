@@ -64,18 +64,6 @@
       </div>
    </div>
 </div>
-<div class="row">
-   <div id="jo_code-group" class="form-group our-form-group">
-      <!-- IIIIIIIIIII -->
-      <label for="jo_code" class="col-sm-3 col-sm-offset-1 control-label">Jo Code</label>
-      <div class="col-sm-3">
-         <div id="jo_code-group" class="form-group our-form-group">
-            <!-- IIIIIIIIIII -->
-            <input type="text" id="jo_code" class="form-control jo_code"   placeholder="Jo Code">
-         </div>
-      </div>
-   </div>
-</div>
 <div class="form-group required row">
    <div id="from_assessment_year-group" class="form-group our-form-group">
       <label for="from_time_frame" class="col-sm-3 col-sm-offset-1 control-label from_time_frame">From Date</label>
@@ -148,24 +136,27 @@
          </div>
       </div>
       <div id="view_details" class="panel-body" style="display:none;">
-         <div class="row place_of_posting" id="place_of_posting">
+         <div class="row place_of_posting" id="place_of_posting" style="display:none;">
             <span class="col-sm-5 col-sm-offset-4"><strong>Current Place of Posting:</strong>&nbsp;&nbsp;<span id="current_place_of_posting" style="color:yellow"></span></span>
          </div>
          <div class="table-responsive">
-            <table class="table table-bordered table-striped" id="grade_details_result" style="width: 100%;">
-               <thead>
-                  <tr>
-                     <th></th>
-                     <th>Officer Name</th>
-                     <th>JO Code</th>
-                     <th>Designation</th>
-                     <th>Assessment year</th>
-                     <th>Grade</th>
-                  </tr>
-               </thead>
-               <tbody id="tbody">
-               </tbody>
-            </table>
+            <div style="overflow-x:auto;">
+                <table class="table table-bordered table-striped" id="grade_details_result" style="width: 100%;white-space: nowrap;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Officer Name</th>
+                            <th>JO Code</th>
+                            <th>Designation</th>
+                            <th>Court Name</th>
+                            <th>Assessment year</th>
+                            <th>Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                    </tbody>
+                </table>
+            </div>
          </div>
       </div>
    </div>
@@ -211,20 +202,9 @@
    		var judicial_officer= $("#judicial_officer").val();
         var to_assessment_year= $("#to_assessment_year").val();
         var from_assessment_year= $("#from_assessment_year").val();
-        var jo_code=$("#jo_code").val();  
         var grade=$("#grade option:selected").val();
-        var designation=$("#designation option:selected").val();
-   
-        // if(to_assessment_year<=from_assessment_year)
-        // {
-        //     swal("date range is improper","","error");
-        //     $("#to_assessment_year").val('');
-        //     $("#from_assessment_year").val('');
-        //     $("#view_details").hide();
-        // }
-        // else{
-        //     $("#view_details").show();
-        // }
+        var designation=$("#designation option:selected").val();   
+        
    
         $.ajax({
    
@@ -235,35 +215,44 @@
                 judicial_officer:judicial_officer,
                 to_assessment_year: to_assessment_year,
                 from_assessment_year:from_assessment_year,
-                jo_code:jo_code,
                 grade:grade,
                 designation:designation
             },
             success:function(response)
             {                       
-            console.log(response);
-                     
-            var d = new Date();
-                var month = d.getMonth()+1;
-                var day = d.getDate();
-            var current_date = (day<10 ? '0' : '') + day + '-' +
-                    (month<10 ? '0' : '') + month + '-' + 
-                    d.getFullYear() ;
-   
-            var str = "";                       
-            $.each(response, function(key,value){
-                str += "<tr>"+
-                            "<td>"+ (key+1) +"</td>"+
-                            "<td>"+ value.officer_name + "</td>"+
-                            "<td bgcolor=blue><strong>"+ value.jo_code + "</strong></td>"+
-                            "<td>"+ value.designation_name + "</td>"+
-                            "<td>"+ value.year + "</td>"+
-                            "<td>"+ value.grade_name + "</td>"+
-                        "</tr>";
+                console.log(response);
+                        
+                var d = new Date();
+                    var month = d.getMonth()+1;
+                    var day = d.getDate();
+                var current_date = (day<10 ? '0' : '') + day + '-' +
+                        (month<10 ? '0' : '') + month + '-' + 
+                        d.getFullYear() ;
+    
+                var str = "";                       
+                $.each(response, function(key,value){
+                    str += "<tr>"+
+                                "<td>"+ (key+1) +"</td>"+
+                                "<td>"+ value.officer_name + "</td>"+
+                                "<td bgcolor=blue><strong>"+ value.jo_code + "</strong></td>"+
+                                "<td>"+ value.designation_name + "</td>"+
+                                "<td>"+ value.court_name + "</td>"+
+                                "<td>"+ value.year + "</td>"+
+                                "<td>"+ value.grade_name + "</td>"+
+                            "</tr>";
+
+                    if(value.place_of_posting!=""){
+                        $("#current_place_of_posting").html(value.place_of_posting['0'].court_name);
+                        $("#place_of_posting").show();
+                    }
+                    else{
+                        $("#place_of_posting").hide();
+                        $("#current_place_of_posting").html('');
+                    }
             })
    
         
-            $("#current_place_of_posting").html(response[0].court_name);
+            // $("#current_place_of_posting").html(response[0].court_name);
         
             $("#tbody").html(str);
             $(".table").DataTable({
@@ -274,7 +263,7 @@
                         orientation: 'portrait',
                         pageSize: 'LEGAL',
                         title: 'Calcutta High Court',
-                        messageTop: 'ACR Grade History Details',
+                        messageTop: 'ACR Grade History Details \n Current Place of Posting: '+$("#current_place_of_posting").html(),
                         messageBottom: 'Printed On '+current_date,
                         customize: function(doc) {                                
                             doc.content[1].margin = [ 210, 0, 0, 20 ] //left, top, right, bottom   
