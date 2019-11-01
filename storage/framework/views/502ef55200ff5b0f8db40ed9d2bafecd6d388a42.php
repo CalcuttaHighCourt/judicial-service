@@ -44,32 +44,20 @@
                             <label for="year" class="col-sm-3 col-sm-offset-1 control-label">Year of Assessment</label>
                             <label for="grade" class="col-sm-3 col-sm-offset-1 control-label">Grade</label>
                     </div>
-                    <div id="year_of_assessment-group" class="form-group our-form-group div_add_more ">
+                    <div id="div_add_more-group" class="form-group our-form-group div_add_more ">
                         <div class="col-sm-3  col-sm-offset-1">
-                            <input id="year_of_assessment" type="text"
-                                class="form-control info-form-control year_of_assessment date" name="year_of_assessment"> <span
-                                id="year_of_assessment-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-                                <strong id="year_of_assessment-strong" class="our-error-message-strong"></strong>
-                                <!-- IIIIIIIIIII -->
-                            </span>
-                            <?php $__env->startSection('end_scripts_1'); ?>
-                            <script type="text/javascript">
-                            $(function(){
-                                $(".date").datepicker({
-                                    format: 'yyyy',
-                                    showTodayButton:true,
-                                    showClear:true,
-                                    viewMode: "years", 
-                                    minViewMode: "years"
-                                });
-                            
-                            });
-                            </script>
-                            <?php $__env->stopSection(); ?>
+                            <div id="div_add_more-group" class="form-group our-form-group">
+                            <!-- IIIIIIIIIII -->
+                                <select id="assessment_year" class="form-control select2 info-form-control assessment_year"
+                                        name="assessment_year"> 
+                                        <option value="">Select Assessment Year</option>
+                                       
+                                </select>
+                            </div>
                         </div>
                         <div class="col-sm-3 col-sm-offset-1 form-group our-form-group" id="grades-group">
                         
-                            <select id="grade_id" class="form-control info-form-control grades" name="grades"> 
+                            <select id="grade_id" class="form-control select2 info-form-control grades" name="grades"> 
                                     <option value="">Select ACR Grade</option>
                                     <?php echo $__env->make('acr.grade_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                             </select>
@@ -156,7 +144,7 @@
 <script>
 		$(document).ready(function() {
 
-		/*LOADER*/
+		/*LOADER :: START*/
 
 			$(document).ajaxStart(function() {
                     $("#wait").css("display", "block");
@@ -165,19 +153,55 @@
                     $("#wait").css("display", "none");
                 });
 
-            /*LOADER*/
+        /*LOADER :: END*/
 
-            /* select2 initialisation */
+         var div_clone = $(".div_add_more:first").clone();
+
+        /* select2 initialisation :: START*/
 
             $(".select2").select2(); 
-				
+
+		
+
 			$(document).on("click","#add-button",function(){
 				var jo_name= $("#jo_name").val();
             });
 
-            /*Cloning of Year and Grades */
+        /* select2 initialisation :: END*/
 
-            var div_clone = $(".div_add_more:first").clone();
+        /* Populate year of assessment :: START*/
+
+            $(document).on("change","#judicial_officer",function(){
+
+                var judicial_id=$("#judicial_officer").val();
+
+                $.ajax({
+                    type:"POST",
+                    url:"populate_assessment_year/history",
+                    data:{
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        judicial_id:judicial_id,
+                    },
+                    success:function(response)
+                    {
+                        console.log(response);
+                        $('.assessment_year').children('option:not(:first)').remove();
+                        var i;                        
+                        for(i=response[0].max_to_date;i>=response[0].min_from_date;i--){
+                            $('.assessment_year').append($('<option>').val(i).text(i))
+                        }
+
+                    }
+                    
+
+                });
+            });
+
+        /* Populate year of assessment :: END*/
+
+        /*Cloning of Year and Grades :: START*/
+
+           
 
             $(document).on("click","#add-new-button", function(){
 
@@ -189,21 +213,21 @@
                 $(".remove").text("Remove");
                
                 $(".year_of_assessment:last").val('');
-                $(".date").datepicker({
-                    format: 'yyyy',
-                    showTodayButton:true,
-                    showClear:true,
-                    viewMode: "years", 
-                    minViewMode: "years"
-                }); // Date picker re-initialization
+                 
+                div_clone.find(".select2").select2();
+                div_clone.find(".assessment_year").css("width","300px")//re-initialization
+                div_clone.append( clone );
 			});  
 
+        /*Cloning of Year and Grades :: END */
             
-        /*If multiple grades and year of assessment one wants to enter and want to remove one :: STARTS*/
+        /*If multiple grades and year of assessment one wants to enter and want to remove one :: START*/
+
             $(document).on("click",".remove", function(){
                 $(this).closest(".div_add_more").remove();
             });     
-		
+		/*If multiple grades and year of assessment one wants to enter and want to remove one :: END*/
+
         $(document).on("click","#submit", function(){
 
 
@@ -257,7 +281,7 @@
         });
         $(document).on("click","#reset", function(){
             $(".grades").val(" ");
-            $(".judicial_officer").val(" ");
+            $("#judicial_officer").val("").trigger("change");
             $(".year_of_assessment").val(" ");
         
         });

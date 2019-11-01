@@ -171,6 +171,8 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	Route::Post('acr_history/store', 'ACRController@acr_history_save' );
 
+	Route::Post('populate_assessment_year/history','ACRController@officerwise_assessment_year');
+
 	/*ACR Serach*/
 
 	Route::get ( 'acr_fetch', function () {

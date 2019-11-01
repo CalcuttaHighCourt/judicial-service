@@ -264,14 +264,47 @@
                         extend: 'pdfHtml5',
                         orientation: 'portrait',
                         pageSize: 'LEGAL',
+                        exportOptions: {
+                                columns: ':visible',
+                                stripNewlines: false
+                            },
                         title: 'Calcutta High Court',
-                        messageTop: 'ACR Grade History Details \n Current Place of Posting: '+$("#current_place_of_posting").html(),
-                        messageBottom: 'Printed On '+current_date,
-                        customize: function(doc) {                                
-                            doc.content[1].margin = [ 210, 0, 0, 20 ] //left, top, right, bottom   
-                            doc.content[2].margin = [ 50, 0, 0, 20 ] //left, top, right, bottom                                    
+                        messageTop: function () {
+                    
+                          var  current_posting=$("#current_place_of_posting").html();
+                                if ( current_posting =="") {
+                                    return 'ACR Grade History Details';
+                                }
+                                else {
+                                    return 'ACR Grade History Details \n Current Place of Posting: '+$("#current_place_of_posting").html();
+                                }
+                            },
+                            messageBottom: 'Printed On '+current_date,
+                            customize: function(doc) {                                
+                                doc.content[1].margin = [ 210, 0, 0, 20 ] //left, top, right, bottom   
+                                //doc.content[2].margin = [ 50, 0, 0, 20 ] //left, top, right, bottom                                    
                         }
-                    }
+                    },
+                    {
+                            extend: 'excelHtml5',
+                            exportOptions: {
+                                columns: ':visible',
+                                stripNewlines: false
+                            },
+                            title: 'Calcutta High Court',
+                            messageTop: function () {
+                    
+                                var  current_posting=$("#current_place_of_posting").html();
+
+                                    if ( current_posting =="") {
+                                        return 'ACR Grade History Details';
+                                    }
+                                    else {
+                                        return 'ACR Grade History Details \n Current Place of Posting: '+$("#current_place_of_posting").html();
+                                    }
+                                },
+                            messageBottom: 'Printed On '+current_date
+                        },
                 ]
             });
    

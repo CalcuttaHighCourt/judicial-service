@@ -136,9 +136,9 @@ class ACRController extends Controller
                 $str1="";               
                 foreach($designations as $key=>$designation)
                 {
-                    $str=$str.' '.$designation->designation_name.'</br></br>';                    
+                    $str=$str." ".$designation->designation_name."</br></br> \n\n ";                    
 
-                    $str1=$str1.' '.$designation->court_name.'</br></br>';
+                    $str1=$str1." ".$designation->court_name."</br></br> \n\n";
 
                     $nestedData['designation_name']=$str;    
                     $nestedData['court_name']=$str1;                
@@ -151,5 +151,29 @@ class ACRController extends Controller
         }
         
         return $data;
+    }
+
+    public function officerwise_assessment_year(Request $request){
+
+        $data= array();
+
+        $judicial_id=$request->input('judicial_id');
+
+        $check_retirement = DB::select('select count(*) as count from judicial_officer_postings where to_date is null and judicial_officer_id='. $judicial_id);
+
+        if($check_retirement['0']->count>0){ // not retired
+            $year_range= DB::select('SELECT MAX(to_date) as max_to_date, MIN(from_date)  as min_from_date from judicial_officer_postings where judicial_officer_id='. $judicial_id);
+            
+            $year_range['0']->max_to_date = date('Y');
+            $year_range['0']->min_from_date = date('Y',strtotime($year_range['0']->min_from_date));
+        }
+        else{ // retired
+            $year_range= DB::select('SELECT MAX(to_date) as max_to_date, MIN(from_date)  as min_from_date from judicial_officer_postings where judicial_officer_id='. $judicial_id);
+            
+            $year_range['0']->max_to_date = date('Y',strtotime($year_range['0']->max_to_date));
+            $year_range['0']->min_from_date = date('Y',strtotime($year_range['0']->min_from_date));
+        }
+
+        return $year_range;
     }
 }
