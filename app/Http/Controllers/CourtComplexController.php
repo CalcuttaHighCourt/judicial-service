@@ -55,8 +55,11 @@ class CourtComplexController extends Controller
 
             $filtered = CourtComplex::where('court_complex_name', 'ilike', '%'.$search.'%')
                                 ->orWhere('district_name', 'ilike', '%'.$search.'%')
-                                ->join('court_complexes', 'court_complexes.district_id', '=', 'districts.id')
-                                ->select('court_complexes.*', 'districts.district_name as district_name');
+                                ->leftjoin('districts', 'court_complexes.district_id', '=', 'districts.id')
+                                ->leftjoin('subdivisions', 'districts.id', '=', 'subdivisions.district_id')
+                                ->leftjoin('zones', 'court_complexes.zone_id', '=', 'zones.id')
+                                ->select('court_complexes.*', 'districts.district_name as district_name', 'zones.zone_name as zone_name','subdivisions.subdivision_name as subdivision_name');
+
 
             $records_filtered_count = $filtered->count();
 
@@ -72,14 +75,14 @@ class CourtComplexController extends Controller
                 "draw" => $draw,
                 "recordsTotal" => $records_total,
                 "recordsFiltered" => $records_filtered_count,
-                "courts" => $page_displayed,
+                "court_complexes" => $page_displayed,
             );
         } catch (\Exception $e) {
             $response = array(
                 "draw" => $draw,
                 "recordsTotal" => $records_total,
                 "recordsFiltered" => 0,
-                "courts" => [],
+                "court_complexes" => [],
             );
         } finally {
             return response()->json($response, $statusCode);

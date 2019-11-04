@@ -37,13 +37,13 @@
         <div class="tab-content clearfix">
             <div class="tab-pan" id="postings">
             <!-- New Task Form -->
-                <div class="col-sm-offset-1 col-sm-11">
+                <div id="content" class="col-sm-offset-1 col-sm-11 content">
                     <br><br>
                     <input type="hidden" id="JudicialOfficerPostingPreference-id">
                     
                         <div id="officer_name-group" class="form-group row our-form-group">
                             <label for="officer_name" class="col-sm-offset-1 col-sm-4 ">Officer Name: <?php echo e(Auth::user()->name); ?></label>
-                            <label for="jo_code" id="jo_code" class="col-sm-offset-1 col-sm-4">Code: </label>
+                          
                         </div>
                         <div id="zone-group" class="form-group row our-form-group">
 
@@ -71,7 +71,32 @@
                         </div>
                     </div>
                 </div>
+    <div id="datatable-panel table_content" class="panel panel-default" style="display:none;">
+        <div id="datatable-panel-heading" class="panel-heading clearfix">
+            <div class="panel-title pull-left">Zone Preference Details</div>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped zone_pref_details-table"
+                    id="datatable-table" style="width: 100%;">
+
+                    <!-- Table Headings -->
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Zone Name</th>
+                            <th>Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <!-- Table Footer -->
+                   
+                </table>
             </div>
+        </div>
+    </div>
+</div>
             <br><br>
             <div class="tab-pan" id="daily_diary" style="display:none;">     
                 <div class="col-sm-offset-1 col-sm-11">
@@ -160,6 +185,49 @@
             });
 
          /*LOADER*/
+
+         /*Datatable initialisation */
+
+        //  table = $('#datatable-table').DataTable({
+        //     "processing": true,
+        //     "serverSide": true,
+        //     "ajax": {
+        //         url: "zone_pref_details/table_show",
+        //         dataSrc: "judicial_officer_posting_preferences"
+        //     },
+
+        //     "columnDefs":
+        //             [
+        //                 {className: "table-text", "targets": "_all"},
+                       
+        //                 {
+        //                     "targets": -2,
+        //                     "data": null,
+        //                     "searchable": false,
+        //                     "sortable": false,
+        //                     "defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i> Edit</button>',
+        //                 },
+        //              ],
+        //     "columns":
+        //             [
+        //                 {
+        //                     "data": null,
+        //                     "defaultContent": "",
+        //                     "searchable": false,
+        //                     "orderable": false,
+        //                 },
+        //                 {
+        //                     "data": "zone_name",
+        //                 },
+        //                 {
+        //                     "data": "date",
+        //                 },
+        //                 {
+        //                     "data": null
+        //                 },
+        //             ],
+        //     "order": [[1, 'asc']]
+        // });
 
          /*date initialization:start */
 
@@ -307,6 +375,10 @@
 
     $(document).on("click","#submit",function(){
 
+        
+
+   
+
         var pref=$("#posting_pref").val();
         var pref_name=$("#posting_pref option:selected").text();        
 
@@ -347,7 +419,7 @@
                                 pref:pref
                             },                                                          
                             success:function(response){
-                                                                 
+                                   console.log(response);                              
                                 swal("Preference Added Successfully","Successful","success");
                                 
 
@@ -360,7 +432,8 @@
                             });//Add dept using ajax : end
                             
                     }//end of swal if(willApprove)
-
+                    $("#postings").hide();
+                    $("#table_content").show();
                 })//permission to save given verification           
 
 

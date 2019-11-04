@@ -280,7 +280,7 @@
                             messageBottom: 'Printed On '+current_date,
                             customize: function(doc) {                                
                                 doc.content[1].margin = [ 210, 0, 0, 20 ] //left, top, right, bottom   
-                                //doc.content[2].margin = [ 50, 0, 0, 20 ] //left, top, right, bottom                                    
+                                doc.content[3].margin = [ 0, 50, 0, 20 ] //left, top, right, bottom                                    
                         }
                     },
                     {

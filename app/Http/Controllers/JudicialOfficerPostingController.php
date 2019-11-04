@@ -226,7 +226,7 @@ class JudicialOfficerPostingController extends Controller {
                                                     ->first();
 
 
-       $zone_pref_details['just_prev_zone']= JudicialOfficerPosting:: join('court_complexes as cc','cc.id','=','judicial_officer_postings.court_complex_id')
+        $zone_pref_details['just_prev_zone']= JudicialOfficerPosting:: join('court_complexes as cc','cc.id','=','judicial_officer_postings.court_complex_id')
                                                     ->join('zones','zones.id','=','cc.zone_id')
                                                     ->where([
                                                                 ['judicial_officer_postings.judicial_officer_id',$id],
@@ -236,6 +236,8 @@ class JudicialOfficerPostingController extends Controller {
                                                     ->select('zones.zone_name as zone_name','zones.id as zone_id')
                                                     ->first();
 
+       
+        // $zone_pref_details['jo_code']= JudicialOfficer::where('id',$id)->select('jo_code');
           
 
         $count= JudicialOfficerPosting:: join('court_complexes as cc','cc.id','=','judicial_officer_postings.court_complex_id')
@@ -296,6 +298,8 @@ class JudicialOfficerPostingController extends Controller {
                                                     ->orderBy('zone_name')
                                                     ->get();
         }
+
+       
         
 
 // print_r( $zone_pref_details);exit;

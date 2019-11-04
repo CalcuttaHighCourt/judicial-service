@@ -25,13 +25,13 @@
                             Court Master
                         </a>
                     </li>
-                    <!-- <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="<?php echo e(url('court_complex')); ?>">
                             <span data-feather="home"></span>
                             <i class="fa fa-gavel" aria-hidden="true"></i>
                             Court Complex Master
                         </a>
-                    </li> -->
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo e(url('subdivision')); ?>">
                             <span data-feather="file"></span>

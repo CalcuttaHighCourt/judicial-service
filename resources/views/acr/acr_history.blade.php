@@ -50,7 +50,7 @@
                         <div class="col-sm-3  col-sm-offset-1">
                             <div id="assessment_year-group" class="form-group our-form-group">
                             <!-- IIIIIIIIIII -->
-                                <select id="assessment_year" class="form-control select2 info-form-control assessment_year"
+                                <select id="assessment_year" class="form-control info-form-control assessment_year"
                                         name="assessment_year"> 
                                         <option value="">Select Assessment Year</option>
                                        
@@ -59,7 +59,7 @@
                         </div>
                         <div class="col-sm-3 col-sm-offset-1 form-group our-form-group" id="grades-group">
                         
-                            <select id="grade_id" class="form-control select2 info-form-control grades" name="grades"> 
+                            <select id="grade_id" class="form-control info-form-control grades" name="grades"> 
                                     <option value="">Select ACR Grade</option>
                                     @include('acr.grade_options')
                             </select>
@@ -157,7 +157,7 @@
 
         /*LOADER :: END*/
 
-         var div_clone = $(".div_add_more:first").clone();
+         //var div_clone = $(".div_add_more:first").clone();
 
         /* select2 initialisation :: START*/
 
@@ -176,6 +176,7 @@
             $(document).on("change","#judicial_officer",function(){
 
                 var judicial_id=$("#judicial_officer").val();
+                $(".grades").val(" ");
 
                 $.ajax({
                     type:"POST",
@@ -207,18 +208,20 @@
 
             $(document).on("click","#add-new-button", function(){
 
-                 div_clone.clone().insertAfter(".div_add_more:last");   
+                 $("#judicial_officer").attr('disabled',true);
+
+                 $(".div_add_more:first").clone().insertAfter(".div_add_more:last");   
                
                 $(".add-new-button:last").attr({
                                         class:"btn btn-danger remove fa fa-minus-circle", 
 										id:""});
                 $(".remove").text("Remove");
                
-                $(".year_of_assessment:last").val('');
+                $(".assessment_year:last").val('');
                  
-                div_clone.find(".select2").select2();
-                div_clone.find(".assessment_year").css("width","300px")//re-initialization
-                div_clone.append( clone );
+                //div_clone.find(".select2").select2();
+                //div_clone.find(".assessment_year").css("width","300px")//re-initialization
+                //div_clone.append( clone );
 			});  
 
         /*Cloning of Year and Grades :: END */
@@ -246,7 +249,7 @@
             })
 
             year_of_assessment=[];
-            $(".year_of_assessment").each(function(){
+            $(".assessment_year").each(function(){
             year_of_assessment.push($(this).val());
             })
 
@@ -284,7 +287,7 @@
         $(document).on("click","#reset", function(){
             $(".grades").val(" ");
             $("#judicial_officer").val("").trigger("change");
-            $(".year_of_assessment").val(" ");
+            $(".assessment_year").val(" ").trigger("change");
         
         });
 

@@ -225,7 +225,7 @@
                             "data": "zone_name",
                         },
                         {
-                            "data": "Subdivision",
+                            "data": "subdivision_name",
                         },
                         {
                             "data": null
