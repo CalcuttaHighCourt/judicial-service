@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class JudicialOfficerPostingPreference extends Model
 {
     protected $fillable = [
-        'judicial_officer_id','zone_id','notice_no','notice_date','created_by'
+        'judicial_officer_id','zone_id','remarks','created_by'
     ];
 
     public $timestamps = true;

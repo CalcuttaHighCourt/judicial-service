@@ -1,0 +1,1 @@
+﻿select * from judicial_officer_posting_preferences jopp join zones zone on zone.id=jopp.zone_id where jopp.judicial_officer_id=14

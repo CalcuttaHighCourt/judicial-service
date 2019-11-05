@@ -82,6 +82,7 @@ class JudicialOfficerPostingPreferenceController extends Controller
 
             $page_displayed = $ordered->get()->slice($offset, $length, true)->values();
 
+           
             $response = array(
                 "draw" => $draw,
                 "recordsTotal" => $records_total,
@@ -104,68 +105,134 @@ class JudicialOfficerPostingPreferenceController extends Controller
 /*Show the zone prefernce details in datatable:start */
 
 
-public function zone_pref_table_content(Request $request)
-{
-    $columns = array( 
-        0 =>'ID', 
-        1 =>'ZONE NAME',
-        2 =>'DATE',
-        3 =>'ACTION'
-    );
+// public function zone_pref_table_content(Request $request)
+// {
+//     $columns = array( 
+//         0 =>'ID', 
+//         1 =>'ZONE NAME',
+//         2 =>'DATE',
+//         3 =>'ACTION'
+//     );
 
-    $totalData = JudicialOfficerPostingPreference::count();
+//     $totalData = JudicialOfficerPostingPreference::count();
 
-    $totalFiltered = $totalData; 
+//     $totalFiltered = $totalData; 
 
-    $officer_id= Auth::user()->id;
+//     $officer_id= Auth::user()->id;
 
-    $limit = $request->input('length');
-    $start = $request->input('start');
-    $order = $columns[$request->input('order.0.column')];
-    $dir = $request->input('order.0.dir');
+//     $limit = $request->input('length');
+//     $start = $request->input('start');
+//     $order = $columns[$request->input('order.0.column')];
+//     $dir = $request->input('order.0.dir');
 
-    if(empty($request->input('search.value'))){
-        $preferences = JudicialOfficerPostingPreference::join('zones','zones.id','=','judicial_officer_posting_preferneces.zone_id')
-                                    ->where('judicial_officer','=',$officer_id)
-                                    ->offset($start)
-                                    ->limit($limit)
-                                    ->get();
-        $totalFiltered = JudicialOfficerPostingPreference::join('zones','zones.id','=','judicial_officer_posting_preferneces.zone_id')
-                        ->count();
-    }
-    else{
-        $search = $request->input('search.value');
-        $preferences = JudicialOfficerPostingPreference::join('zones','zones.id','=','judicial_officer_posting_preferneces.zone_id')
-                    ->where('zone_name','ilike',"%{$search}%")
-                    ->offset($start)
-                    ->limit($limit)
-                    ->get();
-        $totalFiltered = JudicialOfficerPostingPreference::join('zones','zones.id','=','judicial_officer_posting_preferneces.zone_id')
-                        ->where('zone_name','ilike',"%{$search}%")
-                        ->count();
+//     if(empty($request->input('search.value'))){
+//         $preferences = JudicialOfficerPostingPreference::join('zones','zones.id','=','judicial_officer_posting_preferneces.zone_id')
+//                                     ->where('judicial_officer_id','=',$officer_id)
+//                                     ->offset($start)
+//                                     ->limit($limit)
+//                                     ->get();
+//         $totalFiltered = JudicialOfficerPostingPreference::join('zones','zones.id','=','judicial_officer_posting_preferneces.zone_id')
+//                         ->count();
+//     }
+//     else{
+//         $search = $request->input('search.value');
+//         $preferences = JudicialOfficerPostingPreference::join('zones','zones.id','=','judicial_officer_posting_preferneces.zone_id')
+//                     ->where('zone_name','ilike',"%{$search}%")
+//                     ->offset($start)
+//                     ->limit($limit)
+//                     ->get();
+//         $totalFiltered = JudicialOfficerPostingPreference::join('zones','zones.id','=','judicial_officer_posting_preferneces.zone_id')
+//                         ->where('zone_name','ilike',"%{$search}%")
+//                         ->count();
+//         }
+
+//         $data = array();
+
+//         if($preferences){
+//             foreach($preferences as $preference){
+//                 $nestedData['ID'] = $preferences->id;
+//                 $nestedData['ZONE NAME'] = $preference->zone_name;
+//                 $nestedData['DATE'] = $preference->created_by;
+//                 $nestedData['ACTION'] = "<i class='fa fa-trash' aria-hidden='true'></i>";
+
+//                 $data[] = $nestedData;
+//             }
+//                 $json_data = array(
+//                     "draw" => intval($request->input('draw')),
+//                     "recordsTotal" => intval($totalData),
+//                     "recordsFiltered" =>intval($totalFiltered),
+//                     "data" => $data
+//                 );
+        
+//                 echo json_encode($json_data);
+//             }
+
+// }
+
+
+public function zone_pref_table_content(Request $request) {
+    $response = [];
+    $statusCode = 200;
+    $judicial_officer_posting_preference = array();
+
+    try {
+        $draw = 1;
+        $records_total = 0;
+        $officer_id= Auth::user()->id;
+
+        $judicial_officer_posting_preference = JudicialOfficerPostingPreference::all();
+        $records_total = $judicial_officer_posting_preference->count();
+
+        $draw = $request->draw;
+        $offset = $request->start;
+        $length = $request->length;
+        $search = $request->search["value"];
+
+        $order = $request->order;
+
+        $filtered = JudicialOfficerPostingPreference::join('zones', 'judicial_officer_posting_preferences.zone_id', '=', 'zones.id')
+                                                    ->where('judicial_officer_id','=',$officer_id)
+                                                    ->select('judicial_officer_posting_preferences.*', 'zones.zone_name');
+       
+        $records_filtered_count = $filtered->count();
+
+
+
+        $ordered = $filtered;
+
+        for ($i = 0; $i < count($order); $i++) {
+            $ordered = $ordered->orderBy($request->columns[$order[$i]['column']]['data'], strtoupper($order[$i]['dir']));
         }
 
-        $data = array();
+        $page_displayed = $ordered->get()->slice($offset, $length, true)->values();
 
-        if($preferences){
-            foreach($preferences as $preference){
-                $nestedData['ID'] = $preferences->id;
-                $nestedData['ZONE NAME'] = $preference->zone_name;
-                $nestedData['DATE'] = $preference->created_by;
-                $nestedData['ACTION'] = "<i class='fa fa-trash' aria-hidden='true'></i>";
+        //print_r($page_displayed['0']['id']);
 
-                $data[] = $nestedData;
+        foreach($page_displayed as $page){
+            //$page['created_at']=date('d-m-Y',strtotime($page['created_at']));
+            if($page['remarks']==""){
+                $page['remarks']='Not Mentioned';
             }
-                $json_data = array(
-                    "draw" => intval($request->input('draw')),
-                    "recordsTotal" => intval($totalData),
-                    "recordsFiltered" =>intval($totalFiltered),
-                    "data" => $data
-                );
-        
-                echo json_encode($json_data);
-            }
+        }
 
+
+        $response = array(
+            "draw" => $draw,
+            "recordsTotal" => $records_total,
+            "recordsFiltered" => $records_filtered_count,
+            "judicial_officer_posting_preferences" => $page_displayed,
+        );
+    } catch (\Exception $e) {
+        $response = array(
+            "draw" => $draw,
+            "recordsTotal" => $records_total,
+            "recordsFiltered" => 0,
+            "judicial_officer_posting_preferences" => [],
+        );
+    } finally {
+        return response()->json($response, $statusCode);
+    }
+  
 }
 
 /*Show the zone prefernce details in datatable:end */
@@ -179,13 +246,7 @@ public function zone_pref_table_content(Request $request)
         $judicial_officer_posting_preference = null;
         $request['created_by'] = Auth::user()->id;
 
-        // $this->validate($request, [
-        //     'judicial_officer_id' => array('required', 'exists:judicial_officers,id'),
-        //     'zone_id' => array('required', 'exists:zones,id'),
-        //     'notice_no' => array('required'),
-        //     'notice_date' => array('required', 'date'),
-        //     'created_by' => array('required', 'exists:users,id'),
-        // ]);
+      
 
         $this->validate($request, [          
             'pref.*'=>array('required','exists:zones,id')
@@ -193,15 +254,7 @@ public function zone_pref_table_content(Request $request)
 
 
         try {
-            
-            
-            // $request['created_by'] = Auth::user()->id;
-            // $judicial_officer_posting_preference = JudicialOfficerPostingPreference::create($request->all());
-            // $response = array(
-            //     'judicial_officer_posting_preference' => $judicial_officer_posting_preference
-            // );
-
-
+         
             $pref=array();
             $pref=  $request->input('pref');
             $request['judicial_officer_id']= Auth::user()->id;

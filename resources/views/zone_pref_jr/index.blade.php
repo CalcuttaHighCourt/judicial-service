@@ -64,7 +64,11 @@
                             @include('zones.zone_options')
                             </select>
                         </div>
-                            
+                        <div class="col-sm-3">
+                             <label for="remarks">Remarks</label>
+                            <textarea class="form-control" rows="3" id="remarks"></textarea>
+                        </div>
+                                                     
                         <div class="col-sm-offset-1 col-sm-2">
                             <br>
                             <button id="submit" type="button"
@@ -74,32 +78,36 @@
                         </div>
                     </div>
                 </div>
-    <div id="datatable-panel table_content" class="panel panel-default" style="display:none;">
-        <div id="datatable-panel-heading" class="panel-heading clearfix">
-            <div class="panel-title pull-left">Zone Preference Details</div>
-        </div>
-        <div class="panel-body">
-            <div class="table-responsive">
-                <table class="table table-striped zone_pref_details-table"
-                    id="datatable-table" style="width: 100%;">
-
-                    <!-- Table Headings -->
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Zone Name</th>
-                            <th>Date</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                    <!-- Table Footer -->
-                   
-                </table>
             </div>
-        </div>
-    </div>
-</div>
+          
+           <div id="datatable-panel" class="panel panel-default">
+		        <div id="datatable-panel-heading" class="panel-heading clearfix">
+                <hr>
+            <hr>
+			        <div class="panel-title pull-left">Zone Preference Details</div>
+			    </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped zone_pref_content-table"
+                        id="datatable-table" style="width: 100%;">
+
+                        <!-- Table Headings -->
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Zone Name</th>
+                                <th>Date</th>						
+                                <th>Remarks</th>							
+                                <th>Action</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+    	</div>
+ 
             <br><br>
             <div class="tab-pan" id="daily_diary" style="display:none;">     
                 <div class="col-sm-offset-1 col-sm-11">
@@ -191,48 +199,112 @@
 
          /*Datatable initialisation */
 
-        //  table = $('#datatable-table').DataTable({
-        //     "processing": true,
-        //     "serverSide": true,
-        //     "ajax": {
-        //         url: "zone_pref_details/table_show",
-        //         dataSrc: "judicial_officer_posting_preferences"
-        //     },
+        var table="";
+        $(function() {
+         
+         table = $('#datatable-table').DataTable({
+            
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                type:"post",
+                url: "zone_pref_details/table_show",
+                dataSrc: "judicial_officer_posting_preferences"
+            },
 
-        //     "columnDefs":
-        //             [
-        //                 {className: "table-text", "targets": "_all"},
+            "columnDefs":
+                    [
+                        {className: "table-text", "targets": "_all"},
                        
-        //                 {
-        //                     "targets": -2,
-        //                     "data": null,
-        //                     "searchable": false,
-        //                     "sortable": false,
-        //                     "defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i> Edit</button>',
-        //                 },
-        //              ],
-        //     "columns":
-        //             [
-        //                 {
-        //                     "data": null,
-        //                     "defaultContent": "",
-        //                     "searchable": false,
-        //                     "orderable": false,
-        //                 },
-        //                 {
-        //                     "data": "zone_name",
-        //                 },
-        //                 {
-        //                     "data": "date",
-        //                 },
-        //                 {
-        //                     "data": null
-        //                 },
-        //             ],
-        //     "order": [[1, 'asc']]
-        // });
+                        {
+                            "targets": -1,
+                            "data": null,
+                            "searchable": false,
+                            "sortable": false,
+                            "defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i> </button>',
+                        }
+                       
+                     ],
+            "columns":
+                    [
+                        {
+                            "data": null,
+                            "defaultContent": "",
+                            "searchable": false,
+                            "orderable": false,
+                        },
+                        
+                        {
+                            "data": "zone_name",
+                        },
+                        {
+                            "data": "created_at",
+                        },
+                        {
+                            "data": "remarks",
+                        },
+                        {
+                            "data": "",
+                        },
+                        
+                    ],
+            "order": [[2, 'desc']]
+                });
+                table.on( 'draw.dt', function () {
+                
+                    $('.edit-button').click(function(){
+                        var data = table.row( $(this).parents('tr') ).data();
+                        view_data( data );
+                        show_button("close");
+                        show_button("save");
+                        make_active_button("save");
+                        //scrollToElement($('#info-panel'));
 
-         /*date initialization:start */
+                        $("#file_prefix").attr("readonly","readonly");
+                    });
+                    
+	            });
+            });
+            function view_data(data){
+                clear_form(true);
+                populate_form(data);
+            }
+            function populate_form(data){
+	
+
+	$("#judicial_officer_id").val(data.id);
+	
+	$("#officer_name").val(data.officer_name);
+
+	$("#guardian_name").val(data.guardian_name);
+
+	
+}
+            function make_active_button(type){
+                $("#"+type+"-button").addClass("active");
+            }
+            function make_form_readonly(make_readonly){
+                if(make_readonly){
+                    $('#info-form input').attr('readonly', 'readonly');
+                    $('#info-form textarea').attr('readonly', 'readonly');
+                    $('#info-form select').attr('readonly', 'readonly');
+                }
+                else{
+                    $('#info-form input').removeAttr('readonly');
+                    $('#info-form textarea').removeAttr('readonly');
+                    $('#info-form select').removeAttr('readonly');
+                }
+            }
+            function show_button(type){
+                $("#"+type+"-button").show();
+                $("#"+type+"-button").removeAttr("disabled");
+                
+                $("#info-panel-buttons").removeClass("hide");
+                //$("#"+type+"-button").removeClass("disabled");
+            }
+        /*datatable for preference ends  */
+
+        /*date initialization:start */
 
         	$(".diary_date").datepicker({
                 endDate:'0',
@@ -383,7 +455,8 @@
    
 
         var pref=$("#posting_pref").val();
-        var pref_name=$("#posting_pref option:selected").text();        
+        var pref_name=$("#posting_pref option:selected").text(); 
+        var remarks=$("#remarks").val();       
 
         if(pref==null)
         {
@@ -395,6 +468,7 @@
             swal("Please Select Minimum 2 preferences","","error");
             return false;
         }
+        
         else
         {
             var str="";
@@ -419,7 +493,8 @@
                             url:"zone_pref/submit",
                             data:{
                                 _token: $('meta[name="csrf-token"]').attr('content'),
-                                pref:pref
+                                pref:pref,
+                                remarks:remarks
                             },                                                          
                             success:function(response){
                                    console.log(response);                              
@@ -435,7 +510,7 @@
                             });//Add dept using ajax : end
                             
                     }//end of swal if(willApprove)
-                    $("#postings").hide();
+                    $("#content").hide();
                     $("#table_content").show();
                 })//permission to save given verification           
 
