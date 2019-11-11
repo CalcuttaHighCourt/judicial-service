@@ -31,7 +31,7 @@
 				<div id="District_name-group" class="form-group row our-form-group">
 					<label for="District_name" class="col-md-4 control-label">District</label>
 					<div class="col-md-6">
-						<select id="district" class="form-control info-form-control"
+						<select id="district_id" class="form-control info-form-control"
 								name="district"> <?php echo $__env->make('districts.district_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 						</select>
 					</div>
@@ -346,7 +346,7 @@ function populate_form(data){
 	$("#info-panel-heading").html("Displaying record of Subdivision: <strong>"+data.type+"</strong>");
 
 	$("#Subdivision-id").val(data.id);
-	$("#district").val(data.district_id);
+	$("#district_id").val(data.district_id);
 	
 	$("#subdivision_name").val(data.subdivision_name);
 }
@@ -389,6 +389,7 @@ function send_ajax_and_set_errors_exceptions_success(type){
        
 
 		formData["subdivision_name"]=$("#subdivision_name").val();
+		formData["district_id"]=$("#district_id").val()
 
 		operation="add";
 		operated="added";
@@ -400,7 +401,7 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		ajax_url="<?php echo e(action('SubdivisionController@update','')); ?>"+"/"+$("#Subdivision-id").val();
 		formData["id"]=$("#Subdivision-id").val();
 		formData["subdivision_name"]=$("#subdivision_name").val();
-		formData["disrtict_id"]=$("#district").val();
+		formData["disrtict_id"]=$("#district_id option:selected").val();
 		operation="update";
 		operated="updated";
 	}

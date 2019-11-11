@@ -117,8 +117,9 @@ class SubdivisionController extends Controller
             $district = null;
 
             $this->validate ( $request, [ 
-                    'subdivision_name' => array('required','max:75','regex:/^[\pL\d\s]+$/u','unique:subdivisions,subdivision_name') 
-            ] );
+                    'subdivision_name' => array('required','max:75','regex:/^[\pL\d\s]+$/u') ,
+                    'district_id' => array('required')
+                    ] );
 
             try {
                 $request['created_by'] = Auth::user()->id;

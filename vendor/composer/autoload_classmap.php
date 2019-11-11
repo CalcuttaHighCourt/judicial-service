@@ -80,6 +80,7 @@ return array(
     'App\\User' => $baseDir . '/app/User.php',
     'App\\UserType' => $baseDir . '/app/UserType.php',
     'App\\Zone' => $baseDir . '/app/Zone.php',
+    'App\\ZoneSubdivision' => $baseDir . '/app/ZoneSubdivision.php',
     'Barryvdh\\Debugbar\\Console\\ClearCommand' => $vendorDir . '/barryvdh/laravel-debugbar/src/Console/ClearCommand.php',
     'Barryvdh\\Debugbar\\Controllers\\AssetController' => $vendorDir . '/barryvdh/laravel-debugbar/src/Controllers/AssetController.php',
     'Barryvdh\\Debugbar\\Controllers\\BaseController' => $vendorDir . '/barryvdh/laravel-debugbar/src/Controllers/BaseController.php',

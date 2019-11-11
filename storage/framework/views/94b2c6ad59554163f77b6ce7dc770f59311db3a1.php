@@ -218,10 +218,10 @@
             <?php endif; ?>
 
             <li>
-                <a href="acr_history">
+                <!-- <a href="acr_history">
                     <i class="fa fa-image"></i>
                     Portfolio
-                </a>
+                </a> -->
             </li>
             <li>
                 <a href="#">

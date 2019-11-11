@@ -428,7 +428,7 @@
                 show_message_div("success", msg);
                 table.ajax.reload();
 
-                update_notices_menu_section();
+               
 
                 //setTimeout(function(){ scrollToElement($('#datatable-panel')); }, 200);
                 scrollToElement($('#message-div'));

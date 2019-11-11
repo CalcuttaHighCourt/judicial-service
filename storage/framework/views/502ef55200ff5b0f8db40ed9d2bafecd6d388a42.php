@@ -270,7 +270,7 @@
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     if(jqXHR.status!=422 && jqXHR.status!=400){
-                        swal("Server Error",errorThrown,"error");
+                        swal("Duplicate Data not allowed",errorThrown,"error");
                     }
                     else{
                         msg = "";

@@ -16,152 +16,122 @@
 </style>
 
 <div class="col-sm-12">
-
-    <!-- Bootstrap Boilerplate... -->
-    <div id="info-panel" class="panel panel-default">
-    <br>
-        <div class="col-sm-offset-1 col-sm-11">
-            <!-- IIIIIIIIIII -->
-            <ul class="nav nav-pills" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="posting_details" style="border-style:outset" data-toggle="tab" href="#postings">Posting Details</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" id="judicial_diary" style="border-style:outset" data-toggle="tab" href="#daily_diary">Judicial diary</a>
-                </li>
-                <li class="nav-item">
-                     <a class="nav-link active"  style="border-style:outset" data-toggle="tab" href="#acr">Annual Confidential Report</a>
-                </li>
-            </ul>
-        </div>
-        
-        <!-- IIIIIIIIIII -->
-
-        <div class="tab-content clearfix">
-            <div class="tab-pan" id="postings">
+   <!-- Bootstrap Boilerplate... -->
+   <div id="info-panel" class="panel panel-default">
+      <br>
+      <div class="col-sm-offset-1 col-sm-11">
+         <!-- IIIIIIIIIII -->
+         <ul class="nav nav-pills" role="tablist">
+            <li class="nav-item">
+               <a class="nav-link active" id="posting_details" style="border-style:outset" data-toggle="tab" href="#postings">Posting Details</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link active" id="judicial_diary" style="border-style:outset" data-toggle="tab" href="#daily_diary">Judicial diary</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link active"  style="border-style:outset" data-toggle="tab" href="#acr">Annual Confidential Report</a>
+            </li>
+         </ul>
+      </div>
+      <!-- IIIIIIIIIII -->
+      <div class="tab-content clearfix">
+         <div class="tab-pan" id="postings">
             <!-- New Task Form -->
-                <div id="content" class="col-sm-offset-1 col-sm-11 content">
-                    <br><br>
-                    <input type="hidden" id="JudicialOfficerPostingPreference-id">
-                    
-                        <div id="officer_name-group" class="form-group row our-form-group">
-                            <label for="officer_name" class="col-sm-offset-1 col-sm-4 ">Officer Name: {{Auth::user()->name}}</label>
-                          
-                        </div>
-                        <div id="zone-group" class="form-group row our-form-group">
-
-                            <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name" data-cur_zone_val="{{$zone_pref_details['current_zone']['zone_id']}}"> {{$zone_pref_details['current_zone']['zone_name']}}</span></label>
-                            <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name" data-pre_zone_val="{{$zone_pref_details['just_prev_zone']['zone_id']}}"> {{$zone_pref_details['just_prev_zone']['zone_name']}}</span></label>
-
-                        </div>      
-                        <hr>
-            
-                    <div id="posting_pref-group" class="form-group row our-form-group">
-                    
-                        <div class="col-sm-offset-1 col-sm-3">
-                            <label for="posting_pref1">Posting Preference </label>
-                            <select id="posting_pref" class="form-control select2 js-example-basic-multiple posting_pref" style="width:150px" name="posting_pref" multiple="multiple">                   
-                            @include('zones.zone_options')
-                            </select>
-                        </div>
-                        <div class="col-sm-3">
-                             <label for="remarks">Remarks</label>
-                            <textarea class="form-control" rows="3" id="remarks"></textarea>
-                        </div>
-                                                     
-                        <div class="col-sm-offset-1 col-sm-2">
-                            <br>
-                            <button id="submit" type="button"
-                                class="btn btn-primary add-button info-form-button">
-                                Submit
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <div id="content" class="col-sm-offset-1 col-sm-11 content">
+               <br><br>
+               <input type="hidden" id="JudicialOfficerPostingPreference-id">
+               <div id="officer_name-group" class="form-group row our-form-group">
+                  <label for="officer_name" class="col-sm-offset-1 col-sm-4 ">Officer Name: {{Auth::user()->name}}</label>
+               </div>
+               <div id="zone-group" class="form-group row our-form-group">
+                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name" data-cur_zone_val="{{$zone_pref_details['current_zone']['zone_id']}}"> {{$zone_pref_details['current_zone']['zone_name']}}</span></label>
+                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name" data-pre_zone_val="{{$zone_pref_details['just_prev_zone']['zone_id']}}"> {{$zone_pref_details['just_prev_zone']['zone_name']}}</span></label>
+               </div>
+               <hr>
+               <div id="posting_pref-group" class="form-group row our-form-group">
+                  <div class="col-sm-offset-1 col-sm-3">
+                     <label for="posting_pref1">Posting Preference 1</label>
+                     <select id="posting_pref1" class="form-control posting_pref" style="width:150px" name="posting_pref1">
+                        <option value="">Select zone1</option>
+                        @include('zones.zone_options')
+                     </select>
+                  </div>
+                  <div class="col-sm-3">
+                     <label for="posting_pref2">Posting Preference 2</label>
+                     <select id="posting_pref2" class="form-control  posting_pref" style="width:150px" name="posting_pref2">
+                        <option value="">Select zone2</option>
+                        @include('zones.zone_options')
+                     </select>
+                  </div>
+                  <div class="col-sm-3">
+                     <label for="remarks">Remarks</label>
+                     <textarea class="form-control" rows="3" id="remarks"></textarea>
+                  </div>
+                  <div class="col-sm-2">
+                     <br>
+                     <button id="draft" type="button"class="btn btn-warning draft-button info-form-button">
+                     Draft
+                     </button>
+                  </div>
+                  <div class="col-sm-offset-1 col-sm-2">
+                     <button id="submit" type="button" class="btn btn-primary add-button info-form-button">
+                     Final Submit
+                     </button>
+                  </div>
+               </div>
             </div>
-          
-           <div id="datatable-panel" class="panel panel-default">
-		        <div id="datatable-panel-heading" class="panel-heading clearfix">
-                <hr>
-            <hr>
-			        <div class="panel-title pull-left">Zone Preference Details</div>
-			    </div>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-striped zone_pref_content-table"
-                        id="datatable-table" style="width: 100%;">
-
-                        <!-- Table Headings -->
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Zone Name</th>
-                                <th>Date</th>						
-                                <th>Remarks</th>							
-                                <th>Action</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-    	</div>
- 
+         </div>
+      </div>
+      <br>
+      <br>
+      <!-- digital dairy starts here---->
+      <div class="tab-pan" id="daily_diary" style="display:none;">
+         <div class="col-sm-offset-1 col-sm-11">
             <br><br>
-            <div class="tab-pan" id="daily_diary" style="display:none;">     
-                <div class="col-sm-offset-1 col-sm-11">
-                        <br><br>
-                    <div class="form-group row">
-                        <div class="date col-sm-offset-2 col-sm-2">
-                            <input type="text" class="form-control date diary_date" id="date" placeholder="Choose Date" autocomplete="off">
-                        </div>
-                        
-                        <div class="col-sm-3">
-                            <button id="submit_diary" type="button"
-                                class="btn btn-primary add-button info-form-button">
-                                Submit
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div class="box col-sm-offset-1">
-                    <div class="box-header" id="diary_editor" style="display:none;">
-                        <h3 class="box-title col-sm-offset-3" >DAILY WORKSHEET
-                            <small>of : <span id="date_span"></span></small>
-                        </h3>
-                    
-                
-                        
-                <!-- /.box-header -->
-                <div class="box-body pad col-sm-offset-1 col-sm-10">
-                <form>
-                    <textarea class="text_content" id="text_content" placeholder="Place some text here"
-                            style="width: 100%; height: 100%; font-size: 100%; line-height: 80%x; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                </form>
-                <div class="col-sm-offset-5 col-sm-3">
-                    <button id="submit_worksheet" type="button"
+            <div class="form-group row">
+               <div class="date col-sm-offset-2 col-sm-2">
+                  <input type="text" class="form-control date diary_date" id="date" placeholder="Choose Date" autocomplete="off">
+               </div>
+               <div class="col-sm-3">
+                  <button id="submit_diary" type="button"
+                     class="btn btn-primary add-button info-form-button">
+                  Submit
+                  </button>
+               </div>
+            </div>
+        </div>
+    <div class="col-sm-12">
+   <!-- Bootstrap Boilerplate... -->
+   <div id="info-panel" class="panel panel-default">
+         <div class="box col-sm-offset-1">
+            <div class="box-header" id="diary_editor" style="display:none;">
+               <h3 class="box-title col-sm-offset-3" >DAILY WORKSHEET
+                  <small>of : <span id="date_span"></span></small>
+               </h3>
+               <!-- /.box-header -->
+               <div class="box-body pad col-sm-offset-1 col-sm-10">
+                  <form>
+                     <textarea class="text_content" id="text_content" placeholder="Place some text here"
+                        style="width: 100%; height: 100%; font-size: 100%; line-height: 80%x; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                  </form>
+                  <div class="col-sm-offset-5 col-sm-3">
+                     <button id="submit_worksheet" type="button"
                         class="btn btn-warning add-button info-form-button">
-                        Submit
-                    </button>
-                </div>
-                </div>
-
-                </div>
+                     Submit
+                     </button>
+                  </div>
+               </div>
             </div>
-            </div>
-            <!-- /.col-->
-        </div>
-            </div>
-                <!-- /.box-header -->
-                
-            </div>
-        
-            <!-- /.col-->
-        
-        </div>
+         </div>
+      </div>
     </div>
+   </div> 
+      <!-- /.col-->
+   </div>
+</div>
+<!-- /.box-header -->
+</div>
+<!-- /.col-->
 </div>
 <div id="test-div"></div>
 
@@ -181,9 +151,7 @@
 <script type="text/javascript">
       $(document).ready(function(){
 
-            $('.select2').select2({
-                placeholder:"Select an option",
-            });
+       
 
             $(".text_content").wysihtml5();
            /*LOADER*/
@@ -199,109 +167,114 @@
 
          /*Datatable initialisation */
 
-        var table="";
-        $(function() {
+        // var table="";
+        // $(function() {
          
-         table = $('#datatable-table').DataTable({
+        //  table = $('#datatable-table').DataTable({
             
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
-                type:"post",
-                url: "zone_pref_details/table_show",
-                dataSrc: "judicial_officer_posting_preferences"
-            },
+        //     "processing": true,
+        //     "serverSide": true,
+        //     "ajax": {
+        //         type:"post",
+        //         url: "zone_pref_details/table_show",
+        //         dataSrc: "judicial_officer_posting_preferences"
+        //     },
 
-            "columnDefs":
-                    [
-                        {className: "table-text", "targets": "_all"},
+        //     "columnDefs":
+        //             [
+        //                 {className: "table-text", "targets": "_all"},
                        
-                        {
-                            "targets": -1,
-                            "data": null,
-                            "searchable": false,
-                            "sortable": false,
-                            "defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i> </button>',
-                        }
+        //                 {
+        //                     "targets": -1,
+        //                     "data": null,
+        //                     "searchable": false,
+        //                     "sortable": false,
+        //                     "defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i> </button>',
+        //                 }
                        
-                     ],
-            "columns":
-                    [
-                        {
-                            "data": null,
-                            "defaultContent": "",
-                            "searchable": false,
-                            "orderable": false,
-                        },
+        //              ],
+        //     "columns":
+        //             [
+        //                 {
+        //                     "data": null,
+        //                     "defaultContent": "",
+        //                     "searchable": false,
+        //                     "orderable": false,
+        //                 },
                         
-                        {
-                            "data": "zone_name",
-                        },
-                        {
-                            "data": "created_at",
-                        },
-                        {
-                            "data": "remarks",
-                        },
-                        {
-                            "data": "",
-                        },
+        //                 {
+        //                     "data": "zone_name",
+        //                 },
+        //                 {
+        //                     "data": "created_at",
+        //                 },
+        //                 {
+        //                     "data": "remarks",
+        //                 },
+        //                 {
+        //                     "data": "",
+        //                 },
                         
-                    ],
-            "order": [[2, 'desc']]
-                });
-                table.on( 'draw.dt', function () {
+        //             ],
+        //     "order": [[2, 'desc']]
+        //         });
+        //         table.on( 'draw.dt', function () {
                 
-                    $('.edit-button').click(function(){
-                        var data = table.row( $(this).parents('tr') ).data();
-                        view_data( data );
-                        show_button("close");
-                        show_button("save");
-                        make_active_button("save");
-                        //scrollToElement($('#info-panel'));
+        //             $('.edit-button').click(function(){
+        //                 var data = table.row( $(this).parents('tr') ).data();
+        //                 //console.log(data);
+        //                 if(data.remarks=="Not Mentioned")
+        //                 {
+        //                     $("#remarks").val("");
+        //                 }
+        //                 else{
+        //                     $("#remarks").val(data.remarks);
+        //                 }
 
-                        $("#file_prefix").attr("readonly","readonly");
-                    });
+        //                 var zone_name=(data.zone_name);
+        //                 var zone_id=(data.zone_id);
+        //                 $('.posting_pref').val("");
+        //                // console.log(data.zone_name);
+        //                 $('.posting_pref option[value=' + zone_id + ']').attr('selected', true).trigger("change");
+
+        //                 $("#file_prefix").attr("readonly","readonly");
+        //             });
                     
-	            });
-            });
-            function view_data(data){
-                clear_form(true);
-                populate_form(data);
-            }
-            function populate_form(data){
-	
+	    //         });
+        //     });
+   
 
-	$("#judicial_officer_id").val(data.id);
+    // function populate_form(data){
 	
-	$("#officer_name").val(data.officer_name);
+    //         $("#judicial_officer_id").val(data.id);
+            
+    //         $("#officer_name").val(data.officer_name);
 
-	$("#guardian_name").val(data.guardian_name);
-
-	
-}
-            function make_active_button(type){
-                $("#"+type+"-button").addClass("active");
-            }
-            function make_form_readonly(make_readonly){
-                if(make_readonly){
-                    $('#info-form input').attr('readonly', 'readonly');
-                    $('#info-form textarea').attr('readonly', 'readonly');
-                    $('#info-form select').attr('readonly', 'readonly');
-                }
-                else{
-                    $('#info-form input').removeAttr('readonly');
-                    $('#info-form textarea').removeAttr('readonly');
-                    $('#info-form select').removeAttr('readonly');
-                }
-            }
-            function show_button(type){
-                $("#"+type+"-button").show();
-                $("#"+type+"-button").removeAttr("disabled");
+    //         $("#remarks").val(data.guardian_name);
+    
+    // }
+            // function make_active_button(type){
+            //     $("#"+type+"-button").addClass("active");
+            // }
+            // function make_form_readonly(make_readonly){
+            //     if(make_readonly){
+            //         $('#info-form input').attr('readonly', 'readonly');
+            //         $('#info-form textarea').attr('readonly', 'readonly');
+            //         $('#info-form select').attr('readonly', 'readonly');
+            //     }
+            //     else{
+            //         $('#info-form input').removeAttr('readonly');
+            //         $('#info-form textarea').removeAttr('readonly');
+            //         $('#info-form select').removeAttr('readonly');
+            //     }
+            // }
+            // function show_button(type){
+            //     $("#"+type+"-button").show();
+            //     $("#"+type+"-button").removeAttr("disabled");
                 
-                $("#info-panel-buttons").removeClass("hide");
-                //$("#"+type+"-button").removeClass("disabled");
-            }
+            //     $("#info-panel-buttons").removeClass("hide");
+            //     //$("#"+type+"-button").removeClass("disabled");
+            // }
         /*datatable for preference ends  */
 
         /*date initialization:start */
@@ -333,11 +306,10 @@
         var cur_zone_name= $("#cur_zone_name").data('cur_zone_val');
         var pre_zone_name = $("#pre_zone_name").data('pre_zone_val');;
 
-        $("#posting_pref option[value='"+cur_zone_name+"']").remove();
-        $("#posting_pref option[value='"+pre_zone_name+"']").remove();
+        $(".posting_pref option[value='"+cur_zone_name+"']").remove();
+        $(".posting_pref option[value='"+pre_zone_name+"']").remove();
 
     //To remove current zone & previous zone, from drop down list : end
-
 
        
         $(document).on("click","#submit_diary",function(){
@@ -450,19 +422,22 @@
 
     $(document).on("click","#submit",function(){
 
-        
-
-   
-
         var pref=$("#posting_pref").val();
-        var pref_name=$("#posting_pref option:selected").text(); 
+        var pref_name1=$("#posting_pref1 option:selected").text(); 
+        var pref_name2=$("#posting_pref2 option:selected").text(); 
         var remarks=$("#remarks").val();       
 
-        if(pref==null)
+        if(pref1==null)
         {
-            swal("Please Select your preferences","","error");
+            swal("Please Select the first preferences","","error");
             return false;
         }
+        else if(pref2==null)
+        {
+            swal("Please Select the second preferences","","error");
+            return false;
+        }
+        
         else if(pref.length<2)
         {
             swal("Please Select Minimum 2 preferences","","error");

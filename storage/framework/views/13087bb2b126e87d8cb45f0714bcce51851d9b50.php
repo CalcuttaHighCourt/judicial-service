@@ -5,7 +5,7 @@
     <div class="col-sm-12">
         <div id="info-panel" class="panel panel-default">
             <!-- IIIIIIIIIII -->
-            <div id="info-panel-heading" class="panel-heading">REQUEST LOWER COURT RECORD</div>
+            <div id="info-panel-heading" class="panel-heading">REQUEST LOWER COURT RECORD FROM HIGH COURT END</div>
             <!-- IIIIIIIIIII -->
             <div class="panel-body">
 
@@ -296,7 +296,7 @@
 							swal("LOWER COURT RECORD REQUESTED SUCCESSFULLY","WITHIN - "+deadline,"success");
                         },
 						error: function(jqXHR, textStatus, errorThrown) {
-                            alert("Some Server Error Occured! Please Try Again.");
+                            alert("Error Occured! Please Try Again.");
                         }
                      });
                 });

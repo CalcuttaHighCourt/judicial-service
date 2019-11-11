@@ -327,9 +327,13 @@
                         count++;
                 })
 
-                if(count<3){
+                if(count<1){
                     swal("Can not Comply","Comply only when all the records are with you","error");
                     $("#comply_div").hide();
+                }
+                else{
+                    swal("complied","Comply only when all the records are with you","success");
+
                 }
 
                         
@@ -382,12 +386,40 @@
         });
 
         $(document).on("click", "#submit_forward", function () {
-            
-            swal("Successfully Forwarded","The required LCR has been forwarded","success");
-        
-        });    
 
-        $(document).on("click", "#submit_not_found", function () {
+            var remarks=$("#remarks").text();
+            var memo_no=$("#memo_no").val();
+            var memo_date=$("#memo_date").val();
+            var court_name= $("#court_name option:selected").val();
+
+        });    // $.ajax({
+            //     url:"lcr_lower_court/forward",
+            //     method: "POST",
+            //     data :{_token: $('meta[name="csrf-token"]').attr('content'),
+            //         remarks:remarks,
+            //         memo_no:memo_no,
+            //         memo_date:memo_date,
+            //         court_name:court_name
+                // },
+                // success:function(response)
+                // {
+                //     swal("Forwarded","The required LCR has been forwarded","success");
+                // },
+                // error:function(response){
+                //     swal("Error Occured","Memo no, Memo Date And Court Name is mendatory","error")
+                // }
+            
+
+            
+            
+            // if(memo_no=="")
+            // {
+            //     swal("EMPTY FIELD","Memo No can not be empty","error");
+            // }
+    
+           
+        
+         $(document).on("click", "#submit_not_found", function () {
         
             swal("Successfully Sent","Your remark has been sent","success");
 

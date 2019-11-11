@@ -465,6 +465,7 @@ class ComposerStaticInit29a6e7374aa6ea32817aa020db5ec992
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\UserType' => __DIR__ . '/../..' . '/app/UserType.php',
         'App\\Zone' => __DIR__ . '/../..' . '/app/Zone.php',
+        'App\\ZoneSubdivision' => __DIR__ . '/../..' . '/app/ZoneSubdivision.php',
         'Barryvdh\\Debugbar\\Console\\ClearCommand' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/Console/ClearCommand.php',
         'Barryvdh\\Debugbar\\Controllers\\AssetController' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/Controllers/AssetController.php',
         'Barryvdh\\Debugbar\\Controllers\\BaseController' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/Controllers/BaseController.php',

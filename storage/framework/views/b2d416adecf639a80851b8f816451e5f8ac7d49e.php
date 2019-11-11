@@ -1,6 +1,14 @@
  <?php $__env->startSection('title', 'Zones'); ?>
 <?php $__env->startSection('page_heading'); ?> Zones <?php $__env->stopSection(); ?>
 <?php $__env->startSection('center_main_content'); ?>
+<style>
+    .select2-container--default .select2-selection--multiple .select2-selection__choice .select2-results__option{
+        background-color:#fff;
+		
+    color:#d43c3c;
+	
+}
+</style>
 <div class="col-sm-12">
 	<!-- Bootstrap Boilerplate... -->
 	<div id="info-panel" class="panel panel-default">
@@ -17,9 +25,9 @@
 				<input type="hidden" id="Zone-id">
 				<div id="zone_name-group" class="form-group our-form-group">
 					<!-- IIIIIIIIIII -->
-					<label for="zone_name" class="col-md-4 control-label">Zone</label>
+					<label for="zone_name" class="col-sm-4 control-label">Zone</label>
 
-					<div class="col-md-6">
+					<div class="col-sm-4">
 						<input id="zone_name" type="text"
 							class="form-control info-form-control" name="zone_name"> <span
 							id="zone_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
@@ -28,10 +36,33 @@
 						</span>
 					</div>
 				</div>
+
+				 <div id="subdivision-group" class="form-group row our-form-group">
+                    <label for="subdivision_name" class="col-sm-4 control-label">Subdivision</label>
+                    <div class="col-sm-4">
+                        <select id="subdivision" class="form-control select2 info-form-control multiple"  multiple="multiple"
+                                name="subdivision"> <?php echo $__env->make('subdivisions.subdivision_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                        </select>
+                    </div>
+                </div>
+
+				<div id="min_service_days-group" class="form-group our-form-group">
+					<!-- IIIIIIIIIII -->
+					<label for="min_service_days" class="col-sm-4 control-label">Minimum Service Period in a Zone</label>
+
+					<div class="col-sm-4">
+						<input id="min_service_days" type="text"
+							class="form-control info-form-control" name="min_service_days"> <span
+							id="min_service_days-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+							<strong id="min_service_days-strong" class="our-error-message-strong"></strong>
+							<!-- IIIIIIIIIII -->
+						</span>
+					</div>
+				</div>
 				
 
 				<div id="info-panel-buttons" class="form-group hide">
-					<div class="col-md-6 col-md-offset-4">
+					<div class="col-sm-3 col-sm-offset-4">
 						<button id="add-button" type="submit"
 							class="btn btn-primary add-button info-form-button">
 							<i class="fa fa-btn fa-plus-circle"></i> Add New Zone
@@ -52,7 +83,7 @@
 				</div>
 				
 				<div id="message-div" class="form-group">
-					<div class="col-md-6 col-md-offset-4">
+					<div class="col-sm-4 col-sm-offset-4">
 						<div id="message-success-div"
 							class="alert alert-success alert-dismissible success-error-message"
 							role="alert">
@@ -97,6 +128,7 @@
 						<tr>
 							<th></th>
 							<th>Zone Name</th>
+						
 							<th>Action</th>
 							<th></th>
 							<th></th>
@@ -109,6 +141,7 @@
 						<tr>
 							<th></th>
 							<th>Zone Name</th>
+							
 							<th>Action</th>
 							<th></th>
 							<th></th>
@@ -135,6 +168,10 @@
 <?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
 
 <script type="text/javascript">
+
+	 $('.select2').select2({
+                placeholder: "Select Subdivision",
+            }); // select2 dropdown initialization
 var table="";
 $(function() {
 	table = $('#datatable-table').DataTable({
@@ -180,7 +217,10 @@ $(function() {
 				},
 				{
 					"data": "zone_name",
-				},				
+				},	
+				// {
+				// 	"data": "subdivision_name",
+				// },			
 				{
 					"data": null
 				},
@@ -365,7 +405,9 @@ $(function(){
 });
 function send_ajax_and_set_errors_exceptions_success(type){
 	var formData = {
-		zone_name:$("#zone_name").val(),				
+		zone_name:$("#zone_name").val(),	
+		subdivision:$("#subdivision").val(),	
+		min_service_days:$("#min_service_days").val(),
 	};
 	ajax_url="";
 	operation="";
@@ -375,11 +417,8 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		//request_type="POST";
 		formData["_method"]="POST";
 		ajax_url="<?php echo e(action('ZoneController@store')); ?>";
-       
-
-		
-
-		operation="add";
+ 
+ 		operation="add";
 		operated="added";
 	}
 	else if(type=="save"){
@@ -426,7 +465,6 @@ function send_ajax_and_set_errors_exceptions_success(type){
 			show_message_div("success",msg);
 			table.ajax.reload();
 
-			update_notices_menu_section();
 			
 			scrollToElement($('#message-div'));
 		},

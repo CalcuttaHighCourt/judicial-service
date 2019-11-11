@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Zone;
+use App\ZoneSubdivision;
+use Carbon\Carbon;
 use Auth;
-
+use DB;
 
 class ZoneController extends Controller
 {
@@ -64,19 +66,42 @@ class ZoneController extends Controller
             $zone = null;
     
             $this->validate($request, [
-                'zone_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:zones,zone_name')
+                'zone_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:zones,zone_name'),
+                'subdivision' => array('required', 'exists:subdivisions,id'),
+                'min_service_days' => array('required','integer')
             ]);
     
-    
-            try {
                 $zone_name = strtoupper($request->input('zone_name'));
-                $request['created_by'] = Auth::user()->id;
-    
-                $zone = Zone::create($request->all());
-                $response = array(
-                    'zone' => $zone
-                );
-            } catch (\Exception $e) {
+                $subdivision = $request->input('subdivision');
+                $min_service_days = $request->input('min_service_days');
+                $created_by = Auth::user()->id;
+
+           try{
+
+
+                Zone::insert([
+                    'zone_name' => $zone_name,
+                    'created_by' => $created_by,
+                    'min_service_days' =>$min_service_days,
+                    'created_at'=>Carbon::today(),
+                    'updated_at'=>Carbon::today()
+                ]);
+
+                $zone_id = Zone::max('id');
+
+                for($i=0;$i<sizeof($subdivision);$i++){
+                    ZoneSubdivision::insert([
+                        'zone_id'=>$zone_id,
+                        'subdivision_id'=>$subdivision[$i],
+                        'created_by' => $created_by,
+                        'created_at'=>Carbon::today(),
+                        'updated_at'=>Carbon::today()
+                    ]);
+                }
+            }
+
+                
+        catch (\Exception $e) {
                 $response = array(
                     'exception' => true,
                     'exception_message' => $e->getMessage()
