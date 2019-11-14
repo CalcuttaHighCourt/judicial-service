@@ -58,6 +58,7 @@ return array(
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Http\\Requests\\JoEntryRequest' => $baseDir . '/app/Http/Requests/JoEntryRequest.php',
     'App\\JoReportingReviewing' => $baseDir . '/app/JoReportingReviewing.php',
+    'App\\JoZoneTenure' => $baseDir . '/app/JoZoneTenure.php',
     'App\\Jo_photo' => $baseDir . '/app/Jo_photo.php',
     'App\\JudicialOfficer' => $baseDir . '/app/JudicialOfficer.php',
     'App\\JudicialOfficerPosting' => $baseDir . '/app/JudicialOfficerPosting.php',

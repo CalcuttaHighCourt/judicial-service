@@ -443,6 +443,7 @@ class ComposerStaticInit29a6e7374aa6ea32817aa020db5ec992
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\JoEntryRequest' => __DIR__ . '/../..' . '/app/Http/Requests/JoEntryRequest.php',
         'App\\JoReportingReviewing' => __DIR__ . '/../..' . '/app/JoReportingReviewing.php',
+        'App\\JoZoneTenure' => __DIR__ . '/../..' . '/app/JoZoneTenure.php',
         'App\\Jo_photo' => __DIR__ . '/../..' . '/app/Jo_photo.php',
         'App\\JudicialOfficer' => __DIR__ . '/../..' . '/app/JudicialOfficer.php',
         'App\\JudicialOfficerPosting' => __DIR__ . '/../..' . '/app/JudicialOfficerPosting.php',

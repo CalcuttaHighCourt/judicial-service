@@ -59,11 +59,7 @@ class ZoneController extends Controller
          * @return \Illuminate\Http\Response
          */
         public function store(Request $request) {
-            $response = [
-                'zone' => []
-            ];
-            $statusCode = 200;
-            $zone = null;
+          
     
             $this->validate($request, [
                 'zone_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:zones,zone_name'),
@@ -76,9 +72,6 @@ class ZoneController extends Controller
                 $min_service_days = $request->input('min_service_days');
                 $created_by = Auth::user()->id;
 
-           try{
-
-
                 Zone::insert([
                     'zone_name' => $zone_name,
                     'created_by' => $created_by,
@@ -88,8 +81,10 @@ class ZoneController extends Controller
                 ]);
 
                 $zone_id = Zone::max('id');
-
-                for($i=0;$i<sizeof($subdivision);$i++){
+               
+              
+                
+                for($i=0; $i<sizeof($subdivision); $i++){
                     ZoneSubdivision::insert([
                         'zone_id'=>$zone_id,
                         'subdivision_id'=>$subdivision[$i],
@@ -97,21 +92,11 @@ class ZoneController extends Controller
                         'created_at'=>Carbon::today(),
                         'updated_at'=>Carbon::today()
                     ]);
+               
                 }
-            }
-
-                
-        catch (\Exception $e) {
-                $response = array(
-                    'exception' => true,
-                    'exception_message' => $e->getMessage()
-                );
-                $statusCode = 400;
-            } finally {
-                return response()->json($response, $statusCode);
-            }
-        }
-
+                return 1;   
+    }
+            
         public function index_for_datatable(Request $request) {
             $response = [ ];
             $statusCode = 200;
@@ -252,50 +237,7 @@ class ZoneController extends Controller
          * @param  int  $id
          * @return \Illuminate\Http\Response
          */
-        public function destroy($id)
-        {
-            $response = [
-				'zone' => [ ]
-		];
-		$statusCode = 200;
-		$zone = null;
-		
-		try {
-			//$zone = Zone::destroy($id);
-		    if(!ctype_digit(strval($id))){
-		        throw new \Exception('Please check input');
-		    }
-			$zone = Zone::find($id);
-			
-			
-			if($zone->court_complexes->count()>0){ //Should be changed #28
-				//child row exists
-				$response = array (
-						'exception' => true,
-						'exception_message' => "Records of zone: ".$zone->zone_name." exists in Court Complexes table.", //Should be changed #29
-				);
-				$statusCode = 400;
-			}
-			else{
-				// $user_type->delete();
-				if(! empty($zone)){//Should be changed #30
-					//$zone = $zone->forceDelete();//Should be changed #31 //only for admin elements.
-					$zone = $zone->delete();
-				}
-				
-				$response = array (
-						'zone' => $zone //Should be changed #32
-				);
-			}
-			
-		} catch ( \Exception $e ) {
-			$response = array (
-					'exception' => true,
-					'exception_message' => $e->getMessage ()
-			);
-			$statusCode = 400;
-		} finally{
-			return response ()->json ( $response, $statusCode );
-		}
-    }
+    //     public function destroy($id){
+        //
+    //} 
 }
