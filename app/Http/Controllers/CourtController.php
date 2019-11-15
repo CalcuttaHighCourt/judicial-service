@@ -57,9 +57,9 @@ class CourtController extends Controller
             $order = $request->order;
 
             $filtered = Court::where('court_name', 'ilike', '%'.$search.'%')
-                                ->orWhere('court_complex_name', 'ilike', '%'.$search.'%')
-                                ->join('court_complexes', 'courts.court_complex_id', '=', 'court_complexes.id')
-                                ->select('courts.*', 'court_complexes.court_complex_name as court_complex_name');
+                                ->orWhere('subdivision_name', 'ilike', '%'.$search.'%')
+                                ->join('subdivisions', 'courts.subdivision_id', '=', 'subdivisions.id')
+                                ->select('courts.*', 'subdivisions.subdivision_name as subdivision_name');
 
             $records_filtered_count = $filtered->count();
 
@@ -100,7 +100,7 @@ class CourtController extends Controller
 
         $this->validate($request, [
             'court_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:courts,court_name'),
-            'court_complex_id' => array('required','exists:court_complexes,id')
+            'subdivision_id' => array('required','exists:subdivisions,id')
         ]);
 
 
@@ -172,7 +172,7 @@ class CourtController extends Controller
 
         $this->validate($request, [
             'court_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:courts,court_name,'.$id.',id'),
-            'court_complex_id' => array('required','integer','exists:court_complexes,id'),
+            'subdivision_id' => array('required','integer','exists:subdivisions,id'),
         ]);
         
         try {            
@@ -184,7 +184,7 @@ class CourtController extends Controller
             $request['created_by'] = Auth::user()->id;
             
             $court->court_name = $request->court_name;
-            $court->court_complex_id = $request->court_complex_id;
+            $court->subdivision_id = $request->subdivision_id;
             $court->created_by = $request->created_by;
             
             $court->save();

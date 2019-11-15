@@ -35,18 +35,9 @@
 					</div>
 				</div>
 
-				 <div id="subdivision-group" class="form-group row our-form-group">
-                    <label for="subdivision_name" class="col-sm-4 control-label">Subdivision</label>
-                    <div class="col-sm-4">
-                        <select id="subdivision" class="form-control select2 info-form-control multiple"  multiple="multiple"
-                                name="subdivision"> <?php echo $__env->make('subdivisions.subdivision_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                        </select>
-                    </div>
-                </div>
-
 				<div id="min_service_days-group" class="form-group our-form-group">
 					<!-- IIIIIIIIIII -->
-					<label for="min_service_days" class="col-sm-4 control-label">Minimum Service Period in a Zone</label>
+					<label for="min_service_days" class="col-sm-4 control-label">Minimum Service Period in a Zone(in days)</label>
 
 					<div class="col-sm-4">
 						<input id="min_service_days" type="text"

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Court extends Model
 {
     protected $fillable = [
-        'court_name','court_complex_id','created_by'
+        'court_name','court_complex_id','created_by','subdivision_id'
     ];
 
     public $timestamps = true;

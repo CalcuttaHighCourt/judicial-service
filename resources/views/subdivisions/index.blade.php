@@ -38,7 +38,14 @@
 						</select>
 					</div>
 				</div>
-
+				<div id="zone_name-group" class="form-group row our-form-group">
+					<label for="zone_name" class="col-md-4 control-label">Zone</label>
+					<div class="col-md-6">
+						<select id="zone_id" class="form-control info-form-control"
+								name="zone_id"> @include('zones.zone_options')
+						</select>
+					</div>
+				</div>
 
 				<div id="info-panel-buttons" class="form-group hide">
 					<div class="col-md-6 col-md-offset-4">
@@ -109,8 +116,7 @@
 							<th></th>
 							<th>Subdivision Name</th>
 							<th>District</th>
-							<th>Action</th>
-							<th></th>
+							<th>Zone</th>
 							<th></th>
 						</tr>
 
@@ -122,8 +128,7 @@
 							<th></th>
 							<th>Subdivision Name</th>
 							<th>District</th>
-							<th>Action</th>
-							<th></th>
+							<th>Zone</th>
 							<th></th>
 						</tr>
 					</tfoot>
@@ -161,27 +166,14 @@ $(function() {
 		"columnDefs": 
 			[
 				{ className: "table-text", "targets": "_all" },
-				{
-					"targets": -3,
-					"data": null,
-					"searchable": false,
-					"sortable":false,
-					"defaultContent": '<button type="submit" class="btn btn-info view-button"><i class="fa fa-info"></i> View</button>',
-				},
-				{
-					"targets": -2,
-					"data": null,
-					"searchable": false,
-					"sortable":false,
-					"defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i> Edit</button>',
-				},
+				
 				{
 					"targets": -1,
 					"data": null,
 					"searchable": false,
 					"sortable":false,
-					"defaultContent": '<button type="submit" class="btn btn-danger delete-button"><i class="fa fa-trash"></i> Delete</button>',
-				}
+					"defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i></button>',
+				},
 			],
 		"columns": 
 			[
@@ -198,10 +190,7 @@ $(function() {
                     "data": "district_name",
                  },	
 				{
-					"data": null
-				},
-				{
-					"data": null
+					"data": 'zone_name'
 				},
 				{
 					"data": null
@@ -349,7 +338,7 @@ function populate_form(data){
 
 	$("#Subdivision-id").val(data.id);
 	$("#district_id").val(data.district_id);
-	
+	$("#zone_id").val(data.zone_id);
 	$("#subdivision_name").val(data.subdivision_name);
 }
 function show_button(type){
@@ -391,7 +380,8 @@ function send_ajax_and_set_errors_exceptions_success(type){
        
 
 		formData["subdivision_name"]=$("#subdivision_name").val();
-		formData["district_id"]=$("#district_id").val()
+		formData["district_id"]=$("#district_id").val();
+		formData["zone_id"]=$("#zone_id option:selected").val();
 
 		operation="add";
 		operated="added";
@@ -403,7 +393,8 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		ajax_url="{{ action('SubdivisionController@update','') }}"+"/"+$("#Subdivision-id").val();
 		formData["id"]=$("#Subdivision-id").val();
 		formData["subdivision_name"]=$("#subdivision_name").val();
-		formData["disrtict_id"]=$("#district_id option:selected").val();
+		formData["district_id"]=$("#district_id option:selected").val();
+		formData["zone_id"]=$("#zone_id option:selected").val();
 		operation="update";
 		operated="updated";
 	}

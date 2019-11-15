@@ -211,99 +211,70 @@ class JudicialOfficerPostingController extends Controller {
 
 
 
-    public function zone_pref_details_fetch(Request $request)
-    {
+     public function zone_pref_details_fetch(Request $request)
+     {
        
-        $id= auth()->user()->judicial_officer_id;
-        $user_type = Auth::user()->user_type_id;
-
-        $zone_pref_details['current_zone']= JudicialOfficerPosting:: join('court_complexes as cc','cc.id','=','judicial_officer_postings.court_complex_id')
-                                                    ->join('zones','zones.id','=','cc.zone_id')
-                                                    ->leftjoin('judicial_officers','judicial_officers.id','=','judicial_officer_postings.judicial_officer_id')
-                                                    ->where('judicial_officer_postings.judicial_officer_id',$id)
-                                                    ->orderBy('from_date', 'desc')
-                                                    ->select('zones.zone_name as zone_name','zones.id as zone_id','judicial_officer_postings.from_date as current_from_date', 'zones.min_service_days as min_service_days','judicial_officers.date_of_retirement as date_of_retirement')
-                                                    ->first();
-
-
-        $zone_pref_details['just_prev_zone']= JudicialOfficerPosting:: join('court_complexes as cc','cc.id','=','judicial_officer_postings.court_complex_id')
-                                                    ->join('zones','zones.id','=','cc.zone_id')
-                                                    ->where([
-                                                                ['judicial_officer_postings.judicial_officer_id',$id],
-                                                                ['from_date','<',$zone_pref_details['current_zone']['current_from_date']]
-                                                            ])
-                                                    ->orderBy('from_date', 'desc')
-                                                    ->select('zones.zone_name as zone_name','zones.id as zone_id')
-                                                    ->first();
+      $id= auth()->user()->judicial_officer_id;
+      $user_type = Auth::user()->user_type_id;
 
        
-        // $zone_pref_details['jo_code']= JudicialOfficer::where('id',$id)->select('jo_code');
-          
 
-        $count= JudicialOfficerPosting:: join('court_complexes as cc','cc.id','=','judicial_officer_postings.court_complex_id')
-                                                    ->join('zones','zones.id','=','cc.zone_id')
-                                                    ->where([
-                                                                ['judicial_officer_postings.judicial_officer_id',$id]
-                                                            ])                                                  
-                                                    ->count();
+    //     // $zone_pref_details['current_zone']['current_from_date']= Carbon::parse ($zone_pref_details['current_zone']['current_from_date'])->format('d-m-Y'); 
 
+    //     // $today= strtotime(Carbon::today());
+    //     // $zone_service_duration =  $today - strtotime($zone_pref_details['current_zone']['current_from_date']) ;
 
-        $zone_pref_details['current_zone']['current_from_date']= Carbon::parse ($zone_pref_details['current_zone']['current_from_date'])->format('d-m-Y'); 
-
-        $today= strtotime(Carbon::today());
-        $zone_service_duration =  $today - strtotime($zone_pref_details['current_zone']['current_from_date']) ;
-
-        $years = floor($zone_service_duration / (365*60*60*24));
-        $months = floor(($zone_service_duration - $years * 365*60*60*24) / (30*60*60*24));
-        //$posting_days_span = floor(($zone_service_duration - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24)); 
-        $posting_days_span= round($zone_service_duration / (60 * 60 * 24));
+    //     $years = floor($zone_service_duration / (365*60*60*24));
+    //     $months = floor(($zone_service_duration - $years * 365*60*60*24) / (30*60*60*24));
+    //     //$posting_days_span = floor(($zone_service_duration - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24)); 
+    //     $posting_days_span= round($zone_service_duration / (60 * 60 * 24));
 
 
-        $zone_pref_details['current_zone']['date_of_retirement']= Carbon::parse ($zone_pref_details['current_zone']['date_of_retirement'])->format('d-m-Y'); 
+    //     $zone_pref_details['current_zone']['date_of_retirement']= Carbon::parse ($zone_pref_details['current_zone']['date_of_retirement'])->format('d-m-Y'); 
 
-        $avail_last_posting =strtotime( $zone_pref_details['current_zone']['date_of_retirement']) - $today ;
+    //     $avail_last_posting =strtotime( $zone_pref_details['current_zone']['date_of_retirement']) - $today ;
         
-        $years = floor($avail_last_posting / (365*60*60*24));
-        $months = floor(($avail_last_posting - $years * 365*60*60*24) / (30*60*60*24));
-        // $retirement_days_left = floor(($avail_last_posting - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));   
-        $retirement_days_left= round($avail_last_posting / (60 * 60 * 24));
+    //     $years = floor($avail_last_posting / (365*60*60*24));
+    //     $months = floor(($avail_last_posting - $years * 365*60*60*24) / (30*60*60*24));
+    //     // $retirement_days_left = floor(($avail_last_posting - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));   
+    //     $retirement_days_left= round($avail_last_posting / (60 * 60 * 24));
 
-       //print_r($zone_pref_details['just_prev_zone']['zone_id']); exit;
-
-
-        $zone_service_max_days= 930; //Zone:: max('min_service_days')
+    //    //print_r($zone_pref_details['just_prev_zone']['zone_id']); exit;
 
 
-        if($posting_days_span >= $zone_pref_details['current_zone']['min_service_days']-30   &&   $zone_service_max_days >= $retirement_days_left )
-        {
-           $zone_pref_details['zones']= Zone::orderBy('zone_name')
-                                               ->get();
+    //     $zone_service_max_days= 930; //Zone:: max('min_service_days')
+
+
+        // if($posting_days_span >= $zone_pref_details['current_zone']['min_service_days']-30   &&   $zone_service_max_days >= $retirement_days_left )
+        // {
+        //    $zone_pref_details['zones']= Zone::orderBy('zone_name')
+        //                                        ->get();
 
                                                
-        }
-        //for second posting in carrier i.e $zone_pref_details['just_prev_zone']['zone_id'] == null , exclude current zone & jusat next prioriy zone
-        else if($count==1   &&  $posting_days_span >= $zone_pref_details['current_zone']['min_service_days']-30)
-        {
+        // }
+        // //for second posting in carrier i.e $zone_pref_details['just_prev_zone']['zone_id'] == null , exclude current zone & jusat next prioriy zone
+        // else if($count==1   &&  $posting_days_span >= $zone_pref_details['current_zone']['min_service_days']-30)
+        // {
 
-            $zone_pref_details['zones']= Zone::where('id','<>',$zone_pref_details['current_zone']['zone_id'])
-                                                ->orderBy('zone_name')
-                                                ->get();
-        }  
-        else if($posting_days_span >= $zone_pref_details['current_zone']['min_service_days']-30)
-        {
-            $zone_pref_details['zones']= Zone::where([
-                                                        ['id','<>',$zone_pref_details['current_zone']['zone_id']],
-                                                        ['id','<>',$zone_pref_details['just_prev_zone']['zone_id']]
-                                                    ])
-                                                    ->orderBy('zone_name')
-                                                    ->get();
-        }
+        //     $zone_pref_details['zones']= Zone::where('id','<>',$zone_pref_details['current_zone']['zone_id'])
+        //                                         ->orderBy('zone_name')
+        //                                         ->get();
+        // }  
+        // else if($posting_days_span >= $zone_pref_details['current_zone']['min_service_days']-30)
+        // {
+        //     $zone_pref_details['zones']= Zone::where([
+        //                                                 ['id','<>',$zone_pref_details['current_zone']['zone_id']],
+        //                                                 ['id','<>',$zone_pref_details['just_prev_zone']['zone_id']]
+        //                                             ])
+        //                                             ->orderBy('zone_name')
+        //                                             ->get();
+        // }
 
        
         
 
 // print_r( $zone_pref_details);exit;
-                return view('zone_pref_jr.index',compact('zone_pref_details'));
+                //return view('zone_pref_jr.index',compact('zone_pref_details'));
                 //return($jo_posting);
     }
 

@@ -285,7 +285,7 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 	Route::post('zone_pref/submit', 'JudicialOfficerPostingPreferenceController@store');
 
-	Route::get('zone_pref_jr', 'JudicialOfficerPostingController@zone_pref_details_fetch');
+	//Route::get('zone_pref_jr', 'JudicialOfficerPostingController@zone_pref_details_fetch');
 
 	Route::post('zone_pref_details/table_show', 'JudicialOfficerPostingPreferenceController@zone_pref_table_content');
 
@@ -300,6 +300,10 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 	Route::get ( 'judicialofficerpostingpreference', function () {
 		return view ( 'judicial_officer_posting_preferences.index' );
+	} );
+
+	Route::get ( 'zone_pref_jr', function () {
+		return view ( 'zone_pref_jr.index' );
 	} );
 
 });

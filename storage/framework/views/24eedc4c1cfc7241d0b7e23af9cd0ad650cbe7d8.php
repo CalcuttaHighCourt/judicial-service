@@ -41,8 +41,8 @@
                   <label for="officer_name" class="col-sm-offset-1 col-sm-4 ">Officer Name: <?php echo e(Auth::user()->name); ?></label>
                </div>
                <div id="zone-group" class="form-group row our-form-group">
-                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name" data-cur_zone_val="<?php echo e($zone_pref_details['current_zone']['zone_id']); ?>"> <?php echo e($zone_pref_details['current_zone']['zone_name']); ?></span></label>
-                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name" data-pre_zone_val="<?php echo e($zone_pref_details['just_prev_zone']['zone_id']); ?>"> <?php echo e($zone_pref_details['just_prev_zone']['zone_name']); ?></span></label>
+                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name" data-cur_zone_val=""> </span></label>
+                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name" data-pre_zone_val=""> </span></label>
                </div>
                <hr>
                <div id="posting_pref-group" class="form-group row our-form-group">
@@ -300,11 +300,11 @@
 
     //To remove current zone & previous zone, from drop down list : start
 
-        var cur_zone_name= $("#cur_zone_name").data('cur_zone_val');
-        var pre_zone_name = $("#pre_zone_name").data('pre_zone_val');;
+        // var cur_zone_name= $("#cur_zone_name").data('cur_zone_val');
+        // var pre_zone_name = $("#pre_zone_name").data('pre_zone_val');;
 
-        $(".posting_pref option[value='"+cur_zone_name+"']").remove();
-        $(".posting_pref option[value='"+pre_zone_name+"']").remove();
+        // $(".posting_pref option[value='"+cur_zone_name+"']").remove();
+        // $(".posting_pref option[value='"+pre_zone_name+"']").remove();
 
     //To remove current zone & previous zone, from drop down list : end
 
@@ -396,18 +396,18 @@
                     $("#jo_details").show();
 
                    // $("#officer_name").val('');
-                    var details="";
-                    details+=      '<tr>'+
-                                        '<td>'+response[0].jo_code+'</td>'+
-                                        '<td>'+response[0].designation_name+'</td>'+
-                                        '<td>'+response[0].district_name+'</td>'+
-                                        '<td>'+response[0].zone_name+'</td>'+
-                                        '<td>'+response[0].from_date+'</td>'+
-                                        '<td>'+response[0].duration+'</td>'+
-                                    '</tr>';
+                    // var details="";
+                    // details+=      '<tr>'+
+                    //                     '<td>'+response[0].jo_code+'</td>'+
+                    //                     '<td>'+response[0].designation_name+'</td>'+
+                    //                     '<td>'+response[0].district_name+'</td>'+
+                    //                     '<td>'+response[0].zone_name+'</td>'+
+                    //                     '<td>'+response[0].from_date+'</td>'+
+                    //                     '<td>'+response[0].duration+'</td>'+
+                    //                 '</tr>';
 
-                                //console.log(details);
-                    $('table tbody').html(details);
+                    //             //console.log(details);
+                    // $('table tbody').html(details);
                 },
                 error:function(response) {  
                            

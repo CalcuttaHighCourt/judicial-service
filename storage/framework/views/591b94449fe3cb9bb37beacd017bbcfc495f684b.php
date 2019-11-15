@@ -28,14 +28,14 @@
                     </div>
                 </div>
 
-                <div id="State_name-group" class="form-group row our-form-group">
-                    <label for="court_complex_name" class="col-md-4 control-label">Court Complex</label>
-                    <div class="col-md-6">
-                        <select id="court_complex" class="form-control info-form-control"
-                                name="court_complex"> <?php echo $__env->make('court_complexes.court_complex_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                        </select>
-                    </div>
-                </div>
+               <div id="subdivision_name-group" class="form-group row our-form-group">
+					<label for="subdivision_name" class="col-md-4 control-label">Subdivision Name</label>
+					<div class="col-md-6">
+						<select id="subdivision_id" class="form-control info-form-control"
+								name="district"> <?php echo $__env->make('subdivisions.subdivision_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+						</select>
+					</div>
+				</div>
 
 
                 <div id="info-panel-buttons" class="form-group hide">
@@ -104,10 +104,8 @@
                         <tr>
                             <th></th>
                             <th>Court Name</th>
-                            <th>Court Complex Name</th>
-                            <th>Action</th>
-                            <th></th>
-                            <th></th>
+                            <th>Subdivision Name</th>
+                            <th></th>                            
                         </tr>
 
                     </thead>
@@ -117,10 +115,8 @@
                         <tr>
                             <th></th>
                             <th>Court Name</th>
-                            <th>Court Complex Name</th>
-                            <th>Action</th>
-                            <th></th>
-                            <th></th>
+                            <th>Subdivision Name</th>
+                            <th></th>                          
                         </tr>
                     </tfoot>
                 </table>
@@ -147,7 +143,7 @@
     var table = "";
     $(function () {
 
-        $(".select2").select2(); // select2 initialization
+       // $(".select2").select2(); // select2 initialization
 
 
         table = $('#datatable-table').DataTable({
@@ -162,26 +158,12 @@
                     [
                         {className: "table-text", "targets": "_all"},
                         {
-                            "targets": -3,
-                            "data": null,
-                            "searchable": false,
-                            "sortable": false,
-                            "defaultContent": '<button type="submit" class="btn btn-info view-button"><i class="fa fa-info"></i> View</button>',
-                        },
-                        {
-                            "targets": -2,
-                            "data": null,
-                            "searchable": false,
-                            "sortable": false,
-                            "defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i> Edit</button>',
-                        },
-                        {
                             "targets": -1,
                             "data": null,
                             "searchable": false,
                             "sortable": false,
-                            "defaultContent": '<button type="submit" class="btn btn-danger delete-button"><i class="fa fa-trash"></i> Delete</button>',
-                        }
+                            "defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i></button>',
+                        },
                     ],
             "columns":
                     [
@@ -195,13 +177,7 @@
                             "data": "court_name",
                         },
                         {
-                            "data": "court_complex_name",
-                        },
-                        {
-                            "data": null
-                        },
-                        {
-                            "data": null
+                            "data": "subdivision_name",
                         },
                         {
                             "data": null
@@ -353,7 +329,7 @@
         $("#court-id").val(data.id);
 
         $("#court_name").val(data.court_name);
-        $("#court_complex").val(data.court_complex_id);
+        $("#subdivision_id").val(data.subdivision_id);
     }
     function show_button(type) {
         $("#" + type + "-button").show();
@@ -381,7 +357,7 @@
     function send_ajax_and_set_errors_exceptions_success(type) {
         var formData = {
             court_name: $('#court_name').val(),
-            court_complex_id: $("#court_complex").val()
+            subdivision_id: $("#subdivision_id option:selected").val()
         };
         ajax_url = "";
         operation = "";

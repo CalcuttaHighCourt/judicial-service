@@ -70,7 +70,8 @@ class SubdivisionController extends Controller
 			
 			$filtered = Subdivision::where('subdivision_name', 'ilike','%'.$search.'%')
                             ->join('districts', 'subdivisions.district_id', '=', 'districts.id')
-                                ->select('subdivisions.*', 'districts.district_name as district_name');
+                            ->join('zones', 'subdivisions.zone_id', '=', 'zones.id')
+                            ->select('subdivisions.*', 'districts.district_name as district_name','zones.zone_name');
 			
 			$records_filtered_count=$filtered->count();
                         
@@ -118,13 +119,17 @@ class SubdivisionController extends Controller
 
             $this->validate ( $request, [ 
                     'subdivision_name' => array('required','max:75','regex:/^[\pL\d\s]+$/u') ,
-                    'district_id' => array('required')
+                    'district_id' => array('required'),
+                    'zone_id' => array('required')
                     ] );
 
             try {
-                $request['created_by'] = Auth::user()->id;
 
+                $request['created_by'] = Auth::user()->id;
+                
                 $subdivision = Subdivision::create ( $request->all () );
+                
+               
                 $response = array (
                         'subdivision' => $subdivision 
                 );   
@@ -199,11 +204,11 @@ class SubdivisionController extends Controller
                 return response ()->json ( $response, $statusCode );
             }
 
-            $this->validate($request, [
-                
+            $this->validate($request, [              
                
-                'subdivision_name' => array('required', 'unique:subdivisions,subdivision_name'),
-                'disrtict_id' => array('required'),
+                'subdivision_name' => array('required','unique:courts,court_name,'.$id.',id'),
+                'district_id' => array('required'),
+                'zone_id' => array('required')
             ]);
             
             try {            
@@ -213,9 +218,12 @@ class SubdivisionController extends Controller
                 }
                 
                 $subdivision->subdivision_name = $request->subdivision_name;
-               
+                $subdivision->district_id = $request->district_id;
+                $subdivision->zone_id = $request->zone_id;
+
+
                 $subdivision->created_by = Auth::user()->id;
-                
+               
                 $subdivision->save();
                 
                 $response = array (
@@ -233,10 +241,7 @@ class SubdivisionController extends Controller
         }
 
 
-        public function load_index_page(){
-            $district = District::orderBy('district_name')->get();
-            return view('subdivisions.index',compact('districts'));
-        }
+        
 
         /**
          * Remove the specified resource from storage.

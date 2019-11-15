@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Subdivision extends Model
 {
     protected $fillable = [
-        'subdivision_name','district_id','created_by'
+        'subdivision_name','district_id','created_by','zone_id'
     ];
 
     public $timestamps = true;

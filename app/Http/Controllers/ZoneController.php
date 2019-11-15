@@ -63,12 +63,10 @@ class ZoneController extends Controller
     
             $this->validate($request, [
                 'zone_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:zones,zone_name'),
-                'subdivision' => array('required', 'exists:subdivisions,id'),
-                'min_service_days' => array('required','integer')
+                'min_service_days' => array('required','integer','min:0','max:1825')
             ]);
     
                 $zone_name = strtoupper($request->input('zone_name'));
-                $subdivision = $request->input('subdivision');
                 $min_service_days = $request->input('min_service_days');
                 $created_by = Auth::user()->id;
 
@@ -80,20 +78,7 @@ class ZoneController extends Controller
                     'updated_at'=>Carbon::today()
                 ]);
 
-                $zone_id = Zone::max('id');
-               
-              
-                
-                for($i=0; $i<sizeof($subdivision); $i++){
-                    ZoneSubdivision::insert([
-                        'zone_id'=>$zone_id,
-                        'subdivision_id'=>$subdivision[$i],
-                        'created_by' => $created_by,
-                        'created_at'=>Carbon::today(),
-                        'updated_at'=>Carbon::today()
-                    ]);
-               
-                }
+            
                 return 1;   
     }
             
