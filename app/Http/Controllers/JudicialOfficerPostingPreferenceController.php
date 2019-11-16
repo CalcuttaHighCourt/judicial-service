@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\JudicialOfficerPostingPreference;
 use App\JudicialOfficer;
 use App\Zone;
+use App\JoZoneTenure;
 use Auth;
 
 class JudicialOfficerPostingPreferenceController extends Controller
@@ -99,6 +100,66 @@ class JudicialOfficerPostingPreferenceController extends Controller
         } finally {
             return response()->json($response, $statusCode);
         }
+    }
+
+    public function fetch_zone(Request $request){
+
+        $response = [];
+        $statusCode = 200;
+        $fetch_zones = array();
+
+      
+             $judicial_officer= Auth::user()->judicial_officer_id;
+
+            $fetch_zone['current_zone'] = JoZoneTenure::join('zones','zones.id','=','jo_zone_tenures.zone_id')
+                                                        ->join('judicial_officers','judicial_officers.id','=','jo_zone_tenures.judicial_officer_id')
+                                                        -> where([
+                                                            ['to_date','=',null],
+                                                            ['judicial_officer_id','=',$judicial_officer]
+                                                        ])->select('zones.zone_name')->get();
+
+            $to_date = JoZoneTenure::Where('judicial_officer_id','=',$judicial_officer)
+                                    ->max('to_date');
+
+            $fetch_zone['previous_zone'] = JoZoneTenure::join('zones','zones.id','=','jo_zone_tenures.zone_id')
+                                                        ->where([
+                                                            ['to_date','=',$to_date],
+                                                            ['judicial_officer_id','=',$judicial_officer]
+                                                        ])->select('zones.zone_name')->get();
+
+            if(sizeof( $fetch_zone['previous_zone'] )>0){
+
+                $fetch_zone['zones'] = Zone::where([
+                                            ['zones.zone_name','<>',$fetch_zone['current_zone']['0']['zone_name']],
+                                            ['zones.zone_name','<>',$fetch_zone['previous_zone']['0']['zone_name']]
+                                        ])->select('zone_name')->get();
+
+                 $fetch_zone['no_of_preference']=2;
+                                                  
+           }
+           else{
+
+                $fetch_zone['zones'] = Zone::where([
+                    ['zones.zone_name','<>',$fetch_zone['current_zone']['0']['zone_name']]
+                   
+                ])->select('zone_name')->get();
+
+                $fetch_zone['no_of_preference']=3;
+           }
+
+           $duration_current_zone = ZoneTenure::join('zones','zones.id','=','jo_zone_tenures.zone_id')
+           ->join('judicial_officers','judicial_officers.id','=','jo_zone_tenures.judicial_officer_id')
+           -> where([
+               ['to_date','=',null],
+               ['judicial_officer_id','=',$judicial_officer]
+           ])->select('from_date')->get();                                         
+
+
+            $response = array(
+                'JudicialOfficerPostingPreferences' => $JudicialOfficerPostingPreferences
+            );
+        echo "abc";
+       
     }
 
     
