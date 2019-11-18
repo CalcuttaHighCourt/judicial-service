@@ -1,3 +1,6 @@
+
+
+
 {{--
 <!-- views/JudicialOfficerPostingPreference/index.blade.php -->
 --}}
@@ -28,9 +31,9 @@
             <li class="nav-item">
                <a class="nav-link active" id="judicial_diary" style="border-style:outset" data-toggle="tab" href="#daily_diary">Judicial diary</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                <a class="nav-link active"  style="border-style:outset" data-toggle="tab" href="#acr">Annual Confidential Report</a>
-            </li>
+            </li> -->
          </ul>
       </div>
       <!-- IIIIIIIIIII -->
@@ -44,25 +47,27 @@
                   <label for="officer_name" class="col-sm-offset-1 col-sm-4 ">Officer Name: {{Auth::user()->name}}</label>
                </div>
                <div id="zone-group" class="form-group row our-form-group">
-                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name" data-cur_zone_val=""> </span></label>
-                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name" data-pre_zone_val=""> </span></label>
+                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> {{$fetch_zone['current_zone']['0']['zone_name']}}</span></label>
+                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> {{$fetch_zone['previous_zone']['0']['zone_name']}}</span></label>
                </div>
                <hr>
-               <div id="posting_pref-group" class="form-group row our-form-group">
-                  <div class="col-sm-offset-1 col-sm-3">
-                     <label for="posting_pref1">Posting Preference 1</label>
-                     <select id="posting_pref1" class="form-control posting_pref" style="width:150px" name="posting_pref1">
-                        <option value="">Select zone1</option>
-                        @include('zones.zone_options')
-                     </select>
-                  </div>
-                  <div class="col-sm-3">
-                     <label for="posting_pref2">Posting Preference 2</label>
-                     <select id="posting_pref2" class="form-control  posting_pref" style="width:150px" name="posting_pref2">
-                        <option value="">Select zone2</option>
-                        @include('zones.zone_options')
-                     </select>
-                  </div>
+            
+               @for($i=1 ; $i<=$fetch_zone['no_of_preference']; $i++)
+                   <div id="posting_pref-group" class="form-group row our-form-group">
+                        <div class="col-sm-offset-1 col-sm-3">
+                            <label for="posting_pref">Posting Preference {{$i}} </label>
+                            <select id="priority_$i" class="form-control posting_pref" style="width:150px" name="posting_pref1">
+                                <option value="">Select zone</option>
+                               @foreach($fetch_zone['zones'] as $zones)
+                                    <option value="{{$zones['zone_id']}}">{{$zones['zone_name']}}</option>
+                               @endforeach
+                            </select>
+                    </div>
+                </div>
+
+              @endfor
+               
+                 
                   <div class="col-sm-3">
                      <label for="remarks">Remarks</label>
                      <textarea class="form-control" rows="3" id="remarks"></textarea>
@@ -502,3 +507,4 @@
 @endsection
 
 @section('body_attributes') @parent class="" @endsection
+

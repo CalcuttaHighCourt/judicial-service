@@ -25,9 +25,9 @@
             <li class="nav-item">
                <a class="nav-link active" id="judicial_diary" style="border-style:outset" data-toggle="tab" href="#daily_diary">Judicial diary</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                <a class="nav-link active"  style="border-style:outset" data-toggle="tab" href="#acr">Annual Confidential Report</a>
-            </li>
+            </li> -->
          </ul>
       </div>
       <!-- IIIIIIIIIII -->
@@ -41,25 +41,27 @@
                   <label for="officer_name" class="col-sm-offset-1 col-sm-4 ">Officer Name: <?php echo e(Auth::user()->name); ?></label>
                </div>
                <div id="zone-group" class="form-group row our-form-group">
-                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name" data-cur_zone_val=""> </span></label>
-                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name" data-pre_zone_val=""> </span></label>
+                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> <?php echo e($fetch_zone['current_zone']['0']['zone_name']); ?></span></label>
+                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> <?php echo e($fetch_zone['previous_zone']['0']['zone_name']); ?></span></label>
                </div>
                <hr>
-               <div id="posting_pref-group" class="form-group row our-form-group">
-                  <div class="col-sm-offset-1 col-sm-3">
-                     <label for="posting_pref1">Posting Preference 1</label>
-                     <select id="posting_pref1" class="form-control posting_pref" style="width:150px" name="posting_pref1">
-                        <option value="">Select zone1</option>
-                        <?php echo $__env->make('zones.zone_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                     </select>
-                  </div>
-                  <div class="col-sm-3">
-                     <label for="posting_pref2">Posting Preference 2</label>
-                     <select id="posting_pref2" class="form-control  posting_pref" style="width:150px" name="posting_pref2">
-                        <option value="">Select zone2</option>
-                        <?php echo $__env->make('zones.zone_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                     </select>
-                  </div>
+            
+               <?php for($i=1 ; $i<=$fetch_zone['no_of_preference']; $i++): ?>
+                   <div id="posting_pref-group" class="form-group row our-form-group">
+                        <div class="col-sm-offset-1 col-sm-3">
+                            <label for="posting_pref">Posting Preference <?php echo e($i); ?> </label>
+                            <select id="priority_$i" class="form-control posting_pref" style="width:150px" name="posting_pref1">
+                                <option value="">Select zone</option>
+                               <?php $__currentLoopData = $fetch_zone['zones']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $zones): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($zones['zone_id']); ?>"><?php echo e($zones['zone_name']); ?></option>
+                               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
+                    </div>
+                </div>
+
+              <?php endfor; ?>
+               
+                 
                   <div class="col-sm-3">
                      <label for="remarks">Remarks</label>
                      <textarea class="form-control" rows="3" id="remarks"></textarea>
@@ -499,5 +501,6 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
+
 
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/zone_pref_jr/index.blade.php ENDPATH**/ ?>
