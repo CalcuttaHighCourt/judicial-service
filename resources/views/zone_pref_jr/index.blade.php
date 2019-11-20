@@ -47,8 +47,8 @@
                   <label for="officer_name" class="col-sm-offset-1 col-sm-4 ">Officer Name: {{Auth::user()->name}}</label>
                </div>
                <div id="zone-group" class="form-group row our-form-group">
-                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> {{$fetch_zone['current_zone']['0']['zone_name']}}</span></label>
-                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> {{$fetch_zone['previous_zone']['0']['zone_name']}}</span></label>
+                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> {{$fetch_zone['current_zone']}}</span></label>
+                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> {{$fetch_zone['previous_zone']}}</span></label>
                </div>
                <hr>
             
@@ -56,10 +56,10 @@
                    <div id="posting_pref-group" class="form-group row our-form-group">
                         <div class="col-sm-offset-1 col-sm-3">
                             <label for="posting_pref">Posting Preference {{$i}} </label>
-                            <select id="priority_$i" class="form-control posting_pref" style="width:150px" name="posting_pref1">
+                            <select id="priority_{{$i}}" class="form-control posting_pref" style="width:150px">
                                 <option value="">Select zone</option>
                                @foreach($fetch_zone['zones'] as $zones)
-                                    <option value="{{$zones['zone_id']}}">{{$zones['zone_name']}}</option>
+                                    <option value="{{$zones['id']}}">{{$zones['zone_name']}}</option>
                                @endforeach
                             </select>
                     </div>
@@ -67,26 +67,29 @@
 
               @endfor
                
-                 
-                  <div class="col-sm-3">
+                <div class="row">
+                  <div class="col-sm-offset-1 col-sm-5">
                      <label for="remarks">Remarks</label>
                      <textarea class="form-control" rows="3" id="remarks"></textarea>
                   </div>
-                  <div class="col-sm-2">
-                     <br>
-                     <button id="draft" type="button"class="btn btn-warning draft-button info-form-button">
-                     Draft
-                     </button>
+                </div>
+                <div class="row">
+                    <br>
+                    <div class="col-sm-offset-2 col-sm-2">
+                        <button id="draft" type="button"class="btn btn-warning draft-button info-form-button">Draft</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button id="submit" type="button" class="btn btn-primary add-button info-form-button">
+                            Final Submit
+                        </button>
                   </div>
-                  <div class="col-sm-offset-1 col-sm-2">
-                     <button id="submit" type="button" class="btn btn-primary add-button info-form-button">
-                     Final Submit
-                     </button>
-                  </div>
+                </div>
                </div>
             </div>
          </div>
       </div>
+
+     
       <br>
       <br>
       <!-- digital dairy starts here---->
@@ -121,8 +124,7 @@
                   </form>
                   <div class="col-sm-offset-5 col-sm-3">
                      <button id="submit_worksheet" type="button"
-                        class="btn btn-warning add-button info-form-button">
-                     Submit
+                        class="btn btn-warning add-button info-form-button">Submit
                      </button>
                   </div>
                </div>
@@ -156,9 +158,10 @@
 <script type="text/javascript">
       $(document).ready(function(){
 
-       
-
+           /*Initialising the text editor*/
+           
             $(".text_content").wysihtml5();
+           
            /*LOADER*/
 
             $(document).ajaxStart(function() {
@@ -170,117 +173,38 @@
 
          /*LOADER*/
 
-         /*Datatable initialisation */
-
-        // var table="";
-        // $(function() {
-         
-        //  table = $('#datatable-table').DataTable({
-            
-        //     "processing": true,
-        //     "serverSide": true,
-        //     "ajax": {
-        //         type:"post",
-        //         url: "zone_pref_details/table_show",
-        //         dataSrc: "judicial_officer_posting_preferences"
-        //     },
-
-        //     "columnDefs":
-        //             [
-        //                 {className: "table-text", "targets": "_all"},
-                       
-        //                 {
-        //                     "targets": -1,
-        //                     "data": null,
-        //                     "searchable": false,
-        //                     "sortable": false,
-        //                     "defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i> </button>',
-        //                 }
-                       
-        //              ],
-        //     "columns":
-        //             [
-        //                 {
-        //                     "data": null,
-        //                     "defaultContent": "",
-        //                     "searchable": false,
-        //                     "orderable": false,
-        //                 },
-                        
-        //                 {
-        //                     "data": "zone_name",
-        //                 },
-        //                 {
-        //                     "data": "created_at",
-        //                 },
-        //                 {
-        //                     "data": "remarks",
-        //                 },
-        //                 {
-        //                     "data": "",
-        //                 },
-                        
-        //             ],
-        //     "order": [[2, 'desc']]
-        //         });
-        //         table.on( 'draw.dt', function () {
+        $.ajax({
+            type:"post",
+            url: "zone_pref_details/populate",
+            data:{
+                    _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success:function(response){
                 
-        //             $('.edit-button').click(function(){
-        //                 var data = table.row( $(this).parents('tr') ).data();
-        //                 //console.log(data);
-        //                 if(data.remarks=="Not Mentioned")
-        //                 {
-        //                     $("#remarks").val("");
-        //                 }
-        //                 else{
-        //                     $("#remarks").val(data.remarks);
-        //                 }
+               console.log(response);
 
-        //                 var zone_name=(data.zone_name);
-        //                 var zone_id=(data.zone_id);
-        //                 $('.posting_pref').val("");
-        //                // console.log(data.zone_name);
-        //                 $('.posting_pref option[value=' + zone_id + ']').attr('selected', true).trigger("change");
+              
+                     $("#priority_1").val(response.judicial_officer_posting_preference["0"].zone_id);
 
-        //                 $("#file_prefix").attr("readonly","readonly");
-        //             });
-                    
-	    //         });
-        //     });
-   
+               
+                    $('#priority_2').val(response.judicial_officer_posting_preference['1'].zone_id);
 
-    // function populate_form(data){
-	
-    //         $("#judicial_officer_id").val(data.id);
-            
-    //         $("#officer_name").val(data.officer_name);
+                // if(response.hasOwnProperty(response.judicial_officer_posting_preference['2'].zone_id))
+                //     $('#priority_3').val(response.judicial_officer_posting_preference['2'].zone_id);
 
-    //         $("#remarks").val(data.guardian_name);
-    
-    // }
-            // function make_active_button(type){
-            //     $("#"+type+"-button").addClass("active");
-            // }
-            // function make_form_readonly(make_readonly){
-            //     if(make_readonly){
-            //         $('#info-form input').attr('readonly', 'readonly');
-            //         $('#info-form textarea').attr('readonly', 'readonly');
-            //         $('#info-form select').attr('readonly', 'readonly');
-            //     }
-            //     else{
-            //         $('#info-form input').removeAttr('readonly');
-            //         $('#info-form textarea').removeAttr('readonly');
-            //         $('#info-form select').removeAttr('readonly');
-            //     }
-            // }
-            // function show_button(type){
-            //     $("#"+type+"-button").show();
-            //     $("#"+type+"-button").removeAttr("disabled");
+               
+                    $('#remarks').val(response.judicial_officer_posting_preference['0'].remarks);
+
                 
-            //     $("#info-panel-buttons").removeClass("hide");
-            //     //$("#"+type+"-button").removeClass("disabled");
-            // }
-        /*datatable for preference ends  */
+            },
+            error:function(response)
+            {
+                swal("Server Error","","error");
+            }
+
+        });
+        
+      
 
         /*date initialization:start */
 
@@ -306,17 +230,7 @@
          });
 
 
-    //To remove current zone & previous zone, from drop down list : start
-
-        // var cur_zone_name= $("#cur_zone_name").data('cur_zone_val');
-        // var pre_zone_name = $("#pre_zone_name").data('pre_zone_val');;
-
-        // $(".posting_pref option[value='"+cur_zone_name+"']").remove();
-        // $(".posting_pref option[value='"+pre_zone_name+"']").remove();
-
-    //To remove current zone & previous zone, from drop down list : end
-
-       
+          
         $(document).on("click","#submit_diary",function(){
 
            $("#diary_editor").show();
@@ -381,7 +295,63 @@
             });
         });
 
-        
+        function send_data(flag){
+
+            var posting_pref=  new Array(); 
+
+            posting_pref = [];
+            $(".posting_pref").each(function(){
+                posting_pref.push($(this).val());
+            })
+
+            var remarks= $("#remarks").val();
+
+            $.ajax({
+
+                type: "POST",
+                url:"zone_pref_jr/draft", 
+                data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        posting_pref:posting_pref,
+                        remarks:remarks,
+                        flag:flag
+                    } ,
+                    success:function(response){
+                        swal("Saved in Draft Mode","Zone Preference has been saved if draft mode ","success");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        if(jqXHR.status!=422 && jqXHR.status!=400){
+                            swal("Server Error",errorThrown,"error");
+                        }
+                        else{
+                            msg = "";
+                            $.each(jqXHR.responseJSON.errors, function(key,value) {
+                                msg+=value+"\n";						
+                            });
+                            swal("Invalid Input",msg,"error");
+                        }
+                    }
+                })
+
+        }
+
+        $(document).on("click", "#draft",function(){
+
+
+            send_data('N');
+           
+            });
+
+            $(document).on("click", "#submit", function(){
+
+                $("#submit").hide();
+                $("#draft").hide();
+
+                send_data('Y');
+
+               
+
+            });
         
             $(document).on("click", "#search",function(){
 
@@ -403,19 +373,6 @@
                    
                     $("#jo_details").show();
 
-                   // $("#officer_name").val('');
-                    // var details="";
-                    // details+=      '<tr>'+
-                    //                     '<td>'+response[0].jo_code+'</td>'+
-                    //                     '<td>'+response[0].designation_name+'</td>'+
-                    //                     '<td>'+response[0].district_name+'</td>'+
-                    //                     '<td>'+response[0].zone_name+'</td>'+
-                    //                     '<td>'+response[0].from_date+'</td>'+
-                    //                     '<td>'+response[0].duration+'</td>'+
-                    //                 '</tr>';
-
-                    //             //console.log(details);
-                    // $('table tbody').html(details);
                 },
                 error:function(response) {  
                            

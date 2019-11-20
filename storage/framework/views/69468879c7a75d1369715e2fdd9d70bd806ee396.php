@@ -332,7 +332,7 @@
                     $("#comply_div").hide();
                 }
                 else{
-                    swal("complied","Comply only when all the records are with you","success");
+                    swal("Complied","Comply only when all the records are with you","success");
 
                 }
 

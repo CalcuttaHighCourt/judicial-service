@@ -19,6 +19,7 @@ class CreateLcrLcDetailsTable extends Migration
             $table->string('lower_case_record');
             $table->integer('lower_case_no');
             $table->integer('lower_case_year');
+            $table->string('status_flag');
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
 

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\District;
 use App\Court;
-use App\CourtComplex;
+use App\Subdivision;
 use Carbon\Carbon;
 use App\Lcr_hc_end;
 use App\Lcr_lc_detail;
@@ -15,11 +15,11 @@ use Auth;
 class LcrController extends Controller
 {
 
-    public function hc_index_court_complex(Request $request){
+    public function hc_index_subdivision(Request $request){
 
         $district=$request->input('district');
 
-        $data= CourtComplex::select('id','court_complex_name')
+        $data= Subdivision::select('id','subdivision_name')
                                 ->where('district_id',$district)
                                 ->get();
             
@@ -30,10 +30,10 @@ class LcrController extends Controller
 
     public function hc_index_court(Request $request){
 
-        $court_complex=$request->input('court_complex');
+        $subdivision=$request->input('subdivision');
 
             $data= Court::select('id','court_name')
-                                ->where('court_complex_id',$court_complex)
+                                ->where('subdivision_id',$subdivision)
                                 ->get();
 
         return $data;
@@ -46,7 +46,7 @@ class LcrController extends Controller
 		
 		$request->validate([
 			'district' => 'required',
-			'court_complex' => 'required',
+			'subdivision' => 'required',
 			'court' => 'required',
 			'hc_case_type' => 'required',
 			'hc_case_no' => 'required',
@@ -56,7 +56,7 @@ class LcrController extends Controller
 		
 		
 		$district=$request->input('district');
-		$court_complex=$request->input('court_complex');
+		$subdivision=$request->input('subdivision');
 		$court=$request->input('court');
 		$hc_case_type=$request->input('hc_case_type');
 		$hc_case_no=$request->input('hc_case_no');
@@ -72,7 +72,7 @@ class LcrController extends Controller
 		$hc_id = Lcr_hc_end::insertGetId(
 		[
 			'district' => $district,
-			'complex' => $court_complex,
+			'subdivision' => $subdivision,
 			'court' => $court,
 			'hc_case_record' => $hc_case_type,
 			'hc_case_no' => $hc_case_no,

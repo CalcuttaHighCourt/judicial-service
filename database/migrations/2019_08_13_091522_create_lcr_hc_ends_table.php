@@ -16,7 +16,7 @@ class CreateLcrHcEndsTable extends Migration
         Schema::create('lcr_hc_ends', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('district');
-			$table->unsignedBigInteger('complex');
+			$table->unsignedBigInteger('subdivision');
 			$table->unsignedBigInteger('court');
             $table->string('hc_case_record');
 			$table->integer('hc_case_no');
@@ -26,7 +26,7 @@ class CreateLcrHcEndsTable extends Migration
             $table->timestamps();
 			
 			$table->foreign('court')->references('id')->on('courts');
-            $table->foreign('complex')->references('id')->on('court_complexes');
+            $table->foreign('subdivision')->references('id')->on('subdivisions');
             $table->foreign('district')->references('id')->on('districts');
             $table->foreign('created_by')->references('id')->on('users');
         });
