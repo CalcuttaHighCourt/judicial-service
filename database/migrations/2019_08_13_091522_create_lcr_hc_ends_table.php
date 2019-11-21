@@ -21,10 +21,15 @@ class CreateLcrHcEndsTable extends Migration
             $table->string('hc_case_record');
 			$table->integer('hc_case_no');
 			$table->integer('hc_case_year');
-			$table->date('deadline');
+            $table->date('deadline');
+            $table->string('memo_no');
+            $table->string('status_flag');
+            $table->date('memo_date');
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
-			
+
+            						
+			$table->unique(['memo_no','memo_date']);
 			$table->foreign('court')->references('id')->on('courts');
             $table->foreign('subdivision')->references('id')->on('subdivisions');
             $table->foreign('district')->references('id')->on('districts');

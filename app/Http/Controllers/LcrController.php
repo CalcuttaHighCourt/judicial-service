@@ -51,7 +51,9 @@ class LcrController extends Controller
 			'hc_case_type' => 'required',
 			'hc_case_no' => 'required',
 			'hc_case_year' => 'required',
-			'deadline' => 'required'
+			'deadline' => 'required',
+			'memo_no' => 'required',
+			'memo_date' => 'required',
 		]);
 		
 		
@@ -65,6 +67,8 @@ class LcrController extends Controller
 		$lc_case_no=$request->input('lc_case_no');
 		$lc_case_year=$request->input('lc_case_year');
 		$deadline=date("Y-m-d", strtotime($request->input('deadline')));
+		$memo_no=$request->input('memo_no');
+		$memo_date=date("Y-m-d", strtotime($request->input('memo_date')));
 		$userid=Auth::user()->id;
 		
 		
@@ -78,7 +82,11 @@ class LcrController extends Controller
 			'hc_case_no' => $hc_case_no,
 			'hc_case_year' => $hc_case_year,
 			'deadline' => $deadline,
-			'created_by' => $userid
+			'memo_no' => $memo_no,
+			'memo_date' => $memo_date,
+			'created_by' => $userid,
+			'created_at'=>Carbon::today(),
+			'updated_at'=>Carbon::today()
 		]
 		);
 		
@@ -89,7 +97,9 @@ class LcrController extends Controller
 				'lower_case_record' => $lc_case_type[$i],
 				'lower_case_no' => $lc_case_no[$i],
 				'lower_case_year' => $lc_case_year[$i],
-				'created_by' => $userid
+				'created_by' => $userid,
+				'created_at'=>Carbon::today(),
+				'updated_at'=>Carbon::today()
 			]
 			);
 		}//for loop ends
@@ -125,6 +135,9 @@ class LcrController extends Controller
 						])
 						->get();
 			$data["hc_records"]=$hc_records;
+
+			//$data["memo_no"]= Lcr_hc_end::select('memo_no','memo_date')->get();
+			//echo $data["memo_no"];exit();
 
 			return view('lcr.lower_compliance')->with('data',$data);
 		
