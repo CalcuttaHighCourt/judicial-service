@@ -14,15 +14,16 @@ class CreateSubdivisionsTable extends Migration
     public function up()
     {
         Schema::create('subdivisions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('subdivision_name');
-			$table->unsignedBigInteger('district_id');
-			$table->unsignedBigInteger('created_by');
+            $table->integer('district_id');
+            $table->integer('zone_id');
+			$table->bigInteger('created_by');
 			$table->timestamps();
             
             $table->unique(['subdivision_name','district_id']);
-			$table->foreign('district_id')->references('id')->on('districts');
-			$table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('district_id')->references('id')->on('districts');
+            $table->foreign('zone_id')->references('id')->on('zones');
         });
     }
 

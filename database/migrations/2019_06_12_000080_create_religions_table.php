@@ -14,11 +14,10 @@ class CreateReligionsTable extends Migration
     public function up()
     {
         Schema::create('religions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('religion_name')->unique();
-            $table->unsignedBigInteger('created_by');
+            $table->bigInteger('created_by');
             $table->timestamps();
-			$table->foreign('created_by')->references('id')->on('users');
         });
     }
 

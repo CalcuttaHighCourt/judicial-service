@@ -14,12 +14,10 @@ class CreateGradeDetailsTable extends Migration
     public function up()
     {
         Schema::create('grade_details', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('grade_name');
-            $table->unsignedBigInteger('created_by');
+            $table->increments('id');
+            $table->string('grade_name')->unique();
+            $table->bigInteger('created_by');
             $table->timestamps();
-
-            $table->foreign('created_by')->references('id')->on('users');
         });
     }
 

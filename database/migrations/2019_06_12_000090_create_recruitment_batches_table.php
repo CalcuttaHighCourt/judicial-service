@@ -14,12 +14,11 @@ class CreateRecruitmentBatchesTable extends Migration
     public function up()
     {
         Schema::create('recruitment_batches', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('recruitment_batch_desc')->unique();
 			$table->integer('batch_year');
-            $table->unsignedBigInteger('created_by');
+            $table->bigInteger('created_by');
             $table->timestamps();
-			$table->foreign('created_by')->references('id')->on('users');
         });
     }
 

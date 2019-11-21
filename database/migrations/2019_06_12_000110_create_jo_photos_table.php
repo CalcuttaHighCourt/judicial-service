@@ -15,12 +15,11 @@ class CreateJoPhotosTable extends Migration
     {
         Schema::create('jo_photos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('judicial_officer_id')->nullable();
-            $table->binary('photo')->nullable();
-
-            $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
-
+            $table->bigInteger('judicial_officer_id');
+            $table->binary('photo');
             $table->timestamps();
+            
+            $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
         });
     }
 

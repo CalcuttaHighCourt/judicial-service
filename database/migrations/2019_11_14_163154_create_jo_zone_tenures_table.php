@@ -15,16 +15,17 @@ class CreateJoZoneTenuresTable extends Migration
     {
         Schema::create('jo_zone_tenures', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('judicial_officer_id');
-            $table->unsignedBigInteger('zone_id');
+            $table->bigInteger('judicial_officer_id');
+            $table->integer('zone_id');
             $table->date('from_date');
             $table->date('to_date')->nullable();
-            $table->unsignedBigInteger('created_by');
+            $table->bigInteger('created_by');
             $table->timestamps();
+            
+            $table->unique(['judicial_officer_id','zone_id','from_date']);
 
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
             $table->foreign('zone_id')->references('id')->on('zones');
-            $table->foreign('created_by')->references('id')->on('users');
         });
     }
 

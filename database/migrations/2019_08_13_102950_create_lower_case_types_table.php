@@ -14,8 +14,9 @@ class CreateLowerCaseTypesTable extends Migration
     public function up()
     {
         Schema::create('lower_case_types', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('type_name');
+            $table->increments('id');
+            $table->string('type_name')->unique();
+            $table->bigInteger('created_by');
             $table->timestamps();
         });
     }

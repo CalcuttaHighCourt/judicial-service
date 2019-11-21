@@ -14,13 +14,11 @@ class CreateHcCaseTypesTable extends Migration
     public function up()
     {
         Schema::create('hc_case_types', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('type_name');
-            $table->string('full_form');
-            $table->unsignedBigInteger('created_by');
+            $table->increments('id');
+            $table->string('type_name')->unique();
+            $table->string('full_form')->unique();
+            $table->bigInteger('created_by');
             $table->timestamps();
-
-            $table->foreign('created_by')->references('id')->on('users');
         });
     }
 
