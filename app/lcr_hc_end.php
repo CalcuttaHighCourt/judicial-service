@@ -8,6 +8,8 @@ class Lcr_hc_end extends Model
 {
         public $timestamps = true;
 
+       
+
         public function lcr_case_details()
         {
                 return $this->hasMany('App\Lcr_lc_detail','hc_id','id');
