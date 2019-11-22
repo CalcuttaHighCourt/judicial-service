@@ -16,10 +16,10 @@ class CreateCourtsTable extends Migration
         Schema::create('courts', function (Blueprint $table) {
             $table->bigIncrements('id');
 			$table->string('court_name')->unique();
-			$table->unsignedBigInteger('court_complex_id');
+			$table->unsignedBigInteger('subdivision_id');
 			$table->unsignedBigInteger('created_by');
             $table->timestamps();
-			$table->foreign('court_complex_id')->references('id')->on('court_complexes');
+			$table->foreign('subdivision_id')->references('id')->on('subdivisions');
 			$table->foreign('created_by')->references('id')->on('users');
         });
     }
