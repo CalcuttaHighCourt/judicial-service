@@ -220,13 +220,8 @@ class DistrictController extends Controller {
                     'exception_message' => "Record(s) of District: " . $district->district_name . " exists in Subdivision table.",
                 );
                 $statusCode = 400;
-            } else if ($district->court_complexes->count() > 0) {
-                $response = array(
-                    'exception' => true,
-                    'exception_message' => "Record(s) of District: " . $district->district_name . " exists in Court Complex table.",
-                );
-                $statusCode = 400;
-            } else {
+            } 
+            else {
                 if (!empty($district)) {
                     $district->delete();
                 }

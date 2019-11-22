@@ -15,15 +15,15 @@ class CreateLcrLcDetailsTable extends Migration
     {
         Schema::create('lcr_lc_details', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('hc_id');
+            $table->bigInteger('hc_id');
             $table->string('lower_case_record');
             $table->integer('lower_case_no');
             $table->integer('lower_case_year');
-            $table->unsignedBigInteger('created_by');
+            $table->string('compliance_flag')->nullable();
+            $table->bigInteger('created_by');
             $table->timestamps();
 
             $table->foreign('hc_id')->references('id')->on('lcr_hc_ends');
-            $table->foreign('created_by')->references('id')->on('users');
         });
     }
 

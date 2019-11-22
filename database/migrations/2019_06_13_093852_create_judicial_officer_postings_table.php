@@ -15,25 +15,23 @@ class CreateJudicialOfficerPostingsTable extends Migration
     {
         Schema::create('judicial_officer_postings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('judicial_officer_id');
-            $table->unsignedBigInteger('designation_id');
-            $table->unsignedBigInteger('court_id')->nullable();
-            $table->unsignedBigInteger('court_complex_id');
-            $table->unsignedBigInteger('mode_id');
+            $table->bigInteger('judicial_officer_id');
+            $table->integer('designation_id');
+            $table->integer('court_id')->nullable();
+            $table->string('other_station_name')->nullable();
+            $table->integer('mode_id');
             $table->date('from_date');
             $table->date('to_date')->nullable();
-            $table->unsignedBigInteger('created_by');
+            $table->integer('created_by');
             $table->timestamps();
 
             $table->unique(['judicial_officer_id', 'designation_id', 
-            'court_id', 'court_complex_id', 'mode_id', 'from_date']);
+            'court_id', 'mode_id', 'from_date']);
 
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
             $table->foreign('designation_id')->references('id')->on('designations');
-            $table->foreign('court_id')->references('id')->on('courts');
-            $table->foreign('court_complex_id')->references('id')->on('court_complexes');
+            $table->foreign('court_id')->references('id')->on('courts');            
             $table->foreign('mode_id')->references('id')->on('modes');
-            $table->foreign('created_by')->references('id')->on('users');
         });
     }
 

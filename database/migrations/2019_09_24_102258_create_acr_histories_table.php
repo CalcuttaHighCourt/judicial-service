@@ -16,17 +16,16 @@ class CreateAcrHistoriesTable extends Migration
         Schema::create('acr_histories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('jo_code');
-            $table->unsignedBigInteger('judicial_officer_id');
-            $table->unsignedBigInteger('grade_id');
+            $table->bigInteger('judicial_officer_id');
+            $table->integer('grade_id');
             $table->integer('year');
-            $table->unsignedBigInteger('created_by');
+            $table->bigInteger('created_by');
             $table->timestamps();
 
             $table->unique(['judicial_officer_id','year']);
 
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
             $table->foreign('grade_id')->references('id')->on('grade_details');
-            $table->foreign('created_by')->references('id')->on('users');
         });
     }
 

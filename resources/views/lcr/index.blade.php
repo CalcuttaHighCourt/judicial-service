@@ -21,8 +21,8 @@
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <select id="court_complex" type="text" class="form-control info-form-control court_complex" name="court_complex" disabled> 
-                                <option value="">Select Court Complex </option>
+                            <select id="subdivision" type="text" class="form-control info-form-control subdivision" name="subdivision" disabled> 
+                                <option value="">Select Subdivision </option>
                             </select>
                         </div>
                         <div class="col-md-4">
@@ -91,19 +91,30 @@
                         </div>
 					</div>
                     <br>
-                    <div id="buttonset" class="form-group our-form-group">
-                        <div class="col-md-4">
-                            <input type="text" id="deadline" class="form-control info-form-control deadline" placeholder="LCR Required Within This Date">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <input type="text" id="deadline" class="form-control info-form-control date deadline" placeholder="LCR Required Within This Date">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-sm-4">
+                            <input type="text" id="memo_no" class="form-control info-form-control memo_no" placeholder="Insert Memo No.">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" id="memo_date" class="form-control date info-form-control memo_date" placeholder="Insert Memo Date.">
+                        </div>
+                    </div>
+
+                    <div id="buttonset" class="form-group our-form-group">
+                    <br>
+                        <div class="col-sm-4">
                             <button id="request" class="btn btn-success" style="width:100%;">REQUEST LOWER COURT RECORD</button>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-sm-4">
                             <button id="reset" class="btn btn-danger" style="width:100%;">RESET ALL FIELDS</button>
                         </div>
                     </div>
-                </div><!-- Lower Court Request Form ENDS -->
-            </div>
+                </div>
+            </div><!-- Lower Court Request Form ENDS -->
+        </div>
         </div>
     </div>
 </div>
@@ -123,7 +134,9 @@
 
         $(document).ready(function(){
 
-            $('#deadline').datepicker({
+             
+
+            $('.date').datepicker({
                 format: "dd-mm-yyyy",
                 weekStart: 1,
                 todayBtn: "linked",
@@ -155,7 +168,7 @@
 
                      $.ajax({
 
-                        url:"lcr_hc_end_populate/court_complex",
+                        url:"lcr_hc_end_populate/subdivision",
                         method: "POST",
                         data :{_token: $('meta[name="csrf-token"]').attr('content'),
                               district: district
@@ -163,19 +176,19 @@
                         success: function(response){                            
                             if(response.length)
                             {
-                                $("#court_complex").removeAttr("disabled");
-                                $("#court_complex").find('option').not(':first').remove();
+                                $("#subdivision").removeAttr("disabled");
+                                $("#subdivision").find('option').not(':first').remove();
 
                                 $.each(response, function(key,value){
-                                    $("#court_complex").append('<option value="'+value.id+'">'+value.court_complex_name +'</option>');
+                                    $("#subdivision").append('<option value="'+value.id+'">'+value.subdivision_name +'</option>');
 
                                 });
                             }
                             else
                             {
-                                $("#court_complex").find('option').not(':first').remove();
+                                $("#subdivision").find('option').not(':first').remove();
                                 $("#court").find('option').not(':first').remove();
-								$("#court_complex").prop("disabled", true);
+								$("#subdivision").prop("disabled", true);
 								$("#court").prop("disabled", true);
                             }
 
@@ -183,16 +196,16 @@
                      });
                 });
 
-                $(document).on("change","#court_complex",function(){
+                $(document).on("change","#subdivision",function(){
                      
-                     var court_complex= $("#court_complex option:selected").val();
+                     var subdivision= $("#subdivision option:selected").val();
 
                      $.ajax({
 
                         url:"lcr_hc_end_populate/court",
                         method: "POST",
                         data :{_token: $('meta[name="csrf-token"]').attr('content'),
-                            court_complex: court_complex
+                            subdivision: subdivision
                         },
                         success: function(response){                            
                             if(response.length)
@@ -219,12 +232,14 @@
 				//on click request button database entry occurs
                 $(document).on("click","#request",function(){
 					var district = $("#district option:selected").val();
-					var court_complex = $("#court_complex option:selected").val();
+					var subdivision = $("#subdivision option:selected").val();
 					var court = $("#court option:selected").val();
 					var hc_case_type = $("#hc_case_type option:selected").val();
 					var hc_case_no = $("#hc_case_no").val();
 					var hc_case_year = $("#hc_case_year option:selected").val();
 					var deadline = $("#deadline").val();
+                    var memo_no= $("#memo_no").val();
+                    var memo_date= $("#memo_date").val();
 					var lc_case_type = new Array;
 					var lc_case_no = new Array;
 					var lc_case_year = new Array;
@@ -237,7 +252,7 @@
 						swal("District is mandetory","You must select a district","error");
 						return false;
 					}
-					if(court_complex==""){
+					if(subdivision==""){
 						swal("Court Complex is mandetory","You must select a court complex","error");
 						return false;
 					}
@@ -281,7 +296,7 @@
                         method: "POST",
                         data :{_token: $('meta[name="csrf-token"]').attr('content'),
                             district:district,
-							court_complex: court_complex,
+							subdivision:subdivision,
 							court:court,
 							hc_case_type:hc_case_type,
 							hc_case_no:hc_case_no,
@@ -289,7 +304,9 @@
 							lc_case_type:lc_case_type,
 							lc_case_no:lc_case_no,
 							lc_case_year:lc_case_year,
-							deadline:deadline
+							deadline:deadline,
+                            memo_no:memo_no,
+                            memo_date:memo_date
                         },
                         success: function(response){   
 							swal("LOWER COURT RECORD REQUESTED SUCCESSFULLY","WITHIN - "+deadline,"success");
@@ -304,8 +321,8 @@
 
                      $("#district").val("");
                      
-					 $("#court_complex").find('option').not(':first').remove();
-					 $("#court_complex").prop("disabled", true);
+					 $("#subdivision").find('option').not(':first').remove();
+					 $("#subdivision").prop("disabled", true);
 					 
                      $("#court").find('option').not(':first').remove();
 					 $("#court").prop("disabled", true);
@@ -322,7 +339,9 @@
 						$('.'+j).remove();
 					 }
 					 
-					 $("#deadline").val("");                
+					 $("#deadline").val("");      
+                     $("#memo_no").val("");                  
+                     $("#memo_date").val("");        
                 });
     
     });

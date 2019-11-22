@@ -15,20 +15,16 @@ class CreateJoReportingReviewingsTable extends Migration
     {
         Schema::create('jo_reporting_reviewings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('judicial_officer_id');
-            $table->unsignedBigInteger('reporting_officer_id');
-            $table->unsignedBigInteger('reviewing_officer_id');
+            $table->bigInteger('judicial_officer_id');
+            $table->bigInteger('reporting_officer_id')->nullable();
             $table->date('from_date');
-            $table->date('to_date')->nullable(true);
-            $table->unsignedBigInteger('created_by');
+            $table->date('to_date')->nullable();
             $table->timestamps();
 
-            $table->unique(['judicial_officer_id', 'reporting_officer_id', 'reviewing_officer_id']);
+            $table->unique(['judicial_officer_id', 'reporting_officer_id']);
             
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
             $table->foreign('reporting_officer_id')->references('id')->on('judicial_officers');
-            $table->foreign('reviewing_officer_id')->references('id')->on('judicial_officers');
-            $table->foreign('created_by')->references('id')->on('users');
         });
     }
 

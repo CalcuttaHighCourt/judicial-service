@@ -14,13 +14,14 @@ class CreateCourtsTable extends Migration
     public function up()
     {
         Schema::create('courts', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
 			$table->string('court_name')->unique();
-			$table->unsignedBigInteger('subdivision_id');
-			$table->unsignedBigInteger('created_by');
+            $table->integer('subdivision_id');
+            $table->double('latitude')->nullable();
+			$table->double('longitude')->nullable();
+			$table->bigInteger('created_by');
             $table->timestamps();
 			$table->foreign('subdivision_id')->references('id')->on('subdivisions');
-			$table->foreign('created_by')->references('id')->on('users');
         });
     }
 

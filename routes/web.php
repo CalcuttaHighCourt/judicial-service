@@ -283,13 +283,20 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 	/*Posting zone preference*/
 
-	Route::post('zone_pref/submit', 'JudicialOfficerPostingPreferenceController@store');
+	//Route::post('zone_pref/submit', 'JudicialOfficerPostingPreferenceController@store');
 
-	//Route::get('zone_pref_jr', 'JudicialOfficerPostingController@zone_pref_details_fetch');
+	Route::get('zone_pref_jr', 'JudicialOfficerPostingPreferenceController@fetch_zone');
 
 	Route::post('zone_pref_details/table_show', 'JudicialOfficerPostingPreferenceController@zone_pref_table_content');
 
 	Route::post('zone_pref_jr/worksheet', 'JudicialOfficerController@store_worksheet');
+
+	
+	Route::post('zone_pref_jr/draft', 'JudicialOfficerPostingPreferenceController@store');
+
+	Route::post('zone_pref_jr/submit', 'JudicialOfficerPostingPreferenceController@submit');
+
+	Route::post('zone_pref_details/populate', 'JudicialOfficerPostingPreferenceController@zone_pref_content');
 
 	Route::post('zone_pref_jr/worksheet_show', 'JudicialOfficerController@show_worksheet');
 
@@ -302,9 +309,9 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 		return view ( 'judicial_officer_posting_preferences.index' );
 	} );
 
-	Route::get ( 'zone_pref_jr', function () {
-		return view ( 'zone_pref_jr.index' );
-	} );
+	// Route::get ( 'zone_pref_jr', function () {
+	// 	return view ( 'zone_pref_jr.index' );
+	// } );
 
 });
 
@@ -312,7 +319,7 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 		/*LCR */
 
-		Route::post('lcr_hc_end_populate/court_complex', 'LcrController@hc_index_court_complex');
+		Route::post('lcr_hc_end_populate/subdivision', 'LcrController@hc_index_subdivision');
 
 		Route::post('lcr_hc_end_populate/court', 'LcrController@hc_index_court');
 

@@ -1,6 +1,11 @@
 @extends('layouts.app') @section('title', 'LCR Lower Court End')
 @section('page_heading') LCR Lower Court End @endsection
 @section('center_main_content')
+<style>
+   .select2-results__option{
+   color:#d43c3c;
+   }
+</style>
 <div class="panel custom-panel">
     <div class="col-sm-12">
         <div id="info-panel" class="panel panel-deafult">
@@ -39,9 +44,6 @@
                         </button>
                         <button id="comply" type="button" class="btn btn-success comply">
                             Comply
-                        </button>
-                        <button id="pray_for_time" type="button" class="btn btn-info pray_for_time">
-                            Pray For Time
                         </button>
                         <button id="not_found" type="button" class="btn btn-danger not_found">
                             Not Found
@@ -181,72 +183,8 @@
         </div>
     </div>
 </div>
-<div class="panel custom-panel" id="pray_for_time_div" style="display:none;">
-    <div class="col-sm-12">
-        <div id="info-panel" class="panel panel-deafult">
-            <div class="panel-body">
-                <div id="pray_for_time_remarks-group" class="form-group our-form-group">
-                    <!-- IIIIIIIIIII -->
-                    <div class="col-sm-12">
-                    <h4><strong>Praying for Time to the Hon'ble High Court</strong></h4>
-                    <hr>
-                        <label for="pray_for_time_remarks" class="col-sm-offset-1 col-sm-2 control-label">Remarks</label>
-                         <textarea class="form-control" rows="2" id="pray_for_time_remarks" style="width:30%;margin-bottom:2%;">Write your remakrs here</textarea>
-                        
-                    </div>
-                    <div id="memo_no-group" class="form-group our-form-group">
-                        <!-- IIIIIIIIIII -->
-                        <div class="col-sm-12">
-                            <label for="memo_no" class="col-sm-offset-1 col-sm-2 control-label">Memo No.</label>
-                            <input id="memo_no" type="text"
-                                class="form-control info-form-control" name="memo_no" style="width:30%;margin-bottom:2%;"> 
-                        </div>
-                    </div>
-                
-                    <br>
-                    <div class="col-sm-offset-3 col-sm-3">
-                        <button id="submit_pray_for_time" type="button" class="btn btn-success submit_pray_for_time">
-                            Submit
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="panel custom-panel" id="not_found_div" style="display:none;">
-    <div class="col-sm-12">
-        <div id="info-panel" class="panel panel-deafult">
-            <div class="panel-body">
-                <div id="not_found_remarks-group" class="form-group our-form-group">
-                    <!-- IIIIIIIIIII -->
-                    <div class="col-sm-12">
-                        <h4><strong>No Valid Record Found</strong></h4>
-                        <hr>
-                        <label for="not_found_remarks" class="col-sm-offset-1 col-sm-2 control-label">Remarks</label>
-                         <textarea class="form-control" rows="2" id="remarks" style="width:30%;margin-bottom:2%;">Write your remakrs here</textarea>
-                        
-                    </div>
-                    <div id="memo_no-group" class="form-group our-form-group">
-                        <!-- IIIIIIIIIII -->
-                        <div class="col-sm-12">
-                            <label for="memo_no" class="col-sm-offset-1 col-sm-2 control-label">Memo No.</label>
-                            <input id="memo_no" type="text"
-                                class="form-control info-form-control" name="memo_no" style="width:30%;margin-bottom:2%;"> 
-                        </div>
-                    </div>
-                
-                    <br>
-                    <div class="col-sm-offset-3 col-sm-3">
-                        <button id="submit_not_found" type="button" class="btn btn-success submit_not_found">
-                            Submit
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+
 @endsection @include('layouts.1_column_content')
 
 
@@ -260,6 +198,8 @@
 @section('end_scripts') @parent
 <script type="text/javascript">
     $(document).ready(function () {
+
+          $(".select2").select2(); //select2 initialization
 
         /*LOADER*/
 
@@ -277,8 +217,7 @@
             $("#comply_div").hide();
             $("#forward_div").show();
             $("#not_found_div").hide();
-            $("#pray_for_time_div").hide();
-
+       
             var str="";
             var count=0;
 
@@ -317,7 +256,7 @@
             $("#forward_div").hide();
             $("#comply_div").show();
             $("#not_found_div").hide();
-            $("#pray_for_time_div").hide();
+           // $("#pray_for_time_div").hide();
 
              var str="";
             var count=0;
@@ -355,23 +294,44 @@
 
         });
 
+        $(document).on("click","#submit_comply",function(){
+
+            var remarks;
+            var memo_no;
+            var memo_date;
+            var hc_case_type;
+            var hc_case_no;
+            var hc_case_year;
+
+            remarks= $("#remarks").val();
+            memo_no= $("#memo_no").val();
+            memo_date = $("#memo_date").val();
+            hc_case_type=$("#lower").html();
+
+            $ajax({
+
+                type:"post",
+                url:"lower_complaince"
+
+            });
+
+            //alert( hc_case_type);
+
+            
+            
+
+        });
+
         $(document).on("click","#not_found", function () {
 
             $("#forward_div").hide();
             $("#comply_div").hide();
-            $("#pray_for_time_div").hide();
+           // $("#pray_for_time_div").hide();
             $("#not_found_div").show();
 
         });
 
-         $(document).on("click","#pray_for_time", function () {
-
-            $("#forward_div").hide();
-            $("#comply_div").hide();
-            $("#pray_for_time_div").show();
-            $("#not_found_div").hide();
-         
-        });
+        
 
         $(document).on("click", "#submit_comply", function () {
 

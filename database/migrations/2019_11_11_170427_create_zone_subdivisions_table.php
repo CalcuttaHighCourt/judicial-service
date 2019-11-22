@@ -13,18 +13,17 @@ class CreateZoneSubdivisionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('zone_subdivisions', function (Blueprint $table) {
-                        
-            $table->bigIncrements('id');
-            $table->bigInteger('zone_id');
-            $table->bigInteger('subdivision_id');
-            $table->unsignedBigInteger('created_by');
+        Schema::create('zone_subdivisions', function (Blueprint $table) {                        
+            $table->increments('id');
+            $table->integer('zone_id');
+            $table->integer('subdivision_id');
+            $table->bigInteger('created_by');
             $table->timestamps();
 
+            $table->unique(['zone_id','subdivision_id']);
+
             $table->foreign('zone_id')->references('id')->on('zones');
-            $table->foreign('subdivision_id')->references('id')->on('subdivisions');
-            $table->foreign('created_by')->references('id')->on('users');
-        
+            $table->foreign('subdivision_id')->references('id')->on('subdivisions');        
         });
     }
 

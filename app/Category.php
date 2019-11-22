@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Caste extends Model
+class Category extends Model
 {
 
     protected $fillable = [
-        'caste_name','created_by'
+        'category_name','created_by'
     ];
 
     public $timestamps = true;
@@ -27,6 +27,6 @@ class Caste extends Model
      */
     public function judicial_officers()
     {
-        return $this->hasMany('App\JudicialOfficer','caste_id','id');
+        return $this->hasMany('App\JudicialOfficer','category_id','id');
     }
 }

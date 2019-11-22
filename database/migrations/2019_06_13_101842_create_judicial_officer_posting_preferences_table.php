@@ -15,14 +15,15 @@ class CreateJudicialOfficerPostingPreferencesTable extends Migration
     {
         Schema::create('judicial_officer_posting_preferences', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('judicial_officer_id');
-            $table->unsignedBigInteger('zone_id');
+            $table->bigInteger('judicial_officer_id');
+            $table->integer('zone_id');
             $table->text('remarks');
-            $table->unsignedBigInteger('created_by');
+            $table->string('final_submission');
+            $table->bigInteger('created_by');
             $table->timestamps();
 
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('zone_id')->references('id')->on('zones');
         });
     }
 
