@@ -184,39 +184,7 @@
     </div>
 </div>
 
-<div class="panel custom-panel" id="not_found_div" style="display:none;">
-    <div class="col-sm-12">
-        <div id="info-panel" class="panel panel-deafult">
-            <div class="panel-body">
-                <div id="not_found_remarks-group" class="form-group our-form-group">
-                    <!-- IIIIIIIIIII -->
-                    <div class="col-sm-12">
-                        <h4><strong>No Valid Record Found</strong></h4>
-                        <hr>
-                        <label for="not_found_remarks" class="col-sm-offset-1 col-sm-2 control-label">Remarks</label>
-                         <textarea class="form-control" rows="2" id="remarks" style="width:30%;margin-bottom:2%;">Write your remakrs here</textarea>
-                        
-                    </div>
-                    <div id="memo_no-group" class="form-group our-form-group">
-                        <!-- IIIIIIIIIII -->
-                        <div class="col-sm-12">
-                            <label for="memo_no" class="col-sm-offset-1 select2 col-sm-2 control-label">Memo No.</label>
-                            <input id="memo_no" type="text"
-                                class="form-control info-form-control" name="memo_no" style="width:30%;margin-bottom:2%;"> 
-                        </div>
-                    </div>
-                
-                    <br>
-                    <div class="col-sm-offset-3 col-sm-3">
-                        <button id="submit_not_found" type="button" class="btn btn-success submit_not_found">
-                            Submit
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 @endsection @include('layouts.1_column_content')
 
 

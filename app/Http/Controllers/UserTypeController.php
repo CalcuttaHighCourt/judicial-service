@@ -100,7 +100,7 @@ class UserTypeController extends Controller
         ] );
 
         try {
-            $request['created_by'] = 11;//Auth::user()->id;
+           // $request['created_by'] = 11;//Auth::user()->id;
 
             $user_type = UserType::create ( $request->all () );
             $response = array (
@@ -178,7 +178,7 @@ class UserTypeController extends Controller
             
             $user_type->type_name = $request->type_name;
            
-            $user_type->created_by = 11;//Auth::user()->id;
+            //$user_type->created_by = 11;//Auth::user()->id;
             
             $user_type->save();
             

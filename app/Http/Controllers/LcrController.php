@@ -134,6 +134,7 @@ class LcrController extends Controller
 									['id','=',$id]
 						])
 						->get();
+
 			$data["hc_records"]=$hc_records;
 
 			//$data["memo_no"]= Lcr_hc_end::select('memo_no','memo_date')->get();

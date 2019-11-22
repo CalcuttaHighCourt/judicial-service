@@ -51,13 +51,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-           'user_id' => ['required','alpha_dash','unique:users,user_id'],
-           'name' => ['required', 'alpha', 'max:255'],
-            'usertype' => ['required', 'integer', 'exists:user_types,id'],
-            'court' => ['nullable','integer','exists:courts,id'],
-            'jo' => ['nullable','integer', 'exists:judicial_officers,id'],
-            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:6', 'max:20', 'confirmed'],
+        //    'user_id' => ['required','alpha_dash','unique:users,user_id'],
+        //    'name' => ['required', 'alpha', 'max:255'],
+        //     'usertype' => ['required', 'integer', 'exists:user_types,id'],
+        //     'court' => ['nullable','integer','exists:courts,id'],
+        //     'judicial_officer_id' => ['nullable','string', 'exists:judicial_officers,id'],
+        //     'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+        //     'password' => ['required', 'string', 'min:6', 'max:20', 'confirmed'],
         ]);
     }
 

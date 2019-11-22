@@ -410,19 +410,7 @@
 			success: function (data, textStatus, jqXHR) {
 				reset_info(true);
 				msg="<strong>SUCCESS: </strong>";
-				if(!(data.zone===null) && data.zone.hasOwnProperty('zone_name')){
-					
-					msg+="Zone: <strong>"+data.zone.zone_name+"</strong> successfully "+operated+".";
-				}
-				else{
-					//delete case
-					if(!(data.zone===null) && data.zone>=1){
-						msg+="Zone: <strong>"+formData.zone_name+"</strong> successfully "+operated+".";
-					}
-					else{
-						msg+="Zone already "+operated+"!";
-					}
-				}
+				msg+="Zone successfully "+operated+".";
 				show_message_div("success",msg);
 				table.ajax.reload();
 
