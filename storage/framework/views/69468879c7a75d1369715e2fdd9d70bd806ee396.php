@@ -45,9 +45,6 @@
                         <button id="comply" type="button" class="btn btn-success comply">
                             Comply
                         </button>
-                        <button id="not_found" type="button" class="btn btn-danger not_found">
-                            Not Found
-                        </button>
                     </div>
                 </div>
             </div>
@@ -65,49 +62,39 @@
                     <label for="remarks" class="col-sm-offset-1 col-sm-2 control-label">Remarks:</label> 
                     <textarea class="form-control" rows="2" id="remarks" style="width:30%;margin-bottom:2%;">forwarding the required LCRs</textarea>
                 
-                        <label for="remarks" class="col-sm-offset-1 col-sm-2 control-label">Record No.: </label> 
+                    <label for="court_name" class="col-sm-offset-1 col-sm-2 control-label">Court Name</label>
+
+                    <select id="court_name" class="form-control info-form-control"name="court_name" style="width:30%;margin-bottom:2%;" >
+                        <option value="">Select Court Name</option>
+                        <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                    </select>
+                                                
+                    <hr>
+
+                    <label for="remarks" class="col-sm-offset-1 col-sm-2 control-label">Record No.: </label> 
                             <span id="forward_remark-span" class="help-block our-help-block" style="float-left">
                                 <!-- IIIIIIIIIII -->
                             </span>
-                        
-                    <hr>
-                        <label for="court_name" class="col-sm-offset-1 col-sm-2 control-label">Court Name</label>
-
-                        <select id="court_name" class="form-control info-form-control"name="court_name" style="width:30%;margin-bottom:2%;" >
-                            <option value="">Select Court Name</option>
-                            <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                        </select>
+                       
                 </div>
 
                 <div id="memo_no-group" class="form-group our-form-group">
                     <!-- IIIIIIIIIII -->
                     <div class="col-sm-12">
-                        <label for="memo_no" class="col-sm-offset-1 col-sm-2 control-label">Memo No.</label>
-
-                        <input id="memo_no" type="text"
-                               class="form-control info-form-control" name="memo_no" style="width:30%;margin-bottom:2%;"> 
-                        <span
-                            id="memo_no-span" class="help-block our-help-block">
-                            <!-- IIIIIIIIIII -->
-                            <strong id="memo_no-strong" class="our-error-message-strong"></strong>
-                            <!-- IIIIIIIIIII -->
-                        </span>
+                    <label for="memo_no_forward_div" class="col-sm-offset-1 col-sm-2 control-label">Memo No.</label>
+                    <div class="col-sm-offset-3">
+                        <span id="memo_no_forward_div" class="help-block our-help-block"><?php echo e(($data['hc_records']['0']['memo_no'])); ?></span>
                     </div>
                 </div>
-                <div id="memo_date-group" class="form-group our-form-group">
+                </div>
+                <div class="col-sm-12">
                     <!-- IIIIIIIIIII -->
-                    <div class="col-sm-12">
-                        <label for="memo_date" class="col-sm-offset-1 col-sm-2 control-label">Memo Date</label>
+                    <label for="memo_date" class="col-sm-offset-1 col-sm-2 control-label">Memo Date</label>
+                    <div class="col-sm-offset-3">
+                            <span id="memo_date_forward_div" class="help-block our-help-block">
+                            <?php echo e(($data['hc_records']['0']['memo_date'])); ?>
 
-                        <input id="memo_date" type="text"
-                               class="form-control info-form-control memo_date" name="memo_date" style="width:30%;margin-bottom:2%;"> 
-                        <span
-                            id="memo_date-span" class="help-block our-help-block">
-                            <!-- IIIIIIIIIII -->
-                            <strong id="memo_date-strong" class="our-error-message-strong"></strong>
-                            <!-- IIIIIIIIIII -->
-                        </span>
-
+                            </span>
                     </div>
                 </div>
                 <br>
@@ -133,47 +120,25 @@
                             <!-- IIIIIIIIIII -->
                         </span>
                     </div>
-                    <hr>
-                    <label for="memo_no" class="col-sm-offset-1 col-sm-2 control-label">Memo No.</label>
-
-                    <input id="memo_no" type="text"
-                        class="form-control info-form-control" name="memo_no" style="width:30%;margin-bottom:2%;"> 
-                    <span
-                        id="memo_no-span" class="help-block our-help-block">
-                        <!-- IIIIIIIIIII -->
-                        <strong id="memo_no-strong" class="our-error-message-strong"></strong>
-                        <!-- IIIIIIIIIII -->
-                    </span>
                 </div>
+                <hr>
                 <div class="col-sm-12">
-                    <div id="memo_date-group" class="form-group our-form-group">
-                        <!-- IIIIIIIIIII -->
-                        <label for="memo_date" class="col-sm-offset-1 col-sm-2 control-label">Memo Date</label>
-                        <input id="memo_date" type="text"
-                               class="form-control info-form-control memo_date" name="memo_date" style="width:30%;margin-bottom:2%;"> 
-                        <span id="memo_date-span" class="help-block our-help-block">
-                            <!-- IIIIIIIIIII -->
-                            <strong id="memo_date-strong" class="our-error-message-strong"></strong>
-                            <!-- IIIIIIIIIII -->
-                        </span>
-                        <?php $__env->startSection('end_scripts_1'); ?>
-                        <script type="text/javascript">
-                            $(".memo_date").datepicker({
-
-                                format: "dd-mm-yyyy",
-                                weekStart: 1,
-                                todayBtn: "linked",
-                                clearBtn: true,
-                                daysOfWeekHighlighted: "0,6",
-                                autoclose: true,
-                                todayHighlight: true,
-                                toggleActive: false,
-                                endDate: "today"
-                            });
-                        </script>
-                        <?php $__env->stopSection(); ?>
+                    <label for="memo_no_comply_div" class="col-sm-offset-1 col-sm-2 control-label">Memo No.</label>
+                    <div class="col-sm-offset-3">
+                        <span id="memo_no_comply_div" class="help-block our-help-block"><?php echo e(($data['hc_records']['0']['memo_no'])); ?></span>
                     </div>
                 </div>
+                <div class="col-sm-12">
+                    <!-- IIIIIIIIIII -->
+                    <label for="memo_date" class="col-sm-offset-1 col-sm-2 control-label">Memo Date</label>
+                    <div class="col-sm-offset-3">
+                            <span id="memo_date_comply_div" class="help-block our-help-block">
+                            <?php echo e(($data['hc_records']['0']['memo_date'])); ?>
+
+                            </span>
+                    </div>
+                </div>
+
                 <div class="col-sm-offset-3 col-sm-3">
                     <button id="submit_comply" type="button" class="btn btn-success submit_comply">
                         Submit
@@ -184,39 +149,7 @@
     </div>
 </div>
 
-<div class="panel custom-panel" id="not_found_div" style="display:none;">
-    <div class="col-sm-12">
-        <div id="info-panel" class="panel panel-deafult">
-            <div class="panel-body">
-                <div id="not_found_remarks-group" class="form-group our-form-group">
-                    <!-- IIIIIIIIIII -->
-                    <div class="col-sm-12">
-                        <h4><strong>No Valid Record Found</strong></h4>
-                        <hr>
-                        <label for="not_found_remarks" class="col-sm-offset-1 col-sm-2 control-label">Remarks</label>
-                         <textarea class="form-control" rows="2" id="remarks" style="width:30%;margin-bottom:2%;">Write your remakrs here</textarea>
-                        
-                    </div>
-                    <div id="memo_no-group" class="form-group our-form-group">
-                        <!-- IIIIIIIIIII -->
-                        <div class="col-sm-12">
-                            <label for="memo_no" class="col-sm-offset-1 select2 col-sm-2 control-label">Memo No.</label>
-                            <input id="memo_no" type="text"
-                                class="form-control info-form-control" name="memo_no" style="width:30%;margin-bottom:2%;"> 
-                        </div>
-                    </div>
-                
-                    <br>
-                    <div class="col-sm-offset-3 col-sm-3">
-                        <button id="submit_not_found" type="button" class="btn btn-success submit_not_found">
-                            Submit
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
@@ -232,6 +165,8 @@
     $(document).ready(function () {
 
           $(".select2").select2(); //select2 initialization
+
+          //$(document).("#memo_no_comply_div").val();
 
         /*LOADER*/
 
@@ -287,8 +222,7 @@
 
             $("#forward_div").hide();
             $("#comply_div").show();
-            $("#not_found_div").hide();
-           // $("#pray_for_time_div").hide();
+            
 
              var str="";
             var count=0;
@@ -302,10 +236,7 @@
                     swal("Can not Comply","Comply only when all the records are with you","error");
                     $("#comply_div").hide();
                 }
-                else{
-                    swal("Complied","Comply only when all the records are with you","success");
-
-                }
+                
 
                         
                 var i=0;
@@ -331,94 +262,88 @@
             var remarks;
             var memo_no;
             var memo_date;
-            var hc_case_type;
-            var hc_case_no;
-            var hc_case_year;
-
+           
             remarks= $("#remarks").val();
-            memo_no= $("#memo_no").val();
-            memo_date = $("#memo_date").val();
-            hc_case_type=$("#lower").html();
+            memo_no= $("#memo_no_comply_div").html();
+            memo_date = $("#memo_date_comply_div").html();
+            //hc_case_type=$("#lower").html();
 
-            $ajax({
+            $.ajax({
 
-                type:"post",
-                url:"lower_complaince"
+                type:"POST",
+                url:"lower_compliance/submit_comply",
+                data:{
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                remarks:remarks,
+                memo_no:memo_no,
+                memo_date:memo_date,
+                },
+                success(response){
+                    swal("successfully complied","LCR has been send to high court","success")
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                        if(jqXHR.status!=422 && jqXHR.status!=400){
+                            swal("Server Error",errorThrown,"error");
+                        }
+                        else{
+                            msg = "";
+                            $.each(jqXHR.responseJSON.errors, function(key,value) {
+                                msg+=value+"\n";						
+                            });
+                            swal("Invalid Input",msg,"error");
+                        }
+                    }
 
             });
 
-            //alert( hc_case_type);
-
-            
-            
+            //alert( hc_case_type);     
 
         });
-
-        $(document).on("click","#not_found", function () {
-
-            $("#forward_div").hide();
-            $("#comply_div").hide();
-           // $("#pray_for_time_div").hide();
-            $("#not_found_div").show();
-
-        });
+      
 
         
-
-        $(document).on("click", "#submit_comply", function () {
-
-            //  var remarks="";
-            //  var memo_no="";
-            //  var memo_date="";
-
-
-            
-            swal("Successfully Complied","The requested LCR has been submitted","success");
-        
-        });
-
         $(document).on("click", "#submit_forward", function () {
 
-            var remarks=$("#remarks").text();
-            var memo_no=$("#memo_no").val();
-            var memo_date=$("#memo_date").val();
-            var court_name= $("#court_name option:selected").val();
-
-        });    // $.ajax({
-            //     url:"lcr_lower_court/forward",
-            //     method: "POST",
-            //     data :{_token: $('meta[name="csrf-token"]').attr('content'),
-            //         remarks:remarks,
-            //         memo_no:memo_no,
-            //         memo_date:memo_date,
-            //         court_name:court_name
-                // },
-                // success:function(response)
-                // {
-                //     swal("Forwarded","The required LCR has been forwarded","success");
-                // },
-                // error:function(response){
-                //     swal("Error Occured","Memo no, Memo Date And Court Name is mendatory","error")
-                // }
-            
-
-            
-            
-            // if(memo_no=="")
-            // {
-            //     swal("EMPTY FIELD","Memo No can not be empty","error");
-            // }
-    
            
-        
-         $(document).on("click", "#submit_not_found", function () {
-        
-            swal("Successfully Sent","Your remark has been sent","success");
+            var remarks= $("#remarks").val();
+            var court_name= $("#court_name option:selected").val();
+            memo_no= $("#memo_no_forward_div").html();
+            memo_date = $("#memo_date_forward_div").html();
+            
+            $.ajax({
 
-        });
+                type:"POST",
+                url:"lower_compliance/submit_forward",
+                data:{
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                remarks:remarks,
+                memo_no:memo_no,
+                memo_date:memo_date,
+                court_name:court_name,
+                
+                },
+                success(response){
+                    swal("successfully forwarded","LCR has been send to high court","success")
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                        if(jqXHR.status!=422 && jqXHR.status!=400){
+                            swal("Server Error",errorThrown,"error");
+                        }
+                        else{
+                            msg = "";
+                            $.each(jqXHR.responseJSON.errors, function(key,value) {
+                                msg+=value+"\n";						
+                            });
+                            swal("Invalid Input",msg,"error");
+                        }
+                    }
 
+                });
 
-    });
+            }); 
+            
+
+        });   
 
 
 </script>

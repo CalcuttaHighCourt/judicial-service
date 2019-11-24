@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use App\Lcr_hc_end;
 use App\Lcr_lc_detail;
 use Auth;
+use DB;
 
 class LcrController extends Controller
 {
@@ -59,7 +60,8 @@ class LcrController extends Controller
 		
 		$district=$request->input('district');
 		$subdivision=$request->input('subdivision');
-		$court=$request->input('court');
+		//$court=$request->input('court');//this should be open 
+		$court=Auth::user()->court_id;//for the timing till the login id is not created for all users after that the above line will be in use
 		$hc_case_type=$request->input('hc_case_type');
 		$hc_case_no=$request->input('hc_case_no');
 		$hc_case_year=$request->input('hc_case_year');
@@ -141,6 +143,39 @@ class LcrController extends Controller
 			//echo $data["memo_no"];exit();
 
 			return view('lcr.lower_compliance')->with('data',$data);
+		
+	}
+
+	public function submit_comply(Request $request){
+
+		$this->validate($request, [
+            'remarks' => array('required', 'max:75'),
+            'memo_no' => array('required', 'max:75'),
+            'memo_date' => array('required', 'max:75'),
+        ]);
+
+        $remarks = $request->input('remarks');
+        $memo_no = $request->input('memo_no');
+        $memo_date = $request->input('memo_date');
+		$created_by = Auth::user()->id;
+		
+		$data = [
+            'status_flag'=>'comply',
+            'updated_at'=>Carbon::today()
+		];
+		
+		
+		Lcr_hc_end::where([
+			['memo_no','ilike',$memo_no],
+			['memo_date,',$memo_date]		
+		])->update($data);
+									
+		return $data; 
+
+	}
+
+	public function submit_forward(Request $request){
+
 		
 	}
 
