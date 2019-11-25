@@ -1,6 +1,11 @@
 @extends('layouts.app') @section('title', 'LCR HC End')
 @section('page_heading') LCR HC End @endsection
 @section('center_main_content')
+<style>
+   .select2-results__option{
+   color:#d43c3c;
+   }
+</style>
 <div class="panel custom-panel">
     <div class="col-sm-12">
         <div id="info-panel" class="panel panel-default">
@@ -15,18 +20,18 @@
                     <div class="col-md-12">Court Selection</div>
                     <div id="court_selection" class="form-group our-form-group">
                         <div class="col-md-4">
-                            <select id="district" type="text" class="form-control info-form-control district" name="district"> 
+                            <select id="district" type="text" class="form-control select2 info-form-control district" name="district"> 
                                 <option value="">Select District</option>
                                 @include('districts.district_options')
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <select id="subdivision" type="text" class="form-control info-form-control subdivision" name="subdivision" disabled> 
+                            <select id="subdivision" type="text" class="form-control select2 info-form-control subdivision" name="subdivision" disabled> 
                                 <option value="">Select Subdivision </option>
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <select id="court" type="text" class="form-control info-form-control court" name="court" disabled> 
+                            <select id="court" type="text" class="form-control info-form-control select2 court" name="court" disabled> 
                                 <option value="">Select Court</option>
 								
                             </select>
@@ -36,7 +41,7 @@
                     <div class="col-md-12">High Court Case Records</div>
                     <div id="hc_case_selection" class="form-group our-form-group">
                         <div class="col-md-4">
-                            <select id="hc_case_type" type="text" class="form-control info-form-control hc_case_type" name="hc_case_type"> 
+                            <select id="hc_case_type" type="text" class="form-control select2 info-form-control hc_case_type" name="hc_case_type"> 
                                 <option value="">Select Case Type</option>
                                     @foreach(App\Hc_case_type::orderBy('type_name', 'asc')->get() as $casetype)
                                         <option value="{{$casetype->id }}" @if (old('hc_case_type') == $casetype->type_name) selected="selected" @endif>{{$casetype->type_name}}</option>
@@ -61,7 +66,7 @@
                     <div class="col-md-12">Lower Court Case Records</div>
                     <div id="lower_case_selection" class="form-group our-form-group col-md-10" style="float:left;">
                         <div class="col-md-4" style="margin-bottom:10px;">
-                            <select id="lc_case_type0" type="text" class="form-control info-form-control lc_case_type" name="lc_case_tye"> 
+                            <select id="lc_case_type0" type="text" class="form-control select2 info-form-control lc_case_type" name="lc_case_tye"> 
                                 <option value="">Select Case type</option>
                                     @foreach(App\lower_case_type::orderBy('type_name', 'asc')->get() as $casetype)
                                         <option value="{{$casetype->id }}" @if (old('lower_case_type') == $casetype->type_name) selected="selected" @endif>{{$casetype->type_name}}</option>
@@ -104,7 +109,7 @@
                     </div>
 
                     <div id="buttonset" class="form-group our-form-group">
-                    <br>
+                        <br>
                         <div class="col-sm-4">
                             <button id="request" class="btn btn-success" style="width:100%;">REQUEST LOWER COURT RECORD</button>
                         </div>
@@ -114,11 +119,44 @@
                     </div>
                 </div>
             </div><!-- Lower Court Request Form ENDS -->
+            
         </div>
+        
+        </div>
+    </div>
+    
+</div>
+<div class="panel custom-panel">
+    <div class="col-sm-12">
+<!--Datatable-->
+        <div id="info-panel" class="panel panel-default">
+            <!-- IIIIIIIIIII -->
+            <div id="info-panel-heading" class="panel-heading">LOWER COURT RECORD STATUS DETAILS</div>
+            <!-- IIIIIIIIIII -->
+                <div class="panel-body">
+                    <div class="box box-default" id="show_all_data">
+                        
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table class="table table-striped table-bordered" id="show_LCR_status" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>High Court Case No.</th>
+                                            <th>Memo Details</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>   
+                                    <tbody></tbody>                 
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 @endsection @include('layouts.1_column_content')
 
 
@@ -134,7 +172,7 @@
 
         $(document).ready(function(){
 
-             
+              $(".select2").select2(); //select2 initialization
 
             $('.date').datepicker({
                 format: "dd-mm-yyyy",
@@ -147,6 +185,54 @@
                 toggleActive: false,
                 startDate: '+0d'
             });
+
+        //     table = $('#show_LCR_status').DataTable({
+        //     "processing": true,
+        //     "serverSide": true,
+        //     "ajax": {
+        //         url: "{{route('fetch_status')}}",
+        //         dataSrc: "lcr_hc_ends"
+        //     },
+
+        //     "columnDefs":
+        //             [
+        //                 {className: "table-text", "targets": "_all"},
+        //                 {
+        //                     "targets": -1,
+        //                     "data": null,
+        //                     "searchable": false,
+        //                     "sortable": false,
+        //                     "defaultContent": '<button type="submit" class="btn btn-info view-button"><i class="fa fa-info"></i> Track Lcr</button>',
+        //                 },
+                        
+        //             ],
+        //     "columns":
+        //             [
+        //                 {
+        //                     "data": null,
+        //                     "defaultContent": "",
+        //                     "searchable": false,
+        //                     "orderable": false,
+        //                 },
+        //                 {
+        //                     "data": "district_name",
+        //                 },
+        //                 {
+        //                     "data": "state_name",
+        //                 },
+        //                 {
+        //                     "data": null
+        //                 },
+        //                 {
+        //                     "data": null
+        //                 },
+        //                 {
+        //                     "data": null
+        //                 },
+        //             ],
+        //     "order": [[1, 'asc']]
+        // });
+
             
             var i = 0;
                 $("#addrow").on("click",function(){

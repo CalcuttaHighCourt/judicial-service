@@ -325,13 +325,15 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 		Route::post('lcr_request_by_hc/databaseentry', 'LcrController@database_entry');
 
-		Route::post('lower_compliance/submit_comply', 'LcrController@submit_comply');
+		Route::post('lower_compliance/submit_comply', 'LcrController@submit_comply')->name('submit_comply');
 
-		Route::post('lower_compliance/submit_forward', 'LcrController@submit_forward');
+		Route::post('lower_compliance/submit_forward', 'LcrController@submit_forward')->name('submit_forward');
 
 		Route::get('lcr_view', 'LcrController@fetch_details');
 
 		Route::get ( 'lcr_compliance/{lcr_id}', 'LcrController@complaince_details' );
+
+		Route::get ( 'lcr_details', 'LcrController@fetch_status_details')->name('fetch_status');
 
 		Route::get ( 'lcr_hc', function () {
 			return view ( 'lcr.index' );

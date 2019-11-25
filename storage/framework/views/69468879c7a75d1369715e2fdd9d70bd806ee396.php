@@ -37,13 +37,16 @@
                     
                     <hr>
              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
-                    <div class="float-left">
+                    <div class="float-left action">
                         <strong>Actions to be taken:</strong><br><br>
                         <button id="forward" type="button" class="btn btn-warning forward">
                             Forward
                         </button>
                         <button id="comply" type="button" class="btn btn-success comply">
                             Comply
+                        </button>
+                        <button id="back" type="button" class="btn btn-default back" style="display:none;">
+                           Back
                         </button>
                     </div>
                 </div>
@@ -62,9 +65,9 @@
                     <label for="remarks" class="col-sm-offset-1 col-sm-2 control-label">Remarks:</label> 
                     <textarea class="form-control" rows="2" id="remarks" style="width:30%;margin-bottom:2%;">forwarding the required LCRs</textarea>
                 
-                    <label for="court_name" class="col-sm-offset-1 col-sm-2 control-label">Court Name</label>
+                    <label for="forwarding_court_name" class="col-sm-offset-1 col-sm-2 control-label">Court Name</label>
 
-                    <select id="court_name" class="form-control info-form-control"name="court_name" style="width:30%;margin-bottom:2%;" >
+                    <select id="forwarding_court_name" class="form-control select2 info-form-control"name="court_name" style="width:30%;margin-bottom:2%;" >
                         <option value="">Select Court Name</option>
                         <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     </select>
@@ -266,12 +269,13 @@
             remarks= $("#remarks").val();
             memo_no= $("#memo_no_comply_div").html();
             memo_date = $("#memo_date_comply_div").html();
-            //hc_case_type=$("#lower").html();
+
+            $("#comply").hide();
 
             $.ajax({
 
                 type:"POST",
-                url:"lower_compliance/submit_comply",
+                url:"<?php echo e(route('submit_comply')); ?>",
                 data:{
                 _token: $('meta[name="csrf-token"]').attr('content'),
                 remarks:remarks,
@@ -296,7 +300,12 @@
 
             });
 
-            //alert( hc_case_type);     
+        // $("#comply").hide();
+        // $("#forward").hide();   
+        // $("#back").show();  
+
+
+        $(".action").hide();
 
         });
       
@@ -306,20 +315,20 @@
 
            
             var remarks= $("#remarks").val();
-            var court_name= $("#court_name option:selected").val();
+            var forwarding_court_name= $("#forwarding_court_name option:selected").val();
             memo_no= $("#memo_no_forward_div").html();
             memo_date = $("#memo_date_forward_div").html();
             
             $.ajax({
 
                 type:"POST",
-                url:"lower_compliance/submit_forward",
+                url:"<?php echo e(route('submit_forward')); ?>",
                 data:{
                 _token: $('meta[name="csrf-token"]').attr('content'),
                 remarks:remarks,
                 memo_no:memo_no,
                 memo_date:memo_date,
-                court_name:court_name,
+                forwarding_court_name:forwarding_court_name,
                 
                 },
                 success(response){
@@ -341,7 +350,8 @@
                 });
 
             }); 
-            
+
+             
 
         });   
 

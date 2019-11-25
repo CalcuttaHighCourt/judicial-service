@@ -150,31 +150,62 @@ class LcrController extends Controller
 
 		$this->validate($request, [
             'remarks' => array('required', 'max:75'),
-            'memo_no' => array('required', 'max:75'),
-            'memo_date' => array('required', 'max:75'),
-        ]);
-
-        $remarks = $request->input('remarks');
-        $memo_no = $request->input('memo_no');
-        $memo_date = $request->input('memo_date');
-		$created_by = Auth::user()->id;
+            'memo_no' => array('required'),
+            'memo_date' => array('required'),
+		]);
 		
+		
+				$remarks = $request->input('remarks');
+				$memo_no = $request->input('memo_no');
+				$memo_date = $request->input('memo_date');
+				$created_by = Auth::user()->id;
+				
+				$data = [
+					'status_flag'=>'comply',
+					'updated_at'=>Carbon::today()
+				];
+				
+				
+				Lcr_hc_end::where([
+					['memo_no','ilike',$memo_no],
+					['memo_date','ilike',$memo_date]		
+				])->update($data);
+
+					
+	return 1;
+
+	
+
+	}
+
+	public function submit_forward(Request $request){
+
+		$this->validate($request, [
+            'remarks' => array('required', 'max:75'),
+            'memo_no' => array('required', 'max:75'),
+			'memo_date' => array('required', 'max:75'),
+			'forwarding_court_name' => array('required')
+		]);
+		
+
+		$remarks = $request->input('remarks');
+        $memo_no = $request->input('memo_no');
+		$memo_date = $request->input('memo_date');
+		$forwarding_court_name = $request->input('forwarding_court_name');
+		$created_by = Auth::user()->id;
+
 		$data = [
-            'status_flag'=>'comply',
-            'updated_at'=>Carbon::today()
+			'status_flag'=>'forward',
+			'forwarding_court' => $forwarding_court_name,
+			'updated_at'=>Carbon::today()
 		];
 		
 		
 		Lcr_hc_end::where([
 			['memo_no','ilike',$memo_no],
-			['memo_date,',$memo_date]		
+			['memo_date','ilike',$memo_date]		
 		])->update($data);
-									
-		return $data; 
 
-	}
-
-	public function submit_forward(Request $request){
 
 		
 	}
