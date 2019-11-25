@@ -6,7 +6,11 @@
 .select2-results__option{
     color:#d43c3c;
 }
+.datepicker.dropdown-menu {
+    z-index: 9999 !important;
+}
 </style>
+<br/><br/>
 <div id="info-panel" class="panel panel-default">
    <div class="row" style="margin-left:-200px">
       <div class="col-sm-3">
@@ -33,7 +37,15 @@
                      </div>
                   </div>
                   <div class="form-group required">
-                     <div class="col-xs-6">
+                    <div class="col-xs-3">
+                       <label for="reg_no" class="control-label">
+                          Reg No.
+                       </label>
+                       <input type="integer" class="form-control" name="reg_no" id="reg_no" placeholder="Registration No.">
+                    </div>
+                 </div>
+                  <div class="form-group required">
+                     <div class="col-xs-3">
                         <label for="jo_code" class="control-label">
                            JO Code
                         </label>
@@ -106,7 +118,7 @@
                         </label>
                         <select id="category_id" class="form-control info-form-control select2" name="category_id" style="width:100%">
                             <option value="">Select an Option</option>
-                            <?php echo $__env->make('castes.caste_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                            <?php echo $__env->make('categories.categories_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         </select>
                     </div>
                  </div>
@@ -183,250 +195,289 @@
                     </label>
                 </div> 
                </form>
+
+                <div class="row">
+                    <br/><br/>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4 text-center">
+                            <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+                        </div>
+                        <div class="col-sm-4 text-right">
+                            <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
+                        </div>
+                    </div>    
+                </div>
             </div>
             <!--/tab-pane-->
 
             <div class="tab-pane" id="contact_details">
-               <form class="form" action="##" method="">
-                    <div class="form-group required">
-                        <div class="col-xs-4">
-                            <label for="email_id_1" class="control-label">
-                                 Primary Email ID 
-                            </label>
-                            <input type="email" class="form-control" name="email_id_1" id="email_id_1" placeholder="xyz@abc.com">
+                <div class="row">
+                    <form class="form" action="##" method="">
+                            <div class="form-group required">
+                                <div class="col-xs-5">
+                                    <label for="email_id_1" class="control-label">
+                                        Primary Email ID 
+                                    </label>
+                                    <input type="email" class="form-control" name="email_id_1" id="email_id_1" placeholder="xyz@abc.com">
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <div class="col-xs-5">
+                                    <label for="email_id_2">
+                                        Secondary Email ID 
+                                    </label>
+                                    <input type="email" class="form-control" name="email_id_2" id="email_id_2" placeholder="xyz@abc.com">
+                                </div>
+                            </div>  
+                            
+                            <div class="form-group required">
+                                <div class="col-xs-5">
+                                    <label for="ph_no_1" class="control-label">
+                                        Primary Contact No. 
+                                    </label>
+                                    <input type="integer" class="form-control" name="ph_no_1" id="ph_no_1" placeholder="First Phone No.">
+                                </div>
+                            </div>    
+                            <div class="form-group">
+                                <div class="col-xs-5">
+                                    <label for="ph_no_2">
+                                        Secondary Contact No. 
+                                    </label>
+                                    <input type="integer" class="form-control" name="ph_no_2" id="ph_no_2" placeholder="Second Phone No.">
+                                </div>
+                            </div>    
+                            
+                            <div class="form-group required">
+                                <div class="col-xs-3">
+                                    <label for="home_state" class="control-label">
+                                        Home State 
+                                    </label>
+                                    <select id="home_state" class="form-control info-form-control select2" name="home_state" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                            <?php echo $__env->make('states.state_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group required">
+                                <div class="col-xs-3">
+                                    <label for="home_district" class="control-label">
+                                        Home District 
+                                    </label>
+                                    <select id="home_district" class="form-control info-form-control select2" name="home_district" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group required">
+                                <div class="col-xs-4">
+                                    <label for="home_town" class="control-label">
+                                        Home Town 
+                                    </label>
+                                    <input type="text" class="form-control" id="home_town" placeholder="Home Town Name">
+                                </div>
+                            </div>                                 
+                            <div class="form-group required">
+                                <div class="col-xs-5">
+                                    <label for="permanent_address" class="control-label">
+                                        Permanent Address 
+                                    </label>
+                                    <textarea class="form-control" name="permanent_address" id="permanent_address" placeholder="Permanent Address"></textarea>
+                                </div>
+                            </div>                  
+                            <div class="form-group required">
+                                <div class="col-xs-5">
+                                    <label for="current_address" class="control-label">
+                                        Current Address 
+                                    </label>
+                                    <input class="form-check-input" type="checkbox" value="" id="same_address">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                    Same as Permanent Address
+                                    </label>
+                                    <textarea class="form-control" name="current_address" id="current_address" placeholder="Current Address"></textarea>
+                                </div>
+                            </div> 
+                    </form>
+                </div>
+               <div class="row">
+                    <br/><br/>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4 text-left">
+                            <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
                         </div>
-                    </div> 
-                    <div class="form-group">
-                        <div class="col-xs-4">
-                            <label for="email_id_2">
-                                 Secondary Email ID 
-                            </label>
-                            <input type="email" class="form-control" name="email_id_2" id="email_id_2" placeholder="xyz@abc.com">
+                        <div class="col-sm-4 text-center">
+                            <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
                         </div>
-                    </div>  
-                    <div class="form-group">
-                        <div class="col-xs-4">
-                            <label for="email_id_3">
-                                 Alternative Email ID 
-                            </label>
-                            <input type="email" class="form-control" name="email_id_3" id="email_id_3" placeholder="xyz@abc.com">
-                        </div>
-                    </div> 
-                    <div class="form-group required">
-                        <div class="col-xs-4">
-                            <label for="ph_no_1" class="control-label">
-                                 Primary Contact No. 
-                            </label>
-                            <input type="integer" class="form-control" name="ph_no_1" id="ph_no_1" placeholder="First Phone No.">
+                        <div class="col-sm-4 text-right">
+                            <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
                         </div>
                     </div>    
-                    <div class="form-group">
-                        <div class="col-xs-4">
-                            <label for="ph_no_2">
-                                 Secondary Contact No. 
-                            </label>
-                            <input type="integer" class="form-control" name="ph_no_2" id="ph_no_2" placeholder="Second Phone No.">
-                        </div>
-                    </div>    
-                    <div class="form-group">
-                        <div class="col-xs-4">
-                            <label for="ph_no_3">
-                                 Alternative Contact No. 
-                            </label>
-                            <input type="integer" class="form-control" name="ph_no_3" id="ph_no_3" placeholder="Third Phone No.">
-                        </div>
-                    </div>    
-                    <div class="form-group required">
-                        <div class="col-xs-4">
-                            <label for="home_state" class="control-label">
-                                 Home State 
-                            </label>
-                            <select id="home_state" class="form-control info-form-control select2" name="home_state" style="width:100%">
-                                <option value="">Select an Option</option>
-                                    <?php echo $__env->make('states.state_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group required">
-                        <div class="col-xs-4">
-                            <label for="home_district" class="control-label">
-                                 Home District 
-                            </label>
-                            <select id="home_district" class="form-control info-form-control select2" name="home_district" style="width:100%">
-                                <option value="">Select an Option</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group required">
-                        <div class="col-xs-4">
-                            <label for="home_town" class="control-label">
-                                 Home Town 
-                            </label>
-                            <input type="text" class="form-control" id="home_town" placeholder="Home Town Name">
-                        </div>
-                    </div>                                 
-                    <div class="form-group required">
-                        <div class="col-xs-6">
-                            <label for="permanent_address" class="control-label">
-                                Permanent Address 
-                            </label>
-                            <textarea class="form-control" name="permanent_address" id="permanent_address" placeholder="Permanent Address"></textarea>
-                        </div>
-                    </div>                  
-                    <div class="form-group required">
-                        <div class="col-xs-6">
-                            <label for="current_address" class="control-label">
-                                 Current Address 
-                            </label>
-                            <input class="form-check-input" type="checkbox" value="" id="same_address">
-                            <label class="form-check-label" for="defaultCheck1">
-                              Same as Permanent Address
-                            </label>
-                            <textarea class="form-control" name="current_address" id="current_address" placeholder="Current Address"></textarea>
-                        </div>
-                    </div> 
-               </form>
+                </div>
             </div>
             <!--/tab-pane-->
 
             <div class="tab-pane" id="qualification_details">
-               <form class="form" action="##" method="">
-                    <div class="div_add_more_qualification">
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-xs-5"><br/>
-                                    <label>
-                                         Degree 
-                                    </label>
-                                    <select class="form-control info-form-control select2 degree_id" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        <?php echo $__env->make('qualifications.qualification_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-xs-3">
-                                    <label>
-                                         Year of Passing 
-                                    </label>
-                                    <select class="form-control info-form-control select2 yop" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        <?php for($i=Date('Y');$i>=1947;$i--): ?>
-                                            <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
-                                        <?php endfor; ?>
-                                    </select>
-                                </div>
-                            </div>   
-                            <div class="form-group">
-                                <div class="col-xs-2">
-                                    <br>
-                                    <img src="<?php echo e(asset('images/details_open.png')); ?>" class="img_add_more_qualification" id="add_more_qualification">
-                                </div>
-                            </div>
-                        </div>                          
-                        <hr/>                     
-                    </div> 
-               </form>
+                <div class="row">
+                    <form class="form" action="##" method="">
+                            <div class="div_add_more_qualification">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-xs-5"><br/>
+                                            <label>
+                                                Degree 
+                                            </label>
+                                            <select class="form-control info-form-control select2 degree_id" style="width:100%">
+                                                <option value="">Select an Option</option>
+                                                <?php echo $__env->make('qualifications.qualification_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-3">
+                                            <label>
+                                                Year of Passing 
+                                            </label>
+                                            <select class="form-control info-form-control select2 yop" style="width:100%">
+                                                <option value="">Select an Option</option>
+                                                <?php for($i=Date('Y');$i>=1947;$i--): ?>
+                                                    <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
+                                                <?php endfor; ?>
+                                            </select>
+                                        </div>
+                                    </div>   
+                                    <div class="form-group">
+                                        <div class="col-xs-2">
+                                            <br>
+                                            <img src="<?php echo e(asset('images/details_open.png')); ?>" class="img_add_more_qualification" id="add_more_qualification">
+                                        </div>
+                                    </div>
+                                </div>                          
+                                <hr/>                     
+                            </div> 
+                    </form>
+                </div>
+                <div class="row">
+                    <br/><br/>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4 text-left">
+                            <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
+                        </div>
+                        <div class="col-sm-4 text-center">
+                            <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+                        </div>
+                        <div class="col-sm-4 text-right">
+                            <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
+                        </div>
+                    </div>    
+                </div>
             </div>            
          <!--/tab-pane-->
 
          <div class="tab-pane" id="posting_details">
-                <form class="form" action="##" method="">                    
-                    <div class="text-center">
-                        <h3 style="color:#d06666"><u>Posting Details (From Present to Past)</u></h3>
-                    </div>
-                    <div class="div_add_more_posting">
-                        <div class="row"> 
-                            <div class="col-xs-3">
-                                <label>
-                                        Designation 
-                                </label>
-                                <select class="form-control info-form-control posting_select2 designation_id select2" style="width:100%">
-                                    <option value="">Select an Option</option>
-                                    <?php echo $__env->make('designations.designation_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                </select>
-                            </div>
-                            <div class="col-xs-3">
-                                <label>
-                                        Posting Mode 
-                                </label>
-                                <select class="form-control info-form-control posting_select2 mode_id select2" style="width:100%">
-                                    <option value="">Select an Option</option>
-                                    <?php echo $__env->make('modes.mode_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                </select>
-                            </div>
-                            <div class="col-xs-3">
-                                <label>
-                                        Court 
-                                </label>
-                                <select class="form-control info-form-control posting_select2 court_id select2" style="width:100%">
-                                    <option value="">Select an Option</option>
-                                    <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                </select>
-                            </div>                   
-                        </div><br/>
-                        <div class="row"> 
-                            <div class="col-xs-3">
-                                <label>
-                                        Reporting Officer 
-                                </label>
-                                <select class="form-control info-form-control posting_select2 reporting_officer_id select2" style="width:100%">
-                                    <option value="">Select an Option</option>
-                                    <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                </select>
-                            </div>
-                            <div class="col-xs-3">
-                                <label>
-                                        From Date 
-                                </label>
-                                <input type="text" class="form-control date from_date" placeholder="dd-mm-yyyy">
-                            </div>
-                            <div class="col-xs-3">
-                                <label>
-                                        To Date 
-                                </label>
-                                <input type="text" class="form-control date to_date" placeholder="dd-mm-yyyy">
-                            </div>
-                            <div class="col-xs-2">
-                                <br>
-                                <img src="<?php echo e(asset('images/details_open.png')); ?>" class="img_add_more_posting" id="add_more_posting">
-                            </div>
-                        </div> 
-                        <hr>
-                    </div>                     
-                </form>
+             <br/>
+             <div class="row">
+                    <form class="form" action="##" method=""> 
+                        <div class="div_add_more_posting">
+                            <div class="row"> 
+                                <div class="col-xs-3">
+                                    <label>
+                                            Designation 
+                                    </label>
+                                    <select class="form-control info-form-control posting_select2 designation_id select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        <?php echo $__env->make('designations.designation_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                    </select>
+                                </div>
+                                <div class="col-xs-3">
+                                    <label>
+                                            Posting Mode 
+                                    </label>
+                                    <select class="form-control info-form-control posting_select2 mode_id select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        <?php echo $__env->make('modes.mode_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                    </select>
+                                </div>
+                                <div class="col-xs-3">
+                                    <label>
+                                            Court 
+                                    </label>
+                                    <select class="form-control info-form-control posting_select2 court_id select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                    </select>
+                                </div>                   
+                            </div><br/>
+                            <div class="row"> 
+                                <div class="col-xs-3">
+                                    <label>
+                                            Reporting Officer 
+                                    </label>
+                                    <select class="form-control info-form-control posting_select2 reporting_officer_id select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                    </select>
+                                </div>
+                                <div class="col-xs-3">
+                                    <label>
+                                            From Date 
+                                    </label>
+                                    <input type="text" class="form-control date from_date" placeholder="dd-mm-yyyy">
+                                </div>
+                                <div class="col-xs-3">
+                                    <label>
+                                            To Date 
+                                    </label>
+                                    <input type="text" class="form-control date to_date" placeholder="dd-mm-yyyy">
+                                </div>
+                                <div class="col-xs-2">
+                                    <br>
+                                    <img src="<?php echo e(asset('images/details_open.png')); ?>" class="img_add_more_posting" id="add_more_posting">
+                                </div>
+                            </div> 
+                            <hr>
+                        </div>                     
+                    </form>
+                </div>
+                <div class="row">
+                    <br/><br/>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4 text-left">
+                            <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
+                        </div>
+                        <div class="col-sm-4 text-center">
+                            <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+                        </div>
+                        <div class="col-sm-4 text-right">
+                            <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
+                        </div>
+                    </div>    
+                </div>
           </div>
           <!--/tab-pane-->     
 
          <div class="tab-pane" id="upload_photo">
+             <div class="row">
                 <form class="form" action="##" method="">
-                     <div class="text-center">  
+                    <div class="text-center">  
                         <img src="<?php echo e(asset('images/FacelessMan.png')); ?>" class="avatar img-circle img-thumbnail" alt="avatar" style="height:30%;width:20%">
                         <h6>Upload Photo...</h6>
-                        <input type="file" id="file_input" class="text-center center-block file-upload">              
-                         
-                     </div>
+                        <input type="file" id="file_input" class="text-center center-block file-upload">                                      
+                    </div>
                 </form>
+             </div>
+             <div class="row">
+                <br/><br/>
+                <div class="col-sm-12">
+                    <div class="col-sm-4 text-left">
+                        <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+                    </div>
+                </div>    
+            </div>
           </div>
-
-          
-          <!--/tab-pane-->        
-		  <div class="row">
-          <br/><br/>
-        <div class="col-sm-12">
-            <div class="col-sm-4 text-left">
-                <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
-            </div>
-            <div class="col-sm-4 text-center">
-                <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
-            </div>
-            <div class="col-sm-4 text-right">
-                <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
-            </div>
-        </div>    
-      </div>
-      </div>
-      
+          <!--/tab-pane-->        		
+      </div>      
       <!--/tab-content-->
    </div>
    <!--/col-9-->
@@ -482,13 +533,10 @@
         // Datepicker Initialization
         $(".date").datepicker({
             format: "dd-mm-yyyy",
-            weekStart: 1,
-            todayBtn: "linked",
-            clearBtn: true,
-            daysOfWeekHighlighted: "0,6",
-            autoclose: true,
-            todayHighlight: true,
-            toggleActive: false            
+            endDate:'0',
+            autoclose: true,   
+            orientation: "auto",
+
         });
 
         // Select2 initialization
@@ -498,45 +546,14 @@
         //next button event
         $('.next').click(function(){
             $('.nav > .active').next('li').find('a').trigger('click');
-			$('html, body').animate({
-				scrollTop: $("#nav_tabs").offset().top
-			}, 1000);
 		});
 
         //previous button event
 		$('.previous').click(function(){
 			$('.nav > .active').prev('li').find('a').trigger('click');
-			$('html, body').animate({
-				scrollTop: $("#nav_tabs").offset().top
-			}, 1000)
 		});	
 
-        function prev_next_btn_display(){
-            var target_tab_index=$(e.target).closest('li').index() + 1;
-            var tab_length=$('#nav_tabs > ul > li').length;
-            if(target_tab_index==1){
-                $('.previous').hide();
-                $('.next').show();
-            }
-            else if(target_tab_index==tab_length){
-                $('.previous').show();
-                $('.next').hide();
-            }
-            else{
-                $('.previous').show();
-                $('.next').show();
-            }
-        }
-
-
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            //e.target // activated tab
-            //e.relatedTarget // previous tab
-            //alert( $(e.target).closest('li').index() + 1 );
-            //console.log($('#nav_tabs > ul > li').length+" "+$('.nav > .active').next('li').index());
-            prev_next_btn_display();
-        });
-
+        
         // Prevent default form submit
         $("form").submit(function(e){
             return false;
