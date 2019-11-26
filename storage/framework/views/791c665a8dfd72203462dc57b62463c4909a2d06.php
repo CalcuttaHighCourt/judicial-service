@@ -871,6 +871,7 @@
                     qualification_id:qualification_id,
                     passing_year:passing_year,
                     designation_id:designation_id,
+                    reporting_officer_id:reporting_officer_id,
                     court_id:court_id,
                     zone_id:zone_id,
                     mode_id:mode_id,

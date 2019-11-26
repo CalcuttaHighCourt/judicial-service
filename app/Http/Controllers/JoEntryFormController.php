@@ -48,7 +48,7 @@ class JoEntryFormController extends Controller
         $validated = $request->validated(); // validation rules are set in the Request File  
       
         
-        try{
+        //try{
             DB::beginTransaction();            
                 
                 /*JO Basic Details :: START*/
@@ -74,7 +74,8 @@ class JoEntryFormController extends Controller
                  
                 $judicial_officer = JudicialOfficer::insertGetId($request->except([
                                         'file','qualification_id','passing_year',
-                                        'designation_id','court_id','zone_id','mode_id','from_date','to_date'
+                                        'designation_id','reporting_officer_id','court_id',
+                                        'zone_id','mode_id','from_date','to_date'
                                     ]));
                 /*JO Basic Details :: ENDS*/
 
@@ -87,7 +88,7 @@ class JoEntryFormController extends Controller
 
                 $jo_user->name = $request->officer_name;
                 $jo_user->email = $request->email_id_1;
-                $jo_user->password = Hash::make(strtolower($request->jo_code));
+                $jo_user->password = Hash::make(123456);
                 $jo_user->judicial_officer_id = $judicial_officer;
                 $jo_user->user_id = 'jo'.str_pad($judicial_officer,5,'0',STR_PAD_LEFT);
                 $jo_user->user_type_id = $user_type;
@@ -137,7 +138,7 @@ class JoEntryFormController extends Controller
                         if($zone_count>0){
                             $zone_count2 = JoZoneTenure::where([
                                                             ['judicial_officer_id',$judicial_officer],
-                                                            ['zone_id',null]
+                                                            ['to_date',null]
                                                         ])->count();
                             if($zone_count2>0){
                                 $present_zone = JoZoneTenure::where([
@@ -152,7 +153,14 @@ class JoEntryFormController extends Controller
                                     JoZoneTenure::where([
                                         ['judicial_officer_id',$judicial_officer],
                                         ['to_date',null]
-                                    ])->update('to_date',$max_to_date);
+                                    ])->update(['to_date'=>$max_to_date]);
+
+                                    JoZoneTenure::insert([
+                                        'judicial_officer_id' => $judicial_officer,
+                                        'zone_id' => $posting_zone,
+                                        'from_date' => $jo_posting->from_date,
+                                        'to_date' => null,
+                                    ]);
                                 }
                             }
                             else{
@@ -189,17 +197,17 @@ class JoEntryFormController extends Controller
                 DB::commit();
          
            
-        } catch (\Exception $e) {
-            //DB::rollBack();
+        // } catch (\Exception $e) {
+        //     //DB::rollBack();
 
-            $response = array(
-                'exception' => true,
-                'exception_message' => $e->getMessage()
-            );
-            $statusCode = 400;
-        } finally {
-            return response()->json($response, $statusCode);
-        }
+        //     $response = array(
+        //         'exception' => true,
+        //         'exception_message' => $e->getMessage()
+        //     );
+        //     $statusCode = 400;
+        // } finally {
+            //return response()->json($response, $statusCode);
+        //}
     }
 
     
