@@ -500,7 +500,7 @@
 <?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
 
 <script>
-   $(document).ready(function() {   
+   $(document).ready(function() { 
         var clone_element_posting = $(".div_add_more_posting").clone();
         var clone_element_qualification = $(".div_add_more_qualification").clone();
 
@@ -674,7 +674,7 @@
         function ajax_data(type){
             var designation_id = new Array();
             var court_id = new Array();
-            var court_complex_id = new Array();
+            var zone_id = new Array();
             var mode_id = new Array();            
             var qualification_id = new Array();
             var passing_year = new Array();
@@ -693,11 +693,14 @@
                 mode_id.push($(this).val());
             })
 
-            court_id = [];            
-            $(".court_id").each(function(){
-                court_id.push($(this).val());                
+            court_id = [];   
+            zone_id = [];         
+            $(".court_id option:selected").each(function(){
+                court_id.push($(this).val()); 
+                zone_id.push($(this).attr('data-zone_id'));               
             })
 
+           
             reporting_officer_id = [];
             $(".reporting_officer_id").each(function(){
                 reporting_officer_id.push($(this).val());
@@ -782,21 +785,36 @@
 
             formData.append("file",	$("#file_input").prop('files')[0]);
 
-            formData.append("qualification_id",JSON.stringify(qualification_id));
+            // formData.append("qualification_id",JSON.stringify(qualification_id));
 
-            formData.append("passing_year",JSON.stringify(passing_year));
+            // formData.append("passing_year",JSON.stringify(passing_year));
 
-            formData.append("designation_id",JSON.stringify(designation_id));
+            // formData.append("designation_id",JSON.stringify(designation_id));
 
-            formData.append("court_id",JSON.stringify(court_id));
+            // formData.append("court_id",JSON.stringify(court_id));
 
-            formData.append("court_complex_id",JSON.stringify(court_complex_id));
+            // formData.append("court_complex_id",JSON.stringify(court_complex_id));
 
-            formData.append("mode_id",JSON.stringify(mode_id));
+            // formData.append("mode_id",JSON.stringify(mode_id));
 
-            formData.append("from_date",JSON.stringify(from_date));
+            // formData.append("from_date",JSON.stringify(from_date));
 
-            formData.append("to_date",JSON.stringify(to_date));
+            // formData.append("to_date",JSON.stringify(to_date));
+            formData.append("qualification_id",qualification_id);
+
+            formData.append("passing_year",passing_year);
+
+            formData.append("designation_id",designation_id);
+
+            formData.append("court_id",court_id);
+
+            //formData.append("court_complex_id",court_complex_id);
+
+            formData.append("mode_id",mode_id);
+
+            formData.append("from_date",from_date);
+
+            formData.append("to_date",to_date);
             
 
             ajax_url="";
@@ -821,10 +839,50 @@
             $.ajax({
                 type: request_type,
                 url: ajax_url,
-                data: formData,
-                dataType: 'json',
-                processData: false,
-                contentType: false,
+                data: {
+                    jo_code:$("#jo_code").val(),
+                    registration_no:$("#reg_no").val(),
+                    officer_name:$("#jo_name").val(),
+                    gender:$("input[name='gender']").val(),
+                    guardian_name:$("#guardian_name").val(),
+                    gurdian_relation:$("#guardian_relationship").val(),
+                    date_of_birth:$("#dob").val(),
+                    home_state_id:$("#home_state").val(),
+                    home_district_id:$("#home_district").val(),
+                    hometown:$("#home_town").val(),
+                    present_address:$("#current_address").val(),
+                    permanent_address:$("#permanent_address").val(),
+                    religion_id:$("#religion_id").val(),
+                    category_id:$("#category_id").val(),
+                    blood_group:$("#blood_group").val(),
+                    identification_mark:$("#identification_mark").val(),
+                    aadhaar_no:$("#aadhar_no").val(),
+                    pan_no:$("#pan_no").val(),
+                    gpf_no:$("#gpf_no").val(),
+                    mobile_no_1:$("#ph_no_1").val(),
+                    mobile_no_2:$("#ph_no_2").val(),
+                    email_id_1:$("#email_id_1").val(),
+                    email_id_2:$("#email_id_2").val(),
+                    recruitment_batch_id:$("#recruitment_batch_id").val(),
+                    date_of_joining:$("#doj").val(),
+                    date_of_confirmation:$("#doc").val(),
+                    date_of_retirement:$("#dor").val(),
+                    file:$("#file_input").prop('files')[0],
+                    qualification_id:qualification_id,
+                    passing_year:passing_year,
+                    designation_id:designation_id,
+                    court_id:court_id,
+                    zone_id:zone_id,
+                    mode_id:mode_id,
+                    from_date:from_date,
+                    to_date:to_date,
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                },
+                //data:formData,
+                // dataType: 'json',
+                // processData: false,
+                // contentType: false,
+                // cache:false,
                 success: function (data, textStatus, jqXHR) {
                     if(data.judicial_officer!=null){
                         swal("Judicial Officer"+operated+" Successfully","","success");

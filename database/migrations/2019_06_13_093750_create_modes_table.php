@@ -16,7 +16,6 @@ class CreateModesTable extends Migration
         Schema::create('modes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('posting_mode')->unique();
-            $table->bigInteger('created_by');
             $table->timestamps();
         });
     }

@@ -26,6 +26,7 @@ class JoEntryRequest extends FormRequest
     {        
         return [
             'jo_code' => 'required|unique:judicial_officers,jo_code|alpha_dash',
+            'registration_no' => 'required|unique:judicial_officers,registration_no|integer|max:99999',
             'officer_name' => 'required|regex:/^[\pL\s\-]+$/u|max:50',
             'gender' => 'required|alpha|max:10',
             'guardian_name' => 'required|regex:/^[\pL\s\-]+$/u|max:50',
