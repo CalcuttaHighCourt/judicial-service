@@ -333,7 +333,7 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 		Route::get ( 'lcr_compliance/{lcr_id}', 'LcrController@complaince_details' );
 
-		Route::get ( 'lcr_details', 'LcrController@fetch_status_details')->name('fetch_status');
+		Route::post ( 'lcr_details', 'LcrController@fetch_status_details')->name('fetch_status');
 
 		Route::get ( 'lcr_hc', function () {
 			return view ( 'lcr.index' );
