@@ -47,7 +47,7 @@ class JoEntryFormController extends Controller
         $validated = $request->validated(); // validation rules are set in the Request File  
         
 
-        try{
+        //try{
             //DB::beginTransaction();
             DB::transaction(function ($request) {
 
@@ -144,17 +144,17 @@ class JoEntryFormController extends Controller
             }, 1);
                 //DB::commit();
            
-        } catch (\Exception $e) {
-            //DB::rollBack();
+        // } catch (\Exception $e) {
+        //     //DB::rollBack();
 
-            $response = array(
-                'exception' => true,
-                'exception_message' => $e->getMessage()
-            );
-            $statusCode = 400;
-        } finally {
-            return response()->json($response, $statusCode);
-        }
+        //     $response = array(
+        //         'exception' => true,
+        //         'exception_message' => $e->getMessage()
+        //     );
+        //     $statusCode = 400;
+        // } finally {
+        //     return response()->json($response, $statusCode);
+        // }
     }
 
     

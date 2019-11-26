@@ -44,7 +44,7 @@
                        <input type="integer" class="form-control" name="reg_no" id="reg_no" placeholder="Registration No.">
                     </div>
                  </div>
-                  <div class="form-group required">
+                  <div class="form-group">
                      <div class="col-xs-3">
                         <label for="jo_code" class="control-label">
                            JO Code
@@ -200,7 +200,7 @@
                     <br/><br/>
                     <div class="col-sm-12">
                         <div class="col-sm-4 text-center">
-                            <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+                            <button class="btn btn-success submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
                         </div>
                         <div class="col-sm-4 text-right">
                             <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
@@ -305,7 +305,7 @@
                             <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
                         </div>
                         <div class="col-sm-4 text-center">
-                            <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+                            <button class="btn btn-success submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
                         </div>
                         <div class="col-sm-4 text-right">
                             <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
@@ -362,7 +362,7 @@
                             <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
                         </div>
                         <div class="col-sm-4 text-center">
-                            <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+                            <button class="btn btn-success submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
                         </div>
                         <div class="col-sm-4 text-right">
                             <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
@@ -444,7 +444,7 @@
                             <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
                         </div>
                         <div class="col-sm-4 text-center">
-                            <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+                            <button class="btn btn-success submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
                         </div>
                         <div class="col-sm-4 text-right">
                             <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
@@ -471,7 +471,7 @@
                         <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
                     </div>
                     <div class="col-sm-4 text-center">
-                        <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+                        <button class="btn btn-success submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
                     </div>
                 </div>    
             </div>
@@ -576,15 +576,12 @@
                 // Datepicker Re-initialization
                 $(".date").datepicker({
                     format: "dd-mm-yyyy",
-                    weekStart: 1,
-                    todayBtn: "linked",
-                    clearBtn: true,
-                    daysOfWeekHighlighted: "0,6",
-                    autoclose: true,
-                    todayHighlight: true,
-                    toggleActive: false,
-                    endDate: "today"
+                    endDate:'0',
+                    autoclose: true,   
+                    orientation: "auto",
+
                 });
+
               
                 $(".img_add_more_posting:last").attr({src:"images/details_close.png",
                                                         class:"remove_posting", 
@@ -696,21 +693,14 @@
                 mode_id.push($(this).val());
             })
 
-            court_id = [];
-            court_complex_id = [];
+            court_id = [];            
             $(".court_id").each(function(){
-                court_id.push($(this).val());
-                court_complex_id.push($(this).find(':selected').attr('data-court_complex_id'));
+                court_id.push($(this).val());                
             })
 
             reporting_officer_id = [];
             $(".reporting_officer_id").each(function(){
                 reporting_officer_id.push($(this).val());
-            })
-
-            reviewing_officer_id = [];
-            $(".reviewing_officer_id").each(function(){
-                reviewing_officer_id.push($(this).val());
             })
 
             qualification_id = [];
@@ -737,6 +727,8 @@
             var formData = new FormData();
             
             formData.append("jo_code", $("#jo_code").val());
+
+            formData.append("registration_no", $("#reg_no").val());
 
             formData.append("officer_name", $("#jo_name").val());
 
@@ -776,13 +768,9 @@
 
             formData.append("mobile_no_2",$("#ph_no_2").val());
 
-            formData.append("mobile_no_3",$("#ph_no_3").val());
-
             formData.append("email_id_1",$("#email_id_1").val());
 
             formData.append("email_id_2",$("#email_id_2").val());
-
-            formData.append("email_id_3",$("#email_id_3").val());
 
             formData.append("recruitment_batch_id",$("#recruitment_batch_id").val());
 
@@ -810,12 +798,6 @@
 
             formData.append("to_date",JSON.stringify(to_date));
             
-        
-            
-
-            // for (var pair of formData.entries()) {
-            //     console.log(pair[0]+ ', ' + pair[1]); 
-            // }
 
             ajax_url="";
             operation="";
@@ -830,7 +812,7 @@
             }
             else if(type=="update"){
                 formData["_method"]="PUT";            
-                ajax_url="jo_entry/"+formdata.jo_code;
+                ajax_url="jo_entry/"+formdata.registration_no;
 
                 operation="update";
                 operated="Updated";
@@ -867,7 +849,7 @@
         }   
 
 
-        $("#submit").click(function(){
+        $(".submit").click(function(){
             ajax_data('add');
         })  
 
