@@ -17,7 +17,7 @@
     background-color: #28415b;
 }
 </style>
-
+<br/>
 <div class="col-sm-12">
    <!-- Bootstrap Boilerplate... -->
    <div id="info-panel" class="panel panel-default">
@@ -93,12 +93,13 @@
       <br>
       <br>
       <!-- digital dairy starts here---->
+      <br><br><br>
       <div class="tab-pan" id="daily_diary" style="display:none;">
          <div class="col-sm-offset-1 col-sm-11">
             <br><br>
             <div class="form-group row">
                <div class="date col-sm-offset-2 col-sm-2">
-                  <input type="text" class="form-control date diary_date" id="date" placeholder="Choose Date" autocomplete="off">
+                  <input type="text" class="form-control date diary_date" id="date" placeholder="Choose Date" autocomplete="off" style="background-color:#F8FEFB;border:2px solid black;border-radius: 4px;">
                </div>
                <div class="col-sm-3">
                   <button id="submit_diary" type="button"
@@ -209,8 +210,10 @@
         /*date initialization:start */
 
         	$(".diary_date").datepicker({
+                format: "dd-mm-yyyy",
                 endDate:'0',
-                format: 'dd-mm-yyyy'
+                autoclose: true,   
+                orientation: "auto",
             }).on('change', function () {
                 $('.datepicker').hide();
             }); 
@@ -389,12 +392,12 @@
         var pref_name2=$("#posting_pref2 option:selected").text(); 
         var remarks=$("#remarks").val();       
 
-        if(pref1==null)
+        if(pref_name1==null)
         {
             swal("Please Select the first preferences","","error");
             return false;
         }
-        else if(pref2==null)
+        else if(pref_name2==null)
         {
             swal("Please Select the second preferences","","error");
             return false;
