@@ -48,7 +48,7 @@ class JoEntryFormController extends Controller
         $validated = $request->validated(); // validation rules are set in the Request File  
       
         
-        //try{
+        try{
             DB::beginTransaction();            
                 
                 /*JO Basic Details :: START*/
@@ -133,6 +133,7 @@ class JoEntryFormController extends Controller
 
                         $posting_details[$i] = $jo_posting->save();
 
+                        /*JO Posting Zone Tenure :: START*/   
                         $zone_count = JoZoneTenure::where('judicial_officer_id',$judicial_officer)->count();
 
                         if($zone_count>0){
@@ -180,13 +181,13 @@ class JoEntryFormController extends Controller
                                 'to_date' => null,
                             ]);
                         }                        
-                       
+                        /*JO Posting Zone Tenure :: END*/
                     }
                     else{
                         $posting_details = null;
                     }
                 }
-                /*JO Posting Details :: START*/
+                /*JO Posting Details :: END*/
 
                 $response = array(
                     'judicial_officer' => $judicial_officer,
@@ -197,17 +198,17 @@ class JoEntryFormController extends Controller
                 DB::commit();
          
            
-        // } catch (\Exception $e) {
-        //     //DB::rollBack();
+        } catch (\Exception $e) {
+            DB::rollBack();
 
-        //     $response = array(
-        //         'exception' => true,
-        //         'exception_message' => $e->getMessage()
-        //     );
-        //     $statusCode = 400;
-        // } finally {
-            //return response()->json($response, $statusCode);
-        //}
+            $response = array(
+                'exception' => true,
+                'exception_message' => $e->getMessage()
+            );
+            $statusCode = 400;
+        } finally {
+            return response()->json($response, $statusCode);
+        }
     }
 
     

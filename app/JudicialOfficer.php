@@ -20,7 +20,7 @@ class JudicialOfficer extends Model
         'email_id_1','email_id_2',
         'recruitment_batch_id',
         'date_of_joining','date_of_confirmation',
-        'date_of_retirement','created_at','updated_at'
+        'date_of_retirement'
     ];
 
     public $timestamps = true;

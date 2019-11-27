@@ -392,7 +392,7 @@ class ComposerStaticInit29a6e7374aa6ea32817aa020db5ec992
 
     public static $classMap = array (
         'App\\AcrHistory' => __DIR__ . '/../..' . '/app/AcrHistory.php',
-        'App\\Caste' => __DIR__ . '/../..' . '/app/Caste.php',
+        'App\\Category' => __DIR__ . '/../..' . '/app/Category.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Court' => __DIR__ . '/../..' . '/app/Court.php',
         'App\\CourtComplex' => __DIR__ . '/../..' . '/app/CourtComplex.php',
@@ -449,7 +449,6 @@ class ComposerStaticInit29a6e7374aa6ea32817aa020db5ec992
         'App\\JudicialOfficerPosting' => __DIR__ . '/../..' . '/app/JudicialOfficerPosting.php',
         'App\\JudicialOfficerPostingPreference' => __DIR__ . '/../..' . '/app/JudicialOfficerPostingPreference.php',
         'App\\JudicialOfficerQualification' => __DIR__ . '/../..' . '/app/JudicialOfficerQualification.php',
-        'App\\LcrStatusCheck' => __DIR__ . '/../..' . '/app/LcrStatusCheck.php',
         'App\\Lcr_hc_end' => __DIR__ . '/../..' . '/app/lcr_hc_end.php',
         'App\\Lcr_lc_detail' => __DIR__ . '/../..' . '/app/lcr_lc_detail.php',
         'App\\Lower_case_type' => __DIR__ . '/../..' . '/app/lower_case_type.php',

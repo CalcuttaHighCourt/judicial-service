@@ -16,7 +16,7 @@ class CreateJudicialOfficersTable extends Migration
         Schema::create('judicial_officers', function (Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->string('registration_no')->unique();
-			$table->string('jo_code')->unique();			
+			$table->string('jo_code')->nullable()->unique();			
 			$table->string('officer_name');
 			$table->string('gender');
 			$table->string('guardian_name');

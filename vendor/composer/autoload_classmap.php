@@ -7,7 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\AcrHistory' => $baseDir . '/app/AcrHistory.php',
-    'App\\Caste' => $baseDir . '/app/Caste.php',
+    'App\\Category' => $baseDir . '/app/Category.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Court' => $baseDir . '/app/Court.php',
     'App\\CourtComplex' => $baseDir . '/app/CourtComplex.php',
@@ -64,7 +64,6 @@ return array(
     'App\\JudicialOfficerPosting' => $baseDir . '/app/JudicialOfficerPosting.php',
     'App\\JudicialOfficerPostingPreference' => $baseDir . '/app/JudicialOfficerPostingPreference.php',
     'App\\JudicialOfficerQualification' => $baseDir . '/app/JudicialOfficerQualification.php',
-    'App\\LcrStatusCheck' => $baseDir . '/app/LcrStatusCheck.php',
     'App\\Lcr_hc_end' => $baseDir . '/app/lcr_hc_end.php',
     'App\\Lcr_lc_detail' => $baseDir . '/app/lcr_lc_detail.php',
     'App\\Lower_case_type' => $baseDir . '/app/lower_case_type.php',
