@@ -5,7 +5,7 @@
 -- Dumped from database version 9.2.4
 -- Dumped by pg_dump version 11.1
 
--- Started on 2019-11-27 17:00:23
+-- Started on 2019-11-28 18:03:56
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,7 +18,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 246 (class 1255 OID 448383)
+-- TOC entry 252 (class 1255 OID 448383)
 -- Name: movedeleted(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -34,7 +34,7 @@ CREATE FUNCTION public.movedeleted() RETURNS trigger
 
 
 --
--- TOC entry 247 (class 1255 OID 448384)
+-- TOC entry 253 (class 1255 OID 448384)
 -- Name: moveupdated(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -52,7 +52,7 @@ CREATE FUNCTION public.moveupdated() RETURNS trigger
 SET default_with_oids = false;
 
 --
--- TOC entry 219 (class 1259 OID 431536)
+-- TOC entry 217 (class 1259 OID 431536)
 -- Name: acr_histories; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -69,7 +69,7 @@ CREATE TABLE public.acr_histories (
 
 
 --
--- TOC entry 218 (class 1259 OID 431534)
+-- TOC entry 216 (class 1259 OID 431534)
 -- Name: acr_histories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -82,8 +82,8 @@ CREATE SEQUENCE public.acr_histories_id_seq
 
 
 --
--- TOC entry 2465 (class 0 OID 0)
--- Dependencies: 218
+-- TOC entry 2506 (class 0 OID 0)
+-- Dependencies: 216
 -- Name: acr_histories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -118,7 +118,7 @@ CREATE SEQUENCE public.categories_id_seq
 
 
 --
--- TOC entry 2466 (class 0 OID 0)
+-- TOC entry 2507 (class 0 OID 0)
 -- Dependencies: 186
 -- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -157,12 +157,47 @@ CREATE SEQUENCE public.courts_id_seq
 
 
 --
--- TOC entry 2467 (class 0 OID 0)
+-- TOC entry 2508 (class 0 OID 0)
 -- Dependencies: 182
 -- Name: courts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.courts_id_seq OWNED BY public.courts.id;
+
+
+--
+-- TOC entry 237 (class 1259 OID 448469)
+-- Name: departments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.departments (
+    id bigint NOT NULL,
+    dept_name character varying(255) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- TOC entry 236 (class 1259 OID 448467)
+-- Name: departments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.departments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2509 (class 0 OID 0)
+-- Dependencies: 236
+-- Name: departments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.departments_id_seq OWNED BY public.departments.id;
 
 
 --
@@ -193,7 +228,7 @@ CREATE SEQUENCE public.designations_id_seq
 
 
 --
--- TOC entry 2468 (class 0 OID 0)
+-- TOC entry 2510 (class 0 OID 0)
 -- Dependencies: 188
 -- Name: designations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -202,7 +237,7 @@ ALTER SEQUENCE public.designations_id_seq OWNED BY public.designations.id;
 
 
 --
--- TOC entry 209 (class 1259 OID 431441)
+-- TOC entry 207 (class 1259 OID 431441)
 -- Name: diaries; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -217,7 +252,7 @@ CREATE TABLE public.diaries (
 
 
 --
--- TOC entry 208 (class 1259 OID 431439)
+-- TOC entry 206 (class 1259 OID 431439)
 -- Name: diaries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -230,8 +265,8 @@ CREATE SEQUENCE public.diaries_id_seq
 
 
 --
--- TOC entry 2469 (class 0 OID 0)
--- Dependencies: 208
+-- TOC entry 2511 (class 0 OID 0)
+-- Dependencies: 206
 -- Name: diaries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -267,7 +302,7 @@ CREATE SEQUENCE public.districts_id_seq
 
 
 --
--- TOC entry 2470 (class 0 OID 0)
+-- TOC entry 2512 (class 0 OID 0)
 -- Dependencies: 178
 -- Name: districts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -276,7 +311,7 @@ ALTER SEQUENCE public.districts_id_seq OWNED BY public.districts.id;
 
 
 --
--- TOC entry 217 (class 1259 OID 431526)
+-- TOC entry 215 (class 1259 OID 431526)
 -- Name: grade_details; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -290,7 +325,7 @@ CREATE TABLE public.grade_details (
 
 
 --
--- TOC entry 216 (class 1259 OID 431524)
+-- TOC entry 214 (class 1259 OID 431524)
 -- Name: grade_details_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -303,8 +338,8 @@ CREATE SEQUENCE public.grade_details_id_seq
 
 
 --
--- TOC entry 2471 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 2513 (class 0 OID 0)
+-- Dependencies: 214
 -- Name: grade_details_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -312,7 +347,7 @@ ALTER SEQUENCE public.grade_details_id_seq OWNED BY public.grade_details.id;
 
 
 --
--- TOC entry 213 (class 1259 OID 431501)
+-- TOC entry 211 (class 1259 OID 431501)
 -- Name: hc_case_types; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -326,7 +361,7 @@ CREATE TABLE public.hc_case_types (
 
 
 --
--- TOC entry 212 (class 1259 OID 431499)
+-- TOC entry 210 (class 1259 OID 431499)
 -- Name: hc_case_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -339,8 +374,8 @@ CREATE SEQUENCE public.hc_case_types_id_seq
 
 
 --
--- TOC entry 2472 (class 0 OID 0)
--- Dependencies: 212
+-- TOC entry 2514 (class 0 OID 0)
+-- Dependencies: 210
 -- Name: hc_case_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -348,7 +383,7 @@ ALTER SEQUENCE public.hc_case_types_id_seq OWNED BY public.hc_case_types.id;
 
 
 --
--- TOC entry 233 (class 1259 OID 448374)
+-- TOC entry 231 (class 1259 OID 448374)
 -- Name: history_deleted_data; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -361,7 +396,7 @@ CREATE TABLE public.history_deleted_data (
 
 
 --
--- TOC entry 232 (class 1259 OID 448372)
+-- TOC entry 230 (class 1259 OID 448372)
 -- Name: history_deleted_data_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -374,8 +409,8 @@ CREATE SEQUENCE public.history_deleted_data_id_seq
 
 
 --
--- TOC entry 2473 (class 0 OID 0)
--- Dependencies: 232
+-- TOC entry 2515 (class 0 OID 0)
+-- Dependencies: 230
 -- Name: history_deleted_data_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -383,7 +418,7 @@ ALTER SEQUENCE public.history_deleted_data_id_seq OWNED BY public.history_delete
 
 
 --
--- TOC entry 231 (class 1259 OID 448363)
+-- TOC entry 229 (class 1259 OID 448363)
 -- Name: history_updated_data; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -396,7 +431,7 @@ CREATE TABLE public.history_updated_data (
 
 
 --
--- TOC entry 230 (class 1259 OID 448361)
+-- TOC entry 228 (class 1259 OID 448361)
 -- Name: history_updated_data_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -409,12 +444,50 @@ CREATE SEQUENCE public.history_updated_data_id_seq
 
 
 --
--- TOC entry 2474 (class 0 OID 0)
--- Dependencies: 230
+-- TOC entry 2516 (class 0 OID 0)
+-- Dependencies: 228
 -- Name: history_updated_data_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.history_updated_data_id_seq OWNED BY public.history_updated_data.id;
+
+
+--
+-- TOC entry 239 (class 1259 OID 448477)
+-- Name: jo_legal_experiences; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.jo_legal_experiences (
+    id bigint NOT NULL,
+    judicial_officer_id bigint NOT NULL,
+    subdivision_id integer NOT NULL,
+    from_year integer NOT NULL,
+    to_year integer NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- TOC entry 238 (class 1259 OID 448475)
+-- Name: jo_legal_experiences_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.jo_legal_experiences_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2517 (class 0 OID 0)
+-- Dependencies: 238
+-- Name: jo_legal_experiences_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.jo_legal_experiences_id_seq OWNED BY public.jo_legal_experiences.id;
 
 
 --
@@ -445,7 +518,7 @@ CREATE SEQUENCE public.jo_photos_id_seq
 
 
 --
--- TOC entry 2475 (class 0 OID 0)
+-- TOC entry 2518 (class 0 OID 0)
 -- Dependencies: 196
 -- Name: jo_photos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -454,7 +527,7 @@ ALTER SEQUENCE public.jo_photos_id_seq OWNED BY public.jo_photos.id;
 
 
 --
--- TOC entry 201 (class 1259 OID 431360)
+-- TOC entry 235 (class 1259 OID 448449)
 -- Name: jo_reporting_reviewings; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -470,7 +543,7 @@ CREATE TABLE public.jo_reporting_reviewings (
 
 
 --
--- TOC entry 200 (class 1259 OID 431358)
+-- TOC entry 234 (class 1259 OID 448447)
 -- Name: jo_reporting_reviewings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -483,8 +556,8 @@ CREATE SEQUENCE public.jo_reporting_reviewings_id_seq
 
 
 --
--- TOC entry 2476 (class 0 OID 0)
--- Dependencies: 200
+-- TOC entry 2519 (class 0 OID 0)
+-- Dependencies: 234
 -- Name: jo_reporting_reviewings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -492,7 +565,46 @@ ALTER SEQUENCE public.jo_reporting_reviewings_id_seq OWNED BY public.jo_reportin
 
 
 --
--- TOC entry 223 (class 1259 OID 431576)
+-- TOC entry 233 (class 1259 OID 448421)
+-- Name: jo_reportings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.jo_reportings (
+    id bigint NOT NULL,
+    judicial_officer_id bigint NOT NULL,
+    posting_id bigint NOT NULL,
+    reporting_officer_id bigint,
+    other_reporting_officer_name character(255),
+    other_reporting_officer_designation character(255),
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- TOC entry 232 (class 1259 OID 448419)
+-- Name: jo_reportings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.jo_reportings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2520 (class 0 OID 0)
+-- Dependencies: 232
+-- Name: jo_reportings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.jo_reportings_id_seq OWNED BY public.jo_reportings.id;
+
+
+--
+-- TOC entry 221 (class 1259 OID 431576)
 -- Name: jo_zone_tenures; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -508,7 +620,7 @@ CREATE TABLE public.jo_zone_tenures (
 
 
 --
--- TOC entry 222 (class 1259 OID 431574)
+-- TOC entry 220 (class 1259 OID 431574)
 -- Name: jo_zone_tenures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -521,8 +633,8 @@ CREATE SEQUENCE public.jo_zone_tenures_id_seq
 
 
 --
--- TOC entry 2477 (class 0 OID 0)
--- Dependencies: 222
+-- TOC entry 2521 (class 0 OID 0)
+-- Dependencies: 220
 -- Name: jo_zone_tenures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -530,7 +642,7 @@ ALTER SEQUENCE public.jo_zone_tenures_id_seq OWNED BY public.jo_zone_tenures.id;
 
 
 --
--- TOC entry 207 (class 1259 OID 431420)
+-- TOC entry 205 (class 1259 OID 431420)
 -- Name: judicial_officer_posting_preferences; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -547,7 +659,7 @@ CREATE TABLE public.judicial_officer_posting_preferences (
 
 
 --
--- TOC entry 206 (class 1259 OID 431418)
+-- TOC entry 204 (class 1259 OID 431418)
 -- Name: judicial_officer_posting_preferences_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -560,8 +672,8 @@ CREATE SEQUENCE public.judicial_officer_posting_preferences_id_seq
 
 
 --
--- TOC entry 2478 (class 0 OID 0)
--- Dependencies: 206
+-- TOC entry 2522 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: judicial_officer_posting_preferences_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -569,7 +681,7 @@ ALTER SEQUENCE public.judicial_officer_posting_preferences_id_seq OWNED BY publi
 
 
 --
--- TOC entry 205 (class 1259 OID 431390)
+-- TOC entry 203 (class 1259 OID 431390)
 -- Name: judicial_officer_postings; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -588,7 +700,7 @@ CREATE TABLE public.judicial_officer_postings (
 
 
 --
--- TOC entry 204 (class 1259 OID 431388)
+-- TOC entry 202 (class 1259 OID 431388)
 -- Name: judicial_officer_postings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -601,8 +713,8 @@ CREATE SEQUENCE public.judicial_officer_postings_id_seq
 
 
 --
--- TOC entry 2479 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 2523 (class 0 OID 0)
+-- Dependencies: 202
 -- Name: judicial_officer_postings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -638,7 +750,7 @@ CREATE SEQUENCE public.judicial_officer_qualifications_id_seq
 
 
 --
--- TOC entry 2480 (class 0 OID 0)
+-- TOC entry 2524 (class 0 OID 0)
 -- Dependencies: 198
 -- Name: judicial_officer_qualifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -699,7 +811,7 @@ CREATE SEQUENCE public.judicial_officers_id_seq
 
 
 --
--- TOC entry 2481 (class 0 OID 0)
+-- TOC entry 2525 (class 0 OID 0)
 -- Dependencies: 194
 -- Name: judicial_officers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -708,7 +820,7 @@ ALTER SEQUENCE public.judicial_officers_id_seq OWNED BY public.judicial_officers
 
 
 --
--- TOC entry 229 (class 1259 OID 448118)
+-- TOC entry 227 (class 1259 OID 448118)
 -- Name: lcr_hc_ends; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -732,7 +844,7 @@ CREATE TABLE public.lcr_hc_ends (
 
 
 --
--- TOC entry 228 (class 1259 OID 448116)
+-- TOC entry 226 (class 1259 OID 448116)
 -- Name: lcr_hc_ends_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -745,8 +857,8 @@ CREATE SEQUENCE public.lcr_hc_ends_id_seq
 
 
 --
--- TOC entry 2482 (class 0 OID 0)
--- Dependencies: 228
+-- TOC entry 2526 (class 0 OID 0)
+-- Dependencies: 226
 -- Name: lcr_hc_ends_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -754,7 +866,7 @@ ALTER SEQUENCE public.lcr_hc_ends_id_seq OWNED BY public.lcr_hc_ends.id;
 
 
 --
--- TOC entry 211 (class 1259 OID 431485)
+-- TOC entry 209 (class 1259 OID 431485)
 -- Name: lcr_lc_details; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -772,7 +884,7 @@ CREATE TABLE public.lcr_lc_details (
 
 
 --
--- TOC entry 210 (class 1259 OID 431483)
+-- TOC entry 208 (class 1259 OID 431483)
 -- Name: lcr_lc_details_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -785,8 +897,8 @@ CREATE SEQUENCE public.lcr_lc_details_id_seq
 
 
 --
--- TOC entry 2483 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 2527 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: lcr_lc_details_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -794,7 +906,7 @@ ALTER SEQUENCE public.lcr_lc_details_id_seq OWNED BY public.lcr_lc_details.id;
 
 
 --
--- TOC entry 227 (class 1259 OID 431632)
+-- TOC entry 225 (class 1259 OID 431632)
 -- Name: lcr_status_checks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -810,7 +922,7 @@ CREATE TABLE public.lcr_status_checks (
 
 
 --
--- TOC entry 226 (class 1259 OID 431630)
+-- TOC entry 224 (class 1259 OID 431630)
 -- Name: lcr_status_checks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -823,8 +935,8 @@ CREATE SEQUENCE public.lcr_status_checks_id_seq
 
 
 --
--- TOC entry 2484 (class 0 OID 0)
--- Dependencies: 226
+-- TOC entry 2528 (class 0 OID 0)
+-- Dependencies: 224
 -- Name: lcr_status_checks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -832,7 +944,7 @@ ALTER SEQUENCE public.lcr_status_checks_id_seq OWNED BY public.lcr_status_checks
 
 
 --
--- TOC entry 215 (class 1259 OID 431516)
+-- TOC entry 213 (class 1259 OID 431516)
 -- Name: lower_case_types; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -845,7 +957,7 @@ CREATE TABLE public.lower_case_types (
 
 
 --
--- TOC entry 214 (class 1259 OID 431514)
+-- TOC entry 212 (class 1259 OID 431514)
 -- Name: lower_case_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -858,8 +970,8 @@ CREATE SEQUENCE public.lower_case_types_id_seq
 
 
 --
--- TOC entry 2485 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 2529 (class 0 OID 0)
+-- Dependencies: 212
 -- Name: lower_case_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -892,7 +1004,7 @@ CREATE SEQUENCE public.migrations_id_seq
 
 
 --
--- TOC entry 2486 (class 0 OID 0)
+-- TOC entry 2530 (class 0 OID 0)
 -- Dependencies: 169
 -- Name: migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -901,7 +1013,7 @@ ALTER SEQUENCE public.migrations_id_seq OWNED BY public.migrations.id;
 
 
 --
--- TOC entry 203 (class 1259 OID 431380)
+-- TOC entry 201 (class 1259 OID 431380)
 -- Name: modes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -915,7 +1027,7 @@ CREATE TABLE public.modes (
 
 
 --
--- TOC entry 202 (class 1259 OID 431378)
+-- TOC entry 200 (class 1259 OID 431378)
 -- Name: modes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -928,8 +1040,8 @@ CREATE SEQUENCE public.modes_id_seq
 
 
 --
--- TOC entry 2487 (class 0 OID 0)
--- Dependencies: 202
+-- TOC entry 2531 (class 0 OID 0)
+-- Dependencies: 200
 -- Name: modes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -976,7 +1088,7 @@ CREATE SEQUENCE public.qualifications_id_seq
 
 
 --
--- TOC entry 2488 (class 0 OID 0)
+-- TOC entry 2532 (class 0 OID 0)
 -- Dependencies: 184
 -- Name: qualifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1013,7 +1125,7 @@ CREATE SEQUENCE public.recruitment_batches_id_seq
 
 
 --
--- TOC entry 2489 (class 0 OID 0)
+-- TOC entry 2533 (class 0 OID 0)
 -- Dependencies: 192
 -- Name: recruitment_batches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1049,7 +1161,7 @@ CREATE SEQUENCE public.religions_id_seq
 
 
 --
--- TOC entry 2490 (class 0 OID 0)
+-- TOC entry 2534 (class 0 OID 0)
 -- Dependencies: 190
 -- Name: religions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1085,7 +1197,7 @@ CREATE SEQUENCE public.states_id_seq
 
 
 --
--- TOC entry 2491 (class 0 OID 0)
+-- TOC entry 2535 (class 0 OID 0)
 -- Dependencies: 174
 -- Name: states_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1123,7 +1235,7 @@ CREATE SEQUENCE public.subdivisions_id_seq
 
 
 --
--- TOC entry 2492 (class 0 OID 0)
+-- TOC entry 2536 (class 0 OID 0)
 -- Dependencies: 180
 -- Name: subdivisions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1158,7 +1270,7 @@ CREATE SEQUENCE public.user_types_id_seq
 
 
 --
--- TOC entry 2493 (class 0 OID 0)
+-- TOC entry 2537 (class 0 OID 0)
 -- Dependencies: 171
 -- Name: user_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1167,7 +1279,7 @@ ALTER SEQUENCE public.user_types_id_seq OWNED BY public.user_types.id;
 
 
 --
--- TOC entry 225 (class 1259 OID 431596)
+-- TOC entry 223 (class 1259 OID 431596)
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1190,7 +1302,7 @@ CREATE TABLE public.users (
 
 
 --
--- TOC entry 224 (class 1259 OID 431594)
+-- TOC entry 222 (class 1259 OID 431594)
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1203,8 +1315,8 @@ CREATE SEQUENCE public.users_id_seq
 
 
 --
--- TOC entry 2494 (class 0 OID 0)
--- Dependencies: 224
+-- TOC entry 2538 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -1212,7 +1324,7 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- TOC entry 221 (class 1259 OID 431556)
+-- TOC entry 219 (class 1259 OID 431556)
 -- Name: zone_subdivisions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1227,7 +1339,7 @@ CREATE TABLE public.zone_subdivisions (
 
 
 --
--- TOC entry 220 (class 1259 OID 431554)
+-- TOC entry 218 (class 1259 OID 431554)
 -- Name: zone_subdivisions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1240,8 +1352,8 @@ CREATE SEQUENCE public.zone_subdivisions_id_seq
 
 
 --
--- TOC entry 2495 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 2539 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: zone_subdivisions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -1277,7 +1389,7 @@ CREATE SEQUENCE public.zones_id_seq
 
 
 --
--- TOC entry 2496 (class 0 OID 0)
+-- TOC entry 2540 (class 0 OID 0)
 -- Dependencies: 176
 -- Name: zones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1286,7 +1398,7 @@ ALTER SEQUENCE public.zones_id_seq OWNED BY public.zones.id;
 
 
 --
--- TOC entry 2104 (class 2604 OID 431539)
+-- TOC entry 2122 (class 2604 OID 431539)
 -- Name: acr_histories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1294,7 +1406,7 @@ ALTER TABLE ONLY public.acr_histories ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 2088 (class 2604 OID 431233)
+-- TOC entry 2107 (class 2604 OID 431233)
 -- Name: categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1302,7 +1414,7 @@ ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.c
 
 
 --
--- TOC entry 2086 (class 2604 OID 431208)
+-- TOC entry 2105 (class 2604 OID 431208)
 -- Name: courts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1310,7 +1422,15 @@ ALTER TABLE ONLY public.courts ALTER COLUMN id SET DEFAULT nextval('public.court
 
 
 --
--- TOC entry 2089 (class 2604 OID 431243)
+-- TOC entry 2132 (class 2604 OID 448472)
+-- Name: departments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.departments ALTER COLUMN id SET DEFAULT nextval('public.departments_id_seq'::regclass);
+
+
+--
+-- TOC entry 2108 (class 2604 OID 431243)
 -- Name: designations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1318,7 +1438,7 @@ ALTER TABLE ONLY public.designations ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 2099 (class 2604 OID 431444)
+-- TOC entry 2117 (class 2604 OID 431444)
 -- Name: diaries id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1326,7 +1446,7 @@ ALTER TABLE ONLY public.diaries ALTER COLUMN id SET DEFAULT nextval('public.diar
 
 
 --
--- TOC entry 2084 (class 2604 OID 431173)
+-- TOC entry 2103 (class 2604 OID 431173)
 -- Name: districts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1334,7 +1454,7 @@ ALTER TABLE ONLY public.districts ALTER COLUMN id SET DEFAULT nextval('public.di
 
 
 --
--- TOC entry 2103 (class 2604 OID 431529)
+-- TOC entry 2121 (class 2604 OID 431529)
 -- Name: grade_details id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1342,7 +1462,7 @@ ALTER TABLE ONLY public.grade_details ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 2101 (class 2604 OID 431504)
+-- TOC entry 2119 (class 2604 OID 431504)
 -- Name: hc_case_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1350,7 +1470,7 @@ ALTER TABLE ONLY public.hc_case_types ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 2111 (class 2604 OID 448377)
+-- TOC entry 2129 (class 2604 OID 448377)
 -- Name: history_deleted_data id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1358,7 +1478,7 @@ ALTER TABLE ONLY public.history_deleted_data ALTER COLUMN id SET DEFAULT nextval
 
 
 --
--- TOC entry 2110 (class 2604 OID 448366)
+-- TOC entry 2128 (class 2604 OID 448366)
 -- Name: history_updated_data id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1366,7 +1486,15 @@ ALTER TABLE ONLY public.history_updated_data ALTER COLUMN id SET DEFAULT nextval
 
 
 --
--- TOC entry 2093 (class 2604 OID 431327)
+-- TOC entry 2133 (class 2604 OID 448480)
+-- Name: jo_legal_experiences id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jo_legal_experiences ALTER COLUMN id SET DEFAULT nextval('public.jo_legal_experiences_id_seq'::regclass);
+
+
+--
+-- TOC entry 2112 (class 2604 OID 431327)
 -- Name: jo_photos id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1374,7 +1502,7 @@ ALTER TABLE ONLY public.jo_photos ALTER COLUMN id SET DEFAULT nextval('public.jo
 
 
 --
--- TOC entry 2095 (class 2604 OID 431363)
+-- TOC entry 2131 (class 2604 OID 448452)
 -- Name: jo_reporting_reviewings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1382,7 +1510,15 @@ ALTER TABLE ONLY public.jo_reporting_reviewings ALTER COLUMN id SET DEFAULT next
 
 
 --
--- TOC entry 2106 (class 2604 OID 431579)
+-- TOC entry 2130 (class 2604 OID 448424)
+-- Name: jo_reportings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jo_reportings ALTER COLUMN id SET DEFAULT nextval('public.jo_reportings_id_seq'::regclass);
+
+
+--
+-- TOC entry 2124 (class 2604 OID 431579)
 -- Name: jo_zone_tenures id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1390,7 +1526,7 @@ ALTER TABLE ONLY public.jo_zone_tenures ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
--- TOC entry 2098 (class 2604 OID 431423)
+-- TOC entry 2116 (class 2604 OID 431423)
 -- Name: judicial_officer_posting_preferences id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1398,7 +1534,7 @@ ALTER TABLE ONLY public.judicial_officer_posting_preferences ALTER COLUMN id SET
 
 
 --
--- TOC entry 2097 (class 2604 OID 431393)
+-- TOC entry 2115 (class 2604 OID 431393)
 -- Name: judicial_officer_postings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1406,7 +1542,7 @@ ALTER TABLE ONLY public.judicial_officer_postings ALTER COLUMN id SET DEFAULT ne
 
 
 --
--- TOC entry 2094 (class 2604 OID 431343)
+-- TOC entry 2113 (class 2604 OID 431343)
 -- Name: judicial_officer_qualifications id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1414,7 +1550,7 @@ ALTER TABLE ONLY public.judicial_officer_qualifications ALTER COLUMN id SET DEFA
 
 
 --
--- TOC entry 2092 (class 2604 OID 431273)
+-- TOC entry 2111 (class 2604 OID 431273)
 -- Name: judicial_officers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1422,7 +1558,7 @@ ALTER TABLE ONLY public.judicial_officers ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
--- TOC entry 2109 (class 2604 OID 448121)
+-- TOC entry 2127 (class 2604 OID 448121)
 -- Name: lcr_hc_ends id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1430,7 +1566,7 @@ ALTER TABLE ONLY public.lcr_hc_ends ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 2100 (class 2604 OID 431488)
+-- TOC entry 2118 (class 2604 OID 431488)
 -- Name: lcr_lc_details id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1438,7 +1574,7 @@ ALTER TABLE ONLY public.lcr_lc_details ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 2108 (class 2604 OID 431635)
+-- TOC entry 2126 (class 2604 OID 431635)
 -- Name: lcr_status_checks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1446,7 +1582,7 @@ ALTER TABLE ONLY public.lcr_status_checks ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
--- TOC entry 2102 (class 2604 OID 431519)
+-- TOC entry 2120 (class 2604 OID 431519)
 -- Name: lower_case_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1454,7 +1590,7 @@ ALTER TABLE ONLY public.lower_case_types ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 2080 (class 2604 OID 431130)
+-- TOC entry 2099 (class 2604 OID 431130)
 -- Name: migrations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1462,7 +1598,7 @@ ALTER TABLE ONLY public.migrations ALTER COLUMN id SET DEFAULT nextval('public.m
 
 
 --
--- TOC entry 2096 (class 2604 OID 431383)
+-- TOC entry 2114 (class 2604 OID 431383)
 -- Name: modes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1470,7 +1606,7 @@ ALTER TABLE ONLY public.modes ALTER COLUMN id SET DEFAULT nextval('public.modes_
 
 
 --
--- TOC entry 2087 (class 2604 OID 431223)
+-- TOC entry 2106 (class 2604 OID 431223)
 -- Name: qualifications id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1478,7 +1614,7 @@ ALTER TABLE ONLY public.qualifications ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 2091 (class 2604 OID 431263)
+-- TOC entry 2110 (class 2604 OID 431263)
 -- Name: recruitment_batches id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1486,7 +1622,7 @@ ALTER TABLE ONLY public.recruitment_batches ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- TOC entry 2090 (class 2604 OID 431253)
+-- TOC entry 2109 (class 2604 OID 431253)
 -- Name: religions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1494,7 +1630,7 @@ ALTER TABLE ONLY public.religions ALTER COLUMN id SET DEFAULT nextval('public.re
 
 
 --
--- TOC entry 2082 (class 2604 OID 431153)
+-- TOC entry 2101 (class 2604 OID 431153)
 -- Name: states id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1502,7 +1638,7 @@ ALTER TABLE ONLY public.states ALTER COLUMN id SET DEFAULT nextval('public.state
 
 
 --
--- TOC entry 2085 (class 2604 OID 431188)
+-- TOC entry 2104 (class 2604 OID 431188)
 -- Name: subdivisions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1510,7 +1646,7 @@ ALTER TABLE ONLY public.subdivisions ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 2081 (class 2604 OID 431138)
+-- TOC entry 2100 (class 2604 OID 431138)
 -- Name: user_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1518,7 +1654,7 @@ ALTER TABLE ONLY public.user_types ALTER COLUMN id SET DEFAULT nextval('public.u
 
 
 --
--- TOC entry 2107 (class 2604 OID 431599)
+-- TOC entry 2125 (class 2604 OID 431599)
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1526,7 +1662,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- TOC entry 2105 (class 2604 OID 431559)
+-- TOC entry 2123 (class 2604 OID 431559)
 -- Name: zone_subdivisions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1534,7 +1670,7 @@ ALTER TABLE ONLY public.zone_subdivisions ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
--- TOC entry 2083 (class 2604 OID 431163)
+-- TOC entry 2102 (class 2604 OID 431163)
 -- Name: zones id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1542,15 +1678,15 @@ ALTER TABLE ONLY public.zones ALTER COLUMN id SET DEFAULT nextval('public.zones_
 
 
 --
--- TOC entry 2445 (class 0 OID 431536)
--- Dependencies: 219
+-- TOC entry 2478 (class 0 OID 431536)
+-- Dependencies: 217
 -- Data for Name: acr_histories; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 
 
 --
--- TOC entry 2413 (class 0 OID 431230)
+-- TOC entry 2448 (class 0 OID 431230)
 -- Dependencies: 187
 -- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1561,7 +1697,7 @@ INSERT INTO public.categories (id, category_name, created_by, created_at, update
 
 
 --
--- TOC entry 2409 (class 0 OID 431205)
+-- TOC entry 2444 (class 0 OID 431205)
 -- Dependencies: 183
 -- Data for Name: courts; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1624,7 +1760,18 @@ INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, 
 
 
 --
--- TOC entry 2415 (class 0 OID 431240)
+-- TOC entry 2498 (class 0 OID 448469)
+-- Dependencies: 237
+-- Data for Name: departments; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+INSERT INTO public.departments (id, dept_name, created_at, updated_at) VALUES (1, 'Rule ', NULL, NULL);
+INSERT INTO public.departments (id, dept_name, created_at, updated_at) VALUES (2, 'Criminal', NULL, NULL);
+INSERT INTO public.departments (id, dept_name, created_at, updated_at) VALUES (3, 'FMA', NULL, NULL);
+
+
+--
+-- TOC entry 2450 (class 0 OID 431240)
 -- Dependencies: 189
 -- Data for Name: designations; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1637,15 +1784,15 @@ INSERT INTO public.designations (id, designation_name, created_by, created_at, u
 
 
 --
--- TOC entry 2435 (class 0 OID 431441)
--- Dependencies: 209
+-- TOC entry 2468 (class 0 OID 431441)
+-- Dependencies: 207
 -- Data for Name: diaries; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 
 
 --
--- TOC entry 2405 (class 0 OID 431170)
+-- TOC entry 2440 (class 0 OID 431170)
 -- Dependencies: 179
 -- Data for Name: districts; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1688,8 +1835,8 @@ INSERT INTO public.districts (id, district_name, state_id, created_by, created_a
 
 
 --
--- TOC entry 2443 (class 0 OID 431526)
--- Dependencies: 217
+-- TOC entry 2476 (class 0 OID 431526)
+-- Dependencies: 215
 -- Data for Name: grade_details; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -1701,8 +1848,8 @@ INSERT INTO public.grade_details (id, grade_name, created_by, created_at, update
 
 
 --
--- TOC entry 2439 (class 0 OID 431501)
--- Dependencies: 213
+-- TOC entry 2472 (class 0 OID 431501)
+-- Dependencies: 211
 -- Data for Name: hc_case_types; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -1808,23 +1955,35 @@ INSERT INTO public.hc_case_types (id, type_name, full_form, created_at, updated_
 
 
 --
--- TOC entry 2459 (class 0 OID 448374)
--- Dependencies: 233
+-- TOC entry 2492 (class 0 OID 448374)
+-- Dependencies: 231
 -- Data for Name: history_deleted_data; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 
 
 --
--- TOC entry 2457 (class 0 OID 448363)
--- Dependencies: 231
+-- TOC entry 2490 (class 0 OID 448363)
+-- Dependencies: 229
 -- Data for Name: history_updated_data; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (2, 'judicial_officers', '{"id":28,"registration_no":"123","jo_code":"WB123","officer_name":"Rupsa Bose","gender":"M","guardian_name":"Pradip Basu","gurdian_relation":"Father","date_of_birth":"1989-02-02","home_state_id":51,"home_district_id":36,"hometown":"Maniktala","present_address":"APC Road","permanent_address":"APC Road","religion_id":1,"category_id":1,"blood_group":"A+","identification_mark":"Mole In Right Face","aadhaar_no":"123456789012","pan_no":"5647239810","gpf_no":"145637","mobile_no_1":"8981475652","mobile_no_2":null,"email_id_1":"rupsa@gmail.com","email_id_2":null,"recruitment_batch_id":8,"date_of_joining":"2018-09-19","date_of_confirmation":"2018-09-19","date_of_retirement":"2040-05-01","created_at":null,"updated_at":null}', '2019-11-27 05:56:42');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (3, 'judicial_officer_postings', '{"id":30,"judicial_officer_id":31,"designation_id":3,"court_id":1,"other_station_name":null,"mode_id":1,"from_date":"2019-11-24","to_date":"2019-11-28","created_at":"2019-11-28 13:23:13","updated_at":"2019-11-28 13:23:13"}', '2019-11-27 07:59:09');
 
 
 --
--- TOC entry 2423 (class 0 OID 431324)
+-- TOC entry 2500 (class 0 OID 448477)
+-- Dependencies: 239
+-- Data for Name: jo_legal_experiences; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+INSERT INTO public.jo_legal_experiences (id, judicial_officer_id, subdivision_id, from_year, to_year, created_at, updated_at) VALUES (1, 32, 68, 2018, 2019, '2019-11-28 18:00:56', '2019-11-28 18:00:56');
+INSERT INTO public.jo_legal_experiences (id, judicial_officer_id, subdivision_id, from_year, to_year, created_at, updated_at) VALUES (2, 32, 57, 2016, 2018, '2019-11-28 18:00:56', '2019-11-28 18:00:56');
+
+
+--
+-- TOC entry 2458 (class 0 OID 431324)
 -- Dependencies: 197
 -- Data for Name: jo_photos; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1832,73 +1991,102 @@ INSERT INTO public.hc_case_types (id, type_name, full_form, created_at, updated_
 
 
 --
--- TOC entry 2427 (class 0 OID 431360)
--- Dependencies: 201
+-- TOC entry 2496 (class 0 OID 448449)
+-- Dependencies: 235
 -- Data for Name: jo_reporting_reviewings; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 
 
 --
--- TOC entry 2449 (class 0 OID 431576)
--- Dependencies: 223
+-- TOC entry 2494 (class 0 OID 448421)
+-- Dependencies: 233
+-- Data for Name: jo_reportings; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+INSERT INTO public.jo_reportings (id, judicial_officer_id, posting_id, reporting_officer_id, other_reporting_officer_name, other_reporting_officer_designation, created_at, updated_at) VALUES (1, 31, 29, 28, NULL, NULL, '2019-11-28 13:23:13', '2019-11-28 13:23:13');
+INSERT INTO public.jo_reportings (id, judicial_officer_id, posting_id, reporting_officer_id, other_reporting_officer_name, other_reporting_officer_designation, created_at, updated_at) VALUES (2, 32, 31, 31, NULL, NULL, '2019-11-28 18:00:56', '2019-11-28 18:00:56');
+
+
+--
+-- TOC entry 2482 (class 0 OID 431576)
+-- Dependencies: 221
 -- Data for Name: jo_zone_tenures; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (15, 28, 8, '2019-01-08', NULL, NULL, NULL);
 INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (14, 28, 7, '2018-09-19', '2018-11-27', NULL, '2019-11-27 11:34:59');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (17, 31, 8, '2019-11-24', NULL, NULL, NULL);
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (16, 31, 7, '2019-11-12', '2019-11-22', NULL, '2019-11-28 13:23:13');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (18, 32, 7, '2019-11-01', NULL, NULL, NULL);
 
 
 --
--- TOC entry 2433 (class 0 OID 431420)
--- Dependencies: 207
+-- TOC entry 2466 (class 0 OID 431420)
+-- Dependencies: 205
 -- Data for Name: judicial_officer_posting_preferences; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 
 
 --
--- TOC entry 2431 (class 0 OID 431390)
--- Dependencies: 205
+-- TOC entry 2464 (class 0 OID 431390)
+-- Dependencies: 203
 -- Data for Name: judicial_officer_postings; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, designation_id, court_id, other_station_name, mode_id, from_date, to_date, created_at, updated_at) VALUES (25, 28, 1, 71, NULL, 1, '2018-09-19', '2019-01-02', '2019-11-27 11:34:59', '2019-11-27 11:34:59');
 INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, designation_id, court_id, other_station_name, mode_id, from_date, to_date, created_at, updated_at) VALUES (26, 28, 3, 1, NULL, 1, '2019-01-08', '2019-11-27', '2019-11-27 11:34:59', '2019-11-27 11:34:59');
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, designation_id, court_id, other_station_name, mode_id, from_date, to_date, created_at, updated_at) VALUES (29, 31, 1, 71, NULL, 1, '2019-11-12', '2019-11-22', '2019-11-28 13:23:13', '2019-11-28 13:23:13');
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, designation_id, court_id, other_station_name, mode_id, from_date, to_date, created_at, updated_at) VALUES (30, 31, 3, 1, NULL, 1, '2019-11-24', '2019-11-28', '2019-11-28 13:23:13', '2019-11-28 13:23:13');
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, designation_id, court_id, other_station_name, mode_id, from_date, to_date, created_at, updated_at) VALUES (31, 32, 1, 71, NULL, 1, '2019-11-01', NULL, '2019-11-28 18:00:56', '2019-11-28 18:00:56');
 
 
 --
--- TOC entry 2425 (class 0 OID 431340)
+-- TOC entry 2460 (class 0 OID 431340)
 -- Dependencies: 199
 -- Data for Name: judicial_officer_qualifications; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qualification_id, passing_year, created_at, updated_at) VALUES (36, 28, 8, 2019, '2019-11-27 11:34:59', '2019-11-27 11:34:59');
+INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qualification_id, passing_year, created_at, updated_at) VALUES (41, 31, 5, 2017, '2019-11-28 13:23:13', '2019-11-28 13:23:13');
+INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qualification_id, passing_year, created_at, updated_at) VALUES (42, 31, 7, 2019, '2019-11-28 13:23:13', '2019-11-28 13:23:13');
+INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qualification_id, passing_year, created_at, updated_at) VALUES (43, 32, 8, 2019, '2019-11-28 18:00:56', '2019-11-28 18:00:56');
 
 
 --
--- TOC entry 2421 (class 0 OID 431270)
+-- TOC entry 2456 (class 0 OID 431270)
 -- Dependencies: 195
 -- Data for Name: judicial_officers; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, guardian_name, gurdian_relation, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, religion_id, category_id, blood_group, identification_mark, aadhaar_no, pan_no, gpf_no, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, date_of_joining, date_of_confirmation, date_of_retirement, created_at, updated_at) VALUES (28, '123', 'WB123', 'Rupsa Bose', 'M', 'Pradip Basu', 'Father', '1989-02-02', 51, 36, 'Maniktala', 'APC Road', 'APC Road', 1, 1, 'A+', 'Mole In Right Face', '123456789012', '5647239810', '145637', '8981475652', NULL, 'rupsa@gmail.com', NULL, 8, '2018-09-19', '2018-09-19', '2040-05-01', NULL, NULL);
+INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, guardian_name, gurdian_relation, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, religion_id, category_id, blood_group, identification_mark, aadhaar_no, pan_no, gpf_no, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, date_of_joining, date_of_confirmation, date_of_retirement, created_at, updated_at) VALUES (31, '164', 'WB164', 'Arpan Kr Roy', 'M', 'Demo Guardian', 'Father', '2019-11-01', 51, 36, 'Belghoria', '21/2/1, B.N.Ghosal Road
+Rajani Apartment, Flat-3
+Belghoria', '21/2/1, B.N.Ghosal Road
+Rajani Apartment, Flat-3
+Belghoria', 1, 1, 'A+', '', NULL, NULL, NULL, '5897452321', NULL, 'arpan@gmail.com', NULL, 1, '2019-11-02', '2019-11-03', '2019-11-04', NULL, NULL);
+INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, guardian_name, gurdian_relation, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, religion_id, category_id, blood_group, identification_mark, aadhaar_no, pan_no, gpf_no, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, date_of_joining, date_of_confirmation, date_of_retirement, created_at, updated_at) VALUES (32, '2912', 'WB2912', 'Anabil Bhattacharya', 'M', 'Bimalendu Bhattacharya', 'Father', '1990-12-29', 51, 36, 'Belghoria', '21/2/1, B.N.Ghosal Road
+Rajani Apartment, Flat-3
+Belghoria', '21/2/1, B.N.Ghosal Road
+Rajani Apartment, Flat-3
+Belghoria', 1, 1, 'B-', 'Nothing', '123456789123', 'ABC1234569', NULL, '8981660217', '9038202731', 'banabil90@gmail.com', 'abcde@gmail.com', 1, '2019-09-19', '2019-09-19', '2040-12-29', NULL, NULL);
 
 
 --
--- TOC entry 2455 (class 0 OID 448118)
--- Dependencies: 229
+-- TOC entry 2488 (class 0 OID 448118)
+-- Dependencies: 227
 -- Data for Name: lcr_hc_ends; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.lcr_hc_ends (id, district, subdivision, court, hc_case_record, hc_case_no, hc_case_year, deadline, memo_no, status_flag, memo_date, forwarding_court, created_by, created_at, updated_at) VALUES (8, 25, 77, 3, 95, 321, 2001, '2020-01-31', '3232FA', NULL, '2019-11-26', NULL, 30, '2019-11-26 00:00:00', '2019-11-26 00:00:00');
-INSERT INTO public.lcr_hc_ends (id, district, subdivision, court, hc_case_record, hc_case_no, hc_case_year, deadline, memo_no, status_flag, memo_date, forwarding_court, created_by, created_at, updated_at) VALUES (7, 25, 75, 3, 1, 111, 2000, '2019-11-29', '7676FMA', 'comply', '2019-11-26', NULL, 30, '2019-11-26 00:00:00', '2019-11-26 00:00:00');
-INSERT INTO public.lcr_hc_ends (id, district, subdivision, court, hc_case_record, hc_case_no, hc_case_year, deadline, memo_no, status_flag, memo_date, forwarding_court, created_by, created_at, updated_at) VALUES (9, 10, 118, 3, 72, 258, 1999, '2019-12-19', '546G', 'forward', '2019-11-26', 60, 30, '2019-11-26 00:00:00', '2019-11-26 00:00:00');
+INSERT INTO public.lcr_hc_ends (id, district, subdivision, court, hc_case_record, hc_case_no, hc_case_year, deadline, memo_no, status_flag, memo_date, forwarding_court, created_by, created_at, updated_at) VALUES (9, 10, 118, 3, 72, 258, 1999, '2019-12-19', '546G', 'forward', '2019-11-26', 71, 30, '2019-11-26 00:00:00', '2019-11-28 00:00:00');
+INSERT INTO public.lcr_hc_ends (id, district, subdivision, court, hc_case_record, hc_case_no, hc_case_year, deadline, memo_no, status_flag, memo_date, forwarding_court, created_by, created_at, updated_at) VALUES (7, 25, 75, 3, 1, 111, 2000, '2019-11-29', '7676FMA', 'comply', '2019-11-26', 60, 30, '2019-11-26 00:00:00', '2019-11-28 00:00:00');
+INSERT INTO public.lcr_hc_ends (id, district, subdivision, court, hc_case_record, hc_case_no, hc_case_year, deadline, memo_no, status_flag, memo_date, forwarding_court, created_by, created_at, updated_at) VALUES (8, 25, 77, 3, 95, 321, 2001, '2020-01-31', '3232FA', 'comply', '2019-11-26', NULL, 30, '2019-11-26 00:00:00', '2019-11-28 00:00:00');
 
 
 --
--- TOC entry 2437 (class 0 OID 431485)
--- Dependencies: 211
+-- TOC entry 2470 (class 0 OID 431485)
+-- Dependencies: 209
 -- Data for Name: lcr_lc_details; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -1910,16 +2098,16 @@ INSERT INTO public.lcr_lc_details (id, hc_id, lower_case_record, lower_case_no, 
 
 
 --
--- TOC entry 2453 (class 0 OID 431632)
--- Dependencies: 227
+-- TOC entry 2486 (class 0 OID 431632)
+-- Dependencies: 225
 -- Data for Name: lcr_status_checks; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 
 
 --
--- TOC entry 2441 (class 0 OID 431516)
--- Dependencies: 215
+-- TOC entry 2474 (class 0 OID 431516)
+-- Dependencies: 213
 -- Data for Name: lower_case_types; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -1983,7 +2171,7 @@ INSERT INTO public.lower_case_types (id, type_name, created_at, updated_at) VALU
 
 
 --
--- TOC entry 2396 (class 0 OID 431127)
+-- TOC entry 2431 (class 0 OID 431127)
 -- Dependencies: 170
 -- Data for Name: migrations; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2003,7 +2191,6 @@ INSERT INTO public.migrations (id, migration, batch) VALUES (12, '2019_06_12_000
 INSERT INTO public.migrations (id, migration, batch) VALUES (13, '2019_06_12_000100_create_judicial_officers_table', 1);
 INSERT INTO public.migrations (id, migration, batch) VALUES (14, '2019_06_12_000110_create_jo_photos_table', 1);
 INSERT INTO public.migrations (id, migration, batch) VALUES (15, '2019_06_13_091801_create_judicial_officer_qualifications_table', 1);
-INSERT INTO public.migrations (id, migration, batch) VALUES (16, '2019_06_13_092954_create_jo_reporting_reviewings_table', 1);
 INSERT INTO public.migrations (id, migration, batch) VALUES (17, '2019_06_13_093750_create_modes_table', 1);
 INSERT INTO public.migrations (id, migration, batch) VALUES (18, '2019_06_13_093852_create_judicial_officer_postings_table', 1);
 INSERT INTO public.migrations (id, migration, batch) VALUES (19, '2019_06_13_101842_create_judicial_officer_posting_preferences_table', 1);
@@ -2021,11 +2208,15 @@ INSERT INTO public.migrations (id, migration, batch) VALUES (34, '2019_08_13_091
 INSERT INTO public.migrations (id, migration, batch) VALUES (40, '2019_11_27_153252_create_history_updated_deleted_table', 3);
 INSERT INTO public.migrations (id, migration, batch) VALUES (41, '2019_11_27_153905_create_update_delete_procedure', 3);
 INSERT INTO public.migrations (id, migration, batch) VALUES (42, '2019_11_27_154543_create_update_delete_trigger', 3);
+INSERT INTO public.migrations (id, migration, batch) VALUES (44, '2019_06_13_092954_create_jo_reportings_table', 4);
+INSERT INTO public.migrations (id, migration, batch) VALUES (45, '2019_06_13_092954_create_jo_reporting_reviewings_table', 5);
+INSERT INTO public.migrations (id, migration, batch) VALUES (46, '2019_11_28_121009_create_departments_table', 5);
+INSERT INTO public.migrations (id, migration, batch) VALUES (47, '2019_11_28_162816_create_jo_legal_experiences_table', 6);
 
 
 --
--- TOC entry 2429 (class 0 OID 431380)
--- Dependencies: 203
+-- TOC entry 2462 (class 0 OID 431380)
+-- Dependencies: 201
 -- Data for Name: modes; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -2034,7 +2225,7 @@ INSERT INTO public.modes (id, posting_mode, created_by, created_at, updated_at) 
 
 
 --
--- TOC entry 2399 (class 0 OID 431141)
+-- TOC entry 2434 (class 0 OID 431141)
 -- Dependencies: 173
 -- Data for Name: password_resets; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2042,7 +2233,7 @@ INSERT INTO public.modes (id, posting_mode, created_by, created_at, updated_at) 
 
 
 --
--- TOC entry 2411 (class 0 OID 431220)
+-- TOC entry 2446 (class 0 OID 431220)
 -- Dependencies: 185
 -- Data for Name: qualifications; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2054,7 +2245,7 @@ INSERT INTO public.qualifications (id, qualification_name, created_by, created_a
 
 
 --
--- TOC entry 2419 (class 0 OID 431260)
+-- TOC entry 2454 (class 0 OID 431260)
 -- Dependencies: 193
 -- Data for Name: recruitment_batches; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2065,7 +2256,7 @@ INSERT INTO public.recruitment_batches (id, recruitment_batch_desc, batch_year, 
 
 
 --
--- TOC entry 2417 (class 0 OID 431250)
+-- TOC entry 2452 (class 0 OID 431250)
 -- Dependencies: 191
 -- Data for Name: religions; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2075,7 +2266,7 @@ INSERT INTO public.religions (id, religion_name, created_by, created_at, updated
 
 
 --
--- TOC entry 2401 (class 0 OID 431150)
+-- TOC entry 2436 (class 0 OID 431150)
 -- Dependencies: 175
 -- Data for Name: states; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2139,7 +2330,7 @@ INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) V
 
 
 --
--- TOC entry 2407 (class 0 OID 431185)
+-- TOC entry 2442 (class 0 OID 431185)
 -- Dependencies: 181
 -- Data for Name: subdivisions; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2226,7 +2417,7 @@ INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, cre
 
 
 --
--- TOC entry 2398 (class 0 OID 431135)
+-- TOC entry 2433 (class 0 OID 431135)
 -- Dependencies: 172
 -- Data for Name: user_types; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2234,32 +2425,37 @@ INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, cre
 INSERT INTO public.user_types (id, type_name, created_at, updated_at) VALUES (6, 'Court', '2019-08-30 06:31:42', '2019-08-30 06:31:42');
 INSERT INTO public.user_types (id, type_name, created_at, updated_at) VALUES (1, 'Administrator', NULL, NULL);
 INSERT INTO public.user_types (id, type_name, created_at, updated_at) VALUES (5, 'Inspection', '2019-08-28 08:33:30', '2019-11-22 14:23:26');
-INSERT INTO public.user_types (id, type_name, created_at, updated_at) VALUES (3, 'Departmental Officer', NULL, '2019-11-22 14:23:52');
 INSERT INTO public.user_types (id, type_name, created_at, updated_at) VALUES (2, 'Judicial Officer', NULL, '2019-11-22 14:24:03');
 INSERT INTO public.user_types (id, type_name, created_at, updated_at) VALUES (7, 'Central Dispatch Section', '2019-11-22 17:41:12', '2019-11-22 17:41:12');
+INSERT INTO public.user_types (id, type_name, created_at, updated_at) VALUES (8, 'Department', '2019-11-28 16:17:12', '2019-11-28 16:17:12');
 
 
 --
--- TOC entry 2451 (class 0 OID 431596)
--- Dependencies: 225
+-- TOC entry 2484 (class 0 OID 431596)
+-- Dependencies: 223
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (43, 'jo00032', 'Anabil Bhattacharya', 2, NULL, 32, NULL, NULL, 'banabil90@gmail.com', NULL, '$2y$10$WznmxyUdjymJIi2qsCJ5LuS2am4cq0poG1bfJYtWOas6DZbt0013K', NULL, '2019-11-28 18:00:56', '2019-11-28 18:00:56');
 INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (30, 'court1', 'Court', 6, 3, NULL, NULL, NULL, 'court1@court1.court1', NULL, '$2y$10$aBAFK1T59AzcJVKBGLkV4uMOHGSxxYUkuFR0IE84imZjK55wryJ2u', NULL, '2019-09-16 10:59:20', '2019-09-16 10:59:20');
-INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (11, 'admin', 'administrator 1', 1, 1, NULL, NULL, NULL, 'admin@admin.admin', NULL, '$2y$10$aBAFK1T59AzcJVKBGLkV4uMOHGSxxYUkuFR0IE84imZjK55wryJ2u', 'hf5kJggfisuzXmVzT2j6WlZvY1c97GnlFBd4J3bK99Abs8TBB7XVDnHj3sjM', '2019-06-19 06:00:07', '2019-06-19 06:00:07');
 INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (33, 'jo00028', 'Rupsa Basu', 2, NULL, 28, NULL, NULL, 'rupsa@gmail.com', NULL, '$2y$10$Q4g8CvhRZwcr/k.dkaABruCTVjqowDVgykm..DFNss3ouSeykll8C', NULL, '2019-11-27 11:34:59', '2019-11-27 11:34:59');
+INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (36, 'jo00031', 'Arpan Kr Roy', 2, NULL, 31, NULL, NULL, 'arpan@gmail.com', NULL, '$2y$10$KgMxnUWYcnSd1wNvX0Uj6.58nkJ6rOk4EivGZ/8683fF0CocBvyLa', NULL, '2019-11-28 13:23:13', '2019-11-28 13:23:13');
+INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (40, 'abs123', 'Abhisikta Basak', 8, NULL, NULL, NULL, 3, 'kpc@kpc.kpc', NULL, '$2y$10$8LdZ9BSda9VIJZY5SyWvs.wCwTwORzw48qdRvRWKhivltjjtbhnci', NULL, '2019-11-28 17:43:08', '2019-11-28 17:43:08');
+INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (37, 'ab123', 'Srijoni Ghosh', 8, NULL, NULL, NULL, 90, 'sr@sr.com', NULL, '$2y$10$M59u/bbTQHGvI6KMB.43N.5Q4JQOxwg1MC8eBVN.Or06jZqW2DvO6', NULL, '2019-11-28 17:38:34', '2019-11-28 17:38:34');
+INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (42, 'qwerty', 'werty', 8, NULL, NULL, NULL, 1, 'we@we.com', NULL, '$2y$10$u7EFi05Y0Sozv2BWSNJqn.ijZvJW3Si9LH4.NojS5qJJfaHQuqgom', NULL, '2019-11-28 18:00:52', '2019-11-28 18:00:52');
+INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (11, 'admin', 'administrator 1', 1, 1, NULL, NULL, NULL, 'admin@admin.admin', NULL, '$2y$10$aBAFK1T59AzcJVKBGLkV4uMOHGSxxYUkuFR0IE84imZjK55wryJ2u', '4xyOJnIl4Uz9PNHW9MBqXaupVU7KKre7FJJuFsznlI9XMQP7T9vRffdu1EAE', '2019-06-19 06:00:07', '2019-06-19 06:00:07');
 
 
 --
--- TOC entry 2447 (class 0 OID 431556)
--- Dependencies: 221
+-- TOC entry 2480 (class 0 OID 431556)
+-- Dependencies: 219
 -- Data for Name: zone_subdivisions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 
 
 --
--- TOC entry 2403 (class 0 OID 431160)
+-- TOC entry 2438 (class 0 OID 431160)
 -- Dependencies: 177
 -- Data for Name: zones; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2271,8 +2467,8 @@ INSERT INTO public.zones (id, zone_name, min_service_days, created_by, created_a
 
 
 --
--- TOC entry 2497 (class 0 OID 0)
--- Dependencies: 218
+-- TOC entry 2541 (class 0 OID 0)
+-- Dependencies: 216
 -- Name: acr_histories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -2280,7 +2476,7 @@ SELECT pg_catalog.setval('public.acr_histories_id_seq', 1, true);
 
 
 --
--- TOC entry 2498 (class 0 OID 0)
+-- TOC entry 2542 (class 0 OID 0)
 -- Dependencies: 186
 -- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2289,7 +2485,7 @@ SELECT pg_catalog.setval('public.categories_id_seq', 1, false);
 
 
 --
--- TOC entry 2499 (class 0 OID 0)
+-- TOC entry 2543 (class 0 OID 0)
 -- Dependencies: 182
 -- Name: courts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2298,7 +2494,16 @@ SELECT pg_catalog.setval('public.courts_id_seq', 82, true);
 
 
 --
--- TOC entry 2500 (class 0 OID 0)
+-- TOC entry 2544 (class 0 OID 0)
+-- Dependencies: 236
+-- Name: departments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.departments_id_seq', 1, false);
+
+
+--
+-- TOC entry 2545 (class 0 OID 0)
 -- Dependencies: 188
 -- Name: designations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2307,8 +2512,8 @@ SELECT pg_catalog.setval('public.designations_id_seq', 5, true);
 
 
 --
--- TOC entry 2501 (class 0 OID 0)
--- Dependencies: 208
+-- TOC entry 2546 (class 0 OID 0)
+-- Dependencies: 206
 -- Name: diaries_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -2316,7 +2521,7 @@ SELECT pg_catalog.setval('public.diaries_id_seq', 1, true);
 
 
 --
--- TOC entry 2502 (class 0 OID 0)
+-- TOC entry 2547 (class 0 OID 0)
 -- Dependencies: 178
 -- Name: districts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2325,8 +2530,8 @@ SELECT pg_catalog.setval('public.districts_id_seq', 1, true);
 
 
 --
--- TOC entry 2503 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 2548 (class 0 OID 0)
+-- Dependencies: 214
 -- Name: grade_details_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -2334,8 +2539,8 @@ SELECT pg_catalog.setval('public.grade_details_id_seq', 1, false);
 
 
 --
--- TOC entry 2504 (class 0 OID 0)
--- Dependencies: 212
+-- TOC entry 2549 (class 0 OID 0)
+-- Dependencies: 210
 -- Name: hc_case_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -2343,8 +2548,8 @@ SELECT pg_catalog.setval('public.hc_case_types_id_seq', 1, false);
 
 
 --
--- TOC entry 2505 (class 0 OID 0)
--- Dependencies: 232
+-- TOC entry 2550 (class 0 OID 0)
+-- Dependencies: 230
 -- Name: history_deleted_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -2352,16 +2557,25 @@ SELECT pg_catalog.setval('public.history_deleted_data_id_seq', 1, false);
 
 
 --
--- TOC entry 2506 (class 0 OID 0)
--- Dependencies: 230
+-- TOC entry 2551 (class 0 OID 0)
+-- Dependencies: 228
 -- Name: history_updated_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.history_updated_data_id_seq', 1, true);
+SELECT pg_catalog.setval('public.history_updated_data_id_seq', 3, true);
 
 
 --
--- TOC entry 2507 (class 0 OID 0)
+-- TOC entry 2552 (class 0 OID 0)
+-- Dependencies: 238
+-- Name: jo_legal_experiences_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.jo_legal_experiences_id_seq', 2, true);
+
+
+--
+-- TOC entry 2553 (class 0 OID 0)
 -- Dependencies: 196
 -- Name: jo_photos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2370,8 +2584,8 @@ SELECT pg_catalog.setval('public.jo_photos_id_seq', 1, false);
 
 
 --
--- TOC entry 2508 (class 0 OID 0)
--- Dependencies: 200
+-- TOC entry 2554 (class 0 OID 0)
+-- Dependencies: 234
 -- Name: jo_reporting_reviewings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -2379,17 +2593,26 @@ SELECT pg_catalog.setval('public.jo_reporting_reviewings_id_seq', 1, false);
 
 
 --
--- TOC entry 2509 (class 0 OID 0)
--- Dependencies: 222
+-- TOC entry 2555 (class 0 OID 0)
+-- Dependencies: 232
+-- Name: jo_reportings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.jo_reportings_id_seq', 2, true);
+
+
+--
+-- TOC entry 2556 (class 0 OID 0)
+-- Dependencies: 220
 -- Name: jo_zone_tenures_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.jo_zone_tenures_id_seq', 15, true);
+SELECT pg_catalog.setval('public.jo_zone_tenures_id_seq', 18, true);
 
 
 --
--- TOC entry 2510 (class 0 OID 0)
--- Dependencies: 206
+-- TOC entry 2557 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: judicial_officer_posting_preferences_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -2397,35 +2620,35 @@ SELECT pg_catalog.setval('public.judicial_officer_posting_preferences_id_seq', 8
 
 
 --
--- TOC entry 2511 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 2558 (class 0 OID 0)
+-- Dependencies: 202
 -- Name: judicial_officer_postings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.judicial_officer_postings_id_seq', 26, true);
+SELECT pg_catalog.setval('public.judicial_officer_postings_id_seq', 31, true);
 
 
 --
--- TOC entry 2512 (class 0 OID 0)
+-- TOC entry 2559 (class 0 OID 0)
 -- Dependencies: 198
 -- Name: judicial_officer_qualifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.judicial_officer_qualifications_id_seq', 36, true);
+SELECT pg_catalog.setval('public.judicial_officer_qualifications_id_seq', 43, true);
 
 
 --
--- TOC entry 2513 (class 0 OID 0)
+-- TOC entry 2560 (class 0 OID 0)
 -- Dependencies: 194
 -- Name: judicial_officers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.judicial_officers_id_seq', 28, true);
+SELECT pg_catalog.setval('public.judicial_officers_id_seq', 32, true);
 
 
 --
--- TOC entry 2514 (class 0 OID 0)
--- Dependencies: 228
+-- TOC entry 2561 (class 0 OID 0)
+-- Dependencies: 226
 -- Name: lcr_hc_ends_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -2433,8 +2656,8 @@ SELECT pg_catalog.setval('public.lcr_hc_ends_id_seq', 9, true);
 
 
 --
--- TOC entry 2515 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 2562 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: lcr_lc_details_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -2442,8 +2665,8 @@ SELECT pg_catalog.setval('public.lcr_lc_details_id_seq', 33, true);
 
 
 --
--- TOC entry 2516 (class 0 OID 0)
--- Dependencies: 226
+-- TOC entry 2563 (class 0 OID 0)
+-- Dependencies: 224
 -- Name: lcr_status_checks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -2451,8 +2674,8 @@ SELECT pg_catalog.setval('public.lcr_status_checks_id_seq', 1, false);
 
 
 --
--- TOC entry 2517 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 2564 (class 0 OID 0)
+-- Dependencies: 212
 -- Name: lower_case_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -2460,17 +2683,17 @@ SELECT pg_catalog.setval('public.lower_case_types_id_seq', 1, false);
 
 
 --
--- TOC entry 2518 (class 0 OID 0)
+-- TOC entry 2565 (class 0 OID 0)
 -- Dependencies: 169
 -- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.migrations_id_seq', 42, true);
+SELECT pg_catalog.setval('public.migrations_id_seq', 47, true);
 
 
 --
--- TOC entry 2519 (class 0 OID 0)
--- Dependencies: 202
+-- TOC entry 2566 (class 0 OID 0)
+-- Dependencies: 200
 -- Name: modes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -2478,7 +2701,7 @@ SELECT pg_catalog.setval('public.modes_id_seq', 2, true);
 
 
 --
--- TOC entry 2520 (class 0 OID 0)
+-- TOC entry 2567 (class 0 OID 0)
 -- Dependencies: 184
 -- Name: qualifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2487,7 +2710,7 @@ SELECT pg_catalog.setval('public.qualifications_id_seq', 1, false);
 
 
 --
--- TOC entry 2521 (class 0 OID 0)
+-- TOC entry 2568 (class 0 OID 0)
 -- Dependencies: 192
 -- Name: recruitment_batches_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2496,7 +2719,7 @@ SELECT pg_catalog.setval('public.recruitment_batches_id_seq', 1, false);
 
 
 --
--- TOC entry 2522 (class 0 OID 0)
+-- TOC entry 2569 (class 0 OID 0)
 -- Dependencies: 190
 -- Name: religions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2505,7 +2728,7 @@ SELECT pg_catalog.setval('public.religions_id_seq', 1, false);
 
 
 --
--- TOC entry 2523 (class 0 OID 0)
+-- TOC entry 2570 (class 0 OID 0)
 -- Dependencies: 174
 -- Name: states_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2514,7 +2737,7 @@ SELECT pg_catalog.setval('public.states_id_seq', 58, true);
 
 
 --
--- TOC entry 2524 (class 0 OID 0)
+-- TOC entry 2571 (class 0 OID 0)
 -- Dependencies: 180
 -- Name: subdivisions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2523,7 +2746,7 @@ SELECT pg_catalog.setval('public.subdivisions_id_seq', 151, true);
 
 
 --
--- TOC entry 2525 (class 0 OID 0)
+-- TOC entry 2572 (class 0 OID 0)
 -- Dependencies: 171
 -- Name: user_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2532,17 +2755,17 @@ SELECT pg_catalog.setval('public.user_types_id_seq', 7, true);
 
 
 --
--- TOC entry 2526 (class 0 OID 0)
--- Dependencies: 224
+-- TOC entry 2573 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 33, true);
+SELECT pg_catalog.setval('public.users_id_seq', 43, true);
 
 
 --
--- TOC entry 2527 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 2574 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: zone_subdivisions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -2550,7 +2773,7 @@ SELECT pg_catalog.setval('public.zone_subdivisions_id_seq', 1, false);
 
 
 --
--- TOC entry 2528 (class 0 OID 0)
+-- TOC entry 2575 (class 0 OID 0)
 -- Dependencies: 176
 -- Name: zones_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2559,7 +2782,7 @@ SELECT pg_catalog.setval('public.zones_id_seq', 13, true);
 
 
 --
--- TOC entry 2216 (class 2606 OID 431543)
+-- TOC entry 2234 (class 2606 OID 431543)
 -- Name: acr_histories acr_histories_judicial_officer_id_year_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2568,7 +2791,7 @@ ALTER TABLE ONLY public.acr_histories
 
 
 --
--- TOC entry 2218 (class 2606 OID 431541)
+-- TOC entry 2236 (class 2606 OID 431541)
 -- Name: acr_histories acr_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2577,7 +2800,7 @@ ALTER TABLE ONLY public.acr_histories
 
 
 --
--- TOC entry 2142 (class 2606 OID 431237)
+-- TOC entry 2164 (class 2606 OID 431237)
 -- Name: categories categories_category_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2586,7 +2809,7 @@ ALTER TABLE ONLY public.categories
 
 
 --
--- TOC entry 2144 (class 2606 OID 431235)
+-- TOC entry 2166 (class 2606 OID 431235)
 -- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2595,7 +2818,7 @@ ALTER TABLE ONLY public.categories
 
 
 --
--- TOC entry 2134 (class 2606 OID 431217)
+-- TOC entry 2156 (class 2606 OID 431217)
 -- Name: courts courts_court_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2604,7 +2827,7 @@ ALTER TABLE ONLY public.courts
 
 
 --
--- TOC entry 2136 (class 2606 OID 431210)
+-- TOC entry 2158 (class 2606 OID 431210)
 -- Name: courts courts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2613,7 +2836,16 @@ ALTER TABLE ONLY public.courts
 
 
 --
--- TOC entry 2146 (class 2606 OID 431247)
+-- TOC entry 2276 (class 2606 OID 448474)
+-- Name: departments departments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.departments
+    ADD CONSTRAINT departments_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2168 (class 2606 OID 431247)
 -- Name: designations designations_designation_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2622,7 +2854,7 @@ ALTER TABLE ONLY public.designations
 
 
 --
--- TOC entry 2148 (class 2606 OID 431245)
+-- TOC entry 2170 (class 2606 OID 431245)
 -- Name: designations designations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2631,7 +2863,7 @@ ALTER TABLE ONLY public.designations
 
 
 --
--- TOC entry 2198 (class 2606 OID 431449)
+-- TOC entry 2216 (class 2606 OID 431449)
 -- Name: diaries diaries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2640,7 +2872,7 @@ ALTER TABLE ONLY public.diaries
 
 
 --
--- TOC entry 2126 (class 2606 OID 431182)
+-- TOC entry 2148 (class 2606 OID 431182)
 -- Name: districts districts_district_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2649,7 +2881,7 @@ ALTER TABLE ONLY public.districts
 
 
 --
--- TOC entry 2128 (class 2606 OID 431175)
+-- TOC entry 2150 (class 2606 OID 431175)
 -- Name: districts districts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2658,7 +2890,7 @@ ALTER TABLE ONLY public.districts
 
 
 --
--- TOC entry 2212 (class 2606 OID 431533)
+-- TOC entry 2230 (class 2606 OID 431533)
 -- Name: grade_details grade_details_grade_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2667,7 +2899,7 @@ ALTER TABLE ONLY public.grade_details
 
 
 --
--- TOC entry 2214 (class 2606 OID 431531)
+-- TOC entry 2232 (class 2606 OID 431531)
 -- Name: grade_details grade_details_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2676,7 +2908,7 @@ ALTER TABLE ONLY public.grade_details
 
 
 --
--- TOC entry 2202 (class 2606 OID 431513)
+-- TOC entry 2220 (class 2606 OID 431513)
 -- Name: hc_case_types hc_case_types_full_form_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2685,7 +2917,7 @@ ALTER TABLE ONLY public.hc_case_types
 
 
 --
--- TOC entry 2204 (class 2606 OID 431509)
+-- TOC entry 2222 (class 2606 OID 431509)
 -- Name: hc_case_types hc_case_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2694,7 +2926,7 @@ ALTER TABLE ONLY public.hc_case_types
 
 
 --
--- TOC entry 2206 (class 2606 OID 431511)
+-- TOC entry 2224 (class 2606 OID 431511)
 -- Name: hc_case_types hc_case_types_type_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2703,7 +2935,7 @@ ALTER TABLE ONLY public.hc_case_types
 
 
 --
--- TOC entry 2248 (class 2606 OID 448382)
+-- TOC entry 2266 (class 2606 OID 448382)
 -- Name: history_deleted_data history_deleted_data_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2712,7 +2944,7 @@ ALTER TABLE ONLY public.history_deleted_data
 
 
 --
--- TOC entry 2246 (class 2606 OID 448371)
+-- TOC entry 2264 (class 2606 OID 448371)
 -- Name: history_updated_data history_updated_data_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2721,7 +2953,16 @@ ALTER TABLE ONLY public.history_updated_data
 
 
 --
--- TOC entry 2178 (class 2606 OID 431332)
+-- TOC entry 2278 (class 2606 OID 448482)
+-- Name: jo_legal_experiences jo_legal_experiences_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jo_legal_experiences
+    ADD CONSTRAINT jo_legal_experiences_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2200 (class 2606 OID 431332)
 -- Name: jo_photos jo_photos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2730,7 +2971,7 @@ ALTER TABLE ONLY public.jo_photos
 
 
 --
--- TOC entry 2184 (class 2606 OID 431367)
+-- TOC entry 2272 (class 2606 OID 448456)
 -- Name: jo_reporting_reviewings jo_reporting_reviewings_judicial_officer_id_reporting_officer_i; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2739,7 +2980,7 @@ ALTER TABLE ONLY public.jo_reporting_reviewings
 
 
 --
--- TOC entry 2186 (class 2606 OID 431365)
+-- TOC entry 2274 (class 2606 OID 448454)
 -- Name: jo_reporting_reviewings jo_reporting_reviewings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2748,7 +2989,25 @@ ALTER TABLE ONLY public.jo_reporting_reviewings
 
 
 --
--- TOC entry 2224 (class 2606 OID 431583)
+-- TOC entry 2268 (class 2606 OID 448431)
+-- Name: jo_reportings jo_reportings_judicial_officer_id_posting_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jo_reportings
+    ADD CONSTRAINT jo_reportings_judicial_officer_id_posting_id_unique UNIQUE (judicial_officer_id, posting_id);
+
+
+--
+-- TOC entry 2270 (class 2606 OID 448429)
+-- Name: jo_reportings jo_reportings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jo_reportings
+    ADD CONSTRAINT jo_reportings_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2242 (class 2606 OID 431583)
 -- Name: jo_zone_tenures jo_zone_tenures_judicial_officer_id_zone_id_from_date_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2757,7 +3016,7 @@ ALTER TABLE ONLY public.jo_zone_tenures
 
 
 --
--- TOC entry 2226 (class 2606 OID 431581)
+-- TOC entry 2244 (class 2606 OID 431581)
 -- Name: jo_zone_tenures jo_zone_tenures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2766,7 +3025,7 @@ ALTER TABLE ONLY public.jo_zone_tenures
 
 
 --
--- TOC entry 2196 (class 2606 OID 431428)
+-- TOC entry 2214 (class 2606 OID 431428)
 -- Name: judicial_officer_posting_preferences judicial_officer_posting_preferences_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2775,7 +3034,7 @@ ALTER TABLE ONLY public.judicial_officer_posting_preferences
 
 
 --
--- TOC entry 2192 (class 2606 OID 431397)
+-- TOC entry 2210 (class 2606 OID 431397)
 -- Name: judicial_officer_postings judicial_officer_postings_judicial_officer_id_designation_id_co; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2784,7 +3043,7 @@ ALTER TABLE ONLY public.judicial_officer_postings
 
 
 --
--- TOC entry 2194 (class 2606 OID 431395)
+-- TOC entry 2212 (class 2606 OID 431395)
 -- Name: judicial_officer_postings judicial_officer_postings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2793,7 +3052,7 @@ ALTER TABLE ONLY public.judicial_officer_postings
 
 
 --
--- TOC entry 2180 (class 2606 OID 431347)
+-- TOC entry 2202 (class 2606 OID 431347)
 -- Name: judicial_officer_qualifications judicial_officer_qualifications_judicial_officer_id_qualificati; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2802,7 +3061,7 @@ ALTER TABLE ONLY public.judicial_officer_qualifications
 
 
 --
--- TOC entry 2182 (class 2606 OID 431345)
+-- TOC entry 2204 (class 2606 OID 431345)
 -- Name: judicial_officer_qualifications judicial_officer_qualifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2811,7 +3070,7 @@ ALTER TABLE ONLY public.judicial_officer_qualifications
 
 
 --
--- TOC entry 2158 (class 2606 OID 431309)
+-- TOC entry 2180 (class 2606 OID 431309)
 -- Name: judicial_officers judicial_officers_aadhaar_no_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2820,7 +3079,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2160 (class 2606 OID 431319)
+-- TOC entry 2182 (class 2606 OID 431319)
 -- Name: judicial_officers judicial_officers_email_id_1_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2829,7 +3088,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2162 (class 2606 OID 431321)
+-- TOC entry 2184 (class 2606 OID 431321)
 -- Name: judicial_officers judicial_officers_email_id_2_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2838,7 +3097,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2164 (class 2606 OID 431313)
+-- TOC entry 2186 (class 2606 OID 431313)
 -- Name: judicial_officers judicial_officers_gpf_no_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2847,7 +3106,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2166 (class 2606 OID 448281)
+-- TOC entry 2188 (class 2606 OID 448281)
 -- Name: judicial_officers judicial_officers_jo_code_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2856,7 +3115,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2168 (class 2606 OID 431315)
+-- TOC entry 2190 (class 2606 OID 431315)
 -- Name: judicial_officers judicial_officers_mobile_no_1_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2865,7 +3124,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2170 (class 2606 OID 431317)
+-- TOC entry 2192 (class 2606 OID 431317)
 -- Name: judicial_officers judicial_officers_mobile_no_2_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2874,7 +3133,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2172 (class 2606 OID 431311)
+-- TOC entry 2194 (class 2606 OID 431311)
 -- Name: judicial_officers judicial_officers_pan_no_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2883,7 +3142,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2174 (class 2606 OID 431278)
+-- TOC entry 2196 (class 2606 OID 431278)
 -- Name: judicial_officers judicial_officers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2892,7 +3151,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2176 (class 2606 OID 431305)
+-- TOC entry 2198 (class 2606 OID 431305)
 -- Name: judicial_officers judicial_officers_registration_no_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2901,7 +3160,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2242 (class 2606 OID 448128)
+-- TOC entry 2260 (class 2606 OID 448128)
 -- Name: lcr_hc_ends lcr_hc_ends_memo_no_memo_date_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2910,7 +3169,7 @@ ALTER TABLE ONLY public.lcr_hc_ends
 
 
 --
--- TOC entry 2244 (class 2606 OID 448126)
+-- TOC entry 2262 (class 2606 OID 448126)
 -- Name: lcr_hc_ends lcr_hc_ends_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2919,7 +3178,7 @@ ALTER TABLE ONLY public.lcr_hc_ends
 
 
 --
--- TOC entry 2200 (class 2606 OID 431493)
+-- TOC entry 2218 (class 2606 OID 431493)
 -- Name: lcr_lc_details lcr_lc_details_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2928,7 +3187,7 @@ ALTER TABLE ONLY public.lcr_lc_details
 
 
 --
--- TOC entry 2240 (class 2606 OID 431640)
+-- TOC entry 2258 (class 2606 OID 431640)
 -- Name: lcr_status_checks lcr_status_checks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2937,7 +3196,7 @@ ALTER TABLE ONLY public.lcr_status_checks
 
 
 --
--- TOC entry 2208 (class 2606 OID 431521)
+-- TOC entry 2226 (class 2606 OID 431521)
 -- Name: lower_case_types lower_case_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2946,7 +3205,7 @@ ALTER TABLE ONLY public.lower_case_types
 
 
 --
--- TOC entry 2210 (class 2606 OID 431523)
+-- TOC entry 2228 (class 2606 OID 431523)
 -- Name: lower_case_types lower_case_types_type_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2955,7 +3214,7 @@ ALTER TABLE ONLY public.lower_case_types
 
 
 --
--- TOC entry 2113 (class 2606 OID 431132)
+-- TOC entry 2135 (class 2606 OID 431132)
 -- Name: migrations migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2964,7 +3223,7 @@ ALTER TABLE ONLY public.migrations
 
 
 --
--- TOC entry 2188 (class 2606 OID 431385)
+-- TOC entry 2206 (class 2606 OID 431385)
 -- Name: modes modes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2973,7 +3232,7 @@ ALTER TABLE ONLY public.modes
 
 
 --
--- TOC entry 2190 (class 2606 OID 431387)
+-- TOC entry 2208 (class 2606 OID 431387)
 -- Name: modes modes_posting_mode_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2982,7 +3241,7 @@ ALTER TABLE ONLY public.modes
 
 
 --
--- TOC entry 2138 (class 2606 OID 431225)
+-- TOC entry 2160 (class 2606 OID 431225)
 -- Name: qualifications qualifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2991,7 +3250,7 @@ ALTER TABLE ONLY public.qualifications
 
 
 --
--- TOC entry 2140 (class 2606 OID 431227)
+-- TOC entry 2162 (class 2606 OID 431227)
 -- Name: qualifications qualifications_qualification_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3000,7 +3259,7 @@ ALTER TABLE ONLY public.qualifications
 
 
 --
--- TOC entry 2154 (class 2606 OID 431265)
+-- TOC entry 2176 (class 2606 OID 431265)
 -- Name: recruitment_batches recruitment_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3009,7 +3268,7 @@ ALTER TABLE ONLY public.recruitment_batches
 
 
 --
--- TOC entry 2156 (class 2606 OID 431267)
+-- TOC entry 2178 (class 2606 OID 431267)
 -- Name: recruitment_batches recruitment_batches_recruitment_batch_desc_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3018,7 +3277,7 @@ ALTER TABLE ONLY public.recruitment_batches
 
 
 --
--- TOC entry 2150 (class 2606 OID 431255)
+-- TOC entry 2172 (class 2606 OID 431255)
 -- Name: religions religions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3027,7 +3286,7 @@ ALTER TABLE ONLY public.religions
 
 
 --
--- TOC entry 2152 (class 2606 OID 431257)
+-- TOC entry 2174 (class 2606 OID 431257)
 -- Name: religions religions_religion_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3036,7 +3295,7 @@ ALTER TABLE ONLY public.religions
 
 
 --
--- TOC entry 2118 (class 2606 OID 431155)
+-- TOC entry 2140 (class 2606 OID 431155)
 -- Name: states states_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3045,7 +3304,7 @@ ALTER TABLE ONLY public.states
 
 
 --
--- TOC entry 2120 (class 2606 OID 431157)
+-- TOC entry 2142 (class 2606 OID 431157)
 -- Name: states states_state_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3054,7 +3313,7 @@ ALTER TABLE ONLY public.states
 
 
 --
--- TOC entry 2130 (class 2606 OID 431190)
+-- TOC entry 2152 (class 2606 OID 431190)
 -- Name: subdivisions subdivisions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3063,7 +3322,7 @@ ALTER TABLE ONLY public.subdivisions
 
 
 --
--- TOC entry 2132 (class 2606 OID 431192)
+-- TOC entry 2154 (class 2606 OID 431192)
 -- Name: subdivisions subdivisions_subdivision_name_district_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3072,7 +3331,7 @@ ALTER TABLE ONLY public.subdivisions
 
 
 --
--- TOC entry 2115 (class 2606 OID 431140)
+-- TOC entry 2137 (class 2606 OID 431140)
 -- Name: user_types user_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3081,7 +3340,7 @@ ALTER TABLE ONLY public.user_types
 
 
 --
--- TOC entry 2228 (class 2606 OID 431621)
+-- TOC entry 2246 (class 2606 OID 431621)
 -- Name: users users_court_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3090,7 +3349,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2230 (class 2606 OID 431627)
+-- TOC entry 2248 (class 2606 OID 431627)
 -- Name: users users_department_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3099,7 +3358,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2232 (class 2606 OID 431629)
+-- TOC entry 2250 (class 2606 OID 431629)
 -- Name: users users_email_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3108,7 +3367,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2234 (class 2606 OID 431625)
+-- TOC entry 2252 (class 2606 OID 431625)
 -- Name: users users_jo_code_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3117,7 +3376,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2236 (class 2606 OID 431623)
+-- TOC entry 2254 (class 2606 OID 431623)
 -- Name: users users_judicial_officer_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3126,7 +3385,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2238 (class 2606 OID 431604)
+-- TOC entry 2256 (class 2606 OID 431604)
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3135,7 +3394,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2220 (class 2606 OID 431561)
+-- TOC entry 2238 (class 2606 OID 431561)
 -- Name: zone_subdivisions zone_subdivisions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3144,7 +3403,7 @@ ALTER TABLE ONLY public.zone_subdivisions
 
 
 --
--- TOC entry 2222 (class 2606 OID 431563)
+-- TOC entry 2240 (class 2606 OID 431563)
 -- Name: zone_subdivisions zone_subdivisions_zone_id_subdivision_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3153,7 +3412,7 @@ ALTER TABLE ONLY public.zone_subdivisions
 
 
 --
--- TOC entry 2122 (class 2606 OID 431165)
+-- TOC entry 2144 (class 2606 OID 431165)
 -- Name: zones zones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3162,7 +3421,7 @@ ALTER TABLE ONLY public.zones
 
 
 --
--- TOC entry 2124 (class 2606 OID 431167)
+-- TOC entry 2146 (class 2606 OID 431167)
 -- Name: zones zones_zone_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3171,7 +3430,7 @@ ALTER TABLE ONLY public.zones
 
 
 --
--- TOC entry 2116 (class 1259 OID 431147)
+-- TOC entry 2138 (class 1259 OID 431147)
 -- Name: password_resets_email_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3179,7 +3438,7 @@ CREATE INDEX password_resets_email_index ON public.password_resets USING btree (
 
 
 --
--- TOC entry 2283 (class 2620 OID 448385)
+-- TOC entry 2318 (class 2620 OID 448385)
 -- Name: judicial_officers movedeleted; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -3187,7 +3446,7 @@ CREATE TRIGGER movedeleted BEFORE DELETE ON public.judicial_officers FOR EACH RO
 
 
 --
--- TOC entry 2285 (class 2620 OID 448387)
+-- TOC entry 2320 (class 2620 OID 448387)
 -- Name: judicial_officer_qualifications movedeleted; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -3195,7 +3454,7 @@ CREATE TRIGGER movedeleted BEFORE DELETE ON public.judicial_officer_qualificatio
 
 
 --
--- TOC entry 2287 (class 2620 OID 448389)
+-- TOC entry 2322 (class 2620 OID 448389)
 -- Name: judicial_officer_postings movedeleted; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -3203,7 +3462,7 @@ CREATE TRIGGER movedeleted BEFORE DELETE ON public.judicial_officer_postings FOR
 
 
 --
--- TOC entry 2284 (class 2620 OID 448386)
+-- TOC entry 2319 (class 2620 OID 448386)
 -- Name: judicial_officers moveupdated; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -3211,7 +3470,7 @@ CREATE TRIGGER moveupdated BEFORE UPDATE ON public.judicial_officers FOR EACH RO
 
 
 --
--- TOC entry 2286 (class 2620 OID 448388)
+-- TOC entry 2321 (class 2620 OID 448388)
 -- Name: judicial_officer_qualifications moveupdated; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -3219,7 +3478,7 @@ CREATE TRIGGER moveupdated BEFORE UPDATE ON public.judicial_officer_qualificatio
 
 
 --
--- TOC entry 2288 (class 2620 OID 448390)
+-- TOC entry 2323 (class 2620 OID 448390)
 -- Name: judicial_officer_postings moveupdated; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -3227,7 +3486,7 @@ CREATE TRIGGER moveupdated BEFORE UPDATE ON public.judicial_officer_postings FOR
 
 
 --
--- TOC entry 2271 (class 2606 OID 431549)
+-- TOC entry 2299 (class 2606 OID 431549)
 -- Name: acr_histories acr_histories_grade_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3236,7 +3495,7 @@ ALTER TABLE ONLY public.acr_histories
 
 
 --
--- TOC entry 2270 (class 2606 OID 431544)
+-- TOC entry 2298 (class 2606 OID 431544)
 -- Name: acr_histories acr_histories_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3245,7 +3504,7 @@ ALTER TABLE ONLY public.acr_histories
 
 
 --
--- TOC entry 2252 (class 2606 OID 431211)
+-- TOC entry 2282 (class 2606 OID 431211)
 -- Name: courts courts_subdivision_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3254,7 +3513,7 @@ ALTER TABLE ONLY public.courts
 
 
 --
--- TOC entry 2269 (class 2606 OID 431450)
+-- TOC entry 2297 (class 2606 OID 431450)
 -- Name: diaries diaries_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3263,7 +3522,7 @@ ALTER TABLE ONLY public.diaries
 
 
 --
--- TOC entry 2249 (class 2606 OID 431176)
+-- TOC entry 2279 (class 2606 OID 431176)
 -- Name: districts districts_state_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3272,7 +3531,25 @@ ALTER TABLE ONLY public.districts
 
 
 --
--- TOC entry 2258 (class 2606 OID 431333)
+-- TOC entry 2316 (class 2606 OID 448483)
+-- Name: jo_legal_experiences jo_legal_experiences_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jo_legal_experiences
+    ADD CONSTRAINT jo_legal_experiences_judicial_officer_id_foreign FOREIGN KEY (judicial_officer_id) REFERENCES public.judicial_officers(id);
+
+
+--
+-- TOC entry 2317 (class 2606 OID 448488)
+-- Name: jo_legal_experiences jo_legal_experiences_subdivision_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jo_legal_experiences
+    ADD CONSTRAINT jo_legal_experiences_subdivision_id_foreign FOREIGN KEY (subdivision_id) REFERENCES public.subdivisions(id);
+
+
+--
+-- TOC entry 2288 (class 2606 OID 431333)
 -- Name: jo_photos jo_photos_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3281,7 +3558,7 @@ ALTER TABLE ONLY public.jo_photos
 
 
 --
--- TOC entry 2261 (class 2606 OID 431368)
+-- TOC entry 2314 (class 2606 OID 448457)
 -- Name: jo_reporting_reviewings jo_reporting_reviewings_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3290,7 +3567,7 @@ ALTER TABLE ONLY public.jo_reporting_reviewings
 
 
 --
--- TOC entry 2262 (class 2606 OID 431373)
+-- TOC entry 2315 (class 2606 OID 448462)
 -- Name: jo_reporting_reviewings jo_reporting_reviewings_reporting_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3299,7 +3576,34 @@ ALTER TABLE ONLY public.jo_reporting_reviewings
 
 
 --
--- TOC entry 2274 (class 2606 OID 431584)
+-- TOC entry 2311 (class 2606 OID 448432)
+-- Name: jo_reportings jo_reportings_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jo_reportings
+    ADD CONSTRAINT jo_reportings_judicial_officer_id_foreign FOREIGN KEY (judicial_officer_id) REFERENCES public.judicial_officers(id);
+
+
+--
+-- TOC entry 2313 (class 2606 OID 448442)
+-- Name: jo_reportings jo_reportings_posting_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jo_reportings
+    ADD CONSTRAINT jo_reportings_posting_id_foreign FOREIGN KEY (posting_id) REFERENCES public.judicial_officer_postings(id);
+
+
+--
+-- TOC entry 2312 (class 2606 OID 448437)
+-- Name: jo_reportings jo_reportings_reporting_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jo_reportings
+    ADD CONSTRAINT jo_reportings_reporting_officer_id_foreign FOREIGN KEY (reporting_officer_id) REFERENCES public.judicial_officers(id);
+
+
+--
+-- TOC entry 2302 (class 2606 OID 431584)
 -- Name: jo_zone_tenures jo_zone_tenures_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3308,7 +3612,7 @@ ALTER TABLE ONLY public.jo_zone_tenures
 
 
 --
--- TOC entry 2275 (class 2606 OID 431589)
+-- TOC entry 2303 (class 2606 OID 431589)
 -- Name: jo_zone_tenures jo_zone_tenures_zone_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3317,7 +3621,7 @@ ALTER TABLE ONLY public.jo_zone_tenures
 
 
 --
--- TOC entry 2267 (class 2606 OID 431429)
+-- TOC entry 2295 (class 2606 OID 431429)
 -- Name: judicial_officer_posting_preferences judicial_officer_posting_preferences_judicial_officer_id_foreig; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3326,7 +3630,7 @@ ALTER TABLE ONLY public.judicial_officer_posting_preferences
 
 
 --
--- TOC entry 2268 (class 2606 OID 431434)
+-- TOC entry 2296 (class 2606 OID 431434)
 -- Name: judicial_officer_posting_preferences judicial_officer_posting_preferences_zone_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3335,7 +3639,7 @@ ALTER TABLE ONLY public.judicial_officer_posting_preferences
 
 
 --
--- TOC entry 2265 (class 2606 OID 431408)
+-- TOC entry 2293 (class 2606 OID 431408)
 -- Name: judicial_officer_postings judicial_officer_postings_court_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3344,7 +3648,7 @@ ALTER TABLE ONLY public.judicial_officer_postings
 
 
 --
--- TOC entry 2264 (class 2606 OID 431403)
+-- TOC entry 2292 (class 2606 OID 431403)
 -- Name: judicial_officer_postings judicial_officer_postings_designation_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3353,7 +3657,7 @@ ALTER TABLE ONLY public.judicial_officer_postings
 
 
 --
--- TOC entry 2263 (class 2606 OID 431398)
+-- TOC entry 2291 (class 2606 OID 431398)
 -- Name: judicial_officer_postings judicial_officer_postings_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3362,7 +3666,7 @@ ALTER TABLE ONLY public.judicial_officer_postings
 
 
 --
--- TOC entry 2266 (class 2606 OID 431413)
+-- TOC entry 2294 (class 2606 OID 431413)
 -- Name: judicial_officer_postings judicial_officer_postings_mode_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3371,7 +3675,7 @@ ALTER TABLE ONLY public.judicial_officer_postings
 
 
 --
--- TOC entry 2259 (class 2606 OID 431348)
+-- TOC entry 2289 (class 2606 OID 431348)
 -- Name: judicial_officer_qualifications judicial_officer_qualifications_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3380,7 +3684,7 @@ ALTER TABLE ONLY public.judicial_officer_qualifications
 
 
 --
--- TOC entry 2260 (class 2606 OID 431353)
+-- TOC entry 2290 (class 2606 OID 431353)
 -- Name: judicial_officer_qualifications judicial_officer_qualifications_qualification_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3389,7 +3693,7 @@ ALTER TABLE ONLY public.judicial_officer_qualifications
 
 
 --
--- TOC entry 2255 (class 2606 OID 431289)
+-- TOC entry 2285 (class 2606 OID 431289)
 -- Name: judicial_officers judicial_officers_category_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3398,7 +3702,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2253 (class 2606 OID 431279)
+-- TOC entry 2283 (class 2606 OID 431279)
 -- Name: judicial_officers judicial_officers_home_district_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3407,7 +3711,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2254 (class 2606 OID 431284)
+-- TOC entry 2284 (class 2606 OID 431284)
 -- Name: judicial_officers judicial_officers_home_state_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3416,7 +3720,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2257 (class 2606 OID 431299)
+-- TOC entry 2287 (class 2606 OID 431299)
 -- Name: judicial_officers judicial_officers_recruitment_batch_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3425,7 +3729,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2256 (class 2606 OID 431294)
+-- TOC entry 2286 (class 2606 OID 431294)
 -- Name: judicial_officers judicial_officers_religion_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3434,7 +3738,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2279 (class 2606 OID 448129)
+-- TOC entry 2307 (class 2606 OID 448129)
 -- Name: lcr_hc_ends lcr_hc_ends_court_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3443,7 +3747,7 @@ ALTER TABLE ONLY public.lcr_hc_ends
 
 
 --
--- TOC entry 2282 (class 2606 OID 448144)
+-- TOC entry 2310 (class 2606 OID 448144)
 -- Name: lcr_hc_ends lcr_hc_ends_district_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3452,7 +3756,7 @@ ALTER TABLE ONLY public.lcr_hc_ends
 
 
 --
--- TOC entry 2280 (class 2606 OID 448134)
+-- TOC entry 2308 (class 2606 OID 448134)
 -- Name: lcr_hc_ends lcr_hc_ends_forwarding_court_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3461,7 +3765,7 @@ ALTER TABLE ONLY public.lcr_hc_ends
 
 
 --
--- TOC entry 2281 (class 2606 OID 448139)
+-- TOC entry 2309 (class 2606 OID 448139)
 -- Name: lcr_hc_ends lcr_hc_ends_subdivision_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3470,7 +3774,7 @@ ALTER TABLE ONLY public.lcr_hc_ends
 
 
 --
--- TOC entry 2250 (class 2606 OID 431193)
+-- TOC entry 2280 (class 2606 OID 431193)
 -- Name: subdivisions subdivisions_district_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3479,7 +3783,7 @@ ALTER TABLE ONLY public.subdivisions
 
 
 --
--- TOC entry 2251 (class 2606 OID 431198)
+-- TOC entry 2281 (class 2606 OID 431198)
 -- Name: subdivisions subdivisions_zone_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3488,7 +3792,7 @@ ALTER TABLE ONLY public.subdivisions
 
 
 --
--- TOC entry 2276 (class 2606 OID 431605)
+-- TOC entry 2304 (class 2606 OID 431605)
 -- Name: users users_court_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3497,7 +3801,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2277 (class 2606 OID 431610)
+-- TOC entry 2305 (class 2606 OID 431610)
 -- Name: users users_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3506,7 +3810,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2278 (class 2606 OID 431615)
+-- TOC entry 2306 (class 2606 OID 431615)
 -- Name: users users_user_type_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3515,7 +3819,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2273 (class 2606 OID 431569)
+-- TOC entry 2301 (class 2606 OID 431569)
 -- Name: zone_subdivisions zone_subdivisions_subdivision_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3524,7 +3828,7 @@ ALTER TABLE ONLY public.zone_subdivisions
 
 
 --
--- TOC entry 2272 (class 2606 OID 431564)
+-- TOC entry 2300 (class 2606 OID 431564)
 -- Name: zone_subdivisions zone_subdivisions_zone_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3532,7 +3836,7 @@ ALTER TABLE ONLY public.zone_subdivisions
     ADD CONSTRAINT zone_subdivisions_zone_id_foreign FOREIGN KEY (zone_id) REFERENCES public.zones(id);
 
 
--- Completed on 2019-11-27 17:00:24
+-- Completed on 2019-11-28 18:03:57
 
 --
 -- PostgreSQL database dump complete
