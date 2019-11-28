@@ -11,6 +11,7 @@ return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Court' => $baseDir . '/app/Court.php',
     'App\\CourtComplex' => $baseDir . '/app/CourtComplex.php',
+    'App\\Department' => $baseDir . '/app/Department.php',
     'App\\Designation' => $baseDir . '/app/Designation.php',
     'App\\Diary' => $baseDir . '/app/Diary.php',
     'App\\District' => $baseDir . '/app/District.php',

@@ -112,7 +112,10 @@ class LcrController extends Controller
 		$data= array();
 
 		$hc_records=Lcr_hc_end::with('case_type','lcr_case_details.lower_case_type')
-					->where('court','=',Auth::user()->court_id)->get();
+					->where([
+						['court','=',Auth::user()->court_id],
+						['status_flag','<>','comply']
+					])->get();
 		$data["hc_records"]=$hc_records;
 		
 		

@@ -396,6 +396,7 @@ class ComposerStaticInit29a6e7374aa6ea32817aa020db5ec992
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Court' => __DIR__ . '/../..' . '/app/Court.php',
         'App\\CourtComplex' => __DIR__ . '/../..' . '/app/CourtComplex.php',
+        'App\\Department' => __DIR__ . '/../..' . '/app/Department.php',
         'App\\Designation' => __DIR__ . '/../..' . '/app/Designation.php',
         'App\\Diary' => __DIR__ . '/../..' . '/app/Diary.php',
         'App\\District' => __DIR__ . '/../..' . '/app/District.php',

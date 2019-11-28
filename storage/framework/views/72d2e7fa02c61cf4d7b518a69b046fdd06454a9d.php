@@ -5,6 +5,13 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('center_main_content'); ?>
+
+<style>
+   .select2-results__option{
+   color:#d43c3c;
+   }
+</style>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12 col-md-offset-0">
@@ -46,9 +53,9 @@
                             </div>
                         </div>
                         <div class="form-group<?php echo e($errors->has('court') ? ' has-error' : ''); ?>" id="court-div" name="court-div" style="display:none;">
-                            <label for="court" class="col-md-4 control-label">Court</label>
+                            <label for="court" class="col-sm-4 control-label">Court</label>
 
-                            <div class="col-md-6" >
+                            <div class="col-sm-6" >
                                 <select id="court"  class="form-control" name="court">
                                 <option value="">Select an Option...</option>
                                 <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
@@ -63,9 +70,9 @@
                         </div>
 
                         <div class="form-group<?php echo e($errors->has('judicial_officers') ? ' has-error' : ''); ?>" id="jo-div" name="jo-div" style="display:none;">
-                            <label for="jo" class="col-md-4 control-label">Judicial Officer</label>
+                            <label for="jo" class="col-sm-4 control-label">Judicial Officer</label>
 
-                            <div class="col-md-6" >
+                            <div class="col-sm-6" >
                                 <select id="jo"  class="form-control" name="jo">
                                 <option value="">Select an Option...</option>
                                 <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
@@ -79,8 +86,25 @@
                             </div>
                         </div>
 
+                         <div class="form-group<?php echo e($errors->has('department') ? ' has-error' : ''); ?>" id="dept-div" name="dept-div" style="display:none;" >
+                            <label for="department" class="col-sm-4 control-label">Department</label>
+
+                            <div class="col-sm-6" >
+                                <select id="department"  class="form-control" name="department">
+                                <option value="">Select an Option...</option>
+                                <?php echo $__env->make('departments.dept_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                </select>
+
+                                <?php if($errors->has('department')): ?>
+                                    <span class="help-block">
+                                        <strong><?php echo e($errors->first('department')); ?></strong>
+                                    </span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
                         <div class="form-group<?php echo e($errors->has('name') ? ' has-error' : ''); ?>">
-                            <label for="name" class="col-md-4 control-label">Name</label>
+                            <label for="name" class="col-sm-4 control-label">Name</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="name" value="<?php echo e(old('name')); ?>">
@@ -176,10 +200,16 @@
         var user_type = $("#usertype option:selected").text();
         $("#court-div").hide();
         $("#jo-div").hide();
-        
+        $("#dept-div").hide();
+
         if( user_type == "Court")
         {            
             $("#court-div").show();
+        }
+
+         if( user_type == "Department")
+        {            
+            $("#dept-div").show();
         }
 
         else if( user_type == "Judicial Officer")
