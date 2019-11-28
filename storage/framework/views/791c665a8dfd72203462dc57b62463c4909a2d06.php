@@ -525,7 +525,8 @@
 
          <div class="tab-pane" id="upload_photo">
              <div class="row">
-                <form class="form" action="##" method="">
+                <form class="form" action="##" method="" id="form_image" enctype="multipart/form-data">
+                    <?php echo e(csrf_field()); ?>}
                     <div class="text-center">  
                         <img src="<?php echo e(asset('images/FacelessMan.png')); ?>" class="avatar img-circle img-thumbnail" alt="avatar" style="height:30%;width:20%">
                         <h6>Upload Photo...</h6>
@@ -860,96 +861,6 @@
             $(".practice_to_year").each(function(){
                 to_year.push($(this).val());
             })
-         
-
-            var formData = new FormData();
-            
-            formData.append("jo_code", $("#jo_code").val());
-
-            formData.append("registration_no", $("#reg_no").val());
-
-            formData.append("officer_name", $("#jo_name").val());
-
-            formData.append("gender", $("input[name='gender']").val());
-
-            formData.append("guardian_name",$("#guardian_name").val());
-
-            formData.append("gurdian_relation",$("#guardian_relationship").val());
-
-            formData.append("date_of_birth", $("#dob").val());
-
-            formData.append("home_state_id",$("#home_state").val());
-
-            formData.append("home_district_id",$("#home_district").val());	
-
-            formData.append("hometown",$("#home_town").val());
-
-            formData.append("present_address",$("#current_address").val());
-
-            formData.append("permanent_address",$("#permanent_address").val());
-
-            formData.append("religion_id",$("#religion_id").val());
-
-            formData.append("category_id",$("#category_id").val());   
-
-            formData.append("blood_group",$("#blood_group").val());
-
-            formData.append("identification_mark",$("#identification_mark").val());  
-
-            formData.append("aadhaar_no",$("#aadhar_no").val());
-
-            formData.append("pan_no",$("#pan_no").val());
-
-            formData.append("gpf_no",$("#gpf_no").val()); 
-
-            formData.append("mobile_no_1",$("#ph_no_1").val());
-
-            formData.append("mobile_no_2",$("#ph_no_2").val());
-
-            formData.append("email_id_1",$("#email_id_1").val());
-
-            formData.append("email_id_2",$("#email_id_2").val());
-
-            formData.append("recruitment_batch_id",$("#recruitment_batch_id").val());
-
-            formData.append("date_of_joining",$("#doj").val());
-
-            formData.append("date_of_confirmation",$("#doc").val());
-
-            formData.append("date_of_retirement",$("#dor").val());
-
-            formData.append("file",	$("#file_input").prop('files')[0]);
-
-            // formData.append("qualification_id",JSON.stringify(qualification_id));
-
-            // formData.append("passing_year",JSON.stringify(passing_year));
-
-            // formData.append("designation_id",JSON.stringify(designation_id));
-
-            // formData.append("court_id",JSON.stringify(court_id));
-
-            // formData.append("court_complex_id",JSON.stringify(court_complex_id));
-
-            // formData.append("mode_id",JSON.stringify(mode_id));
-
-            // formData.append("from_date",JSON.stringify(from_date));
-
-            // formData.append("to_date",JSON.stringify(to_date));
-            formData.append("qualification_id",qualification_id);
-
-            formData.append("passing_year",passing_year);
-
-            formData.append("designation_id",designation_id);
-
-            formData.append("court_id",court_id);
-
-            //formData.append("court_complex_id",court_complex_id);
-
-            formData.append("mode_id",mode_id);
-
-            formData.append("from_date",from_date);
-
-            formData.append("to_date",to_date);
             
 
             ajax_url="";
@@ -1017,16 +928,40 @@
                     to_date:to_date,
                     _token: $('meta[name="csrf-token"]').attr('content'),
                 },
-                //data:formData,
-                // dataType: 'json',
-                // processData: false,
-                // contentType: false,
-                // cache:false,
                 success: function (data, textStatus, jqXHR) {
                     if(data.judicial_officer!=null){
-                        swal("Judicial Officer"+operated+" Successfully","","success");
-                        $("form").trigger("reset");   
-                        $(".select2").val('').trigger('change');
+                        
+                        // image upload :: START
+                        $.ajax({
+                            url:"<?php echo e(route('jo_image_upload')); ?>",
+                            method:"POST",
+                            data: new FormData($("#form_image")),
+                            dataType:'JSON',
+                            contentType: false,
+                            cache: false,
+                            processData: false,
+                            success: function(data, textStatus, jqXHR){
+                                if(data.jo_image!=null){
+                                    swal("Judicial Officer"+operated+" Successfully","","success");
+                                    $("form").trigger("reset");   
+                                    $(".select2").val('').trigger('change');
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                if(jqXHR.status!=422 && jqXHR.status!=400){
+                                    swal("Failed to "+operation+" Judicial Officer",errorThrown,"error");
+                                }
+                                else{
+                                    msg = "";
+                                    $.each(jqXHR.responseJSON.errors, function(key,value) {
+                                        msg+=value+"\n";						
+                                    });
+
+                                    swal("Failed to "+operation+" Judicial Officer",msg,"error");
+                                }
+                            }
+                        })
+                        // image upload :: END
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {

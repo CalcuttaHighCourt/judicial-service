@@ -42,6 +42,7 @@ class CreateJudicialOfficersTable extends Migration
 			$table->date('date_of_joining');
 			$table->date('date_of_confirmation');
 			$table->date('date_of_retirement');
+			$table->string('profile_image')->nullable();
 			$table->timestamps();
 			
 			$table->foreign('home_district_id')->references('id')->on('districts');
