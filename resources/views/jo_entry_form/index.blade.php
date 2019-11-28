@@ -22,6 +22,7 @@
             <li class="active"><a data-toggle="tab" class="my-tab-navigation" href="#basic_details"> Basic Details </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#contact_details"> Contact Details </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#qualification_details"> Qualification Detals </a></li>
+            <li><a data-toggle="tab" class="my-tab-navigation" href="#legal_practice_details"> Legal Practice Detals </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#posting_details"> Posting Details </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#upload_photo"> Upload Photo </a></li>
          </ul>
@@ -315,28 +316,28 @@
             </div>
             <!--/tab-pane-->
 
-            <div class="tab-pane" id="qualification_details">
+            <div class="tab-pane" id="legal_practice_details">
                 <div class="row">
                     <form class="form" action="##" method="">
-                            <div class="div_add_more_qualification">
+                            <div class="div_add_more_legal_practice">
                                 <div class="row">
                                     <div class="form-group">
-                                        <div class="col-xs-5"><br/>
+                                        <div class="col-xs-4"><br/>
                                             <label>
-                                                Degree 
+                                                Subdivision 
                                             </label>
-                                            <select class="form-control info-form-control select2 degree_id" style="width:100%">
+                                            <select class="form-control info-form-control select2 subdivision_id" style="width:100%">
                                                 <option value="">Select an Option</option>
-                                                @include('qualifications.qualification_options')
+                                                @include('subdivisions.subdivision_options')
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-xs-3">
                                             <label>
-                                                Year of Passing 
+                                                From (Year)
                                             </label>
-                                            <select class="form-control info-form-control select2 yop" style="width:100%">
+                                            <select class="form-control info-form-control select2 practice_from_year" style="width:100%">
                                                 <option value="">Select an Option</option>
                                                 @for($i=Date('Y');$i>=1900;$i--)
                                                     <option value="{{$i}}">{{$i}}</option>
@@ -345,9 +346,20 @@
                                         </div>
                                     </div>   
                                     <div class="form-group">
+                                        <div class="col-xs-3">
+                                            <label>
+                                                To (Year)
+                                            </label>
+                                            <select class="form-control info-form-control select2 practice_to_year" style="width:100%">
+                                                <option value="">Select an Option</option>
+                                                @for($i=Date('Y');$i>=1900;$i--)
+                                                    <option value="{{$i}}">{{$i}}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
                                         <div class="col-xs-2">
                                             <br>
-                                            <img src="{{asset('images/details_open.png')}}" class="img_add_more_qualification" id="add_more_qualification">
+                                            <img src="{{asset('images/details_open.png')}}" class="img_add_more_legal_practice" id="add_more_legal_practice">
                                         </div>
                                     </div>
                                 </div>                          
@@ -371,6 +383,63 @@
                 </div>
             </div>            
          <!--/tab-pane-->
+
+         <div class="tab-pane" id="qualification_details">
+            <div class="row">
+                <form class="form" action="##" method="">
+                        <div class="div_add_more_qualification">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-xs-5"><br/>
+                                        <label>
+                                            Degree 
+                                        </label>
+                                        <select class="form-control info-form-control select2 degree_id" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            @include('qualifications.qualification_options')
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-3">
+                                        <label>
+                                            Year of Passing 
+                                        </label>
+                                        <select class="form-control info-form-control select2 yop" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            @for($i=Date('Y');$i>=1900;$i--)
+                                                <option value="{{$i}}">{{$i}}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>   
+                                <div class="form-group">
+                                    <div class="col-xs-2">
+                                        <br>
+                                        <img src="{{asset('images/details_open.png')}}" class="img_add_more_qualification" id="add_more_qualification">
+                                    </div>
+                                </div>
+                            </div>                          
+                            <hr/>                     
+                        </div> 
+                </form>
+            </div>
+            <div class="row">
+                <br/><br/>
+                <div class="col-sm-12">
+                    <div class="col-sm-4 text-left">
+                        <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <button class="btn btn-success submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
+                    </div>
+                </div>    
+            </div>
+        </div>            
+        <!--/tab-pane-->
 
          <div class="tab-pane" id="posting_details">
              <br/>
@@ -503,6 +572,7 @@
    $(document).ready(function() { 
         var clone_element_posting = $(".div_add_more_posting").clone();
         var clone_element_qualification = $(".div_add_more_qualification").clone();
+        var clone_element_legal_practice = $(".div_add_more_legal_practice").clone();
 
         $.ajaxSetup({
             headers: {
@@ -601,13 +671,17 @@
             }
 			
 		})
-	    /*If multiple posting details added :: ENDS*/    
+	    /*If multiple posting details added :: ENDS*/   
+
+
 
         /*If any posting details row needs to remove :: STARTS*/
         $(document).on("click",".remove_posting", function(){
 			$(this).closest(".div_add_more_posting").remove();
 		}) 
         /*If any posting details row needs to remove :: ENDS*/
+
+
 
         /*If multiple Qualification details added :: STARTS*/
 		$(document).on("click","#add_more_qualification", function(){
@@ -632,11 +706,49 @@
 		})
 	    /*If multiple Qualification details added :: ENDS*/    
 
+
+
         /*If any Qualification details row needs to remove :: STARTS*/
         $(document).on("click",".remove_qualification", function(){
 			$(this).closest(".div_add_more_qualification").remove();
 		}) 
         /*If any Qualification details row needs to remove :: ENDS*/
+
+
+
+
+        /*If multiple Legal Practice details added :: STARTS*/
+		$(document).on("click","#add_more_legal_practice", function(){
+            var subdivision_id = $(".div_add_more_legal_practice:last").find(".subdivision_id").val();
+            var from_year = $(".div_add_more_legal_practice:last").find(".practice_from_year").val();
+            var to_year = $(".div_add_more_legal_practice:last").find(".practice_to_year").val();
+            
+            if(subdivision_id!="" && from_year!="" && to_year!=""){
+                var clone_element3 = clone_element_legal_practice.clone();                
+                clone_element3.insertAfter(".div_add_more_legal_practice:last");
+                $(".img_add_more_legal_practice:last").attr({src:"images/details_close.png",
+                                                        class:"remove_legal_practice", 
+                                                        alt:"remove_legal_practice"
+                                                    });
+                $(".remove_legal_practice").removeAttr("id");
+                $(".select2").select2();
+            }
+            else{
+                swal("Invalid Entry","Entry all the fields before adding a new legal experience details","error");
+                return false;
+            }
+			
+		})
+	    /*If multiple Legal Practice details added :: ENDS*/  
+
+
+
+        /*If any Legal Practice row needs to remove :: STARTS*/
+        $(document).on("click",".remove_legal_practice", function(){
+			$(this).closest(".div_add_more_legal_practice").remove();
+		}) 
+        /*If any Legal Practice row needs to remove :: ENDS*/
+
 
 
         /*Fetch corresponding Districts of selected State :: STARTS*/
@@ -685,9 +797,11 @@
             var qualification_id = new Array();
             var passing_year = new Array();
             var reporting_officer_id = new Array();
-            var reviewing_officer_id = new Array();
             var from_date = new Array();
             var to_date = new Array();
+            var subdivision_id = new Array();
+            var from_year = new Array();
+            var to_year = new Array();
 
             designation_id = [];
             $(".designation_id").each(function(){
@@ -730,6 +844,21 @@
             to_date = [];
             $(".to_date").each(function(){
                 to_date.push($(this).val());
+            })
+
+            subdivision_id = [];
+            $(".subdivision_id").each(function(){
+                subdivision_id.push($(this).val());
+            })
+
+            from_year = [];
+            $(".practice_from_year").each(function(){
+                from_year.push($(this).val());
+            })
+
+            to_year = [];
+            $(".practice_to_year").each(function(){
+                to_year.push($(this).val());
             })
          
 
@@ -876,6 +1005,9 @@
                     file:$("#file_input").prop('files')[0],
                     qualification_id:qualification_id,
                     passing_year:passing_year,
+                    subdivision_id:subdivision_id,
+                    from_year:from_year,
+                    to_year:to_year,
                     designation_id:designation_id,
                     reporting_officer_id:reporting_officer_id,
                     court_id:court_id,
