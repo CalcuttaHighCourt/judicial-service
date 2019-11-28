@@ -533,7 +533,6 @@
         // Datepicker Initialization
         $(".date").datepicker({
             format: "dd-mm-yyyy",
-            endDate:'0',
             autoclose: true,   
             orientation: "auto",
 

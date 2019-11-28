@@ -40,7 +40,7 @@ class JoEntryRequest extends FormRequest
             'religion_id' => 'nullable|integer|exists:religions,id',
             'category_id' => 'nullable|integer|exists:categories,id',
             'blood_group' => 'nullable|max:5',
-            'identification_mark' => 'nullable|alpha_dash|max:255',
+            'identification_mark' => 'nullable||regex:/^[\pL\s\-]+$/u|max:255',
             'aadhar_no' => 'nullable|integer|max:12',
             'pan_no' => 'nullable|alpha_num|max:10',
             'pf_no' => 'nullable|alpha_num|max:20',
