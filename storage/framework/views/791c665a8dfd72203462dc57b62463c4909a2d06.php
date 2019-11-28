@@ -97,7 +97,7 @@
                         <label for="dor" class="control-label">
                              Date of Superannuation 
                         </label>
-                        <input type="text" class="form-control date" name="dor" id="dor" placeholder="dd-mm-yyyy">
+                        <input type="text" class="form-control date1" name="dor" id="dor" placeholder="dd-mm-yyyy">
                     </div>
                  </div>      
                  <div class="form-group">
@@ -162,7 +162,7 @@
                         <label for="blood_group">
                              Blood Group 
                         </label>
-                        <input type="text" class="form-control" name="blood_group" id="blood_group" placeholder="Blood Group">
+                        <input type="text" class="form-control" name="blood_group" id="blood_group" placeholder="A+, A-, B+, B- , AB+, AB-, O+, O-">
                     </div>
                  </div>    
                  <div class="form-group">
@@ -338,7 +338,7 @@
                                             </label>
                                             <select class="form-control info-form-control select2 yop" style="width:100%">
                                                 <option value="">Select an Option</option>
-                                                <?php for($i=Date('Y');$i>=1947;$i--): ?>
+                                                <?php for($i=Date('Y');$i>=1900;$i--): ?>
                                                     <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
                                                 <?php endfor; ?>
                                             </select>
@@ -537,6 +537,13 @@
             orientation: "auto",
 
         });
+         // Datepicker Initialization for Superannuation
+        $(".date1").datepicker({
+            format: "dd-mm-yyyy",
+            autoclose: true,   
+            orientation: "auto",
+
+        });
 
         // Select2 initialization
         $(".select2").select2();
@@ -579,7 +586,7 @@
                     autoclose: true,   
                     orientation: "auto",
 
-                });
+                });               
 
               
                 $(".img_add_more_posting:last").attr({src:"images/details_close.png",
