@@ -526,11 +526,12 @@
          <div class="tab-pane" id="upload_photo">
              <div class="row">
                 <form class="form" action="##" method="" id="form_image" enctype="multipart/form-data">
-                    <?php echo e(csrf_field()); ?>}
+                    <?php echo e(csrf_field()); ?>
+
                     <div class="text-center">  
                         <img src="<?php echo e(asset('images/FacelessMan.png')); ?>" class="avatar img-circle img-thumbnail" alt="avatar" style="height:30%;width:20%">
                         <h6>Upload Photo...</h6>
-                        <input type="file" id="file_input" class="text-center center-block file-upload">                                      
+                        <input type="file" id="profile_image" name="profile_image" class="text-center center-block file-upload">                                      
                     </div>
                 </form>
              </div>
@@ -867,16 +868,14 @@
             operation="";
             operated="";
             request_type="POST";
-            if(type=="add"){
-                formData["_method"]="POST";
+            if(type=="add"){                
                 ajax_url="jo_entry";       
 
                 operation="add";
                 operated="Added";
             }
-            else if(type=="update"){
-                formData["_method"]="PUT";            
-                ajax_url="jo_entry/"+formdata.registration_no;
+            else if(type=="update"){                          
+                //ajax_url="jo_entry/"+formdata.registration_no;
 
                 operation="update";
                 operated="Updated";
@@ -913,7 +912,6 @@
                     date_of_joining:$("#doj").val(),
                     date_of_confirmation:$("#doc").val(),
                     date_of_retirement:$("#dor").val(),
-                    file:$("#file_input").prop('files')[0],
                     qualification_id:qualification_id,
                     passing_year:passing_year,
                     subdivision_id:subdivision_id,
@@ -930,12 +928,12 @@
                 },
                 success: function (data, textStatus, jqXHR) {
                     if(data.judicial_officer!=null){
-                        
+
                         // image upload :: START
                         $.ajax({
                             url:"<?php echo e(route('jo_image_upload')); ?>",
                             method:"POST",
-                            data: new FormData($("#form_image")),
+                            data: new FormData($("#form_image")[0]),
                             dataType:'JSON',
                             contentType: false,
                             cache: false,
