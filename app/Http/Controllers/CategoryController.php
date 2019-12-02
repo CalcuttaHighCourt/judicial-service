@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Caste;
+use App\Category;
 use Auth;
 
 
-class CasteController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,15 +19,15 @@ class CasteController extends Controller
     {
         $response = [];
         $statusCode = 200;
-        $castes = array();
+        $Categories = array();
 
         try {
 
-            $castes = Caste::all();
+            $Categories = Category::all();
 
 
             $response = array(
-                'castes' => $castes
+                'Categories' => $Categories
             );
         } catch (\Exception $e) {
 
@@ -47,15 +47,13 @@ class CasteController extends Controller
     public function index2(Request $request) {
         $response = [];
         $statusCode = 200;
-        $castes = array();
+        $categories = array();
 
         try {
             $draw = 1;
             $records_total = 0;
 
-            //$castes = Caste::all();
-            //$records_total = $castes->count();
-            $records_total =Caste::count();
+            $records_total =Category::count();
 
             $draw = $request->draw;
             $offset = $request->start;
@@ -64,7 +62,7 @@ class CasteController extends Controller
 
             $order = $request->order;
 
-            $filtered = Caste::where('caste_name', 'ilike', '%' . $search . '%');
+            $filtered = Category::where('category_name', 'ilike', '%' . $search . '%');
 
             $records_filtered_count = $filtered->count();
 
@@ -80,14 +78,14 @@ class CasteController extends Controller
                 "draw" => $draw,
                 "recordsTotal" => $records_total,
                 "recordsFiltered" => $records_filtered_count,
-                "castes" => $page_displayed,
+                "categories" => $page_displayed,
             );
         } catch (\Exception $e) {
             $response = array(
                 "draw" => $draw,
                 "recordsTotal" => $records_total,
                 "recordsFiltered" => 0,
-                "castes" => [],
+                "categories" => [],
             );
         } finally {
             return response()->json($response, $statusCode);
@@ -114,23 +112,23 @@ class CasteController extends Controller
     public function store(Request $request)
     {
         $response = [
-            'caste' => []
+            'category' => []
         ];
         $statusCode = 200;
-        $caste = null;
+        $category = null;
 
         $this->validate($request, [
-            'caste_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:castes,caste_name')
+            'category_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:categories,category_name')
         ]);
 
 
         try {
-            $caste_name = strtoupper($request->input('caste_name'));
+            $category_name = strtoupper($request->input('category_name'));
             $request['created_by'] = Auth::user()->id;
 
-            $caste = Caste::create($request->all());
+            $category = Category::create($request->all());
             $response = array(
-                'caste' => $caste
+                'category' => $category
             );
         } catch (\Exception $e) {
             $response = array(
@@ -146,14 +144,14 @@ class CasteController extends Controller
     public function index_for_datatable(Request $request) {
         $response = [ ];
         $statusCode = 200;
-        $castes = array ();
+        $Categories = array ();
         
         try {
             $draw=1;
             $records_total=0;
             
-            $castes = Caste::all();
-            $records_total=$castes->count();
+            $Categories = Category::all();
+            $records_total=$Categories->count();
             
             $draw=$request->draw;
             $offset=$request->start;
@@ -162,7 +160,7 @@ class CasteController extends Controller
             
             $order=$request->order;
             
-            $filtered = Caste::where('caste_name', 'ilike','%'.$search.'%');
+            $filtered = Category::where('category_name', 'ilike','%'.$search.'%');
             
             $records_filtered_count=$filtered->count();
             
@@ -201,18 +199,18 @@ class CasteController extends Controller
     public function show($id)
     {
         $response = [
-            'caste' => []
+            'category' => []
         ];
         $statusCode = 200;
-        $caste = null;
+        $category = null;
 
         try {
             if (!is_numeric($id) || intval($id) != $id || !ctype_digit(strval($id))) {
                 throw new \Exception('Invalid Input');
             }
-            $caste = Caste::find($id);
+            $category = Category::find($id);
             $response = array(
-                'caste' => $caste
+                'category' => $category
             );
         } catch (\Exception $e) {
             $response = array(
@@ -246,10 +244,10 @@ class CasteController extends Controller
     public function update(Request $request, $id)
     {
         $response = [
-            'caste' => []
+            'category' => []
         ];
         $statusCode = 200;
-        $caste = null;
+        $category = null;
         if (!is_numeric($id) || intval($id) != $id || !ctype_digit(strval($id))) {
             $response = array(
                 'exception' => true,
@@ -261,21 +259,21 @@ class CasteController extends Controller
         }
         
         $this->validate($request, [
-            'caste_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:castes,caste_name,'.$id.',id'),
+            'category_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:categories,category_name,'.$id.',id'),
         ]);
         
         try {
             
-            $caste = Caste::find($id);
-            if (!$caste) {
+            $category = Category::find($id);
+            if (!$category) {
                 throw new \Exception('Invalid Input');
             }
-            $caste->caste_name = $request->caste_name;
-            $caste->created_by = Auth::user()->id;
-            $caste->save();
+            $category->category_name = $request->category_name;
+            $category->created_by = Auth::user()->id;
+            $category->save();
 
             $response = array(
-                'caste' => $caste
+                'category' => $category
             );
         } catch (\Exception $e) {
             $response = array(
@@ -297,32 +295,32 @@ class CasteController extends Controller
     public function destroy($id)
     {
         $response = [
-            'caste' => []
+            'category' => []
         ]; // Should be changed #25
         $statusCode = 200;
-        $caste = null; // Should be changed #26
+        $category = null; // Should be changed #26
         try {
             if (!is_numeric($id) || intval($id) != $id || !ctype_digit(strval($id))) {
                 throw new \Exception('Please check input');
             }
-            $caste = Caste::find($id); // Should be changed #27
+            $category = Category::find($id); // Should be changed #27
 
             //arpan
-            if ($caste->judicial_officers->count() > 0) { //Should be changed #28
+            if ($category->judicial_officers->count() > 0) { //Should be changed #28
                 //child row exists
                 $response = array(
                     'exception' => true,
-                    'exception_message' => "Records of caste: " . $caste->caste_name . " exists in Judicial Officers table.", //Should be changed #29
+                    'exception_message' => "Records of category: " . $category->category_name . " exists in Judicial Officers table.", //Should be changed #29
                 );
                 $statusCode = 400;
             } else {
 
-                if (!empty($caste)) { // Should be changed #30
-                    $caste->delete();
-                    //$caste = $caste->forceDelete ( $id ); // Should be changed #31 //only for admin elements.
+                if (!empty($category)) { // Should be changed #30
+                    $category->delete();
+                    //$Category = $Category->forceDelete ( $id ); // Should be changed #31 //only for admin elements.
                 }
                 $response = array(
-                    'caste' => $caste
+                    'category' => $category
                 ); // Should be changed #32
             }
         } catch (\Exception $e) {

@@ -351,6 +351,10 @@
 
                 });
 
+                $("#comply").hide();
+                $("#forward").hide();   
+                $("#back").show();  
+
             }); 
 
              

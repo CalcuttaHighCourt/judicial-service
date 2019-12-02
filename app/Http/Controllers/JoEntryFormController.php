@@ -299,7 +299,7 @@ class JoEntryFormController extends Controller
     public function show($id)
     {
         $profile = JudicialOfficer:: where('judicial_officers.id',$id)
-                                     ->with('district','state','religion','recruitment_batch','caste',
+                                     ->with('district','state','religion','recruitment_batch','category',
                                             'judicial_officer_qualifications.qualification',
                                             'judicial_officer_postings.designation','judicial_officer_postings.mode',
                                             'subordinate_officers','judicial_officer_postings.court', 

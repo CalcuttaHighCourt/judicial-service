@@ -25,13 +25,7 @@
                             Court Master
                         </a>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="<?php echo e(url('court_complex')); ?>">
-                            <span data-feather="home"></span>
-                            <i class="fa fa-gavel" aria-hidden="true"></i>
-                            Court Complex Master
-                        </a>
-                    </li> -->
+                   
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo e(url('subdivision')); ?>">
                             <span data-feather="file"></span>
@@ -60,13 +54,7 @@
                             State Master 
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo e(url('judicial_officer')); ?>">
-                            <span data-feather="file"></span>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            Judicial Officer
-                        </a>
-                    </li>
+                   
                     <li class="nav-item">           
                         <a class="nav-link" href="<?php echo e(url('jo_entry_form')); ?>">
                             <span data-feather="file"></span>
@@ -136,10 +124,10 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo e(url('caste')); ?>">
+                        <a class="nav-link" href="<?php echo e(url('Category')); ?>">
                             <span data-feather="home"></span>
                             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
-                            Caste Master
+                            Category Master
                         </a>
                     </li>
 
@@ -160,20 +148,14 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo e(url('acr_history')); ?>">
-                    <span data-feather="file"></span>
-                    <i class="fa fa-square" aria-hidden="true"></i>
-                    ACR History
-                </a>
+
+            <li>
+                <a href="#usermaster" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-circle"></i>User Creation</a>
+                <ul class="collapse list-unstyled" id="usermaster">
+                     <li><a href="<?php echo e(url('/register')); ?>">Register</a></li>
+                    </ul>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo e(url('acr_fetch')); ?>">
-                    <span data-feather="file"></span>
-                    <i class="fa fa-crosshairs" aria-hidden="true"></i>
-                    ACR Fetch
-                </a>
-            </li>
+           
             <?php endif; ?>
 
             <?php if(Auth::check() && Auth::user()->user_type->type_name=="Judicial Officer"): ?>
@@ -188,10 +170,46 @@
                 </a>
             </li>
 
+              <li><a href="<?php echo e(route('profile')); ?>"><i class="fa fa-btn fa-sign-out"></i>Profile</a></li>
+
             
             <?php endif; ?>
-           
-            <?php if(Auth::check() && Auth::user()->user_type->type_name=="Court"): ?>
+
+             <?php if(Auth::check() && Auth::user()->user_type->type_name=="Inspection"): ?>
+
+            <li>
+                <a href="#masterSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-edit"></i>Master Maintenance</a>
+                <ul class="collapse list-unstyled" id="masterSubmenu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo e(url('grade')); ?>">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-crosshairs" aria-hidden="true"></i>
+                            ACR Grade Master
+                        </a>
+                     </li>
+                     
+                </ul>
+
+                 <li class="nav-item">
+                <a class="nav-link" href="<?php echo e(url('acr_history')); ?>">
+                    <span data-feather="file"></span>
+                    <i class="fa fa-square" aria-hidden="true"></i>
+                    ACR History
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo e(url('acr_fetch')); ?>">
+                    <span data-feather="file"></span>
+                    <i class="fa fa-crosshairs" aria-hidden="true"></i>
+                    ACR Fetch
+                </a>
+            </li>
+
+            <?php endif; ?>
+
+            
+
+            <?php if(Auth::check() && Auth::user()->user_type->type_name=="Department"): ?>
             <li>
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <i class="fa fa-copy"></i>
@@ -204,8 +222,18 @@
                             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                             Request for LCR
                         </a>
-                        
                     </li>
+                </ul>
+                <?php endif; ?>
+
+
+            <?php if(Auth::check() && Auth::user()->user_type->type_name=="Court"): ?>
+            <li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fa fa-copy"></i>
+                    Lower Court Record
+                </a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo e(url('lcr_view')); ?>">
                             <span data-feather="home"></span>
@@ -274,7 +302,7 @@
                     <!-- Authentication Links -->
                     <?php if(Auth::guest()): ?>
                     <li><a href="<?php echo e(url('/login')); ?>">Login</a></li>
-                    <li><a href="<?php echo e(url('/register')); ?>">Register</a></li>
+                   
                     <?php else: ?>
                     <li class="dropdown"><a href="#" class="dropdown-toggle"
                                             data-toggle="dropdown" role="button" aria-expanded="false"> <?php echo e(Auth::user()->name); ?> <span class="caret"></span>

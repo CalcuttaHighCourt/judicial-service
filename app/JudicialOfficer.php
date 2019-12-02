@@ -28,9 +28,9 @@ class JudicialOfficer extends Model
     /**
      * Get the recruitment batch that owns the Judicial officer.
      */
-    public function caste()
+    public function Category()
     {
-        return $this->belongsTo('App\Caste','category_id','id');
+        return $this->belongsTo('App\Category','category_id','id');
     }
 
     /**
