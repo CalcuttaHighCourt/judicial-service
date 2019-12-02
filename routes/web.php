@@ -110,6 +110,8 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	Route::post('jo_entry/upload_image', 'JoEntryFormController@jo_upload_image')->name('jo_image_upload');
 
+	Route::post('jo_entry/show_all_jo', 'JoEntryFormController@show_all_jo')->name('list_of_jo');
+
 	Route::get ('jo_entry_form', function () {
 		return view ('jo_entry_form.index');
 	});
