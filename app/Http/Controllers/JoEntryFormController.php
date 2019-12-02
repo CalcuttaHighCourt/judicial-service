@@ -72,6 +72,13 @@ class JoEntryFormController extends Controller
                     $request['email_id_2'] = null;
                 if(empty($request['mobile_no_2']))
                     $request['mobile_no_2'] = null;
+
+                $judicial_officer = null;
+                $login_credential = null;
+                $qualification_details = null;
+                $posting_details = null;
+                $reporting_details = null;
+                $jo_legal_experience_details = null;
                  
                 $judicial_officer = JudicialOfficer::insertGetId($request->except([
                                         'file','qualification_id','passing_year',
@@ -167,7 +174,7 @@ class JoEntryFormController extends Controller
                             $reporting_details[$i] = $jo_reporting->save();
                         }
                         else{
-                            $reporting_details[$i] = null;
+                            $reporting_details = null;
                         }
                         /*JO Reporting Details :: ENDS*/ 
 
@@ -251,6 +258,43 @@ class JoEntryFormController extends Controller
         }
     }
 
+
+    // profile image upload
+    public function jo_upload_image(Request $request){
+        $this->validate( $request, [ 
+            'profile_image' => 'file|mimes:jpeg,png,jpg,gif|max:3000'
+        ]);
+        
+        $jo_details = JudicialOfficer::orderBy('id','desc')->get();
+
+        $image = $request->file('profile_image');
+
+        if(!is_dir(public_path('images/judicial_officers/'.$jo_details['0']->registration_no))) 
+        {
+            mkdir(public_path('images/judicial_officers/'.$jo_details['0']->registration_no), 0777, true);       
+        }
+
+        $new_name = $jo_details['0']->registration_no.'_'.strtotime(date('Y-m-d')).'.'.$image->getClientOriginalExtension();
+
+        if(file_exists(public_path('images/judicial_officers/'.$jo_details['0']->registration_no.'/'.$new_name)))
+        {
+            unlink(public_path('images/judicial_officers/'.$jo_details['0']->registration_no.'/'.$new_name));
+        }
+
+        $image->move(public_path('images/judicial_officers/'.$jo_details['0']->registration_no), $new_name);
+
+        JudicialOfficer::where('registration_no',$jo_details['0']->registration_no)
+                        ->update([
+                            'profile_image' => $new_name,
+                        ]);
+    
+        return response()->json([
+            'image' => true,
+            'message'   => 'Image Upload Successfully',
+        ]);
+    
+    }
+
     
     public function show($id)
     {
@@ -313,6 +357,73 @@ class JoEntryFormController extends Controller
                             ->get();
 
         return response()->json($districts);
+    }
+
+    public function show_all_jo(Request $request){
+        $columns = array( 
+            0 =>'registration_no', 
+            1 =>'jo_code',
+            2 =>'officer_name',
+            3 =>'date_of_birth',
+            4 =>'date_of_retirement',
+            5 =>'action',
+        );
+
+        $totalData = JudicialOfficer::count();
+
+        $totalFiltered = $totalData; 
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+
+        if(empty($request->input('search.value'))){
+            $judicial_officers = JudicialOfficer::offset($start)
+                                ->limit($limit)
+                                ->orderBy($order,$dir)
+                                ->get();
+            $totalFiltered = JudicialOfficer::count();
+        }
+        else{
+            $search = $request->input('search.value');
+            $judicial_officers = JudicialOfficer::where('registration_no',"%{$search}%")
+                                ->orWhere('jo_code','ilike',"%{$search}%")
+                                ->orWhere('officer_name','ilike',"%{$search}%")
+                                ->offset($start)
+                                ->limit($limit)
+                                ->orderBy($order,$dir)
+                                ->get();
+            $totalFiltered = JudicialOfficer::where('registration_no',"%{$search}%")
+                                        ->orWhere('jo_code','ilike',"%{$search}%")
+                                        ->orWhere('officer_name','ilike',"%{$search}%")
+                                        ->count();
+        }
+
+        $data = array();
+
+        if($judicial_officers){
+            foreach($judicial_officers as $judicial_officer){
+                $nestedData['registration_no'] = $judicial_officer->registration_no;
+                $nestedData['jo_code'] = $judicial_officer->jo_code;
+                $nestedData['officer_name'] = $judicial_officer->officer_name;
+                $nestedData['date_of_birth'] = Carbon::parse($judicial_officer->date_of_birth)->format('d-m-Y');
+                $nestedData['date_of_retirement'] = Carbon::parse($judicial_officer->date_of_retirement)->format('d-m-Y');
+                $nestedData['action'] = "<i class='fa fa-pen edit' aria-hidden='true'></i>";
+
+                $data[] = $nestedData;
+            }
+            
+            $json_data = array(
+                "draw" => intval($request->input('draw')),
+                "recordsTotal" => intval($totalData),
+                "recordsFiltered" =>intval($totalFiltered),
+                "data" => $data
+            );
+    
+            echo json_encode($json_data);
+        }
+
     }
 
 }

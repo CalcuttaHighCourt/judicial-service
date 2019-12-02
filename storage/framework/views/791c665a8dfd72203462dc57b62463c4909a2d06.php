@@ -200,7 +200,7 @@
                 <div class="row">
                     <br/><br/>
                     <div class="col-sm-12">
-                        <div class="col-sm-4 text-center">
+                        <div class="col-sm-4 col-sm-offset-4 text-center">
                             <button class="btn btn-success submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
                         </div>
                         <div class="col-sm-4 text-right">
@@ -526,11 +526,12 @@
          <div class="tab-pane" id="upload_photo">
              <div class="row">
                 <form class="form" action="##" method="" id="form_image" enctype="multipart/form-data">
-                    <?php echo e(csrf_field()); ?>}
+                    <?php echo e(csrf_field()); ?>
+
                     <div class="text-center">  
                         <img src="<?php echo e(asset('images/FacelessMan.png')); ?>" class="avatar img-circle img-thumbnail" alt="avatar" style="height:30%;width:20%">
                         <h6>Upload Photo...</h6>
-                        <input type="file" id="file_input" class="text-center center-block file-upload">                                      
+                        <input type="file" id="profile_image" name="profile_image" class="text-center center-block file-upload">                                      
                     </div>
                 </form>
              </div>
@@ -553,6 +554,39 @@
    <!--/col-9-->
 </div>
 <!--/row-->
+</div>
+
+
+<br/><br/>
+<div id="info-panel2" class="panel panel-default">    
+    <div id="datatable-panel-heading" class="panel-heading clearfix">
+        <div class="col-sm-1"></div>
+        <div class="panel-title pull-left">List of Judicial Officers. . . </div>
+        <div class="pull-right">
+            <button id="add-new-button" type="button" class="btn btn-primary add-new-button">
+                <i class="fa fa-plus-circle"></i> Add New
+            </button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive col-sm-offset-1">
+            <table class="table table-striped"
+                id="datatable-table" style="width: 100%;">
+                <!-- Table Headings -->
+                <thead>
+                    <tr>                        
+                        <th>Reg. No</th>
+                        <th>JO Code</th>
+                        <th>JO Name</th>
+                        <th>DOB</th>
+                        <th>DOR</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
 
 
 
@@ -635,6 +669,47 @@
         $("form").submit(function(e){
             return false;
         });   
+
+        // add new button in the heading of the datatable
+        $('#add-new-button').click(function () {            
+            $('html, body').animate({
+                scrollTop: $('#info-panel').offset().top - 60,
+            }, 1000);
+        });
+
+
+        //Datatable Code For Showing Data :: START
+        var table = $("#datatable-table").DataTable({  
+                            "processing": true,
+                            "serverSide": true,
+                            "ajax":{
+                                    "url": "<?php echo e(route('list_of_jo')); ?>",
+                                    "dataType": "json",
+                                    "type": "POST",
+                                    "data":{ 
+                                        _token: $('meta[name="csrf-token"]').attr('content')
+                                    },                                    
+                            },
+                            "columns": [                
+                                {"data": "registration_no"},
+                                {"data": "jo_code"},
+                                {"data": "officer_name"},
+                                {"data": "date_of_birth"},
+                                {"data": "date_of_retirement"},
+                                {"data": "action"}
+                            ]
+                        }); 
+
+                        
+                        $.fn.dataTable.ext.errMode = 'none';
+ 
+                        $(".table").on( 'error.dt', function ( e, settings, techNote, message ) {
+                            swal("An error has been reported by DataTable","","error");
+                        }).DataTable();             
+
+                                       
+            // DataTable initialization with Server-Processing ::END
+
 
         
         /*If multiple posting details added :: STARTS*/
@@ -867,16 +942,14 @@
             operation="";
             operated="";
             request_type="POST";
-            if(type=="add"){
-                formData["_method"]="POST";
+            if(type=="add"){                
                 ajax_url="jo_entry";       
 
                 operation="add";
                 operated="Added";
             }
-            else if(type=="update"){
-                formData["_method"]="PUT";            
-                ajax_url="jo_entry/"+formdata.registration_no;
+            else if(type=="update"){                          
+                //ajax_url="jo_entry/"+formdata.registration_no;
 
                 operation="update";
                 operated="Updated";
@@ -913,7 +986,6 @@
                     date_of_joining:$("#doj").val(),
                     date_of_confirmation:$("#doc").val(),
                     date_of_retirement:$("#dor").val(),
-                    file:$("#file_input").prop('files')[0],
                     qualification_id:qualification_id,
                     passing_year:passing_year,
                     subdivision_id:subdivision_id,
@@ -930,22 +1002,20 @@
                 },
                 success: function (data, textStatus, jqXHR) {
                     if(data.judicial_officer!=null){
-                        
+
                         // image upload :: START
                         $.ajax({
                             url:"<?php echo e(route('jo_image_upload')); ?>",
                             method:"POST",
-                            data: new FormData($("#form_image")),
+                            data: new FormData($("#form_image")[0]),
                             dataType:'JSON',
                             contentType: false,
                             cache: false,
                             processData: false,
                             success: function(data, textStatus, jqXHR){
-                                if(data.jo_image!=null){
-                                    swal("Judicial Officer"+operated+" Successfully","","success");
-                                    $("form").trigger("reset");   
-                                    $(".select2").val('').trigger('change');
-                                }
+                                swal("Judicial Officer"+operated+" Successfully","","success");
+                                $("form").trigger("reset");   
+                                $(".select2").val('').trigger('change');
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
                                 if(jqXHR.status!=422 && jqXHR.status!=400){

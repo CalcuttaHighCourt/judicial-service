@@ -6,23 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class JudicialOfficer extends Model
 {
-    protected $fillable = [
-        'registration_no','jo_code', 'officer_name', 
-        'gender','court_id',
-        'guardian_name','date_of_birth',
-        'home_state_id','home_district_id',
-        'hometown','present_address',
-        'permanent_address','religion_id',
-        'category_id','blood_group',
-        'identification_mark','gurdian_relation','aadhaar_no',
-        'pan_no','gpf_no',
-        'mobile_no_1','mobile_no_2',
-        'email_id_1','email_id_2',
-        'recruitment_batch_id',
-        'date_of_joining','date_of_confirmation',
-        'date_of_retirement'
-    ];
-
+    
     public $timestamps = true;
     
     /**

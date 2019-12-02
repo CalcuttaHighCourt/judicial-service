@@ -33,7 +33,7 @@ class CreateUpdateDeleteProcedure extends Migration
                 BEGIN
                     insert into history_updated_data(table_name,updated_data,updated_time)
                     values(TG_TABLE_NAME,row_to_json(OLD),now());
-                    return OLD;
+                    return NEW;
                 END;
             $BODY$
                 LANGUAGE plpgsql VOLATILE
