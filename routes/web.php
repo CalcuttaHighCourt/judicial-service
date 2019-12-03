@@ -106,7 +106,15 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	
 
+<<<<<<< HEAD
 	
+=======
+	Route::post('jo_entry/fetch_jo_details_pdf', 'JoDetailsPdfController@fetch_jo_details_pdf')->name('fetch_jo_details_pdf');
+
+	Route::get ('jo_entry_form', function () {
+		return view ('jo_entry_form.index');
+	});
+>>>>>>> jo pdf
 
 	
 

@@ -360,13 +360,14 @@ class JoEntryFormController extends Controller
     }
 
     public function show_all_jo(Request $request){
-        $columns = array( 
+        $columns = array(             
             0 =>'registration_no', 
             1 =>'jo_code',
             2 =>'officer_name',
             3 =>'date_of_birth',
             4 =>'date_of_retirement',
             5 =>'action',
+            6 => 'more_details',
         );
 
         $totalData = JudicialOfficer::count();
@@ -404,12 +405,17 @@ class JoEntryFormController extends Controller
 
         if($judicial_officers){
             foreach($judicial_officers as $judicial_officer){
+                $nestedData['more_details'] = '<img src="images/details_open.png" style="cursor:pointer" class="more_details" alt="More Details">';
                 $nestedData['registration_no'] = $judicial_officer->registration_no;
                 $nestedData['jo_code'] = $judicial_officer->jo_code;
                 $nestedData['officer_name'] = $judicial_officer->officer_name;
                 $nestedData['date_of_birth'] = Carbon::parse($judicial_officer->date_of_birth)->format('d-m-Y');
                 $nestedData['date_of_retirement'] = Carbon::parse($judicial_officer->date_of_retirement)->format('d-m-Y');
+<<<<<<< HEAD
                 $nestedData['action'] = "<i class='fa fa-eye view' aria-hidden='true'></i><br/><i class='fa fa-pencil edit' aria-hidden='true'></i>";
+=======
+                $nestedData['action'] = "<i class='fa fa-pencil edit' aria-hidden='true'></i>";
+>>>>>>> jo pdf
 
                 $data[] = $nestedData;
             }
