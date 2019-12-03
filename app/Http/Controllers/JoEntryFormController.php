@@ -411,11 +411,7 @@ class JoEntryFormController extends Controller
                 $nestedData['officer_name'] = $judicial_officer->officer_name;
                 $nestedData['date_of_birth'] = Carbon::parse($judicial_officer->date_of_birth)->format('d-m-Y');
                 $nestedData['date_of_retirement'] = Carbon::parse($judicial_officer->date_of_retirement)->format('d-m-Y');
-<<<<<<< HEAD
-                $nestedData['action'] = "<i class='fa fa-eye view' aria-hidden='true'></i><br/><i class='fa fa-pencil edit' aria-hidden='true'></i>";
-=======
                 $nestedData['action'] = "<i class='fa fa-pencil edit' aria-hidden='true'></i>";
->>>>>>> jo pdf
 
                 $data[] = $nestedData;
             }

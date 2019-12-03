@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb8c0778f4ece5c527ae3dff07a9d028a
+class ComposerStaticInit07af5e08e846a4b79226eba5db9aa7c4
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -428,13 +428,13 @@ class ComposerStaticInitb8c0778f4ece5c527ae3dff07a9d028a
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
-        'App\\Http\\Controllers\\CasteController' => __DIR__ . '/../..' . '/app/Http/Controllers/CasteController.php',
+        'App\\Http\\Controllers\\CategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/CategoryController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
-        'App\\Http\\Controllers\\CourtComplexController' => __DIR__ . '/../..' . '/app/Http/Controllers/CourtComplexController.php',
         'App\\Http\\Controllers\\CourtController' => __DIR__ . '/../..' . '/app/Http/Controllers/CourtController.php',
         'App\\Http\\Controllers\\DesignationController' => __DIR__ . '/../..' . '/app/Http/Controllers/DesignationController.php',
         'App\\Http\\Controllers\\DistrictController' => __DIR__ . '/../..' . '/app/Http/Controllers/DistrictController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\JoDetailsPdfController' => __DIR__ . '/../..' . '/app/Http/Controllers/JoDetailsPdfController.php',
         'App\\Http\\Controllers\\JoEntryFormController' => __DIR__ . '/../..' . '/app/Http/Controllers/JoEntryFormController.php',
         'App\\Http\\Controllers\\JoReportingReviewingController' => __DIR__ . '/../..' . '/app/Http/Controllers/JoReportingReviewingController.php',
         'App\\Http\\Controllers\\JudicialOfficerController' => __DIR__ . '/../..' . '/app/Http/Controllers/JudicialOfficerController.php',
@@ -4504,10 +4504,10 @@ class ComposerStaticInitb8c0778f4ece5c527ae3dff07a9d028a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb8c0778f4ece5c527ae3dff07a9d028a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb8c0778f4ece5c527ae3dff07a9d028a::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitb8c0778f4ece5c527ae3dff07a9d028a::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitb8c0778f4ece5c527ae3dff07a9d028a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit07af5e08e846a4b79226eba5db9aa7c4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit07af5e08e846a4b79226eba5db9aa7c4::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit07af5e08e846a4b79226eba5db9aa7c4::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit07af5e08e846a4b79226eba5db9aa7c4::$classMap;
 
         }, null, ClassLoader::class);
     }
