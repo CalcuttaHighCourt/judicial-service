@@ -3,12 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-<<<<<<< HEAD
-
-class JoDetailsPdfController extends Controller
-{
-    //
-=======
 use App\Http\Controllers\Controller;
 use App\JudicialOfficer;
 use App\JudicialOfficerQualification;
@@ -305,5 +299,4 @@ class JoDetailsPdfController extends Controller
 
         return asset('jo_documents/'.$jo_details['0']->registration_no.'/'.$jo_details['0']->registration_no."_jo_details.pdf");
     }
->>>>>>> jo pdf
 }
