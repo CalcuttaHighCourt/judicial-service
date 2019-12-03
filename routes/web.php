@@ -104,7 +104,7 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 
 
-	/*Jo Entry Details */
+	
 
 	
 
@@ -315,18 +315,22 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 		Route::Post('acr_fetch/search', 'ACRController@fetch_acr_history' );
 
-		/*jo entry*/
-
-		Route::resource('jo_entry', 'JoEntryFormController')->except(['create', 'edit']);
-
-		Route::post('jo_entry/upload_image', 'JoEntryFormController@jo_upload_image')->name('jo_image_upload');
-
-		Route::post('jo_entry/show_all_jo', 'JoEntryFormController@show_all_jo')->name('list_of_jo');
-
-		Route::get ('jo_entry_form', function () {
-			return view ('jo_entry_form.index');
-
 	});
+
+	Route::group(['middleware' => ['auth','role_manager:Inspection|Administrator|Appointment']],function (){
+
+	/*jo entry*/
+
+	Route::resource('jo_entry', 'JoEntryFormController')->except(['create', 'edit']);
+
+	Route::post('jo_entry/upload_image', 'JoEntryFormController@jo_upload_image')->name('jo_image_upload');
+
+	Route::post('jo_entry/show_all_jo', 'JoEntryFormController@show_all_jo')->name('list_of_jo');
+
+	Route::get ('jo_entry_form', function () {
+		return view ('jo_entry_form.index');
+
+		});
 
 	});
 

@@ -175,7 +175,7 @@
             
             @endif
 
-             @if(Auth::check() && Auth::user()->user_type->type_name=="Inspection")
+            @if(Auth::check() && Auth::user()->user_type->type_name=="Inspection")
 
             <li>
                 <a href="#masterSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-edit"></i>Master Maintenance</a>
@@ -187,27 +187,152 @@
                             ACR Grade Master
                         </a>
                      </li>
-                     
+                     <li class="nav-item">
+                        <a class="nav-link" href="{{url('court')}}">
+                            <span data-feather="home"></span>
+                            <i class="fa fa-gavel" aria-hidden="true"></i>
+                            Court Master
+                        </a>
+                    </li>
+                   
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('subdivision')}}">
+                            <span data-feather="file"></span>
+                            
+                            <i class="fa fa-crosshairs" aria-hidden="true"></i>
+                            Subdivision Master
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('district')}}">
+                        <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                            District Master 
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('zone')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                            Zone Master
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('state')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            State Master 
+                        </a>
+                    </li> 
                 </ul>
+            </li>
+            <li>
+                <a href="#mainmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-address-book"></i>Judicial Officer</a>
+                <ul class="collapse list-unstyled" id="mainmenu">
+                    <li class="nav-item">           
+                        <a class="nav-link" href="{{url('jo_entry_form')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-briefcase"></i>
+                            Profile Details Entry
+                        </a>
+                    </li>
+                    <li class="nav-item">           
+                        <a class="nav-link" href="#">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-briefcase"></i>
+                            Documents Entry
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
-                 <li class="nav-item">
-                <a class="nav-link" href="{{url('acr_history')}}">
-                    <span data-feather="file"></span>
-                    <i class="fa fa-square" aria-hidden="true"></i>
-                    ACR History
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{url('acr_fetch')}}">
-                    <span data-feather="file"></span>
-                    <i class="fa fa-crosshairs" aria-hidden="true"></i>
-                    ACR Fetch
-                </a>
-            </li>
+            <li>
+                <a href="#acrmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-snowflake-o"></i>ACR</a>
+                <ul class="collapse list-unstyled" id="acrmenu">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('acr_history')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-square" aria-hidden="true"></i>
+                            ACR History
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('acr_fetch')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-crosshairs" aria-hidden="true"></i>
+                            ACR Fetch
+                        </a>
+                    </li>
+                </ul>
+           </li>
 
             @endif
 
-            
+            @if(Auth::check() && Auth::user()->user_type->type_name=="Appointment")
+
+             <li>
+                <a href="#appointmentmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-edit"></i>Master Maintenance</a>
+                <ul class="collapse list-unstyled" id="appointmentmenu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('court')}}">
+                            <span data-feather="home"></span>
+                            <i class="fa fa-gavel" aria-hidden="true"></i>
+                            Court Master
+                        </a>
+                    </li>
+                   
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('subdivision')}}">
+                            <span data-feather="file"></span>
+                            
+                            <i class="fa fa-crosshairs" aria-hidden="true"></i>
+                            Subdivision Master
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('district')}}">
+                        <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                            District Master 
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('zone')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                            Zone Master
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('state')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            State Master 
+                        </a>
+                    </li> 
+                </ul>
+            </li>
+
+            <li>
+                <a href="#jomenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-address-book"></i>Judicial Officer</a>
+                <ul class="collapse list-unstyled" id="jomenu">
+                    <li class="nav-item">           
+                        <a class="nav-link" href="{{url('jo_entry_form')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-briefcase"></i>
+                            Profile Details Entry
+                        </a>
+                    </li>
+                    <li class="nav-item">           
+                        <a class="nav-link" href="#">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-briefcase"></i>
+                            Documents Entry
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            @endif
 
             @if(Auth::check() && Auth::user()->user_type->type_name=="Department")
             <li>

@@ -52,7 +52,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'user_id' => ['required','alpha_dash','unique:users,user_id'],
-            'name' => ['required|string'],
+            'name' => ['required','string'],
             'usertype' => ['required', 'integer', 'exists:user_types,id'],
             'court' => ['nullable','integer','exists:courts,id'],
             'department' => ['nullable','integer','exists:departments,id'],
@@ -91,6 +91,13 @@ class RegisterController extends Controller
            $data['department']=null;
         }
 
+        else{
+            
+            $data['jo'] =null;
+            $data['court'] =null;
+            $data['department']=null;
+        }
+        
         //dd($data['user_id']) ;exit;
 
         return User::create([

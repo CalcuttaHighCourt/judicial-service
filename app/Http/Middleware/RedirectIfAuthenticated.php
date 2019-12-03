@@ -18,15 +18,14 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     { 
         if(Auth::guard($guard)->check() && Auth::user()->user_type->type_name=="Administrator") {
-        return redirect('dashboard/admin');
-    }
-    if(Auth::guard($guard)->check() && Auth::user()->user_type=='Court') {
-        return redirect('dashboard/court');
-    }
-    if(Auth::guard($guard)->check() && Auth::user()->user_type=='Judicial Officer') {
-        return redirect('dashboard/jo');
-    }
+
+          return redirect('dashboard/admin');
+        }
 
         return $next($request);
+
     }
 }
+        
+   
+
