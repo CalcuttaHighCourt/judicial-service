@@ -5,7 +5,9 @@
 <!--  our CSS -->
 <link href="{{asset('css/style.css')}}" rel="stylesheet">
 <link href="{{asset('css/bootstrap-submenu.min.css')}}" rel="stylesheet">
-<link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="{{asset('css/font-awesome/css/font-awesome.min.css')}}">
+    
 <link rel="stylesheet" href="{{asset('css/scrollsidebar.css')}}">  
 
 <link href="{{asset('css/datatable/dataTables.bootstrap.min.css')}}" rel="stylesheet">

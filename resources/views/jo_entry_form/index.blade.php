@@ -555,7 +555,13 @@
 <!--/row-->
 </div>
 
+<!--iframe for showing JO Details-->
+<br/><br/>
+<div class="col-sm-12 text-center" id="show_jo_details_pdf" style="display:none">
+	<iframe id="iframe_report" src="" style="width:800px; height:400px;"></iframe>
+</div>
 
+<!--Datatable for showing JO Details-->
 <br/><br/>
 <div id="info-panel2" class="panel panel-default">    
     <div id="datatable-panel-heading" class="panel-heading clearfix">
