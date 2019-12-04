@@ -41,7 +41,7 @@ class JoEntryRequest extends FormRequest
             'category_id' => 'nullable|integer|exists:categories,id|max:1000',
             'blood_group' => 'nullable|string|in:A+,A-,B+,B-,AB+,AB-,O+,O-|max:100',
             'identification_mark' => 'nullable|string|regex:/^[\pL\s\-]+$/u|max:100',
-            'aadhaar_no' => 'nullable|integer|min:12|max:12|unique:judicial_officers,aadhaar_no',
+            'aadhaar_no' => 'nullable|string|min:12|max:12|unique:judicial_officers,aadhaar_no',
             'pan_no' => 'nullable|string|alpha_num|min:10|max:10|unique:judicial_officers,pan_no',
             'gpf_no' => 'nullable|string|alpha_num|max:20|unique:judicial_officers,gpf_no',
             'mobile_no_1' => 'required|integer|max:9999999999|unique:judicial_officers,mobile_no_1',
