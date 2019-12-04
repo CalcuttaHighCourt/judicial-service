@@ -754,7 +754,7 @@
                 row.child.hide();
             }
             else {
-                console.log(url);
+               
                 element.attr("src","images/details_close.png");
                 //var src = "{{asset('images/judicial_officers/125/125_1575138600.jpg')}}";
                 var child_string ='<div class="col-sm-12 text-center" id="show_jo_details_pdf">'+

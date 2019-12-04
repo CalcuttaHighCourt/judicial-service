@@ -255,6 +255,7 @@ class JoDetailsPdfController extends Controller
         $jo_postings = JudicialOfficerPosting::join('designations','judicial_officer_postings.designation_id','designations.id')
                                                 ->join('modes','judicial_officer_postings.mode_id','modes.id')
                                                 ->join('courts','judicial_officer_postings.court_id','courts.id')
+                                                ->where('judicial_officer_id',$jo_details['0']->id)
                                                 ->orderBy('from_date','asc')
                                                 ->get();
 

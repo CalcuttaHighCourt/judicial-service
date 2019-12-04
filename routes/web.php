@@ -100,13 +100,6 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	
 
-	Route::post('jo_entry/fetch_jo_details_pdf', 'JoDetailsPdfController@fetch_jo_details_pdf')->name('fetch_jo_details_pdf');
-
-	Route::get ('jo_entry_form', function () {
-		return view ('jo_entry_form.index');
-	});
-
-	
 
 	/*Qualification*/
 
@@ -317,7 +310,7 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 	Route::group(['middleware' => ['auth','role_manager:Inspection|Administrator|Appointment']],function (){
 
-	/*jo entry*/
+		/*jo entry*/
 
 		Route::resource('jo_entry', 'JoEntryFormController')->except(['create', 'edit']);
 
@@ -325,17 +318,16 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 		Route::post('jo_entry/show_all_jo', 'JoEntryFormController@show_all_jo')->name('list_of_jo');
 
-	Route::post('jo_posting/search', 'JudicialOfficerPostingController@jo_current_posting_details');
+		Route::post('jo_posting/search', 'JudicialOfficerPostingController@jo_current_posting_details');
 
-	Route::post('jo_entry/fetch_district','JoEntryFormController@fetch_district')->name('fetch_district');
+		Route::post('jo_entry/fetch_district','JoEntryFormController@fetch_district')->name('fetch_district');
 
-	Route::post('jo_entry/fetch_court','JoEntryFormController@fetch_court')->name('fetch_court');
+		Route::post('jo_entry/fetch_court','JoEntryFormController@fetch_court')->name('fetch_court');
 
+		Route::post('jo_entry/fetch_jo_details_pdf', 'JoDetailsPdfController@fetch_jo_details_pdf')->name('fetch_jo_details_pdf');
 
-
-	Route::get ('jo_entry_form', function () {
-		return view ('jo_entry_form.index');
-
+		Route::get ('jo_entry_form', function () {
+			return view ('jo_entry_form.index');
 		});
 
 	});
