@@ -1017,7 +1017,7 @@
                     jo_code:$("#jo_code").val(),
                     registration_no:$("#reg_no").val(),
                     officer_name:$("#jo_name").val(),
-                    gender:$("input[name='gender']").val(),
+                    gender:$("input[name='gender']:checked").val(),
                     guardian_name:$("#guardian_name").val(),
                     gurdian_relation:$("#guardian_relationship").val(),
                     date_of_birth:$("#dob").val(),

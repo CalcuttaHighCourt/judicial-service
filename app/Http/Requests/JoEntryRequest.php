@@ -41,13 +41,13 @@ class JoEntryRequest extends FormRequest
             'category_id' => 'nullable|integer|exists:categories,id|max:1000',
             'blood_group' => 'nullable|string|in:A+,A-,B+,B-,AB+,AB-,O+,O-|max:100',
             'identification_mark' => 'nullable|string|regex:/^[\pL\s\-]+$/u|max:100',
-            'aadhar_no' => 'nullable|integer|min:12|max:12',
-            'pan_no' => 'nullable|string|alpha_num|min:10|max:10',
-            'pf_no' => 'nullable|string|alpha_num|max:20',
+            'aadhaar_no' => 'nullable|integer|min:12|max:12|unique:judicial_officers,aadhaar_no',
+            'pan_no' => 'nullable|string|alpha_num|min:10|max:10|unique:judicial_officers,pan_no',
+            'gpf_no' => 'nullable|string|alpha_num|max:20|unique:judicial_officers,gpf_no',
             'mobile_no_1' => 'required|integer|max:9999999999|unique:judicial_officers,mobile_no_1',
-            'mobile_no_2' => 'nullable|integer|max:9999999999',
+            'mobile_no_2' => 'nullable|integer|max:9999999999|unique:judicial_officers,mobile_no_2',
             'email_id_1' => 'required|email:rfc,dns|max:100|unique:judicial_officers,email_id_1',
-            'email_id_2' => 'nullable|email:rfc,dns|max:100',
+            'email_id_2' => 'nullable|email:rfc,dns|max:100|unique:judicial_officers,email_id_2',
             'recruitment_batch_id' => 'required|integer|exists:recruitment_batches,id|max:10000',
             'date_of_joining' => 'required|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),
             'date_of_confirmation' => 'required|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),
@@ -73,8 +73,7 @@ class JoEntryRequest extends FormRequest
             'from_date' => 'array',
             'from_date.*' => 'required_with:court_id.*,mode_id.*,designation_id.*,to_date.*|nullable|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),
             'to_date' => 'array',
-            'to_date.*' => 'nullable|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),          
-            //'file' => 'sometimes|mimes:jpeg,jpg,bmp,png|max:2048', 
+            'to_date.*' => 'nullable|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),                     
             
         ];
             
