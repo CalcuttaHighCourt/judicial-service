@@ -157,22 +157,26 @@ class JoDetailsPdfController extends Controller
                         <td align=left><h3>PAN No: ".$pan_no."</h3></td>
                     </tr>
                     <tr>
-                        <td style=\"padding-top: 1%;\"><h3>Guardian's Name: ".$jo_details['0']->guardian_name." ( ".$jo_details['0']->gurdian_relation." )</h3></td>
+                        <td style=\"padding-top: 1%;\"><h3>Guardian's Name: ".$jo_details['0']->guardian_name." <br/>( ".$jo_details['0']->gurdian_relation." )</h3></td>
 
                         <td align=left><h3>Blood Group: ".$blood_group."</h3></td>
 
                         <td align=left><h3>GPF A/C No: ".$gpf_no."</h3></td>
-                    </tr>
+                    </tr>                     
+                </table>
+                
+                <table width=\"100%\">
                     <tr>                            
                         <td align=left style=\"padding-top: 7%;\"><h2>Qualification Details</h2></td>
                     </tr>
                     <tr>
                         <td colspan='6'><hr/></td>
-                    </tr>               
+                    </tr>
                 ";
       
         $jo_qualifications = JudicialOfficerQualification::join('qualifications','judicial_officer_qualifications.qualification_id','qualifications.id')                    
                                                         ->where('judicial_officer_id',$jo_details['0']->id)
+                                                        ->orderBy('passing_year','asc')
                                                         ->get();
 
         if(sizeof($jo_qualifications)>0){
@@ -193,15 +197,19 @@ class JoDetailsPdfController extends Controller
                     </tr>";
         }
 
-       $content.="<tr>                            
-                    <td align=left style=\"padding-top: 7%;\"><h2>Place of Practice</h2></td>
-                </tr>
-                <tr>
-                    <td colspan='6'><hr/></td>
-                </tr>";
+       $content.="</table>
+                
+                <table width=\"100%\">
+                    <tr>                            
+                        <td align=left style=\"padding-top: 7%;\"><h2>Place of Practice</h2></td>
+                    </tr>
+                    <tr>
+                        <td colspan='6'><hr/></td>
+                    </tr>";
 
                 $jo_legal_practices = JoLegalExperience::join('subdivisions','jo_legal_experiences.subdivision_id','subdivisions.id')                    
                                                         ->where('judicial_officer_id',$jo_details['0']->id)
+                                                        ->orderBy('from_year','asc')
                                                         ->get();
 
                 if(sizeof($jo_legal_practices)>0){
@@ -257,22 +265,22 @@ class JoDetailsPdfController extends Controller
                 $to_date = Carbon::parse($jo_posting->to_date)->format('d-m-Y');
 
             $content.="<tr>
-                        <td align=\"center\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
+                        <td align=\"left\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
                             ++$key.  
                         "</td>
-                        <td align=\"center\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
+                        <td align=\"left\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
                             $jo_posting->designation_name.  
                         "</td>
-                        <td align=\"center\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
+                        <td align=\"left\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
                             $jo_posting->posting_mode.  
                         "</td>
-                        <td align=\"center\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
+                        <td align=\"left\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
                             $jo_posting->court_name.  
                         "</td>
-                        <td align=\"center\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
+                        <td align=\"left\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
                             Carbon::parse($jo_posting->from_date)->format('d-m-Y').  
                         "</td>
-                        <td align=\"center\" style=\"font-size: 1.17em; border-collapse:collapse; border-top: 4px solid #ddd;\">".
+                        <td align=\"left\" style=\"font-size: 1.17em; border-collapse:collapse; border-top: 4px solid #ddd;\">".
                             $to_date. 
                         "</td>
                     </tr>";

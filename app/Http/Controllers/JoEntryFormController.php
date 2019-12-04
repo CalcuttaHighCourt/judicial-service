@@ -155,7 +155,7 @@ class JoEntryFormController extends Controller
                         $jo_posting->mode_id = $request->mode_id[$i];
                         $jo_posting->from_date = Carbon::parse($request->from_date[$i])->format('Y-m-d');
 
-                        if(!empty($jo_posting->to_date))
+                        if(!empty($request->to_date[$i]))
                             $jo_posting->to_date = Carbon::parse($request->to_date[$i])->format('Y-m-d');                        
                         else
                             $jo_posting->to_date = null;
@@ -171,7 +171,7 @@ class JoEntryFormController extends Controller
                             $jo_reporting->posting_id = $posting_id;
                             $jo_reporting->reporting_officer_id = $request->reporting_officer_id[$i];
 
-                            $reporting_details[$i] = $jo_reporting->save();
+                            $reporting_details = $jo_reporting->save();
                         }
                         else{
                             $reporting_details = null;
