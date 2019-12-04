@@ -58,7 +58,7 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	/*User type*/
 
-	Route::get ( 'User_types-Datatable-Server-Side', 'UserTypeController@index_for_datatable' );
+	Route::get ('User_types-Datatable-Server-Side', 'UserTypeController@index_for_datatable' );
 
 	Route::resource('usertypes', 'UserTypeController')->except(['create', 'edit']);
 
@@ -100,7 +100,11 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	
 
-	
+	Route::post('jo_entry/fetch_jo_details_pdf', 'JoDetailsPdfController@fetch_jo_details_pdf')->name('fetch_jo_details_pdf');
+
+	Route::get ('jo_entry_form', function () {
+		return view ('jo_entry_form.index');
+	});
 
 	
 
@@ -315,11 +319,11 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 	/*jo entry*/
 
-	Route::resource('jo_entry', 'JoEntryFormController')->except(['create', 'edit']);
+		Route::resource('jo_entry', 'JoEntryFormController')->except(['create', 'edit']);
 
-	Route::post('jo_entry/upload_image', 'JoEntryFormController@jo_upload_image')->name('jo_image_upload');
+		Route::post('jo_entry/upload_image', 'JoEntryFormController@jo_upload_image')->name('jo_image_upload');
 
-	Route::post('jo_entry/show_all_jo', 'JoEntryFormController@show_all_jo')->name('list_of_jo');
+		Route::post('jo_entry/show_all_jo', 'JoEntryFormController@show_all_jo')->name('list_of_jo');
 
 	Route::post('jo_posting/search', 'JudicialOfficerPostingController@jo_current_posting_details');
 

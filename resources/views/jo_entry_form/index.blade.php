@@ -579,7 +579,8 @@
                 id="datatable-table" style="width: 100%;">
                 <!-- Table Headings -->
                 <thead>
-                    <tr>                        
+                    <tr>        
+                        <th></th>                
                         <th>Reg. No</th>
                         <th>JO Code</th>
                         <th>JO Name</th>
@@ -695,7 +696,8 @@
                                         _token: $('meta[name="csrf-token"]').attr('content')
                                     },                                    
                             },
-                            "columns": [                
+                            "columns": [   
+                                {"data": "more_details"},             
                                 {"data": "registration_no"},
                                 {"data": "jo_code"},
                                 {"data": "officer_name"},
@@ -715,7 +717,54 @@
                                        
             // DataTable initialization with Server-Processing ::END
 
+        // For JO Details PDF :: START
+        $(document).on("click",".more_details",function(){  
+          var element = $(this);        
+          var tr = element.closest('tr');
+          var row = table.row(tr);
+          var row_data = table.row(tr).data();
 
+          var registration_no = row_data['registration_no'];        
+        
+          var obj;    
+
+          // fetch JO details only when the child row is hide
+            if(!row.child.isShown()){ 
+
+                    $.ajax({
+                        type:"POST",
+                        url:"{{route('fetch_jo_details_pdf')}}",
+                        data:{
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            registration_no:registration_no
+                        },
+                        success:function(response){
+                            //obj = $.parseJSON(response);             
+                            url=response; 
+                        },
+                        error:function(response){
+                            console.log(response);
+                        },
+                        async: false
+                    }) 
+            }
+
+            if(row.child.isShown() ) {
+                element.attr("src","images/details_open.png");
+                row.child.hide();
+            }
+            else {
+                console.log(url);
+                element.attr("src","images/details_close.png");
+                //var src = "{{asset('images/judicial_officers/125/125_1575138600.jpg')}}";
+                var child_string ='<div class="col-sm-12 text-center" id="show_jo_details_pdf">'+
+	                                    '<iframe id="iframe_jo_details_pdf" src='+url+' style="width:800px; height:400px;"></iframe>'+
+                                  '</div>';  
+
+                row.child(child_string).show();
+            }       
+        })
+        // For JO Details PDF :: END
         
         /*If multiple posting details added :: STARTS*/
 		$(document).on("click","#add_more_posting", function(){
