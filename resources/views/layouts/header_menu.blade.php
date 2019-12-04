@@ -170,7 +170,7 @@
                 </a>
             </li>
 
-              <li><a href="{{route('profile')}}"><i class="fa fa-btn fa-sign-out"></i>Profile</a></li>
+            <!--  <li><a href="{{route('profile')}}"><i class="fa fa-btn fa-sign-out"></i>Profile</a></li>-->
 
             
             @endif
@@ -436,7 +436,7 @@
 
                         <ul class="dropdown-menu" role="menu">
 
-                            <li><a href="{{route('profile')}}"><i class="fa fa-btn fa-sign-out"></i>Profile</a></li>
+                            <!-- <li><a href="{{route('profile')}}"><i class="fa fa-btn fa-sign-out"></i>Profile</a></li>-->
                             
                             <li><a href="#" onclick="$('#logout_form').submit();"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                         </ul>

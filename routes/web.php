@@ -82,13 +82,7 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 		return view ( 'jo_postings.index' );
 	} );
 
-	Route::post('jo_posting/search', 'JudicialOfficerPostingController@jo_current_posting_details');
-
-	Route::post('jo_entry/fetch_district','JoEntryFormController@fetch_district')->name('fetch_district');
-
-	Route::post('jo_entry/fetch_court','JoEntryFormController@fetch_court')->name('fetch_court');
-
-
+	
 
 	
 	/*Judicial Officer */
@@ -326,6 +320,14 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 	Route::post('jo_entry/upload_image', 'JoEntryFormController@jo_upload_image')->name('jo_image_upload');
 
 	Route::post('jo_entry/show_all_jo', 'JoEntryFormController@show_all_jo')->name('list_of_jo');
+
+	Route::post('jo_posting/search', 'JudicialOfficerPostingController@jo_current_posting_details');
+
+	Route::post('jo_entry/fetch_district','JoEntryFormController@fetch_district')->name('fetch_district');
+
+	Route::post('jo_entry/fetch_court','JoEntryFormController@fetch_court')->name('fetch_court');
+
+
 
 	Route::get ('jo_entry_form', function () {
 		return view ('jo_entry_form.index');
