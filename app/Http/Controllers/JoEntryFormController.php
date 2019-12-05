@@ -262,7 +262,7 @@ class JoEntryFormController extends Controller
     // profile image upload
     public function jo_upload_image(Request $request){
         $this->validate( $request, [ 
-            'profile_image' => 'file|mimes:jpeg,png,jpg,gif|max:3000'
+            'profile_image' => 'file|mimes:jpeg,png,jpg,gif|max:50'
         ]);
         
         $jo_details = JudicialOfficer::orderBy('id','desc')->get();
@@ -360,14 +360,15 @@ class JoEntryFormController extends Controller
     }
 
     public function show_all_jo(Request $request){
-        $columns = array(             
-            0 =>'registration_no', 
-            1 =>'jo_code',
-            2 =>'officer_name',
-            3 =>'date_of_birth',
-            4 =>'date_of_retirement',
-            5 =>'action',
-            6 => 'more_details',
+        $columns = array(   
+            0 => 'more_details',          
+            1 =>'registration_no', 
+            2 =>'jo_code',
+            3 =>'officer_name',
+            4 =>'date_of_birth',
+            5 =>'date_of_retirement',
+            6 =>'action',
+            
         );
 
         $totalData = JudicialOfficer::count();
