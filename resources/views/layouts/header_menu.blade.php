@@ -76,7 +76,13 @@
                             Designation Master
                         </a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('departments')}}">
+                            <span data-feather="home"></span>
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            Department for LCR 
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('mode')}}">

@@ -64,6 +64,7 @@ return array(
     'App\\JudicialOfficerPosting' => $baseDir . '/app/JudicialOfficerPosting.php',
     'App\\JudicialOfficerPostingPreference' => $baseDir . '/app/JudicialOfficerPostingPreference.php',
     'App\\JudicialOfficerQualification' => $baseDir . '/app/JudicialOfficerQualification.php',
+    'App\\LcrDepartment' => $baseDir . '/app/LcrDepartment.php',
     'App\\Lcr_hc_end' => $baseDir . '/app/lcr_hc_end.php',
     'App\\Lcr_lc_detail' => $baseDir . '/app/lcr_lc_detail.php',
     'App\\Lower_case_type' => $baseDir . '/app/lower_case_type.php',

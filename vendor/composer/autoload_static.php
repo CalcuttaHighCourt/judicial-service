@@ -469,6 +469,7 @@ class ComposerStaticInit07af5e08e846a4b79226eba5db9aa7c4
         'App\\JudicialOfficerPosting' => __DIR__ . '/../..' . '/app/JudicialOfficerPosting.php',
         'App\\JudicialOfficerPostingPreference' => __DIR__ . '/../..' . '/app/JudicialOfficerPostingPreference.php',
         'App\\JudicialOfficerQualification' => __DIR__ . '/../..' . '/app/JudicialOfficerQualification.php',
+        'App\\LcrDepartment' => __DIR__ . '/../..' . '/app/LcrDepartment.php',
         'App\\Lcr_hc_end' => __DIR__ . '/../..' . '/app/lcr_hc_end.php',
         'App\\Lcr_lc_detail' => __DIR__ . '/../..' . '/app/lcr_lc_detail.php',
         'App\\Lower_case_type' => __DIR__ . '/../..' . '/app/lower_case_type.php',

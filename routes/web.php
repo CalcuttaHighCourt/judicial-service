@@ -173,6 +173,12 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 		return view ( 'modes.index' );
 	} );
 
+	/*Lcr Department */
+
+	Route::resource('departments', 'LcrDepartmentController')->except(['create', 'edit']);
+
+	Route::get ( 'Department-Datatable-Server-Side', 'LcrDepartmentController@index_for_datatable' );
+
 
 	/*Category */
 
