@@ -310,7 +310,9 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 			return view ( 'acr.acr_fetch' );
 		} );
 
-		Route::Post('acr_fetch/search', 'ACRController@fetch_acr_history' );
+		Route::Post('acr_fetch/search', 'ACRController@fetch_acr_history');
+
+		Route::resource('document_types', 'DocumentTypeController')->except(['create', 'edit']);
 
 	});
 
