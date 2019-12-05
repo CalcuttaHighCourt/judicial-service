@@ -22,7 +22,7 @@
             <li class="active"><a data-toggle="tab" class="my-tab-navigation" href="#basic_details"> Basic Details </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#contact_details"> Contact Details </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#qualification_details"> Qualification Detals </a></li>
-            <li><a data-toggle="tab" class="my-tab-navigation" href="#legal_practice_details"> Legal Practice Detals </a></li>
+            <li><a data-toggle="tab" class="my-tab-navigation" href="#legal_practice_details"> Practice Detals </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#posting_details"> Posting Details </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#upload_photo"> Upload Photo </a></li>
          </ul>
@@ -530,7 +530,7 @@
                     <div class="text-center">  
                         <img src="{{asset('images/FacelessMan.png')}}" class="avatar img-circle img-thumbnail" alt="avatar" style="height:30%;width:20%">
                         <h6>Upload Photo...</h6>
-                        <input type="file" id="profile_image" name="profile_image" class="text-center center-block file-upload">                                      
+                        <input type="file" id="profile_image" name="profile_image" class="text-center center-block file-upload" accept="image/png, image/jpg, image/jpeg, image/gif">                                      
                     </div>
                 </form>
              </div>
@@ -688,6 +688,7 @@
         var table = $("#datatable-table").DataTable({  
                             "processing": true,
                             "serverSide": true,
+                            "order": [[1, 'asc']],
                             "ajax":{
                                     "url": "{{route('list_of_jo')}}",
                                     "dataType": "json",
@@ -697,13 +698,15 @@
                                     },                                    
                             },
                             "columns": [   
-                                {"data": "more_details"},             
+                                {"data": "more_details",
+                                "orderable": "false"},             
                                 {"data": "registration_no"},
                                 {"data": "jo_code"},
                                 {"data": "officer_name"},
                                 {"data": "date_of_birth"},
                                 {"data": "date_of_retirement"},
-                                {"data": "action"}
+                                {"data": "action",
+                                "orderable": "false"}
                             ]
                         }); 
 
@@ -920,6 +923,24 @@
         /*Current Address is Same As Permanenet Address :: ENDS*/
 
         function ajax_data(type){
+            //Profile Image Validation
+            if($("#profile_image").val()==""){
+                swal("Select Profile Image","","error");
+                return false;
+            }
+
+            var ext = $('#profile_image').val().split('.').pop().toLowerCase();
+
+            if ($.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
+                swal("Unsupported Image Type","Use gif / png / jpg / jpeg","error");
+                return false;
+            }
+
+            var picsize = ($("#profile_image")[0].files[0].size);
+            if (picsize > 51200){
+                swal("Oversized Image","Image should be less than 50KB","error");
+                return false;
+            }
             var designation_id = new Array();
             var court_id = new Array();
             var zone_id = new Array();
