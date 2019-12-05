@@ -60,8 +60,8 @@ class LcrController extends Controller
 		
 		$district=$request->input('district');
 		$subdivision=$request->input('subdivision');
-		//$court=$request->input('court');//this should be open 
-		$court=Auth::user()->court_id;//for the timing till the login id is not created for all users after that the above line will be in use
+		$court=$request->input('court');//this should be open 
+		//$court=Auth::user()->court_id;//for the timing till the login id is not created for all users after that the above line will be in use
 		$hc_case_type=$request->input('hc_case_type');
 		$hc_case_no=$request->input('hc_case_no');
 		$hc_case_year=$request->input('hc_case_year');

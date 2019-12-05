@@ -54,15 +54,6 @@
                             State Master 
                         </a>
                     </li>
-                   
-                    <li class="nav-item">           
-                        <a class="nav-link" href="<?php echo e(url('jo_entry_form')); ?>">
-                            <span data-feather="file"></span>
-                            <i class="fa fa-briefcase"></i>
-                            JO Related Entry
-                         </a>
-                    </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo e(url('jo_postings')); ?>">
                              <span data-feather="file"></span>
@@ -144,6 +135,26 @@
                             <span data-feather="file"></span>
                             <i class="fa fa-crosshairs" aria-hidden="true"></i>
                             ACR Grade Master
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#adminjomenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-address-book"></i>Judicial Officer</a>
+                <ul class="collapse list-unstyled" id="adminjomenu">
+                    <li class="nav-item">           
+                        <a class="nav-link" href="<?php echo e(url('jo_entry_form')); ?>">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-briefcase"></i>
+                            Profile Details Entry
+                        </a>
+                    </li>
+                    <li class="nav-item">           
+                        <a class="nav-link" href="#">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-briefcase"></i>
+                            Documents Entry
                         </a>
                     </li>
                 </ul>
