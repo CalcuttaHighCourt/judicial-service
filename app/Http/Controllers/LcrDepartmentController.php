@@ -83,58 +83,58 @@ class LcrDepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function index_for_datatable($id)
+    public function index_for_datatable(Request $request)
     {
-        $response = [ ];
-		$statusCode = 200;
-		$departments = array ();
-		
-		try {
-			$draw=1;
-			$records_total=0;
-			
-            $departments = LcrDepartment::all();
-            $records_total=$departments->count();
-            
-			$draw=$request->draw;
-			$offset=$request->start;
-			$length=$request->length;
-			$search=$request->search["value"];
-			
-			$order=$request->order;
-			
-			$filtered = LcrDepartment::where('department_name', 'ilike','%'.$search.'%')
-                           ->select('departments.*');
-			
-			$records_filtered_count=$filtered->count();
+        
+        // $columns = array( 
+		// 	0 =>'SL NO', 
+		// 	1 =>'DEPARTMENT NAME',
+		// 	2 =>'ACTION'
+        // );
+        
+        // $totalData = LcrDepartment::count();
+
+        // $totalFiltered = $totalData; 
+        
+        // $limit = $request->input('length');
+		// $start = $request->input('start');
+		// $order = $columns[$request->input('order.0.column')];
+		// $dir = $request->input('order.0.dir');
+
+		// if(empty($request->input('search.value'))){
+        //     $department = LcrDepartment::offset($start)
+		// 				->limit($limit)
+		// 				->orderBy('lcr_department_name',$dir)
+        //                 ->get();
                         
-                        
-			
-			$ordered=$filtered;
-			
-			for($i=0;$i<count($order);$i++){
-				$ordered=$ordered->orderBy($request->columns[$order[$i]['column']]['data'],strtoupper($order[$i]['dir']));				
-			}
-			
-			$page_displayed=$ordered->get()->slice($offset,$length,true)->values();
-			
-			$response = array (
-					"draw" => $draw,
-					"recordsTotal" => $records_total,
-					"recordsFiltered" => $records_filtered_count,
-					"departments" => $page_displayed,
-			);
-		} catch ( \Exception $e ) {
-			$response = array (
-					"draw" => $draw,
-					"recordsTotal" => $records_total,
-					"recordsFiltered" => 0,
-					"departments" => [],					
-			);			
-		} finally{
-			return response ()->json ( $response, $statusCode );
-		}
+        //      $totalFiltered = LcrDepartment::count();
+        // }
+
+        // else{
+		// 	$search = $request->input('search.value');
+        //     $department =LcrDepartment::where('lcr_department_name',$search)
+        //                             ->offset($start)
+		// 							->limit($limit)
+		// 							->orderBy('memo_no',$dir)
+		// 							->get();
+
+									
+
+		// 	$totalFiltered = LcrDepartment::where('lcr_department_name',$search)
+        //                         ->offset($start)
+        //                         ->limit($limit)
+        //                         ->orderBy('memo_no',$dir)
+        //                         ->count();
+        // }
+        
+        // $data = array();
+
+        // $nestedData['SL NO'] = 0;
+        // $nestedData['DEPARTMENT NAME'] = $department;
+
+
     }
+
 
     /**
      * Update the specified resource in storage.

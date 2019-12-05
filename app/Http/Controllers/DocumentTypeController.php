@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\DocumentType;
+use Auth;
 
 class DocumentTypeController extends Controller
 {
@@ -13,7 +15,7 @@ class DocumentTypeController extends Controller
      */
     public function index()
     {
-        //
+        return view('document_types.index');
     }
 
     /**
@@ -34,7 +36,33 @@ class DocumentTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $response = [
+            'document' => []
+        ];
+        $statusCode = 200;
+        $document = null;
+
+        $this->validate($request, [
+            'type_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u'),
+            
+        ]);
+
+
+        try {
+                       
+            $department = DocumentType::create($request->all());
+            $response = array(
+                'document' => $document
+            );
+        } catch (\Exception $e) {
+            $response = array(
+                'exception' => true,
+                'exception_message' => $e->getMessage()
+            );
+            $statusCode = 400;
+        } finally {
+            return response()->json($response, $statusCode);
+        }
     }
 
     /**

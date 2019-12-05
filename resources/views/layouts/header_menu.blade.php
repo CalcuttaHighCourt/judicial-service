@@ -156,13 +156,6 @@
                             Profile Details Entry
                         </a>
                     </li>
-                    <li class="nav-item">           
-                        <a class="nav-link" href="#">
-                            <span data-feather="file"></span>
-                            <i class="fa fa-briefcase"></i>
-                            Documents Entry
-                        </a>
-                    </li>
                 </ul>
             </li>
 
@@ -240,13 +233,7 @@
                             State Master 
                         </a>
                     </li> 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('document_types')}}">
-                            <span data-feather="file"></span>
-                            <i class="fa fa-file-text" aria-hidden="true"></i>
-                            Document Type Master
-                        </a>
-                    </li>
+                    
                 </ul>
             </li>
             <li>
@@ -259,11 +246,11 @@
                             Profile Details Entry
                         </a>
                     </li>
-                    <li class="nav-item">           
-                        <a class="nav-link" href="#">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('document_types')}}">
                             <span data-feather="file"></span>
-                            <i class="fa fa-briefcase"></i>
-                            Documents Entry
+                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                            Document Type Master
                         </a>
                     </li>
                 </ul>
@@ -344,13 +331,6 @@
                             <span data-feather="file"></span>
                             <i class="fa fa-briefcase"></i>
                             Profile Details Entry
-                        </a>
-                    </li>
-                    <li class="nav-item">           
-                        <a class="nav-link" href="#">
-                            <span data-feather="file"></span>
-                            <i class="fa fa-briefcase"></i>
-                            Documents Entry
                         </a>
                     </li>
                 </ul>

@@ -1,28 +1,28 @@
 {{--
 <!-- views/departments/index.blade.php -->
 --}}
-@extends('layouts.app') @section('title', 'Department')
-@section('page_heading') Department @endsection
+@extends('layouts.app') @section('title', 'Document Type')
+@section('page_heading') DocumentType @endsection
 @section('center_main_content')
 <!-- Bootstrap Boilerplate... -->
 <div class="col-sm-12">
 	<div id="info-panel" class="panel panel-default">
 		<!-- IIIIIIIIIII -->
-		<div id="info-panel-heading" class="panel-heading">ADD NEW DEPARTMENT FOR LCR</div>
+		<div id="info-panel-heading" class="panel-heading">ADD NEW DOCUMENT TYPE</div>
 		<!-- IIIIIIIIIII -->
-		<div class="panel-body">
+		    <div class="panel-body">
 
 			<!-- New Task Form -->
-			<input type="hidden" id="Department-id">
-				<div id="department_name-group" class="form-group our-form-group">
-					<!-- IIIIIIIIIII -->
-					<label for="department_name" class="col-md-4 control-label">Department</label>
+			    <input type="hidden" id="type_name-id">
+				    <div id="type_name-group" class="form-group our-form-group">
+                        <!-- IIIIIIIIIII -->
+                        <label for="type_name" class="col-sm-2 col-sm-offset-1 control-label">Document Type</label>
 
 					<div class="col-sm-4">
-						<input id="department_name" type="text"
-							class="form-control info-form-control" name="department_name"> <span
-							id="department_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-							<strong id="department_name-strong" class="our-error-message-strong"></strong>
+						<input id="type_name" type="text"
+							class="form-control info-form-control" name="type_name"> <span
+							id="type_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+							<strong id="type_name-strong" class="our-error-message-strong"></strong>
 							<!-- IIIIIIIIIII -->
 						</span>
 					</div>
@@ -41,7 +41,7 @@
 					<div class="col-md-6 col-md-offset-4">
 						<button id="add-button" type="submit"
 							class="btn btn-primary add-button info-form-button">
-							<i class="fa fa-btn fa-plus-circle"></i> Add New Department
+							<i class="fa fa-btn fa-plus-circle"></i> Add New Document Types
 						</button>
 					</div>
 				{{--@foreach($errors->all() as $error) {{$error}}@endforeach--}}
@@ -50,7 +50,7 @@
 
 	<div id="datatable-panel" class="panel panel-default">
 		<div id="datatable-panel-heading" class="panel-heading clearfix">
-			<div class="panel-title pull-left">Department Master</div>
+			<div class="panel-title pull-left">Document Type Master</div>
 			
 			<div class="pull-right">
 				<button id="add-new-button" type="submit" class="btn btn-primary add-new-button">
@@ -68,7 +68,7 @@
 					<thead>
 						<tr>
 							<th></th>
-							<th>Department Name</th>
+							<th>Document Name</th>
 							<th>Action</th>
 						</tr>
 
@@ -98,61 +98,61 @@
 <script type="text/javascript">
 var table="";
 $(function() {
-	table = $('#datatable-table').DataTable({
-		"processing": true,
-		"serverSide": true,
-		"ajax":{
-			url:"{{url('Department')}}-Datatable-Server-Side",
-			dataSrc:"departments"
-		},
+	// table = $('#datatable-table').DataTable({
+	// 	"processing": true,
+	// 	"serverSide": true,
+	// 	"ajax":{
+	// 		url:"{{url('Department')}}-Datatable-Server-Side",
+	// 		dataSrc:"departments"
+	// 	},
 
-		"columnDefs": 
-			[
-				{ className: "table-text", "targets": "_all" },
+	// 	"columnDefs": 
+	// 		[
+	// 			{ className: "table-text", "targets": "_all" },
 				
-				{
-					"targets": -1,
-					"data": null,
-					"searchable": false,
-					"sortable":false,
-					"defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i></button>',
-				},
-			],
-		"columns": 
-			[
-				{
-					"data": null,
-					"defaultContent": "",
-					"searchable": false,
-					"orderable": false,
-				},
-				{
-					"data": "lcr_department_name",
-				},		
-				{
-					"data": null
-				},
-			],
-		"order": [[ 1, 'asc' ]]
-	});
+	// 			{
+	// 				"targets": -1,
+	// 				"data": null,
+	// 				"searchable": false,
+	// 				"sortable":false,
+	// 				"defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i></button>',
+	// 			},
+	// 		],
+	// 	"columns": 
+	// 		[
+	// 			{
+	// 				"data": null,
+	// 				"defaultContent": "",
+	// 				"searchable": false,
+	// 				"orderable": false,
+	// 			},
+	// 			{
+	// 				"data": "department_name",
+	// 			},		
+	// 			{
+	// 				"data": null
+	// 			},
+	// 		],
+	// 	"order": [[ 1, 'asc' ]]
+	// });
 
 
 
 
 	$(document).on("click","#save",function(){
 
-		var lcr_department_name= $("#department_name").val();
+		var type_name= $("#type_name").val();
 
 		$.ajax({
 			type:"POST",
-			url:"departments",
+			url:"document_types",
 			data: {
 					_token: $('meta[name="csrf-token"]').attr('content'),
-					lcr_department_name:lcr_department_name
+					type_name:type_name
 				},
 				success:function(response){
 
-					swal("Successfull","Department has been successfully added","success");
+					swal("Successfull","Document type has been successfully added","success");
 				
 				},
 				error:function(response){
