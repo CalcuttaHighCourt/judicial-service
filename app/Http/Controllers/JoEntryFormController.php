@@ -262,7 +262,7 @@ class JoEntryFormController extends Controller
     // profile image upload
     public function jo_upload_image(Request $request){
         $this->validate( $request, [ 
-            'profile_image' => 'file|mimes:jpeg,png,jpg,gif|max:50'
+            'profile_image' => 'required|file|mimes:jpeg,png,jpg,gif|max:50'
         ]);
         
         $jo_details = JudicialOfficer::orderBy('id','desc')->get();
