@@ -15,7 +15,7 @@ class CreateLcrDepartmentsTable extends Migration
     {
         Schema::create('lcr_departments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('lcr_department_name');
+            $table->string('lcr_department_name')->unique();
             $table->timestamps();
         });
     }

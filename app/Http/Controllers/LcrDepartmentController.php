@@ -44,14 +44,13 @@ class LcrDepartmentController extends Controller
         $department = null;
 
         $this->validate($request, [
-            'department_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:lcr_departments,department_name'),
+            'lcr_department_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u'),
             
         ]);
 
 
         try {
-            $department_name = strtoupper($request->input('department_name'));
-           
+                       
             $department = LcrDepartment::create($request->all());
             $response = array(
                 'department' => $department

@@ -27,9 +27,9 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	Route::resource('users', 'UserController')->except(['create', 'edit']);
 
-	Route::get ( 'dashboard/admin', function () {
-		return view ( 'departments.admin_dashboard' );
-	} );
+	// Route::get ( 'dashboard/admin', function () {
+	// 	return view ( 'departments.admin_dashboard' );
+	// } );
 	
 
 
@@ -177,7 +177,7 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	Route::resource('departments', 'LcrDepartmentController')->except(['create', 'edit']);
 
-	Route::get ( 'Department-Datatable-Server-Side', 'LcrDepartmentController@index_for_datatable' );
+	//Route::get ( 'Department-Datatable-Server-Side', 'LcrDepartmentController@index_for_datatable' );
 
 
 	/*Category */
