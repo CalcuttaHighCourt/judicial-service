@@ -186,52 +186,7 @@
                 startDate: '+0d'
             });
 
-        //     table = $('#show_LCR_status').DataTable({
-        //     "processing": true,
-        //     "serverSide": true,
-        //     "ajax": {
-        //         url: "{{route('fetch_status')}}",
-        //         dataSrc: "lcr_hc_ends"
-        //     },
-
-        //     "columnDefs":
-        //             [
-        //                 {className: "table-text", "targets": "_all"},
-        //                 {
-        //                     "targets": -1,
-        //                     "data": null,
-        //                     "searchable": false,
-        //                     "sortable": false,
-        //                     "defaultContent": '<button type="submit" class="btn btn-info view-button"><i class="fa fa-info"></i> Track Lcr</button>',
-        //                 },
-                        
-        //             ],
-        //     "columns":
-        //             [
-        //                 {
-        //                     "data": null,
-        //                     "defaultContent": "",
-        //                     "searchable": false,
-        //                     "orderable": false,
-        //                 },
-        //                 {
-        //                     "data": "district_name",
-        //                 },
-        //                 {
-        //                     "data": "state_name",
-        //                 },
-        //                 {
-        //                     "data": null
-        //                 },
-        //                 {
-        //                     "data": null
-        //                 },
-        //                 {
-        //                     "data": null
-        //                 },
-        //             ],
-        //     "order": [[1, 'asc']]
-        // });
+      
 
         //Datatable Code For Showing Data :: START
 

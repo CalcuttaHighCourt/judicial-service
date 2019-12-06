@@ -177,7 +177,7 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	Route::resource('departments', 'LcrDepartmentController')->except(['create', 'edit']);
 
-	Route::get ( 'Department-Datatable-Server-Side', 'LcrDepartmentController@index_for_datatable' );
+	Route::post( 'Department-Datatable-Server-Side', 'LcrDepartmentController@index_for_datatable' );
 
 
 	/*Category */
@@ -312,7 +312,11 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 		Route::Post('acr_fetch/search', 'ACRController@fetch_acr_history');
 
+		/*Document Type */
+
 		Route::resource('document_types', 'DocumentTypeController')->except(['create', 'edit']);
+
+		Route::post( 'Document-Datatable-Server-Side', 'DocumentTypeController@index_for_datatable' );
 
 	});
 

@@ -86,54 +86,70 @@ class LcrDepartmentController extends Controller
     public function index_for_datatable(Request $request)
     {
         
-        // $columns = array( 
-		// 	0 =>'SL NO', 
-		// 	1 =>'DEPARTMENT NAME',
-		// 	2 =>'ACTION'
-        // );
+        $columns = array( 
+			0 =>'SL NO', 
+			1 =>'DEPARTMENT NAME',
+			2 =>'ACTION'
+        );
         
-        // $totalData = LcrDepartment::count();
+        $totalData = LcrDepartment::count();
 
-        // $totalFiltered = $totalData; 
+        $totalFiltered = $totalData; 
         
-        // $limit = $request->input('length');
-		// $start = $request->input('start');
-		// $order = $columns[$request->input('order.0.column')];
-		// $dir = $request->input('order.0.dir');
+        $limit = $request->input('length');
+		$start = $request->input('start');
+		$order = $columns[$request->input('order.0.column')];
+		$dir = $request->input('order.0.dir');
 
-		// if(empty($request->input('search.value'))){
-        //     $department = LcrDepartment::offset($start)
-		// 				->limit($limit)
-		// 				->orderBy('lcr_department_name',$dir)
-        //                 ->get();
+		if(empty($request->input('search.value'))){
+            $departments = LcrDepartment::offset($start)
+                            ->limit($limit)
+                            ->orderBy('lcr_department_name',$dir)
+                            ->get();
                         
-        //      $totalFiltered = LcrDepartment::count();
-        // }
+             $totalFiltered = LcrDepartment::count();
+        }
 
-        // else{
-		// 	$search = $request->input('search.value');
-        //     $department =LcrDepartment::where('lcr_department_name',$search)
-        //                             ->offset($start)
-		// 							->limit($limit)
-		// 							->orderBy('memo_no',$dir)
-		// 							->get();
+        else{
+			$search = $request->input('search.value');
+            $departments =LcrDepartment::where('lcr_department_name','ILIKE',"%{$search}%")
+                                    ->offset($start)
+                                    ->limit($limit)
+                                    ->orderBy('lcr_department_name',$dir)
+									->get();
 
 									
 
-		// 	$totalFiltered = LcrDepartment::where('lcr_department_name',$search)
-        //                         ->offset($start)
-        //                         ->limit($limit)
-        //                         ->orderBy('memo_no',$dir)
-        //                         ->count();
-        // }
+			$totalFiltered = LcrDepartment::where('lcr_department_name',"%{$search}%")
+                                           ->limit($limit)
+                                            ->count();
+        }
         
-        // $data = array();
+        $data = array();
 
-        // $nestedData['SL NO'] = 0;
-        // $nestedData['DEPARTMENT NAME'] = $department;
+        $i=0;
 
+        if($departments){
+            foreach($departments as $department){
+                $nestedData['SL NO'] = ++$i;
+                $nestedData['DEPARTMENT NAME'] = $department->lcr_department_name;
+                $nestedData['ACTION'] = "<i class='fa fa-edit' aria-hidden='true'></i>";
 
+                $data[] = $nestedData;
+            }     
+
+                $json_data = array(
+                    "draw" => intval($request->input('draw')),
+                    "recordsTotal" => intval($totalData),
+                    "recordsFiltered" =>intval($totalFiltered),
+                    "data" => $data
+        );
+
+        echo json_encode($json_data);
+
+        }
     }
+
 
 
     /**

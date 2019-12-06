@@ -95,47 +95,32 @@
 
 @section('end_scripts') @parent
 
-<script type="text/javascript">
-var table="";
-$(function() {
-	// table = $('#datatable-table').DataTable({
-	// 	"processing": true,
-	// 	"serverSide": true,
-	// 	"ajax":{
-	// 		url:"{{url('Department')}}-Datatable-Server-Side",
-	// 		dataSrc:"departments"
-	// 	},
+<script>
 
-	// 	"columnDefs": 
-	// 		[
-	// 			{ className: "table-text", "targets": "_all" },
-				
-	// 			{
-	// 				"targets": -1,
-	// 				"data": null,
-	// 				"searchable": false,
-	// 				"sortable":false,
-	// 				"defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i></button>',
-	// 			},
-	// 		],
-	// 	"columns": 
-	// 		[
-	// 			{
-	// 				"data": null,
-	// 				"defaultContent": "",
-	// 				"searchable": false,
-	// 				"orderable": false,
-	// 			},
-	// 			{
-	// 				"data": "department_name",
-	// 			},		
-	// 			{
-	// 				"data": null
-	// 			},
-	// 		],
-	// 	"order": [[ 1, 'asc' ]]
-	// });
+ $(document).ready(function(){
 
+	//Datatable Code For Showing Data :: START
+
+	var table = $('#datatable-table').dataTable({
+			"processing": true,
+			"serverSide": true,
+			"ajax":{
+				"url":"{{url('Document')}}-Datatable-Server-Side",
+				"dataType": "json",
+				"type": "POST",
+				"data":{ 
+						_token: $('meta[name="csrf-token"]').attr('content')}
+					},      
+					"columns": [                
+							{"class": "sl_no",
+							"data": "SL NO" },
+							{"class": "document_type",
+							"data": "DOCUMENT TYPE" },
+							{"class": "edit",
+							"data": "ACTION" }
+						]
+
+				});
 
 
 
@@ -153,6 +138,7 @@ $(function() {
 				success:function(response){
 
 					swal("Successfull","Document type has been successfully added","success");
+					table.api().ajax.reload();
 				
 				},
 				error:function(response){
