@@ -361,7 +361,7 @@ class JoEntryFormController extends Controller
 
     public function show_all_jo(Request $request){
         $columns = array(   
-            0 => 'more_details',          
+            0 =>'more_details',          
             1 =>'registration_no', 
             2 =>'jo_code',
             3 =>'officer_name',
@@ -412,7 +412,7 @@ class JoEntryFormController extends Controller
                 $nestedData['officer_name'] = $judicial_officer->officer_name;
                 $nestedData['date_of_birth'] = Carbon::parse($judicial_officer->date_of_birth)->format('d-m-Y');
                 $nestedData['date_of_retirement'] = Carbon::parse($judicial_officer->date_of_retirement)->format('d-m-Y');
-                $nestedData['action'] = "<i class='fa fa-pencil edit' aria-hidden='true'></i>";
+                $nestedData['action'] = "<i class='fa fa-pencil edit' style=\"cursor:pointer\" aria-hidden='true'></i>";
 
                 $data[] = $nestedData;
             }

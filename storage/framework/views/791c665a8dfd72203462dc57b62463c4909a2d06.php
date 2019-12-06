@@ -449,15 +449,6 @@
                             <div class="row"> 
                                 <div class="col-xs-3">
                                     <label>
-                                            Designation 
-                                    </label>
-                                    <select class="form-control info-form-control posting_select2 designation_id select2" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        <?php echo $__env->make('designations.designation_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                    </select>
-                                </div>
-                                <div class="col-xs-3">
-                                    <label>
                                             Posting Mode 
                                     </label>
                                     <select class="form-control info-form-control posting_select2 mode_id select2" style="width:100%">
@@ -465,18 +456,43 @@
                                         <?php echo $__env->make('modes.mode_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
                                 </div>
-                                <div class="col-xs-3">
-                                    <label>
-                                            Court 
-                                    </label>
-                                    <select class="form-control info-form-control posting_select2 court_id select2" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                    </select>
-                                </div>                   
+                                <div id="mode_permanent_div">
+                                    <div class="col-xs-3">
+                                        <label>
+                                                Designation 
+                                        </label>
+                                        <select class="form-control info-form-control posting_select2 designation_id select2" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            <?php echo $__env->make('designations.designation_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                        </select>
+                                    </div>                                
+                                    <div class="col-xs-3">
+                                        <label>
+                                                Court 
+                                        </label>
+                                        <select class="form-control info-form-control posting_select2 court_id select2" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                        </select>
+                                    </div>    
+                                </div>
+                                <div id="mode_deputation_div" style="display:none">
+                                    <div class="col-xs-3">
+                                        <label>
+                                                Designation 
+                                        </label>
+                                        <input type="text" class="form-control" id="other_designation" placeholder="Designation of Deputation">
+                                    </div>                                
+                                    <div class="col-xs-3">
+                                        <label>
+                                                Place of Posting 
+                                        </label>
+                                        <input type="text" class="form-control" id="other_place_posting" placeholder="Deputation Place">
+                                    </div>    
+                                </div>                              
                             </div><br/>
                             <div class="row"> 
-                                <div class="col-xs-3">
+                                <div class="col-xs-3" id="permanent_reporting_officer_div">
                                     <label>
                                             Reporting Officer 
                                     </label>
@@ -484,6 +500,12 @@
                                         <option value="">Select an Option</option>
                                         <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
+                                </div>
+                                <div class="col-xs-3" id="deputation_reporting_officer_div" style="display:none">
+                                    <label>
+                                            Reporting Officer 
+                                    </label>
+                                    <input type="text" class="form-control" id="other_reporting_officer" placeholder="Deputation Reporting Officer">
                                 </div>
                                 <div class="col-xs-3">
                                     <label>
@@ -647,13 +669,14 @@
             format: "dd-mm-yyyy",
             autoclose: true,   
             orientation: "auto",
-
+            endDate: '+0d',
         });
          // Datepicker Initialization for Superannuation
         $(".date1").datepicker({
             format: "dd-mm-yyyy",
             autoclose: true,   
             orientation: "auto",
+            
 
         });
 
@@ -684,6 +707,13 @@
             }, 1000);
         });
 
+
+        //Deputation :: START
+        $(document).on("change",".mode_id", function(){
+            alert();
+        })
+
+        //Deputation :: END
 
         //Datatable Code For Showing Data :: START
         var table = $("#datatable-table").DataTable({  
