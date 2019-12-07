@@ -233,7 +233,13 @@
                             State Master 
                         </a>
                     </li> 
-                    
+                     <li class="nav-item">
+                        <a class="nav-link" href="{{url('document_types')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                            Document Type Master
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li>
@@ -247,10 +253,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('document_types')}}">
+                        <a class="nav-link" href="#">
                             <span data-feather="file"></span>
                             <i class="fa fa-file-text" aria-hidden="true"></i>
-                            Document Type Master
+                            Document Upload
                         </a>
                     </li>
                 </ul>
