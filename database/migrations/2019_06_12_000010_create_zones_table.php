@@ -17,7 +17,7 @@ class CreateZonesTable extends Migration
             $table->bigIncrements('id');
             $table->string('zone_name')->unique();
             $table->integer('min_service_days')->nullable(true); //minimum day jo has to serve on that zone after posting
-			$table->bigInteger('created_by');
+			$table->bigInteger('created_by')->nullable();
 			$table->timestamps();
         });
     }

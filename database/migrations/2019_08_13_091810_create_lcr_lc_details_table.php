@@ -20,7 +20,7 @@ class CreateLcrLcDetailsTable extends Migration
             $table->integer('lower_case_no');
             $table->integer('lower_case_year');
             $table->string('compliance_flag')->nullable();
-            $table->bigInteger('created_by');
+            $table->bigInteger('created_by')->nullable();
             $table->timestamps();
 
             $table->foreign('hc_id')->references('id')->on('lcr_hc_ends');

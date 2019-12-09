@@ -21,7 +21,7 @@ class CreateJoDocumentsTable extends Migration
             $table->timestamps();
 
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
-            $table->foreign('document_type_id')->references('document_types')->on('id');
+            $table->foreign('document_type_id')->references('id')->on('document_types');
         });
     }
 
