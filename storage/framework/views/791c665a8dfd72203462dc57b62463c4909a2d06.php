@@ -194,9 +194,20 @@
                     <label class="form-check-label" style="font-size:medium">
                         Other
                     </label>
+                </div>
+                <br/>                
+                <div class="form-group required"> 
+                    <div class="col-xs-4">
+                        <label class="control-label">Spouse Name (if Spouse is JO):</label>
+                        <select class="form-control info-form-control posting_select2 select2" style="width:100%" id="spouse_name">
+                            <option value="">Select an Option</option>
+                            <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                        </select>                         
+                    </div>
                 </div> 
+                
                </form>
-
+                <br/><br/>
                 <div class="row">
                     <br/><br/>
                     <div class="col-sm-12">
@@ -441,6 +452,7 @@
         </div>            
         <!--/tab-pane-->
 
+        <!-- div structure of posting tab will not be changed at any cost; otherwise JS will not work-->
          <div class="tab-pane" id="posting_details">
              <br/>
              <div class="row">
@@ -456,8 +468,8 @@
                                         <?php echo $__env->make('modes.mode_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
                                 </div>
-                                <div id="mode_permanent_div">
-                                    <div class="col-xs-3">
+                                <div class="mode_permanent_div">
+                                    <div class="col-xs-4">
                                         <label>
                                                 Designation 
                                         </label>
@@ -466,7 +478,7 @@
                                             <?php echo $__env->make('designations.designation_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                         </select>
                                     </div>                                
-                                    <div class="col-xs-3">
+                                    <div class="col-xs-4">
                                         <label>
                                                 Court 
                                         </label>
@@ -476,14 +488,14 @@
                                         </select>
                                     </div>    
                                 </div>
-                                <div id="mode_deputation_div" style="display:none">
-                                    <div class="col-xs-3">
+                                <div class="mode_deputation_div" style="display:none">
+                                    <div class="col-xs-4">
                                         <label>
                                                 Designation 
                                         </label>
                                         <input type="text" class="form-control" id="other_designation" placeholder="Designation of Deputation">
                                     </div>                                
-                                    <div class="col-xs-3">
+                                    <div class="col-xs-4">
                                         <label>
                                                 Place of Posting 
                                         </label>
@@ -492,7 +504,7 @@
                                 </div>                              
                             </div><br/>
                             <div class="row"> 
-                                <div class="col-xs-3" id="permanent_reporting_officer_div">
+                                <div class="col-xs-3 permanent_reporting_officer_div">
                                     <label>
                                             Reporting Officer 
                                     </label>
@@ -501,25 +513,31 @@
                                         <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
                                 </div>
-                                <div class="col-xs-3" id="deputation_reporting_officer_div" style="display:none">
+                                <div class="col-xs-3 deputation_reporting_officer_div" style="display:none">
                                     <label>
                                             Reporting Officer 
                                     </label>
                                     <input type="text" class="form-control" id="other_reporting_officer" placeholder="Deputation Reporting Officer">
                                 </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-2">
                                     <label>
                                             From Date 
                                     </label>
                                     <input type="text" class="form-control date from_date" placeholder="dd-mm-yyyy">
                                 </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-2">
                                     <label>
                                             To Date 
                                     </label>
                                     <input type="text" class="form-control date to_date" placeholder="dd-mm-yyyy">
                                 </div>
-                                <div class="col-xs-2">
+                                <div class="col-xs-3">
+                                    <label>
+                                            Remark
+                                    </label>
+                                    <textarea class="form-control remark" placeholder="if any"></textarea>
+                                </div>                                
+                                <div class="col-xs-1">
                                     <br>
                                     <img src="<?php echo e(asset('images/details_open.png')); ?>" class="img_add_more_posting" id="add_more_posting">
                                 </div>
@@ -676,8 +694,6 @@
             format: "dd-mm-yyyy",
             autoclose: true,   
             orientation: "auto",
-            
-
         });
 
         // Select2 initialization
@@ -710,10 +726,23 @@
 
         //Deputation :: START
         $(document).on("change",".mode_id", function(){
-            alert();
-        })
+            var option = $(this).find('option:selected').text();
 
+            if(option=='deputation' || option=='Deputation'){
+                 $(this).parent().parent().parent().find(".mode_permanent_div").hide();
+                 $(this).parent().parent().parent().find(".permanent_reporting_officer_div").hide();
+                 $(this).parent().parent().find(".mode_deputation_div").show();
+                 $(this).parent().parent().parent().find(".deputation_reporting_officer_div").show();
+            }
+            else{
+                $(this).parent().parent().parent().find(".mode_permanent_div").show();
+                $(this).parent().parent().parent().find(".permanent_reporting_officer_div").show();
+                $(this).parent().parent().parent().find(".mode_deputation_div").hide();
+                $(this).parent().parent().parent().find(".deputation_reporting_officer_div").hide();
+            }
+        })
         //Deputation :: END
+                
 
         //Datatable Code For Showing Data :: START
         var table = $("#datatable-table").DataTable({  
@@ -790,7 +819,7 @@
             else {
                
                 element.attr("src","images/details_close.png");
-                //var src = "<?php echo e(asset('images/judicial_officers/125/125_1575138600.jpg')); ?>";
+               
                 var child_string ='<div class="col-sm-12 text-center" id="show_jo_details_pdf">'+
 	                                    '<iframe id="iframe_jo_details_pdf" src='+url+' style="width:800px; height:400px;"></iframe>'+
                                   '</div>';  
@@ -801,38 +830,27 @@
         // For JO Details PDF :: END
         
         /*If multiple posting details added :: STARTS*/
-		$(document).on("click","#add_more_posting", function(){
-            var from_date = $(".div_add_more_posting:last").find(".from_date").val();
-            var designation_id = $(".div_add_more_posting:last").find(".designation_id").val();
-            var mode_id = $(".div_add_more_posting:last").find(".mode_id").val();
-            var court_id = $(".div_add_more_posting:last").find(".court_id").val();
+		$(document).on("click","#add_more_posting", function(){           
+            var clone_element2 = clone_element_posting.clone();
+            clone_element2.insertAfter(".div_add_more_posting:last");  
 
-            if(from_date!="" && designation_id!="" && mode_id!=""){                
-                var clone_element2 = clone_element_posting.clone();
-                clone_element2.insertAfter(".div_add_more_posting:last");                
-                // Select2 Re-initialization
-                $(".select2").select2();  
+            // Select2 Re-initialization
+            $(".select2").select2();  
 
-                // Datepicker Re-initialization
-                $(".date").datepicker({
-                    format: "dd-mm-yyyy",
-                    endDate:'0',
-                    autoclose: true,   
-                    orientation: "auto",
+            // Datepicker Re-initialization
+            $(".date").datepicker({
+                format: "dd-mm-yyyy",
+                endDate:'0',
+                autoclose: true,   
+                orientation: "auto",
+            });               
 
-                });               
-
-              
-                $(".img_add_more_posting:last").attr({src:"images/details_close.png",
-                                                        class:"remove_posting", 
-                                                        alt:"remove_posting"
-                                                    });
-                $(".remove_posting:last").removeAttr("id");
-            }
-            else{
-                swal("Invalid Entry","Entry all mandatory fields before adding a new posting details","error");
-                return false;
-            }
+            
+            $(".img_add_more_posting:last").attr({src:"images/details_close.png",
+                                                    class:"remove_posting", 
+                                                    alt:"remove_posting"
+                                                });
+            $(".remove_posting:last").removeAttr("id");        
 			
 		})
 	    /*If multiple posting details added :: ENDS*/   
@@ -848,25 +866,15 @@
 
 
         /*If multiple Qualification details added :: STARTS*/
-		$(document).on("click","#add_more_qualification", function(){
-            var degree = $(".div_add_more_qualification:last").find(".degree_id").val();
-            var passing_year = $(".div_add_more_qualification:last").find(".yop").val();
-            
-            if(degree!="" && passing_year!=""){
-                var clone_element2 = clone_element_qualification.clone();                
-                clone_element2.insertAfter(".div_add_more_qualification:last");
-                $(".img_add_more_qualification:last").attr({src:"images/details_close.png",
-                                                        class:"remove_qualification", 
-                                                        alt:"remove_qualification"
-                                                    });
-                $(".remove_qualification").removeAttr("id");
-                $(".select2").select2();
-            }
-            else{
-                swal("Invalid Entry","Entry both the fields before adding a new degree","error");
-                return false;
-            }
-			
+		$(document).on("click","#add_more_qualification", function(){           
+            var clone_element2 = clone_element_qualification.clone();                
+            clone_element2.insertAfter(".div_add_more_qualification:last");
+            $(".img_add_more_qualification:last").attr({src:"images/details_close.png",
+                                                    class:"remove_qualification", 
+                                                    alt:"remove_qualification"
+                                                });
+            $(".remove_qualification").removeAttr("id");
+            $(".select2").select2(); 
 		})
 	    /*If multiple Qualification details added :: ENDS*/    
 
