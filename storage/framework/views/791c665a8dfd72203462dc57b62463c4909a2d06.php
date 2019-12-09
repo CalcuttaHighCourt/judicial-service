@@ -196,10 +196,10 @@
                     </label>
                 </div>
                 <br/>                
-                <div class="form-group required"> 
+                <div class="form-group"> 
                     <div class="col-xs-4">
                         <label class="control-label">Spouse Name (if Spouse is JO):</label>
-                        <select class="form-control info-form-control posting_select2 select2" style="width:100%" id="spouse_name">
+                        <select class="form-control info-form-control select2" style="width:100%" id="spouse_name">
                             <option value="">Select an Option</option>
                             <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         </select>                         
@@ -493,13 +493,13 @@
                                         <label>
                                                 Designation 
                                         </label>
-                                        <input type="text" class="form-control" id="other_designation" placeholder="Designation of Deputation">
+                                        <input type="text" class="form-control other_designation" placeholder="Designation of Deputation">
                                     </div>                                
                                     <div class="col-xs-4">
                                         <label>
                                                 Place of Posting 
                                         </label>
-                                        <input type="text" class="form-control" id="other_place_posting" placeholder="Deputation Place">
+                                        <input type="text" class="form-control other_place_posting" placeholder="Deputation Place">
                                     </div>    
                                 </div>                              
                             </div><br/>
@@ -517,7 +517,13 @@
                                     <label>
                                             Reporting Officer 
                                     </label>
-                                    <input type="text" class="form-control" id="other_reporting_officer" placeholder="Deputation Reporting Officer">
+                                    <input type="text" class="form-control other_reporting_officer" placeholder="Deputation Reporting Officer">
+                                </div>
+                                <div class="col-xs-3 deputation_reporting_officer_div" style="display:none">
+                                    <label>
+                                            Designation 
+                                    </label>
+                                    <input type="text" class="form-control other_reporting_officer_designation" placeholder="Of Reporting Officer">
                                 </div>
                                 <div class="col-xs-2">
                                     <label>
@@ -981,21 +987,31 @@
                 return false;
             }
             var designation_id = new Array();
+            var deputation_designation = new Array();
             var court_id = new Array();
             var zone_id = new Array();
+            var deputation_posting_place = new Array();
             var mode_id = new Array();            
             var qualification_id = new Array();
             var passing_year = new Array();
             var reporting_officer_id = new Array();
+            var other_reporting_officer_name = new Array();
+            var other_reporting_officer_designation = new Array();
             var from_date = new Array();
             var to_date = new Array();
             var subdivision_id = new Array();
             var from_year = new Array();
             var to_year = new Array();
+            var posting_remark = new Array();
 
             designation_id = [];
             $(".designation_id").each(function(){
                 designation_id.push($(this).val());
+            })
+
+            deputation_designation = [];
+            $(".other_designation").each(function(){
+                deputation_designation.push($(this).val());
             })
 
             mode_id = [];
@@ -1010,10 +1026,25 @@
                 zone_id.push($(this).attr('data-zone_id'));               
             })
 
+            deputation_posting_place = [];
+            $(".other_place_posting").each(function(){
+                deputation_posting_place.push($(this).val());
+            })
+
            
             reporting_officer_id = [];
             $(".reporting_officer_id").each(function(){
                 reporting_officer_id.push($(this).val());
+            })
+
+            other_reporting_officer_name = [];
+            $(".other_reporting_officer").each(function(){
+                other_reporting_officer_name.push($(this).val());
+            })
+
+            other_reporting_officer_designation = [];
+            $(".other_reporting_officer").each(function(){
+                other_reporting_officer_designation.push($(this).val());
             })
 
             qualification_id = [];
@@ -1079,6 +1110,7 @@
                     gender:$("input[name='gender']:checked").val(),
                     guardian_name:$("#guardian_name").val(),
                     gurdian_relation:$("#guardian_relationship").val(),
+                    spouse:$("#spouse_name").val(),
                     date_of_birth:$("#dob").val(),
                     home_state_id:$("#home_state").val(),
                     home_district_id:$("#home_district").val(),

@@ -23,6 +23,7 @@ class CreateJudicialOfficerPostingsTable extends Migration
             $table->integer('mode_id');
             $table->date('from_date');
             $table->date('to_date')->nullable();
+            $table->text('posting_remark')->nullable();
             $table->integer('created_by');
             $table->timestamps();
 
