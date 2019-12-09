@@ -18,7 +18,7 @@ class CreateLcrHcEndsTable extends Migration
             $table->integer('district');
             $table->integer('subdivision');
 			$table->integer('court');
-            $table->string('hc_case_record');
+            $table->integer('hc_case_record');
 			$table->integer('hc_case_no');
 			$table->integer('hc_case_year');
             $table->date('deadline');
@@ -26,7 +26,7 @@ class CreateLcrHcEndsTable extends Migration
             $table->string('status_flag')->nullable();
             $table->date('memo_date');
             $table->integer('forwarding_court')->nullable();
-            $table->bigInteger('created_by');
+            $table->bigInteger('created_by')->nullable();
             $table->timestamps();
 
             						

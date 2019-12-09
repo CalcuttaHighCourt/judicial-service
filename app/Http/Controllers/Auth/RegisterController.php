@@ -51,13 +51,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-        //    'user_id' => ['required','alpha_dash','unique:users,user_id'],
-        //    'name' => ['required', 'alpha', 'max:255'],
-        //     'usertype' => ['required', 'integer', 'exists:user_types,id'],
-        //     'court' => ['nullable','integer','exists:courts,id'],
-        //     'judicial_officer_id' => ['nullable','string', 'exists:judicial_officers,id'],
-        //     'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-        //     'password' => ['required', 'string', 'min:6', 'max:20', 'confirmed'],
+            'user_id' => ['required','alpha_dash','unique:users,user_id'],
+            'name' => ['required','string'],
+            'usertype' => ['required', 'integer', 'exists:user_types,id'],
+            'court' => ['nullable','integer','exists:courts,id'],
+            'department' => ['nullable','integer','exists:departments,id'],
+            'judicial_officer_id' => ['nullable','string', 'exists:judicial_officers,id'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:6', 'max:20', 'confirmed'],
         ]);
     }
 
@@ -74,13 +75,29 @@ class RegisterController extends Controller
         if(!empty($data['court']))
         {
             $data['jo'] =null;
+            $data['department']=null;
+        }
+
+        
+        if(!empty($data['department']))
+        {
+            $data['jo'] =null;
+            $data['court'] =null;
         }
 
         if(!empty($data['jo']))
         {
            $data['court'] =null;
+           $data['department']=null;
         }
 
+        else{
+            
+            $data['jo'] =null;
+            $data['court'] =null;
+            $data['department']=null;
+        }
+        
         //dd($data['user_id']) ;exit;
 
         return User::create([
@@ -90,6 +107,7 @@ class RegisterController extends Controller
         'judicial_officer_id'=> $data['jo'],
         'email' => $data['email'],
         'user_id' => $data['user_id'],
+        'department_id' => $data['department'],
         'password' => Hash::make($data['password']),
         
         ]);
@@ -98,8 +116,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        
-        
+       
         $this->validator($request->all())->validate();
         
         event(new Registered($user = $this->create($request->all())));

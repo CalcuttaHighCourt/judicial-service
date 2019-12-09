@@ -1,8 +1,8 @@
 {{--
-<!-- views/castes/index.blade.php -->
+<!-- views/Categories/index.blade.php -->
 --}}
-@extends('layouts.app') @section('title', 'Castes')
-@section('page_heading') Castes @endsection
+@extends('layouts.app') @section('title', 'Categories')
+@section('page_heading') Categories @endsection
 @section('center_main_content')
 <div class="col-sm-12">
     <!-- Bootstrap Boilerplate... -->
@@ -16,16 +16,16 @@
             <form id="info-form" class="form-horizontal" role="form" method="POST"
                 action="{{ url('/admin/Cast            e') }}">
                 {{ csrf_field() }}
-                <input type="hidden" id="caste_id">
-                <div id="caste-group" class="form-group our-form-group">
+                <input type="hidden" id="category_id">
+                <div id="category-group" class="form-group our-form-group">
                     <!-- IIIIIIIIIII -->
-                    <label for="caste_name" class="col-md-4 control-label">Category</label>
+                    <label for="category_name" class="col-md-4 control-label">Category</label>
 
                     <div class="col-md-6">
-                        <input id="caste_name" type="text"
-                            class="form-control info-form-control" name="caste_name"> <span
-                            id="caste_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-                            <strong id="caste_name-strong" class="our-error-message-strong"></strong>
+                        <input id="category_name" type="text"
+                            class="form-control info-form-control" name="category_name"> <span
+                            id="category_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+                            <strong id="category_name-strong" class="our-error-message-strong"></strong>
                             <!-- IIIIIIIIIII -->
                         </span>
                     </div>
@@ -36,7 +36,7 @@
                     <div class="col-md-6 col-md-offset-4">
                         <button id="add-button" type="submit"
                                 class="btn btn-primary add-button info-form-button">
-                            <i class="fa fa-btn fa-plus-circle"></i> Add New Caste
+                            <i class="fa fa-btn fa-plus-circle"></i> Add New Category
                         </button>
                         <button id="save-button" type="submit"
                                 class="btn btn-warning save-button info-form-button">
@@ -82,7 +82,7 @@
 
     <div id="datatable-panel" class="panel panel-default">
         <div id="datatable-panel-heading" class="panel-heading clearfix">
-            <div class="panel-title pull-left">Caste Master</div>
+            <div class="panel-title pull-left">Category Master</div>
             <div class="pull-right">
                 <button id="add-new-button" type="submit" class="btn btn-primary add-new-button">
                     <i class="fa fa-plus-circle"></i> Add New
@@ -98,7 +98,7 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Caste Name</th>
+                            <th>Category Name</th>
                             <th>Action</th>
                             <th></th>
                             <th></th>
@@ -110,7 +110,7 @@
                     <tfoot>
                         <tr>
                             <th></th>
-                            <th>Caste Name</th>
+                            <th>Category Name</th>
                             <th>Action</th>
                             <th></th>
                             <th></th>
@@ -143,8 +143,8 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                url: "{{url('Caste')}}-Datatable-Server-Side",
-                dataSrc: "castes"
+                url: "{{url('Category')}}-Datatable-Server-Side",
+                dataSrc: "categories"
             },
 
             "columnDefs":
@@ -181,7 +181,7 @@
                             "orderable": false,
                         },
                         {
-                            "data": "caste_name",
+                            "data": "category_name",
                         },
                         {
                             "data": null
@@ -330,11 +330,11 @@
         $("#" + field + "-group").addClass("has-error");
     }
     function populate_form(data) {
-        $("#info-panel-heading").html("Displaying record of Caste: <strong>" + data.caste_name + "</strong>");
+        $("#info-panel-heading").html("Displaying record of Category: <strong>" + data.category_name + "</strong>");
 
-        $("#caste_id").val(data.id);
+        $("#category_id").val(data.id);
 
-        $("#caste_name").val(data.caste_name);
+        $("#category_name").val(data.category_name);
     }
     function show_button(type) {
         $("#" + type + "-button").show();
@@ -362,7 +362,7 @@
     });
     function send_ajax_and_set_errors_exceptions_success(type) {
         var formData = {
-            caste_name: $('#caste_name').val(),
+            category_name: $('#category_name').val(),
         };
         ajax_url = "";
         operation = "";
@@ -371,20 +371,20 @@
         if (type == "add") {
             //request_type="POST";
             formData["_method"] = "POST";
-            ajax_url = "{{ action('CasteController@store') }}";
+            ajax_url = "{{ action('CategoryController@store') }}";
             operation = "add";
             operated = "added";
         } else if (type == "save") {
             //request_type="PUT";
             formData["_method"] = "PUT";
-            formData["id"] = $("#caste_id").val();
-            ajax_url = "{{ action('CasteController@update','') }}" + "/" + $("#caste_id").val();
+            formData["id"] = $("#category_id").val();
+            ajax_url = "{{ action('CategoryController@update','') }}" + "/" + $("#category_id").val();
             operation = "update";
             operated = "updated";
         } else if (type == "delete-confirm") {
             formData["_method"] = "DELETE";
-            formData["id"] = $("#caste_id").val();
-            ajax_url = "{{ action('CasteController@destroy','') }}" + "/" + $("#caste_id").val();
+            formData["id"] = $("#category_id").val();
+            ajax_url = "{{ action('CategoryController@destroy','') }}" + "/" + $("#category_id").val();
             operation = "delete";
             operated = "deleted";
         }
@@ -396,15 +396,15 @@
             success: function (data, textStatus, jqXHR) {
                 reset_info(true);
                 msg = "<strong>SUCCESS: </strong>";
-                if (!(data.caste === null) && data.caste.hasOwnProperty('caste_name')) {
+                if (!(data.category === null) && data.category.hasOwnProperty('category_name')) {
 
-                    msg += "Caste: <strong>" + data.caste.caste_name + "</strong> successfully " + operated + ".";
+                    msg += "Category: <strong>" + data.category.category_name + "</strong> successfully " + operated + ".";
                 } else {
                     //delete case
-                    if (!(data.caste === null) && data.caste >= 1) {
-                        msg += "Caste: <strong>" + formData.posting_caste + "</strong> successfully " + operated + ".";
+                    if (!(data.category === null) && data.category >= 1) {
+                        msg += "Category: <strong>" + formData.posting_category + "</strong> successfully " + operated + ".";
                     } else {
-                        msg += "Caste already " + operated + "!";
+                        msg += "Category already " + operated + "!";
                     }
                 }
                 show_message_div("success", msg);

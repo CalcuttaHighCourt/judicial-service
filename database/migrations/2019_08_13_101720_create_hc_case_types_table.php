@@ -17,7 +17,7 @@ class CreateHcCaseTypesTable extends Migration
             $table->increments('id');
             $table->string('type_name')->unique();
             $table->string('full_form')->unique();
-            $table->bigInteger('created_by');
+            $table->bigInteger('created_by')->nullable();
             $table->timestamps();
         });
     }

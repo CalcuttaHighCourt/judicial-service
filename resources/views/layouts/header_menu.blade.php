@@ -25,13 +25,7 @@
                             Court Master
                         </a>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="{{url('court_complex')}}">
-                            <span data-feather="home"></span>
-                            <i class="fa fa-gavel" aria-hidden="true"></i>
-                            Court Complex Master
-                        </a>
-                    </li> -->
+                   
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('subdivision')}}">
                             <span data-feather="file"></span>
@@ -61,21 +55,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('judicial_officer')}}">
-                            <span data-feather="file"></span>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            Judicial Officer
-                        </a>
-                    </li>
-                    <li class="nav-item">           
-                        <a class="nav-link" href="{{url('jo_entry_form')}}">
-                            <span data-feather="file"></span>
-                            <i class="fa fa-briefcase"></i>
-                            JO Related Entry
-                         </a>
-                    </li>
-
-                    <li class="nav-item">
                         <a class="nav-link" href="{{url('jo_postings')}}">
                              <span data-feather="file"></span>
                              <i class="fa fa-crosshairs" aria-hidden="true"></i>
@@ -97,7 +76,13 @@
                             Designation Master
                         </a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('departments')}}">
+                            <span data-feather="home"></span>
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            Department for LCR 
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('mode')}}">
@@ -136,10 +121,10 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('caste')}}">
+                        <a class="nav-link" href="{{url('Category')}}">
                             <span data-feather="home"></span>
                             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
-                            Caste Master
+                            Category Master
                         </a>
                     </li>
 
@@ -160,20 +145,27 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{url('acr_history')}}">
-                    <span data-feather="file"></span>
-                    <i class="fa fa-square" aria-hidden="true"></i>
-                    ACR History
-                </a>
+
+            <li>
+                <a href="#adminjomenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-address-book"></i>Judicial Officer</a>
+                <ul class="collapse list-unstyled" id="adminjomenu">
+                    <li class="nav-item">           
+                        <a class="nav-link" href="{{url('jo_entry_form')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-briefcase"></i>
+                            Profile Details Entry
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{url('acr_fetch')}}">
-                    <span data-feather="file"></span>
-                    <i class="fa fa-crosshairs" aria-hidden="true"></i>
-                    ACR Fetch
-                </a>
+
+            <li>
+                <a href="#usermaster" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-circle"></i>User Creation</a>
+                <ul class="collapse list-unstyled" id="usermaster">
+                     <li><a href="{{ url('/register') }}">Register</a></li>
+                    </ul>
             </li>
+           
             @endif
 
             @if(Auth::check() && Auth::user()->user_type->type_name=="Judicial Officer")
@@ -188,10 +180,171 @@
                 </a>
             </li>
 
+            <!--  <li><a href="{{route('profile')}}"><i class="fa fa-btn fa-sign-out"></i>Profile</a></li>-->
+
             
             @endif
-           
-            @if(Auth::check() && Auth::user()->user_type->type_name=="Court")
+
+            @if(Auth::check() && Auth::user()->user_type->type_name=="Inspection")
+
+            <li>
+                <a href="#masterSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-edit"></i>Master Maintenance</a>
+                <ul class="collapse list-unstyled" id="masterSubmenu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('grade')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-crosshairs" aria-hidden="true"></i>
+                            ACR Grade Master
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="{{url('court')}}">
+                            <span data-feather="home"></span>
+                            <i class="fa fa-gavel" aria-hidden="true"></i>
+                            Court Master
+                        </a>
+                    </li>
+                   
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('subdivision')}}">
+                            <span data-feather="file"></span>
+                            
+                            <i class="fa fa-crosshairs" aria-hidden="true"></i>
+                            Subdivision Master
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('district')}}">
+                        <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                            District Master 
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('zone')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                            Zone Master
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('state')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            State Master 
+                        </a>
+                    </li> 
+                     <li class="nav-item">
+                        <a class="nav-link" href="{{url('document_types')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                            Document Type Master
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#mainmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-address-book"></i>Judicial Officer</a>
+                <ul class="collapse list-unstyled" id="mainmenu">
+                    <li class="nav-item">           
+                        <a class="nav-link" href="{{url('jo_entry_form')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-briefcase"></i>
+                            Profile Details Entry
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                            Document Upload
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#acrmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-snowflake-o"></i>ACR</a>
+                <ul class="collapse list-unstyled" id="acrmenu">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('acr_history')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-square" aria-hidden="true"></i>
+                            ACR History
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('acr_fetch')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-crosshairs" aria-hidden="true"></i>
+                            ACR Fetch
+                        </a>
+                    </li>
+                </ul>
+           </li>
+
+            @endif
+
+            @if(Auth::check() && Auth::user()->user_type->type_name=="Appointment")
+
+             <li>
+                <a href="#appointmentmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-edit"></i>Master Maintenance</a>
+                <ul class="collapse list-unstyled" id="appointmentmenu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('court')}}">
+                            <span data-feather="home"></span>
+                            <i class="fa fa-gavel" aria-hidden="true"></i>
+                            Court Master
+                        </a>
+                    </li>
+                   
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('subdivision')}}">
+                            <span data-feather="file"></span>
+                            
+                            <i class="fa fa-crosshairs" aria-hidden="true"></i>
+                            Subdivision Master
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('district')}}">
+                        <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                            District Master 
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('zone')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                            Zone Master
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('state')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            State Master 
+                        </a>
+                    </li> 
+                </ul>
+            </li>
+
+            <li>
+                <a href="#jomenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-address-book"></i>Judicial Officer</a>
+                <ul class="collapse list-unstyled" id="jomenu">
+                    <li class="nav-item">           
+                        <a class="nav-link" href="{{url('jo_entry_form')}}">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-briefcase"></i>
+                            Profile Details Entry
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            @endif
+
+            @if(Auth::check() && Auth::user()->user_type->type_name=="Department")
             <li>
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <i class="fa fa-copy"></i>
@@ -204,8 +357,18 @@
                             <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                             Request for LCR
                         </a>
-                        
                     </li>
+                </ul>
+                @endif
+
+
+            @if(Auth::check() && Auth::user()->user_type->type_name=="Court")
+            <li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fa fa-copy"></i>
+                    Lower Court Record
+                </a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('lcr_view')}}">
                             <span data-feather="home"></span>
@@ -274,7 +437,7 @@
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                     <li><a href="{{ url('/login') }}">Login</a></li>
-                    <li><a href="{{ url('/register') }}">Register</a></li>
+                   
                     @else
                     <li class="dropdown"><a href="#" class="dropdown-toggle"
                                             data-toggle="dropdown" role="button" aria-expanded="false"> {{
@@ -283,7 +446,7 @@
 
                         <ul class="dropdown-menu" role="menu">
 
-                            <li><a href="{{route('profile')}}"><i class="fa fa-btn fa-sign-out"></i>Profile</a></li>
+                            <!-- <li><a href="{{route('profile')}}"><i class="fa fa-btn fa-sign-out"></i>Profile</a></li>-->
                             
                             <li><a href="#" onclick="$('#logout_form').submit();"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                         </ul>

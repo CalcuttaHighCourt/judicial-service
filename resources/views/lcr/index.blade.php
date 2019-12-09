@@ -186,53 +186,33 @@
                 startDate: '+0d'
             });
 
-        //     table = $('#show_LCR_status').DataTable({
-        //     "processing": true,
-        //     "serverSide": true,
-        //     "ajax": {
-        //         url: "{{route('fetch_status')}}",
-        //         dataSrc: "lcr_hc_ends"
-        //     },
+      
 
-        //     "columnDefs":
-        //             [
-        //                 {className: "table-text", "targets": "_all"},
-        //                 {
-        //                     "targets": -1,
-        //                     "data": null,
-        //                     "searchable": false,
-        //                     "sortable": false,
-        //                     "defaultContent": '<button type="submit" class="btn btn-info view-button"><i class="fa fa-info"></i> Track Lcr</button>',
-        //                 },
-                        
-        //             ],
-        //     "columns":
-        //             [
-        //                 {
-        //                     "data": null,
-        //                     "defaultContent": "",
-        //                     "searchable": false,
-        //                     "orderable": false,
-        //                 },
-        //                 {
-        //                     "data": "district_name",
-        //                 },
-        //                 {
-        //                     "data": "state_name",
-        //                 },
-        //                 {
-        //                     "data": null
-        //                 },
-        //                 {
-        //                     "data": null
-        //                 },
-        //                 {
-        //                     "data": null
-        //                 },
-        //             ],
-        //     "order": [[1, 'asc']]
-        // });
+        //Datatable Code For Showing Data :: START
 
+        var table = $("#show_LCR_status").dataTable({  
+                            "processing": true,
+                            "serverSide": true,
+                            "ajax":{
+                                    "url": "{{route('fetch_status')}}",
+                                    "dataType": "json",
+                                    "type": "POST",
+                                    "data":{ 
+                                        _token: $('meta[name="csrf-token"]').attr('content')}
+                                    },
+                            "columns": [                
+                                {"class": "sl_no",
+                                  "data": "SL NO" },
+                                {"class": "hc_case_no data",
+                                  "data": "HIGH COURT CASE NO" },
+                                {"class": "memo_details data",
+                                  "data": "MEMO DETAILS" },
+                                {"class": "status data",
+                                "data": "STATUS" },
+                                {"class": "track_lcr",
+                                  "data": "ACTION" }
+                            ]
+                        });
             
             var i = 0;
                 $("#addrow").on("click",function(){
@@ -316,6 +296,7 @@
 
 				
 				//on click request button database entry occurs
+
                 $(document).on("click","#request",function(){
 					var district = $("#district option:selected").val();
 					var subdivision = $("#subdivision option:selected").val();
@@ -396,6 +377,7 @@
                         },
                         success: function(response){   
 							swal("LOWER COURT RECORD REQUESTED SUCCESSFULLY","WITHIN - "+deadline,"success");
+                            table.api().ajax.reload(); 
                         },
 						error: function(jqXHR, textStatus, errorThrown) {
                             alert("Error Occured! Please Try Again.");

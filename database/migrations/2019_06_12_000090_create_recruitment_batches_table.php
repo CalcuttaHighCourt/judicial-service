@@ -17,7 +17,7 @@ class CreateRecruitmentBatchesTable extends Migration
             $table->increments('id');
             $table->string('recruitment_batch_desc')->unique();
 			$table->integer('batch_year');
-            $table->bigInteger('created_by');
+            $table->bigInteger('created_by')->nullable();
             $table->timestamps();
         });
     }

@@ -17,10 +17,15 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     { 
-        if(Auth::guard($guard)->check() && Auth::user()->user_type=='Administrator') {
-        return redirect('');
-    }
+        if(Auth::guard($guard)->check() && Auth::user()->user_type->type_name=="Administrator") {
+
+          return redirect('dashboard/admin');
+        }
 
         return $next($request);
+
     }
 }
+        
+   
+

@@ -19,7 +19,6 @@ class CreateJoZoneTenuresTable extends Migration
             $table->integer('zone_id');
             $table->date('from_date');
             $table->date('to_date')->nullable();
-            $table->bigInteger('created_by');
             $table->timestamps();
             
             $table->unique(['judicial_officer_id','zone_id','from_date']);

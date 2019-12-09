@@ -234,6 +234,31 @@
         //     "order": [[1, 'asc']]
         // });
 
+        //Datatable Code For Showing Data :: START
+
+        var table = $("#show_LCR_status").dataTable({  
+                            "processing": true,
+                            "serverSide": true,
+                            "ajax":{
+                                    "url": "<?php echo e(route('fetch_status')); ?>",
+                                    "dataType": "json",
+                                    "type": "POST",
+                                    "data":{ 
+                                        _token: $('meta[name="csrf-token"]').attr('content')}
+                                    },
+                            "columns": [                
+                                {"class": "sl_no",
+                                  "data": "SL NO" },
+                                {"class": "hc_case_no data",
+                                  "data": "HIGH COURT CASE NO" },
+                                {"class": "memo_details data",
+                                  "data": "MEMO DETAILS" },
+                                {"class": "status data",
+                                "data": "STATUS" },
+                                {"class": "track_lcr",
+                                  "data": "ACTION" }
+                            ]
+                        });
             
             var i = 0;
                 $("#addrow").on("click",function(){
@@ -317,6 +342,7 @@
 
 				
 				//on click request button database entry occurs
+
                 $(document).on("click","#request",function(){
 					var district = $("#district option:selected").val();
 					var subdivision = $("#subdivision option:selected").val();
@@ -397,6 +423,7 @@
                         },
                         success: function(response){   
 							swal("LOWER COURT RECORD REQUESTED SUCCESSFULLY","WITHIN - "+deadline,"success");
+                            table.api().ajax.reload(); 
                         },
 						error: function(jqXHR, textStatus, errorThrown) {
                             alert("Error Occured! Please Try Again.");

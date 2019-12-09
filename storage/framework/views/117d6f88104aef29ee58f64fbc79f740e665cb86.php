@@ -1,0 +1,3 @@
+<?php $__currentLoopData = App\Department::orderBy('dept_name', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dept): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+		<option value="<?php echo e($dept->id); ?>" <?php if(old('dept') == $dept->dept_name): ?> selected="selected" <?php endif; ?>><?php echo e($dept->dept_name); ?></option>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/departments/dept_options.blade.php ENDPATH**/ ?>

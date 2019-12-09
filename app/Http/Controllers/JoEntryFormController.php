@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\JudicialOfficer;
 use App\JudicialOfficerQualification;
+use App\JoLegalExperience;
 use App\JudicialOfficerPosting;
+use App\JoReporting;
+use App\JoZoneTenure;
 use App\State;
-use App\CourtComplex;
 use App\User;
 use App\UserType;
 use Auth;
@@ -45,22 +47,44 @@ class JoEntryFormController extends Controller
         $judicial_officer = null; 
 
         $validated = $request->validated(); // validation rules are set in the Request File  
+      
         
-
         try{
-            //DB::beginTransaction();
-            DB::transaction(function ($request) {
-
+            DB::beginTransaction();            
+                
                 /*JO Basic Details :: START*/
                 $request['date_of_birth']=Carbon::parse($request['date_of_birth'])->format('Y-m-d');
                 $request['date_of_joining']=Carbon::parse($request['date_of_joining'])->format('Y-m-d');
                 $request['date_of_confirmation']=Carbon::parse($request['date_of_confirmation'])->format('Y-m-d');
                 $request['date_of_retirement']=Carbon::parse($request['date_of_retirement'])->format('Y-m-d');
-            
+         
+                if(empty($request['religion_id']))
+                    $request['religion_id'] = null;
+                if(empty($request['category_id']))
+                    $request['category_id'] = null;
+                if(empty($request['aadhaar_no']))
+                    $request['aadhaar_no'] = null;
+                if(empty($request['pan_no']))
+                    $request['pan_no'] = null;
+                if(empty($request['gpf_no']))
+                    $request['gpf_no'] = null;
+                if(empty($request['email_id_2']))
+                    $request['email_id_2'] = null;
+                if(empty($request['mobile_no_2']))
+                    $request['mobile_no_2'] = null;
+
+                $judicial_officer = null;
+                $login_credential = null;
+                $qualification_details = null;
+                $posting_details = null;
+                $reporting_details = null;
+                $jo_legal_experience_details = null;
+                 
                 $judicial_officer = JudicialOfficer::insertGetId($request->except([
                                         'file','qualification_id','passing_year',
-                                        'designation_id','court_id',
-                                        'court_complex_id','mode_id','from_date','to_date'
+                                        'designation_id','reporting_officer_id','court_id',
+                                        'zone_id','mode_id','from_date','to_date', 'subdivision_id',
+                                        'from_year','to_year'
                                     ]));
                 /*JO Basic Details :: ENDS*/
 
@@ -73,28 +97,23 @@ class JoEntryFormController extends Controller
 
                 $jo_user->name = $request->officer_name;
                 $jo_user->email = $request->email_id_1;
-                $jo_user->password = Hash::make(strtolower($request->jo_code));
+                $jo_user->password = Hash::make(123456);
                 $jo_user->judicial_officer_id = $judicial_officer;
                 $jo_user->user_id = 'jo'.str_pad($judicial_officer,5,'0',STR_PAD_LEFT);
                 $jo_user->user_type_id = $user_type;
 
                 $login_credential = $jo_user->save();
                 /*JO User ID & Password Creation :: ENDS */
-
-
+              
+              
                 /*JO Qualification Details :: START*/
-                $request->qualification_id = json_decode($request->qualification_id);
-                $request->passing_year = json_decode($request->passing_year);
-                $request['created_by'] = Auth::user()->id;
-
                 for($i=0;$i<sizeof($request->qualification_id);$i++){
                     $jo_qualification = new JudicialOfficerQualification;
 
                     if(!empty($request->qualification_id[$i])){
                         $jo_qualification->judicial_officer_id = $judicial_officer;
                         $jo_qualification->qualification_id = $request->qualification_id[$i];
-                        $jo_qualification->passing_year = $request->passing_year[$i];
-                        $jo_qualification->created_by = $request['created_by'];
+                        $jo_qualification->passing_year = $request->passing_year[$i];                        
 
                         $qualification_details[$i] = $jo_qualification->save();
                     }
@@ -104,48 +123,130 @@ class JoEntryFormController extends Controller
                 }
                 /*JO Qualification Details :: ENDS*/
 
+            
+                /*JO Legal Experience Details :: STARTS*/
+                for($i=0;$i<sizeof($request['subdivision_id']);$i++){
+                    $jo_legal_experience = new JoLegalExperience;
 
-                /*JO Posting Details :: START*/
-                $request->designation_id = json_decode($request->designation_id);
-                $request->court_id = json_decode($request->court_id);
-                $request->court_complex_id = json_decode($request->court_complex_id);
-                $request->mode_id = json_decode($request->mode_id);
-                $request->from_date = json_decode($request->from_date);
-                $request->to_date = json_decode($request->to_date);
+                    if(!empty($request->subdivision_id[$i])){
+                        $jo_legal_experience->judicial_officer_id = $judicial_officer;                       
+                        $jo_legal_experience->subdivision_id = $request->subdivision_id[$i];
+                        $jo_legal_experience->from_year = $request->from_year[$i];
+                        $jo_legal_experience->to_year = $request->to_year[$i];
 
+                        $jo_legal_experience_details[$i] = $jo_legal_experience->save();
+                    }
+                    else{
+                        $jo_legal_experience_details = null;
+                    }
+                }
+                /*JO Legal Experience Details :: ENDS*/
+
+
+                /*JO Posting Details :: START*/                
                 for($i=0;$i<sizeof($request['designation_id']);$i++){
                     $jo_posting = new JudicialOfficerPosting;
-                    
+    
                     if(!empty($request->designation_id[$i])){
                         $jo_posting->judicial_officer_id = $judicial_officer;
                         $jo_posting->designation_id = $request->designation_id[$i];
-                        $jo_posting->court_id = $request->court_id[$i];
-                        $jo_posting->court_complex_id = $request->court_complex_id[$i];
+                        $jo_posting->court_id = $request->court_id[$i]; 
+                        $posting_zone = $request->zone_id[$i];                
                         $jo_posting->mode_id = $request->mode_id[$i];
                         $jo_posting->from_date = Carbon::parse($request->from_date[$i])->format('Y-m-d');
-                        $jo_posting->to_date = Carbon::parse($request->to_date[$i])->format('Y-m-d');
-                        $jo_posting->created_by = $request['created_by'];
 
-                        $posting_details[$i] = $jo_posting->save();
+                        if(!empty($request->to_date[$i]))
+                            $jo_posting->to_date = Carbon::parse($request->to_date[$i])->format('Y-m-d');                        
+                        else
+                            $jo_posting->to_date = null;
+
+                        $posting_details = $jo_posting->save();
+
+                        /*JO Reporting Details :: START*/  
+                        if(!empty($request->reporting_officer_id[$i])){
+                            $posting_id = JudicialOfficerPosting::max('id');
+                            
+                            $jo_reporting = new JoReporting;
+                            $jo_reporting->judicial_officer_id = $judicial_officer;
+                            $jo_reporting->posting_id = $posting_id;
+                            $jo_reporting->reporting_officer_id = $request->reporting_officer_id[$i];
+
+                            $reporting_details = $jo_reporting->save();
+                        }
+                        else{
+                            $reporting_details = null;
+                        }
+                        /*JO Reporting Details :: ENDS*/ 
+
+                        /*JO Posting Zone Tenure :: START*/   
+                        $zone_count = JoZoneTenure::where('judicial_officer_id',$judicial_officer)->count();
+
+                        if($zone_count>0){
+                            $zone_count2 = JoZoneTenure::where([
+                                                            ['judicial_officer_id',$judicial_officer],
+                                                            ['to_date',null]
+                                                        ])->count();
+                            if($zone_count2>0){
+                                $present_zone = JoZoneTenure::where([
+                                                            ['judicial_officer_id',$judicial_officer],
+                                                            ['to_date',null]
+                                                        ])->max('zone_id');
+
+                                if($present_zone != $posting_zone){
+                                    $max_to_date = JudicialOfficerPosting::where('judicial_officer_id',$judicial_officer)
+                                                                            ->max('to_date');
+
+                                    JoZoneTenure::where([
+                                        ['judicial_officer_id',$judicial_officer],
+                                        ['to_date',null]
+                                    ])->update(['to_date'=>$max_to_date]);
+
+                                    JoZoneTenure::insert([
+                                        'judicial_officer_id' => $judicial_officer,
+                                        'zone_id' => $posting_zone,
+                                        'from_date' => $jo_posting->from_date,
+                                        'to_date' => null,
+                                    ]);
+                                }
+                            }
+                            else{
+                                JoZoneTenure::insert([
+                                    'judicial_officer_id' => $judicial_officer,
+                                    'zone_id' => $posting_zone,
+                                    'from_date' => $jo_posting->from_date,
+                                    'to_date' => null,
+                                ]);
+                            }
+                        }
+                        else{
+                            JoZoneTenure::insert([
+                                'judicial_officer_id' => $judicial_officer,
+                                'zone_id' => $posting_zone,
+                                'from_date' => $jo_posting->from_date,
+                                'to_date' => null,
+                            ]);
+                        }                        
+                        /*JO Posting Zone Tenure :: END*/
                     }
                     else{
                         $posting_details = null;
                     }
                 }
-                /*JO Posting Details :: START*/
+                /*JO Posting Details :: END*/
 
                 $response = array(
                     'judicial_officer' => $judicial_officer,
                     'login_credential' => $login_credential,
                     'qualification_details' => $qualification_details,
                     'posting_details' => $posting_details,
+                    'reporting_details' => $reporting_details,
+                    'jo_legal_experience_details' => $jo_legal_experience_details,
                 ); 
-
-            }, 1);
-                //DB::commit();
+                DB::commit();
+         
            
         } catch (\Exception $e) {
-            //DB::rollBack();
+            DB::rollBack();
 
             $response = array(
                 'exception' => true,
@@ -157,11 +258,48 @@ class JoEntryFormController extends Controller
         }
     }
 
+
+    // profile image upload
+    public function jo_upload_image(Request $request){
+        $this->validate( $request, [ 
+            'profile_image' => 'required|file|mimes:jpeg,png,jpg,gif|max:50'
+        ]);
+        
+        $jo_details = JudicialOfficer::orderBy('id','desc')->get();
+
+        $image = $request->file('profile_image');
+
+        if(!is_dir(public_path('images/judicial_officers/'.$jo_details['0']->registration_no))) 
+        {
+            mkdir(public_path('images/judicial_officers/'.$jo_details['0']->registration_no), 0777, true);       
+        }
+
+        $new_name = $jo_details['0']->registration_no.'_'.strtotime(date('Y-m-d')).'.'.$image->getClientOriginalExtension();
+
+        if(file_exists(public_path('images/judicial_officers/'.$jo_details['0']->registration_no.'/'.$new_name)))
+        {
+            unlink(public_path('images/judicial_officers/'.$jo_details['0']->registration_no.'/'.$new_name));
+        }
+
+        $image->move(public_path('images/judicial_officers/'.$jo_details['0']->registration_no), $new_name);
+
+        JudicialOfficer::where('registration_no',$jo_details['0']->registration_no)
+                        ->update([
+                            'profile_image' => $new_name,
+                        ]);
+    
+        return response()->json([
+            'image' => true,
+            'message'   => 'Image Upload Successfully',
+        ]);
+    
+    }
+
     
     public function show($id)
     {
         $profile = JudicialOfficer:: where('judicial_officers.id',$id)
-                                     ->with('district','state','religion','recruitment_batch','caste',
+                                     ->with('district','state','religion','recruitment_batch','category',
                                             'judicial_officer_qualifications.qualification',
                                             'judicial_officer_postings.designation','judicial_officer_postings.mode',
                                             'subordinate_officers','judicial_officer_postings.court', 
@@ -219,6 +357,76 @@ class JoEntryFormController extends Controller
                             ->get();
 
         return response()->json($districts);
+    }
+
+    public function show_all_jo(Request $request){
+        $columns = array(   
+            0 =>'more_details',          
+            1 =>'registration_no', 
+            2 =>'jo_code',
+            3 =>'officer_name',
+            4 =>'date_of_birth',
+            5 =>'date_of_retirement',
+            6 =>'action',
+            
+        );
+
+        $totalData = JudicialOfficer::count();
+
+        $totalFiltered = $totalData; 
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+
+        if(empty($request->input('search.value'))){
+            $judicial_officers = JudicialOfficer::offset($start)
+                                ->limit($limit)
+                                ->orderBy($order,$dir)
+                                ->get();
+            $totalFiltered = JudicialOfficer::count();
+        }
+        else{
+            $search = $request->input('search.value');
+            $judicial_officers = JudicialOfficer::where('registration_no',"%{$search}%")
+                                ->orWhere('jo_code','ilike',"%{$search}%")
+                                ->orWhere('officer_name','ilike',"%{$search}%")
+                                ->offset($start)
+                                ->limit($limit)
+                                ->orderBy($order,$dir)
+                                ->get();
+            $totalFiltered = JudicialOfficer::where('registration_no',"%{$search}%")
+                                        ->orWhere('jo_code','ilike',"%{$search}%")
+                                        ->orWhere('officer_name','ilike',"%{$search}%")
+                                        ->count();
+        }
+
+        $data = array();
+
+        if($judicial_officers){
+            foreach($judicial_officers as $judicial_officer){
+                $nestedData['more_details'] = '<img src="images/details_open.png" style="cursor:pointer" class="more_details" alt="More Details">';
+                $nestedData['registration_no'] = $judicial_officer->registration_no;
+                $nestedData['jo_code'] = $judicial_officer->jo_code;
+                $nestedData['officer_name'] = $judicial_officer->officer_name;
+                $nestedData['date_of_birth'] = Carbon::parse($judicial_officer->date_of_birth)->format('d-m-Y');
+                $nestedData['date_of_retirement'] = Carbon::parse($judicial_officer->date_of_retirement)->format('d-m-Y');
+                $nestedData['action'] = "<i class='fa fa-pencil edit' style=\"cursor:pointer\" aria-hidden='true'></i>";
+
+                $data[] = $nestedData;
+            }
+            
+            $json_data = array(
+                "draw" => intval($request->input('draw')),
+                "recordsTotal" => intval($totalData),
+                "recordsFiltered" =>intval($totalFiltered),
+                "data" => $data
+            );
+    
+            echo json_encode($json_data);
+        }
+
     }
 
 }

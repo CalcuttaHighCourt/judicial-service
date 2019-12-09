@@ -45,9 +45,11 @@
                         <button id="comply" type="button" class="btn btn-success comply">
                             Comply
                         </button>
-                        <button id="back" type="button" class="btn btn-default back" style="display:none;">
-                           Back
-                        </button>
+                        <a href="<?php echo e(URL::previous()); ?>">
+                            <button id="back" type="button" class="btn btn-primary back" style="display:none;">
+                                Back
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -300,12 +302,12 @@
 
             });
 
-        // $("#comply").hide();
-        // $("#forward").hide();   
-        // $("#back").show();  
+        $("#comply").hide();
+        $("#forward").hide();   
+        $("#back").show();  
 
 
-        $(".action").hide();
+        //$(".action").hide();
 
         });
       
@@ -348,6 +350,10 @@
                     }
 
                 });
+
+                $("#comply").hide();
+                $("#forward").hide();   
+                $("#back").show();  
 
             }); 
 

@@ -19,7 +19,7 @@ class CreateJudicialOfficerPostingPreferencesTable extends Migration
             $table->integer('zone_id');
             $table->text('remarks');
             $table->string('final_submission');
-            $table->bigInteger('created_by');
+            $table->bigInteger('created_by')->nullable();
             $table->timestamps();
 
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');

@@ -60,8 +60,8 @@ class LcrController extends Controller
 		
 		$district=$request->input('district');
 		$subdivision=$request->input('subdivision');
-		//$court=$request->input('court');//this should be open 
-		$court=Auth::user()->court_id;//for the timing till the login id is not created for all users after that the above line will be in use
+		$court=$request->input('court');//this should be open 
+		//$court=Auth::user()->court_id;//for the timing till the login id is not created for all users after that the above line will be in use
 		$hc_case_type=$request->input('hc_case_type');
 		$hc_case_no=$request->input('hc_case_no');
 		$hc_case_year=$request->input('hc_case_year');
@@ -112,7 +112,10 @@ class LcrController extends Controller
 		$data= array();
 
 		$hc_records=Lcr_hc_end::with('case_type','lcr_case_details.lower_case_type')
-					->where('court','=',Auth::user()->court_id)->get();
+					->where([
+						['court','=',Auth::user()->court_id],
+						['status_flag','<>','comply']
+					])->get();
 		$data["hc_records"]=$hc_records;
 		
 		
@@ -206,8 +209,101 @@ class LcrController extends Controller
 			['memo_date','ilike',$memo_date]		
 		])->update($data);
 
-
+	return 1;
 		
+	}
+
+	public function fetch_status_details(Request $request){
+
+		$columns = array( 
+			0 =>'SL NO', 
+			1 =>'HIGH COURT CASE NO',
+			2 =>'MEMO DETAILS',
+			3 =>'STATUS',
+			4 =>'ACTION'
+		);
+
+		$totalData = Lcr_hc_end::count();
+
+		$totalFiltered = $totalData; 
+
+		$limit = $request->input('length');
+		$start = $request->input('start');
+		$order = $columns[$request->input('order.0.column')];
+		$dir = $request->input('order.0.dir');
+
+		if(empty($request->input('search.value'))){
+			$lcr_hc_ends = Lcr_hc_end::join('hc_case_types','lcr_hc_ends.hc_case_record','=','hc_case_types.id')
+						->select('hc_case_types.type_name','lcr_hc_ends.hc_case_no','lcr_hc_ends.hc_case_year',
+								 'lcr_hc_ends.memo_no', 'lcr_hc_ends.memo_date','lcr_hc_ends.status_flag')
+						->offset($start)
+						->limit($limit)
+						->orderBy('memo_no',$dir)
+						->get();
+
+						
+			 $totalFiltered = Lcr_hc_end::count();
+		}
+		else{
+			$search = $request->input('search.value');
+			$lcr_hc_ends =Lcr_hc_end::join('hc_case_types','lcr_hc_ends.hc_case_record','=','hc_case_types.id')
+									->select('hc_case_types.type_name','lcr_hc_ends.hc_case_no','lcr_hc_ends.hc_case_year',
+									'lcr_hc_ends.memo_no', 'lcr_hc_ends.memo_date','lcr_hc_ends.status_flag')
+									->offset($start)
+									->limit($limit)
+									->orderBy('memo_no',$dir)
+									->get();
+
+									
+
+			$totalFiltered = Lcr_hc_end::join('hc_case_types','lcr_hc_ends.hc_case_record','=','hc_case_types.id')
+							->select('hc_case_types.type_name','lcr_hc_ends.hc_case_no','lcr_hc_ends.hc_case_year',
+							'lcr_hc_ends.memo_no', 'lcr_hc_ends.memo_date','lcr_hc_ends.status_flag')
+							->offset($start)
+							->limit($limit)
+							->orderBy('memo_no',$dir)
+							->count();
+		}
+
+		$data = array();
+
+		$nestedData['SL NO'] = 0;
+
+
+		if($lcr_hc_ends){
+			foreach($lcr_hc_ends as $lcr_hc_end){
+				
+				//print_r($lcr_hc_end); exit();
+
+				$nestedData['SL NO'] += 1;
+				$nestedData['HIGH COURT CASE NO'] = $lcr_hc_end->type_name."/".$lcr_hc_end->hc_case_no."/".$lcr_hc_end->hc_case_year;
+				$nestedData['MEMO DETAILS'] = $lcr_hc_end->memo_no." Dated " .date("d-m-Y", strtotime($lcr_hc_end->memo_date));
+				if( !empty($lcr_hc_end->status_flag)){
+					$nestedData['STATUS'] = $lcr_hc_end->status_flag;
+				}
+				else{
+					$nestedData['STATUS'] = 'Action Not Taken';
+				}
+				
+				$nestedData['ACTION'] = "<i class='fa fa-map-marker' aria-hidden='true'> Track LCR</i>";
+
+				//print_r($nestedData['Memo Details']); exit();
+
+
+
+				$data[] = $nestedData;
+			}
+			
+			$json_data = array(
+				"draw" => intval($request->input('draw')),
+				"recordsTotal" => intval($totalData),
+				"recordsFiltered" =>intval($totalFiltered),
+				"data" => $data
+			);
+	
+			echo json_encode($json_data);
+		}
+
 	}
 
 }//class lcrcontroller ends

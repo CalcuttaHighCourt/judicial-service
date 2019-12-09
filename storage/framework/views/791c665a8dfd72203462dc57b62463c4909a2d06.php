@@ -22,6 +22,7 @@
             <li class="active"><a data-toggle="tab" class="my-tab-navigation" href="#basic_details"> Basic Details </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#contact_details"> Contact Details </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#qualification_details"> Qualification Detals </a></li>
+            <li><a data-toggle="tab" class="my-tab-navigation" href="#legal_practice_details"> Practice Detals </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#posting_details"> Posting Details </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#upload_photo"> Upload Photo </a></li>
          </ul>
@@ -44,7 +45,7 @@
                        <input type="integer" class="form-control" name="reg_no" id="reg_no" placeholder="Registration No.">
                     </div>
                  </div>
-                  <div class="form-group required">
+                  <div class="form-group">
                      <div class="col-xs-3">
                         <label for="jo_code" class="control-label">
                            JO Code
@@ -97,7 +98,7 @@
                         <label for="dor" class="control-label">
                              Date of Superannuation 
                         </label>
-                        <input type="text" class="form-control date" name="dor" id="dor" placeholder="dd-mm-yyyy">
+                        <input type="text" class="form-control date1" name="dor" id="dor" placeholder="dd-mm-yyyy">
                     </div>
                  </div>      
                  <div class="form-group">
@@ -162,7 +163,7 @@
                         <label for="blood_group">
                              Blood Group 
                         </label>
-                        <input type="text" class="form-control" name="blood_group" id="blood_group" placeholder="Blood Group">
+                        <input type="text" class="form-control" name="blood_group" id="blood_group" placeholder="A+, A-, B+, B- , AB+, AB-, O+, O-">
                     </div>
                  </div>    
                  <div class="form-group">
@@ -193,14 +194,25 @@
                     <label class="form-check-label" style="font-size:medium">
                         Other
                     </label>
+                </div>
+                <br/>                
+                <div class="form-group"> 
+                    <div class="col-xs-4">
+                        <label class="control-label">Spouse Name (if Spouse is JO):</label>
+                        <select class="form-control info-form-control select2" style="width:100%" id="spouse_name">
+                            <option value="">Select an Option</option>
+                            <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                        </select>                         
+                    </div>
                 </div> 
+                
                </form>
-
+                <br/><br/>
                 <div class="row">
                     <br/><br/>
                     <div class="col-sm-12">
-                        <div class="col-sm-4 text-center">
-                            <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+                        <div class="col-sm-4 col-sm-offset-4 text-center">
+                            <button class="btn btn-success submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
                         </div>
                         <div class="col-sm-4 text-right">
                             <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
@@ -305,7 +317,7 @@
                             <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
                         </div>
                         <div class="col-sm-4 text-center">
-                            <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+                            <button class="btn btn-success submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
                         </div>
                         <div class="col-sm-4 text-right">
                             <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
@@ -315,39 +327,50 @@
             </div>
             <!--/tab-pane-->
 
-            <div class="tab-pane" id="qualification_details">
+            <div class="tab-pane" id="legal_practice_details">
                 <div class="row">
                     <form class="form" action="##" method="">
-                            <div class="div_add_more_qualification">
+                            <div class="div_add_more_legal_practice">
                                 <div class="row">
                                     <div class="form-group">
-                                        <div class="col-xs-5"><br/>
+                                        <div class="col-xs-4"><br/>
                                             <label>
-                                                Degree 
+                                                Subdivision 
                                             </label>
-                                            <select class="form-control info-form-control select2 degree_id" style="width:100%">
+                                            <select class="form-control info-form-control select2 subdivision_id" style="width:100%">
                                                 <option value="">Select an Option</option>
-                                                <?php echo $__env->make('qualifications.qualification_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                                <?php echo $__env->make('subdivisions.subdivision_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-xs-3">
                                             <label>
-                                                Year of Passing 
+                                                From (Year)
                                             </label>
-                                            <select class="form-control info-form-control select2 yop" style="width:100%">
+                                            <select class="form-control info-form-control select2 practice_from_year" style="width:100%">
                                                 <option value="">Select an Option</option>
-                                                <?php for($i=Date('Y');$i>=1947;$i--): ?>
+                                                <?php for($i=Date('Y');$i>=1900;$i--): ?>
                                                     <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
                                                 <?php endfor; ?>
                                             </select>
                                         </div>
                                     </div>   
                                     <div class="form-group">
+                                        <div class="col-xs-3">
+                                            <label>
+                                                To (Year)
+                                            </label>
+                                            <select class="form-control info-form-control select2 practice_to_year" style="width:100%">
+                                                <option value="">Select an Option</option>
+                                                <?php for($i=Date('Y');$i>=1900;$i--): ?>
+                                                    <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
+                                                <?php endfor; ?>
+                                            </select>
+                                        </div>
                                         <div class="col-xs-2">
                                             <br>
-                                            <img src="<?php echo e(asset('images/details_open.png')); ?>" class="img_add_more_qualification" id="add_more_qualification">
+                                            <img src="<?php echo e(asset('images/details_open.png')); ?>" class="img_add_more_legal_practice" id="add_more_legal_practice">
                                         </div>
                                     </div>
                                 </div>                          
@@ -362,7 +385,7 @@
                             <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
                         </div>
                         <div class="col-sm-4 text-center">
-                            <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+                            <button class="btn btn-success submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
                         </div>
                         <div class="col-sm-4 text-right">
                             <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
@@ -372,21 +395,70 @@
             </div>            
          <!--/tab-pane-->
 
+         <div class="tab-pane" id="qualification_details">
+            <div class="row">
+                <form class="form" action="##" method="">
+                        <div class="div_add_more_qualification">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-xs-5"><br/>
+                                        <label>
+                                            Degree 
+                                        </label>
+                                        <select class="form-control info-form-control select2 degree_id" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            <?php echo $__env->make('qualifications.qualification_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-3">
+                                        <label>
+                                            Year of Passing 
+                                        </label>
+                                        <select class="form-control info-form-control select2 yop" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            <?php for($i=Date('Y');$i>=1900;$i--): ?>
+                                                <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
+                                            <?php endfor; ?>
+                                        </select>
+                                    </div>
+                                </div>   
+                                <div class="form-group">
+                                    <div class="col-xs-2">
+                                        <br>
+                                        <img src="<?php echo e(asset('images/details_open.png')); ?>" class="img_add_more_qualification" id="add_more_qualification">
+                                    </div>
+                                </div>
+                            </div>                          
+                            <hr/>                     
+                        </div> 
+                </form>
+            </div>
+            <div class="row">
+                <br/><br/>
+                <div class="col-sm-12">
+                    <div class="col-sm-4 text-left">
+                        <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <button class="btn btn-success submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
+                    </div>
+                </div>    
+            </div>
+        </div>            
+        <!--/tab-pane-->
+
+        <!-- div structure of posting tab will not be changed at any cost; otherwise JS will not work-->
          <div class="tab-pane" id="posting_details">
              <br/>
              <div class="row">
                     <form class="form" action="##" method=""> 
                         <div class="div_add_more_posting">
                             <div class="row"> 
-                                <div class="col-xs-3">
-                                    <label>
-                                            Designation 
-                                    </label>
-                                    <select class="form-control info-form-control posting_select2 designation_id select2" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        <?php echo $__env->make('designations.designation_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                    </select>
-                                </div>
                                 <div class="col-xs-3">
                                     <label>
                                             Posting Mode 
@@ -396,18 +468,43 @@
                                         <?php echo $__env->make('modes.mode_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
                                 </div>
-                                <div class="col-xs-3">
-                                    <label>
-                                            Court 
-                                    </label>
-                                    <select class="form-control info-form-control posting_select2 court_id select2" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                    </select>
-                                </div>                   
+                                <div class="mode_permanent_div">
+                                    <div class="col-xs-4">
+                                        <label>
+                                                Designation 
+                                        </label>
+                                        <select class="form-control info-form-control posting_select2 designation_id select2" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            <?php echo $__env->make('designations.designation_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                        </select>
+                                    </div>                                
+                                    <div class="col-xs-4">
+                                        <label>
+                                                Court 
+                                        </label>
+                                        <select class="form-control info-form-control posting_select2 court_id select2" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                        </select>
+                                    </div>    
+                                </div>
+                                <div class="mode_deputation_div" style="display:none">
+                                    <div class="col-xs-4">
+                                        <label>
+                                                Designation 
+                                        </label>
+                                        <input type="text" class="form-control other_designation" placeholder="Designation of Deputation">
+                                    </div>                                
+                                    <div class="col-xs-4">
+                                        <label>
+                                                Place of Posting 
+                                        </label>
+                                        <input type="text" class="form-control other_place_posting" placeholder="Deputation Place">
+                                    </div>    
+                                </div>                              
                             </div><br/>
                             <div class="row"> 
-                                <div class="col-xs-3">
+                                <div class="col-xs-3 permanent_reporting_officer_div">
                                     <label>
                                             Reporting Officer 
                                     </label>
@@ -416,19 +513,37 @@
                                         <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
                                 </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-3 deputation_reporting_officer_div" style="display:none">
+                                    <label>
+                                            Reporting Officer 
+                                    </label>
+                                    <input type="text" class="form-control other_reporting_officer" placeholder="Deputation Reporting Officer">
+                                </div>
+                                <div class="col-xs-3 deputation_reporting_officer_div" style="display:none">
+                                    <label>
+                                            Designation 
+                                    </label>
+                                    <input type="text" class="form-control other_reporting_officer_designation" placeholder="Of Reporting Officer">
+                                </div>
+                                <div class="col-xs-2">
                                     <label>
                                             From Date 
                                     </label>
                                     <input type="text" class="form-control date from_date" placeholder="dd-mm-yyyy">
                                 </div>
-                                <div class="col-xs-3">
+                                <div class="col-xs-2">
                                     <label>
                                             To Date 
                                     </label>
                                     <input type="text" class="form-control date to_date" placeholder="dd-mm-yyyy">
                                 </div>
-                                <div class="col-xs-2">
+                                <div class="col-xs-3">
+                                    <label>
+                                            Remark
+                                    </label>
+                                    <textarea class="form-control remark" placeholder="if any"></textarea>
+                                </div>                                
+                                <div class="col-xs-1">
                                     <br>
                                     <img src="<?php echo e(asset('images/details_open.png')); ?>" class="img_add_more_posting" id="add_more_posting">
                                 </div>
@@ -444,7 +559,7 @@
                             <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
                         </div>
                         <div class="col-sm-4 text-center">
-                            <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+                            <button class="btn btn-success submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
                         </div>
                         <div class="col-sm-4 text-right">
                             <button class="btn btn-info next my-tab-navigation"><i class="glyphicon glyphicon-forward"></i> Next</button>
@@ -456,11 +571,13 @@
 
          <div class="tab-pane" id="upload_photo">
              <div class="row">
-                <form class="form" action="##" method="">
+                <form class="form" action="##" method="" id="form_image" enctype="multipart/form-data">
+                    <?php echo e(csrf_field()); ?>
+
                     <div class="text-center">  
                         <img src="<?php echo e(asset('images/FacelessMan.png')); ?>" class="avatar img-circle img-thumbnail" alt="avatar" style="height:30%;width:20%">
                         <h6>Upload Photo...</h6>
-                        <input type="file" id="file_input" class="text-center center-block file-upload">                                      
+                        <input type="file" id="profile_image" name="profile_image" class="text-center center-block file-upload" accept="image/png, image/jpg, image/jpeg, image/gif">                                      
                     </div>
                 </form>
              </div>
@@ -471,7 +588,7 @@
                         <button class="btn btn-info previous my-tab-navigation"><i class="glyphicon glyphicon-backward"></i> Previous</button>
                     </div>
                     <div class="col-sm-4 text-center">
-                        <button class="btn btn-success" id="submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
+                        <button class="btn btn-success submit"><i class="glyphicon glyphicon-ok-sign"></i> Submit</button>
                     </div>
                 </div>    
             </div>
@@ -483,6 +600,46 @@
    <!--/col-9-->
 </div>
 <!--/row-->
+</div>
+
+<!--iframe for showing JO Details-->
+<br/><br/>
+<div class="col-sm-12 text-center" id="show_jo_details_pdf" style="display:none">
+	<iframe id="iframe_report" src="" style="width:800px; height:400px;"></iframe>
+</div>
+
+<!--Datatable for showing JO Details-->
+<br/><br/>
+<div id="info-panel2" class="panel panel-default">    
+    <div id="datatable-panel-heading" class="panel-heading clearfix">
+        <div class="col-sm-1"></div>
+        <div class="panel-title pull-left">List of Judicial Officers. . . </div>
+        <div class="pull-right">
+            <button id="add-new-button" type="button" class="btn btn-primary add-new-button">
+                <i class="fa fa-plus-circle"></i> Add New
+            </button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive col-sm-offset-1">
+            <table class="table table-striped"
+                id="datatable-table" style="width: 100%;">
+                <!-- Table Headings -->
+                <thead>
+                    <tr>        
+                        <th></th>                
+                        <th>Reg. No</th>
+                        <th>JO Code</th>
+                        <th>JO Name</th>
+                        <th>DOB</th>
+                        <th>DOR</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
 
 
 
@@ -500,9 +657,10 @@
 <?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
 
 <script>
-   $(document).ready(function() {   
+   $(document).ready(function() { 
         var clone_element_posting = $(".div_add_more_posting").clone();
         var clone_element_qualification = $(".div_add_more_qualification").clone();
+        var clone_element_legal_practice = $(".div_add_more_legal_practice").clone();
 
         $.ajaxSetup({
             headers: {
@@ -533,10 +691,15 @@
         // Datepicker Initialization
         $(".date").datepicker({
             format: "dd-mm-yyyy",
-            endDate:'0',
             autoclose: true,   
             orientation: "auto",
-
+            endDate: '+0d',
+        });
+         // Datepicker Initialization for Superannuation
+        $(".date1").datepicker({
+            format: "dd-mm-yyyy",
+            autoclose: true,   
+            orientation: "auto",
         });
 
         // Select2 initialization
@@ -559,46 +722,146 @@
             return false;
         });   
 
-        
-        /*If multiple posting details added :: STARTS*/
-		$(document).on("click","#add_more_posting", function(){
-            var from_date = $(".div_add_more_posting:last").find(".from_date").val();
-            var designation_id = $(".div_add_more_posting:last").find(".designation_id").val();
-            var mode_id = $(".div_add_more_posting:last").find(".mode_id").val();
-            var court_id = $(".div_add_more_posting:last").find(".court_id").val();
+        // add new button in the heading of the datatable
+        $('#add-new-button').click(function () {            
+            $('html, body').animate({
+                scrollTop: $('#info-panel').offset().top - 60,
+            }, 1000);
+        });
 
-            if(from_date!="" && designation_id!="" && mode_id!=""){                
-                var clone_element2 = clone_element_posting.clone();
-                clone_element2.insertAfter(".div_add_more_posting:last");                
-                // Select2 Re-initialization
-                $(".select2").select2();  
 
-                // Datepicker Re-initialization
-                $(".date").datepicker({
-                    format: "dd-mm-yyyy",
-                    weekStart: 1,
-                    todayBtn: "linked",
-                    clearBtn: true,
-                    daysOfWeekHighlighted: "0,6",
-                    autoclose: true,
-                    todayHighlight: true,
-                    toggleActive: false,
-                    endDate: "today"
-                });
-              
-                $(".img_add_more_posting:last").attr({src:"images/details_close.png",
-                                                        class:"remove_posting", 
-                                                        alt:"remove_posting"
-                                                    });
-                $(".remove_posting:last").removeAttr("id");
+        //Deputation :: START
+        $(document).on("change",".mode_id", function(){
+            var option = $(this).find('option:selected').text();
+
+            if(option=='deputation' || option=='Deputation'){
+                 $(this).parent().parent().parent().find(".mode_permanent_div").hide();
+                 $(this).parent().parent().parent().find(".permanent_reporting_officer_div").hide();
+                 $(this).parent().parent().find(".mode_deputation_div").show();
+                 $(this).parent().parent().parent().find(".deputation_reporting_officer_div").show();
             }
             else{
-                swal("Invalid Entry","Entry all mandatory fields before adding a new posting details","error");
-                return false;
+                $(this).parent().parent().parent().find(".mode_permanent_div").show();
+                $(this).parent().parent().parent().find(".permanent_reporting_officer_div").show();
+                $(this).parent().parent().parent().find(".mode_deputation_div").hide();
+                $(this).parent().parent().parent().find(".deputation_reporting_officer_div").hide();
             }
+        })
+        //Deputation :: END
+                
+
+        //Datatable Code For Showing Data :: START
+        var table = $("#datatable-table").DataTable({  
+                            "processing": true,
+                            "serverSide": true,
+                            "order": [[1, 'asc']],
+                            "ajax":{
+                                    "url": "<?php echo e(route('list_of_jo')); ?>",
+                                    "dataType": "json",
+                                    "type": "POST",
+                                    "data":{ 
+                                        _token: $('meta[name="csrf-token"]').attr('content')
+                                    },                                    
+                            },
+                            "columns": [   
+                                {"data": "more_details",
+                                "orderable": "false"},             
+                                {"data": "registration_no"},
+                                {"data": "jo_code"},
+                                {"data": "officer_name"},
+                                {"data": "date_of_birth"},
+                                {"data": "date_of_retirement"},
+                                {"data": "action",
+                                "orderable": "false"}
+                            ]
+                        }); 
+
+                        
+                        $.fn.dataTable.ext.errMode = 'none';
+ 
+                        $(".table").on( 'error.dt', function ( e, settings, techNote, message ) {
+                            swal("An error has been reported by DataTable","","error");
+                        }).DataTable();             
+
+                                       
+            // DataTable initialization with Server-Processing ::END
+
+        // For JO Details PDF :: START
+        $(document).on("click",".more_details",function(){  
+          var element = $(this);        
+          var tr = element.closest('tr');
+          var row = table.row(tr);
+          var row_data = table.row(tr).data();
+
+          var registration_no = row_data['registration_no'];        
+        
+          var obj;    
+
+          // fetch JO details only when the child row is hide
+            if(!row.child.isShown()){ 
+
+                    $.ajax({
+                        type:"POST",
+                        url:"<?php echo e(route('fetch_jo_details_pdf')); ?>",
+                        data:{
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            registration_no:registration_no
+                        },
+                        success:function(response){
+                            //obj = $.parseJSON(response);             
+                            url=response; 
+                        },
+                        error:function(response){
+                            console.log(response);
+                        },
+                        async: false
+                    }) 
+            }
+
+            if(row.child.isShown() ) {
+                element.attr("src","images/details_open.png");
+                row.child.hide();
+            }
+            else {
+               
+                element.attr("src","images/details_close.png");
+               
+                var child_string ='<div class="col-sm-12 text-center" id="show_jo_details_pdf">'+
+	                                    '<iframe id="iframe_jo_details_pdf" src='+url+' style="width:800px; height:400px;"></iframe>'+
+                                  '</div>';  
+
+                row.child(child_string).show();
+            }       
+        })
+        // For JO Details PDF :: END
+        
+        /*If multiple posting details added :: STARTS*/
+		$(document).on("click","#add_more_posting", function(){           
+            var clone_element2 = clone_element_posting.clone();
+            clone_element2.insertAfter(".div_add_more_posting:last");  
+
+            // Select2 Re-initialization
+            $(".select2").select2();  
+
+            // Datepicker Re-initialization
+            $(".date").datepicker({
+                format: "dd-mm-yyyy",
+                endDate:'0',
+                autoclose: true,   
+                orientation: "auto",
+            });               
+
+            
+            $(".img_add_more_posting:last").attr({src:"images/details_close.png",
+                                                    class:"remove_posting", 
+                                                    alt:"remove_posting"
+                                                });
+            $(".remove_posting:last").removeAttr("id");        
 			
 		})
-	    /*If multiple posting details added :: ENDS*/    
+	    /*If multiple posting details added :: ENDS*/   
+
+
 
         /*If any posting details row needs to remove :: STARTS*/
         $(document).on("click",".remove_posting", function(){
@@ -606,34 +869,64 @@
 		}) 
         /*If any posting details row needs to remove :: ENDS*/
 
+
+
         /*If multiple Qualification details added :: STARTS*/
-		$(document).on("click","#add_more_qualification", function(){
-            var degree = $(".div_add_more_qualification:last").find(".degree_id").val();
-            var passing_year = $(".div_add_more_qualification:last").find(".yop").val();
-            
-            if(degree!="" && passing_year!=""){
-                var clone_element2 = clone_element_qualification.clone();                
-                clone_element2.insertAfter(".div_add_more_qualification:last");
-                $(".img_add_more_qualification:last").attr({src:"images/details_close.png",
-                                                        class:"remove_qualification", 
-                                                        alt:"remove_qualification"
-                                                    });
-                $(".remove_qualification").removeAttr("id");
-                $(".select2").select2();
-            }
-            else{
-                swal("Invalid Entry","Entry both the fields before adding a new degree","error");
-                return false;
-            }
-			
+		$(document).on("click","#add_more_qualification", function(){           
+            var clone_element2 = clone_element_qualification.clone();                
+            clone_element2.insertAfter(".div_add_more_qualification:last");
+            $(".img_add_more_qualification:last").attr({src:"images/details_close.png",
+                                                    class:"remove_qualification", 
+                                                    alt:"remove_qualification"
+                                                });
+            $(".remove_qualification").removeAttr("id");
+            $(".select2").select2(); 
 		})
 	    /*If multiple Qualification details added :: ENDS*/    
+
+
 
         /*If any Qualification details row needs to remove :: STARTS*/
         $(document).on("click",".remove_qualification", function(){
 			$(this).closest(".div_add_more_qualification").remove();
 		}) 
         /*If any Qualification details row needs to remove :: ENDS*/
+
+
+
+
+        /*If multiple Legal Practice details added :: STARTS*/
+		$(document).on("click","#add_more_legal_practice", function(){
+            var subdivision_id = $(".div_add_more_legal_practice:last").find(".subdivision_id").val();
+            var from_year = $(".div_add_more_legal_practice:last").find(".practice_from_year").val();
+            var to_year = $(".div_add_more_legal_practice:last").find(".practice_to_year").val();
+            
+            if(subdivision_id!="" && from_year!="" && to_year!=""){
+                var clone_element3 = clone_element_legal_practice.clone();                
+                clone_element3.insertAfter(".div_add_more_legal_practice:last");
+                $(".img_add_more_legal_practice:last").attr({src:"images/details_close.png",
+                                                        class:"remove_legal_practice", 
+                                                        alt:"remove_legal_practice"
+                                                    });
+                $(".remove_legal_practice").removeAttr("id");
+                $(".select2").select2();
+            }
+            else{
+                swal("Invalid Entry","Entry all the fields before adding a new legal experience details","error");
+                return false;
+            }
+			
+		})
+	    /*If multiple Legal Practice details added :: ENDS*/  
+
+
+
+        /*If any Legal Practice row needs to remove :: STARTS*/
+        $(document).on("click",".remove_legal_practice", function(){
+			$(this).closest(".div_add_more_legal_practice").remove();
+		}) 
+        /*If any Legal Practice row needs to remove :: ENDS*/
+
 
 
         /*Fetch corresponding Districts of selected State :: STARTS*/
@@ -675,20 +968,50 @@
         /*Current Address is Same As Permanenet Address :: ENDS*/
 
         function ajax_data(type){
+            //Profile Image Validation
+            if($("#profile_image").val()==""){
+                swal("Select Profile Image","","error");
+                return false;
+            }
+
+            var ext = $('#profile_image').val().split('.').pop().toLowerCase();
+
+            if ($.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
+                swal("Unsupported Image Type","Use gif / png / jpg / jpeg","error");
+                return false;
+            }
+
+            var picsize = ($("#profile_image")[0].files[0].size);
+            if (picsize > 51200){
+                swal("Oversized Image","Image should be less than 50KB","error");
+                return false;
+            }
             var designation_id = new Array();
+            var deputation_designation = new Array();
             var court_id = new Array();
-            var court_complex_id = new Array();
+            var zone_id = new Array();
+            var deputation_posting_place = new Array();
             var mode_id = new Array();            
             var qualification_id = new Array();
             var passing_year = new Array();
             var reporting_officer_id = new Array();
-            var reviewing_officer_id = new Array();
+            var other_reporting_officer_name = new Array();
+            var other_reporting_officer_designation = new Array();
             var from_date = new Array();
             var to_date = new Array();
+            var subdivision_id = new Array();
+            var from_year = new Array();
+            var to_year = new Array();
+            var posting_remark = new Array();
 
             designation_id = [];
             $(".designation_id").each(function(){
                 designation_id.push($(this).val());
+            })
+
+            deputation_designation = [];
+            $(".other_designation").each(function(){
+                deputation_designation.push($(this).val());
             })
 
             mode_id = [];
@@ -696,21 +1019,32 @@
                 mode_id.push($(this).val());
             })
 
-            court_id = [];
-            court_complex_id = [];
-            $(".court_id").each(function(){
-                court_id.push($(this).val());
-                court_complex_id.push($(this).find(':selected').attr('data-court_complex_id'));
+            court_id = [];   
+            zone_id = [];         
+            $(".court_id option:selected").each(function(){
+                court_id.push($(this).val()); 
+                zone_id.push($(this).attr('data-zone_id'));               
             })
 
+            deputation_posting_place = [];
+            $(".other_place_posting").each(function(){
+                deputation_posting_place.push($(this).val());
+            })
+
+           
             reporting_officer_id = [];
             $(".reporting_officer_id").each(function(){
                 reporting_officer_id.push($(this).val());
             })
 
-            reviewing_officer_id = [];
-            $(".reviewing_officer_id").each(function(){
-                reviewing_officer_id.push($(this).val());
+            other_reporting_officer_name = [];
+            $(".other_reporting_officer").each(function(){
+                other_reporting_officer_name.push($(this).val());
+            })
+
+            other_reporting_officer_designation = [];
+            $(".other_reporting_officer").each(function(){
+                other_reporting_officer_designation.push($(this).val());
             })
 
             qualification_id = [];
@@ -732,105 +1066,35 @@
             $(".to_date").each(function(){
                 to_date.push($(this).val());
             })
-         
 
-            var formData = new FormData();
+            subdivision_id = [];
+            $(".subdivision_id").each(function(){
+                subdivision_id.push($(this).val());
+            })
+
+            from_year = [];
+            $(".practice_from_year").each(function(){
+                from_year.push($(this).val());
+            })
+
+            to_year = [];
+            $(".practice_to_year").each(function(){
+                to_year.push($(this).val());
+            })
             
-            formData.append("jo_code", $("#jo_code").val());
-
-            formData.append("officer_name", $("#jo_name").val());
-
-            formData.append("gender", $("input[name='gender']").val());
-
-            formData.append("guardian_name",$("#guardian_name").val());
-
-            formData.append("gurdian_relation",$("#guardian_relationship").val());
-
-            formData.append("date_of_birth", $("#dob").val());
-
-            formData.append("home_state_id",$("#home_state").val());
-
-            formData.append("home_district_id",$("#home_district").val());	
-
-            formData.append("hometown",$("#home_town").val());
-
-            formData.append("present_address",$("#current_address").val());
-
-            formData.append("permanent_address",$("#permanent_address").val());
-
-            formData.append("religion_id",$("#religion_id").val());
-
-            formData.append("category_id",$("#category_id").val());   
-
-            formData.append("blood_group",$("#blood_group").val());
-
-            formData.append("identification_mark",$("#identification_mark").val());  
-
-            formData.append("aadhaar_no",$("#aadhar_no").val());
-
-            formData.append("pan_no",$("#pan_no").val());
-
-            formData.append("gpf_no",$("#gpf_no").val()); 
-
-            formData.append("mobile_no_1",$("#ph_no_1").val());
-
-            formData.append("mobile_no_2",$("#ph_no_2").val());
-
-            formData.append("mobile_no_3",$("#ph_no_3").val());
-
-            formData.append("email_id_1",$("#email_id_1").val());
-
-            formData.append("email_id_2",$("#email_id_2").val());
-
-            formData.append("email_id_3",$("#email_id_3").val());
-
-            formData.append("recruitment_batch_id",$("#recruitment_batch_id").val());
-
-            formData.append("date_of_joining",$("#doj").val());
-
-            formData.append("date_of_confirmation",$("#doc").val());
-
-            formData.append("date_of_retirement",$("#dor").val());
-
-            formData.append("file",	$("#file_input").prop('files')[0]);
-
-            formData.append("qualification_id",JSON.stringify(qualification_id));
-
-            formData.append("passing_year",JSON.stringify(passing_year));
-
-            formData.append("designation_id",JSON.stringify(designation_id));
-
-            formData.append("court_id",JSON.stringify(court_id));
-
-            formData.append("court_complex_id",JSON.stringify(court_complex_id));
-
-            formData.append("mode_id",JSON.stringify(mode_id));
-
-            formData.append("from_date",JSON.stringify(from_date));
-
-            formData.append("to_date",JSON.stringify(to_date));
-            
-        
-            
-
-            // for (var pair of formData.entries()) {
-            //     console.log(pair[0]+ ', ' + pair[1]); 
-            // }
 
             ajax_url="";
             operation="";
             operated="";
             request_type="POST";
-            if(type=="add"){
-                formData["_method"]="POST";
+            if(type=="add"){                
                 ajax_url="jo_entry";       
 
                 operation="add";
                 operated="Added";
             }
-            else if(type=="update"){
-                formData["_method"]="PUT";            
-                ajax_url="jo_entry/"+formdata.jo_code;
+            else if(type=="update"){                          
+                //ajax_url="jo_entry/"+formdata.registration_no;
 
                 operation="update";
                 operated="Updated";
@@ -839,15 +1103,81 @@
             $.ajax({
                 type: request_type,
                 url: ajax_url,
-                data: formData,
-                dataType: 'json',
-                processData: false,
-                contentType: false,
+                data: {
+                    jo_code:$("#jo_code").val(),
+                    registration_no:$("#reg_no").val(),
+                    officer_name:$("#jo_name").val(),
+                    gender:$("input[name='gender']:checked").val(),
+                    guardian_name:$("#guardian_name").val(),
+                    gurdian_relation:$("#guardian_relationship").val(),
+                    spouse:$("#spouse_name").val(),
+                    date_of_birth:$("#dob").val(),
+                    home_state_id:$("#home_state").val(),
+                    home_district_id:$("#home_district").val(),
+                    hometown:$("#home_town").val(),
+                    present_address:$("#current_address").val(),
+                    permanent_address:$("#permanent_address").val(),
+                    religion_id:$("#religion_id").val(),
+                    category_id:$("#category_id").val(),
+                    blood_group:$("#blood_group").val(),
+                    identification_mark:$("#identification_mark").val(),
+                    aadhaar_no:$("#aadhar_no").val(),
+                    pan_no:$("#pan_no").val(),
+                    gpf_no:$("#gpf_no").val(),
+                    mobile_no_1:$("#ph_no_1").val(),
+                    mobile_no_2:$("#ph_no_2").val(),
+                    email_id_1:$("#email_id_1").val(),
+                    email_id_2:$("#email_id_2").val(),
+                    recruitment_batch_id:$("#recruitment_batch_id").val(),
+                    date_of_joining:$("#doj").val(),
+                    date_of_confirmation:$("#doc").val(),
+                    date_of_retirement:$("#dor").val(),
+                    qualification_id:qualification_id,
+                    passing_year:passing_year,
+                    subdivision_id:subdivision_id,
+                    from_year:from_year,
+                    to_year:to_year,
+                    designation_id:designation_id,
+                    reporting_officer_id:reporting_officer_id,
+                    court_id:court_id,
+                    zone_id:zone_id,
+                    mode_id:mode_id,
+                    from_date:from_date,
+                    to_date:to_date,
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                },
                 success: function (data, textStatus, jqXHR) {
                     if(data.judicial_officer!=null){
-                        swal("Judicial Officer"+operated+" Successfully","","success");
-                        $("form").trigger("reset");   
-                        $(".select2").val('').trigger('change');
+
+                        // image upload :: START
+                        $.ajax({
+                            url:"<?php echo e(route('jo_image_upload')); ?>",
+                            method:"POST",
+                            data: new FormData($("#form_image")[0]),
+                            dataType:'JSON',
+                            contentType: false,
+                            cache: false,
+                            processData: false,
+                            success: function(data, textStatus, jqXHR){
+                                swal("Judicial Officer"+operated+" Successfully","","success");
+                                $("form").trigger("reset");   
+                                $(".select2").val('').trigger('change');
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                if(jqXHR.status!=422 && jqXHR.status!=400){
+                                    swal("Failed to "+operation+" Judicial Officer",errorThrown,"error");
+                                }
+                                else{
+                                    msg = "";
+                                    $.each(jqXHR.responseJSON.errors, function(key,value) {
+                                        msg+=value+"\n";						
+                                    });
+
+                                    swal("Failed to "+operation+" Judicial Officer",msg,"error");
+                                }
+                            }
+                        })
+                        // image upload :: END
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -867,7 +1197,7 @@
         }   
 
 
-        $("#submit").click(function(){
+        $(".submit").click(function(){
             ajax_data('add');
         })  
 

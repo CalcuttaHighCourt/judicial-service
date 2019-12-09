@@ -26,17 +26,12 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth','role_manager:Administrator']],function (){
 
 	Route::resource('users', 'UserController')->except(['create', 'edit']);
+
+	// Route::get ( 'dashboard/admin', function () {
+	// 	return view ( 'departments.admin_dashboard' );
+	// } );
 	
 
-	/*Court complex*/
-
-	Route::resource('court_complexes', 'CourtComplexController')->except(['create', 'edit']);
-
-	Route::get ( 'Court_complex-Datatable-Server-Side', 'CourtComplexController@index2' );
-
-	Route::get ( 'court_complex', function () {
-		return view ( 'court_complexes.index' );
-	} );
 
 
 	/*Court*/
@@ -63,7 +58,7 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	/*User type*/
 
-	Route::get ( 'User_types-Datatable-Server-Side', 'UserTypeController@index_for_datatable' );
+	Route::get ('User_types-Datatable-Server-Side', 'UserTypeController@index_for_datatable' );
 
 	Route::resource('usertypes', 'UserTypeController')->except(['create', 'edit']);
 
@@ -87,32 +82,24 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 		return view ( 'jo_postings.index' );
 	} );
 
-	Route::post('jo_posting/search', 'JudicialOfficerPostingController@jo_current_posting_details');
-
+	
 
 	
 	/*Judicial Officer */
 	
-	Route::resource('judicial_officers', 'JudicialOfficerController')
-	->except(['create', 'edit']);
+	// Route::resource('judicial_officers', 'JudicialOfficerController')
+	// ->except(['create', 'edit']);
 
-	Route::get ( 'JudicialOfficer-Datatable-Server-Side', 'JudicialOfficerController@index2' );
+	// Route::get ( 'JudicialOfficer-Datatable-Server-Side', 'JudicialOfficerController@index2' );
 
-	Route::get ( 'judicial_officer', function () {
-		return view ( 'judicial_officers.index' );
-	} );
+	// Route::get ( 'judicial_officer', function () {
+	// 	return view ( 'judicial_officers.index' );
+	// } );
 
 
-
-	/*Jo Entry Details */
-
-	Route::resource('jo_entry', 'JoEntryFormController')->except(['create', 'edit']);
-
-	Route::get ('jo_entry_form', function () {
-		return view ('jo_entry_form.index');
-	});
 
 	
+
 
 	/*Qualification*/
 
@@ -150,36 +137,9 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 	} );
 
 
-	/* Grade */
+	
 
-	Route::resource('grades', 'GradeController')->except(['create', 'edit']);
-
-	Route::Post('show_grades', 'GradeController@get_all_grade_data' );
-
-
-	//Route::get ( 'Grade-Datatable-Server-Side', 'GradeController@index2' );
-
-	Route::get ( 'grade', function () {
-		return view ( 'acr.grade_details' );
-	} );
-
-	/*ACR History*/
-
-	Route::get ( 'acr_history', function () {
-		return view ( 'acr.acr_history' );
-	} );
-
-	Route::Post('acr_history/store', 'ACRController@acr_history_save' );
-
-	Route::Post('populate_assessment_year/history','ACRController@officerwise_assessment_year');
-
-	/*ACR Serach*/
-
-	Route::get ( 'acr_fetch', function () {
-		return view ( 'acr.acr_fetch' );
-	} );
-
-	Route::Post('acr_fetch/search', 'ACRController@fetch_acr_history' );
+	
 
 	/*Subdivision */
 
@@ -213,15 +173,21 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 		return view ( 'modes.index' );
 	} );
 
+	/*Lcr Department */
 
-	/*Caste */
+	Route::resource('departments', 'LcrDepartmentController')->except(['create', 'edit']);
 
-	Route::resource('castes', 'CasteController')->except(['create', 'edit']);
+	Route::post( 'Department-Datatable-Server-Side', 'LcrDepartmentController@index_for_datatable' );
 
-	Route::get ( 'Caste-Datatable-Server-Side', 'CasteController@index2' );
 
-	Route::get ( 'caste', function () {
-		return view ( 'castes.index' );
+	/*Category */
+
+	Route::resource('Categories', 'CategoryController')->except(['create', 'edit']);
+
+	Route::get ( 'Category-Datatable-Server-Side', 'CategoryController@index2' );
+
+	Route::get ( 'Category', function () {
+		return view ( 'Categories.index' );
 	} );
 
 
@@ -259,7 +225,7 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	/*Register */
 
-	Route::get ( 'register', 'Auth\RegisterController@showRegistrationForm' );
+	Route::get ( 'register', 'Auth\RegisterController@showRegistrationForm');
 
 	Route::post ( 'register', 'Auth\RegisterController@register' );
 
@@ -267,16 +233,7 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 });
 
-Route::group(['middleware' => ['auth','role_manager:Administrator|Judicial Officer']],function (){
 
-	Route::get ('profile', 'JoEntryFormController@profile')->name('profile');
-
-	Route::post('jo_entry/fetch_district','JoEntryFormController@fetch_district')->name('fetch_district');
-
-	Route::post('jo_entry/fetch_court','JoEntryFormController@fetch_court')->name('fetch_court');
-
-
-});
 
 Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function (){
 
@@ -284,6 +241,12 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 	/*Posting zone preference*/
 
 	//Route::post('zone_pref/submit', 'JudicialOfficerPostingPreferenceController@store');
+
+	Route::get ( 'dashboard/jo', function () {
+		return view ( 'jo_entry_form.jo_dashboard' );
+	} );
+
+	Route::get ('profile', 'JoEntryFormController@profile')->name('profile');
 
 	Route::get('zone_pref_jr', 'JudicialOfficerPostingPreferenceController@fetch_zone');
 
@@ -315,15 +278,79 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 });
 
+	Route::group(['middleware' => ['auth','role_manager:Inspection|Administrator']],function (){
+
+
+		/* Grade */
+
+		Route::resource('grades', 'GradeController')->except(['create', 'edit']);
+
+		Route::Post('show_grades', 'GradeController@get_all_grade_data' );
+
+
+		//Route::get ( 'Grade-Datatable-Server-Side', 'GradeController@index2' );
+
+		Route::get ( 'grade', function () {
+			return view ( 'acr.grade_details' );
+		} );
+
+		/*ACR History*/
+
+		Route::get ( 'acr_history', function () {
+			return view ( 'acr.acr_history' );
+		} );
+
+		Route::Post('acr_history/store', 'ACRController@acr_history_save' );
+
+		Route::Post('populate_assessment_year/history','ACRController@officerwise_assessment_year');
+
+		/*ACR Serach*/
+
+		Route::get ( 'acr_fetch', function () {
+			return view ( 'acr.acr_fetch' );
+		} );
+
+		Route::Post('acr_fetch/search', 'ACRController@fetch_acr_history');
+
+		/*Document Type */
+
+		Route::resource('document_types', 'DocumentTypeController')->except(['create', 'edit']);
+
+		Route::post( 'Document-Datatable-Server-Side', 'DocumentTypeController@index_for_datatable' );
+
+	});
+
+	Route::group(['middleware' => ['auth','role_manager:Inspection|Administrator|Appointment']],function (){
+
+		/*jo entry*/
+
+		Route::resource('jo_entry', 'JoEntryFormController')->except(['create', 'edit']);
+
+		Route::post('jo_entry/upload_image', 'JoEntryFormController@jo_upload_image')->name('jo_image_upload');
+
+		Route::post('jo_entry/show_all_jo', 'JoEntryFormController@show_all_jo')->name('list_of_jo');
+
+		Route::post('jo_posting/search', 'JudicialOfficerPostingController@jo_current_posting_details');
+
+		Route::post('jo_entry/fetch_district','JoEntryFormController@fetch_district')->name('fetch_district');
+
+		Route::post('jo_entry/fetch_court','JoEntryFormController@fetch_court')->name('fetch_court');
+
+		Route::post('jo_entry/fetch_jo_details_pdf', 'JoDetailsPdfController@fetch_jo_details_pdf')->name('fetch_jo_details_pdf');
+
+		Route::get ('jo_entry_form', function () {
+			return view ('jo_entry_form.index');
+		});
+
+	});
+
 	Route::group(['middleware' => ['auth','role_manager:Court']],function (){
 
 		/*LCR */
 
-		Route::post('lcr_hc_end_populate/subdivision', 'LcrController@hc_index_subdivision');
-
-		Route::post('lcr_hc_end_populate/court', 'LcrController@hc_index_court');
-
-		Route::post('lcr_request_by_hc/databaseentry', 'LcrController@database_entry');
+		Route::get ( 'dashboard/court', function () {
+			return view ( 'courts.court_dashboard' );
+		} );
 
 		Route::post('lower_compliance/submit_comply', 'LcrController@submit_comply')->name('submit_comply');
 
@@ -333,11 +360,32 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 		Route::get ( 'lcr_compliance/{lcr_id}', 'LcrController@complaince_details' );
 
-		Route::get ( 'lcr_details', 'LcrController@fetch_status_details')->name('fetch_status');
+		
+
+		
+	});
+
+
+	Route::group(['middleware' => ['auth','role_manager:Department']],function (){
+
+
+		Route::get ( 'dashboard/dept', function () {
+			return view ( 'departments.dept_dashboard' );
+		} );
+
+		Route::post('lcr_hc_end_populate/subdivision', 'LcrController@hc_index_subdivision');
+
+		Route::post('lcr_hc_end_populate/court', 'LcrController@hc_index_court');
+
+		Route::post('lcr_request_by_hc/databaseentry', 'LcrController@database_entry');
+
+		Route::post ( 'lcr_details', 'LcrController@fetch_status_details')->name('fetch_status');
 
 		Route::get ( 'lcr_hc', function () {
 			return view ( 'lcr.index' );
 		} );
+
+
 
 	});
 

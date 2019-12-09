@@ -19,7 +19,7 @@ class CreateCourtsTable extends Migration
             $table->integer('subdivision_id');
             $table->double('latitude')->nullable();
 			$table->double('longitude')->nullable();
-			$table->bigInteger('created_by');
+			$table->bigInteger('created_by')->nullable();
             $table->timestamps();
 			$table->foreign('subdivision_id')->references('id')->on('subdivisions');
         });
