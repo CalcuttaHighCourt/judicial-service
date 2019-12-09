@@ -25,14 +25,14 @@ class CreateLcrHcEndsTable extends Migration
             $table->string('memo_no');
             $table->string('status_flag')->nullable();
             $table->date('memo_date');
-            $table->integer('forwading_court')->nullable();
+            $table->integer('forwarding_court')->nullable();
             $table->bigInteger('created_by');
             $table->timestamps();
 
             						
 			$table->unique(['memo_no','memo_date']);
             $table->foreign('court')->references('id')->on('courts');
-            $table->foreign('forwading_court')->references('id')->on('courts');
+            $table->foreign('forwarding_court')->references('id')->on('courts');
             $table->foreign('subdivision')->references('id')->on('subdivisions');
             $table->foreign('district')->references('id')->on('districts');
         });
