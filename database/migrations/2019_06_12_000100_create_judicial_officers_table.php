@@ -20,7 +20,8 @@ class CreateJudicialOfficersTable extends Migration
 			$table->string('officer_name');
 			$table->string('gender');
 			$table->string('guardian_name');
-			$table->string('gurdian_relation');			
+			$table->string('gurdian_relation');
+			$table->bigInteger('spouse')->nullable()->unique();			
 			$table->date('date_of_birth');
 			$table->integer('home_state_id');
 			$table->integer('home_district_id');
@@ -49,7 +50,8 @@ class CreateJudicialOfficersTable extends Migration
 			$table->foreign('home_state_id')->references('id')->on('states');
 			$table->foreign('category_id')->references('id')->on('categories');
 			$table->foreign('religion_id')->references('id')->on('religions');
-			$table->foreign('recruitment_batch_id')->references('id')->on('recruitment_batches');					
+			$table->foreign('recruitment_batch_id')->references('id')->on('recruitment_batches');
+			$table->foreign('spouse')->references('id')->on('judicial_officers');
 			
         });
     }

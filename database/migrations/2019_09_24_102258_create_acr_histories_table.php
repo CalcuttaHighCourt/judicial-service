@@ -19,7 +19,7 @@ class CreateAcrHistoriesTable extends Migration
             $table->bigInteger('judicial_officer_id');
             $table->integer('grade_id');
             $table->integer('year');
-            $table->bigInteger('created_by');
+            $table->bigInteger('created_by')->nullable();
             $table->timestamps();
 
             $table->unique(['judicial_officer_id','year']);

@@ -18,7 +18,7 @@ class CreateSubdivisionsTable extends Migration
             $table->string('subdivision_name');
             $table->integer('district_id');
             $table->integer('zone_id');
-			$table->bigInteger('created_by');
+			$table->bigInteger('created_by')->nullable();
 			$table->timestamps();
             
             $table->unique(['subdivision_name','district_id']);

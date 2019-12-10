@@ -17,7 +17,7 @@ class CreateZoneSubdivisionsTable extends Migration
             $table->increments('id');
             $table->integer('zone_id');
             $table->integer('subdivision_id');
-            $table->bigInteger('created_by');
+            $table->bigInteger('created_by')->nullable();
             $table->timestamps();
 
             $table->unique(['zone_id','subdivision_id']);

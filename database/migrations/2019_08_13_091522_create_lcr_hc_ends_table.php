@@ -26,7 +26,7 @@ class CreateLcrHcEndsTable extends Migration
             $table->string('status_flag')->nullable();
             $table->date('memo_date');
             $table->integer('forwarding_court')->nullable();
-            $table->bigInteger('created_by');
+            $table->bigInteger('created_by')->nullable();
             $table->timestamps();
 
             						

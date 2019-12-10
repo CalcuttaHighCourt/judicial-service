@@ -72,6 +72,8 @@ class JoEntryFormController extends Controller
                     $request['email_id_2'] = null;
                 if(empty($request['mobile_no_2']))
                     $request['mobile_no_2'] = null;
+                if(empty($request['spouse']))
+                    $request['spouse'] = null;
 
                 $judicial_officer = null;
                 $login_credential = null;
@@ -82,10 +84,19 @@ class JoEntryFormController extends Controller
                  
                 $judicial_officer = JudicialOfficer::insertGetId($request->except([
                                         'file','qualification_id','passing_year',
-                                        'designation_id','reporting_officer_id','court_id',
-                                        'zone_id','mode_id','from_date','to_date', 'subdivision_id',
-                                        'from_year','to_year'
+                                        'designation_id', 'deputation_designation', 'reporting_officer_id',
+                                        'other_reporting_officer_name', 'other_reporting_officer_designation', 'court_id',
+                                        'zone_id', 'deputation_posting_place', 'mode_id','from_date','to_date', 'subdivision_id',
+                                        'from_year','to_year', 'posting_remark'
                                     ]));
+
+                // Spouse Update in other side
+                if($request['spouse'] != null){
+                    JudicialOfficer::where([
+                        ['id',$request['spouse']],
+                    ])->update(['spouse'=>$judicial_officer]);
+                }
+
                 /*JO Basic Details :: ENDS*/
 
 
@@ -159,6 +170,8 @@ class JoEntryFormController extends Controller
                             $jo_posting->to_date = Carbon::parse($request->to_date[$i])->format('Y-m-d');                        
                         else
                             $jo_posting->to_date = null;
+
+                        $jo_posting->posting_remark = $request->posting_remark[$i];
 
                         $posting_details = $jo_posting->save();
 
