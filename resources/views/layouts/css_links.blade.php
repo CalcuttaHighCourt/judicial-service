@@ -3,6 +3,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('css/font-awesome/css/font-awesome.min.css')}}">
     
+    <!-- Glyphicons -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('css/AdminLTE.min.css')}}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
