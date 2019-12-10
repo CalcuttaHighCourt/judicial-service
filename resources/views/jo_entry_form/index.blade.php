@@ -541,7 +541,7 @@
                                     <label>
                                             Remark
                                     </label>
-                                    <textarea class="form-control remark" placeholder="if any"></textarea>
+                                    <textarea class="form-control posting_remark" placeholder="if any"></textarea>
                                 </div>                                
                                 <div class="col-xs-1">
                                     <br>
@@ -1044,6 +1044,11 @@
             other_reporting_officer_designation = [];
             $(".other_reporting_officer_designation").each(function(){
                 other_reporting_officer_designation.push($(this).val());
+            })
+
+            posting_remark = [];
+            $(".posting_remark").each(function(){
+                posting_remark.push($(this).val());
             })
 
             qualification_id = [];

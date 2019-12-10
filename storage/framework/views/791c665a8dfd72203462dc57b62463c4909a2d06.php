@@ -541,7 +541,7 @@
                                     <label>
                                             Remark
                                     </label>
-                                    <textarea class="form-control remark" placeholder="if any"></textarea>
+                                    <textarea class="form-control posting_remark" placeholder="if any"></textarea>
                                 </div>                                
                                 <div class="col-xs-1">
                                     <br>
@@ -1043,8 +1043,13 @@
             })
 
             other_reporting_officer_designation = [];
-            $(".other_reporting_officer").each(function(){
+            $(".other_reporting_officer_designation").each(function(){
                 other_reporting_officer_designation.push($(this).val());
+            })
+
+            posting_remark = [];
+            $(".posting_remark").each(function(){
+                posting_remark.push($(this).val());
             })
 
             qualification_id = [];
@@ -1138,12 +1143,17 @@
                     from_year:from_year,
                     to_year:to_year,
                     designation_id:designation_id,
+                    deputation_designation:deputation_designation,
                     reporting_officer_id:reporting_officer_id,
+                    other_reporting_officer_name:other_reporting_officer_name,
+                    other_reporting_officer_designation:other_reporting_officer_designation,
                     court_id:court_id,
                     zone_id:zone_id,
+                    deputation_posting_place:deputation_posting_place,
                     mode_id:mode_id,
                     from_date:from_date,
                     to_date:to_date,
+                    posting_remark:posting_remark,
                     _token: $('meta[name="csrf-token"]').attr('content'),
                 },
                 success: function (data, textStatus, jqXHR) {
