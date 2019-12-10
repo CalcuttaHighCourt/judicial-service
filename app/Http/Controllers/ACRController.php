@@ -130,8 +130,7 @@ class ACRController extends Controller
                                           inner join courts on jop.court_id=courts.id
                 where judicial_officer_id='.$code->judicial_officer_id." AND from_date >= '".$code->year."-01-01' AND from_date <= '".$code->year."-12-31'
                 order by from_date desc");
-            
-            
+      
                 $str=""; 
                 $str1="";               
                 foreach($designations as $key=>$designation)
@@ -150,6 +149,8 @@ class ACRController extends Controller
             $data[] = $nestedData;
         }
         
+       
+       
         return $data;
     }
 

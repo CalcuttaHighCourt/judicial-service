@@ -1,10 +1,5 @@
-<?php $__env->startSection('title', 'Register'); ?>
-
-<?php $__env->startSection('page_heading'); ?>
-	Registration Page
-<?php $__env->stopSection(); ?>
-
-<?php $__env->startSection('center_main_content'); ?>
+ 
+<?php $__env->startSection('content'); ?>
 
 <style>
    .select2-results__option{
@@ -184,8 +179,15 @@
         </div>
     </div>
 </div>
-<?php $__env->stopSection(); ?>
-<?php $__env->startSection('end_scripts_1'); ?>
+
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script src="<?php echo e(asset('js/jquery/jquery.min.js')); ?>"></script>
+
 <script>
     $(function() {
 
@@ -226,10 +228,5 @@
 
 </script>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-
-<?php $__env->startSection('main_container'); ?>
-	<?php echo $__env->yieldContent('1_column_content'); ?>
-<?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/auth/register.blade.php ENDPATH**/ ?>

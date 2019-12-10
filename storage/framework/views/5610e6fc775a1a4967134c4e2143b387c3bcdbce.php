@@ -136,7 +136,7 @@
       </div>
       <div id="view_details" class="panel-body" style="display:none;">
          <div class="row place_of_posting" id="place_of_posting" style="display:none;">
-            <span class="col-sm-5 col-sm-offset-4"><strong>Current Place of Posting:</strong>&nbsp;&nbsp;<span id="current_place_of_posting" style="color:yellow"></span></span>
+            <span class="col-sm-5 col-sm-offset-4"><strong>Current Place of Posting:</strong>&nbsp;&nbsp;<span id="current_place_of_posting" style="color:red"></span></span>
          </div>
          <div class="table-responsive">
             <div style="overflow-x:auto;">
@@ -237,9 +237,9 @@
                     str += "<tr>"+
                                 "<td>"+ (key+1) +"</td>"+
                                 "<td>"+ value.officer_name + "</td>"+
-                                "<td bgcolor=blue><strong>"+ value.jo_code + "</strong></td>"+
-                                "<td>"+ value.designation_name + "</td>"+
-                                "<td>"+ value.court_name + "</td>"+
+                                "<td><strong>"+ value.jo_code + "</strong></td>"+
+                               "<td>"+ value.designation_name + "</td>"+
+                                "<td>"+ value.place_of_posting['0'].court_name + "</td>"+
                                 "<td>"+ value.year + "</td>"+
                                 "<td>"+ value.grade_name + "</td>"+
                             "</tr>";

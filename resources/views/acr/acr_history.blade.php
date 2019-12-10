@@ -45,6 +45,8 @@
                             <label for="grade" class="col-sm-3 col-sm-offset-1 control-label">Grade</label>
                     </div>
                     <div id="year_of_assessment-group" class="form-group our-form-group div_add_more ">
+                        <div class="row">
+
                         <div class="col-sm-3  col-sm-offset-1">
                             <div id="assessment_year-group" class="form-group our-form-group">
                             <!-- IIIIIIIIIII -->
@@ -62,14 +64,14 @@
                                     @include('acr.grade_options')
                             </select>
                         </div>
-            
+
                         <div class="col-sm-1">
                             <button id="add-new-button" type="button" class="fa fa-plus-circle btn btn-primary add-new-button">
                                Add New
                             </button>
                         <br><br>
                         </div>
-                        
+                        </div>
                     </div>
                    
                     <div class="col-sm-1 col-sm-offset-4">

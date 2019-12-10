@@ -126,7 +126,7 @@
                                     
                                     @if(Auth::check() && (Auth::user()->user_type->type_name=="Administrator"))
                                         <li><a href="{{url('user_type')}}"> User Type </a></li>
-                                        <li><a href="{{url('users')}}"> User Maintenance </a></li>
+                                        <li><a href="{{url('register')}}"> User Maintenance </a></li>
                                     @endif
 
                                 </ul>

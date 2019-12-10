@@ -128,7 +128,7 @@
                                     
                                     <?php if(Auth::check() && (Auth::user()->user_type->type_name=="Administrator")): ?>
                                         <li><a href="<?php echo e(url('user_type')); ?>"> User Type </a></li>
-                                        <li><a href="<?php echo e(url('users')); ?>"> User Maintenance </a></li>
+                                        <li><a href="<?php echo e(url('register')); ?>"> User Maintenance </a></li>
                                     <?php endif; ?>
 
                                 </ul>

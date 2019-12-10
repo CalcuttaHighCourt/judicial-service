@@ -1,12 +1,5 @@
-@extends('layouts.app')
-
-@section('title', 'Register')
-
-@section('page_heading')
-	Registration Page
-@endsection
-
-@section('center_main_content')
+@extends('layouts.app') 
+@section('content')
 
 <style>
    .select2-results__option{
@@ -184,8 +177,15 @@
         </div>
     </div>
 </div>
-@endsection
-@section('end_scripts_1')
+
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
+
 <script>
     $(function() {
 
@@ -225,10 +225,4 @@
     });
 
 </script>
-@endsection
-@include('layouts.1_column_content')
-
-
-@section('main_container')
-	@yield('1_column_content')
 @endsection
