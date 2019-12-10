@@ -1,13 +1,8 @@
+@extends('layouts.app') 
+@section('content')
+<!-- Main content -->
 
-
-
-{{--
-<!-- views/JudicialOfficerPostingPreference/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'JudicialOfficerPostingPreference')
-@section('page_heading') JudicialOfficerPostingPreference @endsection
-@section('center_main_content')
-                                                                                                                                                                                                    
+                                                                                                                                                                
 <style>
     .select2-container--default .select2-selection--multiple .select2-selection__choice{
         background-color:#111;
@@ -18,8 +13,7 @@
 }
 </style>
 <br/>
-<div class="col-sm-12">
-   <!-- Bootstrap Boilerplate... -->
+   
    <div id="info-panel" class="panel panel-default">
       <br>
       <div class="col-sm-offset-1 col-sm-11">
@@ -139,21 +133,20 @@
 </div>
 <!-- /.box-header -->
 </div>
-<!-- /.col-->
-</div>
-<div id="test-div"></div>
 
-@endsection @include('layouts.1_column_content')
-
-
-@section('main_container') @yield('1_column_content') @endsection
-
-@section('meta')
-@parent
 <meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
 
-@section('end_scripts') @parent
+
+
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
+
 
 
 <script type="text/javascript">
@@ -174,36 +167,40 @@
 
          /*LOADER*/
 
-        $.ajax({
-            type:"post",
-            url: "zone_pref_details/populate",
-            data:{
-                    _token: $('meta[name="csrf-token"]').attr('content')
-            },
-            success:function(response){
+        // $.ajax({
+        //     type:"post",
+        //     url: "zone_pref_details/populate",
+        //     data:{
+        //             _token: $('meta[name="csrf-token"]').attr('content')
+        //     },
+        //     success:function(response){
                 
-               console.log(response);
+        //        console.log(response);
+        //        console.log(response.judicial_officer_posting_preference["0"].zone_id);
 
-              
-                     $("#priority_1").val(response.judicial_officer_posting_preference["0"].zone_id);
+        //        obj = $.parseJSON(response);							
+		// 				$.each(obj,function(key,value){
+                              
+        //           $("#priority_key").val(value);
 
                
-                    $('#priority_2').val(response.judicial_officer_posting_preference['1'].zone_id);
+        //             // $('#priority_2').val(response.judicial_officer_posting_preference['1'].zone_id);
 
-                // if(response.hasOwnProperty(response.judicial_officer_posting_preference['2'].zone_id))
-                //     $('#priority_3').val(response.judicial_officer_posting_preference['2'].zone_id);
+        //         // if(response.hasOwnProperty(response.judicial_officer_posting_preference['2'].zone_id))
+        //         //     $('#priority_3').val(response.judicial_officer_posting_preference['2'].zone_id);
 
                
-                    $('#remarks').val(response.judicial_officer_posting_preference['0'].remarks);
+        //           //  $('#remarks').val(response.judicial_officer_posting_preference['0'].remarks);
 
                 
-            },
-            error:function(response)
-            {
-                swal("Server Error","","error");
-            }
+        //         });
+        //     },
+        //     error:function(response)
+        //     {
+        //         swal("Server Error","","error");
+        //     }
 
-        });
+        // });
         
       
 
@@ -252,6 +249,7 @@
                         },
                         success:function(response){
                         
+                        console.log(response);
                             if(response.length>0)
                                 $("iframe").contents().find("html").find("body").html(response['0'].description);
                                
@@ -298,9 +296,8 @@
             });
         });
 
-        function send_data(flag){
-
-            var posting_pref=  new Array(); 
+        var posting_pref=  new Array();
+        function send_data(flag){             
 
             posting_pref = [];
             $(".posting_pref").each(function(){
@@ -359,9 +356,7 @@
             $(document).on("click", "#search",function(){
 
                 var jo_code = $("#officer_name").val();
-
-           
-                
+             
                 $.ajax({
 
                     type:"POST",
@@ -385,80 +380,80 @@
 
             });//end of search
 
-    $(document).on("click","#submit",function(){
+    // $(document).on("click","#submit",function(){
 
-        var pref=$("#posting_pref").val();
-        var pref_name1=$("#posting_pref1 option:selected").text(); 
-        var pref_name2=$("#posting_pref2 option:selected").text(); 
-        var remarks=$("#remarks").val();       
+    //    // var pref=$("#posting_pref").val();
+    //     var pref_name1=$("#posting_pref1 option:selected").text(); 
+    //     var pref_name2=$("#posting_pref2 option:selected").text(); 
+    //     var remarks=$("#remarks").val();       
 
-        if(pref_name1==null)
-        {
-            swal("Please Select the first preferences","","error");
-            return false;
-        }
-        else if(pref_name2==null)
-        {
-            swal("Please Select the second preferences","","error");
-            return false;
-        }
+    //     if(pref_name1==null)
+    //     {
+    //         swal("Please Select the first preferences","","error");
+    //         return false;
+    //     }
+    //     else if(pref_name2==null)
+    //     {
+    //         swal("Please Select the second preferences","","error");
+    //         return false;
+    //     }
         
-        else if(pref.length<2)
-        {
-            swal("Please Select Minimum 2 preferences","","error");
-            return false;
-        }
+    //     else if(pref.length<2)
+    //     {
+    //         swal("Please Select Minimum 2 preferences","","error");
+    //         return false;
+    //     }
         
-        else
-        {
-            var str="";
-            var i;
-            for(i=0;i<pref.length;i++){
-                str+="Preference - "+(i+1)+" : "+pref_name[i]+"\n";
-            }
+    //     else
+    //     {
+    //         var str="";
+    //         var i;
+    //         // for(i=0;i<pref.length;i++){
+    //         //     str+="Preference - "+(i+1)+" : "+pref_name[i]+"\n";
+    //         // }
 
-            swal({
-                    title: "Are You Sure?",
-                    text: str,
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-            .then((willApprove) => {
-                if(willApprove) {                           
+    //         swal({
+    //                 title: "Are You Sure?",
+    //                 text: str,
+    //                 icon: "warning",
+    //                 buttons: true,
+    //                 dangerMode: true,
+    //             })
+    //         .then((willApprove) => {
+    //             if(willApprove) {                           
 
-                    //Add dept using ajax : start
-                        $.ajax({
-                            type:"POST",
-                            url:"zone_pref/submit",
-                            data:{
-                                _token: $('meta[name="csrf-token"]').attr('content'),
-                                pref:pref,
-                                remarks:remarks
-                            },                                                          
-                            success:function(response){
-                                   console.log(response);                              
-                                swal("Preference Added Successfully","Successful","success");
+    //                 //Add dept using ajax : start
+    //                     $.ajax({
+    //                         type:"POST",
+    //                         url:"zone_pref/submit",
+    //                         data:{
+    //                             _token: $('meta[name="csrf-token"]').attr('content'),
+    //                             pref:pref,
+    //                             remarks:remarks
+    //                         },                                                          
+    //                         success:function(response){
+    //                                console.log(response);                              
+    //                             swal("Preference Added Successfully","Successful","success");
                                 
 
-                            },
-                            error:function(response) {  
-                                if(response.responseJSON.errors.hasOwnProperty('pref'))
-                                    swal("Cannot Add New Department", ""+response.responseJSON.errors.pref['0'], "error");                                                       
-                                }
+    //                         },
+    //                         error:function(response) {  
+    //                             if(response.responseJSON.errors.hasOwnProperty('pref'))
+    //                                 swal("Cannot Add New Department", ""+response.responseJSON.errors.pref['0'], "error");                                                       
+    //                             }
 
-                            });//Add dept using ajax : end
+    //                         });//Add dept using ajax : end
                             
-                    }//end of swal if(willApprove)
-                    $("#content").hide();
-                    $("#table_content").show();
-                })//permission to save given verification           
+    //                 }//end of swal if(willApprove)
+    //                 $("#content").hide();
+    //                 $("#table_content").show();
+    //             })//permission to save given verification           
 
 
-        } //end of else  if(pref.length<2)
+    //     } //end of else  if(pref.length<2)
 
                                       
-    });//end of  $(document).on("click","#submit",function()
+    // });//end of  $(document).on("click","#submit",function()
 
 });
 
@@ -466,5 +461,5 @@
 </script>
 @endsection
 
-@section('body_attributes') @parent class="" @endsection
+
 

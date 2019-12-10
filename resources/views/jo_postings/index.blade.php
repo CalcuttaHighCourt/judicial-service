@@ -1,11 +1,8 @@
-{{--
-<!-- views/JudicialOfficerPostingPreference/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'JudicialOfficerPostingPreference')
-@section('page_heading') JudicialOfficerPostingPreference @endsection
-@section('center_main_content')
-<div class="col-sm-12">
-    <!-- Bootstrap Boilerplate... -->
+@extends('layouts.app') 
+@section('content')
+<!-- Main content -->
+
+   
     <div id="info-panel" class="panel panel-default">
         <!-- IIIIIIIIIII -->
         <div id="info-panel-heading" class="panel-heading">ADD NEW</div>
@@ -38,42 +35,34 @@
                 </div>
                 <div class="table-responsive" style="display:none;" id="jo_details" name="jo_details">
                 <table class="table table-striped table-sm">
-                <thead>
-                    <tr>
-                    <th>Officer Code</th>
-                    <th>Designation</th>
-                    <th>District</th>
-                    <th>Zone</th>
-                    <th>From</th>
-                    <th>Duration</th>
-                    </tr>
-                </thead>
-                <tbody>          
-                </tbody>
+                    <thead>
+                        <tr>
+                        <th>Officer Code</th>
+                        <th>Designation</th>
+                        <th>District</th>
+                        <th>Zone</th>
+                        <th>From</th>
+                        <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>          
+                    </tbody>
                 </table>
-            </div>
             </form>
         </div>
     </div>
-</div>
 
 
 
-	</div>
-</div>
-<div id="test-div"></div>
-
-@endsection @include('layouts.1_column_content')
-
-
-@section('main_container') @yield('1_column_content') @endsection
-
-@section('meta')
-@parent
 <meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
 
-@section('end_scripts') @parent
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
 
 <script type="text/javascript">
       $(document).ready(function(){
@@ -135,7 +124,7 @@
                                 '</tr>';
 
              //console.log(details);
- $('table tbody').html(details);
+            $('table tbody').html(details);
                                                 
                 }                
                 });
@@ -147,4 +136,4 @@
 </script>
 @endsection
 
-@section('body_attributes') @parent class="" @endsection
+

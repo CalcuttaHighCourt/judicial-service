@@ -38,10 +38,10 @@
                         </div>
                         
                         <div class="form-group{{ $errors->has('usertype') ? ' has-error' : '' }}">
-                            <label for="usertype" class="col-md-4 control-label">User Type</label>
+                            <label for="usertype" class="col-sm-4 control-label">User Type</label>
 
                             <div class="col-md-6">
-                                <select id="usertype"  class="form-control" name="usertype">
+                                <select id="usertype"  class="form-control select2" name="usertype">
                                 <option value="">Select an Option...</option>
                                 @include('user_types.user_type_options')
                                 </select>
@@ -57,7 +57,7 @@
                             <label for="court" class="col-sm-4 control-label">Court</label>
 
                             <div class="col-sm-6" >
-                                <select id="court"  class="form-control" name="court">
+                                <select id="court"  class="form-control select2" name="court">
                                 <option value="">Select an Option...</option>
                                 @include('courts.court_options')
                                 </select>
@@ -74,7 +74,7 @@
                             <label for="jo" class="col-sm-4 control-label">Judicial Officer</label>
 
                             <div class="col-sm-6" >
-                                <select id="jo"  class="form-control" name="jo">
+                                <select id="jo"  class="form-control select2" name="jo">
                                 <option value="">Select an Option...</option>
                                 @include('judicial_officers.judicial_officer_options')
                                 </select>
@@ -91,9 +91,9 @@
                             <label for="department" class="col-sm-4 control-label">Department</label>
 
                             <div class="col-sm-6" >
-                                <select id="department"  class="form-control" name="department">
+                                <select id="department"  class="form-control select2" name="department">
                                 <option value="">Select an Option...</option>
-                                @include('departments.dept_options')
+                                @include('lcr_departments.lcr_department_options')
                                 </select>
 
                                 @if ($errors->has('department'))
@@ -192,7 +192,10 @@
             //customizable select box with support for searching
             $('#court').select2();
             $('#jo').select2();
+            $("#department").select2();
 
+            $(".select2").select2();
+            $(".select2"). select2({ width: '100%' });
     });
 
     $("#usertype").change (function(){

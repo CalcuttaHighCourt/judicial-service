@@ -1,8 +1,0 @@
-#sidebar {
-    position: fixed;
-    width: 150px;
-    background-color:black; 
-    overflow-y: scroll;
-    top: 0;
-    bottom: 0;
-}

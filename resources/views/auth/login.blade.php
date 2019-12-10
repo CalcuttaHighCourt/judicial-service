@@ -2,102 +2,103 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-<link rel="icon" href="{{asset('images/favicon.ico')}}">
-<!-- Bootstrap core CSS -->
-<link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
-<!--  our CSS -->
-<link href="{{asset('css/style.css')}}" rel="stylesheet">
-<link href="{{asset('css/bootstrap-submenu.min.css')}}" rel="stylesheet">
-<link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"> 
+    <meta name="Integrated Information Managing System" content="DDMS is developed by the
+    Calcutta High Court and its purpose is to monitor the flow of seizures of narcotic & psychotropic substance 
+    and respective disposals all through the state.">
+    <meta name="Developer" content="Anabil Bhattacharya, Rupsa Bose">
+    <meta name="Guide" content="Shri Kallol Chattopadhyay, Shri Abhranil Neogi">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <title>IIMS</title>  
 
-<link href="{{asset('css/datatable/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{asset('js/jquery.min.js')}}"></script>
 
-<link href="{{asset('css/fileinput/fileinput.min.css')}}" rel="stylesheet">
+    <!-- Google Font -->
+    <link rel="stylesheet" href="{{asset('css/googlefont.css')}}">
 
-<!-- Select-2 -->
-<link rel="stylesheet" href="{{asset('css/select2.min.css')}}">
-<link rel="stylesheet" href="{{asset('css/bootstrap-datepicker.css')}}">  
-
-<!-- Editor -->
-<link rel="stylesheet" href="{{asset('css/bootstrap3-wysihtml5.min.css')}}">
-
-
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<meta name="description" content="Welcome to the Judicial Officers Portal of Calcutta High Court. NIC-WBSC and Calcutta High Court's Software development unit have developed this web portal.">
-<meta name="author" content="Anabil Bhattacharya (Software Developer, CHC), Rupsa Bose (Software Developer, CHC), Avishek Gayen (Software Developer, CHC)">
-
-
-
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<div class="panel panel-default col-sm-offset-3 col-sm-5">
-    <div class="panel-heading">Login</div>
-    <div class="panel-body">
-        <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}" autocomplete="off">
-            {{ csrf_field() }}
 
-                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="email" class="col-sm-offset-1 col-sm-4 control-label">Username <span class="text-muted">or</span> E-Mail Address</label>
+<body style="background-image: url({{asset('images/calcuttahighcourt.jpg')}});background-position: center;background-repeat: no-repeat;background-size: cover;">
+    <div id="app">
 
-                    <div class="col-sm-6">
-                   
-                        <input id="email"  type="email" class="form-control" name="email" value="{{ old('email') }}">
+        <main class="py-4">
+        
 
-                        @if ($errors->has('email'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('email') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
+            <div class="container" style="opacity:0.9; margin-top:10%">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="col-sm-12 text-center" style="border:#d9a04e 5px solid;background-color:#b8c9f6;-webkit-border-radius: 15px 15px 15px 15px;border-radius: 15px 15px 15px 15px;">
+                                    <strong><h4 style="margin-bottom:1px;">INTEGRATED INFORMTAION MANAGING SYSTEM</h4></strong>
+                                    <strong>CALCUTTA HIGH COURT</strong>
+                                </div>
+                            </div>                            
 
-                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <label for="password" class="col-sm-offset-1 col-sm-4 control-label">Password</label>
+                            <div class="card-body">
+                                <div class="col-sm-2">
+                                    <img src="{{asset('images/CHC_logo.png')}}" style="height:70px; margin-left:200px; margin-bottom:10px">
+                                </div>
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
 
-                    <div class="col-sm-6">
-                        <input id="password" type="password" class="form-control" name="password">
+                                    <div class="form-group row">
+                                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('email') }}</label>
 
-                        @if ($errors->has('password'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('password') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
+                                        <div class="col-md-6">
+                                            <input id="email" type="text" autocomplete="off" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" autofocus> @if ($errors->has('email'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span> @endif
+                                        </div>
+                                    </div>
 
-                <div class="form-group">
-                    <div class="col-sm-offset-4 col-sm-4">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="remember"> Remember Me
-                            </label>
-                            <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+                                    <div class="form-group row">
+                                        <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="password" type="password" autocomplete="off" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password"> @if ($errors->has('password'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </span> @endif
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="form-group row mb-0">
+                                        <div class="col-md-8 offset-md-5">
+                                            <button type="submit" class="btn btn-primary">
+                                                {{ __('Login') }}
+                                            </button>
+
+                                            @if (Route::has('password.request'))
+                                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                                {{ __('Forgot Your Password?') }}
+                                            </a>
+                                            @endif
+                                        </div>                                        
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <div class="col-sm-offset-4 col-sm-2 ">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-btn fa-sign-in"></i> Login
-                        </button>
-                </div>
             </div>
-        </form>
+        </main>
     </div>
-</div>
 
+    <script>
+      
+    </script>
+</body>
 
-
-
-@section('main_container')
-
-	@yield('1_column_content')
-
-@endsection
-
-@section('body_attributes')
-	class=""
-@endsection
+</html>

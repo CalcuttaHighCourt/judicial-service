@@ -326,6 +326,7 @@
                             State Master 
                         </a>
                     </li> 
+                    
                 </ul>
             </li>
 
@@ -337,6 +338,13 @@
                             <span data-feather="file"></span>
                             <i class="fa fa-briefcase"></i>
                             Profile Details Entry
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file"></span>
+                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                            Document Upload
                         </a>
                     </li>
                 </ul>

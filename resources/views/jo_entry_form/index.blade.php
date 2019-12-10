@@ -1,7 +1,6 @@
-@extends('layouts.app') @section('title', 'Judicial Officer Entry')
-@section('page_heading') Judicial Officer Entry @endsection
-@section('center_main_content')
-<!-- styling the font color of options displaying in the select2 dropdown -->
+@extends('layouts.app') 
+@section('content')
+<!-- Main content -->
 <style>
 .select2-results__option{
     color:#d43c3c;
@@ -617,19 +616,15 @@
 </div>
 
 
-
-
-@endsection @include('layouts.1_column_content')
-
-
-@section('main_container') @yield('1_column_content') @endsection
-
-@section('meta')
-@parent
 <meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
 
-@section('end_scripts') @parent
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
 
 <script>
    $(document).ready(function() { 
@@ -1169,5 +1164,3 @@
 </script>
 
 @endsection
-
-@section('body_attributes') @parent class="" @endsection

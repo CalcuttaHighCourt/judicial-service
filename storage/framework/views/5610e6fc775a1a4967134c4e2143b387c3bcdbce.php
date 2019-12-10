@@ -1,12 +1,11 @@
- <?php $__env->startSection('title', 'ACRFetch'); ?>
-<?php $__env->startSection('page_heading'); ?> ACRFetch <?php $__env->stopSection(); ?>
-<?php $__env->startSection('center_main_content'); ?>
+ 
+<?php $__env->startSection('content'); ?>
 <style>
    .select2-results__option{
    color:#d43c3c;
    }
 </style>
-<div class="col-sm-12">
+
 <!-- Bootstrap Boilerplate... -->
 <div id="info-panel" class="panel panel-default">
 <!-- IIIIIIIIIII -->
@@ -160,21 +159,25 @@
          </div>
       </div>
    </div>
-</div>
+
 <!--loader starts-->
 <div class="col-sm-offset-5 col-md-3" id="wait" style="display:none;">
    <img src='images/loader.gif'width="25%" height="10%" />
    <br>Loading..
 </div>
 <!--loader ends-->
-<div id="test-div"></div>
-<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
-<?php $__env->startSection('meta'); ?>
-##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
+
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script src="<?php echo e(asset('js/jquery/jquery.min.js')); ?>"></script>
+
+
 <meta name="_token" content="<?php echo csrf_token(); ?>" />
-<?php $__env->stopSection(); ?>
-<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
+
 <!--  -->
 <script>
    $(document).ready(function() {
@@ -333,5 +336,5 @@
    });
 </script>
 <?php $__env->stopSection(); ?>
-<?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/acr/acr_fetch.blade.php ENDPATH**/ ?>

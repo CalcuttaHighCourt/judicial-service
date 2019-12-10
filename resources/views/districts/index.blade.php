@@ -1,11 +1,7 @@
-{{--
-<!-- views/Districts/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'Districts')
-@section('page_heading') Districts @endsection
-@section('center_main_content')
-<!-- Bootstrap Boilerplate... -->
-<div class="col-sm-12">
+@extends('layouts.app') 
+@section('content')
+<!-- Main content -->
+
     <div id="info-panel" class="panel panel-default">
         <!-- IIIIIIIIIII -->
         <div id="info-panel-heading" class="panel-heading">ADD NEW</div>
@@ -130,20 +126,14 @@
 
         </div>
     </div>
+
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
 </div>
-<div id="test-div"></div>
+<!-- /.content-wrapper -->
 
-@endsection @include('layouts.1_column_content')
-
-
-@section('main_container') @yield('1_column_content') @endsection
-
-@section('meta')
-@parent
-<meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
-
-@section('end_scripts') @parent
+<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
 
 <script type="text/javascript">
     var table = "";
@@ -490,6 +480,6 @@
         });
     }
 </script>
+
 @endsection
 
-@section('body_attributes') @parent class="" @endsection

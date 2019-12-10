@@ -1,11 +1,7 @@
-{{--
-<!-- views/Categories/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'Categories')
-@section('page_heading') Categories @endsection
-@section('center_main_content')
-<div class="col-sm-12">
-    <!-- Bootstrap Boilerplate... -->
+@extends('layouts.app') 
+@section('content')
+<!-- Main content -->
+
     <div id="info-panel" class="panel panel-default">
         <!-- IIIIIIIIIII -->
         <div id="info-panel-heading" class="panel-heading">ADD NEW</div>
@@ -91,7 +87,7 @@
         </div>
         <div class="panel-body">
             <div class="table-responsive">
-                <table class="table table-striped notice-types-table"
+                <table class="table table-striped"
                     id="datatable-table" style="width: 100%;">
 
                     <!-- Table Headings -->
@@ -121,20 +117,14 @@
 
         </div>
     </div>
+
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
 </div>
-<div id="test-div"></div>
+<!-- /.content-wrapper -->
 
-@endsection @include('layouts.1_column_content')
-
-
-@section('main_container') @yield('1_column_content') @endsection
-
-@section('meta')
-@parent
-<meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
-
-@section('end_scripts') @parent
+<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
 
 <script type="text/javascript">
     var table = "";
@@ -440,4 +430,4 @@
 </script>
 @endsection
 
-@section('body_attributes') @parent class="" @endsection
+
