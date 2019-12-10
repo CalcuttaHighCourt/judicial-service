@@ -87,7 +87,7 @@ class JoEntryFormController extends Controller
                                         'designation_id', 'deputation_designation', 'reporting_officer_id',
                                         'other_reporting_officer_name', 'other_reporting_officer_designation', 'court_id',
                                         'zone_id', 'deputation_posting_place', 'mode_id','from_date','to_date', 'subdivision_id',
-                                        'from_year','to_year', 'posting_remark'
+                                        'from_year','to_year', 'posting_remark', '_token'
                                     ]));
 
                 // Spouse Update in other side

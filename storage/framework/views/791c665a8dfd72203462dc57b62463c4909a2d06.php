@@ -9,10 +9,11 @@
     z-index: 9999 !important;
 }
 </style>
+
 <br/><br/>
 <div id="info-panel" class="panel panel-default">
    <div class="row" style="margin-left:-200px">
-      <div class="col-sm-3">
+      <div class="col-sm-2">
          <!--left col-->
       </div>
       <!--/col-3-->
@@ -610,8 +611,7 @@
 <!--Datatable for showing JO Details-->
 <br/><br/>
 <div id="info-panel2" class="panel panel-default">    
-    <div id="datatable-panel-heading" class="panel-heading clearfix">
-        <div class="col-sm-1"></div>
+    <div id="datatable-panel-heading" class="panel-heading clearfix">       
         <div class="panel-title pull-left">List of Judicial Officers. . . </div>
         <div class="pull-right">
             <button id="add-new-button" type="button" class="btn btn-primary add-new-button">
@@ -620,7 +620,7 @@
         </div>
     </div>
     <div class="panel-body">
-        <div class="table-responsive col-sm-offset-1">
+        <div class="table-responsive">
             <table class="table table-striped"
                 id="datatable-table" style="width: 100%;">
                 <!-- Table Headings -->

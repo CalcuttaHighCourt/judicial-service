@@ -37,7 +37,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="col-sm-12 text-center" style="border:#d9a04e 5px solid;background-color:#b8c9f6;-webkit-border-radius: 15px 15px 15px 15px;border-radius: 15px 15px 15px 15px;">
-                                    <strong><h4 style="margin-bottom:1px;">INTEGRATED INFORMTAION MANAGING SYSTEM</h4></strong>
+                                    <strong><h5 style="margin-bottom:1px;">INTEGRATED INFORMTAION MANAGING SYSTEM</h5></strong>
                                     <strong>CALCUTTA HIGH COURT</strong>
                                 </div>
                             </div>                            
@@ -50,7 +50,7 @@
                                     @csrf
 
                                     <div class="form-group row">
-                                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('email') }}</label>
+                                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email ID') }}</label>
 
                                         <div class="col-md-6">
                                             <input id="email" type="text" autocomplete="off" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" autofocus> @if ($errors->has('email'))
@@ -80,11 +80,11 @@
                                                 {{ __('Login') }}
                                             </button>
 
-                                            @if (Route::has('password.request'))
+                                            {{-- @if (Route::has('password.request'))
                                             <a class="btn btn-link" href="{{ route('password.request') }}">
                                                 {{ __('Forgot Your Password?') }}
                                             </a>
-                                            @endif
+                                            @endif --}}
                                         </div>                                        
                                     </div>
                                 </form>
