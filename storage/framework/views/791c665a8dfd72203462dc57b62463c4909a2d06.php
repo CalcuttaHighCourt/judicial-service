@@ -727,12 +727,6 @@
 
         //Deputation :: START
         $(document).on("change",".mode_id", function(){
-<<<<<<< HEAD
-            alert();
-        })
-        //Deputation :: END
-        
-=======
             var option = $(this).find('option:selected').text();
 
             if(option=='deputation' || option=='Deputation'){
@@ -750,7 +744,6 @@
         })
         //Deputation :: END
                 
->>>>>>> 5d8831d1932022b0823ee8ed3f21c28ff4c702fa
 
         //Datatable Code For Showing Data :: START
         var table = $("#datatable-table").DataTable({  
