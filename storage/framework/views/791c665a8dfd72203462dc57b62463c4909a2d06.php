@@ -1,14 +1,7 @@
  
 <?php $__env->startSection('content'); ?>
 <!-- Main content -->
-<style>
-.select2-results__option{
-    color:#d43c3c;
-}
-.datepicker.dropdown-menu {
-    z-index: 9999 !important;
-}
-</style>
+
 
 <br/><br/>
 <div id="info-panel" class="panel panel-default">
@@ -19,12 +12,12 @@
       <!--/col-3-->
       <div class="col-sm-9" id="nav_tabs">
          <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" class="my-tab-navigation" href="#basic_details"> Basic Details </a></li>
-            <li><a data-toggle="tab" class="my-tab-navigation" href="#contact_details"> Contact Details </a></li>
+            <li class="active"><a data-toggle="tab" class="my-tab-navigation" href="#basic_details"> <span style="color:red">*</span>Basic Details </a></li>
+            <li><a data-toggle="tab" class="my-tab-navigation" href="#contact_details"><span style="color:red">*</span>Contact Details </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#qualification_details"> Qualification Detals </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#legal_practice_details"> Practice Detals </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#posting_details"> Posting Details </a></li>
-            <li><a data-toggle="tab" class="my-tab-navigation" href="#upload_photo"> Upload Photo </a></li>
+            <li><a data-toggle="tab" class="my-tab-navigation" href="#upload_photo"><span style="color:red">*</span> Upload Photo </a></li>
          </ul>
          <div class="tab-content">
             <div class="tab-pane active" id="basic_details">
@@ -52,23 +45,7 @@
                         </label>
                         <input type="text" class="form-control" name="jo_code" id="jo_code" placeholder="Judicial Officer Code">
                      </div>
-                  </div>
-                  <div class="form-group required">
-                     <div class="col-xs-6">
-                        <label for="guardian_name" class="control-label">
-                           Guardian's Name
-                        </label>
-                        <input type="text" class="form-control" name="guardian_name" id="guardian_name" placeholder="Judicial Officer Guardian Name">
-                     </div>
-                  </div>
-                  <div class="form-group required">
-                     <div class="col-xs-6">
-                        <label for="guardian_relationship" class="control-label">
-                            Guardian Relationship 
-                        </label>
-                        <input type="text" class="form-control" name="guardian_relationship" id="guardian_relationship" placeholder="Relationship with Guardian">
-                     </div>
-                  </div>                  
+                  </div>                        
                   <div class="form-group required">
                     <div class="col-xs-3">
                         <label for="dob" class="control-label">
@@ -100,18 +77,7 @@
                         </label>
                         <input type="text" class="form-control date1" name="dor" id="dor" placeholder="dd-mm-yyyy">
                     </div>
-                 </div>      
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="religion_id">
-                             Religion 
-                        </label>
-                        <select id="religion_id" class="form-control info-form-control select2" name="religion_id" style="width:100%">
-                            <option value="">Select an Option</option>
-                            <?php echo $__env->make('religions.religion_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                        </select>
-                    </div>
-                 </div>
+                 </div>   
                  <div class="form-group">
                     <div class="col-xs-4">
                         <label for="category_id">
@@ -174,11 +140,20 @@
                         <input type="text" class="form-control" name="identification_mark" id="identification_mark" placeholder="Identification Mark">
                     </div>
                  </div>
-                 <label for="identification_mark_1">
+                 <div class="form-group"> 
+                    <div class="col-xs-4">
+                        <label class="control-label">Spouse Name (if Spouse is JO):</label>
+                        <select class="form-control info-form-control select2" style="width:100%" id="spouse_name">
+                            <option value="">Select an Option</option>
+                            <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                        </select>                         
+                    </div>
+                </div> 
+                 <label>
                      &nbsp 
                  </label>
-                 <div class="form-group required form-check form-check-inline"> 
-                    <label class="control-label">Gender:</label>
+                 <div class="form-group required form-check"> 
+                    <label class="control-label">JO Gender:</label>
                     &nbsp &nbsp
                     <input class="form-check-input" name="gender" type="radio" value="M">
                     <label class="form-check-label" style="font-size:medium">
@@ -194,20 +169,9 @@
                     <label class="form-check-label" style="font-size:medium">
                         Other
                     </label>
-                </div>
-                <br/>                
-                <div class="form-group"> 
-                    <div class="col-xs-4">
-                        <label class="control-label">Spouse Name (if Spouse is JO):</label>
-                        <select class="form-control info-form-control select2" style="width:100%" id="spouse_name">
-                            <option value="">Select an Option</option>
-                            <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                        </select>                         
-                    </div>
-                </div> 
-                
+                </div>  
                </form>
-                <br/><br/>
+               
                 <div class="row">
                     <br/><br/>
                     <div class="col-sm-12">
@@ -1107,17 +1071,14 @@
                     jo_code:$("#jo_code").val(),
                     registration_no:$("#reg_no").val(),
                     officer_name:$("#jo_name").val(),
-                    gender:$("input[name='gender']:checked").val(),
-                    guardian_name:$("#guardian_name").val(),
-                    gurdian_relation:$("#guardian_relationship").val(),
+                    gender:$("input[name='gender']:checked").val(),                    
                     spouse:$("#spouse_name").val(),
                     date_of_birth:$("#dob").val(),
                     home_state_id:$("#home_state").val(),
                     home_district_id:$("#home_district").val(),
                     hometown:$("#home_town").val(),
                     present_address:$("#current_address").val(),
-                    permanent_address:$("#permanent_address").val(),
-                    religion_id:$("#religion_id").val(),
+                    permanent_address:$("#permanent_address").val(),                    
                     category_id:$("#category_id").val(),
                     blood_group:$("#blood_group").val(),
                     identification_mark:$("#identification_mark").val(),
