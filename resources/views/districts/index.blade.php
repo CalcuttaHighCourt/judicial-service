@@ -435,7 +435,6 @@
                 show_message_div("success", msg);
                 table.ajax.reload();
 
-                update_notices_menu_section();
 
                 //setTimeout(function(){ scrollToElement($('#datatable-panel')); }, 200);
                 scrollToElement($('#message-div'));
@@ -467,15 +466,6 @@
                 }
                 show_message_div("error", msg);
                 scrollToElement($('#info-panel'));
-            }
-        });
-    }
-    function update_notices_menu_section() {
-        $.ajax({
-            type: "GET",
-            url: "{{ url('/district-Menu') }}",
-            success: function (data, textStatus, jqXHR) {
-                $("#notifications-menu-dropdown").html(data);
             }
         });
     }
