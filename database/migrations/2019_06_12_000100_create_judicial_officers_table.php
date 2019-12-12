@@ -30,13 +30,11 @@ class CreateJudicialOfficersTable extends Migration
 			$table->string('mobile_no_2')->nullable()->unique();
 			$table->string('email_id_1')->unique();
 			$table->string('email_id_2')->nullable()->unique();
-			$table->integer('recruitment_batch_id');
+			$table->integer('recruitment_batch_id');			
 			$table->integer('recruitment_batch_year');
 			$table->date('date_of_joining');
 			$table->date('date_of_confirmation')->nullable();
-			$table->date('date_of_retirement');
-			$table->integer('grade')->nullable();
-			$table->date('grade_confirmation_date')->nullable();
+			$table->date('date_of_retirement');			
 			$table->string('profile_image')->nullable();
 			$table->timestamps();
 			
