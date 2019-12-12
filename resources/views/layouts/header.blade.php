@@ -108,45 +108,53 @@
                                     <span>Master Maintenance</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
                                 <ul class="treeview-menu">
+                                    @if(Auth::check() && (Auth::user()->user_type->type_name=="Inspection"))
+                                        <li><a href="{{url('grade')}}"> ACR Grade Master</a></li>
+                                    @endif
+                                    
+                                    @if(Auth::check() && (Auth::user()->user_type->type_name=="Administrator"))
+                                        <li><i class="fa fa-circle-o"><a href="{{url('court')}}">Court Master</a></li>
+                                        <li><i class="fa fa-search-minus"><a href="{{url('subdivision')}}"> Subdivision Master</a></li>
+                                        <li><i class="fa fa-search-minus"><a href="{{url('district')}}"> District Master</a></li>
+                                        <li><i class="fa fa-search-minus"><a href="{{url('zone')}}">  Zone Master</a></li>
+                                        <li><i class="fa fa-search-minus"><a href="{{url('state')}}">  State Master</a></li>
+                                        <li><i class="fa fa-search-minus"><a href="{{url('document_types')}}"> Document Type Master</a></li>
+                                        <li><i class="fa fa-search-minus"><a href="{{url('departments')}}"> Department for LCR </span></a></li>
+                                        <li><i class="fa fa-search-minus"><a  href="{{url('Category')}}"> Category </span></a></li>
+                                        <li><i class="fa fa-search-minus"><a  href="{{url('religion')}}"> Religion </span></a></li>
+                                        <li><i class="fa fa-search-minus"><a  href="{{url('qualification')}}"> Qualification </span></a></li>
+                                        <li><i class="fa fa-search-minus"><a  href="{{url('recruitmentbatch')}}"> Recruitment Batch </span></a></li>
+                                        <li><i class="fa fa-search-minus"><a href="{{url('user_type')}}"> User Type </a></li>
+                                        <li><i class="fa fa-search-minus"><a href="{{url('register')}}"> User Maintenance </a></li>
+                                    @endif
+
+                                    @if(Auth::check() && (Auth::user()->user_type->type_name=="Appointment"))
                                         <li><a href="{{url('court')}}">Court Master</a></li>
                                         <li><a href="{{url('subdivision')}}"> Subdivision Master</a></li>
                                         <li><a href="{{url('district')}}"> District Master</a></li>
                                         <li><a href="{{url('zone')}}">  Zone Master</a></li>
                                         <li><a href="{{url('state')}}">  State Master</a></li>
                                         <li><a href="{{url('document_types')}}"> Document Type Master</a></li>
-                                        <li><a href="{{url('departments')}}"> Department for LCR </span></a></li>
                                         <li><a  href="{{url('Category')}}"> Category </span></a></li>
                                         <li><a  href="{{url('religion')}}"> Religion </span></a></li>
                                         <li><a  href="{{url('qualification')}}"> Qualification </span></a></li>
                                         <li><a  href="{{url('recruitmentbatch')}}"> Recruitment Batch </span></a></li>
-
-                                    @if(Auth::check() && (Auth::user()->user_type->type_name=="Inspection"))
-                                        <li><a href="{{url('grade')}}"> ACR Grade Master</a></li>
-                                    @endif
-                                    
-                                    @if(Auth::check() && (Auth::user()->user_type->type_name=="Administrator"))
                                         <li><a href="{{url('user_type')}}"> User Type </a></li>
                                         <li><a href="{{url('register')}}"> User Maintenance </a></li>
                                     @endif
 
+                                    @if(Auth::check() && (Auth::user()->user_type->type_name=="Department"))
+                                        <li><a href="{{url('departments')}}"> Department for LCR </span></a></li>
+                                        <li><a href="{{url('court')}}">Court Master</a></li>
+                                    @endif
                                 </ul>
                             </li>                            
                         @endif
 
                         
-
                         <li class="header"></li>
 
                          @if(Auth::check() && Auth::user()->user_type->type_name=="Inspection")
-                            <li class="treeview">
-                                <a href="#"><i class="fa fa-search-minus"></i>
-                                    <span>Judicial Officer Entry</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="{{url('jo_entry_form')}}">  Profile Details Entry</a></li>
-                                    <li><a href="#"> Document Upload</a></li>
-                                </ul>
-                            </li>      
                             <li class="treeview">
                                 <a href="#"><i class="fa fa-search-minus"></i>
                                     <span>ACR</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>

@@ -1,7 +1,7 @@
  
 <?php $__env->startSection('content'); ?>
 <!-- Main content -->
-<div class="col-sm-12">
+
     <div id="info-panel" class="panel panel-default">
         <!-- IIIIIIIIIII -->
         <div id="info-panel-heading" class="panel-heading">ADD NEW</div>
@@ -127,8 +127,14 @@
 
         </div>
     </div>
+
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
 </div>
-<div id="test-div"></div>
+<!-- /.content-wrapper -->
+
+<script src="<?php echo e(asset('js/jquery/jquery.min.js')); ?>"></script>
 
 <script type="text/javascript">
     var table = "";

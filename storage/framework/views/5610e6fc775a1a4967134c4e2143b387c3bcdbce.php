@@ -239,7 +239,7 @@
                                 "<td>"+ value.officer_name + "</td>"+
                                 "<td><strong>"+ value.jo_code + "</strong></td>"+
                                "<td>"+ value.designation_name + "</td>"+
-                                "<td>"+ value.place_of_posting['0'].court_name + "</td>"+
+                                "<td>"+ value.court_name + "</td>"+
                                 "<td>"+ value.year + "</td>"+
                                 "<td>"+ value.grade_name + "</td>"+
                             "</tr>";
