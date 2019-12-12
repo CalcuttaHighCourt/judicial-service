@@ -16,7 +16,6 @@ class CreateRecruitmentBatchesTable extends Migration
         Schema::create('recruitment_batches', function (Blueprint $table) {
             $table->increments('id');
             $table->string('recruitment_batch_desc')->unique();
-			$table->integer('batch_year');
             $table->bigInteger('created_by')->nullable();
             $table->timestamps();
         });
