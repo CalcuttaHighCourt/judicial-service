@@ -191,38 +191,41 @@
 <script>
     $(function() {
 
-            //customizable select box with support for searching
-            $('#court').select2();
-            $('#jo').select2();
-            $("#department").select2();
+        //customizable select box with support for searching
+        $('#court').select2();
+        $('#jo').select2();
+        $("#department").select2();
 
-            $(".select2").select2();
-            $(".select2"). select2({ width: '100%' });
-    });
+        $(".select2").select2();
+        $(".select2"). select2({ width: '100%' });
+   
 
-    $("#usertype").change (function(){
+         $("#usertype").change (function(){
 
-        var user_type = $("#usertype option:selected").text();
-        $("#court-div").hide();
-        $("#jo-div").hide();
-        $("#dept-div").hide();
 
-        if( user_type == "Court")
-        {            
-            $("#court-div").show();
-        }
+            var user_type = $("#usertype option:selected").text();
+            $("#court-div").hide();
+            $("#jo-div").hide();
+            $("#dept-div").hide();
 
-         if( user_type == "Department")
-        {            
-            $("#dept-div").show();
-        }
+            if( user_type == "Court")
+            {            
+                $("#court-div").show();
+            }
 
-        else if( user_type == "Judicial Officer")
-        {            
-            $("#jo-div").show();
-        }
-        
-          
+            if( user_type == "Department")
+            {            
+                $("#dept-div").show();
+            }
+
+            else if( user_type == "Judicial Officer")
+            {            
+                $("#jo-div").show();
+            }
+            
+            
+
+        });
 
     });
 
