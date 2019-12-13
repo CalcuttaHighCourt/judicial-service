@@ -61,6 +61,7 @@ return array(
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Http\\Requests\\JoEntryRequest' => $baseDir . '/app/Http/Requests/JoEntryRequest.php',
     'App\\JoDocument' => $baseDir . '/app/JoDocument.php',
+    'App\\JoGrade' => $baseDir . '/app/JoGrade.php',
     'App\\JoLegalExperience' => $baseDir . '/app/JoLegalExperience.php',
     'App\\JoReporting' => $baseDir . '/app/JoReporting.php',
     'App\\JoZoneTenure' => $baseDir . '/app/JoZoneTenure.php',

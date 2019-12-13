@@ -1,0 +1,3 @@
+<?php $__currentLoopData = App\Court::join('subdivisions','courts.subdivision_id','=','subdivisions.id')->select('courts.id','subdivisions.zone_id','court_name')->orderBy('court_name', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $court): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <option value="<?php echo e($court->id); ?>" data-zone_id="<?php echo e($court->zone_id); ?>" <?php if(old('court') == $court->court_name): ?> selected="selected" <?php endif; ?>><?php echo e($court->court_name); ?></option>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php /**PATH F:\laragon\www\judicial-service\resources\views/courts/court_options.blade.php ENDPATH**/ ?>

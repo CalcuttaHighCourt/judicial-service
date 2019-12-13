@@ -466,6 +466,7 @@ class ComposerStaticInit07af5e08e846a4b79226eba5db9aa7c4
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\JoEntryRequest' => __DIR__ . '/../..' . '/app/Http/Requests/JoEntryRequest.php',
         'App\\JoDocument' => __DIR__ . '/../..' . '/app/JoDocument.php',
+        'App\\JoGrade' => __DIR__ . '/../..' . '/app/JoGrade.php',
         'App\\JoLegalExperience' => __DIR__ . '/../..' . '/app/JoLegalExperience.php',
         'App\\JoReporting' => __DIR__ . '/../..' . '/app/JoReporting.php',
         'App\\JoZoneTenure' => __DIR__ . '/../..' . '/app/JoZoneTenure.php',
