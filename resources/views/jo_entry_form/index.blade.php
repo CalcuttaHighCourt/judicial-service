@@ -1,30 +1,23 @@
-@extends('layouts.app') @section('title', 'Judicial Officer Entry')
-@section('page_heading') Judicial Officer Entry @endsection
-@section('center_main_content')
-<!-- styling the font color of options displaying in the select2 dropdown -->
-<style>
-.select2-results__option{
-    color:#d43c3c;
-}
-.datepicker.dropdown-menu {
-    z-index: 9999 !important;
-}
-</style>
+@extends('layouts.app') 
+@section('content')
+<!-- Main content -->
+
+
 <br/><br/>
 <div id="info-panel" class="panel panel-default">
    <div class="row" style="margin-left:-200px">
-      <div class="col-sm-3">
+      <div class="col-sm-2">
          <!--left col-->
       </div>
       <!--/col-3-->
       <div class="col-sm-9" id="nav_tabs">
          <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" class="my-tab-navigation" href="#basic_details"> Basic Details </a></li>
-            <li><a data-toggle="tab" class="my-tab-navigation" href="#contact_details"> Contact Details </a></li>
+            <li class="active"><a data-toggle="tab" class="my-tab-navigation" href="#basic_details"> <span style="color:red">*</span>Basic Details </a></li>
+            <li><a data-toggle="tab" class="my-tab-navigation" href="#contact_details"><span style="color:red">*</span>Contact Details </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#qualification_details"> Qualification Detals </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#legal_practice_details"> Practice Detals </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#posting_details"> Posting Details </a></li>
-            <li><a data-toggle="tab" class="my-tab-navigation" href="#upload_photo"> Upload Photo </a></li>
+            <li><a data-toggle="tab" class="my-tab-navigation" href="#upload_photo"><span style="color:red">*</span> Upload Photo </a></li>
          </ul>
          <div class="tab-content">
             <div class="tab-pane active" id="basic_details">
@@ -52,23 +45,7 @@
                         </label>
                         <input type="text" class="form-control" name="jo_code" id="jo_code" placeholder="Judicial Officer Code">
                      </div>
-                  </div>
-                  <div class="form-group required">
-                     <div class="col-xs-6">
-                        <label for="guardian_name" class="control-label">
-                           Guardian's Name
-                        </label>
-                        <input type="text" class="form-control" name="guardian_name" id="guardian_name" placeholder="Judicial Officer Guardian Name">
-                     </div>
-                  </div>
-                  <div class="form-group required">
-                     <div class="col-xs-6">
-                        <label for="guardian_relationship" class="control-label">
-                            Guardian Relationship 
-                        </label>
-                        <input type="text" class="form-control" name="guardian_relationship" id="guardian_relationship" placeholder="Relationship with Guardian">
-                     </div>
-                  </div>                  
+                  </div>                        
                   <div class="form-group required">
                     <div class="col-xs-3">
                         <label for="dob" class="control-label">
@@ -85,7 +62,7 @@
                         <input type="text" class="form-control date" name="doj" id="doj" placeholder="dd-mm-yyyy">
                     </div>
                  </div>    
-                 <div class="form-group required">
+                 <div class="form-group">
                     <div class="col-xs-3">
                         <label for="doc" class="control-label">
                              Date of Confirmation 
@@ -100,31 +77,10 @@
                         </label>
                         <input type="text" class="form-control date1" name="dor" id="dor" placeholder="dd-mm-yyyy">
                     </div>
-                 </div>      
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="religion_id">
-                             Religion 
-                        </label>
-                        <select id="religion_id" class="form-control info-form-control select2" name="religion_id" style="width:100%">
-                            <option value="">Select an Option</option>
-                            @include('religions.religion_options')
-                        </select>
-                    </div>
-                 </div>
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="category_id">
-                             Category 
-                        </label>
-                        <select id="category_id" class="form-control info-form-control select2" name="category_id" style="width:100%">
-                            <option value="">Select an Option</option>
-                            @include('categories.categories_options')
-                        </select>
-                    </div>
-                 </div>
+                 </div>   
+                 
                  <div class="form-group required">
-                    <div class="col-xs-4">
+                    <div class="col-xs-3">
                         <label for="recruitment_batch_id" class="control-label">
                              Recruitment Batch 
                         </label>
@@ -134,51 +90,35 @@
                         </select>
                     </div>
                  </div>
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="aadhar_no">
-                             Aadhar No. 
+
+                 <div class="form-group required">
+                    <div class="col-xs-2">
+                        <label for="recruitment_batch_year">
+                            Batch Year 
                         </label>
-                        <input type="integer" class="form-control" name="aadhar_no" id="aadhar_no" placeholder="Aadhar Card No.">
+                        <select class="form-control info-form-control select2" id="recruitment_batch_year" style="width:100%">
+                            <option value="">Select Year</option>
+                            @for($i=Date('Y');$i>=1900;$i--)
+                                <option value="{{$i}}">{{$i}}</option>
+                            @endfor
+                        </select>
                     </div>
-                 </div>    
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="pan_no">
-                             PAN No. 
-                        </label>
-                        <input type="text" class="form-control" name="pan_no" id="pan_no" placeholder="PAN Card No.">
+                </div>    
+                                  
+                 <div class="form-group"> 
+                    <div class="col-xs-3">
+                        <label class="control-label">Spouse Name (if Spouse is JO):</label>
+                        <select class="form-control info-form-control select2" style="width:100%" id="spouse_name">
+                            <option value="">Select an Option</option>
+                            @include('judicial_officers.judicial_officer_options')
+                        </select>                         
                     </div>
-                 </div>    
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="gpf_no">
-                             GPF No. 
-                        </label>
-                        <input type="integer" class="form-control" name="gpf_no" id="gpf_no" placeholder="Profident Fund A/C No.">
-                    </div>
-                 </div>    
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="blood_group">
-                             Blood Group 
-                        </label>
-                        <input type="text" class="form-control" name="blood_group" id="blood_group" placeholder="A+, A-, B+, B- , AB+, AB-, O+, O-">
-                    </div>
-                 </div>    
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="identification_mark">
-                             Identification Mark 
-                        </label>
-                        <input type="text" class="form-control" name="identification_mark" id="identification_mark" placeholder="Identification Mark">
-                    </div>
-                 </div>
-                 <label for="identification_mark_1">
+                </div> 
+                 <label>
                      &nbsp 
                  </label>
-                 <div class="form-group required form-check form-check-inline"> 
-                    <label class="control-label">Gender:</label>
+                 <div class="form-group required form-check"> 
+                    <label class="control-label">JO Gender:</label>
                     &nbsp &nbsp
                     <input class="form-check-input" name="gender" type="radio" value="M">
                     <label class="form-check-label" style="font-size:medium">
@@ -194,20 +134,9 @@
                     <label class="form-check-label" style="font-size:medium">
                         Other
                     </label>
-                </div>
-                <br/>                
-                <div class="form-group"> 
-                    <div class="col-xs-4">
-                        <label class="control-label">Spouse Name (if Spouse is JO):</label>
-                        <select class="form-control info-form-control select2" style="width:100%" id="spouse_name">
-                            <option value="">Select an Option</option>
-                            @include('judicial_officers.judicial_officer_options')
-                        </select>                         
-                    </div>
-                </div> 
-                
+                </div>  
                </form>
-                <br/><br/>
+               
                 <div class="row">
                     <br/><br/>
                     <div class="col-sm-12">
@@ -267,10 +196,11 @@
                                     <select id="home_state" class="form-control info-form-control select2" name="home_state" style="width:100%">
                                         <option value="">Select an Option</option>
                                             @include('states.state_options')
+                                        <option value="other">Other</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group required">
+                            <div class="form-group required" id="div_home_district">
                                 <div class="col-xs-3">
                                     <label for="home_district" class="control-label">
                                         Home District 
@@ -280,7 +210,15 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group required">
+                            <div class="form-group required" id="div_home_other_district" style="display:none">
+                                <div class="col-xs-3">
+                                    <label for="home_other_district" class="control-label">
+                                        Home District 
+                                    </label>
+                                    <input id="home_other_district" class="form-control info-form-control" name="home_other_district" style="width:100%">                                        
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <div class="col-xs-4">
                                     <label for="home_town" class="control-label">
                                         Home Town 
@@ -468,8 +406,17 @@
                                         @include('modes.mode_options')
                                     </select>
                                 </div>
+                                <div class="col-xs-3">
+                                    <label>
+                                            Grade / Rank 
+                                    </label>
+                                    <select class="form-control info-form-control rank select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        @include('ranks.rank_options')
+                                    </select>
+                                </div>
                                 <div class="mode_permanent_div">
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-3">
                                         <label>
                                                 Designation 
                                         </label>
@@ -478,7 +425,7 @@
                                             @include('designations.designation_options')
                                         </select>
                                     </div>                                
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-3">
                                         <label>
                                                 Court 
                                         </label>
@@ -489,13 +436,13 @@
                                     </div>    
                                 </div>
                                 <div class="mode_deputation_div" style="display:none">
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-3">
                                         <label>
                                                 Designation 
                                         </label>
                                         <input type="text" class="form-control other_designation" placeholder="Designation of Deputation">
                                     </div>                                
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-3">
                                         <label>
                                                 Place of Posting 
                                         </label>
@@ -503,7 +450,7 @@
                                     </div>    
                                 </div>                              
                             </div><br/>
-                            <div class="row"> 
+                            <div class="row">                                 
                                 <div class="col-xs-3 permanent_reporting_officer_div">
                                     <label>
                                             Reporting Officer 
@@ -513,6 +460,17 @@
                                         @include('judicial_officers.judicial_officer_options')
                                     </select>
                                 </div>
+
+                                <div class="col-xs-2 deputation_reporting_officer_div" style="display:none">
+                                    <label>
+                                            Zone 
+                                    </label>
+                                    <select class="form-control info-form-control zone select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        @include('zones.zone_options')
+                                    </select>
+                                </div>
+
                                 <div class="col-xs-3 deputation_reporting_officer_div" style="display:none">
                                     <label>
                                             Reporting Officer 
@@ -541,7 +499,7 @@
                                     <label>
                                             Remark
                                     </label>
-                                    <textarea class="form-control remark" placeholder="if any"></textarea>
+                                    <textarea class="form-control posting_remark" placeholder="if any"></textarea>
                                 </div>                                
                                 <div class="col-xs-1">
                                     <br>
@@ -610,8 +568,7 @@
 <!--Datatable for showing JO Details-->
 <br/><br/>
 <div id="info-panel2" class="panel panel-default">    
-    <div id="datatable-panel-heading" class="panel-heading clearfix">
-        <div class="col-sm-1"></div>
+    <div id="datatable-panel-heading" class="panel-heading clearfix">       
         <div class="panel-title pull-left">List of Judicial Officers. . . </div>
         <div class="pull-right">
             <button id="add-new-button" type="button" class="btn btn-primary add-new-button">
@@ -620,7 +577,7 @@
         </div>
     </div>
     <div class="panel-body">
-        <div class="table-responsive col-sm-offset-1">
+        <div class="table-responsive">
             <table class="table table-striped"
                 id="datatable-table" style="width: 100%;">
                 <!-- Table Headings -->
@@ -632,7 +589,6 @@
                         <th>JO Name</th>
                         <th>DOB</th>
                         <th>DOR</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
             </table>
@@ -641,19 +597,15 @@
 </div>
 
 
-
-
-@endsection @include('layouts.1_column_content')
-
-
-@section('main_container') @yield('1_column_content') @endsection
-
-@section('meta')
-@parent
 <meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
 
-@section('end_scripts') @parent
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
 
 <script>
    $(document).ready(function() { 
@@ -694,6 +646,7 @@
             orientation: "auto",
             endDate: '+0d',
         });
+
          // Datepicker Initialization for Superannuation
         $(".date1").datepicker({
             format: "dd-mm-yyyy",
@@ -728,6 +681,19 @@
             }, 1000);
         });
 
+        //Other State Option :: START
+        $(document).on("change","#home_state", function(){
+            var state = $("#home_state").val();
+            if(state == "other"){
+                $("#div_home_district").hide();
+                $("#div_home_other_district").show();
+            }
+            else{
+                $("#div_home_district").show();
+                $("#div_home_other_district").hide();
+            }
+        })        
+        //Other State Option :: END
 
         //Deputation :: START
         $(document).on("change",".mode_id", function(){
@@ -770,8 +736,6 @@
                                 {"data": "officer_name"},
                                 {"data": "date_of_birth"},
                                 {"data": "date_of_retirement"},
-                                {"data": "action",
-                                "orderable": "false"}
                             ]
                         }); 
 
@@ -1046,6 +1010,11 @@
                 other_reporting_officer_designation.push($(this).val());
             })
 
+            posting_remark = [];
+            $(".posting_remark").each(function(){
+                posting_remark.push($(this).val());
+            })
+
             qualification_id = [];
             $(".degree_id").each(function(){
                 qualification_id.push($(this).val());
@@ -1106,17 +1075,14 @@
                     jo_code:$("#jo_code").val(),
                     registration_no:$("#reg_no").val(),
                     officer_name:$("#jo_name").val(),
-                    gender:$("input[name='gender']:checked").val(),
-                    guardian_name:$("#guardian_name").val(),
-                    gurdian_relation:$("#guardian_relationship").val(),
+                    gender:$("input[name='gender']:checked").val(),                    
                     spouse:$("#spouse_name").val(),
                     date_of_birth:$("#dob").val(),
                     home_state_id:$("#home_state").val(),
                     home_district_id:$("#home_district").val(),
                     hometown:$("#home_town").val(),
                     present_address:$("#current_address").val(),
-                    permanent_address:$("#permanent_address").val(),
-                    religion_id:$("#religion_id").val(),
+                    permanent_address:$("#permanent_address").val(),                    
                     category_id:$("#category_id").val(),
                     blood_group:$("#blood_group").val(),
                     identification_mark:$("#identification_mark").val(),
@@ -1214,5 +1180,3 @@
 </script>
 
 @endsection
-
-@section('body_attributes') @parent class="" @endsection

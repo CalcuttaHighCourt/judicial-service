@@ -1,16 +1,17 @@
-{{--
-<!-- views/zones/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'Zones')
-@section('page_heading') Zones @endsection
-@section('center_main_content')
+
+
+@extends('layouts.app') 
+@section('content')
+<!-- Main content -->
+
+                               
 <style>
     .select2-results__option{
         background-color:#fff;
 		color:#d43c3c;
 }
 </style>
-<div class="col-sm-12">
+
 	<!-- Bootstrap Boilerplate... -->
 	<div id="info-panel" class="panel panel-default">
 		<!-- IIIIIIIIIII -->
@@ -131,28 +132,23 @@
 
 		</div>
 	</div>
-</div>
-<div id="test-div"></div>
 
-@endsection @include('layouts.1_column_content')
-
-
-@section('main_container') @yield('1_column_content') @endsection
-
-@section('meta')
-@parent
 <meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
 
-@section('end_scripts') @parent
+
+
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
 
 <script type="text/javascript">
 
-	 $('.select2').select2({
-                placeholder: "Select Subdivision",
-            }); // select2 dropdown initialization
-
-				
+	
 	var table="";
 	$(function() {
 		table = $('#datatable-table').DataTable({
@@ -449,4 +445,4 @@
 </script>
 @endsection
 
-@section('body_attributes') @parent class="" @endsection
+

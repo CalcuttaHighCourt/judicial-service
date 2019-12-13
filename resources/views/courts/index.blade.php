@@ -1,9 +1,6 @@
-{{--
-<!-- views/Courts/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'Courts')
-@section('page_heading') Courts @endsection
-@section('center_main_content')
+@extends('layouts.app') 
+@section('content')
+<!-- Main content -->
 <div class="col-sm-12">
 
     <!-- Bootstrap Boilerplate... -->
@@ -129,17 +126,13 @@
 </div>
 <div id="test-div"></div>
 
-@endsection @include('layouts.1_column_content')
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
 
-
-@section('main_container') @yield('1_column_content') @endsection
-
-@section('meta')
-@parent
-<meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
-
-@section('end_scripts') @parent
+<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
 
 <script type="text/javascript">
     var table = "";
@@ -441,4 +434,4 @@
 </script>
 @endsection
 
-@section('body_attributes') @parent class="" @endsection
+

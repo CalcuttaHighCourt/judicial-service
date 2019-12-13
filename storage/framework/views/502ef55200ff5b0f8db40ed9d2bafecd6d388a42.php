@@ -1,12 +1,13 @@
- <?php $__env->startSection('title', 'ACRHistory'); ?>
-<?php $__env->startSection('page_heading'); ?> ACRHistory <?php $__env->stopSection(); ?>
-<?php $__env->startSection('center_main_content'); ?>
+ 
+<?php $__env->startSection('content'); ?>
+<!-- Main content -->
+
 <style>
 .select2-results__option{
     color:#d43c3c;
 }
 </style>
-<div class="col-sm-12">
+
 	<!-- Bootstrap Boilerplate... -->
 	<div id="info-panel" class="panel panel-default">
 		<!-- IIIIIIIIIII -->
@@ -45,6 +46,8 @@
                             <label for="grade" class="col-sm-3 col-sm-offset-1 control-label">Grade</label>
                     </div>
                     <div id="year_of_assessment-group" class="form-group our-form-group div_add_more ">
+                        <div class="row">
+
                         <div class="col-sm-3  col-sm-offset-1">
                             <div id="assessment_year-group" class="form-group our-form-group">
                             <!-- IIIIIIIIIII -->
@@ -62,14 +65,14 @@
                                     <?php echo $__env->make('acr.grade_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                             </select>
                         </div>
-            
+
                         <div class="col-sm-1">
                             <button id="add-new-button" type="button" class="fa fa-plus-circle btn btn-primary add-new-button">
                                Add New
                             </button>
                         <br><br>
                         </div>
-                        
+                        </div>
                     </div>
                    
                     <div class="col-sm-1 col-sm-offset-4">
@@ -112,7 +115,7 @@
                 </div>
 			</form>
 		</div>
-	</div>
+
 
 	
 
@@ -122,22 +125,17 @@
     <img src='images/loader.gif'width="25%" height="10%" />
       <br>Loading..
 </div>
-   
-<!--loader ends-->
 
-<div id="test-div"></div>
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
 
-<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<script src="<?php echo e(asset('js/jquery/jquery.min.js')); ?>"></script>
 
 
-<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
-
-<?php $__env->startSection('meta'); ?>
-##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
 <meta name="_token" content="<?php echo csrf_token(); ?>" />
-<?php $__env->stopSection(); ?>
-
-<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
 
 <!--  -->
 
@@ -295,6 +293,5 @@
 
 <?php $__env->stopSection(); ?>
 
-<?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/acr/acr_history.blade.php ENDPATH**/ ?>

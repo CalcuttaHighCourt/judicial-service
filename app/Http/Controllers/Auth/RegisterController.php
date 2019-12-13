@@ -51,11 +51,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'user_id' => ['required','alpha_dash','unique:users,user_id'],
+            'user_id' => ['required','unique:users,user_id'],
             'name' => ['required','string'],
             'usertype' => ['required', 'integer', 'exists:user_types,id'],
             'court' => ['nullable','integer','exists:courts,id'],
-            'department' => ['nullable','integer','exists:departments,id'],
+            'department' => ['nullable','integer','exists:lcr_departments,id'],
             'judicial_officer_id' => ['nullable','string', 'exists:judicial_officers,id'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:6', 'max:20', 'confirmed'],
@@ -91,12 +91,12 @@ class RegisterController extends Controller
            $data['department']=null;
         }
 
-        else{
+        // else{
             
-            $data['jo'] =null;
-            $data['court'] =null;
-            $data['department']=null;
-        }
+        //     $data['jo'] =null;
+        //     $data['court'] =null;
+        //     $data['department']=null;
+        // }
         
         //dd($data['user_id']) ;exit;
 

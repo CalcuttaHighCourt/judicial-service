@@ -1,11 +1,8 @@
-{{--
-<!-- views/religions/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'Religions')
-@section('page_heading') Religions @endsection
-@section('center_main_content')
-<div class="col-sm-12">
-	<!-- Bootstrap Boilerplate... -->
+
+@extends('layouts.app') 
+@section('content')
+<!-- Main content -->
+
 	<div id="info-panel" class="panel panel-default">
 		<!-- IIIIIIIIIII -->
 		<div id="info-panel-heading" class="panel-heading">ADD NEW</div>
@@ -121,20 +118,20 @@
 
 		</div>
 	</div>
-</div>
-<div id="test-div"></div>
 
-@endsection @include('layouts.1_column_content')
-
-
-@section('main_container') @yield('1_column_content') @endsection
-
-@section('meta')
-@parent
 <meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
 
-@section('end_scripts') @parent
+
+
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
+
 
 <script type="text/javascript">
 var table="";
@@ -470,4 +467,3 @@ function update_notices_menu_section(){
 </script>
 @endsection
 
-@section('body_attributes') @parent class="" @endsection

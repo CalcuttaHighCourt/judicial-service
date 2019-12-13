@@ -1,13 +1,14 @@
-@extends('layouts.app') @section('title', 'LCR Lower Court End')
-@section('page_heading') LCR Lower Court End @endsection
-@section('center_main_content')
+@extends('layouts.app') 
+@section('content')
+<!-- Main content -->
+
 <style>
    .select2-results__option{
    color:#d43c3c;
    }
 </style>
 <div class="panel custom-panel">
-    <div class="col-sm-12">
+ 
         <div id="info-panel" class="panel panel-deafult">
             <!-- IIIIIIIIIII -->
             <div id="info-panel-heading" class="panel-heading"><br><strong>LOWER COURT RECORD</strong></div>
@@ -54,7 +55,7 @@
                 </div>
             </div>
         </div>
-    </div>
+   
 </div>
 <div class="panel custom-panel" id="forward_div" style="display:none;">
     <div class="col-sm-12">
@@ -152,18 +153,21 @@
     </div>
 </div>
 
-
-@endsection @include('layouts.1_column_content')
-
-
-@section('main_container') @yield('1_column_content') @endsection
-
-@section('meta')
-@parent
 <meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
 
-@section('end_scripts') @parent
+
+
+
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
+
+
 <script type="text/javascript">
     $(document).ready(function () {
 

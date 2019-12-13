@@ -1,13 +1,14 @@
- <?php $__env->startSection('title', 'LCR Lower Court End'); ?>
-<?php $__env->startSection('page_heading'); ?> LCR Lower Court End <?php $__env->stopSection(); ?>
-<?php $__env->startSection('center_main_content'); ?>
+ 
+<?php $__env->startSection('content'); ?>
+<!-- Main content -->
+
 <style>
    .select2-results__option{
    color:#d43c3c;
    }
 </style>
 <div class="panel custom-panel">
-    <div class="col-sm-12">
+ 
         <div id="info-panel" class="panel panel-deafult">
             <!-- IIIIIIIIIII -->
             <div id="info-panel-heading" class="panel-heading"><br><strong>LOWER COURT RECORD</strong></div>
@@ -54,7 +55,7 @@
                 </div>
             </div>
         </div>
-    </div>
+   
 </div>
 <div class="panel custom-panel" id="forward_div" style="display:none;">
     <div class="col-sm-12">
@@ -154,18 +155,21 @@
     </div>
 </div>
 
-
-<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-
-
-<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
-
-<?php $__env->startSection('meta'); ?>
-##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
 <meta name="_token" content="<?php echo csrf_token(); ?>" />
-<?php $__env->stopSection(); ?>
 
-<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
+
+
+
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+<script src="<?php echo e(asset('js/jquery/jquery.min.js')); ?>"></script>
+
+
 <script type="text/javascript">
     $(document).ready(function () {
 

@@ -68,6 +68,7 @@ class LcrController extends Controller
 		$lc_case_type=$request->input('lc_case_type');
 		$lc_case_no=$request->input('lc_case_no');
 		$lc_case_year=$request->input('lc_case_year');
+		$status_flag='null';
 		$deadline=date("Y-m-d", strtotime($request->input('deadline')));
 		$memo_no=$request->input('memo_no');
 		$memo_date=date("Y-m-d", strtotime($request->input('memo_date')));
@@ -86,6 +87,7 @@ class LcrController extends Controller
 			'deadline' => $deadline,
 			'memo_no' => $memo_no,
 			'memo_date' => $memo_date,
+			'status_flag' => $status_flag,
 			'created_by' => $userid,
 			'created_at'=>Carbon::today(),
 			'updated_at'=>Carbon::today()
@@ -117,6 +119,8 @@ class LcrController extends Controller
 						['status_flag','<>','comply']
 					])->get();
 		$data["hc_records"]=$hc_records;
+
+		//print_r($data); exit;
 		
 		
 		$i=0;

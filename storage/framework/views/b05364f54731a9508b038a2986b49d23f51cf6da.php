@@ -1,8 +1,6 @@
- <?php $__env->startSection('title', 'Recruitment Batches'); ?>
-<?php $__env->startSection('page_heading'); ?> Recruitment Batches <?php $__env->stopSection(); ?>
-<?php $__env->startSection('center_main_content'); ?>
-<div class="col-sm-12">
-	<!-- Bootstrap Boilerplate... -->
+ 
+<?php $__env->startSection('content'); ?>
+<!-- Main content -->
 	<div id="info-panel" class="panel panel-default">
 		<!-- IIIIIIIIIII -->
 		<div id="info-panel-heading" class="panel-heading">ADD NEW</div>
@@ -28,20 +26,7 @@
 						</span>
 					</div>
 				</div>
-				<div id="recruitment_batch-group" class="form-group our-form-group">
-					<!-- IIIIIIIIIII -->
-					<label for="batch_year" class="col-md-4 control-label">Recruitment Year</label>
-
-					<div class="col-md-6">
-						<input id="batch_year" type="text"
-							class="form-control info-form-control" name="batch_year"> <span
-							id="batch_year-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-							<strong id="batch_year-strong" class="our-error-message-strong"></strong>
-							<!-- IIIIIIIIIII -->
-						</span>
-					</div>
-				</div>
-				
+								
 
 				<div id="info-panel-buttons" class="form-group hide">
 					<div class="col-md-6 col-md-offset-4">
@@ -110,7 +95,6 @@
 						<tr>
 							<th></th>
 							<th>Recruitment Batch Desc</th>
-							<th>Batch Year</th>
 							<th>Action</th>
 							<th></th>
 							<th></th>
@@ -123,7 +107,6 @@
 						<tr>
 							<th></th>
 							<th>Recruitment Batch Desc</th>
-							<th>Batch Year</th>
 							<th>Action</th>
 							<th></th>
 							<th></th>
@@ -134,20 +117,21 @@
 
 		</div>
 	</div>
-</div>
-<div id="test-div"></div>
-
-<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
-<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
-
-<?php $__env->startSection('meta'); ?>
-##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
 <meta name="_token" content="<?php echo csrf_token(); ?>" />
-<?php $__env->stopSection(); ?>
 
-<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
+
+
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+<script src="<?php echo e(asset('js/jquery/jquery.min.js')); ?>"></script>
+
 
 <script type="text/javascript">
 var table="";
@@ -196,9 +180,6 @@ $(function() {
 				{
 					"data": "recruitment_batch_desc",
 				},	
-				{
-					"data": "batch_year",
-				},			
 				{
 					"data": null
 				},
@@ -347,13 +328,11 @@ function show_error(field,msg){
 	$("#"+field+"-group").addClass("has-error");
 }
 function populate_form(data){
-	$("#info-panel-heading").html("Displaying record of Recruitment Batch: <strong>"+data.type+"</strong>");
-
+	
 	$("#recruitment_batch_id").val(data.id);
 	
 	$("#recruitment_batch").val(data.recruitment_batch_desc);
 
-	$("#batch_year").val(data.batch_year);
 }
 function show_button(type){
 	$("#"+type+"-button").show();
@@ -475,6 +454,6 @@ function send_ajax_and_set_errors_exceptions_success(type){
 </script>
 <?php $__env->stopSection(); ?>
 
-<?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
+
 
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/recruitmentbatches/index.blade.php ENDPATH**/ ?>

@@ -1,13 +1,14 @@
- <?php $__env->startSection('title', 'LCR HC End'); ?>
-<?php $__env->startSection('page_heading'); ?> LCR HC End <?php $__env->stopSection(); ?>
-<?php $__env->startSection('center_main_content'); ?>
+ 
+<?php $__env->startSection('content'); ?>
+<!-- Main content -->
+
 <style>
    .select2-results__option{
    color:#d43c3c;
    }
 </style>
 <div class="panel custom-panel">
-    <div class="col-sm-12">
+    
         <div id="info-panel" class="panel panel-default">
             <!-- IIIIIIIIIII -->
             <div id="info-panel-heading" class="panel-heading">REQUEST LOWER COURT RECORD FROM HIGH COURT END</div>
@@ -156,19 +157,18 @@
                 </div>
             </div>
         </div>
-    </div>
 </div>
-<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-
-<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
-
-<?php $__env->startSection('meta'); ?>
-##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
 <meta name="_token" content="<?php echo csrf_token(); ?>" />
-<?php $__env->stopSection(); ?>
 
-<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script src="<?php echo e(asset('js/jquery/jquery.min.js')); ?>"></script>
+
 <script>
 
         $(document).ready(function(){
@@ -187,52 +187,7 @@
                 startDate: '+0d'
             });
 
-        //     table = $('#show_LCR_status').DataTable({
-        //     "processing": true,
-        //     "serverSide": true,
-        //     "ajax": {
-        //         url: "<?php echo e(route('fetch_status')); ?>",
-        //         dataSrc: "lcr_hc_ends"
-        //     },
-
-        //     "columnDefs":
-        //             [
-        //                 {className: "table-text", "targets": "_all"},
-        //                 {
-        //                     "targets": -1,
-        //                     "data": null,
-        //                     "searchable": false,
-        //                     "sortable": false,
-        //                     "defaultContent": '<button type="submit" class="btn btn-info view-button"><i class="fa fa-info"></i> Track Lcr</button>',
-        //                 },
-                        
-        //             ],
-        //     "columns":
-        //             [
-        //                 {
-        //                     "data": null,
-        //                     "defaultContent": "",
-        //                     "searchable": false,
-        //                     "orderable": false,
-        //                 },
-        //                 {
-        //                     "data": "district_name",
-        //                 },
-        //                 {
-        //                     "data": "state_name",
-        //                 },
-        //                 {
-        //                     "data": null
-        //                 },
-        //                 {
-        //                     "data": null
-        //                 },
-        //                 {
-        //                     "data": null
-        //                 },
-        //             ],
-        //     "order": [[1, 'asc']]
-        // });
+      
 
         //Datatable Code For Showing Data :: START
 

@@ -19,7 +19,7 @@ Auth::routes();
 	// });
 	
 Route::get('/', function () {
-    return view('index');
+    return view('auth.login');
 });
 
 
@@ -27,9 +27,9 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	Route::resource('users', 'UserController')->except(['create', 'edit']);
 
-	// Route::get ( 'dashboard/admin', function () {
-	// 	return view ( 'departments.admin_dashboard' );
-	// } );
+	Route::get ( 'dashboard/admin', function () {
+		return view ( 'departments.admin_dashboard' );
+	} );
 	
 
 
@@ -320,6 +320,31 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 	});
 
+	/*Inspection */
+
+	Route::group(['middleware' => ['auth','role_manager:Inspection']],function (){
+
+		Route::get ( 'dashboard/inspection', function () {
+			return view ( 'departments.inspection_dashboard' );
+		} );
+
+	});
+
+
+	/*Appointment */
+
+	Route::group(['middleware' => ['auth','role_manager:Appointment']],function (){
+
+		Route::get ( 'dashboard/appointment', function () {
+			return view ( 'departments.appointment_dashboard' );
+		} );
+
+	});
+
+
+	/*Inspection and Appointmen and Administrator */
+
+
 	Route::group(['middleware' => ['auth','role_manager:Inspection|Administrator|Appointment']],function (){
 
 		/*jo entry*/
@@ -343,6 +368,8 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 		});
 
 	});
+
+	/*Court */
 
 	Route::group(['middleware' => ['auth','role_manager:Court']],function (){
 

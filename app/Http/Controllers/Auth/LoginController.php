@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use \Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -25,7 +27,32 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected function authenticated(Request $request, $user)
+    {
+        if(Auth::user()->user_type->type_name=="Administrator"){
+            return redirect('dashboard/admin') ;
+        }   
+        
+        if(Auth::user()->user_type->type_name=="Court"){
+            return redirect('dashboard/court') ;
+        }  
+        
+        if(Auth::user()->user_type->type_name=="Inspection"){
+            return redirect('dashboard/inspection') ;
+        }  
+
+        if(Auth::user()->user_type->type_name=="Appointment"){
+            return redirect('dashboard/appointment') ;
+        }  
+
+        if(Auth::user()->user_type->type_name=="Judicial Officer"){
+            return redirect('dashboard/jo') ;
+        }  
+
+        if(Auth::user()->user_type->type_name=="Department"){
+            return redirect('dashboard/dept') ;
+        }  
+    }
 
     /**
      * Create a new controller instance.

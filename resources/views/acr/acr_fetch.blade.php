@@ -1,15 +1,11 @@
-{{--
-<!-- views/grades/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'ACRFetch')
-@section('page_heading') ACRFetch @endsection
-@section('center_main_content')
+@extends('layouts.app') 
+@section('content')
 <style>
    .select2-results__option{
    color:#d43c3c;
    }
 </style>
-<div class="col-sm-12">
+
 <!-- Bootstrap Boilerplate... -->
 <div id="info-panel" class="panel panel-default">
 <!-- IIIIIIIIIII -->
@@ -139,7 +135,7 @@
       </div>
       <div id="view_details" class="panel-body" style="display:none;">
          <div class="row place_of_posting" id="place_of_posting" style="display:none;">
-            <span class="col-sm-5 col-sm-offset-4"><strong>Current Place of Posting:</strong>&nbsp;&nbsp;<span id="current_place_of_posting" style="color:yellow"></span></span>
+            <span class="col-sm-5 col-sm-offset-4"><strong>Current Place of Posting:</strong>&nbsp;&nbsp;<span id="current_place_of_posting" style="color:red"></span></span>
          </div>
          <div class="table-responsive">
             <div style="overflow-x:auto;">
@@ -162,21 +158,25 @@
          </div>
       </div>
    </div>
-</div>
+
 <!--loader starts-->
 <div class="col-sm-offset-5 col-md-3" id="wait" style="display:none;">
    <img src='images/loader.gif'width="25%" height="10%" />
    <br>Loading..
 </div>
 <!--loader ends-->
-<div id="test-div"></div>
-@endsection @include('layouts.1_column_content')
-@section('main_container') @yield('1_column_content') @endsection
-@section('meta')
-@parent
+
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
+
+
 <meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
-@section('end_scripts') @parent
+
 <!--  -->
 <script>
    $(document).ready(function() {
@@ -236,8 +236,8 @@
                     str += "<tr>"+
                                 "<td>"+ (key+1) +"</td>"+
                                 "<td>"+ value.officer_name + "</td>"+
-                                "<td bgcolor=blue><strong>"+ value.jo_code + "</strong></td>"+
-                                "<td>"+ value.designation_name + "</td>"+
+                                "<td><strong>"+ value.jo_code + "</strong></td>"+
+                               "<td>"+ value.designation_name + "</td>"+
                                 "<td>"+ value.court_name + "</td>"+
                                 "<td>"+ value.year + "</td>"+
                                 "<td>"+ value.grade_name + "</td>"+
@@ -335,4 +335,3 @@
    });
 </script>
 @endsection
-@section('body_attributes') @parent class="" @endsection

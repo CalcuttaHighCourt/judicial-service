@@ -1,30 +1,23 @@
- <?php $__env->startSection('title', 'Judicial Officer Entry'); ?>
-<?php $__env->startSection('page_heading'); ?> Judicial Officer Entry <?php $__env->stopSection(); ?>
-<?php $__env->startSection('center_main_content'); ?>
-<!-- styling the font color of options displaying in the select2 dropdown -->
-<style>
-.select2-results__option{
-    color:#d43c3c;
-}
-.datepicker.dropdown-menu {
-    z-index: 9999 !important;
-}
-</style>
+ 
+<?php $__env->startSection('content'); ?>
+<!-- Main content -->
+
+
 <br/><br/>
 <div id="info-panel" class="panel panel-default">
    <div class="row" style="margin-left:-200px">
-      <div class="col-sm-3">
+      <div class="col-sm-2">
          <!--left col-->
       </div>
       <!--/col-3-->
       <div class="col-sm-9" id="nav_tabs">
          <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" class="my-tab-navigation" href="#basic_details"> Basic Details </a></li>
-            <li><a data-toggle="tab" class="my-tab-navigation" href="#contact_details"> Contact Details </a></li>
+            <li class="active"><a data-toggle="tab" class="my-tab-navigation" href="#basic_details"> <span style="color:red">*</span>Basic Details </a></li>
+            <li><a data-toggle="tab" class="my-tab-navigation" href="#contact_details"><span style="color:red">*</span>Contact Details </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#qualification_details"> Qualification Detals </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#legal_practice_details"> Practice Detals </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#posting_details"> Posting Details </a></li>
-            <li><a data-toggle="tab" class="my-tab-navigation" href="#upload_photo"> Upload Photo </a></li>
+            <li><a data-toggle="tab" class="my-tab-navigation" href="#upload_photo"><span style="color:red">*</span> Upload Photo </a></li>
          </ul>
          <div class="tab-content">
             <div class="tab-pane active" id="basic_details">
@@ -52,23 +45,7 @@
                         </label>
                         <input type="text" class="form-control" name="jo_code" id="jo_code" placeholder="Judicial Officer Code">
                      </div>
-                  </div>
-                  <div class="form-group required">
-                     <div class="col-xs-6">
-                        <label for="guardian_name" class="control-label">
-                           Guardian's Name
-                        </label>
-                        <input type="text" class="form-control" name="guardian_name" id="guardian_name" placeholder="Judicial Officer Guardian Name">
-                     </div>
-                  </div>
-                  <div class="form-group required">
-                     <div class="col-xs-6">
-                        <label for="guardian_relationship" class="control-label">
-                            Guardian Relationship 
-                        </label>
-                        <input type="text" class="form-control" name="guardian_relationship" id="guardian_relationship" placeholder="Relationship with Guardian">
-                     </div>
-                  </div>                  
+                  </div>                        
                   <div class="form-group required">
                     <div class="col-xs-3">
                         <label for="dob" class="control-label">
@@ -85,7 +62,7 @@
                         <input type="text" class="form-control date" name="doj" id="doj" placeholder="dd-mm-yyyy">
                     </div>
                  </div>    
-                 <div class="form-group required">
+                 <div class="form-group">
                     <div class="col-xs-3">
                         <label for="doc" class="control-label">
                              Date of Confirmation 
@@ -100,31 +77,10 @@
                         </label>
                         <input type="text" class="form-control date1" name="dor" id="dor" placeholder="dd-mm-yyyy">
                     </div>
-                 </div>      
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="religion_id">
-                             Religion 
-                        </label>
-                        <select id="religion_id" class="form-control info-form-control select2" name="religion_id" style="width:100%">
-                            <option value="">Select an Option</option>
-                            <?php echo $__env->make('religions.religion_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                        </select>
-                    </div>
-                 </div>
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="category_id">
-                             Category 
-                        </label>
-                        <select id="category_id" class="form-control info-form-control select2" name="category_id" style="width:100%">
-                            <option value="">Select an Option</option>
-                            <?php echo $__env->make('categories.categories_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                        </select>
-                    </div>
-                 </div>
+                 </div>   
+                 
                  <div class="form-group required">
-                    <div class="col-xs-4">
+                    <div class="col-xs-3">
                         <label for="recruitment_batch_id" class="control-label">
                              Recruitment Batch 
                         </label>
@@ -134,51 +90,35 @@
                         </select>
                     </div>
                  </div>
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="aadhar_no">
-                             Aadhar No. 
+
+                 <div class="form-group required">
+                    <div class="col-xs-2">
+                        <label for="recruitment_batch_year">
+                            Batch Year 
                         </label>
-                        <input type="integer" class="form-control" name="aadhar_no" id="aadhar_no" placeholder="Aadhar Card No.">
+                        <select class="form-control info-form-control select2" id="recruitment_batch_year" style="width:100%">
+                            <option value="">Select Year</option>
+                            <?php for($i=Date('Y');$i>=1900;$i--): ?>
+                                <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
+                            <?php endfor; ?>
+                        </select>
                     </div>
-                 </div>    
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="pan_no">
-                             PAN No. 
-                        </label>
-                        <input type="text" class="form-control" name="pan_no" id="pan_no" placeholder="PAN Card No.">
+                </div>    
+                                  
+                 <div class="form-group"> 
+                    <div class="col-xs-3">
+                        <label class="control-label">Spouse Name (if Spouse is JO):</label>
+                        <select class="form-control info-form-control select2" style="width:100%" id="spouse_name">
+                            <option value="">Select an Option</option>
+                            <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                        </select>                         
                     </div>
-                 </div>    
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="gpf_no">
-                             GPF No. 
-                        </label>
-                        <input type="integer" class="form-control" name="gpf_no" id="gpf_no" placeholder="Profident Fund A/C No.">
-                    </div>
-                 </div>    
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="blood_group">
-                             Blood Group 
-                        </label>
-                        <input type="text" class="form-control" name="blood_group" id="blood_group" placeholder="A+, A-, B+, B- , AB+, AB-, O+, O-">
-                    </div>
-                 </div>    
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="identification_mark">
-                             Identification Mark 
-                        </label>
-                        <input type="text" class="form-control" name="identification_mark" id="identification_mark" placeholder="Identification Mark">
-                    </div>
-                 </div>
-                 <label for="identification_mark_1">
+                </div> 
+                 <label>
                      &nbsp 
                  </label>
-                 <div class="form-group required form-check form-check-inline"> 
-                    <label class="control-label">Gender:</label>
+                 <div class="form-group required form-check"> 
+                    <label class="control-label">JO Gender:</label>
                     &nbsp &nbsp
                     <input class="form-check-input" name="gender" type="radio" value="M">
                     <label class="form-check-label" style="font-size:medium">
@@ -194,20 +134,9 @@
                     <label class="form-check-label" style="font-size:medium">
                         Other
                     </label>
-                </div>
-                <br/>                
-                <div class="form-group"> 
-                    <div class="col-xs-4">
-                        <label class="control-label">Spouse Name (if Spouse is JO):</label>
-                        <select class="form-control info-form-control select2" style="width:100%" id="spouse_name">
-                            <option value="">Select an Option</option>
-                            <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                        </select>                         
-                    </div>
-                </div> 
-                
+                </div>  
                </form>
-                <br/><br/>
+               
                 <div class="row">
                     <br/><br/>
                     <div class="col-sm-12">
@@ -267,10 +196,11 @@
                                     <select id="home_state" class="form-control info-form-control select2" name="home_state" style="width:100%">
                                         <option value="">Select an Option</option>
                                             <?php echo $__env->make('states.state_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                        <option value="other">Other</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group required">
+                            <div class="form-group required" id="div_home_district">
                                 <div class="col-xs-3">
                                     <label for="home_district" class="control-label">
                                         Home District 
@@ -280,7 +210,15 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group required">
+                            <div class="form-group required" id="div_home_other_district" style="display:none">
+                                <div class="col-xs-3">
+                                    <label for="home_other_district" class="control-label">
+                                        Home District 
+                                    </label>
+                                    <input id="home_other_district" class="form-control info-form-control" name="home_other_district" style="width:100%">                                        
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <div class="col-xs-4">
                                     <label for="home_town" class="control-label">
                                         Home Town 
@@ -468,8 +406,17 @@
                                         <?php echo $__env->make('modes.mode_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
                                 </div>
+                                <div class="col-xs-3">
+                                    <label>
+                                            Grade / Rank 
+                                    </label>
+                                    <select class="form-control info-form-control rank select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        <?php echo $__env->make('ranks.rank_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                    </select>
+                                </div>
                                 <div class="mode_permanent_div">
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-3">
                                         <label>
                                                 Designation 
                                         </label>
@@ -478,7 +425,7 @@
                                             <?php echo $__env->make('designations.designation_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                         </select>
                                     </div>                                
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-3">
                                         <label>
                                                 Court 
                                         </label>
@@ -489,13 +436,13 @@
                                     </div>    
                                 </div>
                                 <div class="mode_deputation_div" style="display:none">
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-3">
                                         <label>
                                                 Designation 
                                         </label>
                                         <input type="text" class="form-control other_designation" placeholder="Designation of Deputation">
                                     </div>                                
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-3">
                                         <label>
                                                 Place of Posting 
                                         </label>
@@ -503,7 +450,7 @@
                                     </div>    
                                 </div>                              
                             </div><br/>
-                            <div class="row"> 
+                            <div class="row">                                 
                                 <div class="col-xs-3 permanent_reporting_officer_div">
                                     <label>
                                             Reporting Officer 
@@ -513,6 +460,17 @@
                                         <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
                                 </div>
+
+                                <div class="col-xs-2 deputation_reporting_officer_div" style="display:none">
+                                    <label>
+                                            Zone 
+                                    </label>
+                                    <select class="form-control info-form-control zone select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        <?php echo $__env->make('zones.zone_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                    </select>
+                                </div>
+
                                 <div class="col-xs-3 deputation_reporting_officer_div" style="display:none">
                                     <label>
                                             Reporting Officer 
@@ -541,7 +499,7 @@
                                     <label>
                                             Remark
                                     </label>
-                                    <textarea class="form-control remark" placeholder="if any"></textarea>
+                                    <textarea class="form-control posting_remark" placeholder="if any"></textarea>
                                 </div>                                
                                 <div class="col-xs-1">
                                     <br>
@@ -611,8 +569,7 @@
 <!--Datatable for showing JO Details-->
 <br/><br/>
 <div id="info-panel2" class="panel panel-default">    
-    <div id="datatable-panel-heading" class="panel-heading clearfix">
-        <div class="col-sm-1"></div>
+    <div id="datatable-panel-heading" class="panel-heading clearfix">       
         <div class="panel-title pull-left">List of Judicial Officers. . . </div>
         <div class="pull-right">
             <button id="add-new-button" type="button" class="btn btn-primary add-new-button">
@@ -621,7 +578,7 @@
         </div>
     </div>
     <div class="panel-body">
-        <div class="table-responsive col-sm-offset-1">
+        <div class="table-responsive">
             <table class="table table-striped"
                 id="datatable-table" style="width: 100%;">
                 <!-- Table Headings -->
@@ -642,19 +599,15 @@
 </div>
 
 
-
-
-<?php $__env->stopSection(); ?> <?php echo $__env->make('layouts.1_column_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-
-
-<?php $__env->startSection('main_container'); ?> <?php echo $__env->yieldContent('1_column_content'); ?> <?php $__env->stopSection(); ?>
-
-<?php $__env->startSection('meta'); ?>
-##parent-placeholder-cb030491157b26a570b6ee91e5b068d99c3b72f6##
 <meta name="_token" content="<?php echo csrf_token(); ?>" />
-<?php $__env->stopSection(); ?>
 
-<?php $__env->startSection('end_scripts'); ?> ##parent-placeholder-36ee17f40f3980c360dd4f0dee7896f1cfc0384a##
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script src="<?php echo e(asset('js/jquery/jquery.min.js')); ?>"></script>
 
 <script>
    $(document).ready(function() { 
@@ -729,6 +682,19 @@
             }, 1000);
         });
 
+        //Other State Option :: START
+        $(document).on("change","#home_state", function(){
+            var state = $("#home_state").val();
+            if(state == "other"){
+                $("#div_home_district").hide();
+                $("#div_home_other_district").show();
+            }
+            else{
+                $("#div_home_district").show();
+                $("#div_home_other_district").hide();
+            }
+        })        
+        //Other State Option :: END
 
         //Deputation :: START
         $(document).on("change",".mode_id", function(){
@@ -1043,8 +1009,13 @@
             })
 
             other_reporting_officer_designation = [];
-            $(".other_reporting_officer").each(function(){
+            $(".other_reporting_officer_designation").each(function(){
                 other_reporting_officer_designation.push($(this).val());
+            })
+
+            posting_remark = [];
+            $(".posting_remark").each(function(){
+                posting_remark.push($(this).val());
             })
 
             qualification_id = [];
@@ -1107,17 +1078,14 @@
                     jo_code:$("#jo_code").val(),
                     registration_no:$("#reg_no").val(),
                     officer_name:$("#jo_name").val(),
-                    gender:$("input[name='gender']:checked").val(),
-                    guardian_name:$("#guardian_name").val(),
-                    gurdian_relation:$("#guardian_relationship").val(),
+                    gender:$("input[name='gender']:checked").val(),                    
                     spouse:$("#spouse_name").val(),
                     date_of_birth:$("#dob").val(),
                     home_state_id:$("#home_state").val(),
                     home_district_id:$("#home_district").val(),
                     hometown:$("#home_town").val(),
                     present_address:$("#current_address").val(),
-                    permanent_address:$("#permanent_address").val(),
-                    religion_id:$("#religion_id").val(),
+                    permanent_address:$("#permanent_address").val(),                    
                     category_id:$("#category_id").val(),
                     blood_group:$("#blood_group").val(),
                     identification_mark:$("#identification_mark").val(),
@@ -1138,12 +1106,17 @@
                     from_year:from_year,
                     to_year:to_year,
                     designation_id:designation_id,
+                    deputation_designation:deputation_designation,
                     reporting_officer_id:reporting_officer_id,
+                    other_reporting_officer_name:other_reporting_officer_name,
+                    other_reporting_officer_designation:other_reporting_officer_designation,
                     court_id:court_id,
                     zone_id:zone_id,
+                    deputation_posting_place:deputation_posting_place,
                     mode_id:mode_id,
                     from_date:from_date,
                     to_date:to_date,
+                    posting_remark:posting_remark,
                     _token: $('meta[name="csrf-token"]').attr('content'),
                 },
                 success: function (data, textStatus, jqXHR) {
@@ -1211,5 +1184,4 @@
 
 <?php $__env->stopSection(); ?>
 
-<?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/jo_entry_form/index.blade.php ENDPATH**/ ?>

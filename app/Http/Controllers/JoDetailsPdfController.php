@@ -28,8 +28,7 @@ class JoDetailsPdfController extends Controller
 
         $mpdf = new \Mpdf\Mpdf(['format' => 'Legal']);
 
-        $jo_details = JudicialOfficer::leftJoin('religions','judicial_officers.religion_id','religions.id')
-                                        ->leftJoin('categories','judicial_officers.category_id','categories.id')
+        $jo_details = JudicialOfficer::leftJoin('categories','judicial_officers.category_id','categories.id')
                                         ->join('states','judicial_officers.home_state_id','states.id')
                                         ->join('districts','judicial_officers.home_district_id','districts.id')
                                         ->where('registration_no',$request->registration_no)
@@ -157,7 +156,7 @@ class JoDetailsPdfController extends Controller
                         <td align=left><h3>PAN No: ".$pan_no."</h3></td>
                     </tr>
                     <tr>
-                        <td style=\"padding-top: 1%;\"><h3>Guardian's Name: ".$jo_details['0']->guardian_name." <br/>( ".$jo_details['0']->gurdian_relation." )</h3></td>
+                        <td style=\"padding-top: 1%;\"></td>
 
                         <td align=left><h3>Blood Group: ".$blood_group."</h3></td>
 

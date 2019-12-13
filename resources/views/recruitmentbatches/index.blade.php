@@ -1,11 +1,6 @@
-{{--
-<!-- views/recruitmentbatches/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'Recruitment Batches')
-@section('page_heading') Recruitment Batches @endsection
-@section('center_main_content')
-<div class="col-sm-12">
-	<!-- Bootstrap Boilerplate... -->
+@extends('layouts.app') 
+@section('content')
+<!-- Main content -->
 	<div id="info-panel" class="panel panel-default">
 		<!-- IIIIIIIIIII -->
 		<div id="info-panel-heading" class="panel-heading">ADD NEW</div>
@@ -30,20 +25,7 @@
 						</span>
 					</div>
 				</div>
-				<div id="recruitment_batch-group" class="form-group our-form-group">
-					<!-- IIIIIIIIIII -->
-					<label for="batch_year" class="col-md-4 control-label">Recruitment Year</label>
-
-					<div class="col-md-6">
-						<input id="batch_year" type="text"
-							class="form-control info-form-control" name="batch_year"> <span
-							id="batch_year-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-							<strong id="batch_year-strong" class="our-error-message-strong"></strong>
-							<!-- IIIIIIIIIII -->
-						</span>
-					</div>
-				</div>
-				
+								
 
 				<div id="info-panel-buttons" class="form-group hide">
 					<div class="col-md-6 col-md-offset-4">
@@ -112,7 +94,6 @@
 						<tr>
 							<th></th>
 							<th>Recruitment Batch Desc</th>
-							<th>Batch Year</th>
 							<th>Action</th>
 							<th></th>
 							<th></th>
@@ -125,7 +106,6 @@
 						<tr>
 							<th></th>
 							<th>Recruitment Batch Desc</th>
-							<th>Batch Year</th>
 							<th>Action</th>
 							<th></th>
 							<th></th>
@@ -136,20 +116,21 @@
 
 		</div>
 	</div>
-</div>
-<div id="test-div"></div>
-
-@endsection @include('layouts.1_column_content')
 
 
-@section('main_container') @yield('1_column_content') @endsection
-
-@section('meta')
-@parent
 <meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
 
-@section('end_scripts') @parent
+
+
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
+
 
 <script type="text/javascript">
 var table="";
@@ -198,9 +179,6 @@ $(function() {
 				{
 					"data": "recruitment_batch_desc",
 				},	
-				{
-					"data": "batch_year",
-				},			
 				{
 					"data": null
 				},
@@ -349,13 +327,11 @@ function show_error(field,msg){
 	$("#"+field+"-group").addClass("has-error");
 }
 function populate_form(data){
-	$("#info-panel-heading").html("Displaying record of Recruitment Batch: <strong>"+data.type+"</strong>");
-
+	
 	$("#recruitment_batch_id").val(data.id);
 	
 	$("#recruitment_batch").val(data.recruitment_batch_desc);
 
-	$("#batch_year").val(data.batch_year);
 }
 function show_button(type){
 	$("#"+type+"-button").show();
@@ -477,4 +453,4 @@ function send_ajax_and_set_errors_exceptions_success(type){
 </script>
 @endsection
 
-@section('body_attributes') @parent class="" @endsection
+

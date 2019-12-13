@@ -1,13 +1,8 @@
+@extends('layouts.app') 
+@section('content')
+<!-- Main content -->
 
-
-
-{{--
-<!-- views/JudicialOfficerPostingPreference/index.blade.php -->
---}}
-@extends('layouts.app') @section('title', 'JudicialOfficerPostingPreference')
-@section('page_heading') JudicialOfficerPostingPreference @endsection
-@section('center_main_content')
-                                                                                                                                                                                                    
+                                                                                                                                                                
 <style>
     .select2-container--default .select2-selection--multiple .select2-selection__choice{
         background-color:#111;
@@ -18,8 +13,7 @@
 }
 </style>
 <br/>
-<div class="col-sm-12">
-   <!-- Bootstrap Boilerplate... -->
+   
    <div id="info-panel" class="panel panel-default">
       <br>
       <div class="col-sm-offset-1 col-sm-11">
@@ -47,26 +41,38 @@
                   <label for="officer_name" class="col-sm-offset-1 col-sm-4 ">Officer Name: {{Auth::user()->name}}</label>
                </div>
                <div id="zone-group" class="form-group row our-form-group">
-                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> {{$fetch_zone['current_zone']}}</span></label>
-                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> {{$fetch_zone['previous_zone']}}</span></label>
+                    <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> {{$fetch_zone['current_zone']}}</span></label></span></label>
+                    <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> {{$fetch_zone['previous_zone']}}</span></label>
                </div>
                <hr>
-            
-               @for($i=1 ; $i<=$fetch_zone['no_of_preference']; $i++)
-                   <div id="posting_pref-group" class="form-group row our-form-group">
-                        <div class="col-sm-offset-1 col-sm-3">
-                            <label for="posting_pref">Posting Preference {{$i}} </label>
-                            <select id="priority_{{$i}}" class="form-control posting_pref" style="width:150px">
-                                <option value="">Select zone</option>
-                               @foreach($fetch_zone['zones'] as $zones)
-                                    <option value="{{$zones['id']}}">{{$zones['zone_name']}}</option>
-                               @endforeach
-                            </select>
-                    </div>
-                </div>
-
-              @endfor
                
+               <div class="row">                   
+                    @for($i=1 ; $i<=$fetch_zone['no_of_preference']; $i++)
+                   
+                        <div id="posting_pref-group" class="form-group our-form-group">
+                            <div class="col-sm-offset-1 col-sm-3">
+                                <label for="posting_pref">Posting Preference {{$i}} </label>
+                                <select id="priority_{{$i}}" class="form-control posting_pref" style="width:100%">
+                                    <option value="">Select zone</option>
+                                    @foreach($fetch_zone['zones'] as $zones)
+                                        <option value="{{$zones['id']}}">{{$zones['zone_name']}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    @endfor
+                </div>   
+                <div class="row">
+                    @for($i=1 ; $i<=$fetch_zone['no_of_preference']; $i++)
+                        <div id="zone_pref_option_{{$i}}" class="col-sm-offset-1 col-sm-3">
+                            <br>
+                            <select id="station" class="form-control posting_pref" style="width:150%;height:200px;display:none;">
+                                <option value=""></option>
+                                        
+                            </select>
+                        </div>
+                    @endfor
+                </div>
                 <div class="row">
                   <div class="col-sm-offset-1 col-sm-5">
                      <label for="remarks">Remarks</label>
@@ -139,21 +145,20 @@
 </div>
 <!-- /.box-header -->
 </div>
-<!-- /.col-->
-</div>
-<div id="test-div"></div>
 
-@endsection @include('layouts.1_column_content')
-
-
-@section('main_container') @yield('1_column_content') @endsection
-
-@section('meta')
-@parent
 <meta name="_token" content="{!! csrf_token() !!}" />
-@endsection
 
-@section('end_scripts') @parent
+
+
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
+
 
 
 <script type="text/javascript">
@@ -174,36 +179,8 @@
 
          /*LOADER*/
 
-        $.ajax({
-            type:"post",
-            url: "zone_pref_details/populate",
-            data:{
-                    _token: $('meta[name="csrf-token"]').attr('content')
-            },
-            success:function(response){
-                
-               console.log(response);
-
-              
-                     $("#priority_1").val(response.judicial_officer_posting_preference["0"].zone_id);
-
-               
-                    $('#priority_2').val(response.judicial_officer_posting_preference['1'].zone_id);
-
-                // if(response.hasOwnProperty(response.judicial_officer_posting_preference['2'].zone_id))
-                //     $('#priority_3').val(response.judicial_officer_posting_preference['2'].zone_id);
-
-               
-                    $('#remarks').val(response.judicial_officer_posting_preference['0'].remarks);
-
-                
-            },
-            error:function(response)
-            {
-                swal("Server Error","","error");
-            }
-
-        });
+        
+        // });
         
       
 
@@ -252,6 +229,7 @@
                         },
                         success:function(response){
                         
+                        console.log(response);
                             if(response.length>0)
                                 $("iframe").contents().find("html").find("body").html(response['0'].description);
                                
@@ -298,9 +276,8 @@
             });
         });
 
-        function send_data(flag){
-
-            var posting_pref=  new Array(); 
+        var posting_pref=  new Array();
+        function send_data(flag){             
 
             posting_pref = [];
             $(".posting_pref").each(function(){
@@ -359,9 +336,7 @@
             $(document).on("click", "#search",function(){
 
                 var jo_code = $("#officer_name").val();
-
-           
-                
+             
                 $.ajax({
 
                     type:"POST",
@@ -413,9 +388,9 @@
         {
             var str="";
             var i;
-            for(i=0;i<pref.length;i++){
-                str+="Preference - "+(i+1)+" : "+pref_name[i]+"\n";
-            }
+            // for(i=0;i<pref.length;i++){
+            //     str+="Preference - "+(i+1)+" : "+pref_name[i]+"\n";
+            // }
 
             swal({
                     title: "Are You Sure?",
@@ -466,5 +441,5 @@
 </script>
 @endsection
 
-@section('body_attributes') @parent class="" @endsection
+
 
