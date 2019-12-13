@@ -450,7 +450,7 @@
                                     </div>    
                                 </div>                              
                             </div><br/>
-                            <div class="row"> 
+                            <div class="row">                                 
                                 <div class="col-xs-3 permanent_reporting_officer_div">
                                     <label>
                                             Reporting Officer 
@@ -460,6 +460,17 @@
                                         <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
                                 </div>
+
+                                <div class="col-xs-2 deputation_reporting_officer_div" style="display:none">
+                                    <label>
+                                            Zone 
+                                    </label>
+                                    <select class="form-control info-form-control zone select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        <?php echo $__env->make('zones.zone_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                    </select>
+                                </div>
+
                                 <div class="col-xs-3 deputation_reporting_officer_div" style="display:none">
                                     <label>
                                             Reporting Officer 

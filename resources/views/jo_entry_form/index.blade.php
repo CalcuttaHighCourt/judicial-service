@@ -450,7 +450,7 @@
                                     </div>    
                                 </div>                              
                             </div><br/>
-                            <div class="row"> 
+                            <div class="row">                                 
                                 <div class="col-xs-3 permanent_reporting_officer_div">
                                     <label>
                                             Reporting Officer 
@@ -460,6 +460,17 @@
                                         @include('judicial_officers.judicial_officer_options')
                                     </select>
                                 </div>
+
+                                <div class="col-xs-2 deputation_reporting_officer_div" style="display:none">
+                                    <label>
+                                            Zone 
+                                    </label>
+                                    <select class="form-control info-form-control zone select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        @include('zones.zone_options')
+                                    </select>
+                                </div>
+
                                 <div class="col-xs-3 deputation_reporting_officer_div" style="display:none">
                                     <label>
                                             Reporting Officer 
@@ -578,7 +589,6 @@
                         <th>JO Name</th>
                         <th>DOB</th>
                         <th>DOR</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
             </table>
@@ -636,6 +646,7 @@
             orientation: "auto",
             endDate: '+0d',
         });
+
          // Datepicker Initialization for Superannuation
         $(".date1").datepicker({
             format: "dd-mm-yyyy",
@@ -725,8 +736,6 @@
                                 {"data": "officer_name"},
                                 {"data": "date_of_birth"},
                                 {"data": "date_of_retirement"},
-                                {"data": "action",
-                                "orderable": "false"}
                             ]
                         }); 
 
