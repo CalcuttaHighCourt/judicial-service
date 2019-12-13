@@ -80,7 +80,7 @@
                  </div>   
                  
                  <div class="form-group required">
-                    <div class="col-xs-4">
+                    <div class="col-xs-3">
                         <label for="recruitment_batch_id" class="control-label">
                              Recruitment Batch 
                         </label>
@@ -90,9 +90,23 @@
                         </select>
                     </div>
                  </div>
+
+                 <div class="form-group required">
+                    <div class="col-xs-2">
+                        <label for="recruitment_batch_year">
+                            Batch Year 
+                        </label>
+                        <select class="form-control info-form-control select2" id="recruitment_batch_year" style="width:100%">
+                            <option value="">Select Year</option>
+                            <?php for($i=Date('Y');$i>=1900;$i--): ?>
+                                <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+                </div>    
                                   
                  <div class="form-group"> 
-                    <div class="col-xs-4">
+                    <div class="col-xs-3">
                         <label class="control-label">Spouse Name (if Spouse is JO):</label>
                         <select class="form-control info-form-control select2" style="width:100%" id="spouse_name">
                             <option value="">Select an Option</option>
@@ -392,8 +406,17 @@
                                         <?php echo $__env->make('modes.mode_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
                                 </div>
+                                <div class="col-xs-3">
+                                    <label>
+                                            Grade / Rank 
+                                    </label>
+                                    <select class="form-control info-form-control rank select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        <?php echo $__env->make('ranks.rank_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                    </select>
+                                </div>
                                 <div class="mode_permanent_div">
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-3">
                                         <label>
                                                 Designation 
                                         </label>
@@ -402,7 +425,7 @@
                                             <?php echo $__env->make('designations.designation_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                         </select>
                                     </div>                                
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-3">
                                         <label>
                                                 Court 
                                         </label>
@@ -413,13 +436,13 @@
                                     </div>    
                                 </div>
                                 <div class="mode_deputation_div" style="display:none">
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-3">
                                         <label>
                                                 Designation 
                                         </label>
                                         <input type="text" class="form-control other_designation" placeholder="Designation of Deputation">
                                     </div>                                
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-3">
                                         <label>
                                                 Place of Posting 
                                         </label>
