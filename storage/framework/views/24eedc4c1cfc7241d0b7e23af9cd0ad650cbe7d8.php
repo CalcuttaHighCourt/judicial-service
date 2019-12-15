@@ -64,9 +64,9 @@
                 </div>   
                 <div class="row">
                     <?php for($i=1 ; $i<=$fetch_zone['no_of_preference']; $i++): ?>
-                        <div id="zone_pref_option_<?php echo e($i); ?>" class="col-sm-offset-1 col-sm-3">
+                        <div id="zone_pref_option_<?php echo e($i); ?>" class="zone_pref_option col-sm-offset-1 col-sm-3">
                             <br>
-                            <select id="station" class="form-control posting_pref" style="width:150%;height:200px;">
+                            <select id="station_<?php echo e($i); ?>" class="form-control posting_pref" style="width:150%;height:200px;display:none;">
                                 <option value=""></option>
                                         
                             </select>
@@ -359,6 +359,31 @@
                 });
 
             });//end of search
+
+
+    $(document).on("change","#priority_1",function(){
+
+        posting_pref = [];
+            $(".posting_pref").each(function(){
+                posting_pref.push($(this).val());
+            })
+
+            $("#station_1").show();
+            //alert("abc");
+
+            
+    });
+
+    $(document).on("change","#priority_2",function(){
+        posting_pref = [];
+            $(".posting_pref").each(function(){
+                posting_pref.push($(this).val());
+            })
+
+            $("#station_2").show();
+
+
+    });
 
     $(document).on("click","#submit",function(){
 

@@ -1,7 +1,6 @@
  
 <?php $__env->startSection('content'); ?>
 <!-- Main content -->
-<div class="col-sm-12">
 	<div id="info-panel" class="panel panel-default">
 		<!-- IIIIIIIIIII -->
 		<div id="info-panel-heading" class="panel-heading">ADD NEW DOCUMENT TYPE</div>
@@ -76,10 +75,17 @@
 
 		</div>
 	</div>
-</div>
-<div id="test-div"></div>
+
 
 <meta name="_token" content="<?php echo csrf_token(); ?>" />
+
+<!--Closing that has been openned in the header.blade.php -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script src="<?php echo e(asset('js/jquery/jquery.min.js')); ?>"></script>
 
 <script>
 

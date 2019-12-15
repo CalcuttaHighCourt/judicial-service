@@ -64,9 +64,9 @@
                 </div>   
                 <div class="row">
                     @for($i=1 ; $i<=$fetch_zone['no_of_preference']; $i++)
-                        <div id="zone_pref_option_{{$i}}" class="col-sm-offset-1 col-sm-3">
+                        <div id="zone_pref_option_{{$i}}" class="zone_pref_option col-sm-offset-1 col-sm-3">
                             <br>
-                            <select id="station" class="form-control posting_pref" style="width:150%;height:200px;display:none;">
+                            <select id="station_{{$i}}" class="form-control posting_pref" style="width:150%;height:200px;display:none;">
                                 <option value=""></option>
                                         
                             </select>
@@ -359,6 +359,103 @@
                 });
 
             });//end of search
+
+
+    $(document).on("change","#priority_1",function(){
+
+        var zone_pref_1=$("#priority_1 option:selected ").val();
+
+        $.ajax({
+            type:"POST",
+            url:"zone_pref/option_1",
+            data:{
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                zone_pref_1 : zone_pref_1,
+               
+            },        
+            success:function(response){
+
+                //$("#station_1").show();
+
+            },
+            error:function(response){
+
+            }
+
+        });
+
+        $("#station_1").show();
+
+       // posting_pref = [];
+            // $(".posting_pref").each(function(){
+            //     posting_pref.push($(this).val());
+            // })
+
+
+      
+            
+            //alert("abc");
+
+            
+    });
+
+    $(document).on("change","#priority_2",function(){
+       // posting_pref = [];
+           
+       var zone_pref_2=$("#priority_2 option:selected ").val();
+
+        $.ajax({
+            type:"POST",
+            url:"zone_pref/option_2",
+            data:{
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                zone_pref_2 : zone_pref_2,
+            
+            },        
+            success:function(response){
+
+                //$("#station_2").show();
+
+            },
+            error:function(response){
+
+            }
+
+        });
+            $("#station_2").show();
+
+
+    });
+
+    $(document).on("change","#priority_3",function(){
+        //posting_pref = [];
+            
+        var zone_pref_3=$("#priority_3 option:selected ").val();
+
+        $.ajax({
+            type:"POST",
+            url:"zone_pref/option_3",
+            data:{
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                zone_pref_3 : zone_pref_3,
+            
+            },        
+            success:function(response){
+
+                //$("#station_3").show();
+
+            },
+            error:function(response){
+
+            }
+
+        });
+   
+        $("#station_3").show();
+
+
+    });
+
 
     $(document).on("click","#submit",function(){
 
