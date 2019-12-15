@@ -20,7 +20,6 @@ class CreateJudicialOfficerPostingsTable extends Migration
             $table->integer('rank_id');
             $table->integer('designation_id')->nullable();
             $table->string('deputation_designation')->nullable();
-            $table->integer('court_id')->nullable();
             $table->string('deputation_posting_place')->nullable();            
             $table->date('from_date');
             $table->date('to_date')->nullable();
@@ -40,7 +39,6 @@ class CreateJudicialOfficerPostingsTable extends Migration
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
             $table->foreign('rank_id')->references('id')->on('ranks');
             $table->foreign('designation_id')->references('id')->on('designations');
-            $table->foreign('court_id')->references('id')->on('courts');            
             $table->foreign('mode_id')->references('id')->on('modes');
         });
     }
