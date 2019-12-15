@@ -5,7 +5,7 @@
 -- Dumped from database version 11.1
 -- Dumped by pg_dump version 11.1
 
--- Started on 2019-12-15 21:32:19
+-- Started on 2019-12-15 23:49:16
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,7 +18,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 3282 (class 0 OID 35904)
+-- TOC entry 3281 (class 0 OID 35904)
 -- Dependencies: 244
 -- Data for Name: acr_histories; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -26,7 +26,7 @@ SET row_security = off;
 
 
 --
--- TOC entry 3248 (class 0 OID 35586)
+-- TOC entry 3247 (class 0 OID 35586)
 -- Dependencies: 210
 -- Data for Name: courts; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -89,7 +89,7 @@ INSERT INTO public.courts VALUES (3, 'calcutta city court', 51, NULL, NULL, 11, 
 
 
 --
--- TOC entry 3294 (class 0 OID 36044)
+-- TOC entry 3293 (class 0 OID 36044)
 -- Dependencies: 256
 -- Data for Name: departments; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -97,7 +97,7 @@ INSERT INTO public.courts VALUES (3, 'calcutta city court', 51, NULL, NULL, 11, 
 
 
 --
--- TOC entry 3252 (class 0 OID 35611)
+-- TOC entry 3251 (class 0 OID 35611)
 -- Dependencies: 214
 -- Data for Name: designations; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -109,7 +109,7 @@ INSERT INTO public.designations VALUES (3, 'ADJ', 2, 11, '2019-11-26 15:43:22', 
 
 
 --
--- TOC entry 3270 (class 0 OID 35804)
+-- TOC entry 3269 (class 0 OID 35804)
 -- Dependencies: 232
 -- Data for Name: diaries; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -117,7 +117,7 @@ INSERT INTO public.designations VALUES (3, 'ADJ', 2, 11, '2019-11-26 15:43:22', 
 
 
 --
--- TOC entry 3244 (class 0 OID 35546)
+-- TOC entry 3243 (class 0 OID 35546)
 -- Dependencies: 206
 -- Data for Name: districts; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -151,7 +151,7 @@ INSERT INTO public.districts VALUES (50, 'andaman and nicobar island', 75, NULL,
 
 
 --
--- TOC entry 3300 (class 0 OID 36080)
+-- TOC entry 3299 (class 0 OID 36080)
 -- Dependencies: 262
 -- Data for Name: document_types; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -159,7 +159,7 @@ INSERT INTO public.districts VALUES (50, 'andaman and nicobar island', 75, NULL,
 
 
 --
--- TOC entry 3280 (class 0 OID 35894)
+-- TOC entry 3279 (class 0 OID 35894)
 -- Dependencies: 242
 -- Data for Name: grade_details; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -172,7 +172,7 @@ INSERT INTO public.grade_details VALUES (5, 'poor', 11, '2019-09-25 00:00:00', '
 
 
 --
--- TOC entry 3276 (class 0 OID 35869)
+-- TOC entry 3275 (class 0 OID 35869)
 -- Dependencies: 238
 -- Data for Name: hc_case_types; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -279,7 +279,7 @@ INSERT INTO public.hc_case_types VALUES (99, 'WPCR', 'WRIT PETITION(CIVIL RULE)'
 
 
 --
--- TOC entry 3292 (class 0 OID 36027)
+-- TOC entry 3291 (class 0 OID 36027)
 -- Dependencies: 254
 -- Data for Name: history_deleted_data; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -287,7 +287,7 @@ INSERT INTO public.hc_case_types VALUES (99, 'WPCR', 'WRIT PETITION(CIVIL RULE)'
 
 
 --
--- TOC entry 3290 (class 0 OID 36016)
+-- TOC entry 3289 (class 0 OID 36016)
 -- Dependencies: 252
 -- Data for Name: history_updated_data; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -295,7 +295,7 @@ INSERT INTO public.hc_case_types VALUES (99, 'WPCR', 'WRIT PETITION(CIVIL RULE)'
 
 
 --
--- TOC entry 3302 (class 0 OID 36088)
+-- TOC entry 3301 (class 0 OID 36088)
 -- Dependencies: 264
 -- Data for Name: jo_documents; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -303,7 +303,7 @@ INSERT INTO public.hc_case_types VALUES (99, 'WPCR', 'WRIT PETITION(CIVIL RULE)'
 
 
 --
--- TOC entry 3296 (class 0 OID 36052)
+-- TOC entry 3295 (class 0 OID 36052)
 -- Dependencies: 258
 -- Data for Name: jo_legal_experiences; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -311,7 +311,7 @@ INSERT INTO public.hc_case_types VALUES (99, 'WPCR', 'WRIT PETITION(CIVIL RULE)'
 
 
 --
--- TOC entry 3266 (class 0 OID 35755)
+-- TOC entry 3265 (class 0 OID 35755)
 -- Dependencies: 228
 -- Data for Name: jo_reportings; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -319,7 +319,7 @@ INSERT INTO public.hc_case_types VALUES (99, 'WPCR', 'WRIT PETITION(CIVIL RULE)'
 
 
 --
--- TOC entry 3284 (class 0 OID 35944)
+-- TOC entry 3283 (class 0 OID 35944)
 -- Dependencies: 246
 -- Data for Name: jo_zone_tenures; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -327,7 +327,7 @@ INSERT INTO public.hc_case_types VALUES (99, 'WPCR', 'WRIT PETITION(CIVIL RULE)'
 
 
 --
--- TOC entry 3268 (class 0 OID 35783)
+-- TOC entry 3267 (class 0 OID 35783)
 -- Dependencies: 230
 -- Data for Name: judicial_officer_posting_preferences; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -335,7 +335,7 @@ INSERT INTO public.hc_case_types VALUES (99, 'WPCR', 'WRIT PETITION(CIVIL RULE)'
 
 
 --
--- TOC entry 3264 (class 0 OID 35719)
+-- TOC entry 3263 (class 0 OID 35719)
 -- Dependencies: 226
 -- Data for Name: judicial_officer_postings; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -343,7 +343,7 @@ INSERT INTO public.hc_case_types VALUES (99, 'WPCR', 'WRIT PETITION(CIVIL RULE)'
 
 
 --
--- TOC entry 3260 (class 0 OID 35689)
+-- TOC entry 3259 (class 0 OID 35689)
 -- Dependencies: 222
 -- Data for Name: judicial_officer_qualifications; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -351,7 +351,7 @@ INSERT INTO public.hc_case_types VALUES (99, 'WPCR', 'WRIT PETITION(CIVIL RULE)'
 
 
 --
--- TOC entry 3258 (class 0 OID 35644)
+-- TOC entry 3257 (class 0 OID 35644)
 -- Dependencies: 220
 -- Data for Name: judicial_officers; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -359,7 +359,7 @@ INSERT INTO public.hc_case_types VALUES (99, 'WPCR', 'WRIT PETITION(CIVIL RULE)'
 
 
 --
--- TOC entry 3298 (class 0 OID 36070)
+-- TOC entry 3297 (class 0 OID 36070)
 -- Dependencies: 260
 -- Data for Name: lcr_departments; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -367,7 +367,7 @@ INSERT INTO public.hc_case_types VALUES (99, 'WPCR', 'WRIT PETITION(CIVIL RULE)'
 
 
 --
--- TOC entry 3272 (class 0 OID 35820)
+-- TOC entry 3271 (class 0 OID 35820)
 -- Dependencies: 234
 -- Data for Name: lcr_hc_ends; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -375,7 +375,7 @@ INSERT INTO public.hc_case_types VALUES (99, 'WPCR', 'WRIT PETITION(CIVIL RULE)'
 
 
 --
--- TOC entry 3274 (class 0 OID 35853)
+-- TOC entry 3273 (class 0 OID 35853)
 -- Dependencies: 236
 -- Data for Name: lcr_lc_details; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -383,7 +383,7 @@ INSERT INTO public.hc_case_types VALUES (99, 'WPCR', 'WRIT PETITION(CIVIL RULE)'
 
 
 --
--- TOC entry 3288 (class 0 OID 36000)
+-- TOC entry 3287 (class 0 OID 36000)
 -- Dependencies: 250
 -- Data for Name: lcr_status_checks; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -391,7 +391,7 @@ INSERT INTO public.hc_case_types VALUES (99, 'WPCR', 'WRIT PETITION(CIVIL RULE)'
 
 
 --
--- TOC entry 3278 (class 0 OID 35884)
+-- TOC entry 3277 (class 0 OID 35884)
 -- Dependencies: 240
 -- Data for Name: lower_case_types; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -456,7 +456,7 @@ INSERT INTO public.lower_case_types VALUES (50, 'Trust Suit', NULL, NULL, NULL);
 
 
 --
--- TOC entry 3235 (class 0 OID 35503)
+-- TOC entry 3234 (class 0 OID 35503)
 -- Dependencies: 197
 -- Data for Name: migrations; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -499,7 +499,7 @@ INSERT INTO public.migrations VALUES (36, '2019_12_05_151936_create_jo_documents
 
 
 --
--- TOC entry 3262 (class 0 OID 35709)
+-- TOC entry 3261 (class 0 OID 35709)
 -- Dependencies: 224
 -- Data for Name: modes; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -510,7 +510,7 @@ INSERT INTO public.modes VALUES (3, 'Deputation', '2019-11-26 11:33:26', '2019-1
 
 
 --
--- TOC entry 3238 (class 0 OID 35517)
+-- TOC entry 3237 (class 0 OID 35517)
 -- Dependencies: 200
 -- Data for Name: password_resets; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -518,7 +518,7 @@ INSERT INTO public.modes VALUES (3, 'Deputation', '2019-11-26 11:33:26', '2019-1
 
 
 --
--- TOC entry 3254 (class 0 OID 35624)
+-- TOC entry 3253 (class 0 OID 35624)
 -- Dependencies: 216
 -- Data for Name: qualifications; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -530,7 +530,7 @@ INSERT INTO public.qualifications VALUES (10, 'm.sc', 11, '2019-07-01 11:25:58',
 
 
 --
--- TOC entry 3250 (class 0 OID 35601)
+-- TOC entry 3249 (class 0 OID 35601)
 -- Dependencies: 212
 -- Data for Name: ranks; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -543,7 +543,7 @@ INSERT INTO public.ranks VALUES (5, 'DJ (ST)', '2019-12-15 00:00:00', '2019-12-1
 
 
 --
--- TOC entry 3256 (class 0 OID 35634)
+-- TOC entry 3255 (class 0 OID 35634)
 -- Dependencies: 218
 -- Data for Name: recruitment_batches; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -553,7 +553,7 @@ INSERT INTO public.recruitment_batches VALUES (2, 'Direct Entry', NULL, '2019-12
 
 
 --
--- TOC entry 3240 (class 0 OID 35526)
+-- TOC entry 3239 (class 0 OID 35526)
 -- Dependencies: 202
 -- Data for Name: states; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -585,7 +585,7 @@ INSERT INTO public.states VALUES (8, 'wyoming', 11, '2019-06-17 06:27:05', '2019
 
 
 --
--- TOC entry 3246 (class 0 OID 35566)
+-- TOC entry 3245 (class 0 OID 35566)
 -- Dependencies: 208
 -- Data for Name: subdivisions; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -672,7 +672,7 @@ INSERT INTO public.subdivisions VALUES (2, 'abc', 50, 8, 11, '2019-11-22 16:03:5
 
 
 --
--- TOC entry 3237 (class 0 OID 35511)
+-- TOC entry 3236 (class 0 OID 35511)
 -- Dependencies: 199
 -- Data for Name: user_types; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -687,7 +687,7 @@ INSERT INTO public.user_types VALUES (9, 'Appointment', '2019-11-28 16:17:12', '
 
 
 --
--- TOC entry 3286 (class 0 OID 35964)
+-- TOC entry 3285 (class 0 OID 35964)
 -- Dependencies: 248
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -698,7 +698,7 @@ INSERT INTO public.users VALUES (12, 'appt', 'Appointment Section', 9, NULL, NUL
 
 
 --
--- TOC entry 3242 (class 0 OID 35536)
+-- TOC entry 3241 (class 0 OID 35536)
 -- Dependencies: 204
 -- Data for Name: zones; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -710,7 +710,7 @@ INSERT INTO public.zones VALUES (7, 'c', 1095, 11, '2019-11-13 00:00:00', '2019-
 
 
 --
--- TOC entry 3342 (class 0 OID 0)
+-- TOC entry 3341 (class 0 OID 0)
 -- Dependencies: 243
 -- Name: acr_histories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -719,7 +719,7 @@ SELECT pg_catalog.setval('public.acr_histories_id_seq', 1, false);
 
 
 --
--- TOC entry 3343 (class 0 OID 0)
+-- TOC entry 3342 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: courts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -728,7 +728,7 @@ SELECT pg_catalog.setval('public.courts_id_seq', 1, false);
 
 
 --
--- TOC entry 3344 (class 0 OID 0)
+-- TOC entry 3343 (class 0 OID 0)
 -- Dependencies: 255
 -- Name: departments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -737,7 +737,7 @@ SELECT pg_catalog.setval('public.departments_id_seq', 1, false);
 
 
 --
--- TOC entry 3345 (class 0 OID 0)
+-- TOC entry 3344 (class 0 OID 0)
 -- Dependencies: 213
 -- Name: designations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -746,7 +746,7 @@ SELECT pg_catalog.setval('public.designations_id_seq', 1, false);
 
 
 --
--- TOC entry 3346 (class 0 OID 0)
+-- TOC entry 3345 (class 0 OID 0)
 -- Dependencies: 231
 -- Name: diaries_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -755,7 +755,7 @@ SELECT pg_catalog.setval('public.diaries_id_seq', 1, false);
 
 
 --
--- TOC entry 3347 (class 0 OID 0)
+-- TOC entry 3346 (class 0 OID 0)
 -- Dependencies: 205
 -- Name: districts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -764,7 +764,7 @@ SELECT pg_catalog.setval('public.districts_id_seq', 1, false);
 
 
 --
--- TOC entry 3348 (class 0 OID 0)
+-- TOC entry 3347 (class 0 OID 0)
 -- Dependencies: 261
 -- Name: document_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -773,7 +773,7 @@ SELECT pg_catalog.setval('public.document_types_id_seq', 1, false);
 
 
 --
--- TOC entry 3349 (class 0 OID 0)
+-- TOC entry 3348 (class 0 OID 0)
 -- Dependencies: 241
 -- Name: grade_details_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -782,7 +782,7 @@ SELECT pg_catalog.setval('public.grade_details_id_seq', 1, false);
 
 
 --
--- TOC entry 3350 (class 0 OID 0)
+-- TOC entry 3349 (class 0 OID 0)
 -- Dependencies: 237
 -- Name: hc_case_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -791,7 +791,7 @@ SELECT pg_catalog.setval('public.hc_case_types_id_seq', 1, false);
 
 
 --
--- TOC entry 3351 (class 0 OID 0)
+-- TOC entry 3350 (class 0 OID 0)
 -- Dependencies: 253
 -- Name: history_deleted_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -800,7 +800,7 @@ SELECT pg_catalog.setval('public.history_deleted_data_id_seq', 1, false);
 
 
 --
--- TOC entry 3352 (class 0 OID 0)
+-- TOC entry 3351 (class 0 OID 0)
 -- Dependencies: 251
 -- Name: history_updated_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -809,7 +809,7 @@ SELECT pg_catalog.setval('public.history_updated_data_id_seq', 1, false);
 
 
 --
--- TOC entry 3353 (class 0 OID 0)
+-- TOC entry 3352 (class 0 OID 0)
 -- Dependencies: 263
 -- Name: jo_documents_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -818,7 +818,7 @@ SELECT pg_catalog.setval('public.jo_documents_id_seq', 1, false);
 
 
 --
--- TOC entry 3354 (class 0 OID 0)
+-- TOC entry 3353 (class 0 OID 0)
 -- Dependencies: 257
 -- Name: jo_legal_experiences_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -827,7 +827,7 @@ SELECT pg_catalog.setval('public.jo_legal_experiences_id_seq', 1, false);
 
 
 --
--- TOC entry 3355 (class 0 OID 0)
+-- TOC entry 3354 (class 0 OID 0)
 -- Dependencies: 227
 -- Name: jo_reportings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -836,7 +836,7 @@ SELECT pg_catalog.setval('public.jo_reportings_id_seq', 1, false);
 
 
 --
--- TOC entry 3356 (class 0 OID 0)
+-- TOC entry 3355 (class 0 OID 0)
 -- Dependencies: 245
 -- Name: jo_zone_tenures_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -845,7 +845,7 @@ SELECT pg_catalog.setval('public.jo_zone_tenures_id_seq', 1, false);
 
 
 --
--- TOC entry 3357 (class 0 OID 0)
+-- TOC entry 3356 (class 0 OID 0)
 -- Dependencies: 229
 -- Name: judicial_officer_posting_preferences_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -854,7 +854,7 @@ SELECT pg_catalog.setval('public.judicial_officer_posting_preferences_id_seq', 1
 
 
 --
--- TOC entry 3358 (class 0 OID 0)
+-- TOC entry 3357 (class 0 OID 0)
 -- Dependencies: 225
 -- Name: judicial_officer_postings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -863,7 +863,7 @@ SELECT pg_catalog.setval('public.judicial_officer_postings_id_seq', 1, false);
 
 
 --
--- TOC entry 3359 (class 0 OID 0)
+-- TOC entry 3358 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: judicial_officer_qualifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -872,7 +872,7 @@ SELECT pg_catalog.setval('public.judicial_officer_qualifications_id_seq', 1, fal
 
 
 --
--- TOC entry 3360 (class 0 OID 0)
+-- TOC entry 3359 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: judicial_officers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -881,7 +881,7 @@ SELECT pg_catalog.setval('public.judicial_officers_id_seq', 1, false);
 
 
 --
--- TOC entry 3361 (class 0 OID 0)
+-- TOC entry 3360 (class 0 OID 0)
 -- Dependencies: 259
 -- Name: lcr_departments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -890,7 +890,7 @@ SELECT pg_catalog.setval('public.lcr_departments_id_seq', 1, false);
 
 
 --
--- TOC entry 3362 (class 0 OID 0)
+-- TOC entry 3361 (class 0 OID 0)
 -- Dependencies: 233
 -- Name: lcr_hc_ends_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -899,7 +899,7 @@ SELECT pg_catalog.setval('public.lcr_hc_ends_id_seq', 1, false);
 
 
 --
--- TOC entry 3363 (class 0 OID 0)
+-- TOC entry 3362 (class 0 OID 0)
 -- Dependencies: 235
 -- Name: lcr_lc_details_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -908,7 +908,7 @@ SELECT pg_catalog.setval('public.lcr_lc_details_id_seq', 1, false);
 
 
 --
--- TOC entry 3364 (class 0 OID 0)
+-- TOC entry 3363 (class 0 OID 0)
 -- Dependencies: 249
 -- Name: lcr_status_checks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -917,7 +917,7 @@ SELECT pg_catalog.setval('public.lcr_status_checks_id_seq', 1, false);
 
 
 --
--- TOC entry 3365 (class 0 OID 0)
+-- TOC entry 3364 (class 0 OID 0)
 -- Dependencies: 239
 -- Name: lower_case_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -926,7 +926,7 @@ SELECT pg_catalog.setval('public.lower_case_types_id_seq', 1, false);
 
 
 --
--- TOC entry 3366 (class 0 OID 0)
+-- TOC entry 3365 (class 0 OID 0)
 -- Dependencies: 196
 -- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -935,7 +935,7 @@ SELECT pg_catalog.setval('public.migrations_id_seq', 36, true);
 
 
 --
--- TOC entry 3367 (class 0 OID 0)
+-- TOC entry 3366 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: modes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -944,7 +944,7 @@ SELECT pg_catalog.setval('public.modes_id_seq', 1, false);
 
 
 --
--- TOC entry 3368 (class 0 OID 0)
+-- TOC entry 3367 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: qualifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -953,7 +953,7 @@ SELECT pg_catalog.setval('public.qualifications_id_seq', 1, false);
 
 
 --
--- TOC entry 3369 (class 0 OID 0)
+-- TOC entry 3368 (class 0 OID 0)
 -- Dependencies: 211
 -- Name: ranks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -962,7 +962,7 @@ SELECT pg_catalog.setval('public.ranks_id_seq', 5, true);
 
 
 --
--- TOC entry 3370 (class 0 OID 0)
+-- TOC entry 3369 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: recruitment_batches_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -971,7 +971,7 @@ SELECT pg_catalog.setval('public.recruitment_batches_id_seq', 2, true);
 
 
 --
--- TOC entry 3371 (class 0 OID 0)
+-- TOC entry 3370 (class 0 OID 0)
 -- Dependencies: 201
 -- Name: states_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -980,7 +980,7 @@ SELECT pg_catalog.setval('public.states_id_seq', 1, false);
 
 
 --
--- TOC entry 3372 (class 0 OID 0)
+-- TOC entry 3371 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: subdivisions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -989,7 +989,7 @@ SELECT pg_catalog.setval('public.subdivisions_id_seq', 1, false);
 
 
 --
--- TOC entry 3373 (class 0 OID 0)
+-- TOC entry 3372 (class 0 OID 0)
 -- Dependencies: 198
 -- Name: user_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -998,7 +998,7 @@ SELECT pg_catalog.setval('public.user_types_id_seq', 1, true);
 
 
 --
--- TOC entry 3374 (class 0 OID 0)
+-- TOC entry 3373 (class 0 OID 0)
 -- Dependencies: 247
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1007,7 +1007,7 @@ SELECT pg_catalog.setval('public.users_id_seq', 1, false);
 
 
 --
--- TOC entry 3375 (class 0 OID 0)
+-- TOC entry 3374 (class 0 OID 0)
 -- Dependencies: 203
 -- Name: zones_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1015,7 +1015,7 @@ SELECT pg_catalog.setval('public.users_id_seq', 1, false);
 SELECT pg_catalog.setval('public.zones_id_seq', 1, false);
 
 
--- Completed on 2019-12-15 21:32:20
+-- Completed on 2019-12-15 23:49:17
 
 --
 -- PostgreSQL database dump complete
