@@ -356,6 +356,128 @@ public function zone_pref_content(Request $request) {
         }
     }
 
+    /*for selecting the 1st zone */
+
+    public function zone_selection_1(Request $request){
+
+        /*1st approach starts here
+                $zone_options= array();
+
+                $posting_pref=  $request->input('posting_pref');
+
+                for ($i = 0; $i < count($posting_pref); $i++)
+                {
+
+                    $zone_options['districts'] = District::where('zone_id','=',$posting_pref[$i]) 
+                                                            ->select('id','district_name');
+                }
+
+                for ($i = 0; $i < count($posting_pref); $i++)
+                {
+                    foreach($zone_options['districts'] as $district)
+                    {
+                        $zone_options['subdivisions']= Subdivisions::where([
+                                                                        ['district_id','<>',$district->id],
+                                                                        ['zone_id','=',$posting_pref[$i]]
+                                                                    ])
+                                                                    ->select('subdivision_name');
+
+                        $zone_options['exempted_subdivisions'] = Subdivisions::where([
+                                                                                    ['district_id','=',$district->id],
+                                                                                    ['zone_id','<>',$posting_pref[$i]]
+                                                                                ])
+                                                                                ->select('subdivision_name');
+                    }
+                }
+        /*1st approach ends here*/
+
+         //print_r($zone_options['districts']); exit;
+
+         $zone_option_1= array();
+
+         $zone_pref_1=  $request->input('zone_pref_1');
+
+        
+        $zone_options['districts'] = District::where('zone_id','=',$zone_pref_1) 
+                                                ->select('id','district_name');
+    
+
+        foreach($zone_options['districts'] as $district)
+        {
+            $zone_options['subdivisions']= Subdivisions::where([
+                                                            ['district_id','<>',$district->id],
+                                                            ['zone_id','=',$zone_pref_1]
+                                                        ])->select('subdivision_name');
+
+            $zone_options['exempted_subdivisions'] = Subdivisions::where([
+                                                                        ['district_id','=',$district->id],
+                                                                        ['zone_id','<>',$zone_pref_1]
+                                                                    ])->select('subdivision_name');
+        }
+         
+    }
+
+    /*for selecting the 2nd zone */
+    public function zone_selection_2(Request $request){
+
+        //print_r($zone_options['districts']); exit;
+
+         $zone_option_2= array();
+
+         $zone_pref_2=  $request->input('zone_pref_2');
+
+        
+        $zone_options['districts'] = District::where('zone_id','=',$zone_pref_2) 
+                                                ->select('id','district_name');
+    
+
+        foreach($zone_options['districts'] as $district)
+        {
+            $zone_options['subdivisions']= Subdivisions::where([
+                                                            ['district_id','<>',$district->id],
+                                                            ['zone_id','=',$zone_pref_2]
+                                                        ])->select('subdivision_name');
+
+            $zone_options['exempted_subdivisions'] = Subdivisions::where([
+                                                                        ['district_id','=',$district->id],
+                                                                        ['zone_id','<>',$zone_pref_1]
+                                                                    ])->select('subdivision_name');
+        }
+         
+    }
+
+
+    /*for selecting the 3rd zone */
+    public function zone_selection_3(Request $request){
+
+        
+
+         $zone_option_3= array();
+
+         $zone_pref_3=  $request->input('zone_pref_3');
+
+        
+        $zone_options['districts'] = District::where('zone_id','=',$zone_pref_3) 
+                                                ->select('id','district_name');
+    
+
+        foreach($zone_options['districts'] as $district)
+        {
+            $zone_options['subdivisions']= Subdivisions::where([
+                                                            ['district_id','<>',$district->id],
+                                                            ['zone_id','=',$zone_pref_3]
+                                                        ])->select('subdivision_name');
+
+            $zone_options['exempted_subdivisions'] = Subdivisions::where([
+                                                                        ['district_id','=',$district->id],
+                                                                        ['zone_id','<>',$zone_pref_3]
+                                                                    ])->select('subdivision_name');
+        }
+
+        //print_r($zone_options); exit;
+         
+    }
+
     
     public function update(Request $request, $id) {
         $response = [

@@ -8,7 +8,7 @@ class Designation extends Model
 {
 
     protected $fillable = [
-        'designation_name','created_by'
+        'designation_name','created_by','rank_id'
     ];
 
     public $timestamps = true;

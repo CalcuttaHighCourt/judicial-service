@@ -109,7 +109,6 @@ class ModeController extends Controller
 
             try {
                 $posting_mode = strtoupper($request->input('posting_mode'));
-                $request['created_by'] = Auth::user()->id;
                 $mode = Mode::create ($request->all ());
 
                 $response = array (

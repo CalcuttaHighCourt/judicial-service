@@ -41,26 +41,38 @@
                   <label for="officer_name" class="col-sm-offset-1 col-sm-4 ">Officer Name: {{Auth::user()->name}}</label>
                </div>
                <div id="zone-group" class="form-group row our-form-group">
-                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> {{$fetch_zone['current_zone']}}</span></label>
-                  <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> {{$fetch_zone['previous_zone']}}</span></label>
+                    <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> {{$fetch_zone['current_zone']}}</span></label></span></label>
+                    <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> {{$fetch_zone['previous_zone']}}</span></label>
                </div>
                <hr>
-            
-               @for($i=1 ; $i<=$fetch_zone['no_of_preference']; $i++)
-                   <div id="posting_pref-group" class="form-group row our-form-group">
-                        <div class="col-sm-offset-1 col-sm-3">
-                            <label for="posting_pref">Posting Preference {{$i}} </label>
-                            <select id="priority_{{$i}}" class="form-control posting_pref" style="width:150px">
-                                <option value="">Select zone</option>
-                               @foreach($fetch_zone['zones'] as $zones)
-                                    <option value="{{$zones['id']}}">{{$zones['zone_name']}}</option>
-                               @endforeach
-                            </select>
-                    </div>
-                </div>
-
-              @endfor
                
+               <div class="row">                   
+                    @for($i=1 ; $i<=$fetch_zone['no_of_preference']; $i++)
+                   
+                        <div id="posting_pref-group" class="form-group our-form-group">
+                            <div class="col-sm-offset-1 col-sm-3">
+                                <label for="posting_pref">Posting Preference {{$i}} </label>
+                                <select id="priority_{{$i}}" class="form-control posting_pref" style="width:100%">
+                                    <option value="">Select zone</option>
+                                    @foreach($fetch_zone['zones'] as $zones)
+                                        <option value="{{$zones['id']}}">{{$zones['zone_name']}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    @endfor
+                </div>   
+                <div class="row">
+                    @for($i=1 ; $i<=$fetch_zone['no_of_preference']; $i++)
+                        <div id="zone_pref_option_{{$i}}" class="zone_pref_option col-sm-offset-1 col-sm-3">
+                            <br>
+                            <select id="station_{{$i}}" class="form-control posting_pref" style="width:150%;height:200px;display:none;">
+                                <option value=""></option>
+                                        
+                            </select>
+                        </div>
+                    @endfor
+                </div>
                 <div class="row">
                   <div class="col-sm-offset-1 col-sm-5">
                      <label for="remarks">Remarks</label>
@@ -167,39 +179,7 @@
 
          /*LOADER*/
 
-        // $.ajax({
-        //     type:"post",
-        //     url: "zone_pref_details/populate",
-        //     data:{
-        //             _token: $('meta[name="csrf-token"]').attr('content')
-        //     },
-        //     success:function(response){
-                
-        //        console.log(response);
-        //        console.log(response.judicial_officer_posting_preference["0"].zone_id);
-
-        //        obj = $.parseJSON(response);							
-		// 				$.each(obj,function(key,value){
-                              
-        //           $("#priority_key").val(value);
-
-               
-        //             // $('#priority_2').val(response.judicial_officer_posting_preference['1'].zone_id);
-
-        //         // if(response.hasOwnProperty(response.judicial_officer_posting_preference['2'].zone_id))
-        //         //     $('#priority_3').val(response.judicial_officer_posting_preference['2'].zone_id);
-
-               
-        //           //  $('#remarks').val(response.judicial_officer_posting_preference['0'].remarks);
-
-                
-        //         });
-        //     },
-        //     error:function(response)
-        //     {
-        //         swal("Server Error","","error");
-        //     }
-
+        
         // });
         
       
@@ -380,80 +360,177 @@
 
             });//end of search
 
-    // $(document).on("click","#submit",function(){
 
-    //    // var pref=$("#posting_pref").val();
-    //     var pref_name1=$("#posting_pref1 option:selected").text(); 
-    //     var pref_name2=$("#posting_pref2 option:selected").text(); 
-    //     var remarks=$("#remarks").val();       
+    $(document).on("change","#priority_1",function(){
 
-    //     if(pref_name1==null)
-    //     {
-    //         swal("Please Select the first preferences","","error");
-    //         return false;
-    //     }
-    //     else if(pref_name2==null)
-    //     {
-    //         swal("Please Select the second preferences","","error");
-    //         return false;
-    //     }
+        var zone_pref_1=$("#priority_1 option:selected ").val();
+
+        $.ajax({
+            type:"POST",
+            url:"zone_pref/option_1",
+            data:{
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                zone_pref_1 : zone_pref_1,
+               
+            },        
+            success:function(response){
+
+                //$("#station_1").show();
+
+            },
+            error:function(response){
+
+            }
+
+        });
+
+        $("#station_1").show();
+
+       // posting_pref = [];
+            // $(".posting_pref").each(function(){
+            //     posting_pref.push($(this).val());
+            // })
+
+
+      
+            
+            //alert("abc");
+
+            
+    });
+
+    $(document).on("change","#priority_2",function(){
+       // posting_pref = [];
+           
+       var zone_pref_2=$("#priority_2 option:selected ").val();
+
+        $.ajax({
+            type:"POST",
+            url:"zone_pref/option_2",
+            data:{
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                zone_pref_2 : zone_pref_2,
+            
+            },        
+            success:function(response){
+
+                //$("#station_2").show();
+
+            },
+            error:function(response){
+
+            }
+
+        });
+            $("#station_2").show();
+
+
+    });
+
+    $(document).on("change","#priority_3",function(){
+        //posting_pref = [];
+            
+        var zone_pref_3=$("#priority_3 option:selected ").val();
+
+        $.ajax({
+            type:"POST",
+            url:"zone_pref/option_3",
+            data:{
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                zone_pref_3 : zone_pref_3,
+            
+            },        
+            success:function(response){
+
+                //$("#station_3").show();
+
+            },
+            error:function(response){
+
+            }
+
+        });
+   
+        $("#station_3").show();
+
+
+    });
+
+
+    $(document).on("click","#submit",function(){
+
+        var pref=$("#posting_pref").val();
+        var pref_name1=$("#posting_pref1 option:selected").text(); 
+        var pref_name2=$("#posting_pref2 option:selected").text(); 
+        var remarks=$("#remarks").val();       
+
+        if(pref_name1==null)
+        {
+            swal("Please Select the first preferences","","error");
+            return false;
+        }
+        else if(pref_name2==null)
+        {
+            swal("Please Select the second preferences","","error");
+            return false;
+        }
         
-    //     else if(pref.length<2)
-    //     {
-    //         swal("Please Select Minimum 2 preferences","","error");
-    //         return false;
-    //     }
+        else if(pref.length<2)
+        {
+            swal("Please Select Minimum 2 preferences","","error");
+            return false;
+        }
         
-    //     else
-    //     {
-    //         var str="";
-    //         var i;
-    //         // for(i=0;i<pref.length;i++){
-    //         //     str+="Preference - "+(i+1)+" : "+pref_name[i]+"\n";
-    //         // }
+        else
+        {
+            var str="";
+            var i;
+            // for(i=0;i<pref.length;i++){
+            //     str+="Preference - "+(i+1)+" : "+pref_name[i]+"\n";
+            // }
 
-    //         swal({
-    //                 title: "Are You Sure?",
-    //                 text: str,
-    //                 icon: "warning",
-    //                 buttons: true,
-    //                 dangerMode: true,
-    //             })
-    //         .then((willApprove) => {
-    //             if(willApprove) {                           
+            swal({
+                    title: "Are You Sure?",
+                    text: str,
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+            .then((willApprove) => {
+                if(willApprove) {                           
 
-    //                 //Add dept using ajax : start
-    //                     $.ajax({
-    //                         type:"POST",
-    //                         url:"zone_pref/submit",
-    //                         data:{
-    //                             _token: $('meta[name="csrf-token"]').attr('content'),
-    //                             pref:pref,
-    //                             remarks:remarks
-    //                         },                                                          
-    //                         success:function(response){
-    //                                console.log(response);                              
-    //                             swal("Preference Added Successfully","Successful","success");
+                    //Add dept using ajax : start
+                        $.ajax({
+                            type:"POST",
+                            url:"zone_pref/submit",
+                            data:{
+                                _token: $('meta[name="csrf-token"]').attr('content'),
+                                pref:pref,
+                                remarks:remarks
+                            },                                                          
+                            success:function(response){
+                                   console.log(response);                              
+                                swal("Preference Added Successfully","Successful","success");
                                 
 
-    //                         },
-    //                         error:function(response) {  
-    //                             if(response.responseJSON.errors.hasOwnProperty('pref'))
-    //                                 swal("Cannot Add New Department", ""+response.responseJSON.errors.pref['0'], "error");                                                       
-    //                             }
+                            },
+                            error:function(response) {  
+                                if(response.responseJSON.errors.hasOwnProperty('pref'))
+                                    swal("Cannot Add New Department", ""+response.responseJSON.errors.pref['0'], "error");                                                       
+                                }
 
-    //                         });//Add dept using ajax : end
+                            });//Add dept using ajax : end
                             
-    //                 }//end of swal if(willApprove)
-    //                 $("#content").hide();
-    //                 $("#table_content").show();
-    //             })//permission to save given verification           
+                    }//end of swal if(willApprove)
+                    $("#content").hide();
+                    $("#table_content").show();
+                })//permission to save given verification           
 
 
-    //     } //end of else  if(pref.length<2)
+        } //end of else  if(pref.length<2)
 
                                       
-    // });//end of  $(document).on("click","#submit",function()
+    });//end of  $(document).on("click","#submit",function()
 
 });
 

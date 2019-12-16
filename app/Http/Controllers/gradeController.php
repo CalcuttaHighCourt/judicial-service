@@ -8,7 +8,7 @@ use App\GradeDetail;
 use Carbon\Carbon;
 use Auth;
 
-class gradeController extends Controller
+class GradeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -166,47 +166,6 @@ class gradeController extends Controller
      */
     public function update(Request $request, $id)
     {
-    //     $response = [
-            //         'state' => []
-            //     ];
-            //     $statusCode = 200;
-            //     $state = null;
-                
-            //     if (!ctype_digit(strval($id))) {
-            //         $response = array(
-            //             'exception' => true,
-            //             'exception_message' => 'Invalid Input'
-            //         );
-        
-            //         $statusCode = 400;
-            //         return response()->json($response, $statusCode);
-            //     }
-                
-            //     $this->validate($request, [
-            //         'state_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:states,state_name,'.$id.',id'),
-            //     ]);
-        
-            //     try {
-            //         $state = State::find($id);
-            //         if (!$state) {
-            //             throw new \Exception('Invalid Input');
-            //         }
-            //         $state->state_name = $request->state_name;
-            //         $state->created_by = Auth::user()->id;
-            //         $state->save();
-        
-            //         $response = array(
-            //             'state' => $state
-            //         );
-            //     } catch (\Exception $e) {
-            //         $response = array(
-            //             'exception' => true,
-            //             'exception_message' => $e->getMessage()
-            //         );
-            //         $statusCode = 400;
-            //     } finally {
-            //         return response()->json($response, $statusCode);
-            //     }
     }
 
     /**

@@ -268,31 +268,34 @@
             <div class="tab-pane" id="legal_practice_details">
                 <div class="row">
                     <form class="form" action="##" method="">
-                            <br/>
                             <div class="div_add_more_legal_practice">
                                 <div class="row">
-                                    <div class="form-group required col-xs-4">
-                                        <label class="control-label">
-                                            Subdivision 
-                                        </label>
-                                        <select class="form-control info-form-control select2 subdivision_id" style="width:100%">
-                                            <option value="">Select an Option</option>
-                                            @include('subdivisions.subdivision_options')
-                                        </select>
+                                    <div class="form-group">
+                                        <div class="col-xs-4"><br/>
+                                            <label>
+                                                Subdivision 
+                                            </label>
+                                            <select class="form-control info-form-control select2 subdivision_id" style="width:100%">
+                                                <option value="">Select an Option</option>
+                                                @include('subdivisions.subdivision_options')
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="form-group required col-xs-3">
-                                        <label class="control-label">
-                                            From (Year)
-                                        </label>
-                                        <select class="form-control info-form-control select2 practice_from_year" style="width:100%">
-                                            <option value="">Select an Option</option>
-                                            @for($i=Date('Y');$i>=1900;$i--)
-                                                <option value="{{$i}}">{{$i}}</option>
-                                            @endfor
-                                        </select>
+                                    <div class="form-group">
+                                        <div class="col-xs-3">
+                                            <label>
+                                                From (Year)
+                                            </label>
+                                            <select class="form-control info-form-control select2 practice_from_year" style="width:100%">
+                                                <option value="">Select an Option</option>
+                                                @for($i=Date('Y');$i>=1900;$i--)
+                                                    <option value="{{$i}}">{{$i}}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
                                     </div>   
-                                    <div class="form-group required col-xs-3">
-                                        <label class="control-label">
+                                    <div class="form-group">
+                                        <div class="col-xs-3">
                                             <label>
                                                 To (Year)
                                             </label>
@@ -302,6 +305,7 @@
                                                     <option value="{{$i}}">{{$i}}</option>
                                                 @endfor
                                             </select>
+                                        </div>
                                         <div class="col-xs-2">
                                             <br>
                                             <img src="{{asset('images/details_open.png')}}" class="img_add_more_legal_practice" id="add_more_legal_practice">
@@ -332,28 +336,31 @@
          <div class="tab-pane" id="qualification_details">
             <div class="row">
                 <form class="form" action="##" method="">
-                    <br/>
                         <div class="div_add_more_qualification">
                             <div class="row">
-                                <div class="form-group required col-xs-3 col-xs-offset-1">
-                                    <label class="control-label">
-                                        Degree 
-                                    </label>
-                                    <select class="form-control info-form-control select2 degree_id" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        @include('qualifications.qualification_options')
-                                    </select>
+                                <div class="form-group">
+                                    <div class="col-xs-5"><br/>
+                                        <label>
+                                            Degree 
+                                        </label>
+                                        <select class="form-control info-form-control select2 degree_id" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            @include('qualifications.qualification_options')
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="form-group required col-xs-3">
-                                    <label class="control-label">
-                                        Year of Passing 
-                                    </label>
-                                    <select class="form-control info-form-control select2 yop" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        @for($i=Date('Y');$i>=1900;$i--)
-                                            <option value="{{$i}}">{{$i}}</option>
-                                        @endfor
-                                    </select>
+                                <div class="form-group">
+                                    <div class="col-xs-3">
+                                        <label>
+                                            Year of Passing 
+                                        </label>
+                                        <select class="form-control info-form-control select2 yop" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            @for($i=Date('Y');$i>=1900;$i--)
+                                                <option value="{{$i}}">{{$i}}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
                                 </div>   
                                 <div class="form-group">
                                     <div class="col-xs-2">
@@ -390,8 +397,8 @@
                     <form class="form" action="##" method=""> 
                         <div class="div_add_more_posting">
                             <div class="row"> 
-                                <div class="form-group required col-xs-3">
-                                    <label class="control-label">
+                                <div class="col-xs-3">
+                                    <label>
                                             Posting Mode 
                                     </label>
                                     <select class="form-control info-form-control posting_select2 mode_id select2" style="width:100%">
@@ -399,8 +406,8 @@
                                         @include('modes.mode_options')
                                     </select>
                                 </div>
-                                <div class="form-group required col-xs-3">
-                                    <label class="control-label">
+                                <div class="col-xs-3">
+                                    <label>
                                             Grade / Rank 
                                     </label>
                                     <select class="form-control info-form-control rank select2" style="width:100%">
@@ -409,25 +416,34 @@
                                     </select>
                                 </div>
                                 <div class="mode_permanent_div">
-                                    <div class="form-group required col-xs-3">
-                                        <label class="control-label">
+                                    <div class="col-xs-3">
+                                        <label>
                                                 Designation 
                                         </label>
                                         <select class="form-control info-form-control posting_select2 designation_id select2" style="width:100%">
                                             <option value="">Select an Option</option>
                                             @include('designations.designation_options')
                                         </select>
-                                    </div>  
+                                    </div>                                
+                                    <div class="col-xs-3">
+                                        <label>
+                                                Court 
+                                        </label>
+                                        <select class="form-control info-form-control posting_select2 court_id select2" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            @include('courts.court_options')
+                                        </select>
+                                    </div>    
                                 </div>
                                 <div class="mode_deputation_div" style="display:none">
-                                    <div class="form-group required col-xs-3">
-                                        <label class="control-label">
+                                    <div class="col-xs-3">
+                                        <label>
                                                 Designation 
                                         </label>
                                         <input type="text" class="form-control other_designation" placeholder="Designation of Deputation">
                                     </div>                                
-                                    <div class="form-group required col-xs-3">
-                                        <label class="control-label">
+                                    <div class="col-xs-3">
+                                        <label>
                                                 Place of Posting 
                                         </label>
                                         <input type="text" class="form-control other_place_posting" placeholder="Deputation Place">
@@ -445,8 +461,8 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group required col-xs-2 deputation_reporting_officer_div" style="display:none">
-                                    <label class="control-label">
+                                <div class="col-xs-2 deputation_reporting_officer_div" style="display:none">
+                                    <label>
                                             Zone 
                                     </label>
                                     <select class="form-control info-form-control zone select2" style="width:100%">
@@ -461,20 +477,20 @@
                                     </label>
                                     <input type="text" class="form-control other_reporting_officer" placeholder="Deputation Reporting Officer">
                                 </div>
-                                <div class="form-group required col-xs-3 deputation_reporting_officer_div" style="display:none">
-                                    <label class="control-label">
+                                <div class="col-xs-3 deputation_reporting_officer_div" style="display:none">
+                                    <label>
                                             Designation 
                                     </label>
                                     <input type="text" class="form-control other_reporting_officer_designation" placeholder="Of Reporting Officer">
                                 </div>
-                                <div class="form-group required col-xs-2">
-                                    <label class="control-label">
+                                <div class="col-xs-2">
+                                    <label>
                                             From Date 
                                     </label>
                                     <input type="text" class="form-control date from_date" placeholder="dd-mm-yyyy">
                                 </div>
-                                <div class="form-group required col-xs-2">
-                                    <label class="control-label">
+                                <div class="col-xs-2">
+                                    <label>
                                             To Date 
                                     </label>
                                     <input type="text" class="form-control date to_date" placeholder="dd-mm-yyyy">
@@ -484,7 +500,11 @@
                                             Remark
                                     </label>
                                     <textarea class="form-control posting_remark" placeholder="if any"></textarea>
-                                </div> 
+                                </div>                                
+                                <div class="col-xs-1">
+                                    <br>
+                                    <img src="{{asset('images/details_open.png')}}" class="img_add_more_posting" id="add_more_posting">
+                                </div>
                             </div> 
                             <hr>
                         </div>                     
@@ -588,7 +608,8 @@
 <script src="{{asset('js/jquery/jquery.min.js')}}"></script>
 
 <script>
-   $(document).ready(function() {         
+   $(document).ready(function() { 
+        var clone_element_posting = $(".div_add_more_posting").clone();
         var clone_element_qualification = $(".div_add_more_qualification").clone();
         var clone_element_legal_practice = $(".div_add_more_legal_practice").clone();
 
@@ -777,7 +798,34 @@
         })
         // For JO Details PDF :: END
         
-        
+        /*If multiple posting details added :: STARTS*/
+		$(document).on("click","#add_more_posting", function(){           
+            var clone_element2 = clone_element_posting.clone();
+            clone_element2.insertAfter(".div_add_more_posting:last");  
+
+            // Select2 Re-initialization
+            $(".select2").select2();  
+
+            // Datepicker Re-initialization
+            $(".date").datepicker({
+                format: "dd-mm-yyyy",
+                endDate:'0',
+                autoclose: true,   
+                orientation: "auto",
+            });               
+
+            
+            $(".img_add_more_posting:last").attr({src:"images/details_close.png",
+                                                    class:"remove_posting", 
+                                                    alt:"remove_posting"
+                                                });
+            $(".remove_posting:last").removeAttr("id");        
+			
+		})
+	    /*If multiple posting details added :: ENDS*/   
+
+
+
         /*If any posting details row needs to remove :: STARTS*/
         $(document).on("click",".remove_posting", function(){
 			$(this).closest(".div_add_more_posting").remove();
