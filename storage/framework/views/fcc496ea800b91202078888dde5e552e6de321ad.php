@@ -28,13 +28,7 @@
                 <label for="jo_grade_year" class="control-label">
                     Year 
                 </label>
-
-                <select class="form-control info-form-control select2" id="jo_grade_year" style="width:100%">
-                    <option value="">Select Year</option>
-                    <?php for($i=Date('Y');$i>=1900;$i--): ?>
-                        <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
-                    <?php endfor; ?>
-                </select>
+                <input type="text" class="form-control date" name="date_of_gradation" id="date_of_gradation" placeholder="dd-mm-yyyy">
             </div>
         </div>
 
@@ -55,45 +49,40 @@
 
     <br>
 
-    <div class="row" style="margin-left:-200px">
-        <div class="col-xs-2">
-         <!--left col-->
-        </div>
-        <!--/col-3-->
+    </div>
+    <!--<div id="info-panel" class="panel panel-default">-->
 
-        <div class="col-xs-9">
-         <!--left col-->
+    <br><br><br>
 
-            <div id="jo_grade_div" class="form-group" style="display:none;">
-            <div class="row">
-                <div class="col-md-7 col-md-offset-1">
-                    <table class="table table-bordered">
-                        <tr>
-                            <td>
-                                <b>List of Judicial Officer(s):</b><br/>
-                                <select multiple="multiple" id='list_box' name='list_box' style="width:100%; height:400px;border:none; background-color:white"">
-                                </select>
-                            </td>
-                            
-                            <td style='width:50px;text-align:center;vertical-align:middle;'>                            
-                                <br/><button type='button' class="up_down" id='btnUp' value ='Up'><img src="<?php echo e(asset('images/sort_asc.png')); ?>" width="20" height="20" aria-hidden="true" alt="Up" ></button>
-                                <br/>
-                                <br/><button type='button' class="up_down" id='btnDown' value ='Down'><img src="<?php echo e(asset('images/sort_desc.png')); ?>" width="20" height="20" aria-hidden="true" alt="Down" ></button>
-                                <br>
-                                <br>
-                                <button class="btn btn-success save" style="margin-top:200px" id="save" name="save">Save</button>
-                            </td>
-                        </tr>
+    <div class="jo_grade_div" >
+            <div id="info-panel2" class="panel panel-default">    
+            <div id="datatable-panel-heading" class="panel-heading clearfix">       
+                <div class="panel-title pull-left">List of Judicial Officers. . . </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped"
+                        id="jo_grade_table" style="width: 100%;">
+                        <!-- Table Headings -->
+                        <thead>
+                            <tr>                        
+                                <th>Sl No.</th>
+                                <th>JO Name</th>
+                                <th>JO Code</th>
+                                <th>Joining Date</th>
+                                <th>Remark</th>
+                                <th>Edit Position</th>
+                            </tr>
+                        </thead>
                     </table>
                 </div>
             </div>
-
         </div>
-        <!--/col-3-->
 
         
     </div>
-    <!--/row-->
+    <!--/<div class="jo_grade_div">-->
 
 
     <br><br>
@@ -122,11 +111,24 @@
            // Select2 initialization
            $(".select2").select2();
 
+ 
+        // Datepicker Initialization
+        $(".date").datepicker({
+            format: "dd-mm-yyyy",
+            autoclose: true,   
+            orientation: "auto",
+            endDate: '+0d',
+        });
+
+
+
+         var table;
+
             //Create list to arrange :start
            $(document).on("click","#submit", function() {
 
                 var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
-                var jo_grade_year= $("#jo_grade_year option:selected").val();
+                var date_of_gradation= $("#date_of_gradation").val();
 
                 $("#list_box").find('option').remove(); 
 
@@ -134,33 +136,67 @@
                     swal("Select Rank","Rank required","error");
                     return false;
                 }
-                else if(jo_grade_year=="" ){
-                    swal("Select Year","Year required","error");
+                else if(date_of_gradation=="" ){
+                    swal("Select Date","Date required","error");
                     return false;
                 }
                 else{
-                    $.ajax({
-                        url:"<?php echo e(route('fetch_jo_details')); ?>",
-                        type:"POST",
-                        data:{
-                            rank_id:jo_grade_rank_id,
-                            year:jo_grade_year
-                        },
-                        success:function(response){
-                            //console.log(response);
 
-                            if(response.length>0){
-                                $.each(response, function(index,value){
-                                    $("#list_box").append('<option value="'+value.id+'" data-rank_id="'+value.rank_id+'" data-grade_year="'+jo_grade_year+'" >'+value.officer_name+'|'+value.jo_code+'</option>');
-                                })
-                                $("#jo_grade_div").show();
-                            }
-                            else
-                            {
-                                swal("No Judicial Found","No record found","error");
-                            }
-                        }//end of success
-                    })
+
+                            $("#jo_grade_table").DataTable().destroy();
+
+
+                //show all finnalized requisition for all department  using 'HomeController@get_all_finalized_requisition_for_report'
+                var table2 = $("#jo_grade_table").DataTable({  
+                                "processing": true,
+                                "serverSide": true, 
+                                "bPaginate": false, 
+                                "ajax":{
+                                        "url": "<?php echo e(route('fetch_jo_details')); ?>",
+                                        "dataType": "json",
+                                        "type": "POST",
+                                        "data":{  _token: $('meta[name="csrf-token"]').attr('content'),
+                                                rank_id:jo_grade_rank_id,
+                                                date_of_gradation:date_of_gradation
+                                             }
+                                },
+                                "columnDefs": 
+                                            [
+                                                { className: "", "targets": "_all" },
+                                                {
+                                                    "targets": 5,                                    
+                                                    "defaultContent": '<img src=" <?php echo e(asset('images/position.png')); ?> " width="20" height="20" class="edit_position"  style="cursor:pointer;" alt="Edit Position" aria-hidden="true" title="Edit Position" > '
+                                                }
+                                                
+                                            ],
+                                "columns": [                      
+                                            {"data": "sl_no"},             
+                                            {"data": "jo_name"},
+                                            {"data": "jo_code"},
+                                            {"data": "date_of_joining"},
+                                            {"data": "remark"},
+                                            {"data": "edit_position"}
+                                ]
+                            }); 
+
+
+                            //Datatable Code For Showing Data :: START
+
+
+                            $("#jo_grade_div").show();
+
+                            // if(response.length>0){
+                            //     $.each(response, function(index,value){
+                            //         $("#list_box").append('<option value="'+value.id+'" data-rank_id="'+value.rank_id+'" data-date_of_gradation="'+date_of_gradation+'" >'+value.officer_name+'|'+value.jo_code+'</option>');
+                            //     })
+                            //     $("#jo_grade_div").show();
+                            // }
+                            // else
+                            // {
+                            //     swal("No Judicial Found","No record found","error");
+                            // }
+                    //     }//end of success
+                    // })
                 }
 
             });
@@ -191,13 +227,13 @@
                 var judicial_officer_id = new Array();
                 var rank_id = new Array();
                 var grade = new Array();
-                var grade_year = new Array();
+                var date_of_gradation = new Array();
 
 
                 $("#list_box option").each(function(index,value){
                     judicial_officer_id.push($(this).val());
                     rank_id.push($(this).data("rank_id"));
-                    grade_year.push($(this).data("grade_year"));
+                    date_of_gradation.push($(this).data("date_of_gradation"));
                     // data-grade="'+value.grade+'"
 
                 });
@@ -207,7 +243,7 @@
                     return false;
                 }
                 else{
-                    //alert(judicial_officer_id);
+                    //alert(date_of_gradation);
                     
 
                     swal({
@@ -225,22 +261,27 @@
                                 data:{
                                     judicial_officer_id:judicial_officer_id,
                                     rank_id:rank_id,
-                                    grade_year:grade_year
+                                    date_of_gradation:date_of_gradation
                                 },
                                 success:function(response){
                                     swal("Arranged grade set Successfully","","success");
                                     $("#jo_grade_div").hide();
                                 },
                                 error:function(response) {  
-                                    if(response.responseJSON.errors.hasOwnProperty('judicial_officer_id'))
-                                        swal("Cannot add Judicial Officer Grade", ""+response.responseJSON.errors.judicial_officer_id[0], "error");
 
-                                    if(response.responseJSON.errors.hasOwnProperty('rank_id'))
-                                        swal("Cannot add Rank in Judicial Officer Grade", ""+response.responseJSON.errors.rank_id[0], "error");
-                                    
-                                    if(response.responseJSON.errors.hasOwnProperty('grade_year'))
-                                        swal("Cannot add Year in Judicial Officer Grade", ""+response.responseJSON.errors.grade_year[0], "error");
-                                }
+                                        if(jqXHR.status!=422 && jqXHR.status!=400){
+                                            swal("Failed to "+operation+" Judicial Officer grading",errorThrown,"error");
+                                        }
+                                        else{
+                                            msg = "";
+                                            $.each(jqXHR.responseJSON.errors, function(key,value) {
+                                                msg+=value+"\n";						
+                                            });
+
+                                            swal("Failed to "+operation+" Judicial Officer grading",msg,"error");
+                                        }
+
+                                    }
 
                             })
                         }

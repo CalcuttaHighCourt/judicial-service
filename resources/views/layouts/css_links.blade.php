@@ -19,6 +19,11 @@
     <link rel="stylesheet" href="{{asset('css/dataTables.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/responsive.bootstrap.min.css')}}">
 
+
+    <link rel="stylesheet" href="{{asset('css/rowReorder.dataTables.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/editor.dataTables.min.css')}}">
+
+
     <!-- Select-2 -->
     <link rel="stylesheet" href="{{asset('css/select2.min.css')}}">
     

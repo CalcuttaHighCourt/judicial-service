@@ -38,6 +38,14 @@
     <!-- Go To Top -->
     <script src="<?php echo e(asset('js/jquery.gotop.min.js')); ?>"></script>
     
+
+    <script src="<?php echo e(asset('js/rowReorder/dataTables.select.min.js')); ?>"></script>       
+    <script src="<?php echo e(asset('js/rowReorder/jquery.dataTables.min.js')); ?>"></script>       
+    <script src="<?php echo e(asset('js/rowReorder/dataTables.editor.min.js')); ?>"></script>     
+    <script src="<?php echo e(asset('js/rowReorder/dataTables.rowReorder.min.js')); ?>"></script>     
+    
+    
+
     <!-- Chart -->
     <script src="<?php echo e(asset('js/chart.js')); ?>"></script>
     

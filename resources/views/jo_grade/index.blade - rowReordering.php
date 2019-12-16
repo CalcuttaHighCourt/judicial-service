@@ -106,6 +106,7 @@
 <script src="{{asset('js/jquery/jquery.min.js')}}"></script>
 
 <script>
+            var editor; 
    $(document).ready(function() { 
        
            // Select2 initialization
@@ -120,6 +121,32 @@
             endDate: '+0d',
         });
 
+
+        editor = new $.fn.dataTable.Editor( {
+            {"ajax":"",
+            table: '#jo_grade_table',
+            fields: [   {
+                            label: 'sl_no:',
+                            name: 'sl_no',
+                            fieldInfo: 'This field can only be edited via click and drag row reordering.'
+                        }, {
+                            label: 'jo_name:',
+                            name:  'jo_name'
+                        }, {
+                            label: 'jo_code:',
+                            name:  'jo_code'
+                        }, {
+                            label: 'date_of_joining:',
+                            name:  'date_of_joining'
+                        }, {
+                            label: 'remark:',
+                            name:  'remark'
+                        }, {
+                            label: 'edit_position:',
+                            name:  'edit_position'
+                        }
+                    ]}
+        });
 
 
          var table;
@@ -143,12 +170,12 @@
                 else{
 
 
-                            $("#jo_grade_table").DataTable().destroy();
+                        $("#jo_grade_table").DataTable().destroy();
 
 
-                //show all finnalized requisition for all department  using 'HomeController@get_all_finalized_requisition_for_report'
-                var table2 = $("#jo_grade_table").DataTable({  
-                                "processing": true,
+                        //show all finnalized requisition for all department  using 'HomeController@get_all_finalized_requisition_for_report'
+                        var table2 = $("#jo_grade_table").DataTable({  
+                                        "processing": true,
                                 "serverSide": true, 
                                 "bPaginate": false, 
                                 "ajax":{
@@ -176,7 +203,12 @@
                                             {"data": "date_of_joining"},
                                             {"data": "remark"},
                                             {"data": "edit_position"}
-                                ]
+                                ],
+                                rowReorder: {
+                                    dataSrc: 'sl_no',
+                                    editor:  editor
+                                },
+                                select: true
                             }); 
 
 
@@ -201,6 +233,23 @@
 
             });
             //Create list to arrange :end
+
+
+
+            editor
+                .on( 'postCreate postRemove', function () {
+                    // After create or edit, a number of other rows might have been effected -
+                    // so we need to reload the table, keeping the paging in the current position
+                    table.ajax.reload( null, false );
+                } )
+                .on( 'initCreate', function () {
+                    // Enable order for create
+                    editor.field( 'sl_no' ).enable();
+                } )
+                .on( 'initEdit', function () {
+                    // Disable for edit (re-ordering is performed by click and drag)
+                    editor.field( 'sl_no' ).disable();
+                } );
 
 
             $(document).on("click","#reset", function() {
