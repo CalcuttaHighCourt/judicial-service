@@ -22,7 +22,8 @@ class CreateJudicialOfficersTable extends Migration
 			$table->bigInteger('spouse')->nullable()->unique();			
 			$table->date('date_of_birth');
 			$table->integer('home_state_id');
-			$table->integer('home_district_id');
+			$table->integer('home_district_id')->nullable();
+			$table->string('other_home_district')->nullable();
 			$table->string('hometown')->nullable();
 			$table->text('present_address');
 			$table->text('permanent_address');						
