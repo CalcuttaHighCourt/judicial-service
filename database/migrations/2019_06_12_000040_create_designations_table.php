@@ -16,7 +16,7 @@ class CreateDesignationsTable extends Migration
         Schema::create('designations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('designation_name');
-            $table->integer('rank_id');
+            $table->integer('rank_id')->nullable();
 			$table->bigInteger('created_by')->nullable();
             $table->timestamps();            
             

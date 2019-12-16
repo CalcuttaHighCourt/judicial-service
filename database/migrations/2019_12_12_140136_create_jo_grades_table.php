@@ -22,7 +22,7 @@ class CreateJoGradesTable extends Migration
             
             $table->timestamps();
 
-            $table->unique(['judicial_officer_id', 'rank_id','grade','grade_year']);
+            $table->unique(['judicial_officer_id', 'rank_id','grade','date_of_gradation']);
 
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
             $table->foreign('rank_id')->references('id')->on('ranks');
