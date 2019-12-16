@@ -49,40 +49,45 @@
 
     <br>
 
-    </div>
-    <!--<div id="info-panel" class="panel panel-default">-->
+    <div class="row" style="margin-left:-200px">
+        <div class="col-xs-2">
+         <!--left col-->
+        </div>
+        <!--/col-3-->
 
-    <br><br><br>
+        <div class="col-xs-9">
+         <!--left col-->
 
-    <div class="jo_grade_div" >
-            <div id="info-panel2" class="panel panel-default">    
-            <div id="datatable-panel-heading" class="panel-heading clearfix">       
-                <div class="panel-title pull-left">List of Judicial Officers. . . </div>
-            </div>
-
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-striped"
-                        id="jo_grade_table" style="width: 100%;">
-                        <!-- Table Headings -->
-                        <thead>
-                            <tr>                        
-                                <th>Sl No.</th>
-                                <th>JO Name</th>
-                                <th>JO Code</th>
-                                <th>Joining Date</th>
-                                <th>Remark</th>
-                                <th>Edit Position</th>
-                            </tr>
-                        </thead>
+            <div id="jo_grade_div" class="form-group" style="display:none;">
+            <div class="row">
+                <div class="col-md-7 col-md-offset-1">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>
+                                <b>List of Judicial Officer(s):</b><br/>
+                                <select multiple="multiple" id='list_box' name='list_box' style="width:100%; height:400px;border:none; background-color:white"">
+                                </select>
+                            </td>
+                            
+                            <td style='width:50px;text-align:center;vertical-align:middle;'>                            
+                                <br/><button type='button' class="up_down" id='btnUp' value ='Up'><img src="{{asset('images/sort_asc.png')}}" width="20" height="20" aria-hidden="true" alt="Up" ></button>
+                                <br/>
+                                <br/><button type='button' class="up_down" id='btnDown' value ='Down'><img src="{{asset('images/sort_desc.png')}}" width="20" height="20" aria-hidden="true" alt="Down" ></button>
+                                <br>
+                                <br>
+                                <button class="btn btn-success save" style="margin-top:200px" id="save" name="save">Save</button>
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>
+
         </div>
+        <!--/col-3-->
 
         
     </div>
-    <!--/<div class="jo_grade_div">-->
+    <!--/row-->
 
 
     <br><br>
@@ -121,9 +126,6 @@
         });
 
 
-
-         var table;
-
             //Create list to arrange :start
            $(document).on("click","#submit", function() {
 
@@ -141,62 +143,28 @@
                     return false;
                 }
                 else{
+                    $.ajax({
+                        url:"{{route('fetch_jo_details')}}",
+                        type:"POST",
+                        data:{
+                            rank_id:jo_grade_rank_id,
+                            date_of_gradation:date_of_gradation
+                        },
+                        success:function(response){
+                            console.log(response);
 
-
-                            $("#jo_grade_table").DataTable().destroy();
-
-
-                //show all finnalized requisition for all department  using 'HomeController@get_all_finalized_requisition_for_report'
-                var table2 = $("#jo_grade_table").DataTable({  
-                                "processing": true,
-                                "serverSide": true, 
-                                "bPaginate": false, 
-                                "ajax":{
-                                        "url": "{{route('fetch_jo_details')}}",
-                                        "dataType": "json",
-                                        "type": "POST",
-                                        "data":{  _token: $('meta[name="csrf-token"]').attr('content'),
-                                                rank_id:jo_grade_rank_id,
-                                                date_of_gradation:date_of_gradation
-                                             }
-                                },
-                                "columnDefs": 
-                                            [
-                                                { className: "", "targets": "_all" },
-                                                {
-                                                    "targets": 5,                                    
-                                                    "defaultContent": '<img src=" {{asset('images/position.png')}} " width="20" height="20" class="edit_position"  style="cursor:pointer;" alt="Edit Position" aria-hidden="true" title="Edit Position" > '
-                                                }
-                                                
-                                            ],
-                                "columns": [                      
-                                            {"data": "sl_no"},             
-                                            {"data": "jo_name"},
-                                            {"data": "jo_code"},
-                                            {"data": "date_of_joining"},
-                                            {"data": "remark"},
-                                            {"data": "edit_position"}
-                                ]
-                            }); 
-
-
-                            //Datatable Code For Showing Data :: START
-
-
-                            $("#jo_grade_div").show();
-
-                            // if(response.length>0){
-                            //     $.each(response, function(index,value){
-                            //         $("#list_box").append('<option value="'+value.id+'" data-rank_id="'+value.rank_id+'" data-date_of_gradation="'+date_of_gradation+'" >'+value.officer_name+'|'+value.jo_code+'</option>');
-                            //     })
-                            //     $("#jo_grade_div").show();
-                            // }
-                            // else
-                            // {
-                            //     swal("No Judicial Found","No record found","error");
-                            // }
-                    //     }//end of success
-                    // })
+                            if(response.length>0){
+                                $.each(response, function(index,value){
+                                    $("#list_box").append('<option value="'+value.id+'" data-rank_id="'+value.rank_id+'" data-date_of_gradation="'+date_of_gradation+'" >'+value.officer_name+'|'+value.jo_code+'</option>');
+                                })
+                                $("#jo_grade_div").show();
+                            }
+                            else
+                            {
+                                swal("No Judicial Found","No record found","error");
+                            }
+                        }//end of success
+                    })
                 }
 
             });

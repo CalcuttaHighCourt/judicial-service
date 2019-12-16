@@ -17,7 +17,7 @@ class CreateDistrictsTable extends Migration
             $table->increments('id');
 			$table->string('district_name')->unique();
             $table->integer('state_id');
-            $table->integer('zone_id');
+            $table->integer('zone_id')->nullable();
 			$table->bigInteger('created_by')->nullable();
             $table->timestamps();
             
