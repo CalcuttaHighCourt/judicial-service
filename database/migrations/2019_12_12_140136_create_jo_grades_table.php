@@ -18,7 +18,7 @@ class CreateJoGradesTable extends Migration
             $table->bigInteger('judicial_officer_id');
             $table->integer('rank_id');
             $table->integer('grade');
-            $table->integer('grade_year');
+            $table->date('date_of_gradation');
             
             $table->timestamps();
 
