@@ -339,6 +339,15 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 			return view ( 'departments.appointment_dashboard' );
 		} );
 
+
+		Route::get ('jo_grade', function () {
+			return view ('jo_grade.index');
+		});
+
+		Route::post('jo_grade/fetch_jo_details', 'JoGradeController@get_jo_details')->name('fetch_jo_details');
+
+		Route::post('jo_grade/save_jo_grade', 'JoGradeController@save_jo_grade')->name('save_jo_grade');
+
 	});
 
 
@@ -366,6 +375,7 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 		Route::get ('jo_entry_form', function () {
 			return view ('jo_entry_form.index');
 		});
+
 
 	});
 

@@ -186,8 +186,8 @@
                                     <span>JO Grade</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="">  Create Grade List</a></li>
-                                    <li><a href=""> Show Grade List</a></li>
+                                    <li><a href="<?php echo e(url('jo_grade')); ?>">Create Grade List</a></li>
+                                    <li><a href="">Show Grade List</a></li>
                                 </ul>
                             </li>     
                             

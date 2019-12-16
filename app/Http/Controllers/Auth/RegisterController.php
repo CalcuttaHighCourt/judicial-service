@@ -91,12 +91,12 @@ class RegisterController extends Controller
            $data['department']=null;
         }
 
-        // else{
+        else{
             
-        //     $data['jo'] =null;
-        //     $data['court'] =null;
-        //     $data['department']=null;
-        // }
+            $data['jo'] =null;
+            $data['court'] =null;
+            $data['department']=null;
+        }
         
         //dd($data['user_id']) ;exit;
 

@@ -11,4 +11,5 @@ class JoGrade extends Model
     public $timestamps = true;
 
 
+
 }

@@ -62,7 +62,7 @@
                         <input type="text" class="form-control date" name="doj" id="doj" placeholder="dd-mm-yyyy">
                     </div>
                  </div>    
-                 <div class="form-group required">
+                 <div class="form-group">
                     <div class="col-xs-3">
                         <label for="doc" class="control-label">
                              Date of Confirmation 
@@ -78,19 +78,9 @@
                         <input type="text" class="form-control date1" name="dor" id="dor" placeholder="dd-mm-yyyy">
                     </div>
                  </div>   
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="category_id">
-                             Category 
-                        </label>
-                        <select id="category_id" class="form-control info-form-control select2" name="category_id" style="width:100%">
-                            <option value="">Select an Option</option>
-                            @include('categories.categories_options')
-                        </select>
-                    </div>
-                 </div>
+                 
                  <div class="form-group required">
-                    <div class="col-xs-4">
+                    <div class="col-xs-3">
                         <label for="recruitment_batch_id" class="control-label">
                              Recruitment Batch 
                         </label>
@@ -100,48 +90,23 @@
                         </select>
                     </div>
                  </div>
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="aadhar_no">
-                             Aadhar No. 
+
+                 <div class="form-group required">
+                    <div class="col-xs-2">
+                        <label for="recruitment_batch_year">
+                            Batch Year 
                         </label>
-                        <input type="integer" class="form-control" name="aadhar_no" id="aadhar_no" placeholder="Aadhar Card No.">
+                        <select class="form-control info-form-control select2" id="recruitment_batch_year" style="width:100%">
+                            <option value="">Select Year</option>
+                            @for($i=Date('Y');$i>=1900;$i--)
+                                <option value="{{$i}}">{{$i}}</option>
+                            @endfor
+                        </select>
                     </div>
-                 </div>    
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="pan_no">
-                             PAN No. 
-                        </label>
-                        <input type="text" class="form-control" name="pan_no" id="pan_no" placeholder="PAN Card No.">
-                    </div>
-                 </div>    
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="gpf_no">
-                             GPF No. 
-                        </label>
-                        <input type="integer" class="form-control" name="gpf_no" id="gpf_no" placeholder="Profident Fund A/C No.">
-                    </div>
-                 </div>    
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="blood_group">
-                             Blood Group 
-                        </label>
-                        <input type="text" class="form-control" name="blood_group" id="blood_group" placeholder="A+, A-, B+, B- , AB+, AB-, O+, O-">
-                    </div>
-                 </div>    
-                 <div class="form-group">
-                    <div class="col-xs-4">
-                        <label for="identification_mark">
-                             Identification Mark 
-                        </label>
-                        <input type="text" class="form-control" name="identification_mark" id="identification_mark" placeholder="Identification Mark">
-                    </div>
-                 </div>
+                </div>    
+                                  
                  <div class="form-group"> 
-                    <div class="col-xs-4">
+                    <div class="col-xs-3">
                         <label class="control-label">Spouse Name (if Spouse is JO):</label>
                         <select class="form-control info-form-control select2" style="width:100%" id="spouse_name">
                             <option value="">Select an Option</option>
@@ -231,10 +196,11 @@
                                     <select id="home_state" class="form-control info-form-control select2" name="home_state" style="width:100%">
                                         <option value="">Select an Option</option>
                                             @include('states.state_options')
+                                        <option value="other">Other</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group required">
+                            <div class="form-group required" id="div_home_district">
                                 <div class="col-xs-3">
                                     <label for="home_district" class="control-label">
                                         Home District 
@@ -244,7 +210,15 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group required">
+                            <div class="form-group required" id="div_home_other_district" style="display:none">
+                                <div class="col-xs-3">
+                                    <label for="home_other_district" class="control-label">
+                                        Home District 
+                                    </label>
+                                    <input id="home_other_district" class="form-control info-form-control" name="home_other_district" style="width:100%">                                        
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <div class="col-xs-4">
                                     <label for="home_town" class="control-label">
                                         Home Town 
@@ -432,8 +406,17 @@
                                         @include('modes.mode_options')
                                     </select>
                                 </div>
+                                <div class="col-xs-3">
+                                    <label>
+                                            Grade / Rank 
+                                    </label>
+                                    <select class="form-control info-form-control rank select2" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        @include('ranks.rank_options')
+                                    </select>
+                                </div>
                                 <div class="mode_permanent_div">
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-3">
                                         <label>
                                                 Designation 
                                         </label>
@@ -442,7 +425,7 @@
                                             @include('designations.designation_options')
                                         </select>
                                     </div>                                
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-3">
                                         <label>
                                                 Court 
                                         </label>
@@ -453,13 +436,13 @@
                                     </div>    
                                 </div>
                                 <div class="mode_deputation_div" style="display:none">
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-3">
                                         <label>
                                                 Designation 
                                         </label>
                                         <input type="text" class="form-control other_designation" placeholder="Designation of Deputation">
                                     </div>                                
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-3">
                                         <label>
                                                 Place of Posting 
                                         </label>
@@ -687,6 +670,19 @@
             }, 1000);
         });
 
+        //Other State Option :: START
+        $(document).on("change","#home_state", function(){
+            var state = $("#home_state").val();
+            if(state == "other"){
+                $("#div_home_district").hide();
+                $("#div_home_other_district").show();
+            }
+            else{
+                $("#div_home_district").show();
+                $("#div_home_other_district").hide();
+            }
+        })        
+        //Other State Option :: END
 
         //Deputation :: START
         $(document).on("change",".mode_id", function(){

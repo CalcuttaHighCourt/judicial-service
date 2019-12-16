@@ -148,11 +148,7 @@
 
 <script type="text/javascript">
 
-	 $('.select2').select2({
-                placeholder: "Select Subdivision",
-            }); // select2 dropdown initialization
-
-				
+	
 	var table="";
 	$(function() {
 		table = $('#datatable-table').DataTable({

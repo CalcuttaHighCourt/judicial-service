@@ -66,14 +66,7 @@ class RecruitmentBatchController extends Controller
             $records_filtered_count=$filtered->count();
             
             $ordered=$filtered;
-            
-            // for ($i = 0; $i < count($order); $i++) {
-            //     $ordered = $ordered->orderBy($request->columns[$order[$i]['column']]['data'], strtoupper($order[$i]['dir']));
-            //     print_r($ordered);exit;
-            // }
-
-            // $page_displayed = $ordered->get()->slice($offset, $length, true)->values();
-
+           
             $response = array (
                     "draw" => $draw,
                     "recordsTotal" => $records_total,
@@ -109,12 +102,11 @@ class RecruitmentBatchController extends Controller
 
             $this->validate ( $request, [ 
                     'recruitment_batch_desc' => array('required','max:75','regex:/^[\pL\d\s]+$/u','unique:recruitment_batches,recruitment_batch_desc'),
-                    'batch_year' => array('required','integer') 
+                   
             ] );
 
             try {
                 $recruitment_batch_desc = strtoupper($request->input('recruitment_batch'));
-                $batch_year = strtoupper($request->input('batch_year'));
                 $request['created_by'] = Auth::user()->id;
                 $recruitmentbatch = RecruitmentBatch::create ($request->all());
 
@@ -178,7 +170,6 @@ class RecruitmentBatchController extends Controller
         
         $this->validate($request, [
             'id' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'exists:recruitment_batches,id'),
-            'batch_year' => array('required'),
             'recruitment_batch_desc' => array('required','integer')
             ]);
 
@@ -187,9 +178,7 @@ class RecruitmentBatchController extends Controller
             if (!$recruitmentbatch) {
                 throw new \Exception('Invalid Input');
             }
-            $recruitmentbatch->batch_year = $request->batch_year;
             $recruitmentbatch->recruitment_batch_desc = $request->recruitment_batch_desc;
-
             $recruitmentbatch->created_by = Auth::user()->id;
             $recruitmentbatch->save();
 
