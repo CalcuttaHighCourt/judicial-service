@@ -209,7 +209,7 @@
             
          });
 
-
+/*CODE FOR DIGITAL DIARY:STARTS*/
           
         $(document).on("click","#submit_diary",function(){
 
@@ -276,6 +276,11 @@
             });
         });
 
+        /* CODE FOR DIGITAL DIARY:ENDS */
+
+
+        /*CODE FOR ZONE PREFERENCE:STARTS */
+
         var posting_pref=  new Array();
         function send_data(flag){             
 
@@ -332,6 +337,108 @@
                
 
             });
+
+
+            
+
+            $(document).on("change",".posting_pref",function(){
+
+                var zone_pref=$(this).val();
+
+                $.ajax({
+                    type:"POST",
+                    url:"zone_pref/options",
+                    data:{
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        zone_pref : zone_pref,
+                    
+                    },        
+                    success:function(response){
+
+                        swal("successfull","","success");
+                        //$("#station_1").show();
+
+                    },
+                    error:function(response){
+
+                    }
+
+                });
+
+                $("#station_1").show();
+
+                // posting_pref = [];
+                    // $(".posting_pref").each(function(){
+                    //     posting_pref.push($(this).val());
+                    // })
+
+
+
+                    
+                    //alert("abc");
+
+                    
+                });
+
+                $(document).on("change","#priority_2",function(){
+                // posting_pref = [];
+                
+                var zone_pref_2=$("#priority_2 option:selected ").val();
+
+                $.ajax({
+                    type:"POST",
+                    url:"zone_pref/option_2",
+                    data:{
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        zone_pref_2 : zone_pref_2,
+                    
+                    },        
+                    success:function(response){
+
+                        //$("#station_2").show();
+
+                    },
+                    error:function(response){
+
+                    }
+
+                });
+                    $("#station_2").show();
+
+
+                });
+
+                $(document).on("change","#priority_3",function(){
+                //posting_pref = [];
+                    
+                var zone_pref_3=$("#priority_3 option:selected ").val();
+
+                $.ajax({
+                    type:"POST",
+                    url:"zone_pref/option_3",
+                    data:{
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        zone_pref_3 : zone_pref_3,
+                    
+                    },        
+                    success:function(response){
+
+                        //$("#station_3").show();
+
+                    },
+                    error:function(response){
+
+                    }
+
+                });
+
+                $("#station_3").show();
+
+
+                });
+
+
+            /*CODE FOR ZONE PREFERENCE:ENDS*/
         
             $(document).on("click", "#search",function(){
 
@@ -359,102 +466,6 @@
                 });
 
             });//end of search
-
-
-    $(document).on("change","#priority_1",function(){
-
-        var zone_pref_1=$("#priority_1 option:selected ").val();
-
-        $.ajax({
-            type:"POST",
-            url:"zone_pref/option_1",
-            data:{
-                _token: $('meta[name="csrf-token"]').attr('content'),
-                zone_pref_1 : zone_pref_1,
-               
-            },        
-            success:function(response){
-
-                //$("#station_1").show();
-
-            },
-            error:function(response){
-
-            }
-
-        });
-
-        $("#station_1").show();
-
-       // posting_pref = [];
-            // $(".posting_pref").each(function(){
-            //     posting_pref.push($(this).val());
-            // })
-
-
-      
-            
-            //alert("abc");
-
-            
-    });
-
-    $(document).on("change","#priority_2",function(){
-       // posting_pref = [];
-           
-       var zone_pref_2=$("#priority_2 option:selected ").val();
-
-        $.ajax({
-            type:"POST",
-            url:"zone_pref/option_2",
-            data:{
-                _token: $('meta[name="csrf-token"]').attr('content'),
-                zone_pref_2 : zone_pref_2,
-            
-            },        
-            success:function(response){
-
-                //$("#station_2").show();
-
-            },
-            error:function(response){
-
-            }
-
-        });
-            $("#station_2").show();
-
-
-    });
-
-    $(document).on("change","#priority_3",function(){
-        //posting_pref = [];
-            
-        var zone_pref_3=$("#priority_3 option:selected ").val();
-
-        $.ajax({
-            type:"POST",
-            url:"zone_pref/option_3",
-            data:{
-                _token: $('meta[name="csrf-token"]').attr('content'),
-                zone_pref_3 : zone_pref_3,
-            
-            },        
-            success:function(response){
-
-                //$("#station_3").show();
-
-            },
-            error:function(response){
-
-            }
-
-        });
-   
-        $("#station_3").show();
-
-
-    });
 
 
     $(document).on("click","#submit",function(){
