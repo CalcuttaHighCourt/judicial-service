@@ -93,7 +93,7 @@
 
                  <div class="form-group required">
                     <div class="col-xs-2">
-                        <label for="recruitment_batch_year">
+                        <label for="recruitment_batch_year" class="control-label">
                             Batch Year 
                         </label>
                         <select class="form-control info-form-control select2" id="recruitment_batch_year" style="width:100%">
@@ -666,13 +666,13 @@
         $(document).on("change","#home_state", function(){
             var state = $("#home_state option:selected").text();
             if(state == "West Bengal" || state == "WEST BENGAL" || state == "west bengal"){
-                $("#div_home_district").hide();
-                $("#div_home_other_district").show();
+                $("#div_home_district").show();
+                $("#div_home_other_district").hide();
                 state_flag = 'west_bengal';
             }
             else{
-                $("#div_home_district").show();
-                $("#div_home_other_district").hide();
+                $("#div_home_district").hide();
+                $("#div_home_other_district").show();
                 state_flag = 'other';
             }
         })        
@@ -680,7 +680,7 @@
 
         //Deputation :: START
         var flag_mode;
-        $(document).on("change",".mode_id", function(){
+        $(document).on("change","#mode_id", function(){
             var option = $(this).find('option:selected').text();
 
             if(option=='deputation' || option=='Deputation'){
