@@ -367,7 +367,10 @@ public function zone_pref_content(Request $request) {
     public function zone_selection(Request $request){
 
       
-         //print_r($zone_options['districts']); exit;
+        $this->validate($request, [
+            
+            'zone_pref' => array('required','integer','max:999','exists:zones,id'),
+        ]);
 
          $zone_options= array();
 
@@ -378,57 +381,57 @@ public function zone_pref_content(Request $request) {
                                             ->select('id','district_name')->get();
     
         
-       
-        // foreach($zone_options['districts'] as $district)
-        // {
 
-        //     //print_r($district);
+            $select='SELECT subdivision_name from subdivisions';
 
-        //     //DB::enableQueryLog();
-        //     $zone_options['subdivisions']= Subdivision::where([
-        //                                                     ['district_id','<>',$district->id],
-        //                                                     ['zone_id','=',$zone_pref]
-        //                                                 ])->select('subdivision_name')->get();
-
-               
-        //     //print_r(DB::getQueryLog());  
-        //     }
-            
-        $except=" ";
+            $where=' WHERE 1=1';
 
             foreach($zone_options['districts'] as $district){
+
+                $where.=' AND district_id <>'.$district->id;
+            }
+
+            $zone=' AND zone_id= '.$zone_pref;
+
+            $qury=$select.$where.$zone;
+
+            $zone_options['subdivision']=DB::select($qury);
+                           
+        //  print_r($subdivision);  
+        //  exit;
+        //     }
+            
+       
+
+            foreach($zone_options['districts'] as $district){
+                $except="";
 
                 $zone_options['exempted_subdivisions'] = Subdivision::where([
                                                                             ['district_id','=',$district->id],
                                                                             ['zone_id','<>',$zone_pref]
                                                                         ])->select('subdivision_name')->get();
-                                                                    
-            print_r($zone_options['exempted_subdivisions']);
-
-            }
-
-
+            
            
-                
-              exit;
 
-
-                if(sizeof($zone_options['exempted_subdivisions'])>0){
-
-                    echo("abc");
-                    foreach($zone_options['exempted_subdivisions'] as $exempted_subdivisions){
-
-                        $except.=$exempted_subdivisions->subdivison_name;  
+            if(sizeof($zone_options['exempted_subdivisions'])>0){
+                    foreach($zone_options['exempted_subdivisions'] as  $key=>$exempted_subdivision){
+                        if($key==0)
+                            $except= $except.$exempted_subdivision->subdivision_name;  
+                        else
+                            $except= $except." , ".$exempted_subdivision->subdivision_name; 
                     }
                    
-                    $district->district_name= $district->district_name." ".$except;
-
+                    $district->district_name= $district->district_name."\n except :".$except;                  
                     
-                }
+            }
            
-            //print_r(($zone_options['exempted_subdivisions']));exit;
-             
+        }
+
+       return( $zone_options);
         
+           
+
+            
         }
        
     

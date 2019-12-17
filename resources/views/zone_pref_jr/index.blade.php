@@ -46,9 +46,9 @@
                </div>
                <hr>
                
-               <div class="row">                   
+                               
                     @for($i=1 ; $i<=$fetch_zone['no_of_preference']; $i++)
-                   
+                    <div class="row">  
                         <div id="posting_pref-group" class="form-group our-form-group">
                             <div class="col-sm-offset-1 col-sm-3">
                                 <label for="posting_pref">Posting Preference {{$i}} </label>
@@ -59,20 +59,18 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div id="zone_pref_option_{{$i}}" class="col-sm-3">
+                                <br>
+                                <select id="station_{{$i}}" class="form-control zone_pref_option" style="width:150%;height:100px;display:none;" multiple>
+                                    <option value=""></option>   
+                                </select>
+                            </div>
                         </div>
+                    </div> 
+                    <hr>
                     @endfor
-                </div>   
-                <div class="row">
-                    @for($i=1 ; $i<=$fetch_zone['no_of_preference']; $i++)
-                        <div id="zone_pref_option_{{$i}}" class="zone_pref_option col-sm-offset-1 col-sm-3">
-                            <br>
-                            <select id="station_{{$i}}" class="form-control posting_pref" style="width:150%;height:200px;display:none;">
-                                <option value=""></option>
-                                        
-                            </select>
-                        </div>
-                    @endfor
-                </div>
+                  
+               
                 <div class="row">
                   <div class="col-sm-offset-1 col-sm-5">
                      <label for="remarks">Remarks</label>
@@ -339,11 +337,14 @@
             });
 
 
-            
+         //if the div structure is changed this code will not work
+         //This code is to populate the zone list   
 
             $(document).on("change",".posting_pref",function(){
 
                 var zone_pref=$(this).val();
+
+                var element=$(this);
 
                 $.ajax({
                     type:"POST",
@@ -355,8 +356,16 @@
                     },        
                     success:function(response){
 
-                        swal("successfull","","success");
-                        //$("#station_1").show();
+                        console.log(response);
+
+                        //console.log(response.districts['0'].district_name);
+
+                        //console.log(element.parent().parent()html());  
+
+                         element.parent().parent().find(".zone_pref_option").show();
+                         element.parent().parent().find(".zone_pref_option").val(response.districts['0'].id);                        
+                        //swal("successfull","","success");
+                       
 
                     },
                     error:function(response){
@@ -364,80 +373,9 @@
                     }
 
                 });
+            });
 
-                $("#station_1").show();
-
-                // posting_pref = [];
-                    // $(".posting_pref").each(function(){
-                    //     posting_pref.push($(this).val());
-                    // })
-
-
-
-                    
-                    //alert("abc");
-
-                    
-                });
-
-                $(document).on("change","#priority_2",function(){
-                // posting_pref = [];
-                
-                var zone_pref_2=$("#priority_2 option:selected ").val();
-
-                $.ajax({
-                    type:"POST",
-                    url:"zone_pref/option_2",
-                    data:{
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                        zone_pref_2 : zone_pref_2,
-                    
-                    },        
-                    success:function(response){
-
-                        //$("#station_2").show();
-
-                    },
-                    error:function(response){
-
-                    }
-
-                });
-                    $("#station_2").show();
-
-
-                });
-
-                $(document).on("change","#priority_3",function(){
-                //posting_pref = [];
-                    
-                var zone_pref_3=$("#priority_3 option:selected ").val();
-
-                $.ajax({
-                    type:"POST",
-                    url:"zone_pref/option_3",
-                    data:{
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                        zone_pref_3 : zone_pref_3,
-                    
-                    },        
-                    success:function(response){
-
-                        //$("#station_3").show();
-
-                    },
-                    error:function(response){
-
-                    }
-
-                });
-
-                $("#station_3").show();
-
-
-                });
-
-
+            
             /*CODE FOR ZONE PREFERENCE:ENDS*/
         
             $(document).on("click", "#search",function(){

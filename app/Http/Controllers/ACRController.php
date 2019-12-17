@@ -71,7 +71,7 @@ class ACRController extends Controller
 
         
          // Default WHERE condition
-         $where = ' WHERE 1=1 ';
+         $where = ' WHERE 1=1';
 
           // Default Order By query
         $orderBy = ' ORDER BY year,grade_id,jo.officer_name';

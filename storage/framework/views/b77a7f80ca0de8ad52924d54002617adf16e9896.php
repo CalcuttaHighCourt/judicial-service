@@ -19,6 +19,11 @@
     <link rel="stylesheet" href="<?php echo e(asset('css/dataTables.min.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/responsive.bootstrap.min.css')); ?>">
 
+
+    <link rel="stylesheet" href="<?php echo e(asset('css/rowReorder.dataTables.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/editor.dataTables.min.css')); ?>">
+
+
     <!-- Select-2 -->
     <link rel="stylesheet" href="<?php echo e(asset('css/select2.min.css')); ?>">
     
