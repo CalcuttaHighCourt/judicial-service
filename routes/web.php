@@ -354,6 +354,8 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 		Route::post('jo_grade/save_jo_grade', 'JoGradeController@save_jo_grade')->name('save_jo_grade');
 
+
+
 	});
 
 

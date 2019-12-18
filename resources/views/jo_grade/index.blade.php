@@ -66,15 +66,29 @@
                         id="jo_grade_table" style="width: 100%;">
                         <!-- Table Headings -->
                         <thead>
-                            <tr>                        
-                                <th>Sl No.</th>
+                            <tr>                       
+                                <th>Sl. No.</th>
+                                <th style="display:none">JO ID</th> 
                                 <th>JO Name</th>
                                 <th>JO Code</th>
                                 <th>Joining Date</th>
+                                <th>From Date</th>
                                 <th>Remark</th>
                                 <th>Edit Position</th>
                             </tr>
                         </thead>
+                        <tfoot>
+                            <tr>           
+                                <th>Sl. No.</th>    
+                                <th style="display:none">JO ID</th>           
+                                <th>JO Name</th>
+                                <th>JO Code</th>
+                                <th>Joining Date</th>
+                                <th>From Date</th>
+                                <th>Remark</th>
+                                <th>Edit Position</th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -89,6 +103,8 @@
 
 
 <br>
+
+<button class="btn btn-success save" id="save" name="save">Save</button>
 
 </div>
 
@@ -106,6 +122,8 @@
 <script src="{{asset('js/jquery/jquery.min.js')}}"></script>
 
 <script>
+    var editor; // use a global for the submit and return data rendering in the examples
+
    $(document).ready(function() { 
        
            // Select2 initialization
@@ -123,7 +141,10 @@
 
 
          var table;
+         
 
+
+         
             //Create list to arrange :start
            $(document).on("click","#submit", function() {
 
@@ -146,8 +167,8 @@
                             $("#jo_grade_table").DataTable().destroy();
 
 
-                //show all finnalized requisition for all department  using 'HomeController@get_all_finalized_requisition_for_report'
-                var table2 = $("#jo_grade_table").DataTable({  
+                            //show all finnalized requisition for all department  using 'HomeController@get_all_finalized_requisition_for_report'
+                            table = $("#jo_grade_table").DataTable({  
                                 "processing": true,
                                 "serverSide": true, 
                                 "bPaginate": false, 
@@ -159,48 +180,42 @@
                                                 rank_id:jo_grade_rank_id,
                                                 date_of_gradation:date_of_gradation
                                              }
-                                },
-                                "columnDefs": 
-                                            [
-                                                { className: "", "targets": "_all" },
-                                                {
-                                                    "targets": 5,                                    
-                                                    "defaultContent": '<img src=" {{asset('images/position.png')}} " width="20" height="20" class="edit_position"  style="cursor:pointer;" alt="Edit Position" aria-hidden="true" title="Edit Position" > '
-                                                }
-                                                
-                                            ],
+                                },                                
                                 "columns": [                      
-                                            {"data": "sl_no"},             
+                                            {"data": "sl_no", className: "reorder"},             
+                                            {"data": "judicial_officer_id"},
                                             {"data": "jo_name"},
                                             {"data": "jo_code"},
                                             {"data": "date_of_joining"},
+                                            {"data": "from_date"},
                                             {"data": "remark"},
                                             {"data": "edit_position"}
-                                ]
+                                ],
+                                "columnDefs": 
+                                            [
+                                                {
+                                                    "targets": 7 ,                                    
+                                                    "defaultContent": '<img src=" {{asset('images/position.png')}} " width="20" height="20" class="edit_position"  style="cursor:pointer;" alt="Edit Position" aria-hidden="true" title="Edit Position" > '
+                                             },                                              
+                                                { orderable: false, targets: [ 1,2,3] }
+                                                
+                                            ],
+                                "rowReorder": {
+                                                dataSrc: 'sl_no',
+                                                update: false
+                                            },
+                                "select": true
                             }); 
-
-
-                            //Datatable Code For Showing Data :: START
+                            table.column( 1 ).visible( false ); // Hidden JO ID column
 
 
                             $("#jo_grade_div").show();
 
-                            // if(response.length>0){
-                            //     $.each(response, function(index,value){
-                            //         $("#list_box").append('<option value="'+value.id+'" data-rank_id="'+value.rank_id+'" data-date_of_gradation="'+date_of_gradation+'" >'+value.officer_name+'|'+value.jo_code+'</option>');
-                            //     })
-                            //     $("#jo_grade_div").show();
-                            // }
-                            // else
-                            // {
-                            //     swal("No Judicial Found","No record found","error");
-                            // }
-                    //     }//end of success
-                    // })
-                }
+                }//else of if(jo_grade_rank_id =="" ){
 
             });
             //Create list to arrange :end
+
 
 
             $(document).on("click","#reset", function() {
@@ -209,42 +224,20 @@
             });
 
 
-            $(".up_down").click(function(){
-                var $op = $('#list_box option:selected'),
-                    $this = $(this);
-                if($op.length){
-                    ($this.val() == 'Up') ? 
-                        $op.first().prev().before($op) : 
-                        $op.last().next().after($op);
-                }
-            });
 
 
 
 
             $(document).on("click","#save", function() {
 
-                var judicial_officer_id = new Array();
-                var rank_id = new Array();
-                var grade = new Array();
-                var date_of_gradation = new Array();
+                var data = table
+                            .rows()
+                            .data();
 
 
-                $("#list_box option").each(function(index,value){
-                    judicial_officer_id.push($(this).val());
-                    rank_id.push($(this).data("rank_id"));
-                    date_of_gradation.push($(this).data("date_of_gradation"));
-                    // data-grade="'+value.grade+'"
-
-                });
-
-                if(judicial_officer_id.length==0){
-                    swal("Invalid Input","Grade list can not be empty","error");
-                    return false;
-                }
-                else{
-                    //alert(date_of_gradation);
-                    
+                console.log( $('#jo_grade_table').DataTable().rows( { order: 'applied' } ).data().toArray()  ); 
+                return false;
+                   
 
                     swal({
                     title: "Are you sure?",
@@ -286,8 +279,13 @@
                             })
                         }
                     });
-                }
-            });
+
+
+
+
+
+            });// end of $(document).on("click","#save", function() {
+
 
 
    });
