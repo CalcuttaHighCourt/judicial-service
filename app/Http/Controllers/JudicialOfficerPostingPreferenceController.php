@@ -116,7 +116,8 @@ class JudicialOfficerPostingPreferenceController extends Controller
         $fetch_zones = array();
 
       
-             $judicial_officer= Auth::user()->judicial_officer_id;
+            $judicial_officer= Auth::user()->judicial_officer_id;
+
 
             $fetch_zone['current_zone'] = JoZoneTenure::join('zones','zones.id','=','jo_zone_tenures.zone_id')
                                                         ->join('judicial_officers','judicial_officers.id','=','jo_zone_tenures.judicial_officer_id')
@@ -125,105 +126,87 @@ class JudicialOfficerPostingPreferenceController extends Controller
                                                             ['judicial_officer_id','=',$judicial_officer]
                                                         ])->max('zones.zone_name');
 
+                           
+            if($fetch_zone['current_zone']=="")
+            {            
+                $fetch_zone['current_zone' ]= 'NA';
+            }              
+
             $to_date = JoZoneTenure::Where([
-                                            ['judicial_officer_id','=',$judicial_officer],
-                                            ['to_date','<>',null],
-                                        ])
-                                    ->max('to_date');
-
-
+                                ['judicial_officer_id','=',$judicial_officer],
+                                ['to_date','<>',null],
+                            ])
+                        ->max('to_date');
             if($to_date!=""){
-
                 $fetch_zone['previous_zone'] = JoZoneTenure::join('zones','zones.id','=','jo_zone_tenures.zone_id')
                                                             ->where([
                                                                 ['to_date','=',$to_date],
                                                                 ['judicial_officer_id','=',$judicial_officer]
-                                                            ])->max('zones.zone_name');
-                                                        
+                                                           ])->max('zones.zone_name');                                                       
             }
             else{
                 $fetch_zone['previous_zone'] = 'NA';
             }
-                                      
-        //logic for the no. of drop down should be opened depending on whether a JO is new in the system
+            //logic for the no. of drop down should be opened depending on whether a JO is new in the system
+            if($fetch_zone['current_zone']!='NA'){
+                if($fetch_zone['previous_zone'] !='NA'){
+                    $fetch_zone['zones'] = Zone::where([
+                            ['zone_name','<>',$fetch_zone['current_zone']],
+                            ['zone_name','<>',$fetch_zone['previous_zone']]
+                        ])->select('zone_name','id')->get();            
+                    $fetch_zone['no_of_preference']=2;                                     
+                }
+                else{
+                        $fetch_zone['zones'] = Zone::where('zones.zone_name','<>',$fetch_zone['current_zone'])->select('zone_name','id')->get();
+                        $fetch_zone['no_of_preference']=3;
+                }
+                /* logic for openning the module 6months prior to the end of 
+                service days that should be served in a particular zone*/
+                $strating_date_of_current_zone = JoZoneTenure::join('zones','zones.id','=','jo_zone_tenures.zone_id')
+                                            ->join('judicial_officers','judicial_officers.id','=','jo_zone_tenures.judicial_officer_id')
+                                            -> where([
+                                                ['to_date','=',null],
+                                                ['judicial_officer_id','=',$judicial_officer]
+                                            ])->select('from_date')->get();                                         
 
-            if($fetch_zone['previous_zone'] !="NA"){
-
-                $fetch_zone['zones'] = Zone::where([
-                                            ['zone_name','<>',$fetch_zone['current_zone']],
-                                            ['zone_name','<>',$fetch_zone['previous_zone']]
-                                        ])->select('zone_name','id')->get();
-
-              
-
-                 $fetch_zone['no_of_preference']=2;
-                                                  
-           }
-           else{
-
-                $fetch_zone['zones'] = Zone::where([
-                    ['zones.zone_name','<>',$fetch_zone['current_zone']]
-                   
-                ])->select('zone_name','id')->get();
-
-                $fetch_zone['no_of_preference']=3;
-           }
-
-           /* logic for openning the module 6months prior to the end of 
-           service days that should be served in a particular zone*/
-
-           $strating_date_of_current_zone = JoZoneTenure::join('zones','zones.id','=','jo_zone_tenures.zone_id')
-                                    ->join('judicial_officers','judicial_officers.id','=','jo_zone_tenures.judicial_officer_id')
-                                    -> where([
-                                        ['to_date','=',null],
-                                        ['judicial_officer_id','=',$judicial_officer]
-                                    ])->select('from_date')->get();                                         
-
-                                    $dt= Carbon::now();
-
-             //echo $strating_date_of_current_zone[0]['from_date'] ;                   // 1975-12-25
-                 
-
-                $days_to_open_module = Zone::where('zone_name','=',$fetch_zone['current_zone'])
-                ->select('min_service_days')->get();
-
-            //for openning the module 6 months prior to the end of service days in a specific zone
-            $openning_of_display_module = $days_to_open_module[0]['min_service_days']-180;
-
-                        $dt= Carbon::now();
-
-                        $current_date= date('Y-m-d', strtotime($dt));
-
-                        //difference of the strating date of current zone and current date in days 
-
-                        $diff = (strtotime($strating_date_of_current_zone[0]['from_date']) - strtotime($current_date))/(60*60*24);
-
-                       if($diff>=$openning_of_display_module)
-                       {
-                        $fetch_zone['flag_to_open_the_module']='Y';
-                       }
-                       else{
-                        $fetch_zone['flag_to_open_the_module']='N';
-                       }
-
-
+                                            $dt= Carbon::now();
+                    //echo $strating_date_of_current_zone[0]['from_date'] ;                   // 1975-12-25
+                    $days_to_open_module = Zone::where('zone_name','=',$fetch_zone['current_zone'])
+                        ->select('min_service_days')->get();
+                    //for openning the module 6 months prior to the end of service days in a specific zone
+                    $openning_of_display_module = $days_to_open_module[0]['min_service_days']-180;
+                                $dt= Carbon::now();
+                                $current_date= date('Y-m-d', strtotime($dt));
+                                //difference of the strating date of current zone and current date in days 
+                                $diff = (strtotime($strating_date_of_current_zone[0]['from_date']) - strtotime($current_date))/(60*60*24);
+                            if($diff>=$openning_of_display_module)
+                            {
+                                $fetch_zone['flag_to_open_the_module']='Y';
+                            }
+                            else{
+                                $fetch_zone['flag_to_open_the_module']='N';
+                        }
                     /* logic for closing the module 5months prior to the end of 
                     service days that should be served in a particular zone*/
 
                     //for closing the module 5 months prior to the end of service days in a specific zone
-                       
-                       $closing_of_display_module=$days_to_open_module[0]['min_service_days']-150;
-                
-                       if($diff<=$closing_of_display_module) 
-                       {
+                                    
+                    $closing_of_display_module=$days_to_open_module[0]['min_service_days']-150;
+                    if($diff<=$closing_of_display_module) 
+                        {
                         $fetch_zone['flag_to_close_the_module']='N';
-                       }
-                       else
-                       {
+                        }
+                        else
+                        {
                         $fetch_zone['flag_to_close_the_module']='Y';
-                       }
-                   return view('zone_pref_jr.index',compact('fetch_zone'));  
-                 }
+                        }
+                    }
+                else{
+                    $fetch_zone['no_of_preference']='NA';
+                }
+                    
+            return view('zone_pref_jr.index',compact('fetch_zone'));  
+        }
 
                  /*Final Submission of the preference:starts*/
 

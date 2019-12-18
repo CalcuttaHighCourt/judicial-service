@@ -46,30 +46,34 @@
                </div>
                <hr>
                
-                               
-                    @for($i=1 ; $i<=$fetch_zone['no_of_preference']; $i++)
-                    <div class="row">  
-                        <div id="posting_pref-group" class="form-group our-form-group">
-                            <div class="col-sm-offset-1 col-sm-3">
-                                <label for="posting_pref">Posting Preference {{$i}} </label>
-                                <select id="priority_{{$i}}" class="form-control posting_pref" style="width:100%">
-                                    <option value="">Select zone</option>
-                                    @foreach($fetch_zone['zones'] as $zones)
-                                        <option value="{{$zones['id']}}">{{$zones['zone_name']}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div id="zone_pref_option_{{$i}}" class="col-sm-3">
-                                <br>
-                                <select id="station_{{$i}}" class="form-control zone_pref_option" style="width:150%;height:100px;display:none;" multiple>
-                                    <option value=""></option>   
-                                </select>
-                            </div>
+                @if($fetch_zone['no_of_preference']=='NA')
+                    <div class="row"> 
+                        <div id="posting_pref-group" class="form-group our-form-group col-sm-offset-4">
+                            <span style="color:red;"><h3><strong>Posting Has Not Been Alotted Yet</strong></h3></span>
                         </div>
-                    </div> 
-                    <hr>
-                    @endfor
-                  
+                    </div>
+                @else
+                    @for($i=1 ; $i<=$fetch_zone['no_of_preference']; $i++)
+                        <div class="row">  
+                            <div id="posting_pref-group" class="form-group our-form-group">
+                                <div class="col-sm-offset-1 col-sm-3">
+                                    <label for="posting_pref">Posting Preference {{$i}} </label>
+                                    <select id="priority_{{$i}}" class="form-control posting_pref" style="width:100%">
+                                        <option value="">Select zone</option>
+                                        @foreach($fetch_zone['zones'] as $zones)
+                                            <option value="{{$zones['id']}}">{{$zones['zone_name']}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div id="zone_pref_option_{{$i}}" class="col-sm-3">
+                                    <br>
+                                    <select id="station_{{$i}}" class="form-control zone_pref_option" style="width:150%;height:100px;display:none;" multiple>
+                                    </select>
+                                </div>
+                            </div>
+                        </div> 
+                        <hr>
+                    @endfor               
                
                 <div class="row">
                   <div class="col-sm-offset-1 col-sm-5">
@@ -86,8 +90,9 @@
                         <button id="submit" type="button" class="btn btn-primary add-button info-form-button">
                             Final Submit
                         </button>
-                  </div>
+                    </div>
                 </div>
+                @endif
                </div>
             </div>
          </div>
@@ -160,258 +165,183 @@
 
 
 <script type="text/javascript">
-      $(document).ready(function(){
 
-           /*Initialising the text editor*/
-           
-            $(".text_content").wysihtml5();
-           
-           /*LOADER*/
+$(document).ready(function(){
 
-            $(document).ajaxStart(function() {
-                $("#wait").css("display", "block");
-            });
-            $(document).ajaxComplete(function() {
-                $("#wait").css("display", "none");
-            });
-
-         /*LOADER*/
-
-        
-        // });
-        
-      
+    /*Initialising the text editor*/
+    
+    $(".text_content").wysihtml5();
+    
+    /*LOADER*/
+    $(document).ajaxStart(function() {
+        $("#wait").css("display", "block");
+    });
+    $(document).ajaxComplete(function() {
+        $("#wait").css("display", "none");
+    });
+    /*LOADER*/  
 
         /*date initialization:start */
+    $(".diary_date").datepicker({
+        format: "dd-mm-yyyy",
+        endDate:'0',
+        autoclose: true,   
+        orientation: "auto",
+    }).on('change', function () {
+        $('.datepicker').hide();
+    }); 
+    /*date initialization:end */
 
-        	$(".diary_date").datepicker({
-                format: "dd-mm-yyyy",
-                endDate:'0',
-                autoclose: true,   
-                orientation: "auto",
-            }).on('change', function () {
-                $('.datepicker').hide();
-            }); 
+    /*For opening the posting tab:starts*/   
+    $(document).on("click","#posting_details",function(){
+    $("#daily_diary").hide();
+    $("#postings").show();
+    });
+    /*For opening the posting tab:ends*/   
 
-        /*date initialization:end */
+    /*CODE FOR DIGITAL DIARY:STARTS*/
+     $(document).on("click","#judicial_diary",function(){
+        $("#postings").hide();
+        $("#daily_diary").show();
+    });
+    $(document).on("click","#submit_diary",function(){
 
-        $(document).on("click","#judicial_diary",function(){
-            $("#postings").hide();
-            $("#daily_diary").show();
-            
-         });
-
-         $(document).on("click","#posting_details",function(){
-            $("#daily_diary").hide();
-            $("#postings").show();
-            
-         });
-
-/*CODE FOR DIGITAL DIARY:STARTS*/
-          
-        $(document).on("click","#submit_diary",function(){
-
-           $("#diary_editor").show();
-            $("#date_span").html($(".diary_date").val());
-            $("#submit_diary").hide();
-
-            var date=$("#date").val();
-
-             $.ajax({
-
-                        type:"POST",
-                        url:"zone_pref_jr/worksheet_show",
-                        data:{
-                            _token: $('meta[name="csrf-token"]').attr('content'),
-                            date:date
-                        },
-                        success:function(response){
-                        
-                        console.log(response);
-                            if(response.length>0)
-                                $("iframe").contents().find("html").find("body").html(response['0'].description);
-                               
-                            else
-                                $("iframe").contents().find("html").find("body").html("");
-                        },
-          
-                });
-        });
-
-        $(document).on("change","#date",function(){
-
-            $("#submit_diary").show();
-        });
-
-
-        $(document).on("click","#submit_worksheet",function(){
-
-        
-            var date=$("#date").val();
-            var details=$("#text_content").val();
-
-            $.ajax({
-
+        $("#diary_editor").show();
+        $("#date_span").html($(".diary_date").val());
+        $("#submit_diary").hide();
+        var date=$("#date").val();
+        $.ajax({
                 type:"POST",
-                url:"zone_pref_jr/worksheet",
+                url:"zone_pref_jr/worksheet_show",
                 data:{
                     _token: $('meta[name="csrf-token"]').attr('content'),
+                    date:date
+                },
+                success:function(response){
+                    if(response.length>0)
+                        $("iframe").contents().find("html").find("body").html(response['0'].description);
+                    else
+                        $("iframe").contents().find("html").find("body").html("");
+                },
+        });
+    });
+    $(document).on("change","#date",function(){
+        $("#submit_diary").show();
+    });
+    $(document).on("click","#submit_worksheet",function(){
+        var date=$("#date").val();
+        var details=$("#text_content").val();
+        $.ajax({
+            type:"POST",
+            url:"zone_pref_jr/worksheet",
+            data:{
+                _token: $('meta[name="csrf-token"]').attr('content'),
                     date:date,
                     details:details
                 },
-                success:function(response)
-                {
-                    
-                    $("#date").val('');
-                    $("#text_content").val('');
-                    swal("Saved Successfully","","success");
-                },
-                error:function(response)
-                {
-                    swal("Error","","error");
-                }
-
-            });
+            success:function(response){
+                $("#date").val('');
+                $("#text_content").val('');
+                swal("Saved Successfully","","success");
+            },
+            error:function(response){
+                swal("Error","","error");
+            }
         });
+    });
+    /* CODE FOR DIGITAL DIARY:ENDS */
 
-        /* CODE FOR DIGITAL DIARY:ENDS */
+    /*CODE FOR ZONE PREFERENCE:STARTS */
 
+    var posting_pref=  new Array();
 
-        /*CODE FOR ZONE PREFERENCE:STARTS */
+    function send_data(flag){             
+        posting_pref = [];
+        $(".posting_pref").each(function(){
+            posting_pref.push($(this).val());
+        })
+        var remarks= $("#remarks").val();
+        $.ajax({
+            type: "POST",
+            url:"zone_pref_jr/draft", 
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                posting_pref:posting_pref,
+                remarks:remarks,
+                flag:flag
+            },
+            success:function(response){
+                swal("Saved in Draft Mode","Zone Preference has been saved if draft mode ","success");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                if(jqXHR.status!=422 && jqXHR.status!=400){
+                    swal("Server Error",errorThrown,"error");
+                }
+                else{
+                    msg = "";
+                    $.each(jqXHR.responseJSON.errors, function(key,value) {
+                        msg+=value+"\n";						
+                    });
+                    swal("Invalid Input",msg,"error");
+                }
+            }
+        })
 
-        var posting_pref=  new Array();
-        function send_data(flag){             
+    }
+    $(document).on("click", "#draft",function(){
+        send_data('N');
+    });
+    
 
-            posting_pref = [];
-            $(".posting_pref").each(function(){
-                posting_pref.push($(this).val());
-            })
+    //if the div structure is changed this code will not work
+    //This code is to populate the zone list   
 
-            var remarks= $("#remarks").val();
-
-            $.ajax({
-
-                type: "POST",
-                url:"zone_pref_jr/draft", 
-                data: {
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                        posting_pref:posting_pref,
-                        remarks:remarks,
-                        flag:flag
-                    } ,
-                    success:function(response){
-                        swal("Saved in Draft Mode","Zone Preference has been saved if draft mode ","success");
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        if(jqXHR.status!=422 && jqXHR.status!=400){
-                            swal("Server Error",errorThrown,"error");
-                        }
-                        else{
-                            msg = "";
-                            $.each(jqXHR.responseJSON.errors, function(key,value) {
-                                msg+=value+"\n";						
-                            });
-                            swal("Invalid Input",msg,"error");
-                        }
-                    }
-                })
-
-        }
-
-        $(document).on("click", "#draft",function(){
-
-
-            send_data('N');
-           
-            });
-
-            $(document).on("click", "#submit", function(){
-
-                $("#submit").hide();
-                $("#draft").hide();
-
-                send_data('Y');
-
-               
-
-            });
-
-
-         //if the div structure is changed this code will not work
-         //This code is to populate the zone list   
-
-            $(document).on("change",".posting_pref",function(){
-
-                var zone_pref=$(this).val();
-
-                var element=$(this);
-
-                $.ajax({
-                    type:"POST",
-                    url:"zone_pref/options",
-                    data:{
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                        zone_pref : zone_pref,
-                    
-                    },        
-                    success:function(response){
-
-                        console.log(response);
-
-                        //console.log(response.districts['0'].district_name);
-
-                        //console.log(element.parent().parent()html());  
-
-                         element.parent().parent().find(".zone_pref_option").show();
-                         element.parent().parent().find(".zone_pref_option").val(response.districts['0'].id);                        
-                        //swal("successfull","","success");
-                       
-
-                    },
-                    error:function(response){
-
-                    }
-
-                });
-            });
-
+    $(document).on("change",".posting_pref",function(){
+        var zone_pref=$(this).val();
+        var element=$(this);
+         $.ajax({
+            type:"POST",
+            url:"zone_pref/options",
+            data:{
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                zone_pref : zone_pref,
             
-            /*CODE FOR ZONE PREFERENCE:ENDS*/
-        
-            $(document).on("click", "#search",function(){
-
-                var jo_code = $("#officer_name").val();
-             
-                $.ajax({
-
-                    type:"POST",
-                    url:"jo_posting/search",
-                    data:{
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                        jo_code:jo_code                      
-                },
-                success:function(response)
-                {
-                    //console.log(response);
-                   
-                    $("#jo_details").show();
-
-                },
-                error:function(response) {  
-                           
-                    }                
+            },        
+            success:function(response){       
+                element.parent().parent().find(".zone_pref_option").show();
+                element.parent().parent().find(".zone_pref_option").children('option:not(:first)').remove();
                 
-                });
+                $.each(response.districts,function(index,value){		
+                        element.parent().parent().find(".zone_pref_option").append('<option value="'+value.district_name+'">'+value.district_name+'</option>');											
+                })
+                $.each(response.subdivision,function(index,value){		
+                    element.parent().parent().find(".zone_pref_option").append('<option value="'+value.subdivision_name+'">'+value.subdivision_name+'</option>');											
+                })
+            },
+            error:function(response){
+                if(jqXHR.status!=422 && jqXHR.status!=400){
+                        swal("Server Error",errorThrown,"error");
+                }
+                else{								
+                    swal("Invalid Input","","error");
+                }
+            }
+        });
+    });
+    /*CODE FOR ZONE PREFERENCE:ENDS*/
 
-            });//end of search
-
+    /*Submit function for zone */
 
     $(document).on("click","#submit",function(){
 
         var pref=$("#posting_pref").val();
         var pref_name1=$("#posting_pref1 option:selected").text(); 
         var pref_name2=$("#posting_pref2 option:selected").text(); 
-        var remarks=$("#remarks").val();       
+        var remarks=$("#remarks").val();  
+
+        $("#submit").hide();
+        $("#draft").hide();
+        send_data('Y');
 
         if(pref_name1==null)
         {
@@ -423,67 +353,52 @@
             swal("Please Select the second preferences","","error");
             return false;
         }
-        
         else if(pref.length<2)
         {
             swal("Please Select Minimum 2 preferences","","error");
             return false;
         }
-        
         else
         {
-            var str="";
-            var i;
-            // for(i=0;i<pref.length;i++){
-            //     str+="Preference - "+(i+1)+" : "+pref_name[i]+"\n";
-            // }
-
+        var str="";
+        var i;
             swal({
-                    title: "Are You Sure?",
-                    text: str,
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
+                title: "Are You Sure?",
+                text: str,
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
             .then((willApprove) => {
                 if(willApprove) {                           
-
                     //Add dept using ajax : start
-                        $.ajax({
-                            type:"POST",
-                            url:"zone_pref/submit",
-                            data:{
-                                _token: $('meta[name="csrf-token"]').attr('content'),
-                                pref:pref,
-                                remarks:remarks
-                            },                                                          
-                            success:function(response){
-                                   console.log(response);                              
-                                swal("Preference Added Successfully","Successful","success");
-                                
-
-                            },
-                            error:function(response) {  
-                                if(response.responseJSON.errors.hasOwnProperty('pref'))
-                                    swal("Cannot Add New Department", ""+response.responseJSON.errors.pref['0'], "error");                                                       
-                                }
-
-                            });//Add dept using ajax : end
+                    $.ajax({
+                        type:"POST",
+                        url:"zone_pref/submit",
+                        data:{
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            pref:pref,
+                            remarks:remarks
+                        },                                                          
+                        success:function(response){
+                                console.log(response);                              
+                            swal("Preference Added Successfully","Successful","success");
                             
-                    }//end of swal if(willApprove)
-                    $("#content").hide();
-                    $("#table_content").show();
-                })//permission to save given verification           
 
+                        },
+                        error:function(response) {  
+                            if(response.responseJSON.errors.hasOwnProperty('pref'))
+                                swal("Cannot Add New Department", ""+response.responseJSON.errors.pref['0'], "error");                                                       
+                            }
 
+                    });//Add dept using ajax : end
+                            
+                }//end of swal if(willApprove)
+                $("#content").hide();
+            })//permission to save given verification           
         } //end of else  if(pref.length<2)
-
-                                      
     });//end of  $(document).on("click","#submit",function()
-
 });
-
-
 </script>
 @endsection
 

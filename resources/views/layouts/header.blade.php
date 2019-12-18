@@ -138,6 +138,7 @@
                                         <li><a href="{{url('state')}}">  State Master</a></li>
                                         <li><a href="{{url('document_types')}}"> Document Type Master</a></li>
                                         <li><a  href="{{url('Category')}}"> Category </span></a></li>
+                                        <li><a  href="{{url('jo_posting/search')}}"> Judicial Officer Posting </span></a></li>
                                         <li><a  href="{{url('religion')}}"> Religion </span></a></li>
                                         <li><a  href="{{url('qualification')}}"> Qualification </span></a></li>
                                         <li><a  href="{{url('recruitmentbatch')}}"> Recruitment Batch </span></a></li>
