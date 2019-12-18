@@ -293,15 +293,14 @@
                                     </div>   
                                     <div class="form-group required col-xs-3">
                                         <label class="control-label">
-                                            <label>
-                                                To (Year)
-                                            </label>
-                                            <select class="form-control info-form-control select2 practice_to_year" style="width:100%">
-                                                <option value="">Select an Option</option>
-                                                <?php for($i=Date('Y');$i>=1900;$i--): ?>
-                                                    <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
-                                                <?php endfor; ?>
-                                            </select>
+                                            To (Year)
+                                        </label>
+                                        <select class="form-control info-form-control select2 practice_to_year" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            <?php for($i=Date('Y');$i>=1900;$i--): ?>
+                                                <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
+                                            <?php endfor; ?>
+                                        </select>
                                         <div class="col-xs-2">
                                             <br>
                                             <img src="<?php echo e(asset('images/details_open.png')); ?>" class="img_add_more_legal_practice" id="add_more_legal_practice">
@@ -461,7 +460,7 @@
                                     </label>
                                     <input type="text" class="form-control" id="other_reporting_officer" placeholder="Deputation Reporting Officer">
                                 </div>
-                                <div class="form-group required col-xs-3 deputation_reporting_officer_div" style="display:none">
+                                <div class="form-group col-xs-3 deputation_reporting_officer_div" style="display:none">
                                     <label class="control-label">
                                             Designation 
                                     </label>
@@ -473,7 +472,7 @@
                                     </label>
                                     <input type="text" class="form-control date" id="from_date" placeholder="dd-mm-yyyy">
                                 </div>
-                                <div class="form-group required col-xs-2">
+                                <div class="form-group col-xs-2">
                                     <label class="control-label">
                                             To Date 
                                     </label>
@@ -660,23 +659,7 @@
                 scrollTop: $('#info-panel').offset().top - 60,
             }, 1000);
         });
-
-        //Other State Option :: START
-        var state_flag;
-        $(document).on("change","#home_state", function(){
-            var state = $("#home_state option:selected").text();
-            if(state == "West Bengal" || state == "WEST BENGAL" || state == "west bengal"){
-                $("#div_home_district").show();
-                $("#div_home_other_district").hide();
-                state_flag = 'west_bengal';
-            }
-            else{
-                $("#div_home_district").hide();
-                $("#div_home_other_district").show();
-                state_flag = 'other';
-            }
-        })        
-        //Other State Option :: END
+        
 
         //Deputation :: START
         var flag_mode;
@@ -850,11 +833,16 @@
         /*If any Legal Practice row needs to remove :: ENDS*/
 
 
-
         /*Fetch corresponding Districts of selected State :: STARTS*/
+        var state_flag;
         $(document).on("change","#home_state",function(){
             var home_state = $(this).val();
-            if(home_state!=""){
+            var state = $("#home_state option:selected").text();
+            if(state == "West Bengal" || state == "WEST BENGAL" || state == "west bengal"){
+                $("#div_home_district").show();
+                $("#div_home_other_district").hide();
+                state_flag = 'west_bengal';
+
                 $.ajax({
                     url:"<?php echo e(route('fetch_district')); ?>",
                     type:"post",
@@ -872,6 +860,11 @@
                         console.log(textStatus);
                     }
                 })
+            }
+            else{
+                $("#div_home_district").hide();
+                $("#div_home_other_district").show();
+                state_flag = 'other';
             }
         })
 
