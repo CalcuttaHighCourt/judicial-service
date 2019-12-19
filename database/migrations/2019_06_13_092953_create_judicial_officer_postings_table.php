@@ -37,7 +37,7 @@ class CreateJudicialOfficerPostingsTable extends Migration
 
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
             $table->foreign('rank_id')->references('id')->on('ranks');
-            $table->foreign('designation_id')->references('id')->on('designations');
+            $table->foreign('designation_id')->references('id')->on('courts');
             $table->foreign('mode_id')->references('id')->on('modes');
         });
     }
