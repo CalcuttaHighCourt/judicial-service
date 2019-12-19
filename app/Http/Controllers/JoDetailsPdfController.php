@@ -28,12 +28,11 @@ class JoDetailsPdfController extends Controller
 
         $mpdf = new \Mpdf\Mpdf(['format' => 'Legal']);
 
-        $jo_details = JudicialOfficer::leftJoin('categories','judicial_officers.category_id','categories.id')
-                                        ->join('states','judicial_officers.home_state_id','states.id')
+        $jo_details = JudicialOfficer::join('states','judicial_officers.home_state_id','states.id')
                                         ->join('districts','judicial_officers.home_district_id','districts.id')
+                                        ->join('recruitment_batches','judicial_officers.recruitment_batch_id','recruitment_batches.id')
                                         ->where('registration_no',$request->registration_no)
-                                        ->select('judicial_officers.*','states.state_name',
-                                        'categories.category_name','districts.district_name', 'religions.religion_name')
+                                        ->select('judicial_officers.*','states.state_name', 'districts.district_name','recruitment_batches.recruitment_batch_desc')
                                         ->get();
         
         $profile_image = asset('images/judicial_officers/'.$jo_details['0']->registration_no.'/'.$jo_details['0']->profile_image);
@@ -53,50 +52,8 @@ class JoDetailsPdfController extends Controller
         else if($jo_details['0']->gender=='F')
             $gender = 'Female';
         else if($jo_details['0']->gender=='O')
-            $gender = 'Other'; 
-            
-        // Category
-        if($jo_details['0']->category_name!=null)
-            $category = $jo_details['0']->category_name;
-        else
-            $category = '<i style="font-weight:normal;">Not Available</i>';
-
+            $gender = 'Other';             
         
-        // Religion
-        if($jo_details['0']->religion_name!=null)
-            $religion = $jo_details['0']->religion_name;
-        else
-            $religion = '<i style="font-weight:normal;">Not Available</i>';
-
-        // Identification Mark
-        if($jo_details['0']->identification_mark!=null)
-            $identification_mark = $jo_details['0']->identification_mark;
-        else
-            $identification_mark = '<i style="font-weight:normal;">Not Available</i>';
-
-        // Blood Group
-        if($jo_details['0']->blood_group!=null)
-            $blood_group = $jo_details['0']->blood_group;
-        else
-            $blood_group = '<i style="font-weight:normal;">Not Available</i>';
-
-        // Aadhaar
-        if($jo_details['0']->aadhaar_no!=null)
-            $aadhaar_no = $jo_details['0']->aadhaar_no;
-        else
-            $aadhaar_no = '<i style="font-weight:normal;">Not Available</i>';
-
-        // PAN
-        if($jo_details['0']->pan_no!=null)
-            $pan_no = $jo_details['0']->pan_no;
-        else
-            $pan_no = '<i style="font-weight:normal;">Not Available</i>';
-
-        // GPF
-        if($jo_details['0']->gpf_no!=null)
-            $gpf_no = $jo_details['0']->gpf_no;
-        else
-            $gpf_no = '<i style="font-weight:normal;">Not Available</i>';
 
         // Mobile No. 2
         if($jo_details['0']->mobile_no_2!=null)
@@ -135,6 +92,8 @@ class JoDetailsPdfController extends Controller
                     
                         <td align=left style=\"padding-left: 8%;\"><h3>Contact No: ".$jo_details['0']->mobile_no_1." ".$mobile_no_2."</h3></td>
                     </tr>
+                </table>
+                <table width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" align=\"center\" border=\"0\">
                     <tr>                            
                         <td align=left style=\"padding-top: 7%;\"><h2>Basic Details</h2></td>
                     </tr>
@@ -143,25 +102,14 @@ class JoDetailsPdfController extends Controller
                     </tr>
                     <tr>
                         <td style=\"padding-top: 1%;\"><h3>Gender: ".$gender."</h3></td>
-                    
-                        <td align=left><h3>Category: ".$category."</h3></td>
-
-                        <td align=left><h3>Aadhar No: ".$aadhaar_no."</h3></td>
+                        <td style=\"padding-top: 1%;\"><h3>Recruitment Batch: </h3><h3>".$jo_details['0']->recruitment_batch_desc."</h3></td>
+                        <td style=\"padding-top: 1%;\"><h3>Recruitment Batch Year: </h3><h3>".$jo_details['0']->recruitment_batch_year."</h3></td>
                     </tr>
                     <tr>
-                        <td style=\"padding-top: 1%;\"><h3>Date of Birth: ".Carbon::parse($jo_details['0']->date_of_birth)->format('d-m-Y')."</h3></td>
-
-                        <td align=left><h3>Religion: ".$religion."</h3></td>
-
-                        <td align=left><h3>PAN No: ".$pan_no."</h3></td>
-                    </tr>
-                    <tr>
-                        <td style=\"padding-top: 1%;\"></td>
-
-                        <td align=left><h3>Blood Group: ".$blood_group."</h3></td>
-
-                        <td align=left><h3>GPF A/C No: ".$gpf_no."</h3></td>
-                    </tr>                     
+                        <td style=\"padding-top: 1%;\"><h3>Date of Birth: </h3><h3>".Carbon::parse($jo_details['0']->date_of_birth)->format('d-m-Y')."</h3></td>
+                        <td style=\"padding-top: 1%;\"><h3>Date of Joining: </h3><h3>".Carbon::parse($jo_details['0']->date_of_joining)->format('d-m-Y')."</h3></td>
+                        <td style=\"padding-top: 1%;\"><h3>Date of Superannuation: </h3><h3>".Carbon::parse($jo_details['0']->date_of_retirement)->format('d-m-Y')."</h3></td>
+                    </tr>                                       
                 </table>
                 
                 <table width=\"100%\">
@@ -242,18 +190,16 @@ class JoDetailsPdfController extends Controller
                     <thead>
                         <tr>
                             <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">Sl No.</th>
-                            <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">Designation</th>
                             <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">Posting Mode</th>
-                            <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">Place of Posting</th>
+                            <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">Designation</th>
                             <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">From Date</th>
                             <th style=\"font-size: 1.17em; border-collapse:collapse;\">To Date</th>
                         </tr>
                     </thead>
                     <tbody>";
 
-        $jo_postings = JudicialOfficerPosting::join('designations','judicial_officer_postings.designation_id','designations.id')
+        $jo_postings = JudicialOfficerPosting::leftJoin('designations','judicial_officer_postings.designation_id','designations.id')
                                                 ->join('modes','judicial_officer_postings.mode_id','modes.id')
-                                                ->join('courts','judicial_officer_postings.court_id','courts.id')
                                                 ->where('judicial_officer_id',$jo_details['0']->id)
                                                 ->orderBy('from_date','asc')
                                                 ->get();
@@ -269,14 +215,11 @@ class JoDetailsPdfController extends Controller
                             ++$key.  
                         "</td>
                         <td align=\"left\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
-                            $jo_posting->designation_name.  
-                        "</td>
-                        <td align=\"left\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
                             $jo_posting->posting_mode.  
                         "</td>
                         <td align=\"left\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
-                            $jo_posting->court_name.  
-                        "</td>
+                            $jo_posting->designation_name.  
+                        "</td>                        
                         <td align=\"left\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
                             Carbon::parse($jo_posting->from_date)->format('d-m-Y').  
                         "</td>
