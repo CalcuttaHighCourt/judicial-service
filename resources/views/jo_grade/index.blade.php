@@ -2,6 +2,14 @@
 @section('content')
 <!-- Main content -->
 
+<style>
+.reorder {
+  color: green;
+}
+.change_color{
+    color: red;
+}
+</style>
 
 <br/><br/>
 <div id="info-panel" class="panel panel-default">
@@ -66,8 +74,9 @@
                         id="jo_grade_table" style="width: 100%;">
                         <!-- Table Headings -->
                         <thead>
-                            <tr>                       
-                                <th>Sl. No.</th>
+                            <tr>                  
+                                <th>Grade</th>   
+                                <th>Pre Grade</th>  
                                 <th style="display:none">JO ID</th> 
                                 <th>JO Name</th>
                                 <th>JO Code</th>
@@ -78,8 +87,9 @@
                             </tr>
                         </thead>
                         <tfoot>
-                            <tr>           
-                                <th>Sl. No.</th>    
+                            <tr>        
+                                <th>Grade</th>   
+                                <th>Pre Grade</th>  
                                 <th style="display:none">JO ID</th>           
                                 <th>JO Name</th>
                                 <th>JO Code</th>
@@ -151,7 +161,6 @@
                 var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
                 var date_of_gradation= $("#date_of_gradation").val();
 
-                $("#list_box").find('option').remove(); 
 
                 if(jo_grade_rank_id =="" ){
                     swal("Select Rank","Rank required","error");
@@ -169,44 +178,56 @@
 
                             //show all finnalized requisition for all department  using 'HomeController@get_all_finalized_requisition_for_report'
                             table = $("#jo_grade_table").DataTable({  
-                                "processing": true,
-                                "serverSide": true, 
+                                "processing": false,
+                                "serverSide": false, 
                                 "bPaginate": false, 
                                 "ajax":{
                                         "url": "{{route('fetch_jo_details')}}",
                                         "dataType": "json",
                                         "type": "POST",
                                         "data":{  _token: $('meta[name="csrf-token"]').attr('content'),
-                                                rank_id:jo_grade_rank_id,
-                                                date_of_gradation:date_of_gradation
+                                                    rank_id:jo_grade_rank_id,
+                                                    date_of_gradation:date_of_gradation
                                              }
                                 },                                
                                 "columns": [                      
-                                            {"data": "sl_no", className: "reorder"},             
+                                            {"data": "grade", class:"reorder"},    
+                                            {"data": "inicial"},               
                                             {"data": "judicial_officer_id"},
                                             {"data": "jo_name"},
                                             {"data": "jo_code"},
                                             {"data": "date_of_joining"},
                                             {"data": "from_date"},
                                             {"data": "remark"},
-                                            {"data": "edit_position"}
+                                            {"data": "to_grade", class:"to_grade"}
                                 ],
                                 "columnDefs": 
                                             [
-                                                {
-                                                    "targets": 7 ,                                    
-                                                    "defaultContent": '<img src=" {{asset('images/position.png')}} " width="20" height="20" class="edit_position"  style="cursor:pointer;" alt="Edit Position" aria-hidden="true" title="Edit Position" > '
-                                             },                                              
-                                                { orderable: false, targets: [ 1,2,3] }
                                                 
+                                                {
+                                                    searchable: false,
+                                                    orderable: false,
+                                                    targets: 0,
+                                                },
+                                                {
+                                                    searchable: false,
+                                                    orderable: false,
+                                                    targets: 1,
+                                                },                                        
                                             ],
-                                "rowReorder": {
-                                                dataSrc: 'sl_no',
-                                                update: false
-                                            },
+
+                                "rowReorder": 
+                                            {
+                                               dataSrc: 'grade',
+                                               class:"change_color"
+                                            },                                            
+
                                 "select": true
+
                             }); 
-                            table.column( 1 ).visible( false ); // Hidden JO ID column
+                            
+                            table.column(2).visible( false ); // Hidden JO ID column
+
 
 
                             $("#jo_grade_div").show();
