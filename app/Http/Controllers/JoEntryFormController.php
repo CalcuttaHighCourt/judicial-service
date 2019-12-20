@@ -367,11 +367,6 @@ class JoEntryFormController extends Controller
         return view('profile.index')->with('profile',$profile);
     }
 
-    public function profile()
-    {
-        return $this->show(Auth::user()->judicial_officer_id);
-    }
-
     
     public function update(Request $request, $id)
     {
