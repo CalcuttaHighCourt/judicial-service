@@ -404,7 +404,6 @@
                                     </label>
                                     <select class="form-control info-form-control select2" id="rank" style="width:100%">
                                         <option value="">Select an Option</option>
-                                        @include('ranks.rank_options')
                                     </select>
                                 </div>
                                 <div class="mode_permanent_div">
@@ -414,7 +413,6 @@
                                         </label>
                                         <select class="form-control info-form-control posting_select2 select2" id="designation_id" style="width:100%">
                                             <option value="">Select an Option</option>
-                                            @include('courts.court_options')
                                         </select>
                                     </div>  
                                 </div>
@@ -658,6 +656,37 @@
                 scrollTop: $('#info-panel').offset().top - 60,
             }, 1000);
         });
+
+
+        // Recruitment Batch :: START
+        $(document).on("change","#recruitment_batch_id",function(){
+            var batch = $("#recruitment_batch_id option:selected").text();
+
+            $.ajax({
+                url:"{{route('fetch_rank_designation')}}",
+                type:"post",
+                data:{
+                    _token: $('meta[name="_token"]').attr('content'),
+                    batch:batch
+                },
+                success:function(response){                   
+                    console.log(response);
+                    $("#rank").children('option:not(:first)').remove();
+                    $.each(response.ranks,function(index,value){							
+                        $("#rank").append('<option value="'+value.id+'">'+value.rank_name+'</option>');											
+                    })
+
+                    $("#designation_id").children('option:not(:first)').remove();
+                    $.each(response.designations,function(index,value){							
+                        $("#designation_id").append('<option value="'+value.id+'">'+value.designation_name+'</option>');											
+                    })
+                },
+                error:function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                }
+            })
+        })
+        // Recruitment Batch :: END
         
 
         //Deputation :: START
