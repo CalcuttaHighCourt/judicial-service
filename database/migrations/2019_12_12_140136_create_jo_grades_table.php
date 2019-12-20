@@ -20,6 +20,7 @@ class CreateJoGradesTable extends Migration
             $table->integer('grade');
             $table->date('date_of_gradation');
             $table->text('remark');
+            $table->string('status');
             $table->timestamps();
 
             $table->unique(['judicial_officer_id', 'rank_id','grade','date_of_gradation']);

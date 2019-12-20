@@ -35,13 +35,15 @@ class JoGradeController extends Controller
 
         $columns = array(            
 
-            0 =>'sl_no', 
-            1 =>'judicial_officer_id',
-            2 =>'jo_name',            
-            3 =>'jo_code', 
-            4 =>'date_of_joining',
-            5 =>'from_date',
-            6 =>'remark'
+            0 =>'grade',
+            1 =>'inicial', 
+            2 =>'judicial_officer_id',
+            3 =>'jo_name',            
+            4 =>'jo_code', 
+            5 =>'date_of_joining',
+            6 =>'from_date',
+            7 =>'remark',
+            8 =>'to_grade'
             
         );
 
@@ -152,9 +154,10 @@ class JoGradeController extends Controller
             if($jo_list)
             {
                 foreach($jo_list as $list)
-                {
-                    $nestedData['sl_no'] = $counter++;
-                    
+                {                   
+                    $nestedData['grade'] = $counter; 
+                    $nestedData['inicial'] = $counter;
+                                        
                     $nestedData['judicial_officer_id'] = $list->id;
                     $nestedData['jo_name'] = $list->officer_name;
                     $nestedData['jo_code'] = $list->jo_code;
@@ -162,7 +165,9 @@ class JoGradeController extends Controller
                     $nestedData['from_date'] = Carbon::parse ($list->from_date)->format('d-m-Y') ;  
                     $nestedData['remark'] = "";
                     //$nestedData['edit_position'] = '<img src= src="'.asset('images/position.png').'  width="20" height="20" class="edit_position"  style="cursor:pointer;" alt="Edit Position" aria-hidden="true" title="Edit Position" > ';
-                    //$nestedData['edit_position'] = "";
+                    $nestedData['to_grade'] = "";
+
+                    $counter++;
 
                     $data[] = $nestedData;
                 }
