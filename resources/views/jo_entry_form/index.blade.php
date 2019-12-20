@@ -98,7 +98,7 @@
                         </label>
                         <select class="form-control info-form-control select2" id="recruitment_batch_year" style="width:100%">
                             <option value="">Select Year</option>
-                            @for($i=Date('Y');$i>=1900;$i--)
+                            @for($i=Date('Y');$i>=1950;$i--)
                                 <option value="{{$i}}">{{$i}}</option>
                             @endfor
                         </select>
@@ -271,7 +271,7 @@
                             <br/>
                             <div class="div_add_more_legal_practice">
                                 <div class="row">
-                                    <div class="form-group required col-xs-4">
+                                    <div class="form-group required col-xs-3">
                                         <label class="control-label">
                                             Subdivision 
                                         </label>
@@ -301,8 +301,10 @@
                                                 <option value="{{$i}}">{{$i}}</option>
                                             @endfor
                                         </select>
+                                    </div>
+                                    <div class="form-group">
                                         <div class="col-xs-2">
-                                            <br>
+                                            <br/>
                                             <img src="{{asset('images/details_open.png')}}" class="img_add_more_legal_practice" id="add_more_legal_practice">
                                         </div>
                                     </div>
@@ -510,7 +512,8 @@
                     {{ csrf_field() }}
                     <div class="text-center">  
                         <img src="{{asset('images/FacelessMan.png')}}" class="avatar img-circle img-thumbnail" alt="avatar" style="height:30%;width:20%">
-                        <h6>Upload Photo...</h6>
+                        <h6><span style="color:red">*</span>Supported Image File Type: jpeg / png / jpg / gif</h6>
+                        <h6><span style="color:red">*</span>Max File Size: 50 KB</h6>
                         <input type="file" id="profile_image" name="profile_image" class="text-center center-block file-upload" accept="image/png, image/jpg, image/jpeg, image/gif">                                      
                     </div>
                 </form>
@@ -834,20 +837,15 @@
             var from_year = $(".div_add_more_legal_practice:last").find(".practice_from_year").val();
             var to_year = $(".div_add_more_legal_practice:last").find(".practice_to_year").val();
             
-            if(subdivision_id!="" && from_year!="" && to_year!=""){
-                var clone_element3 = clone_element_legal_practice.clone();                
-                clone_element3.insertAfter(".div_add_more_legal_practice:last");
-                $(".img_add_more_legal_practice:last").attr({src:"images/details_close.png",
-                                                        class:"remove_legal_practice", 
-                                                        alt:"remove_legal_practice"
-                                                    });
-                $(".remove_legal_practice").removeAttr("id");
-                $(".select2").select2();
-            }
-            else{
-                swal("Invalid Entry","Entry all the fields before adding a new legal experience details","error");
-                return false;
-            }
+            var clone_element3 = clone_element_legal_practice.clone();                
+            clone_element3.insertAfter(".div_add_more_legal_practice:last");
+            $(".img_add_more_legal_practice:last").attr({src:"images/details_close.png",
+                                                    class:"remove_legal_practice", 
+                                                    alt:"remove_legal_practice"
+                                                });
+            $(".remove_legal_practice").removeAttr("id");
+            $(".select2").select2();
+        
 			
 		})
 	    /*If multiple Legal Practice details added :: ENDS*/  

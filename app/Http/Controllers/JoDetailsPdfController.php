@@ -52,8 +52,11 @@ class JoDetailsPdfController extends Controller
         else if($jo_details['0']->gender=='F')
             $gender = 'Female';
         else if($jo_details['0']->gender=='O')
-            $gender = 'Other';             
-        
+            $gender = 'Other';  
+                       
+        //JO Code:
+        if($jo_details['0']->jo_code==null)
+            $jo_details['0']->jo_code = 'Not Assigned';  
 
         // Mobile No. 2
         if($jo_details['0']->mobile_no_2!=null)
@@ -109,7 +112,7 @@ class JoDetailsPdfController extends Controller
                         <td style=\"padding-top: 1%;\"><h3>Date of Birth: </h3><h3>".Carbon::parse($jo_details['0']->date_of_birth)->format('d-m-Y')."</h3></td>
                         <td style=\"padding-top: 1%;\"><h3>Date of Joining: </h3><h3>".Carbon::parse($jo_details['0']->date_of_joining)->format('d-m-Y')."</h3></td>
                         <td style=\"padding-top: 1%;\"><h3>Date of Superannuation: </h3><h3>".Carbon::parse($jo_details['0']->date_of_retirement)->format('d-m-Y')."</h3></td>
-                    </tr>                                       
+                    </tr>                               
                 </table>
                 
                 <table width=\"100%\">
