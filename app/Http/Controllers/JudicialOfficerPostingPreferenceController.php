@@ -358,22 +358,20 @@ public function zone_pref_content(Request $request) {
                         foreach($zone_options['zones'] as  $key=>$zone_pref){
                             // echo $zone_pref;
                             // print_r( $zone_options['zones']);
-                            $zone_options[$key] = District::where('zone_id','=',$zone_pref->id) 
+                            $zone_options[$zone_pref->zone_name] = District::where('zone_id','=',$zone_pref->id) 
                                                         ->select('id','district_name')->get();
                                                         
                             // echo "<pre>";                          
                             // print_r($zone_options);
                             $select='SELECT subdivision_name from subdivisions';
                             $where=' WHERE 1=1';                      
-                            foreach(  $zone_options[$key] as $district){
+                            foreach(  $zone_options[$zone_pref->zone_name] as $district){
                                 $where.=' AND district_id <>'.$district->id;
                             }
                             $zone=' AND zone_id= '.$zone_pref->id;
                             $qury=$select.$where.$zone;
-                            $zone_options['subdivision']=DB::select($qury);
-                            // echo "<pre>";                          
-                            // print_r($zone_options);
-                            foreach(  $zone_options[$key] as $district){
+                            $zone_options[$zone_pref->id]=DB::select($qury);
+                            foreach(  $zone_options[$zone_pref->zone_name] as $district){
                                 //echo "b";
                                 $except="";
                                 $zone_options['exempted_subdivisions'] = Subdivision::where([
@@ -402,16 +400,14 @@ public function zone_pref_content(Request $request) {
                                  
                         }
                                               
-                    }
-                   
+                    }                 
                 }
+           
             // echo "<pre>";
-            // print_r($zone_options); 
-            echo "<pre>";
-            print_r($zone_options);         
-            exit;
+            // print_r($zone_options);         
+            // exit;
 
-            //return view('zone_pref_jr.index',compact('zone_options'));
+            return view('zone_pref_jr.index',compact('zone_options'));
         }
        
     

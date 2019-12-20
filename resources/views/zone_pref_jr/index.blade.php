@@ -51,9 +51,28 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <td>
-                                        <b>Zones to be selected:</b><br/>
+                                        <b>Stations to be selected:</b><br/>
                                         <select multiple="multiple" id='lstBox1' style="width:400px; height:300px">
-                                            
+                                            @php 
+                                                $i=0;
+                                            @endphp
+                                            @if($zone_options['no_of_preference']=='NA')
+                                                Posting Data Yet to be Updated..
+                                            @else
+                                                @foreach($zone_options['zones'] as  $key=>$zone)
+                                                    <option value=" " disabled><strong>Zone:{{$zone->zone_name}}</strong></option>
+                                                    @foreach($zone_options[$zone->zone_name] as $key=>$district)
+                                                        <option value="{{$district->district_name}}">{{$key+1}}. {{$district->district_name}}</option>
+                                                    @endforeach
+                                                    @php 
+                                                        $j=$key+1;
+                                                    @endphp    
+                                                    @foreach($zone_options[$zone->id] as $subdivision)
+                                                        <option value="{{$subdivision->subdivision_name}}"> {{++$j}}. {{$subdivision->subdivision_name}}</option>
+                                                    @endforeach
+                                                    <option><hr></option>
+                                                @endforeach    
+                                            @endif                                    
                                         </select>
                                     </td>
                                     <td style='width:50px;text-align:center;vertical-align:middle;'>
@@ -200,6 +219,65 @@ $(document).ready(function(){
     });
     /*For opening the posting tab:ends*/   
 
+    /*Button code for arrow key:start*/
+
+        //right key
+         $('#btnRight').click(function(e) {
+            var selectedOpts = $('#lstBox1 option:selected');
+            if (selectedOpts.length == 0) {
+                alert("Nothing to move.");
+                e.preventDefault();
+            }
+
+            $('#lstBox2').append($(selectedOpts).clone());
+            $(selectedOpts).remove();
+            e.preventDefault();
+        });
+
+        //left key
+        $('#btnLeft').click(function(e) {
+            var selectedOpts = $('#lstBox2 option:selected');
+            if (selectedOpts.length == 0) {
+                alert("Nothing to move.");
+                e.preventDefault();
+            }
+
+            $('#lstBox1').prepend($(selectedOpts).clone());
+            $(selectedOpts).remove();
+            e.preventDefault();
+        });
+
+        //double left key
+        $('#btnDoubleLeft').click(function(e) {
+            swal({
+                title: "Are you sure?",
+                text: "This will clear all selected purposes from the right list",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                            var selectedOpts = $('#lstBox2 option');
+                            $('#lstBox1').prepend($(selectedOpts).clone());
+                            $('#lstBox2 option').remove();
+                    }
+                });            
+        });
+
+        // up key
+         $(".up_down").click(function(){
+            var $op = $('#lstBox2 option:selected'),
+                $this = $(this);
+            if($op.length){
+                ($this.val() == 'Up') ? 
+                    $op.first().prev().before($op) : 
+                    $op.last().next().after($op);
+            }
+        });
+
+    /*Button code for arrow key:end*/
+
     /*CODE FOR DIGITAL DIARY:STARTS*/
      $(document).on("click","#judicial_diary",function(){
         $("#postings").hide();
@@ -334,6 +412,7 @@ $(document).ready(function(){
     /*Submit function for zone */
 
     $(document).on("click","#submit",function(){
+        
 
         var pref=$("#posting_pref").val();
         var pref_name1=$("#posting_pref1 option:selected").text(); 
