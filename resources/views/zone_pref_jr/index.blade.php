@@ -41,39 +41,40 @@
                   <label for="officer_name" class="col-sm-offset-1 col-sm-4 ">Officer Name: {{Auth::user()->name}}</label>
                </div>
                <div id="zone-group" class="form-group row our-form-group">
-                    <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> {{$fetch_zone['current_zone']}}</span></label></span></label>
-                    <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> {{$fetch_zone['previous_zone']}}</span></label>
+                    <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> {{$zone_options['current_zone']}}</span></label></span></label>
+                    <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> {{$zone_options['previous_zone']}}</span></label>
                </div>
                <hr>
-               
-                @if($fetch_zone['no_of_preference']=='NA')
-                    <div class="row"> 
-                        <div id="posting_pref-group" class="form-group our-form-group col-sm-offset-4">
-                            <span style="color:red;"><h3><strong>Posting Has Not Been Alotted Yet</strong></h3></span>
+                <div id="purpose_div" >
+                    <div class="row">
+                        <div class="col-sm-7 col-sm-offset-1">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td>
+                                        <b>Zones to be selected:</b><br/>
+                                        <select multiple="multiple" id='lstBox1' style="width:400px; height:300px">
+                                            
+                                        </select>
+                                    </td>
+                                    <td style='width:50px;text-align:center;vertical-align:middle;'>
+                                        <input type='button' id='btnRight' value ='  &#x2192  '/>
+                                        <br/><input type='button' id='btnLeft' value ='  &#x2190  '/>
+                                        <br/><br/><input type='button' id='btnDoubleLeft' value ='  <<  '/>
+                                    </td>
+                                    <td>
+                                        <b>Zone selection according to preference</b><br/>
+                                        <select multiple="multiple" id='lstBox2' style="width:400px; height:300px"> 
+                                        </select>
+                                    </td>
+                                    <td style='width:50px;text-align:center;vertical-align:middle;'>                            
+                                        <br/><button type='button' class="up_down" id='btnUp' value ='Up'>&#x2191</button>
+                                        <br/><button type='button' class="up_down" id='btnDown' value ='Down'>&#x2193</button>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
-                @else
-                    @for($i=1 ; $i<=$fetch_zone['no_of_preference']; $i++)
-                        <div class="row">  
-                            <div id="posting_pref-group" class="form-group our-form-group">
-                                <div class="col-sm-offset-1 col-sm-3">
-                                    <label for="posting_pref">Posting Preference {{$i}} </label>
-                                    <select id="priority_{{$i}}" class="form-control posting_pref" style="width:100%">
-                                        <option value="">Select zone</option>
-                                        @foreach($fetch_zone['zones'] as $zones)
-                                            <option value="{{$zones['id']}}">{{$zones['zone_name']}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div id="zone_pref_option_{{$i}}" class="col-sm-3">
-                                    <br>
-                                    <select id="station_{{$i}}" class="form-control zone_pref_option" style="width:150%;height:100px;display:none;" multiple>
-                                    </select>
-                                </div>
-                            </div>
-                        </div> 
-                        <hr>
-                    @endfor               
+                </div>
                
                 <div class="row">
                   <div class="col-sm-offset-1 col-sm-5">
@@ -92,7 +93,7 @@
                         </button>
                     </div>
                 </div>
-                @endif
+   
                </div>
             </div>
          </div>
