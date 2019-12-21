@@ -60,7 +60,7 @@
                                                 Posting Data Yet to be Updated..
                                             <?php else: ?>
                                                 <?php $__currentLoopData = $zone_options['zones']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$zone): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <option value=" " disabled><strong>Zone:<?php echo e($zone->zone_name); ?></strong></option>
+                                                <h2><option value=" " disabled>Zone:<?php echo e($zone->zone_name); ?></option></h2>
                                                     <?php $__currentLoopData = $zone_options[$zone->zone_name]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$district): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                         <option value="<?php echo e($district->district_name); ?>"><?php echo e($key+1); ?>. <?php echo e($district->district_name); ?></option>
                                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

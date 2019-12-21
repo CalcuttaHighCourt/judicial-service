@@ -60,7 +60,7 @@
                                                 Posting Data Yet to be Updated..
                                             @else
                                                 @foreach($zone_options['zones'] as  $key=>$zone)
-                                                    <option value=" " disabled><strong>Zone:{{$zone->zone_name}}</strong></option>
+                                                <h2><option value=" " disabled>Zone:{{$zone->zone_name}}</option></h2>
                                                     @foreach($zone_options[$zone->zone_name] as $key=>$district)
                                                         <option value="{{$district->district_name}}">{{$key+1}}. {{$district->district_name}}</option>
                                                     @endforeach
