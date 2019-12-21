@@ -78,7 +78,6 @@
                                     <td style='width:50px;text-align:center;vertical-align:middle;'>
                                         <input type='button' id='btnRight' value ='  &#x2192  '/>
                                         <br/><input type='button' id='btnLeft' value ='  &#x2190  '/>
-                                        <br/><br/><input type='button' id='btnDoubleLeft' value ='  <<  '/>
                                     </td>
                                     <td>
                                         <b>Zone selection according to preference</b><br/>
@@ -224,46 +223,36 @@ $(document).ready(function(){
         //right key
          $('#btnRight').click(function(e) {
             var selectedOpts = $('#lstBox1 option:selected');
+            var leftListPosition = $("#lstBox1").prop('selectedIndex');
+
             if (selectedOpts.length == 0) {
                 alert("Nothing to move.");
                 e.preventDefault();
             }
 
+            selectedOpts.attr('data-leftListPosition',leftListPosition);
             $('#lstBox2').append($(selectedOpts).clone());
-            $(selectedOpts).remove();
+            $(selectedOpts).attr('disabled',true);
             e.preventDefault();
         });
 
         //left key
         $('#btnLeft').click(function(e) {
             var selectedOpts = $('#lstBox2 option:selected');
+            var position = $('#lstBox2 option:selected').data('leftlistposition');
+
             if (selectedOpts.length == 0) {
                 alert("Nothing to move.");
                 e.preventDefault();
             }
-
-            $('#lstBox1').prepend($(selectedOpts).clone());
+            
             $(selectedOpts).remove();
-            e.preventDefault();
-        });
 
-        //double left key
-        $('#btnDoubleLeft').click(function(e) {
-            swal({
-                title: "Are you sure?",
-                text: "This will clear all selected purposes from the right list",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                            var selectedOpts = $('#lstBox2 option');
-                            $('#lstBox1').prepend($(selectedOpts).clone());
-                            $('#lstBox2 option').remove();
-                    }
-                });            
-        });
+            $('#lstBox1 option').eq(position).prop('disabled', false);
+
+            e.preventDefault();
+           
+        });        
 
         // up key
          $(".up_down").click(function(){
@@ -283,6 +272,7 @@ $(document).ready(function(){
         $("#postings").hide();
         $("#daily_diary").show();
     });
+    
     $(document).on("click","#submit_diary",function(){
 
         $("#diary_editor").show();
