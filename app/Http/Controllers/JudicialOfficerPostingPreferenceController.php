@@ -109,105 +109,7 @@ class JudicialOfficerPostingPreferenceController extends Controller
         }
     }
 
-    public function fetch_zone(Request $request){
-
-        $response = [];
-        $statusCode = 200;
-        $fetch_zones = array();
-
-      
-            $judicial_officer= Auth::user()->judicial_officer_id;
-
-
-            $fetch_zone['current_zone'] = JoZoneTenure::join('zones','zones.id','=','jo_zone_tenures.zone_id')
-                                                        ->join('judicial_officers','judicial_officers.id','=','jo_zone_tenures.judicial_officer_id')
-                                                        -> where([
-                                                            ['to_date','=',null],
-                                                            ['judicial_officer_id','=',$judicial_officer]
-                                                        ])->max('zones.zone_name');
-
-                           
-            if($fetch_zone['current_zone']=="")
-            {            
-                $fetch_zone['current_zone' ]= 'NA';
-            }              
-
-            $to_date = JoZoneTenure::Where([
-                                ['judicial_officer_id','=',$judicial_officer],
-                                ['to_date','<>',null],
-                            ])
-                        ->max('to_date');
-            if($to_date!=""){
-                $fetch_zone['previous_zone'] = JoZoneTenure::join('zones','zones.id','=','jo_zone_tenures.zone_id')
-                                                            ->where([
-                                                                ['to_date','=',$to_date],
-                                                                ['judicial_officer_id','=',$judicial_officer]
-                                                           ])->max('zones.zone_name');                                                       
-            }
-            else{
-                $fetch_zone['previous_zone'] = 'NA';
-            }
-            //logic for the no. of drop down should be opened depending on whether a JO is new in the system
-            if($fetch_zone['current_zone']!='NA'){
-                if($fetch_zone['previous_zone'] !='NA'){
-                    $fetch_zone['zones'] = Zone::where([
-                            ['zone_name','<>',$fetch_zone['current_zone']],
-                            ['zone_name','<>',$fetch_zone['previous_zone']]
-                        ])->select('zone_name','id')->get();            
-                    $fetch_zone['no_of_preference']=2;                                     
-                }
-                else{
-                        $fetch_zone['zones'] = Zone::where('zones.zone_name','<>',$fetch_zone['current_zone'])->select('zone_name','id')->get();
-                        $fetch_zone['no_of_preference']=3;
-                }
-                /* logic for openning the module 6months prior to the end of 
-                service days that should be served in a particular zone*/
-                $strating_date_of_current_zone = JoZoneTenure::join('zones','zones.id','=','jo_zone_tenures.zone_id')
-                                            ->join('judicial_officers','judicial_officers.id','=','jo_zone_tenures.judicial_officer_id')
-                                            -> where([
-                                                ['to_date','=',null],
-                                                ['judicial_officer_id','=',$judicial_officer]
-                                            ])->select('from_date')->get();                                         
-
-                                            $dt= Carbon::now();
-                    //echo $strating_date_of_current_zone[0]['from_date'] ;                   // 1975-12-25
-                    $days_to_open_module = Zone::where('zone_name','=',$fetch_zone['current_zone'])
-                        ->select('min_service_days')->get();
-                    //for openning the module 6 months prior to the end of service days in a specific zone
-                    $openning_of_display_module = $days_to_open_module[0]['min_service_days']-180;
-                                $dt= Carbon::now();
-                                $current_date= date('Y-m-d', strtotime($dt));
-                                //difference of the strating date of current zone and current date in days 
-                                $diff = (strtotime($strating_date_of_current_zone[0]['from_date']) - strtotime($current_date))/(60*60*24);
-                            if($diff>=$openning_of_display_module)
-                            {
-                                $fetch_zone['flag_to_open_the_module']='Y';
-                            }
-                            else{
-                                $fetch_zone['flag_to_open_the_module']='N';
-                        }
-                    /* logic for closing the module 5months prior to the end of 
-                    service days that should be served in a particular zone*/
-
-                    //for closing the module 5 months prior to the end of service days in a specific zone
-                                    
-                    $closing_of_display_module=$days_to_open_module[0]['min_service_days']-150;
-                    if($diff<=$closing_of_display_module) 
-                        {
-                        $fetch_zone['flag_to_close_the_module']='N';
-                        }
-                        else
-                        {
-                        $fetch_zone['flag_to_close_the_module']='Y';
-                        }
-                    }
-                else{
-                    $fetch_zone['no_of_preference']='NA';
-                }
-                    
-            return view('zone_pref_jr.index',compact('fetch_zone'));  
-        }
-
+    
                  /*Final Submission of the preference:starts*/
 
                 public function final_submission(Request $request)
@@ -345,76 +247,167 @@ public function zone_pref_content(Request $request) {
         }
     }
 
-    /*for selecting */
+    /*for selecting zones*/
 
-    public function zone_selection(Request $request){
+    public function fetch_zone(Request $request){
+
+        $response = [];
+        $statusCode = 200;
+        $zone_options = array();
 
       
-        $this->validate($request, [
+            $judicial_officer= Auth::user()->judicial_officer_id;
+            $zone_options['current_zone'] = JoZoneTenure::join('zones','zones.id','=','jo_zone_tenures.zone_id')
+                                                        ->join('judicial_officers','judicial_officers.id','=','jo_zone_tenures.judicial_officer_id')
+                                                        -> where([
+                                                            ['to_date','=',null],
+                                                            ['judicial_officer_id','=',$judicial_officer]
+                                                        ])->max('zones.zone_name');
+
+            //if current zone is blank             
+            if($zone_options['current_zone']=="")
+            {            
+                $zone_options['current_zone' ]= 'NA';
+            }              
+
+            //if previous zone is blank 
+            $to_date = JoZoneTenure::Where([
+                                ['judicial_officer_id','=',$judicial_officer],
+                                ['to_date','<>',null],
+                            ])
+                        ->max('to_date');
             
-            'zone_pref' => array('required','integer','max:999','exists:zones,id'),
-        ]);
-
-         $zone_options= array();
-
-         $zone_pref=  $request->input('zone_pref');
-         
-         
-        $zone_options['districts'] = District::where('zone_id','=',$zone_pref) 
-                                            ->select('id','district_name')->get();
-    
-        
-
-            $select='SELECT subdivision_name from subdivisions';
-
-            $where=' WHERE 1=1';
-
-            foreach($zone_options['districts'] as $district){
-
-                $where.=' AND district_id <>'.$district->id;
+            if($to_date!=""){
+                $zone_options['previous_zone'] = JoZoneTenure::join('zones','zones.id','=','jo_zone_tenures.zone_id')
+                                                            ->where([
+                                                                ['to_date','=',$to_date],
+                                                                ['judicial_officer_id','=',$judicial_officer]
+                                                           ])->max('zones.zone_name');                                                       
+            }
+            else{
+                $zone_options['previous_zone'] = 'NA';
             }
 
-            $zone=' AND zone_id= '.$zone_pref;
+            //logic for the no. of drop down should be opened depending on whether a JO is new in the system
+            if($zone_options['current_zone']!='NA'){
+                if($zone_options['previous_zone'] !='NA'){
+                    $zone_options['zones'] = Zone::where([
+                            ['zone_name','<>',$zone_options['current_zone']],
+                            ['zone_name','<>',$zone_options['previous_zone']]
+                        ])->select('zone_name','id')->get();            
+                    $zone_options['no_of_preference']=2;                                     
+                }
+                else{
+                        $zone_options['zones'] = Zone::where('zones.zone_name','<>',$zone_options['current_zone'])->select('zone_name','id')->get();
+                        $zone_options['no_of_preference']=3;
+                }
+                /* logic for openning the module 6months prior to the end of 
+                service days that should be served in a particular zone*/
+                $strating_date_of_current_zone = JoZoneTenure::join('zones','zones.id','=','jo_zone_tenures.zone_id')
+                                            ->join('judicial_officers','judicial_officers.id','=','jo_zone_tenures.judicial_officer_id')
+                                            -> where([
+                                                ['to_date','=',null],
+                                                ['judicial_officer_id','=',$judicial_officer]
+                                            ])->select('from_date')->get();                                         
 
-            $qury=$select.$where.$zone;
+                                            $dt= Carbon::now();
+                    //echo $strating_date_of_current_zone[0]['from_date'] ;                   // 1975-12-25
+                    $days_to_open_module = Zone::where('zone_name','=',$zone_options['current_zone'])
+                        ->select('min_service_days')->get();
+                    //for openning the module 6 months prior to the end of service days in a specific zone
+                    $openning_of_display_module = $days_to_open_module[0]['min_service_days']-180;
+                                $dt= Carbon::now();
+                                $current_date= date('Y-m-d', strtotime($dt));
+                                //difference of the strating date of current zone and current date in days 
+                                $diff = (strtotime($strating_date_of_current_zone[0]['from_date']) - strtotime($current_date))/(60*60*24);
+                            if($diff>=$openning_of_display_module)
+                            {
+                                $zone_options['flag_to_open_the_module']='Y';
+                            }
+                            else{
+                                $zone_options['flag_to_open_the_module']='N';
+                        }
+                    /* logic for closing the module 5months prior to the end of 
+                    service days that should be served in a particular zone*/
 
-            $zone_options['subdivision']=DB::select($qury);
-                           
-        //  print_r($subdivision);  
-        //  exit;
-        //     }
-            
-       
-
-            foreach($zone_options['districts'] as $district){
-                $except="";
-
-                $zone_options['exempted_subdivisions'] = Subdivision::where([
-                                                                            ['district_id','=',$district->id],
-                                                                            ['zone_id','<>',$zone_pref]
-                                                                        ])->select('subdivision_name')->get();
-            
-           
-
-            if(sizeof($zone_options['exempted_subdivisions'])>0){
-                    foreach($zone_options['exempted_subdivisions'] as  $key=>$exempted_subdivision){
-                        if($key==0)
-                            $except= $except.$exempted_subdivision->subdivision_name;  
+                    //for closing the module 5 months prior to the end of service days in a specific zone
+                                    
+                    $closing_of_display_module=$days_to_open_module[0]['min_service_days']-150;
+                    if($diff<=$closing_of_display_module) 
+                        {
+                        $zone_options['flag_to_close_the_module']='N';
+                        }
                         else
-                            $except= $except." , ".$exempted_subdivision->subdivision_name; 
+                        {
+                        $zone_options['flag_to_close_the_module']='Y';
+                        }
                     }
-                   
-                    $district->district_name= $district->district_name."\n except :".$except;                  
-                    
-            }
-           
-        }
-
-       return( $zone_options);
-        
-           
-
+                else{
+                    $zone_options['no_of_preference']='NA';
+                }
             
+            if(($zone_options['current_zone']!='NA')||($zone_options['previous_zone'] !='NA')){
+
+                    $zone_options['zones'] = Zone::where([
+                                        ['zone_name','<>',$zone_options['current_zone']],
+                                        ['zone_name','<>',$zone_options['previous_zone']]
+                                ])->select('zone_name','id')->get(); 
+
+                    if( sizeof($zone_options['zones'])>0)
+                    {
+                        foreach($zone_options['zones'] as  $key=>$zone_pref){
+                            // echo $zone_pref;
+                            // print_r( $zone_options['zones']);
+                            $zone_options[$zone_pref->zone_name] = District::where('zone_id','=',$zone_pref->id) 
+                                                        ->select('id','district_name')->get();
+                                                        
+                            // echo "<pre>";                          
+                            // print_r($zone_options);
+                            $select='SELECT subdivision_name from subdivisions';
+                            $where=' WHERE 1=1';                      
+                            foreach(  $zone_options[$zone_pref->zone_name] as $district){
+                                $where.=' AND district_id <>'.$district->id;
+                            }
+                            $zone=' AND zone_id= '.$zone_pref->id;
+                            $qury=$select.$where.$zone;
+                            $zone_options[$zone_pref->id]=DB::select($qury);
+                            foreach(  $zone_options[$zone_pref->zone_name] as $district){
+                                //echo "b";
+                                $except="";
+                                $zone_options['exempted_subdivisions'] = Subdivision::where([
+                                                                                            ['district_id','=',$district->id],
+                                                                                            ['zone_id','<>',$zone_pref->id]
+                                                                                        ])->select('subdivision_name')->get();                    
+                                // echo "<pre>";
+                                // print_r( $zone_options['subdivision']); exit;
+                                if(sizeof($zone_options['exempted_subdivisions'])>0){
+                                    foreach($zone_options['exempted_subdivisions'] as  $key=>$exempted_subdivision){
+                                        //echo "c";
+                                        if($key==0)
+                                            $except= $except.$exempted_subdivision->subdivision_name;  
+ 
+                                      
+                                        else
+                                            $except= $except." , ".$exempted_subdivision->subdivision_name; 
+                                            
+                                    }
+                                   
+                                    $district->district_name= $district->district_name."\n except :".$except; 
+
+                                }
+                               
+                            }
+                                 
+                        }
+                                              
+                    }                 
+                }
+           
+            // echo "<pre>";
+            // print_r($zone_options);         
+            // exit;
+
+            return view('zone_pref_jr.index',compact('zone_options'));
         }
        
     

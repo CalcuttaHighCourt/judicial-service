@@ -15,6 +15,8 @@ use App\JoZoneTenure;
 use App\State;
 use App\User;
 use App\UserType;
+use App\Rank;
+use App\Designation;
 use Auth;
 use DB;
 use Carbon\Carbon;
@@ -365,11 +367,6 @@ class JoEntryFormController extends Controller
         return view('profile.index')->with('profile',$profile);
     }
 
-    public function profile()
-    {
-        return $this->show(Auth::user()->judicial_officer_id);
-    }
-
     
     public function update(Request $request, $id)
     {
@@ -388,6 +385,23 @@ class JoEntryFormController extends Controller
                             ->get();
 
         return response()->json($districts);
+    }
+
+    public function fetch_rank_designation(Request $request){
+        $batch = $request->input('batch');
+
+        if($batch == 'PSC' || $batch == 'psc'){
+            $data['ranks'] = Rank::where('rank_order', 1)->get();
+        }
+        else if($batch == 'Direct Entry' || $batch == 'direct entry'){
+            $data['ranks'] = Rank::where('rank_order', 3)->get();
+        }
+
+        $rank = $data['ranks']['0']->id;
+
+        $data['designations'] = Designation::where('rank_id',$rank)->get();
+
+        return response()->json($data);
     }
 
     public function show_all_jo(Request $request){

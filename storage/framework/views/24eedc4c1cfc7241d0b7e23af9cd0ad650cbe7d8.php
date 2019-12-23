@@ -41,39 +41,58 @@
                   <label for="officer_name" class="col-sm-offset-1 col-sm-4 ">Officer Name: <?php echo e(Auth::user()->name); ?></label>
                </div>
                <div id="zone-group" class="form-group row our-form-group">
-                    <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> <?php echo e($fetch_zone['current_zone']); ?></span></label></span></label>
-                    <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> <?php echo e($fetch_zone['previous_zone']); ?></span></label>
+                    <label for="zone" class="col-sm-offset-1 col-sm-4 ">Current Zone of Posting:<span id="cur_zone_name" name="cur_zone_name"> <?php echo e($zone_options['current_zone']); ?></span></label></span></label>
+                    <label for="zone" class="col-sm-offset-1 col-sm-4 ">Previous Zone of Posting:<span id="pre_zone_name" name="pre_zone_name"> <?php echo e($zone_options['previous_zone']); ?></span></label>
                </div>
                <hr>
-               
-                <?php if($fetch_zone['no_of_preference']=='NA'): ?>
-                    <div class="row"> 
-                        <div id="posting_pref-group" class="form-group our-form-group col-sm-offset-4">
-                            <span style="color:red;"><h3><strong>Posting Has Not Been Alotted Yet</strong></h3></span>
+                <div id="purpose_div" >
+                    <div class="row">
+                        <div class="col-sm-7 col-sm-offset-1">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td>
+                                        <b>Stations to be selected:</b><br/>
+                                        <select multiple="multiple" id='lstBox1' style="width:400px; height:300px">
+                                            <?php 
+                                                $i=0;
+                                            ?>
+                                            <?php if($zone_options['no_of_preference']=='NA'): ?>
+                                                Posting Data Yet to be Updated..
+                                            <?php else: ?>
+                                                <?php $__currentLoopData = $zone_options['zones']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$zone): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <h2><option value=" " disabled>Zone:<?php echo e($zone->zone_name); ?></option></h2>
+                                                    <?php $__currentLoopData = $zone_options[$zone->zone_name]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$district): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                        <option value="<?php echo e($district->district_name); ?>"><?php echo e($key+1); ?>. <?php echo e($district->district_name); ?></option>
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                    <?php 
+                                                        $j=$key+1;
+                                                    ?>    
+                                                    <?php $__currentLoopData = $zone_options[$zone->id]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subdivision): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                        <option value="<?php echo e($subdivision->subdivision_name); ?>"> <?php echo e(++$j); ?>. <?php echo e($subdivision->subdivision_name); ?></option>
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                    <option><hr></option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>    
+                                            <?php endif; ?>                                    
+                                        </select>
+                                    </td>
+                                    <td style='width:50px;text-align:center;vertical-align:middle;'>
+                                        <input type='button' id='btnRight' value ='  &#x2192  '/>
+                                        <br/><input type='button' id='btnLeft' value ='  &#x2190  '/>
+                                    </td>
+                                    <td>
+                                        <b>Zone selection according to preference</b><br/>
+                                        <select multiple="multiple" id='lstBox2' style="width:400px; height:300px"> 
+                                        </select>
+                                    </td>
+                                    <td style='width:50px;text-align:center;vertical-align:middle;'>                            
+                                        <br/><button type='button' class="up_down" id='btnUp' value ='Up'>&#x2191</button>
+                                        <br/><button type='button' class="up_down" id='btnDown' value ='Down'>&#x2193</button>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
-                <?php else: ?>
-                    <?php for($i=1 ; $i<=$fetch_zone['no_of_preference']; $i++): ?>
-                        <div class="row">  
-                            <div id="posting_pref-group" class="form-group our-form-group">
-                                <div class="col-sm-offset-1 col-sm-3">
-                                    <label for="posting_pref">Posting Preference <?php echo e($i); ?> </label>
-                                    <select id="priority_<?php echo e($i); ?>" class="form-control posting_pref" style="width:100%">
-                                        <option value="">Select zone</option>
-                                        <?php $__currentLoopData = $fetch_zone['zones']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $zones): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <option value="<?php echo e($zones['id']); ?>"><?php echo e($zones['zone_name']); ?></option>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    </select>
-                                </div>
-                                <div id="zone_pref_option_<?php echo e($i); ?>" class="col-sm-3">
-                                    <br>
-                                    <select id="station_<?php echo e($i); ?>" class="form-control zone_pref_option" style="width:150%;height:100px;display:none;" multiple>
-                                    </select>
-                                </div>
-                            </div>
-                        </div> 
-                        <hr>
-                    <?php endfor; ?>               
+                </div>
                
                 <div class="row">
                   <div class="col-sm-offset-1 col-sm-5">
@@ -92,7 +111,7 @@
                         </button>
                     </div>
                 </div>
-                <?php endif; ?>
+   
                </div>
             </div>
          </div>
@@ -199,11 +218,61 @@ $(document).ready(function(){
     });
     /*For opening the posting tab:ends*/   
 
+    /*Button code for arrow key:start*/
+
+        //right key
+         $('#btnRight').click(function(e) {
+            var selectedOpts = $('#lstBox1 option:selected');
+            var leftListPosition = $("#lstBox1").prop('selectedIndex');
+
+            if (selectedOpts.length == 0) {
+                alert("Nothing to move.");
+                e.preventDefault();
+            }
+
+            selectedOpts.attr('data-leftListPosition',leftListPosition);
+            $('#lstBox2').append($(selectedOpts).clone());
+            $(selectedOpts).attr('disabled',true);
+            e.preventDefault();
+        });
+
+        //left key
+        $('#btnLeft').click(function(e) {
+            var selectedOpts = $('#lstBox2 option:selected');
+            var position = $('#lstBox2 option:selected').data('leftlistposition');
+
+            if (selectedOpts.length == 0) {
+                alert("Nothing to move.");
+                e.preventDefault();
+            }
+            
+            $(selectedOpts).remove();
+
+            $('#lstBox1 option').eq(position).prop('disabled', false);
+
+            e.preventDefault();
+           
+        });        
+
+        // up key
+         $(".up_down").click(function(){
+            var $op = $('#lstBox2 option:selected'),
+                $this = $(this);
+            if($op.length){
+                ($this.val() == 'Up') ? 
+                    $op.first().prev().before($op) : 
+                    $op.last().next().after($op);
+            }
+        });
+
+    /*Button code for arrow key:end*/
+
     /*CODE FOR DIGITAL DIARY:STARTS*/
      $(document).on("click","#judicial_diary",function(){
         $("#postings").hide();
         $("#daily_diary").show();
     });
+    
     $(document).on("click","#submit_diary",function(){
 
         $("#diary_editor").show();
@@ -333,6 +402,7 @@ $(document).ready(function(){
     /*Submit function for zone */
 
     $(document).on("click","#submit",function(){
+        
 
         var pref=$("#posting_pref").val();
         var pref_name1=$("#posting_pref1 option:selected").text(); 
