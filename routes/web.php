@@ -384,6 +384,8 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 			return view ('jo_entry_form.modify_jo_details');
 		});
 		
+		Route::post('fetch_jo_details','JoEntryFormController@fetch_jo_details')->name('fetch_jo_details');
+		
 		Route::post('jo_posting/search', 'JudicialOfficerPostingController@jo_current_posting_details');
 
 	});

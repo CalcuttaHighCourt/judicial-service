@@ -21,6 +21,7 @@ use Auth;
 use DB;
 use Carbon\Carbon;
 
+
 class JoEntryFormController extends Controller
 {
     
@@ -379,6 +380,10 @@ class JoEntryFormController extends Controller
     }
 
     public function fetch_district(Request $request){
+        $this->validate( $request, [ 
+            'state' => 'required|max:1000|exists:states,id'
+        ]);
+
         $state = $request->input('state');
         $districts = State::with('districts')
                             ->where('states.id',$state)
@@ -388,6 +393,10 @@ class JoEntryFormController extends Controller
     }
 
     public function fetch_rank_designation(Request $request){
+        $this->validate( $request, [ 
+            'batch' => 'required|max:20|exists:batches,id'
+        ]);
+
         $batch = $request->input('batch');
 
         if($batch == 'PSC' || $batch == 'psc'){
@@ -472,6 +481,28 @@ class JoEntryFormController extends Controller
             echo json_encode($json_data);
         }
 
+    }
+
+
+    public function fetch_jo_details(Request $request){
+        $this->validate( $request, [ 
+            'jo_id' => 'required|max:99999|exists:judicial_officers,id',
+        ]);
+
+        $jo_details = array();
+
+        $jo_details['basic_contact_details'] = JudicialOfficer::find($request->jo_id);
+        
+        $jo_details['basic_contact_details']->date_of_birth = Carbon::parse($jo_details['basic_contact_details']->date_of_birth)->format('d/m/Y');
+        $jo_details['basic_contact_details']->date_of_joining = Carbon::parse($jo_details['basic_contact_details']->date_of_joining)->format('d/m/Y');
+        $jo_details['basic_contact_details']->date_of_retirement = Carbon::parse($jo_details['basic_contact_details']->date_of_retirement)->format('d/m/Y');
+        
+        if($jo_details['basic_contact_details']->date_of_confirmation != null)
+            $jo_details['basic_contact_details']->date_of_confirmation = Carbon::parse($jo_details['basic_contact_details']->date_of_confirmation)->format('d/m/Y');
+        else
+            $jo_details['basic_contact_details']->date_of_confirmation = "";
+            
+        return $jo_details;
     }
 
 }
