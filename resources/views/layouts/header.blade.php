@@ -174,8 +174,8 @@
                                     <span>Judicial Officer Entry</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="{{url('jo_entry_form')}}"> Profile Details Entry</a></li>
-                                    <li><a href="{{url('modify_jo_details')}}"> Modify Profile Details</a></li>
+                                    <li><a href="{{url('jo_entry_form')}}"> Entry JO Details</a></li>
+                                    <li><a href="{{url('modify_jo_details')}}"> Modify JO Details</a></li>
                                     <li><a href="#"> Document Upload</a></li>
                                 </ul>
                             </li>      
