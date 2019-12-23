@@ -75,7 +75,7 @@
                         <!-- Table Headings -->
                         <thead>
                             <tr>                  
-                                <th>Grade</th>   
+                                <th style="color:green">Grade</th>   
                                 <th>Pre Grade</th>  
                                 <th style="display:none">JO ID</th> 
                                 <th>JO Name</th>
@@ -88,7 +88,7 @@
                         </thead>
                         <tfoot>
                             <tr>        
-                                <th>Grade</th>   
+                                <th style="color:green">Grade</th>   
                                 <th>Pre Grade</th>  
                                 <th style="display:none">JO ID</th>           
                                 <th>JO Name</th>
@@ -190,7 +190,7 @@
                                                     date_of_gradation:date_of_gradation
                                              }
                                 },                                
-                                "columns": [                      
+                                "columns": [
                                             {"data": "grade", class:"reorder"},    
                                             {"data": "inicial"},               
                                             {"data": "judicial_officer_id"},
@@ -218,8 +218,7 @@
 
                                 "rowReorder": 
                                             {
-                                               dataSrc: 'grade',
-                                               class:"change_color"
+                                               dataSrc: 'grade'
                                             },                                            
 
                                 "select": true

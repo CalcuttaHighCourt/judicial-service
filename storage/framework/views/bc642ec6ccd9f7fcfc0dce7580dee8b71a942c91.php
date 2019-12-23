@@ -140,6 +140,7 @@
                                         <li><a href="<?php echo e(url('state')); ?>">  State Master</a></li>
                                         <li><a href="<?php echo e(url('document_types')); ?>"> Document Type Master</a></li>
                                         <li><a  href="<?php echo e(url('Category')); ?>"> Category </span></a></li>
+                                        <li><a  href="<?php echo e(url('jo_posting/search')); ?>"> Judicial Officer Posting </span></a></li>
                                         <li><a  href="<?php echo e(url('religion')); ?>"> Religion </span></a></li>
                                         <li><a  href="<?php echo e(url('qualification')); ?>"> Qualification </span></a></li>
                                         <li><a  href="<?php echo e(url('recruitmentbatch')); ?>"> Recruitment Batch </span></a></li>

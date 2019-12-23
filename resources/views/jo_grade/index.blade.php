@@ -75,7 +75,7 @@
                         <!-- Table Headings -->
                         <thead>
                             <tr>                  
-                                <th>Grade</th>   
+                                <th style="color:green">Grade</th>   
                                 <th>Pre Grade</th>  
                                 <th style="display:none">JO ID</th> 
                                 <th>JO Name</th>
@@ -88,7 +88,7 @@
                         </thead>
                         <tfoot>
                             <tr>        
-                                <th>Grade</th>   
+                                <th style="color:green">Grade</th>   
                                 <th>Pre Grade</th>  
                                 <th style="display:none">JO ID</th>           
                                 <th>JO Name</th>
@@ -190,16 +190,25 @@
                                                     date_of_gradation:date_of_gradation
                                              }
                                 },                                
-                                "columns": [                      
-                                            {"data": "grade", class:"reorder"},    
-                                            {"data": "inicial"},               
-                                            {"data": "judicial_officer_id"},
-                                            {"data": "jo_name"},
-                                            {"data": "jo_code"},
-                                            {"data": "date_of_joining"},
-                                            {"data": "from_date"},
-                                            {"data": "remark"},
-                                            {"data": "to_grade", class:"to_grade"}
+                                "columns": [
+                                            {"data": "grade", 
+                                             "class":"reorder data"},    
+                                            {"data": "inicial",
+                                             "class":"inicial"},               
+                                            {"data": "judicial_officer_id",
+                                             "class":"judicial_officer_id"},
+                                            {"data": "jo_name",
+                                             "class":"jo_name"},
+                                            {"data": "jo_code",
+                                             "class":"jo_code"},
+                                            {"data": "date_of_joining",
+                                             "class":"date_of_joining"},
+                                            {"data": "from_date",
+                                             "class":"from_date"},
+                                            {"data": "remark",
+                                             "class":"remark"},
+                                            {"data": "to_grade", 
+                                             "class":"to_grade"}
                                 ],
                                 "columnDefs": 
                                             [
@@ -218,8 +227,7 @@
 
                                 "rowReorder": 
                                             {
-                                               dataSrc: 'grade',
-                                               class:"change_color"
+                                               dataSrc: 'grade'
                                             },                                            
 
                                 "select": true
@@ -239,14 +247,75 @@
 
 
 
+            //Double Click To Enable Content editable start
+            $(document).on("click",".remark", function(){        
+                        $(this).attr('contenteditable',true);
+            });
+            //Double Click To Enable Content editable end
+
+
+            //Double Click To Enable Content editable start
+            $(document).on("click",".to_grade", function(){        
+                        $(this).attr('contenteditable',true);
+            });
+            //Double Click To Enable Content editable end
+            
+             //block using other characters except 0 to 9, required to give grade: start
+             $(this).on('keydown', '.to_grade', function(e) 
+            {            
+
+                if(!((e.keyCode > 95 && e.keyCode < 106) || (e.keyCode > 47 && e.keyCode < 58) || e.keyCode == 8))             
+                {
+                    return false;
+                }
+
+            });
+            //block using other characters except 0 to 9, required to give grade: end
+
+            //To prevent updation when no changes to the data is made*/
+            $(document).on("focusin",".to_grade", function(){
+                current_grade = $(this).closest("tr").find(".reorder").text();
+            })
+
+
+            //Data Updation Code Starts
+            $(document).on("focusout",".to_grade", function()
+            {
+                var element = $(this);        
+                var tr = element.closest('tr');
+                var row = table.row(tr);
+                var row_data = table.row(tr).data();
+
+                var judicial_officer_id = row_data['judicial_officer_id'];  
+
+                var to_grade =element.closest("tr").find(".to_grade").text(); 
+
+                if(to_grade == current_grade)
+                {                  
+                    element.closest("tr").find(".to_grade").text("");   
+                    return false;
+                }
+                        
+                if( isNaN (to_grade) )
+                {
+                    swal("Cannot Update grade!", "Grade must be in Number(s)", "error");        
+                    element.closest("tr").find(".to_grade").text("");                                   
+                    return false;
+                } 
+                else
+                {
+                    var data=Arrey();
+                    data= $('#jo_grade_table').DataTable().rows( { order: 'applied' } ).data().toArray()
+                    element.closest("tr").find(".to_grade").text(to_grade);   
+                }
+
+            }
+            //Data Updation Code end
+
             $(document).on("click","#reset", function() {
                 $("#jo_grade_div").hide();
                 location.reload();
             });
-
-
-
-
 
 
             $(document).on("click","#save", function() {
