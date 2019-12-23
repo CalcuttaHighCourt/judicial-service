@@ -18,8 +18,7 @@
 
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
-        <header class="main-header">
-        
+        <header class="main-header">        
             <!-- Logo -->
             <?php if(Auth::check() && Auth::user()->user_type->type_name=="Administrator"): ?>
                 <a href="dashboard/admin" class="logo"> 
@@ -177,7 +176,8 @@
                                     <span>Judicial Officer Entry</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="<?php echo e(url('jo_entry_form')); ?>">  Profile Details Entry</a></li>
+                                    <li><a href="<?php echo e(url('jo_entry_form')); ?>"> Profile Details Entry</a></li>
+                                    <li><a href="<?php echo e(url('modify_jo_details')); ?>"> Modify Profile Details</a></li>
                                     <li><a href="#"> Document Upload</a></li>
                                 </ul>
                             </li>      
