@@ -6,9 +6,22 @@
 .reorder {
   color: green;
 }
+.inicial{
+    color: #C0BFBF;
+}
 .change_color{
     color: red;
 }
+.change_grade{
+
+    color:#F81C05;
+    background:#2AFCB6;
+    border-radius:100%;             
+    width:2px;
+    height:2px;
+    text-align:center;
+}
+
 </style>
 
 <br/><br/>
@@ -76,7 +89,7 @@
                         <thead>
                             <tr>                  
                                 <th style="color:green">Grade</th>   
-                                <th>Pre Grade</th>  
+                                <th style="color:black">Pre Grade</th>  
                                 <th>JO Name</th>
                                 <th>JO Code</th>
                                 <th>Joining Date</th>
@@ -88,7 +101,7 @@
                         <tfoot>
                             <tr>        
                                 <th style="color:green">Grade</th>   
-                                <th>Pre Grade</th>           
+                                <th style="color:black">Pre Grade</th>           
                                 <th>JO Name</th>
                                 <th>JO Code</th>
                                 <th>Joining Date</th>
@@ -170,17 +183,15 @@
                 }
                 else{
 
-
                             $("#jo_grade_table").DataTable().destroy();
 
-
-                            //show all finnalized requisition for all department  using 'HomeController@get_all_finalized_requisition_for_report'
+                            //show all rank wise jo list using 'JoGradeController@rank_wise_jo_list'
                             table = $("#jo_grade_table").DataTable({  
                                 "processing": false,
                                 "serverSide": false, 
                                 "bPaginate": false, 
                                 "ajax":{
-                                        "url": "<?php echo e(route('fetch_jo_details')); ?>",
+                                        "url": "<?php echo e(route('rank_wise_jo_list')); ?>",
                                         "dataType": "json",
                                         "type": "POST",
                                         "data":
@@ -220,20 +231,20 @@
                                             orderable: false,
                                             targets: 1,
                                         }
-                                ],
-
-                                "rowReorder": 
-                                {
-                                        dataSrc: 'grade',
-                                        snapX: true
-                                },                                            
-
-                                "select": true
-
+                                ]
                             }); 
                             
 
 
+                            // ,
+
+                            // "rowReorder": 
+                            // {
+                            //         dataSrc: 'grade',
+                            //         snapX: true
+                            // },                                            
+
+                            // "select": true
 
                             $("#jo_grade_div").show();
 
@@ -242,6 +253,39 @@
             });
             //Create list to arrange :end
 
+            //grade color change on row drag using mouse:start
+            // var position;
+            // $('#jo_grade_table').on('row-reorder.dt', function(e, details, edit){
+
+            //     console.log( details);
+
+            //     // for(var i = 0; i < details.length; i++)
+            //     // {
+            //     //     console.log(
+            //     //         'Node', details[i].node, 
+            //     //         'moved from', details[i].oldPosition, 
+            //     //         'to', details[i].newPosition
+            //     //     );                    
+            //     // }               
+
+            //     if(details.length>0)
+            //     {
+            //         position=details[0].newPosition;
+            //         console.log("position "+position);
+
+            //         console.log("cell value "+table.cell(position,0).nodes().to$().text());
+                    
+            //         table.cell(position,0).nodes().to$().css('color','#F81C05');
+            //         table.cell(position,0).nodes().to$().css('background','#2AFCB6');
+            //         table.cell(position,0).nodes().to$().css('border-radius','100%');
+            //         table.cell(position,0).nodes().to$().css('width','2px');
+            //         table.cell(position,0).nodes().to$().css('height','2px');
+            //         table.cell(position,0).nodes().to$().css('border', '2px solid #666');
+            //         table.cell(position,0).nodes().to$().css('text-align', 'center');
+            //     }
+
+            // });
+            //grade color change on row drag  using mouse :end
 
 
             //Double Click To Enable Content editable start
@@ -287,7 +331,11 @@
 
                 var judicial_officer_id = row_data['judicial_officer_id'];  
 
+                var remark =element.closest("tr").find(".remark").text(); 
                 var to_grade =element.closest("tr").find(".to_grade").text(); 
+
+                //to get the row count
+                var row_count = table.rows().count();
 
                 // var info = table.page.info();
                 // alert(info.recordsTotal );
@@ -304,7 +352,7 @@
                     element.closest("tr").find(".to_grade").text("");                                   
                     return false;
                 } 
-                else if( to_grade <= 0  ||  to_grade > table.rows().count() )
+                else if( to_grade <= 0  ||  to_grade > row_count )
                 {
                     swal("Cannot Update grade!", "Grade cannot be zero(0)", "error");        
                     element.closest("tr").find(".to_grade").text("");                                   
@@ -318,10 +366,6 @@
                 }       
                 else
                 {
-
-                    //var $row = $(this).closest('tr'),
-                    //to get the row no 
-    		        //index = $row.index();
 
                     to_grade-=1;
                     current_grade-=1;
@@ -354,24 +398,40 @@
                                     
                     rowMoveTo["to_grade"] = to_grade+1;
                     rowMoveTo["grade"] = to_grade+1;
-
+                    rowMoveTo["remark"] = remark;
+                    
                     //fit the row to the given position
                     table.row(to_grade).data(rowMoveTo);
 
                     table.draw(true);
-                    //$(this).closest("tr").find(".reorder").css('color','#6105F8'); //disabel F2DEDE, red F81C05
 
 
-                    table.cell(to_grade,0).nodes().to$().css('color','#F81C05');
-                    table.cell(to_grade,0).nodes().to$().css('background','#2AFCB6');
-                    table.cell(to_grade,0).nodes().to$().css('border-radius','100%');
-                    //table.cell(to_grade,0).nodes().to$().css('padding', '8px');                    
-                    table.cell(to_grade,0).nodes().to$().css('width','2px');
-                    table.cell(to_grade,0).nodes().to$().css('height','2px');
-                    table.cell(to_grade,0).nodes().to$().css('border', '2px solid #666');
-                    table.cell(to_grade,0).nodes().to$().css('text-align', 'center');
+                    // change color of the row who has ever changed
+                    for (var i = 0; i < row_count; i++) 
+                    {                                              
+                        if(table.cell(i,7).nodes().to$().text() !="")
+                        {
+                            table.row(i).nodes().to$().css('color','#196FFC'); 
+                            table.row(i).nodes().to$().css('background','#AAFADF');
+                            table.row(i).nodes().to$().css('font-weight','bold');  
 
-                    swal("Grade Updated", "From Grade:"+current_grade+", To Grade:"+to_grade, "success");  
+                            table.cell(i,0).nodes().to$().css('color','#196FFC');  
+                            table.cell(i,0).nodes().to$().css('background','#F9FAAA');     
+                            table.cell(i,1).nodes().to$().css('color','#F6836E');
+                        }
+                        else
+                        {
+                            table.row(i).nodes().to$().css('color','black'); 
+                            table.row(i).nodes().to$().css('background','white');
+                            table.row(i).nodes().to$().css('font-weight','normal');  
+
+                            table.cell(i,0).nodes().to$().css('color','green');       
+                            table.cell(i,0).nodes().to$().css('background','white');   
+                            table.cell(i,1).nodes().to$().css('color','#C0BFBF');
+                        }
+                    }
+
+                   // swal("Grade Updated", "From Grade:"+current_grade+", To Grade:"+to_grade, "success");  
                 }
 
             });
@@ -386,14 +446,11 @@
 
             $(document).on("click","#save", function() {
 
-                var data = table
-                            .rows()
-                            .data();
-
-
-                console.log( $('#jo_grade_table').DataTable().rows( { order: 'applied' } ).data().toArray()  ); 
-                return false;
-                   
+                //fecth all rows including remark
+                var graded_jo_list = table.rows( { order: 'applied' } ).data().toArray();
+                
+                var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
+                var date_of_gradation= $("#date_of_gradation").val();
 
                     swal({
                     title: "Are you sure?",
@@ -408,8 +465,8 @@
                                 url:"<?php echo e(route('save_jo_grade')); ?>",
                                 type:"POST",
                                 data:{
-                                    judicial_officer_id:judicial_officer_id,
-                                    rank_id:rank_id,
+                                    graded_jo_list:graded_jo_list,
+                                    rank_id:jo_grade_rank_id,
                                     date_of_gradation:date_of_gradation
                                 },
                                 success:function(response){

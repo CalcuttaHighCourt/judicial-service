@@ -25,7 +25,7 @@ use
 
 class JoGradeController extends Controller
 {
-    public function get_jo_details(Request $request)
+    public function rank_wise_jo_list(Request $request)
     {
         $this->validate( $request, [ 
             'rank_id' => 'required|exists:ranks,id',
@@ -249,16 +249,27 @@ class JoGradeController extends Controller
     public function save_jo_grade(Request $request)
     {
         $this->validate( $request, [ 
-            'judicial_officer_id.*' => 'required||max:99999|exists:judicial_officers,id',
-            'rank_id.*' => 'required|max:100|exists:ranks,id',
-            'date_of_gradation.*' => 'required|date_format:d-m-Y|after:1990-01-01|before:'.date("Y-m-d", strtotime("+1 day"))
+            'graded_jo_list.*.judicial_officer_id' => 'required||max:99999|exists:judicial_officers,id',
+            'rank_id' => 'required|max:100|exists:ranks,id',
+            'date_of_gradation' => 'required|date_format:d-m-Y|after:1990-01-01|before:'.date("Y-m-d", strtotime("+1 day"))
         ]);
 
-        $judicial_officer_id=$request->input('judicial_officer_id');
+        $graded_jo_list=$request->input('graded_jo_list');
+
+            // echo "<pre>";
+            // print_r($graded_jo_list);
+            // echo "</pre>";
+            // exit();
+
+            
         $rank_id=$request->input('rank_id');
         $date_of_gradation=  Carbon::parse ($request->input('date_of_gradation'))->format('Y-m-d') ;
+        
+        $status="Draft";
 
-        $count= count($judicial_officer_id);
+        $count= sizeof($graded_jo_list);
+
+        // print_r($count); exit;
 
         $response = [
             'return_count' => []
@@ -274,10 +285,12 @@ class JoGradeController extends Controller
             for ($i=0; $i< $count; $i++) 
             { 
                 JoGrade::insert([
-                    'judicial_officer_id'=>$judicial_officer_id[$i],
-                    'rank_id'=>$rank_id[$i],
-                    'grade'=>$count+1,
-                    'grade_year'=>$date_of_gradation[$i]
+                    'judicial_officer_id'=>$graded_jo_list[$i]['judicial_officer_id'],
+                    'rank_id'=>$rank_id,
+                    'grade'=>$graded_jo_list[$i]['grade'],
+                    'date_of_gradation'=>$date_of_gradation,
+                    'remark'=>$graded_jo_list[$i]['remark'],
+                    'status'=>$status
                 ]);
             }
 
