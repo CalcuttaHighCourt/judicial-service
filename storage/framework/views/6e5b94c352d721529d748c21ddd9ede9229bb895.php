@@ -238,6 +238,8 @@
                                                 </label>
                                                 <select id="home_district" class="form-control info-form-control select2" name="home_district" style="width:100%">
                                                     <option value="">Select an Option</option>
+                                                    <?php echo $__env->make('districts.district_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
                                                 </select>
                                             </div>
                                         </div>
@@ -444,6 +446,7 @@
                                                     </label>
                                                     <select class="form-control info-form-control select2 rank" style="width:100%">
                                                         <option value="">Select an Option</option>
+                                                        <?php echo $__env->make('ranks.rank_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                                     </select>
                                                 </div>
                                                 <div class="mode_permanent_div">
@@ -482,14 +485,14 @@
                                                     </select>
                                                 </div>
                 
-                                                <div class="form-group required col-xs-2 deputation_reporting_officer_div" style="display:none">
+                                                <div class="form-group required col-xs-2 deputation_reporting_officer_div deputation_zone" style="display:none">                                                    
                                                     <label class="control-label">
                                                             Zone 
                                                     </label>
                                                     <select class="form-control info-form-control select2 zone" style="width:100%">
                                                         <option value="">Select an Option</option>
                                                         <?php echo $__env->make('zones.zone_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                                    </select>
+                                                    </select>                                                    
                                                 </div>
                 
                                                 <div class="col-xs-3 deputation_reporting_officer_div" style="display:none">
@@ -757,12 +760,139 @@
         })
         //Deputation :: END
 
+
+        /*Fetch corresponding Districts of selected State :: STARTS*/
+        var state_flag;
+        $(document).on("change","#home_state",function(){
+            var home_state = $(this).val();
+            var state = $("#home_state option:selected").text();
+            if(state == "West Bengal" || state == "WEST BENGAL" || state == "west bengal"){
+                $("#div_home_district").show();
+                $("#div_home_other_district").hide();
+                state_flag = 'west_bengal';                
+            }
+            else{
+                $("#div_home_district").hide();
+                $("#div_home_other_district").show();
+                state_flag = 'other';
+            }
+        })
+
+        /*Fetch corresponding Districts of selected State :: ENDS*/
+        
+
+        /*Current Address is Same As Permanenet Address :: STARTS*/
+        $(document).on("change","#same_address", function(){
+            if(this.checked)
+                $("#current_address").val($("#permanent_address").val());
+            
+            else
+                $("#current_address").val('');
+            
+        });
+        /*Current Address is Same As Permanenet Address :: ENDS*/
+
+
         // Reset
         $(document).on("click","#reset", function(){
             location.reload(true);
         })
 
-        // Get Details
+        // Populating Basic Details - Contact Details - Profile Image
+        function populateJoBasicDetails(data){
+            $("#jo_name").val(data.officer_name);
+            $("#reg_no").val(data.registration_no);
+            $("#jo_code").val(data.jo_code);
+            $("#dob").val(data.date_of_birth);
+            $("#doj").val(data.date_of_joining);
+            $("#doc").val(data.date_of_confirmation);
+            $("#dor").val(data.date_of_retirement);
+            $("#recruitment_batch_id").val(data.recruitment_batch_id);
+            $("#recruitment_batch_year").val(data.recruitment_batch_year);
+            $("#spouse_name").val(data.spouse);
+            
+            if(data.gender=='M')
+                $("input[name=gender][value=M]").prop('checked', true);
+            else if(data.gender=='F')
+                $("input[name=gender][value=F]").prop('checked', true);
+            else if(data.gender=='O')
+                $("input[name=gender][value=O]").prop('checked', true);
+
+            $("#email_id_1").val(data.email_id_1);
+            $("#email_id_2").val(data.email_id_2);
+            $("#ph_no_1").val(data.mobile_no_1);
+            $("#ph_no_2").val(data.mobile_no_2);
+            $("#home_state").val(data.home_state_id);
+            $("#home_district").val(data.home_district_id);
+            $("#home_other_district").val(data.other_home_district);
+            $("#home_town").val(data.hometown);
+            $("#permanent_address").val(data.permanent_address);
+            $("#current_address").val(data.present_address);
+            $('.avatar').attr('src',data.profile_image);
+
+            $(".select2").trigger("change");
+
+        }
+
+        // Populating Qualification Details
+        function populateJoQualificationDetails(data){
+            if(data.length>0){
+                $.each(data, function(key,val){
+                    $(".degree_id:last").val(val.qualification_id);
+                    $(".yop:last").val(val.passing_year);
+
+                    $(".select2").trigger("change");
+                    $("#add_more_qualification").trigger('click');
+                    $(".remove_qualification").remove();
+                })
+                $(".div_add_more_qualification:last").remove();
+            }            
+        }
+
+
+        // Populating Practice Details
+        function populateJoPracticeDetails(data){
+            if(data.length>0){
+                $.each(data, function(key,val){
+                    $(".subdivision_id:last").val(val.subdivision_id);
+                    $(".practice_from_year:last").val(val.from_year);
+                    $(".practice_to_year:last").val(val.to_year);
+
+
+                    $(".select2").trigger("change");
+                    $("#add_more_legal_practice").trigger('click');
+                    $(".remove_legal_practice").remove();
+                })
+                $(".div_add_more_legal_practice:last").remove();
+            }            
+        }
+
+        // Populating Posting Details
+        function populateJoPostingDetails(data){
+            if(data.length>0){
+                $.each(data, function(key,val){
+                    $(".mode_id:last").val(val.mode_id);
+                    $(".rank:last").val(val.rank_id);
+                    $(".designation_id:last").val(val.designation_id);
+                    $(".other_designation:last").val(val.deputation_designation);
+                    $(".other_place_posting:last").val(val.deputation_posting_place);
+                    $(".from_date:last").val(val.from_date);
+                    $(".to_date:last").val(val.to_date);
+                    $(".posting_remark:last").val(val.posting_remark);
+                    $(".other_reporting_officer:last").val(val.other_reporting_officer_name);
+                    $(".other_reporting_officer_designation:last").val(val.other_reporting_officer_designation);
+                    
+
+                    $(".select2").trigger("change");
+                    $(".deputation_zone").hide();
+                    $("#add_more_posting").trigger('click');
+                    $(".remove_posting").remove();
+                })
+                $(".div_add_more_posting:last").remove();
+            }            
+        }
+
+        // Get JO Details
         $(document).on("click","#get_details", function(){
             if($("#fetch_id").val() !=""){
                 $(this).hide();
@@ -776,6 +906,11 @@
                         _token: $('meta[name="_token"]').attr('content'),
                     },
                     success:function(response){
+                        populateJoBasicDetails(response['basic_contact_details']);
+                        populateJoQualificationDetails(response['qualification_details']);
+                        populateJoPracticeDetails(response['practice_details']); 
+                        populateJoPostingDetails(response['posting_details']);                        
+                       
                         $("#details").show();
                     },
                     error:function (jqXHR, textStatus, errorThrown) {

@@ -491,6 +491,7 @@ class JoEntryFormController extends Controller
 
         $jo_details = array();
 
+        // Basic & Contact Details
         $jo_details['basic_contact_details'] = JudicialOfficer::find($request->jo_id);
         
         $jo_details['basic_contact_details']->date_of_birth = Carbon::parse($jo_details['basic_contact_details']->date_of_birth)->format('d/m/Y');
@@ -501,6 +502,33 @@ class JoEntryFormController extends Controller
             $jo_details['basic_contact_details']->date_of_confirmation = Carbon::parse($jo_details['basic_contact_details']->date_of_confirmation)->format('d/m/Y');
         else
             $jo_details['basic_contact_details']->date_of_confirmation = "";
+
+        $jo_details['basic_contact_details']->profile_image = asset('images/judicial_officers/'.$jo_details['basic_contact_details']->registration_no.'/'.$jo_details['basic_contact_details']->profile_image);
+
+        // Qualification Details
+        $jo_details['qualification_details'] = JudicialOfficerQualification::where('judicial_officer_id',$request->jo_id)
+                                                                            ->orderBy('passing_year','asc')
+                                                                            ->get();
+
+        // Practice Details
+        $jo_details['practice_details'] = JoLegalExperience::where('judicial_officer_id',$request->jo_id)
+                                                            ->orderBy('from_year','asc')
+                                                            ->get();
+
+        // Posting Details
+        $jo_details['posting_details'] = JudicialOfficerPosting::leftJoin('jo_reportings','judicial_officer_postings.id','=','jo_reportings.posting_id')
+                                                                ->where('judicial_officer_postings.judicial_officer_id',$request->jo_id)
+                                                                ->orderBy('from_date','asc')
+                                                                ->get();
+
+        foreach($jo_details['posting_details'] as $key => $jo_posting){
+            if($jo_posting->to_date==null)
+                $jo_posting->to_date = "";
+            else
+                $jo_posting->to_date = Carbon::parse($jo_posting->to_date)->format('d-m-Y');
+            
+            $jo_posting->from_date = Carbon::parse($jo_posting->from_date)->format('d-m-Y');
+        }
             
         return $jo_details;
     }
