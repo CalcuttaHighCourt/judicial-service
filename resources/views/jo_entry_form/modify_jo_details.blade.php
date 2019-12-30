@@ -168,7 +168,7 @@
                                     <br/><br/>
                                     <div class="col-sm-12">
                                         <div class="col-sm-4 col-sm-offset-4 text-center">
-                                            <button class="btn btn-success" id="update_basic_details"><i class="glyphicon glyphicon-ok-sign"></i> UPDATE</button>
+                                            <button class="btn btn-success update" value="update_basic_details"><i class="glyphicon glyphicon-ok-sign"></i> UPDATE</button>
                                         </div>
                                     </div>    
                                 </div>
@@ -285,7 +285,7 @@
                                 <div class="row">                                
                                     <div class="col-sm-12">
                                         <div class="col-sm-4 col-sm-offset-4 text-center">
-                                            <button class="btn btn-success" id="update_contact_details"><i class="glyphicon glyphicon-ok-sign"></i> UPDATE</button>
+                                            <button class="btn btn-success update" value="update_contact_details"><i class="glyphicon glyphicon-ok-sign"></i> UPDATE</button>
                                         </div>
                                     </div>       
                                 </div>
@@ -341,7 +341,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">                                    
                                         <div class="col-sm-4 col-sm-offset-4 text-center">
-                                            <button class="btn btn-success" id="update_qualification_details"><i class="glyphicon glyphicon-ok-sign"></i> UPDATE</button>
+                                            <button class="btn btn-success update" value="update_qualification_details"><i class="glyphicon glyphicon-ok-sign"></i> UPDATE</button>
                                         </div>
                                     </div>    
                                 </div>
@@ -409,7 +409,7 @@
                                     <br/>
                                     <div class="col-sm-12">
                                         <div class="col-sm-4 col-sm-offset-4 text-center">
-                                            <button class="btn btn-success" id="update_practice_details"><i class="glyphicon glyphicon-ok-sign"></i> UPDATE</button>
+                                            <button class="btn btn-success update" value="update_practice_details"><i class="glyphicon glyphicon-ok-sign"></i> UPDATE</button>
                                         </div>
                                     </div>    
                                 </div>
@@ -538,7 +538,7 @@
                                     <br/>
                                     <div class="col-sm-12">
                                         <div class="col-sm-4 col-sm-offset-4 text-center">
-                                            <button class="btn btn-success" id="update_posting_details"><i class="glyphicon glyphicon-ok-sign"></i> UPDATE</button>
+                                            <button class="btn btn-success update" value="update_posting_details"><i class="glyphicon glyphicon-ok-sign"></i> UPDATE</button>
                                         </div>
                                     </div>    
                                 </div>
@@ -563,6 +563,7 @@
                                             <h6><span style="color:red">*</span>Supported Image File Type: jpeg / png / jpg / gif</h6>
                                             <h6><span style="color:red">*</span>Max File Size: 50 KB</h6>
                                             <input type="file" id="profile_image" name="profile_image" class="text-center center-block file-upload" accept="image/png, image/jpg, image/jpeg, image/gif">                                      
+                                            <input type="integer" name="id" id="id" style="display:none">
                                         </div>
                                     </form>
                                 </div>
@@ -570,7 +571,7 @@
                                     <br/><br/>
                                     <div class="col-sm-12">
                                         <div class="col-sm-4 col-sm-offset-4 text-center">
-                                            <button class="btn btn-success" id="update_profile_image"><i class="glyphicon glyphicon-ok-sign"></i> UPDATE</button>
+                                            <button class="btn btn-success update" value="update_profile_image"><i class="glyphicon glyphicon-ok-sign"></i> UPDATE</button>
                                         </div>
                                     </div>    
                                 </div>
@@ -897,6 +898,9 @@
                 $(this).hide();
                 $("#fetch_id").attr("disabled",true);
                 
+                // hidden id for profile image form
+                $("#id").val($("#fetch_id").val());
+                
                 $.ajax({
                     type:"post",
                     url:"{{route('fetch_jo_details')}}",
@@ -922,6 +926,121 @@
                 return false;
             }
         })
+
+
+        // Data Updation :: start        
+        $(document).on("click",".update", function(){
+            //update basic details
+            if($(this).val()=='update_basic_details'){
+                $.ajax({
+                    type:"post",
+                    url:"{{route('update_basic_details')}}",
+                    data:{
+                        id:$("#fetch_id").val(),
+                        jo_code:$("#jo_code").val(),
+                        registration_no:$("#reg_no").val(),
+                        officer_name:$("#jo_name").val(),
+                        gender:$("input[name='gender']:checked").val(),                    
+                        spouse:$("#spouse_name").val(),
+                        date_of_birth:$("#dob").val(),
+                        recruitment_batch_id:$("#recruitment_batch_id").val(),
+                        recruitment_batch_year: $("#recruitment_batch_year").val(),
+                        date_of_joining:$("#doj").val(),
+                        date_of_confirmation:$("#doc").val(),
+                        date_of_retirement:$("#dor").val(),
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    success: function (data, textStatus, jqXHR) { 
+                        swal("Basic Details Updated Successfully","","success");
+                        return false;
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        if(jqXHR.status!=422 && jqXHR.status!=400){
+                            swal("Failed to Update Details",errorThrown,"error");
+                        }
+                        else{
+                            msg = "";
+                            $.each(jqXHR.responseJSON.errors, function(key,value) {
+                                msg+=value+"\n";						
+                            });
+
+                            swal("Failed to Update Details",msg,"error");
+                        }
+                    }
+                })
+            }
+            //update contact details
+            else if($(this).val()=='update_contact_details'){
+                $.ajax({
+                    type:"post",
+                    url:"{{route('update_contact_details')}}",
+                    data:{
+                        id:$("#fetch_id").val(),
+                        home_state_id:$("#home_state").val(),
+                        state_flag:state_flag,
+                        home_district_id:$("#home_district").val(),
+                        other_home_district:$("#home_other_district").val(),                                        
+                        hometown:$("#home_town").val(),
+                        present_address:$("#current_address").val(),
+                        permanent_address:$("#permanent_address").val(),                                        
+                        mobile_no_1:$("#ph_no_1").val(),
+                        mobile_no_2:$("#ph_no_2").val(),
+                        email_id_1:$("#email_id_1").val(),
+                        email_id_2:$("#email_id_2").val(),
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    success: function (data, textStatus, jqXHR) { 
+                        swal("Contact Details Updated Successfully","","success");
+                        return false;
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        if(jqXHR.status!=422 && jqXHR.status!=400){
+                            swal("Failed to Update Details",errorThrown,"error");
+                        }
+                        else{
+                            msg = "";
+                            $.each(jqXHR.responseJSON.errors, function(key,value) {
+                                msg+=value+"\n";						
+                            });
+
+                            swal("Failed to Update Details",msg,"error");
+                        }
+                    }
+                })
+            }
+            //update profile image
+            else if($(this).val()=='update_profile_image'){
+                if($("#profile_image").val()!=""){
+                    $.ajax({
+                        method:"POST",
+                        url:"{{route('update_profile_image')}}",
+                        data: new FormData($("#form_image")[0]),
+                        dataType:'JSON',
+                        contentType: false,
+                        cache: false,
+                        processData: false, 
+                        success: function (data, textStatus, jqXHR) { 
+                            swal("Profile Image Updated Successfully","","success");
+                            return false;
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            if(jqXHR.status!=422 && jqXHR.status!=400){
+                                swal("Failed to Update Image",errorThrown,"error");
+                            }
+                            else{
+                                msg = "";
+                                $.each(jqXHR.responseJSON.errors, function(key,value) {
+                                    msg+=value+"\n";						
+                                });
+
+                                swal("Failed to Update Image",msg,"error");
+                            }
+                        }
+                    })
+                }
+            }
+        })
+        // Data Updation :: end
 
 
     });
