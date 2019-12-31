@@ -2,5 +2,5 @@ table.dt-rowReorder-float{position:absolute !important;opacity:0.8;table-layout:
 }
 tr.dt-rowReorder-moving{outline:2px solid #555;outline-offset:-2px; }
 body.dt-rowReorder-noOverflow{overflow-x:hidden;}
-table.dataTable{text-align:center;cursor:move;}
+table.dataTable{text-align:left;cursor:move;}
 td.reorder{text-align:center;cursor:move;}

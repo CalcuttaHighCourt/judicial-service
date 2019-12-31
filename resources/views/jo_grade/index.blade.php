@@ -19,8 +19,10 @@
     border-radius:100%;             
     width:2px;
     height:2px;
-    text-align:center;
+    text-align:left;
 }
+
+
 
 </style>
 
@@ -47,20 +49,20 @@
 
             <div class="col-xs-2" class="required">
                 <label for="jo_grade_year" class="control-label">
-                    Year 
+                    Date 
                 </label>
                 <input type="text" class="form-control date" name="date_of_gradation" id="date_of_gradation" placeholder="dd-mm-yyyy">
             </div>
-        </div>
 
-        <div class="form-group">
             <div class="col-xs-1">
+                <label>   &nbsp;  </label>
+                <br>
                 <button class="btn btn-success submit" id="submit" name="submit">Submit</button>
             </div>
-        </div>
 
-        <div class="form-group">
             <div class="col-xs-1">
+                <label>   &nbsp;   </label>
+                <br>
                 <button class="btn btn-primary primary" id="reset" name="reset">Reset</button>
             </div>
         </div>
@@ -75,44 +77,71 @@
 
     <br><br><br>
 
-    <div class="jo_grade_div" >
+    <div class="jo_grade_div" id="jo_grade_div" name="jo_grade_div" style="display:none;" >
             <div id="info-panel2" class="panel panel-default">    
             <div id="datatable-panel-heading" class="panel-heading clearfix">       
                 <div class="panel-title pull-left">List of Judicial Officers. . . </div>
             </div>
 
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-striped"
-                        id="jo_grade_table" style="width: 100%;">
-                        <!-- Table Headings -->
-                        <thead>
-                            <tr>                  
-                                <th style="color:green">Grade</th>   
-                                <th style="color:black">Pre Grade</th>  
-                                <th>JO Name</th>
-                                <th>JO Code</th>
-                                <th>Joining Date</th>
-                                <th>From Date</th>
-                                <th>Remark</th>
-                                <th>Edit Position</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>        
-                                <th style="color:green">Grade</th>   
-                                <th style="color:black">Pre Grade</th>           
-                                <th>JO Name</th>
-                                <th>JO Code</th>
-                                <th>Joining Date</th>
-                                <th>From Date</th>
-                                <th>Remark</th>
-                                <th>Edit Position</th>
-                            </tr>
-                        </tfoot>
-                    </table>
+            <div class="panel-body box-body" style="overflow-x: auto;">
+                <div class="table-responsive" >
+                        <table class="table table-striped"  style="white-space: nowrap"  id="jo_grade_table" style="width: 100%;">
+                            <!-- Table Headings -->
+                            <thead>
+                                <tr>                  
+                                    <th style="color:green">Position</th>   
+                                    <th style="color:black">Pre-Pos.</th>  
+                                    <th>Formula</th> 
+                                    <th>Officer Name || Code</th>
+                                    <th>Date of Birth</th>
+                                    <th>Joining Date</th>
+                                    <th>Retirement</th>
+                                    <th>From</th>
+                                    <th>Remark</th>
+                                    <th>Edit Pos.</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>        
+                                    <th style="color:green">Position</th>   
+                                    <th style="color:black">Pre-Pos.</th> 
+                                    <th>Formula</th>           
+                                    <th>Officer Name || Code</th>
+                                    <th>Date of Birth</th>
+                                    <th>Joining Date</th>
+                                    <th>Retirement</th>
+                                    <th>From</th>
+                                    <th>Remark</th>
+                                    <th>Edit Pos.</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+
                 </div>
             </div>
+
+
+        <div class="row" style="margin-left:-200px">
+
+            <div class="col-xs-2">
+            </div>
+            <!--/col-3-->
+
+            <div class="col-xs-2">
+            <button class="btn btn-primary draft" id="draft" name="draft">Draft</button>
+            </div>
+
+            <div class="col-xs-2">
+            <button class="btn btn-success finalized" id="finalized" name="finalized">Final</button>
+            </div>
+            <!--/col-3-->
+
+            <div class="col-xs-1">
+            <button class="btn btn-danger danger" id="close" name="close">Close</button>
+            </div>
+            <!--/col-3-->
+
+
         </div>
 
         
@@ -125,7 +154,8 @@
 
 <br>
 
-<button class="btn btn-success save" id="save" name="save">Save</button>
+
+
 
 </div>
 
@@ -170,6 +200,8 @@
            $(document).on("click","#submit", function() {
 
                 var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
+                var jo_grade_rank_name= $("#jo_grade_rank_id option:selected").html();
+
                 var date_of_gradation= $("#date_of_gradation").val();
 
 
@@ -206,12 +238,16 @@
                                             "class":"reorder data"},    
                                         {"data": "inicial",
                                             "class":"inicial"},
+                                        {"data": "formula",
+                                            "class":"formula"},
                                         {"data": "jo_name",
                                             "class":"jo_name"},
-                                        {"data": "jo_code",
-                                            "class":"jo_code"},
+                                        {"data": "date_of_birth",
+                                            "class":"date_of_birth"},
                                         {"data": "date_of_joining",
                                             "class":"date_of_joining"},
+                                        {"data": "date_of_retirement",
+                                            "class":"date_of_retirement"},
                                         {"data": "from_date",
                                             "class":"from_date"},
                                         {"data": "remark",
@@ -220,7 +256,7 @@
                                             "class":"to_grade"}
                                 ],
                                 "columnDefs": 
-                                [                                    
+                                [                         
                                         {
                                             searchable: false,
                                             orderable: false,
@@ -246,6 +282,7 @@
 
                             // "select": true
 
+                            //$(".rank_type").val(jo_grade_rank_name+" from");
                             $("#jo_grade_div").show();
 
                 }//else of if(jo_grade_rank_id =="" ){
@@ -409,7 +446,7 @@
                     // change color of the row who has ever changed
                     for (var i = 0; i < row_count; i++) 
                     {                                              
-                        if(table.cell(i,7).nodes().to$().text() !="")
+                        if(table.cell(i,9).nodes().to$().text() !="")
                         {
                             table.row(i).nodes().to$().css('color','#196FFC'); 
                             table.row(i).nodes().to$().css('background','#AAFADF');
@@ -439,22 +476,30 @@
 
 
             $(document).on("click","#reset", function() {
+                $("#jo_grade_table").DataTable().destroy();
                 $("#jo_grade_div").hide();
                 location.reload();
             });
 
 
-            $(document).on("click","#save", function() {
+            $(document).on("click","#close", function() {
+                $("#jo_grade_table").DataTable().destroy();
+                $("#jo_grade_div").hide();
+                location.reload();
+            });
+
+            $(document).on("click","#draft", function() {
 
                 //fecth all rows including remark
                 var graded_jo_list = table.rows( { order: 'applied' } ).data().toArray();
-                
+
                 var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
                 var date_of_gradation= $("#date_of_gradation").val();
+                var status="Draft";
 
                     swal({
-                    title: "Are you sure?",
-                    text: "This will save the arranged grade list",
+                    title: "Draft ready ?",
+                    text: "This will draft the arranged grade list",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -467,11 +512,13 @@
                                 data:{
                                     graded_jo_list:graded_jo_list,
                                     rank_id:jo_grade_rank_id,
-                                    date_of_gradation:date_of_gradation
+                                    date_of_gradation:date_of_gradation,
+                                    status: status
                                 },
                                 success:function(response){
-                                    swal("Arranged grade set Successfully","","success");
+                                    swal("Arranged grade drafted Successfully","","success");
                                     $("#jo_grade_div").hide();
+                                    location.reload();
                                 },
                                 error:function(response) {  
 
@@ -493,11 +540,64 @@
                         }
                     });
 
+                });// end of $(document).on("click","#save", function() {
+
+
+                $(document).on("click","#finalized", function() {
+
+                    //fecth all rows including remark
+                    var graded_jo_list = table.rows( { order: 'applied' } ).data().toArray();
+
+                    var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
+                    var date_of_gradation= $("#date_of_gradation").val();
+                    var status="Finalized";
+
+                        swal({
+                        title: "Grading Final?",
+                        text: "This will finalized the arranged grade list",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                $.ajax({
+                                    url:"{{route('save_jo_grade')}}",
+                                    type:"POST",
+                                    data:{
+                                        graded_jo_list:graded_jo_list,
+                                        rank_id:jo_grade_rank_id,
+                                        date_of_gradation:date_of_gradation,
+                                        status: status
+                                    },
+                                    success:function(response){
+                                        swal("Arranged grade set Successfully","","success");
+                                        $("#jo_grade_div").hide();
+                                        location.reload();
+                                    },
+                                    error:function(response) {  
+
+                                            if(jqXHR.status!=422 && jqXHR.status!=400){
+                                                swal("Failed to "+operation+" Judicial Officer grading",errorThrown,"error");
+                                            }
+                                            else{
+                                                msg = "";
+                                                $.each(jqXHR.responseJSON.errors, function(key,value) {
+                                                    msg+=value+"\n";						
+                                                });
+
+                                                swal("Failed to "+operation+" Judicial Officer grading",msg,"error");
+                                            }
+
+                                        }
+
+                                })
+                            }
+                        });
 
 
 
-
-            });// end of $(document).on("click","#save", function() {
+                 });// end of $(document).on("click","#finalized", function() {
 
 
 

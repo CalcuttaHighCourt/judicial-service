@@ -37,13 +37,15 @@ class JoGradeController extends Controller
 
             0 =>'grade',
             1 =>'inicial', 
-            2 =>'judicial_officer_id',
-            3 =>'jo_name',            
-            4 =>'jo_code', 
-            5 =>'date_of_joining',
-            6 =>'from_date',
-            7 =>'remark',
-            8 =>'to_grade'
+            3 =>'formula',
+            4 =>'judicial_officer_id',
+            5 =>'jo_name',            
+            6 =>'date_of_birth', 
+            7 =>'date_of_retirement',
+            8 =>'date_of_joining',
+            9 =>'from_date',
+            10 =>'remark',
+            11 =>'to_grade'
             
         );
 
@@ -53,54 +55,62 @@ class JoGradeController extends Controller
 
         $startDate=Carbon::parse($date_of_gradation)->startOfYear();
 
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        //$order = $columns[$request->input('order.1.column')];
+        $dir = $request->input('order.0.dir');     
         
-        // $jo_list = JudicialOfficer::join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
-        //                             ->join('judicial_officer_postings','judicial_officer_postings.id','=','judicial_officers.id')
-        //                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
-        //                             ->where([
-        //                                         ['jo_grades.rank_id','=',$rank_id],
-        //                                         ['jo_grades.grade_year','=',$year]
-        //                                 ])
-        //                             ->whereBetween('judicial_officer_postings.from_date', [$startDate, $endDate]) 
-        //                             ->select('judicial_officers.id','judicial_officers.jo_code','judicial_officers.officer_name' )
-        //                             ->orderBy('jo_grades.grade','desc')
-        //                             ->get();
         
-
-        
-        // $last_gradation_date = JudicialOfficerPosting::where('judicial_officer_postings.rank_id',"=",$rank_id)
-        // ->whereBetween('judicial_officer_postings.from_date', [$startDate, $date_of_gradation]) 
-        // ->orderBy('judicial_officer_postings.from_date','desc')
-        // ->select('judicial_officer_postings.from_date')
-        // ->first();
-
-        // if( $jo_list->isEmpty() )
-        // {
-
-
+        $jo_list_draft = JoGrade::where([
+                                            ['jo_grades.rank_id',$rank_id],
+                                            ['jo_grades.date_of_gradation',$date_of_gradation],
+                                            ['jo_grades.status','Draft']
+                                        ])  
+                                  ->count();
+                                   
+        if( $jo_list_draft == 0 )
+        {
             
             $totalData = JudicialOfficer::join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
-                                        ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
-                                        ->where('judicial_officer_postings.rank_id',"=",$rank_id)
-                                        ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
-                                        ->count();
+                                            ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
+                                            ->where('judicial_officer_postings.rank_id',"=",$rank_id)
+                                            ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
+                                            ->count();  
+        }
+        else
+        {
+            $totalData = JudicialOfficer::join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                                            ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
+                                            ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
+                                            ->where([
+                                                        ['jo_grades.rank_id',$rank_id],
+                                                        ['jo_grades.date_of_gradation',$date_of_gradation],
+                                                        ['jo_grades.status','=','Draft']
+                                                    ])  
+                                            ->count();  
 
-            $totalFiltered = $totalData; 
-    
-            $limit = $request->input('length');
-            $start = $request->input('start');
-            //$order = $columns[$request->input('order.1.column')];
-            $dir = $request->input('order.0.dir');            
+            // echo "<pre>";
+            // print_r($totalData);
+            // echo "</pre>";
+            // exit();
 
+        }
+
+        $totalFiltered = $totalData;    
     
-            if(empty($request->input('search.value'))){
+
+        if( $jo_list_draft == 0 )
+        {
+
+            if(empty($request->input('search.value')))
+            {
 
                 $jo_list = JudicialOfficer::join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->where('judicial_officer_postings.rank_id',"=",$rank_id)
                                             ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
                                             ->orderBy('judicial_officers.date_of_joining','desc')
-                                            ->select('judicial_officers.id','judicial_officers.jo_code','judicial_officers.officer_name','judicial_officer_postings.rank_id' ,'judicial_officers.date_of_joining', 'judicial_officer_postings.from_date' )                                    
+                                            ->select('judicial_officers.id','judicial_officers.jo_code','judicial_officers.officer_name', 'judicial_officers.date_of_birth',  'judicial_officers.date_of_retirement','judicial_officer_postings.rank_id' ,'judicial_officers.date_of_joining', 'judicial_officer_postings.from_date' )                                    
                                             ->offset($start)
                                             ->limit($limit)
                                             ->get();
@@ -127,7 +137,7 @@ class JoGradeController extends Controller
                                                 $query->orWhere('judicial_officers.jo_code','ilike',"%{$search}%");                                                  
                                             })
                                             ->orderBy('judicial_officers.date_of_joining','desc')
-                                            ->select('judicial_officers.id','judicial_officers.jo_code','judicial_officers.officer_name','judicial_officer_postings.rank_id','judicial_officers.date_of_joining','judicial_officer_postings.from_date' )                                                   
+                                            ->select('judicial_officers.id','judicial_officers.jo_code','judicial_officers.officer_name','judicial_officers.date_of_birth',  'judicial_officers.date_of_retirement','judicial_officer_postings.rank_id','judicial_officers.date_of_joining','judicial_officer_postings.from_date' )                                                   
                                             ->offset($start)
                                             ->limit($limit)
                                             ->get();
@@ -145,8 +155,83 @@ class JoGradeController extends Controller
                                                 ->count();
 
 
-            }
+            }// END OF ELSE OF if(empty($request->input('search.value')))
+        
+        }   //end of  if( $jo_list_draft == 0 )
+        else
+        {
 
+            if(empty($request->input('search.value')))
+            {
+
+                $jo_list = JudicialOfficer::join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                                            ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
+                                            ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
+                                            ->where([
+                                                        ['jo_grades.rank_id',$rank_id],
+                                                        ['jo_grades.date_of_gradation',$date_of_gradation],
+                                                        ['jo_grades.status','=','Draft']
+                                                    ])  
+                                            ->select('judicial_officers.id','judicial_officers.jo_code','judicial_officers.officer_name','judicial_officers.date_of_birth',  'judicial_officers.date_of_retirement','judicial_officer_postings.rank_id' ,'judicial_officers.date_of_joining', 'judicial_officer_postings.from_date', 'jo_grades.remark' )                                    
+                                            ->orderBy('jo_grades.grade','asc')
+                                            ->offset($start)
+                                            ->limit($limit)
+                                            ->get();
+
+
+                $totalFiltered = JudicialOfficer::join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                                                ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
+                                                ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
+                                                ->where([
+                                                            ['jo_grades.rank_id',$rank_id],
+                                                            ['jo_grades.date_of_gradation',$date_of_gradation],
+                                                            ['jo_grades.status','=','Draft']
+                                                        ])  
+                                                ->count();
+
+            }
+            else
+            {
+                $search = strtoupper($request->input('search.value'));
+                
+                $jo_list = JudicialOfficer::join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                                            ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
+                                            ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
+                                            ->where([
+                                                        ['jo_grades.rank_id',$rank_id],
+                                                        ['jo_grades.date_of_gradation',$date_of_gradation],
+                                                        ['jo_grades.status','=','Draft']
+                                                    ])  
+                                            ->where(function($query) use ($search){    
+                                                $query->orWhere('judicial_officers.officer_name','ilike',"%{$search}%");
+                                                $query->orWhere('judicial_officers.jo_code','ilike',"%{$search}%");                                                  
+                                            })
+                                            ->select('judicial_officers.id','judicial_officers.jo_code','judicial_officers.officer_name','judicial_officers.date_of_birth',  'judicial_officers.date_of_retirement','judicial_officer_postings.rank_id','judicial_officers.date_of_joining','judicial_officer_postings.from_date', 'jo_grades.remark' )                                                   
+                                            ->orderBy('jo_grades.grade','asc')
+                                            ->offset($start)
+                                            ->limit($limit)
+                                            ->get();
+
+
+                $totalFiltered = JudicialOfficer::join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                                                ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
+                                                ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
+                                                ->where([
+                                                            ['jo_grades.rank_id',$rank_id],
+                                                            ['jo_grades.date_of_gradation',$date_of_gradation],
+                                                            ['jo_grades.status','=','Draft']
+                                                        ])  
+                                                ->where(function($query) use ($search){
+                                                    $query->orWhere('judicial_officers.officer_name','ilike',"%{$search}%");
+                                                    $query->orWhere('judicial_officers.jo_code','ilike',"%{$search}%");                                                          
+                                                })        
+                                                ->count();
+
+
+            } // END OF ELSE OF if(empty($request->input('search.value')))
+            
+        }
+        //end of else of if( $jo_list_draft == 0 )
 
             $data = array();
             $counter=1;
@@ -157,13 +242,24 @@ class JoGradeController extends Controller
                 {                   
                     $nestedData['grade'] = $counter; 
                     $nestedData['inicial'] = $counter;
-                                        
+
+                    $nestedData['formula'] = "";
+                   // $nestedData['year'] = "";
+
                     $nestedData['judicial_officer_id'] = $list->id;
-                    $nestedData['jo_name'] = $list->officer_name;
-                    $nestedData['jo_code'] = $list->jo_code;
-                    $nestedData['date_of_joining'] = Carbon::parse ($list->date_of_joining)->format('d-m-Y') ;                    
+                    $nestedData['jo_name'] = $list->officer_name." || ".$list->jo_code;
+                   
+                    $nestedData['date_of_birth'] =Carbon::parse ($list->date_of_birth)->format('d-m-Y');
+                    $nestedData['date_of_retirement'] = Carbon::parse ($list->date_of_retirement)->format('d-m-Y');
+                    $nestedData['date_of_joining'] = Carbon::parse ($list->date_of_joining)->format('d-m-Y') ;        
+
                     $nestedData['from_date'] = Carbon::parse ($list->from_date)->format('d-m-Y') ;  
-                    $nestedData['remark'] = "";
+
+                    if($jo_list_draft == 0)
+                        $nestedData['remark'] = "";
+                    else
+                        $nestedData['remark'] = $list->remark;
+
                     //$nestedData['edit_position'] = '<img src= src="'.asset('images/position.png').'  width="20" height="20" class="edit_position"  style="cursor:pointer;" alt="Edit Position" aria-hidden="true" title="Edit Position" > ';
                     $nestedData['to_grade'] = "";
 
@@ -183,66 +279,9 @@ class JoGradeController extends Controller
 
             echo json_encode($json_data);
 
-                                            
-            
-
-
-            // $jo_list['new']=1;
-            //   ->whereBetween('judicial_officer_postings.from_date', [$startDate, $date_of_gradation]) 
-
-       // }
-        // else
-        // {
-        //     $jo_list['new']=0;
-        // }
-
-        //return response()->json($jo_list)->header('Content-Type','application/json');
-
 
     }
     //end of  public function get_jo_details(Request $request)
-
-
-    // public function datatable_editor(Request $request)
-    // {
-
-    //     // Build our Editor instance and process the data coming from _POST
-    //     Editor::inst( $db, 'jo_grades' )
-    //         ->fields(
-
-    //             Field::inst( 'jo_name' )->validator( 'Validate::notEmpty' ),
-    //             Field::inst( 'jo_code' )->validator( 'Validate::notEmpty' ),
-    //             Field::inst( 'remark' )->validator( 'Validate::notEmpty' ),
-    //             Field::inst( 'edit_position' )->validator( 'Validate::notEmpty' ),
-    //             Field::inst( 'sl_no' )->validator( 'Validate::numeric' )
-    //         )
-    //         ->on( 'preCreate', function ( $editor, $values ) {
-    //             // On create update all the other records to make room for our new one
-    //             $editor->db()
-    //                 ->query( 'update', 'jo_grades' )
-    //                 ->set( 'sl_no', 'sl_no+1', false )
-    //                 ->where( 'sl_no', $values['sl_no'], '>=' )
-    //                 ->exec();
-    //         } )
-    //         ->on( 'preRemove', function ( $editor, $id, $values ) {
-    //             // On remove, the sequence needs to be updated to decrement all rows
-    //             // beyond the deleted row. Get the current reading order by id (don't
-    //             // use the submitted value in case of a multi-row delete).
-    //             $order = $editor->db()
-    //                 ->select( 'jo_grades', 'sl_no', array('id' => $id) )
-    //                 ->fetch();
-        
-    //             $editor->db()
-    //                 ->query( 'update', 'jo_grades' )
-    //                 ->set( 'sl_no', 'sl_no-1', false )
-    //                 ->where( 'sl_no', $order['sl_no'], '>' )
-    //                 ->exec();
-    //         } )
-    //         ->process( $_POST )
-    //         ->json();
-
-    // }
-
 
 
 
@@ -255,21 +294,28 @@ class JoGradeController extends Controller
         ]);
 
         $graded_jo_list=$request->input('graded_jo_list');
-
-            // echo "<pre>";
-            // print_r($graded_jo_list);
-            // echo "</pre>";
-            // exit();
-
             
         $rank_id=$request->input('rank_id');
         $date_of_gradation=  Carbon::parse ($request->input('date_of_gradation'))->format('Y-m-d') ;
+        $status=$request->input('status');
+
+
         
-        $status="Draft";
+
+                // echo "<pre>";
+                // print_r($graded_jo_list);
+                // echo "</pre>";
+                // exit();
 
         $count= sizeof($graded_jo_list);
 
-        // print_r($count); exit;
+
+        $jo_list_draft = JoGrade::where([
+                                            ['jo_grades.rank_id',$rank_id],
+                                            ['jo_grades.date_of_gradation',$date_of_gradation],
+                                            ['jo_grades.status','Draft']
+                                        ])  
+                                 ->count();
 
         $response = [
             'return_count' => []
@@ -281,19 +327,42 @@ class JoGradeController extends Controller
 
             DB::beginTransaction();
 
+                
+            if( $jo_list_draft == 0 )
+            {
+                        
+                for ($i=0; $i< $count; $i++) 
+                { 
+                    JoGrade::insert([
+                        'judicial_officer_id'=>$graded_jo_list[$i]['judicial_officer_id'],
+                        'rank_id'=>$rank_id,
+                        'grade'=>$graded_jo_list[$i]['grade'],
+                        'date_of_gradation'=>$date_of_gradation,
+                        'remark'=>$graded_jo_list[$i]['remark'],
+                        'status'=>$status
+                    ]);
+                }
 
-            for ($i=0; $i< $count; $i++) 
-            { 
-                JoGrade::insert([
-                    'judicial_officer_id'=>$graded_jo_list[$i]['judicial_officer_id'],
-                    'rank_id'=>$rank_id,
-                    'grade'=>$graded_jo_list[$i]['grade'],
-                    'date_of_gradation'=>$date_of_gradation,
-                    'remark'=>$graded_jo_list[$i]['remark'],
-                    'status'=>$status
-                ]);
+
             }
+            else
+            {
+                for ($i=0; $i< $count; $i++) 
+                { 
+                    JoGrade:: where([
+                                        ['jo_grades.judicial_officer_id',$graded_jo_list[$i]['judicial_officer_id'] ],
+                                        ['jo_grades.rank_id',$rank_id],
+                                        ['jo_grades.date_of_gradation',$date_of_gradation]
+                                    ])  
+                            ->update([                      
+                                    'grade'=>$graded_jo_list[$i]['grade'],
+                                    'remark'=>$graded_jo_list[$i]['remark'],
+                                    'status'=>$status
+                                ]);
+                }
 
+            }// end of else of  if( $jo_list_draft == 0 )
+            
             DB::commit();     
 
             $response = array(
