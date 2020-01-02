@@ -21,6 +21,7 @@ use Auth;
 use DB;
 use Carbon\Carbon;
 
+
 class JoEntryFormController extends Controller
 {
     
@@ -367,18 +368,13 @@ class JoEntryFormController extends Controller
         return view('profile.index')->with('profile',$profile);
     }
 
-    
-    public function update(Request $request, $id)
-    {
-        //
-    }
-    
-    public function destroy($id)
-    {
-        //
-    }
+        
 
     public function fetch_district(Request $request){
+        $this->validate( $request, [ 
+            'state' => 'required|max:1000|exists:states,id'
+        ]);
+
         $state = $request->input('state');
         $districts = State::with('districts')
                             ->where('states.id',$state)
@@ -388,6 +384,10 @@ class JoEntryFormController extends Controller
     }
 
     public function fetch_rank_designation(Request $request){
+        $this->validate( $request, [ 
+            'batch' => 'required|max:20|exists:batches,id'
+        ]);
+
         $batch = $request->input('batch');
 
         if($batch == 'PSC' || $batch == 'psc'){
@@ -472,6 +472,154 @@ class JoEntryFormController extends Controller
             echo json_encode($json_data);
         }
 
+    }
+
+
+    public function fetch_jo_details(Request $request){
+        $this->validate( $request, [ 
+            'jo_id' => 'required|max:99999|exists:judicial_officers,id',
+        ]);
+
+        $jo_details = array();
+
+        // Basic & Contact Details
+        $jo_details['basic_contact_details'] = JudicialOfficer::find($request->jo_id);
+        
+        $jo_details['basic_contact_details']->date_of_birth = Carbon::parse($jo_details['basic_contact_details']->date_of_birth)->format('d-m-Y');
+        $jo_details['basic_contact_details']->date_of_joining = Carbon::parse($jo_details['basic_contact_details']->date_of_joining)->format('d-m-Y');
+        $jo_details['basic_contact_details']->date_of_retirement = Carbon::parse($jo_details['basic_contact_details']->date_of_retirement)->format('d-m-Y');
+        
+        if($jo_details['basic_contact_details']->date_of_confirmation != null)
+            $jo_details['basic_contact_details']->date_of_confirmation = Carbon::parse($jo_details['basic_contact_details']->date_of_confirmation)->format('d-m-Y');
+        else
+            $jo_details['basic_contact_details']->date_of_confirmation = "";
+
+        $jo_details['basic_contact_details']->profile_image = asset('images/judicial_officers/'.$jo_details['basic_contact_details']->registration_no.'/'.$jo_details['basic_contact_details']->profile_image);
+
+        // Qualification Details
+        $jo_details['qualification_details'] = JudicialOfficerQualification::where('judicial_officer_id',$request->jo_id)
+                                                                            ->orderBy('passing_year','asc')
+                                                                            ->get();
+
+        // Practice Details
+        $jo_details['practice_details'] = JoLegalExperience::where('judicial_officer_id',$request->jo_id)
+                                                            ->orderBy('from_year','asc')
+                                                            ->get();
+
+        // Posting Details
+        $jo_details['posting_details'] = JudicialOfficerPosting::leftJoin('jo_reportings','judicial_officer_postings.id','=','jo_reportings.posting_id')
+                                                                ->where('judicial_officer_postings.judicial_officer_id',$request->jo_id)
+                                                                ->orderBy('from_date','asc')
+                                                                ->get();
+
+        foreach($jo_details['posting_details'] as $key => $jo_posting){
+            if($jo_posting->to_date==null)
+                $jo_posting->to_date = "";
+            else
+                $jo_posting->to_date = Carbon::parse($jo_posting->to_date)->format('d-m-Y');
+            
+            $jo_posting->from_date = Carbon::parse($jo_posting->from_date)->format('d-m-Y');
+        }
+            
+        return $jo_details;
+    }
+
+
+    public function update_basic_details(Request $request){
+        $this->validate( $request, [ 
+            'id' => 'required|max:99999|exists:judicial_officers,id',
+            'jo_code' => 'nullable|string|alpha_num|max:50',
+            'registration_no' => 'required|integer|max:99999',
+            'officer_name' => 'required|string|regex:/^[\pL\s\-]+$/u|max:100',
+            'gender' => 'required|string|alpha|in:M,F,O|max:10',
+            'spouse' => 'nullable|integer|exists:judicial_officers,id|max:999999',
+            'date_of_birth' => 'required|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),
+            'recruitment_batch_id' => 'required|integer|exists:recruitment_batches,id|max:10000',
+            'recruitment_batch_year' => 'required|integer|min:1950|max:'.date('Y'),
+            'date_of_joining' => 'required|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),
+            'date_of_confirmation' => 'nullable|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),
+            'date_of_retirement' => 'required|date_format:d-m-Y|after:1900-01-01',  
+        ]);
+        
+        $request['date_of_birth']=Carbon::parse($request['date_of_birth'])->format('Y-m-d');
+        $request['date_of_joining']=Carbon::parse($request['date_of_joining'])->format('Y-m-d');
+
+        if(!empty($request['date_of_confirmation']))
+            $request['date_of_confirmation']=Carbon::parse($request['date_of_confirmation'])->format('Y-m-d');
+        else
+            $request['date_of_confirmation']=null;
+
+        $request['date_of_retirement']=Carbon::parse($request['date_of_retirement'])->format('Y-m-d');
+                    
+        JudicialOfficer::where('id',$request->id)
+                        ->update($request->except(['id','_token']));
+
+        // Spouse Update in other side
+        if($request['spouse'] != null){
+            JudicialOfficer::where([
+                ['id',$request['spouse']],
+            ])->update(['spouse'=>$request->id]);
+        }
+
+        return 1;
+    }
+
+
+    public function update_contact_details(Request $request){
+        $this->validate( $request, [ 
+            'id' => 'required|max:99999|exists:judicial_officers,id',
+            'home_state_id' => 'required|integer|exists:states,id|max:10000',
+            'state_flag' => 'required|string|max:20|in:west_bengal,other',
+            'home_district_id' => 'required_if:state_flag,==,west_bengal|integer|exists:districts,id|max:200',
+            'other_home_district' => 'required_if:state_flag,==,other|string|regex:/^[\pL\s\-]+$/u|max:100',
+            'hometown' => 'required|string|regex:/^[\pL\s\-]+$/u|max:100',
+            'present_address' => 'required|string|max:255',
+            'permanent_address' => 'required|string|max:255',
+            'mobile_no_1' => 'required|integer|max:9999999999',
+            'mobile_no_2' => 'nullable|integer|max:9999999999',
+            'email_id_1' => 'required|email:rfc,dns|max:100',
+            'email_id_2' => 'nullable|email:rfc,dns|max:100',
+        ]);
+                
+        JudicialOfficer::where('id',$request->id)
+                        ->update($request->except(['id','state_flag','_token']));
+        
+        return 1;
+    }
+
+    public function update_profile_image(Request $request){
+        $this->validate( $request, [ 
+            'id' => 'required|max:99999|exists:judicial_officers,id',
+            'profile_image' => 'required|file|mimes:jpeg,png,jpg,gif|max:50'            
+        ]);
+
+        $this->validate( $request, [ 
+            'profile_image' => 'required|file|mimes:jpeg,png,jpg,gif|max:50'
+        ]);
+        
+        $jo_details = JudicialOfficer::where('id',$request->id)->get();
+
+        $image = $request->file('profile_image');
+
+        if(!is_dir(public_path('images/judicial_officers/'.$jo_details['0']->registration_no))) 
+        {
+            mkdir(public_path('images/judicial_officers/'.$jo_details['0']->registration_no), 0777, true);       
+        }
+
+        $new_name = $jo_details['0']->registration_no.'_'.strtotime(date('Y-m-d')).'.'.$image->getClientOriginalExtension();
+
+        if(file_exists(public_path('images/judicial_officers/'.$jo_details['0']->registration_no.'/'.$new_name)))
+        {
+            unlink(public_path('images/judicial_officers/'.$jo_details['0']->registration_no.'/'.$new_name));
+        }
+
+        $image->move(public_path('images/judicial_officers/'.$jo_details['0']->registration_no), $new_name);
+
+        JudicialOfficer::where('registration_no',$jo_details['0']->registration_no)
+                        ->update([
+                            'profile_image' => $new_name,
+                        ]);        
+        return 1;
     }
 
 }

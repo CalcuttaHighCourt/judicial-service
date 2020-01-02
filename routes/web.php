@@ -350,7 +350,7 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 			return view ('jo_grade.index');
 		});
 
-		Route::post('jo_grade/fetch_jo_details', 'JoGradeController@get_jo_details')->name('fetch_jo_details');
+		Route::post('jo_grade/rank_wise_jo_list', 'JoGradeController@rank_wise_jo_list')->name('rank_wise_jo_list');
 
 		Route::post('jo_grade/save_jo_grade', 'JoGradeController@save_jo_grade')->name('save_jo_grade');
 
@@ -363,9 +363,7 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 
 	Route::group(['middleware' => ['auth','role_manager:Inspection|Administrator|Appointment']],function (){
-
-		/*jo entry*/
-
+		
 		Route::get ('jo_entry_form', function () {
 			return view ('jo_entry_form.index');
 		});
@@ -381,6 +379,18 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 		Route::post('jo_entry/upload_image', 'JoEntryFormController@jo_upload_image')->name('jo_image_upload');
 
 		Route::post('jo_entry/show_all_jo', 'JoEntryFormController@show_all_jo')->name('list_of_jo');
+		
+		Route::get ('modify_jo_details', function () {
+			return view ('jo_entry_form.modify_jo_details');
+		});
+		
+		Route::post('fetch_jo_details','JoEntryFormController@fetch_jo_details')->name('fetch_jo_details');
+
+		Route::post('update_basic_details','JoEntryFormController@update_basic_details')->name('update_basic_details');
+
+		Route::post('update_contact_details','JoEntryFormController@update_contact_details')->name('update_contact_details');
+		
+		Route::post('update_profile_image','JoEntryFormController@update_profile_image')->name('update_profile_image');
 
 		Route::post('jo_posting/search', 'JudicialOfficerPostingController@jo_current_posting_details');
 

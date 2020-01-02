@@ -18,8 +18,7 @@
 
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
-        <header class="main-header">
-        
+        <header class="main-header">        
             <!-- Logo -->
             <?php if(Auth::check() && Auth::user()->user_type->type_name=="Administrator"): ?>
                 <a href="dashboard/admin" class="logo"> 
@@ -140,6 +139,7 @@
                                         <li><a href="<?php echo e(url('state')); ?>">  State Master</a></li>
                                         <li><a href="<?php echo e(url('document_types')); ?>"> Document Type Master</a></li>
                                         <li><a  href="<?php echo e(url('Category')); ?>"> Category </span></a></li>
+                                        <li><a  href="<?php echo e(url('jo_posting/search')); ?>"> Judicial Officer Posting </span></a></li>
                                         <li><a  href="<?php echo e(url('religion')); ?>"> Religion </span></a></li>
                                         <li><a  href="<?php echo e(url('qualification')); ?>"> Qualification </span></a></li>
                                         <li><a  href="<?php echo e(url('recruitmentbatch')); ?>"> Recruitment Batch </span></a></li>
@@ -176,7 +176,8 @@
                                     <span>Judicial Officer Entry</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="<?php echo e(url('jo_entry_form')); ?>">  Profile Details Entry</a></li>
+                                    <li><a href="<?php echo e(url('jo_entry_form')); ?>"> Entry JO Details</a></li>
+                                    <li><a href="<?php echo e(url('modify_jo_details')); ?>"> Modify JO Details</a></li>
                                     <li><a href="#"> Document Upload</a></li>
                                 </ul>
                             </li>      
