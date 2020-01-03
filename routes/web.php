@@ -398,6 +398,8 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 		
 		Route::post('update_profile_image','JoEntryFormController@update_profile_image')->name('update_profile_image');
 
+		Route::post('update_posting_details','JoEntryFormController@update_posting_details')->name('update_posting_details');
+
 		Route::post('jo_posting/search', 'JudicialOfficerPostingController@jo_current_posting_details');
 
 	});

@@ -517,8 +517,21 @@ class JoEntryFormController extends Controller
                 $jo_posting->to_date = "";
             else
                 $jo_posting->to_date = Carbon::parse($jo_posting->to_date)->format('d-m-Y');
-            
+
+            $jo_posting->deputation_zone = JoZoneTenure::where([
+                                            ['judicial_officer_id',$request->jo_id],
+                                            ['from_date','<=',$jo_posting->from_date],
+                                            ['from_date','>=',$jo_posting->from_date],
+                                        ])
+                                        ->orwhere([
+                                            ['judicial_officer_id',$request->jo_id],
+                                            ['from_date','<=',$jo_posting->from_date],
+                                            ['from_date','=',null],
+                                        ])
+                                        ->max('zone_id');
+
             $jo_posting->from_date = Carbon::parse($jo_posting->from_date)->format('d-m-Y');
+
         }
             
         return $jo_details;
@@ -619,6 +632,10 @@ class JoEntryFormController extends Controller
                         ->update([
                             'profile_image' => $new_name,
                         ]);        
+        return 1;
+    }
+
+    public function update_posting_details(){
         return 1;
     }
 
