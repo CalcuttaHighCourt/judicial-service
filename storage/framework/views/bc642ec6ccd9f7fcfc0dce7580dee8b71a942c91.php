@@ -190,7 +190,7 @@
                                 </a>
                                 <ul class="treeview-menu">
                                     <li><a href="<?php echo e(url('jo_grade')); ?>">Create Grade List</a></li>
-                                    <li><a href="">Show Grade List</a></li>
+                                    <li><a href="<?php echo e(url('show_grade_list')); ?>">Show Grade List</a></li>
                                 </ul>
                             </li>     
                             

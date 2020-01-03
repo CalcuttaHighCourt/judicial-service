@@ -70,8 +70,36 @@ class JoGradeController extends Controller
                                    
         if( $jo_list_draft == 0 )
         {
-            
-            $totalData = JudicialOfficer::join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+            $already_finalized = JoGrade::where([
+                                                    ['jo_grades.rank_id',$rank_id],
+                                                    ['jo_grades.date_of_gradation',$date_of_gradation],
+                                                    ['jo_grades.status','Finalized']
+                                                ])  
+                                          ->count();
+
+            //if rank grade list already finalized
+            if($already_finalized > 0)
+            {
+
+                $json_data = array(
+                    "draw" => intval($request->input('draw')),
+                    "recordsTotal" => intval(-1),
+                    "recordsFiltered" =>intval(-1),
+                    "data" => []
+                );
+                return json_encode($json_data);
+            }
+
+            //else fetch new list
+            //from judicial_officer_postings , select those rows which is the latest postion on the given rank
+            $totalData = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
+                                                            (select max(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                        )
+                                                        judicial_officer_postings'
+                                                    ), 
+
+                                                'judicial_officer_postings.judicial_officer_id', '=', 'judicial_officers.id'
+                                            )
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->where('judicial_officer_postings.rank_id',"=",$rank_id)
                                             ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
@@ -79,7 +107,16 @@ class JoGradeController extends Controller
         }
         else
         {
-            $totalData = JudicialOfficer::join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+            //from judicial_officer_postings , select those rows which is the latest postion on the given rank
+
+            $totalData = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
+                                                                (select max(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                        )
+                                                        judicial_officer_postings'
+                                                    ), 
+
+                                                'judicial_officer_postings.judicial_officer_id', '=', 'judicial_officers.id'
+                                            )
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
                                             ->where([
@@ -105,7 +142,16 @@ class JoGradeController extends Controller
             if(empty($request->input('search.value')))
             {
 
-                $jo_list = JudicialOfficer::join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                //from judicial_officer_postings , select those rows which is the latest postion on the given rank
+
+                $jo_list = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
+                                                                (select max(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                           )
+                                                          judicial_officer_postings'
+                                                        ), 
+
+                                                    'judicial_officer_postings.judicial_officer_id', '=', 'judicial_officers.id'
+                                            )
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->where('judicial_officer_postings.rank_id',"=",$rank_id)
                                             ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
@@ -116,7 +162,30 @@ class JoGradeController extends Controller
                                             ->get();
 
 
-                $totalFiltered = JudicialOfficer::join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                                            /*
+select judicial_officers.id,judicial_officers.jo_code,judicial_officers.officer_name,judicial_officers.date_of_birth,  
+	judicial_officers.date_of_retirement,judicial_officer_postings.rank_id,judicial_officers.date_of_joining,
+	judicial_officer_postings.from_date, jo_grades.remark 
+	
+from judicial_officers 
+
+inner join (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
+		(select max(jop2.from_date) from judicial_officer_postings jop2 
+		    where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id=1
+		)
+	   ) judicial_officer_postings on judicial_officer_postings.judicial_officer_id = judicial_officers.id 
+inner join ranks on judicial_officer_postings.rank_id = ranks.id 
+inner join jo_grades on jo_grades.judicial_officer_id = judicial_officers.id 
+where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_date::date <= '2019-12-04'
+                                            */
+                $totalFiltered = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
+                                                                    (select max(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                                )
+                                                                judicial_officer_postings'
+                                                            ), 
+
+                                                        'judicial_officer_postings.judicial_officer_id', '=', 'judicial_officers.id'
+                                                )
                                                 ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                                 ->where('judicial_officer_postings.rank_id',"=",$rank_id)
                                                 ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
@@ -128,7 +197,14 @@ class JoGradeController extends Controller
             {
                 $search = strtoupper($request->input('search.value'));
                 
-                $jo_list = JudicialOfficer::join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                $jo_list = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
+                                                                (select max(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                            )
+                                                            judicial_officer_postings'
+                                                        ), 
+
+                                            'judicial_officer_postings.judicial_officer_id', '=', 'judicial_officers.id'
+                                            )
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->where('judicial_officer_postings.rank_id',"=",$rank_id)
                                             ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
@@ -143,7 +219,14 @@ class JoGradeController extends Controller
                                             ->get();
 
 
-                $totalFiltered = JudicialOfficer::join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                $totalFiltered = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
+                                                                    (select max(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                                )
+                                                                judicial_officer_postings'
+                                                            ), 
+
+                                                        'judicial_officer_postings.judicial_officer_id', '=', 'judicial_officers.id'
+                                                )
                                                 ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                                 ->where('judicial_officer_postings.rank_id',"=",$rank_id)
                                                 ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
@@ -164,7 +247,14 @@ class JoGradeController extends Controller
             if(empty($request->input('search.value')))
             {
 
-                $jo_list = JudicialOfficer::join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                $jo_list = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
+                                                                (select max(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                            )
+                                                            judicial_officer_postings'
+                                                        ), 
+
+                                                    'judicial_officer_postings.judicial_officer_id', '=', 'judicial_officers.id'
+                                            )
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
                                             ->where([
@@ -179,7 +269,14 @@ class JoGradeController extends Controller
                                             ->get();
 
 
-                $totalFiltered = JudicialOfficer::join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                $totalFiltered = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
+                                                                    (select max(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                                )
+                                                                judicial_officer_postings'
+                                                            ), 
+
+                                                            'judicial_officer_postings.judicial_officer_id', '=', 'judicial_officers.id'
+                                                )
                                                 ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                                 ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
                                                 ->where([
@@ -194,7 +291,14 @@ class JoGradeController extends Controller
             {
                 $search = strtoupper($request->input('search.value'));
                 
-                $jo_list = JudicialOfficer::join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                $jo_list = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
+                                                                (select max(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                           )
+                                                          judicial_officer_postings'
+                                                        ), 
+
+                                                    'judicial_officer_postings.judicial_officer_id', '=', 'judicial_officers.id'
+                                            )
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
                                             ->where([
@@ -213,7 +317,14 @@ class JoGradeController extends Controller
                                             ->get();
 
 
-                $totalFiltered = JudicialOfficer::join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                $totalFiltered = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
+                                                                    (select max(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                                    )
+                                                                judicial_officer_postings'
+                                                            ), 
+
+                                                        'judicial_officer_postings.judicial_officer_id', '=', 'judicial_officers.id'
+                                                )
                                                 ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                                 ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
                                                 ->where([
@@ -391,4 +502,221 @@ class JoGradeController extends Controller
 
 
 
-}
+
+
+    public function get_final_jo_graded_list(Request $request)
+    {
+        $this->validate( $request, [ 
+            'rank_id' => 'required|exists:ranks,id',
+            'date_of_gradation' => 'required|date'
+        ]);
+        
+
+        $columns = array(            
+
+            0 =>'grade',
+            1 =>'formula',
+            2 =>'jo_name',            
+            3 =>'date_of_birth', 
+            4 =>'date_of_retirement',
+            5 =>'date_of_joining',
+            6 =>'from_date',
+            7 =>'remark'
+            
+        );
+
+
+        $rank_id=$request->input('rank_id');
+        $date_of_gradation=Carbon::parse ($request->input('date_of_gradation'))->format('Y-m-d')  ;
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        //$order = $columns[$request->input('order.1.column')];
+        $dir = $request->input('order.0.dir');     
+        
+
+                                   
+       //from judicial_officer_postings , select those rows which is the latest postings
+        $totalData = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
+                                                            (select max(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id )
+                                                    )
+                                                    judicial_officer_postings'
+                                                ), 
+
+                                            'judicial_officer_postings.judicial_officer_id', '=', 'judicial_officers.id'
+                                        ) 
+                                        ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
+                                        ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
+                                        ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                        ->where([
+                                                    ['jo_grades.rank_id',$rank_id],
+                                                    ['jo_grades.date_of_gradation',$date_of_gradation]
+                                                ])  
+                                        ->count();  
+
+
+
+        $totalFiltered = $totalData;    
+    
+
+        if(empty($request->input('search.value')))
+        {
+            //from judicial_officer_postings , select those rows which is the latest postings
+
+            $jo_list = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
+                                                                (select max(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id )
+                                                        )
+                                                        judicial_officer_postings'
+                                                     ), 
+
+                                                 'judicial_officer_postings.judicial_officer_id', '=', 'judicial_officers.id'
+                                        )
+                                        ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
+                                        ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
+                                        ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                        ->where([
+                                                    ['jo_grades.rank_id',$rank_id],
+                                                    ['jo_grades.date_of_gradation',$date_of_gradation]
+                                                ])  
+                                        ->select('judicial_officers.jo_code','judicial_officers.officer_name','judicial_officers.date_of_birth',  'judicial_officers.date_of_retirement','judicial_officer_postings.rank_id as current_rank_id','jo_grades.rank_id as jo_grade_rank_id','judicial_officers.date_of_joining', 'judicial_officer_postings.from_date', 'jo_grades.remark','jo_grades.grade'  )                                    
+                                        ->orderBy('jo_grades.grade','asc')
+                                        ->offset($start)
+                                        ->limit($limit)
+                                        ->get();
+
+
+            $totalFiltered = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
+                                                                    (select max(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id )
+                                                            )
+                                                            judicial_officer_postings'
+                                                        ), 
+
+                                                    'judicial_officer_postings.judicial_officer_id', '=', 'judicial_officers.id'
+                                            )
+                                            ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
+                                            ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
+                                            ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                            ->where([
+                                                        ['jo_grades.rank_id',$rank_id],
+                                                        ['jo_grades.date_of_gradation',$date_of_gradation]
+                                                    ])  
+                                            ->count();
+
+        }
+        else
+        {
+            $search = strtoupper($request->input('search.value'));
+
+            //from judicial_officer_postings , select those rows which is the latest postings
+            
+            $jo_list = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
+                                                                (select max(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                        )
+                                                        judicial_officer_postings'
+                                                    ), 
+
+                                              'judicial_officer_postings.judicial_officer_id', '=', 'judicial_officers.id'
+                                        )
+                                        ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
+                                        ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
+                                        ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                        ->where([
+                                                    ['jo_grades.rank_id',$rank_id],
+                                                    ['jo_grades.date_of_gradation',$date_of_gradation]
+                                                ])  
+                                        ->where(function($query) use ($search){    
+                                            $query->orWhere('judicial_officers.officer_name','ilike',"%{$search}%");
+                                            $query->orWhere('judicial_officers.jo_code','ilike',"%{$search}%");                                                  
+                                        })
+                                        ->select('judicial_officers.jo_code','judicial_officers.officer_name','judicial_officers.date_of_birth',  'judicial_officers.date_of_retirement','judicial_officer_postings.rank_id as current_rank_id','jo_grades.rank_id as jo_grade_rank_id','judicial_officers.date_of_joining','judicial_officer_postings.from_date', 'jo_grades.remark','jo_grades.grade' )                                                   
+                                        ->orderBy('jo_grades.grade','asc')
+                                        ->offset($start)
+                                        ->limit($limit)
+                                        ->get();
+
+
+            $totalFiltered = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
+                                                                    (select max(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id )
+                                                            )
+                                                            judicial_officer_postings'
+                                                        ), 
+
+                                                    'judicial_officer_postings.judicial_officer_id', '=', 'judicial_officers.id'
+                                            )
+                                            ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
+                                            ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
+                                            ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                            ->where([
+                                                        ['jo_grades.rank_id',$rank_id],
+                                                        ['jo_grades.date_of_gradation',$date_of_gradation]
+                                                    ])  
+                                            ->where(function($query) use ($search){
+                                                $query->orWhere('judicial_officers.officer_name','ilike',"%{$search}%");
+                                                $query->orWhere('judicial_officers.jo_code','ilike',"%{$search}%");                                                          
+                                            })        
+                                            ->count();
+
+
+        } // END OF ELSE OF if(empty($request->input('search.value')))
+
+
+        // echo "<pre>";
+        // print_r($totalData);
+        // echo "</pre>";
+        // exit();
+        
+            $data = array();
+            
+            if($jo_list)
+            {
+                foreach($jo_list as $list)
+                {                   
+                    $nestedData['grade'] = $list->grade; 
+
+                    $nestedData['formula'] = "";
+                   // $nestedData['year'] = "";
+                   if($list->current_rank_id != $list->jo_grade_rank_id)
+                   {
+                        $currnet_rank_name=Rank::where("id",$list->current_rank_id)
+                                                ->select('rank_name')
+                                                 ->get();
+
+
+                        $nestedData['jo_name'] = $list->officer_name." || ".$list->jo_code. '<br> <span class="badge badge-danger" style="background-color:red">(Current Rank: '.$currnet_rank_name[0]->rank_name.')</span>';
+                   }                       
+                   else
+                   {
+                        $nestedData['jo_name'] = $list->officer_name." || ".$list->jo_code;
+                   }
+                        
+                   
+                    $nestedData['date_of_birth'] =Carbon::parse ($list->date_of_birth)->format('d-m-Y');
+                    $nestedData['date_of_retirement'] = Carbon::parse ($list->date_of_retirement)->format('d-m-Y');
+                    $nestedData['date_of_joining'] = Carbon::parse ($list->date_of_joining)->format('d-m-Y') ;        
+
+                    $nestedData['from_date'] = Carbon::parse ($list->from_date)->format('d-m-Y') ;  
+
+                    $nestedData['remark'] = $list->remark;
+
+                    $data[] = $nestedData;
+                }
+
+                $json_data = array(
+                    "draw" => intval($request->input('draw')),
+                    "recordsTotal" => intval($totalData),
+                    "recordsFiltered" =>intval($totalFiltered),
+                    "data" => $data
+                );
+
+            }
+
+            echo json_encode($json_data);
+
+
+    }
+    //end of  public function get_final_jo_graded_list(Request $request)
+
+
+
+
+}//end of class JoGradeController extends Controller
