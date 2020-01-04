@@ -835,6 +835,7 @@
             
 
             $(".select2").trigger("change");
+            $("#home_state").trigger("change");
 
         }
 
@@ -884,12 +885,14 @@
                     $(".to_date:last").val(val.to_date);
                     $(".posting_remark:last").val(val.posting_remark);
                     $(".permanent_reporting_officer_div:last").val(val.reporting_officer_id);
+                    $(".reporting_officer_id:last").val(val.reporting_officer_id);
                     $(".other_reporting_officer:last").val(val.other_reporting_officer_name);
                     $(".other_reporting_officer_designation:last").val(val.other_reporting_officer_designation);
                     $(".zone:last").val(val.deputation_zone);
                     
 
                     $(".select2").trigger("change");
+                    $(".mode_id").trigger("change");
                     $("#add_more_posting").trigger('click');
                     $(".remove_posting").remove();
                 })
@@ -1052,32 +1055,44 @@
                 var deputation_zone = new Array();
                 var deputation_posting_place = new Array();
                 var mode_id = new Array();
+                var flag_mode = new Array();
+                var rank_id = new Array();
                 var reporting_officer_id = new Array();
                 var other_reporting_officer_name = new Array();
                 var other_reporting_officer_designation = new Array();
                 var from_date = new Array();
                 var to_date = new Array();         
                 var posting_remark = new Array();
-
-                designation_id = [];
-                $(".designation_id").each(function(){
-                    designation_id.push($(this).val());
-                })
-
+                
                 deputation_designation = [];
                 $(".other_designation").each(function(){
                     deputation_designation.push($(this).val());
                 })
 
                 mode_id = [];
+                flag_mode = [];
                 $(".mode_id").each(function(){
                     mode_id.push($(this).val());
+
+                    if($(this).find('option:selected').text()=='deputation' || $(this).find('option:selected').text()=='Deputation')
+                        flag_mode.push('deputation');
+                    else
+                        flag_mode.push('regular');
                 })
 
-                zone_id = [];         
+                rank_id = [];
+                $(".rank").each(function(){
+                    rank_id.push($(this).val());
+                })
+
+                zone_id = [];   
+                designation_id = [];
                 $(".designation_id").each(function(){
                     designation_id.push($(this).val()); 
-                    zone_id.push($(this).attr('data-zone_id'));               
+                    if($(this).val()!="")
+                        zone_id.push($(this).find('option:selected').attr('data-zone_id'));  
+                    else
+                        zone_id.push("");                        
                 })
 
                 deputation_zone = [];         
@@ -1128,6 +1143,8 @@
                         designation_id:designation_id,
                         deputation_designation:deputation_designation,
                         mode_id:mode_id,
+                        flag_mode:flag_mode,
+                        rank_id:rank_id,
                         zone_id:zone_id,                                        
                         deputation_zone:deputation_zone,
                         deputation_posting_place:deputation_posting_place,

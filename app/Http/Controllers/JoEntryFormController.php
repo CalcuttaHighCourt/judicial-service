@@ -635,8 +635,173 @@ class JoEntryFormController extends Controller
         return 1;
     }
 
-    public function update_posting_details(){
-        return 1;
+    public function update_posting_details(Request $request){
+        $this->validate($request,[
+            'id' => 'required|max:99999|exists:judicial_officers,id',
+            'flag_mode' => 'required|array',
+            'flag_mode.*' => 'required|alpha|max:30|in:regular,deputation',
+            'mode_id' => 'required|array',
+            'mode_id.*' => 'required|required_with:flag_mode,rank_id,from_date|integer|max:1000|exists:modes,id',
+            'rank_id' => 'required|array',
+            'rank_id.*' => 'required|required_with:mode_id,rank_id,flag_mode|integer|max:50|exists:ranks,id',
+            'designation_id' => 'required|array',
+            'designation_id.*' => 'nullable|required_if:flag_mode,==,regular|integer|max:500|exists:courts,id',
+            'deputation_designation' => 'required|array',
+            'deputation_designation.*' => 'nullable|required_if:flag_mode,==,deputation|string|max:500',
+            'reporting_officer_id' => 'required|array',
+            'reporting_officer_id.*' => 'nullable|integer|max:999999|exists:judicial_officers,id',   
+            'other_reporting_officer_name' => 'required|array',
+            'other_reporting_officer_name.*' => 'nullable|string|max:100|regex:/^[\pL\s\-]+$/u',
+            'other_reporting_officer_designation' => 'required|array',
+            'other_reporting_officer_designation.*' => 'nullable|string|max:100|regex:/^[\pL\s\-]+$/u',
+            'zone_id' => 'required|array',
+            'zone_id.*' => 'nullable|required_if:flag_mode,==,regular|integer|max:500|exists:zones,id',
+            'deputation_zone' => 'required|array',
+            'deputation_zone.*' => 'nullable|required_if:flag_mode,==,deputation|integer|max:500|exists:zones,id',
+            'deputation_posting_place' => 'required|array',
+            'deputation_posting_place.*' => 'nullable|required_if:flag_mode,==,deputation|string|max:255',
+            'from_date' => 'required|array',
+            'from_date.*' => 'required|required_with:mode_id,rank_id,flag_mode|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),
+            'to_date' => 'required|array',
+            'to_date.*' => 'nullable|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),                     
+            'posting_remark' => 'required|array',
+            'posting_remark.*' => 'nullable|string',
+        ]);
+
+        $response = array();    
+        $statusCode = 200;
+
+        try{
+            DB::beginTransaction(); 
+            
+            JudicialOfficerPosting::where('judicial_officer_id',$request->input('id'))->delete();
+            
+            $jo_posting_code = JudicialOfficerPosting::where('judicial_officer_id',$request->input('id'))->get();
+            foreach($jo_posting_code as $posting_id){
+                JoReporting::where('posting_id',$posting_id->id)->delete();
+            }            
+            
+            JoZoneTenure::where('judicial_officer_id',$request->input('id'))->delete();
+           
+            for($i=0; $i<sizeof($request['flag_mode']); $i++){
+                $jo_posting = new JudicialOfficerPosting;
+
+                if($request->flag_mode[$i]=='deputation'){
+                    $jo_posting->designation_id = null;
+                    $posting_zone = $request->deputation_zone[$i];
+                }
+                else if($request->flag_mode[$i]=='regular'){
+                    $jo_posting->designation_id = $request->designation_id[$i];
+                    $posting_zone = $request->zone_id[$i];
+                    // $request->deputation_designation[$i] = '';
+                    // $request->deputation_posting_place[$i] = '';
+                }
+
+                $jo_posting->judicial_officer_id = $request->id;                        
+                $jo_posting->mode_id = $request->mode_id[$i];
+                $jo_posting->rank_id = $request->rank_id[$i];
+                $jo_posting->deputation_designation = $request->deputation_designation[$i];
+                $jo_posting->deputation_posting_place = $request->deputation_posting_place[$i];
+                $jo_posting->from_date = Carbon::parse($request->from_date[$i])->format('Y-m-d');
+
+                if(!empty($request->to_date[$i]))
+                    $jo_posting->to_date = Carbon::parse($request->to_date[$i])->format('Y-m-d');                        
+                else
+                    $jo_posting->to_date = null;
+
+                $jo_posting->posting_remark = $request->posting_remark[$i];
+
+                $posting_details = $jo_posting->save();
+
+                /*JO Reporting Details :: START*/  
+                if(!empty($request->reporting_officer_id[$i]) || !empty($request->other_reporting_officer_name[$i])){
+                    // if($request->flag_mode[$i] == 'deputation'){
+                    //     $request->reporting_officer_id[$i] = null;
+                    // }
+                    // else if($request->flag_mode[$i] == 'regular'){
+                    //     $request->other_reporting_officer_name[$i] = '';
+                    //     $request->other_reporting_officer_designation[$i] = '';
+                    // }
+
+                    $posting_id = JudicialOfficerPosting::max('id');
+                    
+                    $jo_reporting = new JoReporting;
+                    $jo_reporting->judicial_officer_id = $request->id;
+                    $jo_reporting->posting_id = $posting_id;
+                    $jo_reporting->reporting_officer_id = $request->reporting_officer_id[$i];
+                    $jo_reporting->other_reporting_officer_name = $request->other_reporting_officer_name[$i];
+                    $jo_reporting->other_reporting_officer_designation = $request->other_reporting_officer_designation[$i];
+
+                    $reporting_details = $jo_reporting->save();
+                }
+                else{
+                    $reporting_details = null;
+                }
+                /*JO Reporting Details :: ENDS*/ 
+
+                /*JO Posting Zone Tenure :: START*/   
+                $zone_count = JoZoneTenure::where('judicial_officer_id',$request->id)->count();
+
+                if($zone_count>0){
+                    $zone_count2 = JoZoneTenure::where([
+                                                    ['judicial_officer_id',$request->id],
+                                                    ['to_date',null]
+                                                ])->count();
+                    if($zone_count2>0){
+                        $present_zone = JoZoneTenure::where([
+                                                    ['judicial_officer_id',$request->id],
+                                                    ['to_date',null]
+                                                ])->max('zone_id');
+
+                        if($present_zone != $posting_zone){
+                            $max_to_date = JudicialOfficerPosting::where('judicial_officer_id',$request->id)
+                                                                    ->max('to_date');
+
+                            JoZoneTenure::where([
+                                ['judicial_officer_id',$request->id],
+                                ['to_date',null]
+                            ])->update(['to_date'=>$max_to_date]);
+
+                            JoZoneTenure::insert([
+                                'judicial_officer_id' => $request->id,
+                                'zone_id' => $posting_zone,
+                                'from_date' => $jo_posting->from_date,
+                                'to_date' => null,
+                            ]);
+                        }
+                    }
+                    else{
+                        JoZoneTenure::insert([
+                            'judicial_officer_id' => $request->id,
+                            'zone_id' => $posting_zone,
+                            'from_date' => $jo_posting->from_date,
+                            'to_date' => null,
+                        ]);
+                    }
+                }
+                else{
+                    JoZoneTenure::insert([
+                        'judicial_officer_id' => $request->id,
+                        'zone_id' => $posting_zone,
+                        'from_date' => $jo_posting->from_date,
+                        'to_date' => null,
+                    ]);
+                }                        
+                /*JO Posting Zone Tenure :: END*/                
+            }  
+            
+            DB::commit();
+
+        } catch (\Exception $e) {
+            DB::rollBack(); 
+            $response = array(
+                'exception' => true,
+                'exception_message' => $e->getMessage()
+            );           
+            $statusCode = 400;
+        } finally {
+            return response()->json($response, $statusCode);
+        }
     }
 
 }
