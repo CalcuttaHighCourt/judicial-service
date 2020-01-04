@@ -208,15 +208,17 @@ public function zone_pref_content(Request $request) {
 
       
 
-        $this->validate($request, [          
-            'posting_pref.*'=>array('required','exists:zones,id')
-        ]);
+        // $this->validate($request, [          
+        //     'zone_preference.*'=>array('required','exists:zones,id')
+        // ]);
 
        
-            $posting_pref=  $request->input('posting_pref');
+            $station_name=  $request->input('station_name');
+            $station_zone=  $request->input('station_zone');
             $request['judicial_officer_id']= Auth::user()->judicial_officer_id;
             $request['created_by'] = Auth::user()->id;
             $request['final_submission'] =  $request->input('flag');
+            $request['remarks'] = $request->input('remarks');
             $officer_id= Auth::user()->judicial_officer_id;
 
 
@@ -227,12 +229,14 @@ public function zone_pref_content(Request $request) {
                                                     ])->delete();
                      
 
-            for ($i = 0; $i < count($posting_pref); $i++)
+            for ($i = 0; $i < sizeof($station_name); $i++)
             {
-                $request['zone_id']= $posting_pref[$i];
+
+                $request['zone_id']= $station_zone[$i];
+                $request['station_name']= $station_name[$i];
                 $judicial_officer_posting_preference = JudicialOfficerPostingPreference::create($request->all());
             }
-            
+            exit;
             $response = array(
                 'judicial_officer_posting_preference' => $judicial_officer_posting_preference
             );

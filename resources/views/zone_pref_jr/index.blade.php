@@ -62,13 +62,13 @@
                                                 @foreach($zone_options['zones'] as  $key=>$zone)
                                                 <h2><option value=" " disabled>Zone:{{$zone->zone_name}}</option></h2>
                                                     @foreach($zone_options[$zone->zone_name] as $key=>$district)
-                                                        <option value="{{$district->district_name}}">{{$key+1}}. {{$district->district_name}}</option>
+                                                        <option data-zone="{{$zone->id}}" value="{{$district->district_name}}">{{$key+1}}. {{$district->district_name}}</option>
                                                     @endforeach
                                                     @php 
                                                         $j=$key+1;
                                                     @endphp    
                                                     @foreach($zone_options[$zone->id] as $subdivision)
-                                                        <option value="{{$subdivision->subdivision_name}}"> {{++$j}}. {{$subdivision->subdivision_name}}</option>
+                                                        <option data-zone="{{$zone->id}}" value="{{$subdivision->subdivision_name}}"> {{++$j}}. {{$subdivision->subdivision_name}}</option>
                                                     @endforeach
                                                     <option><hr></option>
                                                 @endforeach    
@@ -103,12 +103,10 @@
                 <div class="row">
                     <br>
                     <div class="col-sm-offset-2 col-sm-2">
-                        <button id="draft" type="button"class="btn btn-warning draft-button info-form-button">Draft</button>
+                        <button id="draft" type="button"class="btn btn-warning draft-button info-form-button" value="draft">Draft</button>
                     </div>
                     <div class="col-sm-2">
-                        <button id="submit" type="button" class="btn btn-primary add-button info-form-button">
-                            Final Submit
-                        </button>
+                        <button id="submit" type="button" class="btn btn-primary add-button info-form-button" value="submit">Final Submit</button>
                     </div>
                 </div>
    
@@ -186,9 +184,9 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-
-    /*Initialising the text editor*/
     
+    /*Initialising the text editor*/
+        
     $(".text_content").wysihtml5();
     
     /*LOADER*/
@@ -199,8 +197,8 @@ $(document).ready(function(){
         $("#wait").css("display", "none");
     });
     /*LOADER*/  
-
-        /*date initialization:start */
+   
+    /*date initialization:start */
     $(".diary_date").datepicker({
         format: "dd-mm-yyyy",
         endDate:'0',
@@ -258,6 +256,11 @@ $(document).ready(function(){
          $(".up_down").click(function(){
             var $op = $('#lstBox2 option:selected'),
                 $this = $(this);
+            if($op.length == 0)
+            {
+                alert("Select the station first");
+                e.preventDefault(); 
+            }
             if($op.length){
                 ($this.val() == 'Up') ? 
                     $op.first().prev().before($op) : 
@@ -322,25 +325,47 @@ $(document).ready(function(){
 
     /*CODE FOR ZONE PREFERENCE:STARTS */
 
-    var posting_pref=  new Array();
+   // var posting_pref=  new Array();
 
-    function send_data(flag){             
-        posting_pref = [];
-        $(".posting_pref").each(function(){
-            posting_pref.push($(this).val());
-        })
+   
+
+    function send_data(flag){       
+
+
+        var station_name = new Array();
+        var station_zone = new Array();
         var remarks= $("#remarks").val();
+
+        $("#lstBox2 option").each(function(index,value){
+
+           // console.log($(this).data('zone'));
+           
+            station_name.push($(this).val());
+            station_zone.push($(this).data('zone'));
+            
+        });
+
+
+        //console.log(station_name);
+
+        if(station_name.length==0){
+            swal("Invalid Input","Selected Station Can Not Be Empty","error");
+            return false;
+        }
+        
+        
         $.ajax({
             type: "POST",
             url:"zone_pref_jr/draft", 
             data: {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                posting_pref:posting_pref,
-                remarks:remarks,
+                station_name:station_name,
+                station_zone:station_zone,
+                remarks:remarks,                
                 flag:flag
             },
             success:function(response){
-                swal("Saved in Draft Mode","Zone Preference has been saved if draft mode ","success");
+                swal("Saved","Zone Preference has been saved if draft mode ","success");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 if(jqXHR.status!=422 && jqXHR.status!=400){
@@ -355,119 +380,28 @@ $(document).ready(function(){
                 }
             }
         })
-
-    }
-    $(document).on("click", "#draft",function(){
-        send_data('N');
-    });
+   }
     
 
-    //if the div structure is changed this code will not work
-    //This code is to populate the zone list   
+    //events of draft and submit::start
 
-    $(document).on("change",".posting_pref",function(){
-        var zone_pref=$(this).val();
-        var element=$(this);
-         $.ajax({
-            type:"POST",
-            url:"zone_pref/options",
-            data:{
-                _token: $('meta[name="csrf-token"]').attr('content'),
-                zone_pref : zone_pref,
-            
-            },        
-            success:function(response){       
-                element.parent().parent().find(".zone_pref_option").show();
-                element.parent().parent().find(".zone_pref_option").children('option:not(:first)').remove();
+        $(document).on("click",".info-form-button",function(){
+            $this = $(this);
+          
+            $event=$this.val();
+          
+
+            if( $event=="draft"){
+                send_data('N');
+               }
+            else{
+                send_data('Y');
                 
-                $.each(response.districts,function(index,value){		
-                        element.parent().parent().find(".zone_pref_option").append('<option value="'+value.district_name+'">'+value.district_name+'</option>');											
-                })
-                $.each(response.subdivision,function(index,value){		
-                    element.parent().parent().find(".zone_pref_option").append('<option value="'+value.subdivision_name+'">'+value.subdivision_name+'</option>');											
-                })
-            },
-            error:function(response){
-                if(jqXHR.status!=422 && jqXHR.status!=400){
-                        swal("Server Error",errorThrown,"error");
-                }
-                else{								
-                    swal("Invalid Input","","error");
-                }
             }
+
         });
-    });
-    /*CODE FOR ZONE PREFERENCE:ENDS*/
-
-    /*Submit function for zone */
-
-    $(document).on("click","#submit",function(){
-        
-
-        var pref=$("#posting_pref").val();
-        var pref_name1=$("#posting_pref1 option:selected").text(); 
-        var pref_name2=$("#posting_pref2 option:selected").text(); 
-        var remarks=$("#remarks").val();  
-
-        $("#submit").hide();
-        $("#draft").hide();
-        send_data('Y');
-
-        if(pref_name1==null)
-        {
-            swal("Please Select the first preferences","","error");
-            return false;
-        }
-        else if(pref_name2==null)
-        {
-            swal("Please Select the second preferences","","error");
-            return false;
-        }
-        else if(pref.length<2)
-        {
-            swal("Please Select Minimum 2 preferences","","error");
-            return false;
-        }
-        else
-        {
-        var str="";
-        var i;
-            swal({
-                title: "Are You Sure?",
-                text: str,
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willApprove) => {
-                if(willApprove) {                           
-                    //Add dept using ajax : start
-                    $.ajax({
-                        type:"POST",
-                        url:"zone_pref/submit",
-                        data:{
-                            _token: $('meta[name="csrf-token"]').attr('content'),
-                            pref:pref,
-                            remarks:remarks
-                        },                                                          
-                        success:function(response){
-                                console.log(response);                              
-                            swal("Preference Added Successfully","Successful","success");
-                            
-
-                        },
-                        error:function(response) {  
-                            if(response.responseJSON.errors.hasOwnProperty('pref'))
-                                swal("Cannot Add New Department", ""+response.responseJSON.errors.pref['0'], "error");                                                       
-                            }
-
-                    });//Add dept using ajax : end
-                            
-                }//end of swal if(willApprove)
-                $("#content").hide();
-            })//permission to save given verification           
-        } //end of else  if(pref.length<2)
-    });//end of  $(document).on("click","#submit",function()
+    //events of draft and submit::end
+    
 });
 </script>
 @endsection
