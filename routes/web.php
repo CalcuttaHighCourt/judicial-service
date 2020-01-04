@@ -350,10 +350,16 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 			return view ('jo_grade.index');
 		});
 
+
 		Route::post('jo_grade/rank_wise_jo_list', 'JoGradeController@rank_wise_jo_list')->name('rank_wise_jo_list');
 
 		Route::post('jo_grade/save_jo_grade', 'JoGradeController@save_jo_grade')->name('save_jo_grade');
 
+		Route::get ('show_grade_list', function () {
+			return view ('jo_grade.show_grade');
+		});
+		
+		Route::post('jo_grade/show_jo_graded_list', 'JoGradeController@get_final_jo_graded_list')->name('show_jo_graded_list');
 
 
 	});
@@ -391,6 +397,8 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 		Route::post('update_contact_details','JoEntryFormController@update_contact_details')->name('update_contact_details');
 		
 		Route::post('update_profile_image','JoEntryFormController@update_profile_image')->name('update_profile_image');
+
+		Route::post('update_posting_details','JoEntryFormController@update_posting_details')->name('update_posting_details');
 
 		Route::post('jo_posting/search', 'JudicialOfficerPostingController@jo_current_posting_details');
 

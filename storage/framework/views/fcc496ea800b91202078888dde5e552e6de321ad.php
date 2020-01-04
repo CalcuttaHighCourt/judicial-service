@@ -121,30 +121,31 @@
             </div>
 
 
-        <div class="row" style="margin-left:-200px">
+        <div class="row">
 
-            <div class="col-xs-2">
+            <div class="col-xs-4">
             </div>
             <!--/col-3-->
 
             <div class="col-xs-2">
-            <button class="btn btn-primary draft" id="draft" name="draft">Draft</button>
+            <button class="btn btn-primary draft" id="draft" name="draft">Draft List</button>
             </div>
 
             <div class="col-xs-2">
-            <button class="btn btn-success finalized" id="finalized" name="finalized">Final</button>
+            <button class="btn btn-success finalized" id="finalized" name="finalized">Final List</button>
             </div>
             <!--/col-3-->
 
-            <div class="col-xs-1">
-            <button class="btn btn-danger danger" id="close" name="close">Close</button>
-            </div>
-            <!--/col-3-->
 
 
         </div>
 
-        
+        <div class="row" style="padding-top:20px">
+            <div class="col-xs-2">
+            </div>
+            <!--/col-3-->
+         </div>
+
     </div>
     <!--/<div class="jo_grade_div">-->
 
@@ -191,11 +192,10 @@
 
 
 
+
+
          var table;
-         
-
-
-         
+                 
             //Create list to arrange :start
            $(document).on("click","#submit", function() {
 
@@ -267,7 +267,18 @@
                                             orderable: false,
                                             targets: 1,
                                         }
-                                ]
+                                ],
+                                "initComplete": function(settings, json) {
+                                    if(json.recordsTotal ==-1)
+                                    {
+                                        swal("Grade List already Finalized", "on the given date", "error");   
+                                        $("#jo_grade_div").hide();    
+                                        return false;
+                                    }
+
+                                }
+
+
                             }); 
                             
 
@@ -284,6 +295,11 @@
 
                             //$(".rank_type").val(jo_grade_rank_name+" from");
                             $("#jo_grade_div").show();
+
+                            $("#jo_grade_rank_id").attr("disabled", "disabled");  
+                            $("#date_of_gradation").attr("disabled", "disabled");
+                            $(".submit").hide();
+                              
 
                 }//else of if(jo_grade_rank_id =="" ){
 
@@ -434,6 +450,7 @@
 
                                     
                     rowMoveTo["to_grade"] = to_grade+1;
+                    rowMoveTo["inicial"] = current_grade+1;
                     rowMoveTo["grade"] = to_grade+1;
                     rowMoveTo["remark"] = remark;
                     
@@ -482,11 +499,6 @@
             });
 
 
-            $(document).on("click","#close", function() {
-                $("#jo_grade_table").DataTable().destroy();
-                $("#jo_grade_div").hide();
-                location.reload();
-            });
 
             $(document).on("click","#draft", function() {
 

@@ -197,7 +197,7 @@
                                 </a>
                                 <ul class="treeview-menu">
                                     <li><a href="{{url('jo_grade')}}">Create Grade List</a></li>
-                                    <li><a href="">Show Grade List</a></li>
+                                    <li><a href="{{url('show_grade_list')}}">Show Grade List</a></li>
                                 </ul>
                             </li>     
                             

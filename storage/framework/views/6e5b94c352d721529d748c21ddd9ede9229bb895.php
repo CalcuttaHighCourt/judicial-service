@@ -456,6 +456,7 @@
                                                         </label>
                                                         <select class="form-control info-form-control posting_select2 select2 designation_id" style="width:100%">
                                                             <option value="">Select an Option</option>
+                                                            <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                                         </select>
                                                     </div>  
                                                 </div>
@@ -524,12 +525,12 @@
                                                             Remark
                                                     </label>
                                                     <textarea class="form-control posting_remark" placeholder="if any"></textarea>
-                                                </div> 
+                                                </div>
                                                 <div class="col-xs-1">
                                                     <br/>
                                                     <img src="<?php echo e(asset('images/details_open.png')); ?>" class="img_add_more_posting" id="add_more_posting">
                                                 </div>
-                                            </div> 
+                                            </div>                                             
                                             <hr>
                                         </div>                     
                                     </form>
@@ -829,9 +830,13 @@
             $("#home_town").val(data.hometown);
             $("#permanent_address").val(data.permanent_address);
             $("#current_address").val(data.present_address);
-            $('.avatar').attr('src',data.profile_image);
+
+            if(data.profile_image!=null)
+                $('.avatar').attr('src',data.profile_image);
+            
 
             $(".select2").trigger("change");
+            $("#home_state").trigger("change");
 
         }
 
@@ -880,12 +885,15 @@
                     $(".from_date:last").val(val.from_date);
                     $(".to_date:last").val(val.to_date);
                     $(".posting_remark:last").val(val.posting_remark);
+                    $(".permanent_reporting_officer_div:last").val(val.reporting_officer_id);
+                    $(".reporting_officer_id:last").val(val.reporting_officer_id);
                     $(".other_reporting_officer:last").val(val.other_reporting_officer_name);
                     $(".other_reporting_officer_designation:last").val(val.other_reporting_officer_designation);
+                    $(".zone:last").val(val.deputation_zone);
                     
 
                     $(".select2").trigger("change");
-                    $(".deputation_zone").hide();
+                    $(".mode_id").trigger("change");
                     $("#add_more_posting").trigger('click');
                     $(".remove_posting").remove();
                 })
@@ -1039,6 +1047,135 @@
                         }
                     })
                 }
+            }
+            //update posting details
+            else if($(this).val()=='update_posting_details'){
+                var designation_id = new Array();
+                var deputation_designation = new Array();
+                var zone_id = new Array();
+                var deputation_zone = new Array();
+                var deputation_posting_place = new Array();
+                var mode_id = new Array();
+                var flag_mode = new Array();
+                var rank_id = new Array();
+                var reporting_officer_id = new Array();
+                var other_reporting_officer_name = new Array();
+                var other_reporting_officer_designation = new Array();
+                var from_date = new Array();
+                var to_date = new Array();         
+                var posting_remark = new Array();
+                
+                deputation_designation = [];
+                $(".other_designation").each(function(){
+                    deputation_designation.push($(this).val());
+                })
+
+                mode_id = [];
+                flag_mode = [];
+                $(".mode_id").each(function(){
+                    mode_id.push($(this).val());
+
+                    if($(this).find('option:selected').text()=='deputation' || $(this).find('option:selected').text()=='Deputation')
+                        flag_mode.push('deputation');
+                    else
+                        flag_mode.push('regular');
+                })
+
+                rank_id = [];
+                $(".rank").each(function(){
+                    rank_id.push($(this).val());
+                })
+
+                zone_id = [];   
+                designation_id = [];
+                $(".designation_id").each(function(){
+                    designation_id.push($(this).val()); 
+                    if($(this).val()!="")
+                        zone_id.push($(this).find('option:selected').attr('data-zone_id'));  
+                    else
+                        zone_id.push("");                        
+                })
+
+                deputation_zone = [];         
+                $(".zone").each(function(){
+                    deputation_zone.push($(this).val());           
+                })
+
+                deputation_posting_place = [];
+                $(".other_place_posting").each(function(){
+                    deputation_posting_place.push($(this).val());
+                })
+            
+                reporting_officer_id = [];
+                $(".reporting_officer_id").each(function(){
+                    reporting_officer_id.push($(this).val());
+                })
+
+                other_reporting_officer_name = [];
+                $(".other_reporting_officer").each(function(){
+                    other_reporting_officer_name.push($(this).val());
+                })
+
+                other_reporting_officer_designation = [];
+                $(".other_reporting_officer_designation").each(function(){
+                    other_reporting_officer_designation.push($(this).val());
+                })
+
+                posting_remark = [];
+                $(".posting_remark").each(function(){
+                    posting_remark.push($(this).val());
+                })
+
+                from_date = [];
+                $(".from_date").each(function(){
+                    from_date.push($(this).val());
+                })
+
+                to_date = [];
+                $(".to_date").each(function(){
+                    to_date.push($(this).val());
+                })
+
+                $.ajax({
+                    type:"post",
+                    url:"<?php echo e(route('update_posting_details')); ?>",
+                    data:{
+                        id:$("#fetch_id").val(),
+                        designation_id:designation_id,
+                        deputation_designation:deputation_designation,
+                        mode_id:mode_id,
+                        flag_mode:flag_mode,
+                        rank_id:rank_id,
+                        zone_id:zone_id,                                        
+                        deputation_zone:deputation_zone,
+                        deputation_posting_place:deputation_posting_place,
+                        reporting_officer_id:reporting_officer_id,                                        
+                        other_reporting_officer_name:other_reporting_officer_name,
+                        other_reporting_officer_designation:other_reporting_officer_designation,
+                        posting_remark:posting_remark,
+                        from_date:from_date,
+                        to_date:to_date,
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    success: function (data, textStatus, jqXHR) { 
+                        swal("Posting Details Updated Successfully","","success");
+                        return false;
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        if(jqXHR.status!=422 && jqXHR.status!=400){
+                            swal("Failed to Update Details",errorThrown,"error");
+                        }
+                        else{
+                            msg = "";
+                            $.each(jqXHR.responseJSON.errors, function(key,value) {
+                                msg+=value+"\n";						
+                            });
+
+                            swal("Failed to Update Details",msg,"error");
+                        }
+                    }
+                })
+   
             }
         })
         // Data Updation :: end
