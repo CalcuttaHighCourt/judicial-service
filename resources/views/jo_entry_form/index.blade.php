@@ -663,17 +663,18 @@
 
         // Recruitment Batch :: START
         $(document).on("change","#recruitment_batch_id",function(){
-            var batch = $("#recruitment_batch_id option:selected").text();
+            var batch_id = $("#recruitment_batch_id option:selected").val();
+            var batch_name = $("#recruitment_batch_id option:selected").text();
 
             $.ajax({
                 url:"{{route('fetch_rank_designation')}}",
                 type:"post",
                 data:{
                     _token: $('meta[name="_token"]').attr('content'),
-                    batch:batch
+                    batch_id:batch_id,
+                    batch_name:batch_name
                 },
-                success:function(response){                   
-                    console.log(response);
+                success:function(response){ 
                     $("#rank").children('option:not(:first)').remove();
                     $.each(response.ranks,function(index,value){							
                         $("#rank").append('<option value="'+value.id+'">'+value.rank_name+'</option>');											
