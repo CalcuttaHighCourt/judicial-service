@@ -1,6 +1,12 @@
 @extends('layouts.app') 
+
 @section('content')
 <!-- Main content -->
+
+<link rel="stylesheet" href="{{asset('css/rowReordering_css/rowReorder.dataTables.min.css')}}">
+<!-- <link rel="stylesheet" href="{{asset('css/rowReordering_css/editor.dataTables.min.css')}}">
+<link rel="stylesheet" href="{{asset('css/rowReordering_css/jquery.dataTables.min.css')}}"> -->
+<link rel="stylesheet" href="{{asset('css/rowReordering_css/select.dataTables.min.css')}}">
 
 <style>
 .reorder {
@@ -21,8 +27,6 @@
     height:2px;
     text-align:left;
 }
-
-
 
 </style>
 
@@ -713,3 +717,4 @@
 </script>
 
 @endsection
+

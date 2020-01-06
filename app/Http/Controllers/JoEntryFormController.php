@@ -385,7 +385,7 @@ class JoEntryFormController extends Controller
 
     public function fetch_rank_designation(Request $request){
         $this->validate( $request, [ 
-            'batch' => 'required|max:20|exists:batches,id'
+            'batch' => 'required|max:20|exists:recruitment_batches,id'
         ]);
 
         $batch = $request->input('batch');

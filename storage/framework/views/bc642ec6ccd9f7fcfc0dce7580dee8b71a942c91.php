@@ -180,6 +180,15 @@
                                     <li><a href="<?php echo e(url('modify_jo_details')); ?>"> Modify JO Details</a></li>
                                     <li><a href="#"> Document Upload</a></li>
                                 </ul>
+                            </li>  
+                            <li class="treeview">
+                                <a href="#"><i class="fa fa-search-minus"></i>
+                                    <span>Posting Preference</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="#">Switch on the Window</a></li>
+                                    <li><a href="#"> List of Preference</a></li>
+                                </ul>
                             </li>      
                             
                         <?php endif; ?>

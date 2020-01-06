@@ -1,6 +1,12 @@
  
+
 <?php $__env->startSection('content'); ?>
 <!-- Main content -->
+
+<link rel="stylesheet" href="<?php echo e(asset('css/rowReordering_css/rowReorder.dataTables.min.css')); ?>">
+<!-- <link rel="stylesheet" href="<?php echo e(asset('css/rowReordering_css/editor.dataTables.min.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/rowReordering_css/jquery.dataTables.min.css')); ?>"> -->
+<link rel="stylesheet" href="<?php echo e(asset('css/rowReordering_css/select.dataTables.min.css')); ?>">
 
 <style>
 .reorder {
@@ -21,8 +27,6 @@
     height:2px;
     text-align:left;
 }
-
-
 
 </style>
 
@@ -215,7 +219,7 @@
                         success:function(response){
                             if(response['status'] == "Finalized")
                             {
-                                swal("Grade List already Finalized", "on the given date", "error");    
+                                swal("Grade List already Finalized", "of "+date_of_gradation, "error");    
                                 $("#jo_grade_rank_id").attr("disabled", "disabled");  
                                 $("#date_of_gradation").attr("disabled", "disabled");
                                 $(".submit").hide();
@@ -260,7 +264,7 @@
                     success:function(response){
                         if(response['status'] == "Finalized")
                         {
-                            swal("Grade List already Finalized", "on the given date", "error");    
+                            swal("Grade List already Finalized", "of "+date_of_gradation, "error");    
                             $("#jo_grade_rank_id").attr("disabled", "disabled");  
                             $("#date_of_gradation").attr("disabled", "disabled");
                             $(".submit").hide();
@@ -366,7 +370,7 @@
                                 "initComplete": function(settings, json) {
                                     if(json.recordsTotal ==-1)
                                     {
-                                        swal("Grade List already Finalized", "on the given date", "error");   
+                                        swal("Grade List already Finalized", "of "+date_of_gradation, "error");   
                                         $("#jo_grade_div").hide();    
                                         return false;
                                     }
@@ -713,5 +717,6 @@
 </script>
 
 <?php $__env->stopSection(); ?>
+
 
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH F:\laragon\www\judicial-service\resources\views/jo_grade/index.blade.php ENDPATH**/ ?>
