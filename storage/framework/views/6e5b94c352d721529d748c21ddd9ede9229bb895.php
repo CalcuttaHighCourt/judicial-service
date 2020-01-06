@@ -849,7 +849,7 @@
 
                     $(".select2").trigger("change");
                     $("#add_more_qualification").trigger('click');
-                    $(".remove_qualification").remove();
+                    //$(".remove_qualification").remove();
                 })
                 $(".div_add_more_qualification:last").remove();
             }            
@@ -864,10 +864,9 @@
                     $(".practice_from_year:last").val(val.from_year);
                     $(".practice_to_year:last").val(val.to_year);
 
-
                     $(".select2").trigger("change");
                     $("#add_more_legal_practice").trigger('click');
-                    $(".remove_legal_practice").remove();
+                    //$(".remove_legal_practice").remove();
                 })
                 $(".div_add_more_legal_practice:last").remove();
             }            
@@ -895,7 +894,7 @@
                     $(".select2").trigger("change");
                     $(".mode_id").trigger("change");
                     $("#add_more_posting").trigger('click');
-                    $(".remove_posting").remove();
+                    //$(".remove_posting").remove();
                 })
                 $(".div_add_more_posting:last").remove();
             }            
@@ -1177,9 +1176,99 @@
                 })
    
             }
+             //update practice details
+             else if($(this).val()=='update_practice_details'){
+                var subdivision_id = new Array();
+                var from_year = new Array();
+                var to_year = new Array();
+
+                subdivision_id = [];
+                $(".subdivision_id").each(function(){
+                    subdivision_id.push($(this).val());
+                })
+
+                from_year = [];
+                $(".practice_from_year").each(function(){
+                    from_year.push($(this).val());
+                })
+
+                to_year = [];
+                $(".practice_to_year").each(function(){
+                    to_year.push($(this).val());
+                })
+
+                $.ajax({
+                    type:"post",
+                    url:"<?php echo e(route('update_practice_details')); ?>",
+                    data:{
+                        id:$("#fetch_id").val(),
+                        subdivision_id:subdivision_id,
+                        from_year:from_year,
+                        to_year:to_year,
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    success: function (data, textStatus, jqXHR) { 
+                        swal("Practice Details Updated Successfully","","success");
+                        return false;
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        if(jqXHR.status!=422 && jqXHR.status!=400){
+                            swal("Failed to Update Details",errorThrown,"error");
+                        }
+                        else{
+                            msg = "";
+                            $.each(jqXHR.responseJSON.errors, function(key,value) {
+                                msg+=value+"\n";						
+                            });
+                            swal("Failed to Update Details",msg,"error");
+                        }
+                    }
+                })
+            }
+            //update qualification details
+            else if($(this).val()=='update_qualification_details'){
+                var qualification_id = new Array();
+                var passing_year = new Array();     
+
+                qualification_id = [];
+                $(".degree_id").each(function(){
+                    qualification_id.push($(this).val());
+                })
+
+                passing_year = [];
+                $(".yop").each(function(){
+                    passing_year.push($(this).val());
+                })
+
+                $.ajax({
+                    type:"post",
+                    url:"<?php echo e(route('update_qualification_details')); ?>",
+                    data:{
+                        id:$("#fetch_id").val(),
+                        qualification_id:qualification_id,
+                        passing_year:passing_year,
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    success: function (data, textStatus, jqXHR) { 
+                        swal("Qualification Details Updated Successfully","","success");
+                        return false;
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        if(jqXHR.status!=422 && jqXHR.status!=400){
+                            swal("Failed to Update Details",errorThrown,"error");
+                        }
+                        else{
+                            msg = "";
+                            $.each(jqXHR.responseJSON.errors, function(key,value) {
+                                msg+=value+"\n";						
+                            });
+                            swal("Failed to Update Details",msg,"error");
+                        }
+                    }
+                })
+            }
         })
         // Data Updation :: end
-
 
     });
 
