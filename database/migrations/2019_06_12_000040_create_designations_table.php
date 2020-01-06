@@ -17,10 +17,12 @@ class CreateDesignationsTable extends Migration
             $table->increments('id');
             $table->string('designation_name');
             $table->integer('rank_id')->nullable();
+            $table->integer('subdivision_id');
 			$table->bigInteger('created_by')->nullable();
             $table->timestamps();            
             
             $table->foreign('rank_id')->references('id')->on('ranks');
+            $table->foreign('subdivision_id')->references('id')->on('subdivisions');
         });
     }
 
