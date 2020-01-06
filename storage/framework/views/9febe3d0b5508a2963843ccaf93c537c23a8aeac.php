@@ -180,6 +180,15 @@
                                     <li><a href="<?php echo e(url('modify_jo_details')); ?>"> Modify JO Details</a></li>
                                     <li><a href="#"> Document Upload</a></li>
                                 </ul>
+                            </li>  
+                            <li class="treeview">
+                                <a href="#"><i class="fa fa-search-minus"></i>
+                                    <span>Posting Preference</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="#">Switch on the Window</a></li>
+                                    <li><a href="#"> List of Preference</a></li>
+                                </ul>
                             </li>      
                             
                         <?php endif; ?>
@@ -190,7 +199,7 @@
                                 </a>
                                 <ul class="treeview-menu">
                                     <li><a href="<?php echo e(url('jo_grade')); ?>">Create Grade List</a></li>
-                                    <li><a href="">Show Grade List</a></li>
+                                    <li><a href="<?php echo e(url('show_grade_list')); ?>">Show Grade List</a></li>
                                 </ul>
                             </li>     
                             

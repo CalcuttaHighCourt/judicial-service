@@ -35,7 +35,9 @@ class CreateJudicialOfficersTable extends Migration
 			$table->integer('recruitment_batch_year');
 			$table->date('date_of_joining');
 			$table->date('date_of_confirmation')->nullable();
-			$table->date('date_of_retirement');			
+			$table->date('date_of_retirement');
+			$table->string('posting_preference_window_flag')->nullable();
+			$table->date('posting_preference_window_open_on')->nullable();			
 			$table->string('profile_image')->nullable();
 			$table->timestamps();
 			

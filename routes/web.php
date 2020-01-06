@@ -400,6 +400,12 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 		
 		Route::post('update_profile_image','JoEntryFormController@update_profile_image')->name('update_profile_image');
 
+		Route::post('update_posting_details','JoEntryFormController@update_posting_details')->name('update_posting_details');
+
+		Route::post('update_practice_details','JoEntryFormController@update_practice_details')->name('update_practice_details');
+
+		Route::post('update_qualification_details','JoEntryFormController@update_qualification_details')->name('update_qualification_details');
+
 		Route::post('jo_posting/search', 'JudicialOfficerPostingController@jo_current_posting_details');
 
 	});
