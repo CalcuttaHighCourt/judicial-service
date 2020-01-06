@@ -456,7 +456,7 @@
                                                         </label>
                                                         <select class="form-control info-form-control posting_select2 select2 designation_id" style="width:100%">
                                                             <option value="">Select an Option</option>
-                                                            @include('courts.court_options')
+                                                            @include('designations.designation_options')
                                                         </select>
                                                     </div>  
                                                 </div>
