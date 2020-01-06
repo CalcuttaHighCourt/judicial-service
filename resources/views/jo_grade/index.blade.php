@@ -80,7 +80,7 @@
     <div class="jo_grade_div" id="jo_grade_div" name="jo_grade_div" style="display:none;" >
             <div id="info-panel2" class="panel panel-default">    
             <div id="datatable-panel-heading" class="panel-heading clearfix">       
-                <div class="panel-title pull-left">List of Judicial Officers. . . </div>
+                <div class="panel-title pull-left" id="list_header" name="list_header">List of Judicial Officers. . . </div>
             </div>
 
             <div class="panel-body box-body" style="overflow-x: auto;">
@@ -191,11 +191,106 @@
         });
 
 
+        var status;
+
+        var table;
+
+
+        //Fetch status and current date from server on the given date and rank: start
+        $(this).one('change', '#date_of_gradation', function(e) {
+
+            var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
+            var date_of_gradation= $("#date_of_gradation").val();
+
+            if(jo_grade_rank_id != "" && date_of_gradation !="")
+            {
+                //access status using JOGradeController@jo_list_info 
+                $.ajax({
+                        "url":  "{{route('jo_list_info')}}",
+                        "type": "POST",                        
+                        "data":{ _token: $('meta[name="csrf-token"]').attr('content'),
+                                    rank_id:jo_grade_rank_id,
+                                    date_of_gradation:date_of_gradation
+                                },                         
+                        success:function(response){
+                            if(response['status'] == "Finalized")
+                            {
+                                swal("Grade List already Finalized", "of "+date_of_gradation, "error");    
+                                $("#jo_grade_rank_id").attr("disabled", "disabled");  
+                                $("#date_of_gradation").attr("disabled", "disabled");
+                                $(".submit").hide();
+                                $("#jo_grade_div").hide();    
+                                return false;
+                            }
+                            else if(response['status'] == "Draft")
+                            {                                
+                                status= response['status'];
+                                $("#list_header").html($("#list_header").html() +'('+response['status']+')');
+                                swal("View/ Modify Drafted List", "of "+date_of_gradation , "");   
+                            }
+                            else
+                            {
+                                status= response['status'];
+                                $("#list_header").html($("#list_header").html() +'(New)');
+                            }
+                        }
+
+                }); //end of ajax
+
+            } //end of  if(jo_grade_rank_id != "" && date_of_gradation !="")                
+
+        }); //end of  $(this).on('change', '#date_of_gradation', function(e) {
+
+
+        $(this).one('change', '#jo_grade_rank_id', function(e) {
+
+        var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
+        var date_of_gradation= $("#date_of_gradation").val();
+
+        if(jo_grade_rank_id != "" && date_of_gradation !="")
+        {
+            //access status using JOGradeController@jo_list_info 
+            $.ajax({
+                    "url":  "{{route('jo_list_info')}}",
+                    "type": "POST",                        
+                    "data":{ _token: $('meta[name="csrf-token"]').attr('content'),
+                                rank_id:jo_grade_rank_id,
+                                date_of_gradation:date_of_gradation
+                            },                         
+                    success:function(response){
+                        if(response['status'] == "Finalized")
+                        {
+                            swal("Grade List already Finalized", "of "+date_of_gradation, "error");    
+                            $("#jo_grade_rank_id").attr("disabled", "disabled");  
+                            $("#date_of_gradation").attr("disabled", "disabled");
+                            $(".submit").hide();
+                            $("#jo_grade_div").hide();    
+                            return false;
+                        
+                        }
+                        else if(response['status'] == "Draft")
+                        {
+                            status= response['status'];
+                            $("#list_header").html($("#list_header").html() +'('+response['status']+')');
+                            swal("View/ Modify Drafted List", "of "+date_of_gradation , "");   
+                        }
+                        else
+                        {
+                            status= response['status'];
+                            $("#list_header").html($("#list_header").html() +'(New)');
+                        }
+                    }
+
+                }); //end of ajax
+
+            } //end of  if(jo_grade_rank_id != "" && date_of_gradation !="")                
+
+        }); //end of  $(this).on('change', '#date_of_gradation', function(e) {
+        //Fetch status and current date from server on the given date and rank: end
 
 
 
-         var table;
-                 
+
             //Create list to arrange :start
            $(document).on("click","#submit", function() {
 
@@ -267,11 +362,11 @@
                                             orderable: false,
                                             targets: 1,
                                         }
-                                ],
+                                ],                               
                                 "initComplete": function(settings, json) {
                                     if(json.recordsTotal ==-1)
                                     {
-                                        swal("Grade List already Finalized", "on the given date", "error");   
+                                        swal("Grade List already Finalized", "of "+date_of_gradation, "error");   
                                         $("#jo_grade_div").hide();    
                                         return false;
                                     }

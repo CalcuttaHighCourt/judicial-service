@@ -39,9 +39,9 @@
     <script src="{{asset('js/jquery.gotop.min.js')}}"></script>
     
 
-    <script src="{{asset('js/rowReordering_js/dataTables.select.min.js')}}"></script>       
+    <!-- <script src="{{asset('js/rowReordering_js/dataTables.select.min.js')}}"></script>       
     <script src="{{asset('js/rowReordering_js/jquery.dataTables.min.js')}}"></script>       
-    <script src="{{asset('js/rowReordering_js/dataTables.editor.min.js')}}"></script>     
+    <script src="{{asset('js/rowReordering_js/dataTables.editor.min.js')}}"></script>      -->
     <script src="{{asset('js/rowReordering_js/dataTables.rowReorder.min.js')}}"></script>     
     <!-- <script src="{{asset('js/rowReordering_js/jquery-3.3.1.js')}}"></script>      -->
 

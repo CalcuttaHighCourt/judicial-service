@@ -361,6 +361,8 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 		
 		Route::post('jo_grade/show_jo_graded_list', 'JoGradeController@get_final_jo_graded_list')->name('show_jo_graded_list');
 
+		Route::post('jo_grade/jo_list_info', 'JoGradeController@get_jo_list_info')->name('jo_list_info');
+
 
 	});
 

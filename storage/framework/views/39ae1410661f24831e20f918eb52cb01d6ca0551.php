@@ -80,7 +80,7 @@
     <div class="jo_grade_div" id="jo_grade_div" name="jo_grade_div" style="display:none;" >
             <div id="info-panel2" class="panel panel-default">    
             <div id="datatable-panel-heading" class="panel-heading clearfix">       
-                <div class="panel-title pull-left">List of Judicial Officers. . . </div>
+                <div class="panel-title pull-left" id="list_header" name="list_header">Gradation List of Judicial Officers. . . </div>
             </div>
 
             <div class="panel-body box-body" style="overflow-x: auto;">
@@ -97,6 +97,7 @@
                                     <th>Retirement</th>
                                     <th>From</th>
                                     <th>Remark</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -109,6 +110,7 @@
                                     <th>Retirement</th>
                                     <th>From</th>
                                     <th>Remark</th>
+                                    <th>Status</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -160,16 +162,102 @@
             endDate: '+0d',
         });
 
-        var d = new Date();
-        var month = d.getMonth()+1;
-        var day = d.getDate();
+        // var d = new Date();
+        // var month = d.getMonth()+1;
+        // var day = d.getDate();
 
-        var current_date = (day<10 ? '0' : '') + day + '-' +
-                        (month<10 ? '0' : '') + month + '-' + 
-                        d.getFullYear() ;
+        // var current_date = (day<10 ? '0' : '') + day + '-' +
+        //                 (month<10 ? '0' : '') + month + '-' + 
+        //                 d.getFullYear() ;
 
-         var table;
+        var current_date;
+        var report_status;
+
+        var table;
                
+
+        //Fetch status and current date from server on the given date and rank: start
+         $(this).one('change', '#date_of_gradation', function(e) {
+
+                var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
+                var date_of_gradation= $("#date_of_gradation").val();
+                
+                if(jo_grade_rank_id != "" && date_of_gradation !="")
+                {
+                    //access status using JOGradeController@jo_list_info 
+                    $.ajax({
+                            "url":  "<?php echo e(route('jo_list_info')); ?>",
+                            "type": "POST",                        
+                            "data":{ _token: $('meta[name="csrf-token"]').attr('content'),
+                                        rank_id:jo_grade_rank_id,
+                                        date_of_gradation:date_of_gradation
+                                    },                         
+                            success:function(response){
+                                if(response['status'] == "")
+                                {
+                                    swal("No grade list available", "of "+date_of_gradation, "error");   
+                                    $("#jo_grade_rank_id").attr("disabled", "disabled");  
+                                    $("#date_of_gradation").attr("disabled", "disabled");
+                                    $(".submit").hide();
+                                    $("#jo_grade_div").hide();    
+                                    return false;
+                                }
+                                else
+                                {
+                                    current_date= response['current_date'];
+                                    report_status= response['status'];
+                                    $("#list_header").html($("#list_header").html() +"("+response['status']+")");
+                                }
+                            }
+
+                        }); //end of ajax
+
+                } //end of  if(jo_grade_rank_id != "" && date_of_gradation !="")                
+
+            }); //end of  $(this).on('change', '#date_of_gradation', function(e) {
+
+
+            $(this).one('change', '#jo_grade_rank_id', function(e) {
+
+                var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
+                var date_of_gradation= $("#date_of_gradation").val();
+
+                if(jo_grade_rank_id != "" && date_of_gradation !="")
+                {
+                    //access status using JOGradeController@jo_list_info 
+                    $.ajax({
+                            "url":  "<?php echo e(route('jo_list_info')); ?>",
+                            "type": "POST",                        
+                            "data":{ _token: $('meta[name="csrf-token"]').attr('content'),
+                                        rank_id:jo_grade_rank_id,
+                                        date_of_gradation:date_of_gradation
+                                    },                         
+                            success:function(response){
+                                if(response['status'] == "")
+                                {
+                                    swal("No grade list available", "of "+date_of_gradation, "error");   
+                                    $("#jo_grade_rank_id").attr("disabled", "disabled");  
+                                    $("#date_of_gradation").attr("disabled", "disabled");
+                                    $(".submit").hide();
+                                    $("#jo_grade_div").hide();    
+                                    return false;
+                                }
+                                else
+                                {
+                                    current_date= response['current_date'];
+                                    report_status= response['status'];
+                                    $("#list_header").html($("#list_header").html() +'('+response['status']+')');
+                                }
+                            }
+
+                        }); //end of ajax
+
+                } //end of  if(jo_grade_rank_id != "" && date_of_gradation !="")                
+
+            }); //end of  $(this).on('change', '#date_of_gradation', function(e) {
+        //Fetch status and current date from server on the given date and rank: end
+
+
             //Create list to arrange :start
            $(document).on("click","#submit", function() {
 
@@ -177,7 +265,6 @@
                 var jo_grade_rank_name= $("#jo_grade_rank_id option:selected").html();
 
                 var date_of_gradation= $("#date_of_gradation").val();
-
 
                 if(jo_grade_rank_id =="" ){
                     swal("Select Rank","Rank required","error");
@@ -188,91 +275,110 @@
                     return false;
                 }
                 else{
+            
+                        $("#jo_grade_table").DataTable().destroy();
 
-                            $("#jo_grade_table").DataTable().destroy();
-
-                            //show all rank wise jo list using 'JoGradeController@get_final_jo_graded_list'
-                            table = $("#jo_grade_table").DataTable({  
-                                "processing": true,
-                                "serverSide": true,
-                                "bPaginate": false,                             
-                                "ajax":{
-                                        "url": "<?php echo e(route('show_jo_graded_list')); ?>",
-                                        "dataType": "json",
-                                        "type": "POST",
-                                        "data":
-                                            {  _token: $('meta[name="csrf-token"]').attr('content'),
-                                                rank_id:jo_grade_rank_id,
-                                                date_of_gradation:date_of_gradation
-                                            }
-                                },                                
-                                "columns": 
-                                [
-                                        {"data": "grade"}, 
-                                        {"data": "formula"},
-                                        {"data": "jo_name"},
-                                        {"data": "date_of_birth"},
-                                        {"data": "date_of_joining"},
-                                        {"data": "date_of_retirement"},
-                                        {"data": "from_date"},
-                                        {"data": "remark"}
-                                ],             
-                                "initComplete": function(settings, json) {
-                                    if(json.recordsTotal == 0)
-                                    {
-                                        swal("No grade list available", "on the given date", "error");   
-                                        $("#jo_grade_div").hide();    
-                                        return false;
-                                    }
-
-                                },
-                                dom: 'Bfrtip',
-                                buttons:
-                                [
-                                        {
-                                            extend: 'colvis',
-                                            collectionLayout: 'fixed four-column'
-                                        },              
-                                        {
-                                            extend: 'excelHtml5',
-                                            exportOptions:
-                                            {
-                                                columns: ':visible',
-                                                stripNewlines: false
-                                            },
-                                            title: 'Judicial Officer Gradation Report on  '+date_of_gradation + ', for the post of '+jo_grade_rank_name,
-                                            messageTop: ' (Calcutta High Court)',
-                                            messageBottom: 'Printed On '+current_date
+                        //show all rank wise jo list using 'JoGradeController@get_final_jo_graded_list'
+                        table = $("#jo_grade_table").DataTable({  
+                            "processing": true,
+                            "serverSide": true,
+                            "bPaginate": false,                             
+                            "ajax":{
+                                    "url": "<?php echo e(route('show_jo_graded_list')); ?>",
+                                    "dataType": "json",
+                                    "type": "POST",
+                                    "data":
+                                        {  _token: $('meta[name="csrf-token"]').attr('content'),
+                                            rank_id:jo_grade_rank_id,
+                                            date_of_gradation:date_of_gradation
                                         },
-                                        {
-                                            extend: 'pdfHtml5',
-                                            orientation: 'potrait',
-                                            pageSize: 'A4',
-                                            exportOptions:
-                                            {
-                                                columns: ':visible', 
-                                                stripNewlines: false
-                                            },
-                                            title: 'Judicial Officer Gradation Report on  '+date_of_gradation + ', for the post of '+jo_grade_rank_name,
-                                            messageTop: ' (Calcutta High Court)',                      
-                                            messageBottom: 'Printed On '+current_date + '\t\t\t\t\t\t\t\t\t\t\t\t\t Signature',
-                                            customize: function(doc) 
-                                            {                                
-                                                doc.content[0].margin = [ 30, 0, 0, 20 ] //left, top, right, bottom                                
-                                                doc.content[1].margin = [ 120, 0, 0, 20 ] //left, top, right, bottom
-                                                doc.content[2].margin = [ 120, 5, 0, 0 ] //left, top, right, bottom                                                               
-                                                doc.content[3].margin = [ 120, 5, 0, 0 ] //left, top, right, bottom
+                                    // "complete": function(response) 
+                                    // {
+                                    //   //  report_status=response.responseJSON.status;
+                                    //     // insert_in_status(response.responseJSON.status);
+                                        
+                                    // }
+
+                            },              
                                                 
-                                            }
+                            "columns": 
+                            [
+                                    {"data": "grade"}, 
+                                    {"data": "formula"},
+                                    {"data": "jo_name"},
+                                    {"data": "date_of_birth"},
+                                    {"data": "date_of_joining"},
+                                    {"data": "date_of_retirement"},
+                                    {"data": "from_date"},
+                                    {"data": "remark"},
+                                    {"data": "status", class:"status"}
+                            ],
+
+                            "initComplete": function(settings, json) {
+                                // console.log(table.cell(0,8).data());
+                                if(json.recordsTotal == 0)
+                                {
+                                    swal("No grade list available", "on the given date", "error");   
+                                    $("#jo_grade_div").hide();    
+                                    return false;
+                                }
+
+                            },
+
+                            dom: 'Bfrtip',
+                            
+                            buttons:
+                            [
+                                
+                                    {
+                                        extend: 'colvis',
+                                        collectionLayout: 'fixed four-column'
+                                    },              
+                                    {
+                                        extend: 'excelHtml5',
+                                        exportOptions:
+                                        {
+                                            columns: ':visible',
+                                            stripNewlines: false
+                                        },              
+                                        title: 'J.O. Gradation List ('+report_status+') for '+jo_grade_rank_name +' on  '+date_of_gradation,
+                                        messageTop: ' (Calcutta High Court)',
+                                        messageBottom: 'Printed On '+current_date
+                                    },
+                                    {
+                                        extend: 'pdfHtml5',
+                                        orientation: 'potrait',
+                                        pageSize: 'A4',
+                                        exportOptions:
+                                        {
+                                            columns: ':visible', 
+                                            stripNewlines: false
+                                        },
+                                        title: 'J.O. Gradation List ('+report_status+') for '+jo_grade_rank_name +' on  '+date_of_gradation,
+                                        messageTop: ' (Calcutta High Court)',                      
+                                        messageBottom: 'Printed On '+current_date + '\t\t\t\t\t\t\t\t\t\t\t\t\t Signature',
+                                        customize: function(doc) 
+                                        {                
+                                            doc.defaultStyle.fontSize = 8; //<-- set datafontsize to 8 instead of default
+                                            doc.styles.tableHeader.fontSize = 8; //set header fontsoze
+                                            doc.defaultStyle.alignment = 'left';   
+                                            doc.styles.tableHeader.alignment = 'left';      
+                                            doc.content[0].margin = [ 20, 0, 0, 10 ] //left, top, right, bottom                                
+                                            doc.content[1].margin = [ 220, 0, 0, 10 ] //left, top, right, bottom
+                                            doc.content[2].margin = [ 10, 5, 0, 0 ] //left, top, right, bottom                                                               
+                                            doc.content[3].margin = [ 10, 20, 0, 0 ] //left, top, right, bottom
+                                            
                                         }
-                                ]
+                                    }
+                            ]
 
-                            }); 
+                        }); 
 
-                            $("#jo_grade_div").show();
-                            $("#jo_grade_rank_id").attr("disabled", "disabled");  
-                            $("#date_of_gradation").attr("disabled", "disabled");
-                            $(".submit").hide();
+
+                        $("#jo_grade_div").show();
+                        $("#jo_grade_rank_id").attr("disabled", "disabled");  
+                        $("#date_of_gradation").attr("disabled", "disabled");
+                        $(".submit").hide();
 
                 }//else of if(jo_grade_rank_id =="" ){
 
