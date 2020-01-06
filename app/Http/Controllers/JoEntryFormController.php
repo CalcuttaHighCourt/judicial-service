@@ -385,7 +385,8 @@ class JoEntryFormController extends Controller
 
     public function fetch_rank_designation(Request $request){
         $this->validate( $request, [ 
-            'batch_id' => 'required|max:20|exists:recruitment_batches,id'
+            'batch_id' => 'required|max:20|exists:recruitment_batches,id',
+            'batch_name' => 'required|max:20',
         ]);
 
         $batch = $request->input('batch_name');
@@ -645,7 +646,7 @@ class JoEntryFormController extends Controller
             'rank_id' => 'required|array',
             'rank_id.*' => 'required|required_with:mode_id.*,rank_id.*,flag_mode.*|integer|max:50|exists:ranks,id',
             'designation_id' => 'required|array',
-            'designation_id.*' => 'nullable|required_if:flag_mode.*,==,regular|integer|max:500|exists:courts,id',
+            'designation_id.*' => 'nullable|required_if:flag_mode.*,==,regular|integer|max:500|exists:designations,id',
             'deputation_designation' => 'required|array',
             'deputation_designation.*' => 'nullable|required_if:flag_mode.*,==,deputation|string|max:500',
             'reporting_officer_id' => 'required|array',

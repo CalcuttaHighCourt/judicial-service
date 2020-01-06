@@ -201,7 +201,7 @@ class JoDetailsPdfController extends Controller
                     </thead>
                     <tbody>";
 
-        $jo_postings = JudicialOfficerPosting::leftJoin('courts','judicial_officer_postings.designation_id','courts.id')
+        $jo_postings = JudicialOfficerPosting::leftJoin('designations','judicial_officer_postings.designation_id','designations.id')
                                                 ->join('modes','judicial_officer_postings.mode_id','modes.id')
                                                 ->where('judicial_officer_id',$jo_details['0']->id)
                                                 ->orderBy('from_date','asc')
@@ -214,7 +214,7 @@ class JoDetailsPdfController extends Controller
                 $to_date = Carbon::parse($jo_posting->to_date)->format('d-m-Y');
 
             if($jo_posting->designation_id !=null)
-                $posted_as = $jo_posting->court_name;
+                $posted_as = $jo_posting->designation_name;
             else
                 $posted_as = $jo_posting->deputation_designation.' At '.$jo_posting->deputation_posting_place;
 
