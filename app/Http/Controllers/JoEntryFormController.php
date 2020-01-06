@@ -400,7 +400,10 @@ class JoEntryFormController extends Controller
 
         $rank = $data['ranks']['0']->id;
 
-        $data['designations'] = Designation::where('rank_id',$rank)->get();
+        $data['designations'] = Designation::join('subdivisions','designations.subdivision_id', '=','subdivisions.id')
+                                            ->where('rank_id',$rank)
+                                            ->select('designations.*', 'subdivisions.zone_id')
+                                            ->get();
 
         return response()->json($data);
     }

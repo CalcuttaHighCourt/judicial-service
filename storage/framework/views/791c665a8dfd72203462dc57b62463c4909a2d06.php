@@ -664,17 +664,18 @@
 
         // Recruitment Batch :: START
         $(document).on("change","#recruitment_batch_id",function(){
-            var batch = $("#recruitment_batch_id option:selected").text();
+            var batch_id = $("#recruitment_batch_id option:selected").val();
+            var batch_name = $("#recruitment_batch_id option:selected").text();
 
             $.ajax({
                 url:"<?php echo e(route('fetch_rank_designation')); ?>",
                 type:"post",
                 data:{
                     _token: $('meta[name="_token"]').attr('content'),
-                    batch:batch
+                    batch_id:batch_id,
+                    batch_name:batch_name
                 },
-                success:function(response){                   
-                    console.log(response);
+                success:function(response){ 
                     $("#rank").children('option:not(:first)').remove();
                     $.each(response.ranks,function(index,value){							
                         $("#rank").append('<option value="'+value.id+'">'+value.rank_name+'</option>');											
@@ -682,7 +683,7 @@
 
                     $("#designation_id").children('option:not(:first)').remove();
                     $.each(response.designations,function(index,value){							
-                        $("#designation_id").append('<option value="'+value.id+'">'+value.designation_name+'</option>');											
+                        $("#designation_id").append('<option value="'+value.id+'" data-zone_id="'+value.zone_id+'">'+value.designation_name+'</option>');											
                     })
                 },
                 error:function (jqXHR, textStatus, errorThrown) {
