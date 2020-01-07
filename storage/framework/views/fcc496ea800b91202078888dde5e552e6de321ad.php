@@ -321,6 +321,7 @@
                                 "processing": false,
                                 "serverSide": false, 
                                 "bPaginate": false, 
+                                "stateSave": true,
                                 "ajax":{
                                         "url": "<?php echo e(route('rank_wise_jo_list')); ?>",
                                         "dataType": "json",
@@ -591,6 +592,14 @@
             //Data Updation Code end
 
 
+//delete datatable row
+// $('#id tbody').on('click', function(){
+//     table
+//         .row($(this).parents('tr'))
+//         .remove()
+//         .draw();
+// });
+
             $(document).on("click","#reset", function() {
                 $("#jo_grade_table").DataTable().destroy();
                 $("#jo_grade_div").hide();
@@ -601,16 +610,92 @@
 
             $(document).on("click","#draft", function() {
 
-                //fecth all rows including remark
-                var graded_jo_list = table.rows( { order: 'applied' } ).data().toArray();
+                save_status_as="Draft";
+                save_ordered_list(save_status_as);                   
 
-                var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
+            });// end of $(document).on("click","#save", function() {
+
+
+            $(document).on("click","#finalized", function() {
+
+                save_status_as="Finalized";
+                save_ordered_list(save_status_as);
+                
+            });// end of $(document).on("click","#finalized", function() {
+
+
+            //*** Importent :counter to point to the row while accessing all_datatable_data[count]['judicial_officer_id']
+            var count=0;
+
+            function save_ordered_list(save_status_as)
+            {
+                var row_count = table.rows().count();
                 var date_of_gradation= $("#date_of_gradation").val();
-                var status="Draft";
+                var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
 
-                    swal({
-                    title: "Draft ready ?",
-                    text: "This will draft the arranged grade list",
+                //fetch all rows in datatable (**but without 'remark')
+                var all_datatable_data= table.rows().data().toArray();
+
+                var graded_jo_list = [];
+                //headers need to send
+                var headers = ['judicial_officer_id','grade','remark'];
+                
+                //to fetch all headers present in table
+                // $('#jo_grade_table th').each(function(index, item) {
+                //     headers[index] = $(item).html();
+                // });
+                
+                //create arrey to send via ajax including judicial_officer_id, grade, remark
+                $('#jo_grade_table tr').has('td').each(function() {
+                    var temp_row = {}; // to temporay create a single row
+                    
+                    //iterate to the selected td fetch currently added/edited grade & remark  
+                    $('td', $(this)).each(function(index, item) {
+
+                        if(index == 0) //0th position is grade
+                        {   //add judicial_officer_id
+                            temp_row[headers[0]]=all_datatable_data[count]['judicial_officer_id'];
+
+                            //add grade/position
+                            temp_row[headers[1]]=$(item).html();      
+
+                            count++;                                       
+                        }                            
+                        else if(index == 8) //starting from 0, 8th column is ramrk 
+                        {   //add remark
+                            temp_row[headers[2]] = $(item).html();
+                        }
+                            
+                    });
+
+                    //push the created row in the arrey
+                    graded_jo_list.push(temp_row);
+
+                });
+
+                //*** Importent: re-initialize  counter to point to the first row again
+                count=0;
+               
+
+                var message_title, message_text, result;
+
+                if(save_status_as == "Draft")
+                {
+                    message_title= "Draft ready ?";
+                    message_text= "This will draft the arranged grade list";
+                    result= "Arranged grade drafted Successfully";
+                }
+                else if(save_status_as == "Finalized" )
+                {
+                    message_title= "Grading Final ?";
+                    message_text= "This will finalized the arranged grade list";
+                    result= "Arranged grade Finalized Successfully";
+                }
+
+
+                swal({
+                    title: message_title,
+                    text: message_text,
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -624,12 +709,12 @@
                                     graded_jo_list:graded_jo_list,
                                     rank_id:jo_grade_rank_id,
                                     date_of_gradation:date_of_gradation,
-                                    status: status
+                                    status: save_status_as
                                 },
                                 success:function(response){
-                                    swal("Arranged grade drafted Successfully","","success");
+                                    swal(result,"of "+date_of_gradation,"success");
                                     $("#jo_grade_div").hide();
-                                    location.reload();
+                                    //location.reload();
                                 },
                                 error:function(response) {  
 
@@ -651,66 +736,7 @@
                         }
                     });
 
-                });// end of $(document).on("click","#save", function() {
-
-
-                $(document).on("click","#finalized", function() {
-
-                    //fecth all rows including remark
-                    var graded_jo_list = table.rows( { order: 'applied' } ).data().toArray();
-
-                    var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
-                    var date_of_gradation= $("#date_of_gradation").val();
-                    var status="Finalized";
-
-                        swal({
-                        title: "Grading Final?",
-                        text: "This will finalized the arranged grade list",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                        })
-                        .then((willDelete) => {
-                            if (willDelete) {
-                                $.ajax({
-                                    url:"<?php echo e(route('save_jo_grade')); ?>",
-                                    type:"POST",
-                                    data:{
-                                        graded_jo_list:graded_jo_list,
-                                        rank_id:jo_grade_rank_id,
-                                        date_of_gradation:date_of_gradation,
-                                        status: status
-                                    },
-                                    success:function(response){
-                                        swal("Arranged grade set Successfully","","success");
-                                        $("#jo_grade_div").hide();
-                                        location.reload();
-                                    },
-                                    error:function(response) {  
-
-                                            if(jqXHR.status!=422 && jqXHR.status!=400){
-                                                swal("Failed to "+operation+" Judicial Officer grading",errorThrown,"error");
-                                            }
-                                            else{
-                                                msg = "";
-                                                $.each(jqXHR.responseJSON.errors, function(key,value) {
-                                                    msg+=value+"\n";						
-                                                });
-
-                                                swal("Failed to "+operation+" Judicial Officer grading",msg,"error");
-                                            }
-
-                                        }
-
-                                })
-                            }
-                        });
-
-
-
-                 });// end of $(document).on("click","#finalized", function() {
-
-
+            }//end of function save_ordered_list(graded_jo_list, jo_grade_rank_id, date_of_gradation, status)
 
    });
 //end of $(document).ready(function() { 

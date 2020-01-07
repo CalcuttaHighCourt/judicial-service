@@ -683,7 +683,7 @@
 
                     $("#designation_id").children('option:not(:first)').remove();
                     $.each(response.designations,function(index,value){							
-                        $("#designation_id").append('<option value="'+value.id+'">'+value.designation_name+'</option>');											
+                        $("#designation_id").append('<option value="'+value.id+'" data-zone_id="'+value.zone_id+'">'+value.designation_name+'</option>');											
                     })
                 },
                 error:function (jqXHR, textStatus, errorThrown) {

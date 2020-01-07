@@ -93,7 +93,7 @@ class JoGradeController extends Controller
             //else fetch new list
             //from judicial_officer_postings , select those rows which is the latest postion on the given rank
             $totalData = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
-                                                            (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                            (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.' and jop2.to_date is null)
                                                         )
                                                         judicial_officer_postings'
                                                     ), 
@@ -103,6 +103,7 @@ class JoGradeController extends Controller
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->where('judicial_officer_postings.rank_id',"=",$rank_id)
                                             ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
+                                            ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
                                             ->count();  
         }
         else
@@ -110,7 +111,7 @@ class JoGradeController extends Controller
             //from judicial_officer_postings , select those rows which is the latest postion on the given rank
 
             $totalData = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
-                                                                (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                                (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.' and jop2.to_date is null)
                                                         )
                                                         judicial_officer_postings'
                                                     ), 
@@ -119,6 +120,7 @@ class JoGradeController extends Controller
                                             )
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
+                                            ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
                                             ->where([
                                                         ['jo_grades.rank_id',$rank_id],
                                                         ['jo_grades.date_of_gradation',$date_of_gradation],
@@ -145,7 +147,7 @@ class JoGradeController extends Controller
                 //from judicial_officer_postings , select those rows which is the latest postion on the given rank
 
                 $jo_list = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
-                                                                (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                                (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.' and jop2.to_date is null)
                                                            )
                                                           judicial_officer_postings'
                                                         ), 
@@ -155,6 +157,7 @@ class JoGradeController extends Controller
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->where('judicial_officer_postings.rank_id',"=",$rank_id)
                                             ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
+                                            ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
                                             ->orderBy('judicial_officers.date_of_joining','desc')
                                             ->select('judicial_officers.id','judicial_officers.jo_code','judicial_officers.officer_name', 'judicial_officers.date_of_birth',  'judicial_officers.date_of_retirement','judicial_officer_postings.rank_id' ,'judicial_officers.date_of_joining', 'judicial_officer_postings.from_date' )                                    
                                             ->offset($start)
@@ -171,7 +174,7 @@ from judicial_officers
 
 inner join (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
 		(select min(jop2.from_date) from judicial_officer_postings jop2 
-		    where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id=1
+		    where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id=1 and jop2.to_date is null
 		)
 	   ) judicial_officer_postings on judicial_officer_postings.judicial_officer_id = judicial_officers.id 
 inner join ranks on judicial_officer_postings.rank_id = ranks.id 
@@ -179,7 +182,7 @@ inner join jo_grades on jo_grades.judicial_officer_id = judicial_officers.id
 where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_date::date <= '2019-12-04'
                                             */
                 $totalFiltered = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
-                                                                    (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                                    (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.' and jop2.to_date is null)
                                                                 )
                                                                 judicial_officer_postings'
                                                             ), 
@@ -189,6 +192,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                                 ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                                 ->where('judicial_officer_postings.rank_id',"=",$rank_id)
                                                 ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
+                                                ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
                                                 ->orderBy('judicial_officers.date_of_joining','desc')
                                                 ->count();
 
@@ -198,7 +202,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                 $search = strtoupper($request->input('search.value'));
                 
                 $jo_list = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
-                                                                (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                                (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.' and jop2.to_date is null)
                                                             )
                                                             judicial_officer_postings'
                                                         ), 
@@ -208,6 +212,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->where('judicial_officer_postings.rank_id',"=",$rank_id)
                                             ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
+                                            ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
                                             ->where(function($query) use ($search){    
                                                 $query->orWhere('judicial_officers.officer_name','ilike',"%{$search}%");
                                                 $query->orWhere('judicial_officers.jo_code','ilike',"%{$search}%");                                                  
@@ -220,7 +225,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
 
 
                 $totalFiltered = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
-                                                                    (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                                    (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.' and jop2.to_date is null)
                                                                 )
                                                                 judicial_officer_postings'
                                                             ), 
@@ -230,6 +235,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                                 ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                                 ->where('judicial_officer_postings.rank_id',"=",$rank_id)
                                                 ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
+                                                ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
                                                 ->where(function($query) use ($search){
                                                     $query->orWhere('judicial_officers.officer_name','ilike',"%{$search}%");
                                                     $query->orWhere('judicial_officers.jo_code','ilike',"%{$search}%");                                                          
@@ -248,7 +254,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
             {
 
                 $jo_list = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
-                                                                (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                                (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.' and jop2.to_date is null)
                                                             )
                                                             judicial_officer_postings'
                                                         ), 
@@ -257,6 +263,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                             )
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
+                                            ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
                                             ->where([
                                                         ['jo_grades.rank_id',$rank_id],
                                                         ['jo_grades.date_of_gradation',$date_of_gradation],
@@ -270,7 +277,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
 
 
                 $totalFiltered = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
-                                                                    (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                                    (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.' and jop2.to_date is null)
                                                                 )
                                                                 judicial_officer_postings'
                                                             ), 
@@ -279,6 +286,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                                 )
                                                 ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                                 ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
+                                                ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
                                                 ->where([
                                                             ['jo_grades.rank_id',$rank_id],
                                                             ['jo_grades.date_of_gradation',$date_of_gradation],
@@ -292,7 +300,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                 $search = strtoupper($request->input('search.value'));
                 
                 $jo_list = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
-                                                                (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                                (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.' and jop2.to_date is null)
                                                            )
                                                           judicial_officer_postings'
                                                         ), 
@@ -301,6 +309,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                             )
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
+                                            ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
                                             ->where([
                                                         ['jo_grades.rank_id',$rank_id],
                                                         ['jo_grades.date_of_gradation',$date_of_gradation],
@@ -318,7 +327,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
 
 
                 $totalFiltered = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
-                                                                    (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.')
+                                                                    (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id and jop2.rank_id='.$rank_id.' and jop2.to_date is null)
                                                                     )
                                                                 judicial_officer_postings'
                                                             ), 
@@ -327,6 +336,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                                 )
                                                 ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                                 ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
+                                                ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
                                                 ->where([
                                                             ['jo_grades.rank_id',$rank_id],
                                                             ['jo_grades.date_of_gradation',$date_of_gradation],
@@ -429,7 +439,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
     public function save_jo_grade(Request $request)
     {
         $this->validate( $request, [ 
-            'graded_jo_list.*.judicial_officer_id' => 'required||max:99999|exists:judicial_officers,id',
+            'graded_jo_list.*.judicial_officer_id' => 'required|max:99999|exists:judicial_officers,id',
             'rank_id' => 'required|max:100|exists:ranks,id',
             'date_of_gradation' => 'required|date_format:d-m-Y|after:1990-01-01|before:'.date("Y-m-d", strtotime("+1 day"))
         ]);
@@ -440,13 +450,13 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
         $date_of_gradation=  Carbon::parse ($request->input('date_of_gradation'))->format('Y-m-d') ;
         $status=$request->input('status');
 
-
         
 
-                // echo "<pre>";
-                // print_r($graded_jo_list);
-                // echo "</pre>";
-                // exit();
+        // echo "<pre>";
+        // print_r($graded_jo_list);
+        // echo "</pre>";
+        // exit();
+
 
         $count= sizeof($graded_jo_list);
 
@@ -495,7 +505,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                         ['jo_grades.rank_id',$rank_id],
                                         ['jo_grades.date_of_gradation',$date_of_gradation]
                                     ])  
-                            ->update([                      
+                              ->update([                      
                                     'grade'=>$graded_jo_list[$i]['grade'],
                                     'remark'=>$graded_jo_list[$i]['remark'],
                                     'status'=>$status
@@ -569,7 +579,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                    
        //from judicial_officer_postings , select those rows which is the latest postings
         $totalData = JudicialOfficer::join(DB::raw(' (SELECT * FROM judicial_officer_postings jop1 where jop1.from_date = 
-                                                            (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id )
+                                                            (select min(jop2.from_date) from judicial_officer_postings jop2 where jop2.judicial_officer_id=jop1.judicial_officer_id  )
                                                     )
                                                     judicial_officer_postings'
                                                 ), 
