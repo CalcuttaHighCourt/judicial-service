@@ -561,22 +561,39 @@ class JoEntryFormController extends Controller
         $request['date_of_birth']=Carbon::parse($request['date_of_birth'])->format('Y-m-d');
         $request['date_of_joining']=Carbon::parse($request['date_of_joining'])->format('Y-m-d');
 
+        if(empty($request['spouse']))
+            $request['spouse'] = null;
+
         if(!empty($request['date_of_confirmation']))
             $request['date_of_confirmation']=Carbon::parse($request['date_of_confirmation'])->format('Y-m-d');
         else
             $request['date_of_confirmation']=null;
 
         $request['date_of_retirement']=Carbon::parse($request['date_of_retirement'])->format('Y-m-d');
-                    
+        
+        // spouse detachment
+        if($request['spouse']==null){
+            $spouse = JudicialOfficer::where([
+                                ['id',$request->id],
+                            ])->max('spouse');
+
+            JudicialOfficer::where([
+                ['id',$spouse],
+            ])->update(['spouse'=>null]);
+        }
+
+        // basic details update
         JudicialOfficer::where('id',$request->id)
                         ->update($request->except(['id','_token']));
 
-        // Spouse Update in other side
-        if($request['spouse'] != null){
+        // spouse attachment
+        if($request['spouse']!=null){        
             JudicialOfficer::where([
                 ['id',$request['spouse']],
             ])->update(['spouse'=>$request->id]);
         }
+        
+        
 
         return 1;
     }

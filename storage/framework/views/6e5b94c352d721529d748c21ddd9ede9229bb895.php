@@ -456,7 +456,7 @@
                                                         </label>
                                                         <select class="form-control info-form-control posting_select2 select2 designation_id" style="width:100%">
                                                             <option value="">Select an Option</option>
-                                                            <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                                            <?php echo $__env->make('designations.designation_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                                         </select>
                                                     </div>  
                                                 </div>
