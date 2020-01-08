@@ -471,6 +471,7 @@
             //To prevent updation when no changes to the data is made*/
             $(document).on("focusin",".to_grade", function(){
                 current_grade = $(this).closest("tr").find(".reorder").text();
+                current_to_grade = $(this).closest("tr").find(".to_grade").text();
             })
 
 
@@ -494,11 +495,17 @@
                 // alert(info.recordsTotal );
 
 
-                if(to_grade=="")
+                if(to_grade=="" && current_to_grade =="")
                 {   
                     element.closest("tr").find(".to_grade").text("");   
                     return false;
-                }                                 
+                }     
+                else if(to_grade=="" && current_to_grade !="")
+                {   
+                    swal("Cannot remove Edit Position!", "Must contain Given Grade", "error");  
+                    element.closest("tr").find(".to_grade").text(current_to_grade);   
+                    return false;
+                }                              
                 else if( isNaN (to_grade) )
                 {
                     swal("Cannot Update grade!", "Grade must be in Number(s)", "error");        
