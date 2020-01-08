@@ -1,0 +1,6 @@
+select jo.officer_name,jo.jo_code,jo.spouse,jop.station_name, jop.remarks,subdivisions.subdivision_name
+from judicial_officers as jo 
+join judicial_officer_posting_preferences as jop on jo.id=jop.judicial_officer_id
+join jo_legal_experiences as jle on jo.id=jle.judicial_officer_id
+join subdivisions on jle.subdivision_id=subdivisions.id
+where posting_preference_window_flag='Y' ;

@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\JudicialOfficerPostingPreference;
+use App\JudicialOfficerPosting;
 use App\JudicialOfficer;
 use App\Zone;
 use App\JoZoneTenure;
 use App\District;
 use App\Subdivision;
+use App\JoLegalExperience;
 use DB;
 
 
@@ -413,7 +415,161 @@ public function zone_pref_content(Request $request) {
 
             return view('zone_pref_jr.index',compact('zone_options'));
         }
-       
+
+        public function preference_display_for_appointment(Request $request){
+               
+                $columns = array( 
+                    0 => 'sl_no', 
+                    1 => 'jo_name',
+                    2 => 'jo_code',
+                    3 => 'posted_as',
+                    4 => 'station_preference',
+                    5 => 'jo_remarks',
+                    6 => 'other_info'
+                );
+                // $judicial_officer_details['basic_data'] = JudicialOfficerPostingPreference::join('judicial_officers','judicial_officer_posting_preferences.judicial_officer_id','=','judicial_officers.id')
+                //                                               ->where('judicial_officers.posting_preference_window_flag','=','Y')
+                //                                               ->select('judicial_officers.id','judicial_officers.officer_name',
+                //                                                        'judicial_officers.jo_code',
+                //                                                        'judicial_officer_posting_preferences.station_name',
+                //                                                        'judicial_officer_posting_preferences.remarks as jo_remarks'
+                //                                                       )->get();
+
+                
+                $judicial_officer_details['display_pref_for_jo'] = JudicialOfficer:: where('posting_preference_window_flag','=','Y')
+                                                                                    ->select('id','officer_name','jo_code')
+                                                                                    ->get();
+
+           
+
+                if( sizeof($judicial_officer_details['display_pref_for_jo'])>0)
+                {
+                    foreach($judicial_officer_details['display_pref_for_jo'] as  $key=>$station_pref){
+                        
+                        $judicial_officer_details['preference_details'][$key] = JudicialOfficerPostingPreference::where([
+                                                                                                                    ['final_submission','=','Y'],
+                                                                                                                    ['judicial_officer_id','=',$station_pref->id]
+                                                                                                                ])->select('station_name','remarks')->get();
+                        
+                        $judicial_officer_details['posted_as'][$key] = JudicialOfficerPosting::join('judicial_officers','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                                                                                        ->join('designations','judicial_officer_postings.designation_id','=','designations.id')
+                                                                                        ->where('judicial_officers.id','=',$station_pref->id)
+                                                                                        ->select('designations.designation_name','judicial_officer_postings.from_date')
+                                                                                        ->orderBy('judicial_officer_postings.from_date','DESC')
+                                                                                        ->limit(1)
+                                                                                        ->get();
+
+                        $judicial_officer_details['practice_subdivision'][$key] = JoLegalExperience::join('judicial_officers','jo_legal_experiences.judicial_officer_id','=','judicial_officers.id')
+                                                                                                    ->join('subdivisions','jo_legal_experiences.subdivision_id','=','subdivisions.id')
+                                                                                                    ->where('judicial_officers.id','=',$station_pref->id)
+                                                                                                    ->select('subdivisions.subdivision_name')
+                                                                                                    ->get();
+                                                                                                    
+                        $judicial_officer_details['spouse_name_if_jo'][$key] = JudicialOfficer::join('judicial_officers as jo1','judicial_officers.id','=','jo1.spouse')
+                                                                                                ->join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                                                                                                ->join('designations','judicial_officer_postings.designation_id','=','designations.id')
+                                                                                                ->where('judicial_officers.id','=',$station_pref->id)
+                                                                                                ->select('designations.designation_name','judicial_officer_postings.from_date','jo1.id','jo1.officer_name as spouse')
+                                                                                                ->orderBy('judicial_officer_postings.from_date','DESC')
+                                                                                                ->limit(1)
+                                                                                                ->get();
+
+
+
+
+                        // echo"<pre>";
+                        //     print_r($station_pref->id);
+                        // echo"</pre>";
+                    }
+                   
+
+                } 
+               
+                print_r(  $judicial_officer_details['spouse_name_if_jo']);exit;
+               
+                $totalData=JudicialOfficerPostingPreference::join('judicial_officers','judicial_officer_posting_preferences.judicial_officer_id','=','judicial_officers.id')
+                        ->where('judicial_officers.posting_preference_window_flag','=','Y')
+                        ->count();
+
+                $totalFiltered = $totalData; 
+                $limit = $request->input('length');
+                $start = $request->input('start');
+                $order = $columns[$request->input('order.0.column')];
+                $dir = $request->input('order.0.dir');
+        
+                // if(empty($request->input('search.value'))){
+                //     $lcr_hc_ends = Lcr_hc_end::join('hc_case_types','lcr_hc_ends.hc_case_record','=','hc_case_types.id')
+                //                 ->select('hc_case_types.type_name','lcr_hc_ends.hc_case_no','lcr_hc_ends.hc_case_year',
+                //                          'lcr_hc_ends.memo_no', 'lcr_hc_ends.memo_date','lcr_hc_ends.status_flag')
+                //                 ->offset($start)
+                //                 ->limit($limit)
+                //                 ->orderBy('memo_no',$dir)
+                //                 ->get();
+        
+                                
+                //      $totalFiltered = Lcr_hc_end::count();
+                // }
+                // else{
+                //     $search = $request->input('search.value');
+                //     $lcr_hc_ends =Lcr_hc_end::join('hc_case_types','lcr_hc_ends.hc_case_record','=','hc_case_types.id')
+                //                             ->select('hc_case_types.type_name','lcr_hc_ends.hc_case_no','lcr_hc_ends.hc_case_year',
+                //                             'lcr_hc_ends.memo_no', 'lcr_hc_ends.memo_date','lcr_hc_ends.status_flag')
+                //                             ->offset($start)
+                //                             ->limit($limit)
+                //                             ->orderBy('memo_no',$dir)
+                //                             ->get();
+        
+                                            
+        
+                //     $totalFiltered = Lcr_hc_end::join('hc_case_types','lcr_hc_ends.hc_case_record','=','hc_case_types.id')
+                //                     ->select('hc_case_types.type_name','lcr_hc_ends.hc_case_no','lcr_hc_ends.hc_case_year',
+                //                     'lcr_hc_ends.memo_no', 'lcr_hc_ends.memo_date','lcr_hc_ends.status_flag')
+                //                     ->offset($start)
+                //                     ->limit($limit)
+                //                     ->orderBy('memo_no',$dir)
+                //                     ->count();
+                // }
+        
+                $data = array();
+        
+                $nestedData['SL NO'] = 0;
+        
+        
+                // if($lcr_hc_ends){
+                //     foreach($lcr_hc_ends as $lcr_hc_end){
+                        
+                //         //print_r($lcr_hc_end); exit();
+        
+                //         $nestedData['SL NO'] += 1;
+                //         $nestedData['HIGH COURT CASE NO'] = $lcr_hc_end->type_name."/".$lcr_hc_end->hc_case_no."/".$lcr_hc_end->hc_case_year;
+                //         $nestedData['MEMO DETAILS'] = $lcr_hc_end->memo_no." Dated " .date("d-m-Y", strtotime($lcr_hc_end->memo_date));
+                //         if( !empty($lcr_hc_end->status_flag)){
+                //             $nestedData['STATUS'] = $lcr_hc_end->status_flag;
+                //         }
+                //         else{
+                //             $nestedData['STATUS'] = 'Action Not Taken';
+                //         }
+                        
+                //         $nestedData['ACTION'] = "<i class='fa fa-map-marker' aria-hidden='true'> Track LCR</i>";
+        
+                //         //print_r($nestedData['Memo Details']); exit();
+        
+        
+        
+                //         $data[] = $nestedData;
+                //     }
+                    
+                //     $json_data = array(
+                //         "draw" => intval($request->input('draw')),
+                //         "recordsTotal" => intval($totalData),
+                //         "recordsFiltered" =>intval($totalFiltered),
+                //         "data" => $data
+                //     );
+            
+                //     echo json_encode($json_data);
+                // }
+        
+            }
     
          
     public function update(Request $request, $id) {

@@ -185,7 +185,7 @@
                                 </a>
                                 <ul class="treeview-menu">
                                     <li><a href="#">Switch on the Window</a></li>
-                                    <li><a href="#"> List of Preference</a></li>
+                                    <li><a href="{{url('appointment')}}"> List of Preference</a></li>
                                 </ul>
                             </li>      
                             

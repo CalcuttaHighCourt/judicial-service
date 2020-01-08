@@ -702,6 +702,8 @@ class JoEntryFormController extends Controller
 
             JudicialOfficerPosting::where('judicial_officer_id',$request->input('id'))->delete();                                
             
+            JudicialOfficerPosting::where('judicial_officer_id',$request->input('id'))->delete();
+
             JoZoneTenure::where('judicial_officer_id',$request->input('id'))->delete();
            
             for($i=0; $i<sizeof($request['flag_mode']); $i++){
