@@ -497,7 +497,7 @@
 
                 if(to_grade=="" && current_to_grade =="")
                 {   
-                    element.closest("tr").find(".to_grade").text("");   
+                    element.closest("tr").find(".to_grade").text(current_to_grade);   
                     return false;
                 }     
                 else if(to_grade=="" && current_to_grade !="") // to avoid removing edit position, without any reason
@@ -509,19 +509,19 @@
                 else if( isNaN (to_grade) )
                 {
                     swal("Cannot Update grade!", "Grade must be in Number(s)", "error");        
-                    element.closest("tr").find(".to_grade").text("");                                   
+                    element.closest("tr").find(".to_grade").text(current_to_grade);                                   
                     return false;
                 } 
                 else if( to_grade <= 0  ||  to_grade > row_count )
                 {
-                    swal("Cannot Update grade!", "Grade cannot be zero(0)", "error");        
-                    element.closest("tr").find(".to_grade").text("");                                   
+                    swal("Cannot Update grade!", "Grade doesn't exist", "error");        
+                    element.closest("tr").find(".to_grade").text(current_to_grade);                                   
                     return false;
                 } 
                 else if(to_grade == current_grade)
                 {            
                     swal("Cannot Update grade!", "Current Grade:"+current_grade+", Given Grade:"+to_grade, "error");             
-                    element.closest("tr").find(".to_grade").text("");   
+                    element.closest("tr").find(".to_grade").text(current_to_grade);   
                     return false;
                 }       
                 else

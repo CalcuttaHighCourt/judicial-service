@@ -187,7 +187,7 @@
                                 </a>
                                 <ul class="treeview-menu">
                                     <li><a href="#">Switch on the Window</a></li>
-                                    <li><a href="#"> List of Preference</a></li>
+                                    <li><a href="<?php echo e(url('appointment')); ?>"> List of Preference</a></li>
                                 </ul>
                             </li>      
                             
