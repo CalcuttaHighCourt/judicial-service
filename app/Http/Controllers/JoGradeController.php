@@ -738,7 +738,10 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                     $nestedData['from_date'] = Carbon::parse ($list->from_date)->format('d-m-Y');
 
                     $nestedData['remark'] = $list->remark;
-                    $nestedData['status'] = $list->status;
+                    if($list->status =="Draft")
+                        $nestedData['status'] = '<span class="badge badge-success" style="background-color:green">'.$list->status.'</span>';
+                    else if($list->status =="Finalized")
+                        $nestedData['status'] = '<span class="badge badge-primary" style="background-color:blue">'.$list->status.'</span>';
 
                     $data[] = $nestedData;
                     
