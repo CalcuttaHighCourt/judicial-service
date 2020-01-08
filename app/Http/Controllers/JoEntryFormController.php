@@ -674,13 +674,14 @@ class JoEntryFormController extends Controller
         try{
             DB::beginTransaction(); 
             
-            JudicialOfficerPosting::where('judicial_officer_id',$request->input('id'))->delete();
             
             $jo_posting_code = JudicialOfficerPosting::where('judicial_officer_id',$request->input('id'))->get();
             foreach($jo_posting_code as $posting_id){
                 JoReporting::where('posting_id',$posting_id->id)->delete();
             }            
             
+            JudicialOfficerPosting::where('judicial_officer_id',$request->input('id'))->delete();
+
             JoZoneTenure::where('judicial_officer_id',$request->input('id'))->delete();
            
             for($i=0; $i<sizeof($request['flag_mode']); $i++){
