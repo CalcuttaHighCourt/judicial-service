@@ -17,7 +17,7 @@
             <li><a data-toggle="tab" class="my-tab-navigation" href="#qualification_details"> Qualification Detals </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#legal_practice_details"> Practice Detals </a></li>
             <li><a data-toggle="tab" class="my-tab-navigation" href="#posting_details"> Posting Details </a></li>
-            <li><a data-toggle="tab" class="my-tab-navigation" href="#upload_photo"><span style="color:red">*</span> Upload Photo </a></li>
+            <li><a data-toggle="tab" class="my-tab-navigation" href="#upload_photo"> Upload Photo </a></li>
          </ul>
          <div class="tab-content">
             <div class="tab-pane active" id="basic_details">
@@ -93,12 +93,12 @@
 
                  <div class="form-group required">
                     <div class="col-xs-2">
-                        <label for="recruitment_batch_year">
+                        <label for="recruitment_batch_year" class="control-label">
                             Batch Year 
                         </label>
                         <select class="form-control info-form-control select2" id="recruitment_batch_year" style="width:100%">
                             <option value="">Select Year</option>
-                            <?php for($i=Date('Y');$i>=1900;$i--): ?>
+                            <?php for($i=Date('Y');$i>=1950;$i--): ?>
                                 <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
                             <?php endfor; ?>
                         </select>
@@ -268,46 +268,43 @@
             <div class="tab-pane" id="legal_practice_details">
                 <div class="row">
                     <form class="form" action="##" method="">
+                            <br/>
                             <div class="div_add_more_legal_practice">
                                 <div class="row">
-                                    <div class="form-group">
-                                        <div class="col-xs-4"><br/>
-                                            <label>
-                                                Subdivision 
-                                            </label>
-                                            <select class="form-control info-form-control select2 subdivision_id" style="width:100%">
-                                                <option value="">Select an Option</option>
-                                                <?php echo $__env->make('subdivisions.subdivision_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                            </select>
-                                        </div>
+                                    <div class="form-group required col-xs-3">
+                                        <label class="control-label">
+                                            Subdivision 
+                                        </label>
+                                        <select class="form-control info-form-control select2 subdivision_id" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            <?php echo $__env->make('subdivisions.subdivision_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group required col-xs-3">
+                                        <label class="control-label">
+                                            From (Year)
+                                        </label>
+                                        <select class="form-control info-form-control select2 practice_from_year" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            <?php for($i=Date('Y');$i>=1900;$i--): ?>
+                                                <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
+                                            <?php endfor; ?>
+                                        </select>
+                                    </div>   
+                                    <div class="form-group required col-xs-3">
+                                        <label class="control-label">
+                                            To (Year)
+                                        </label>
+                                        <select class="form-control info-form-control select2 practice_to_year" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            <?php for($i=Date('Y');$i>=1900;$i--): ?>
+                                                <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
+                                            <?php endfor; ?>
+                                        </select>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-xs-3">
-                                            <label>
-                                                From (Year)
-                                            </label>
-                                            <select class="form-control info-form-control select2 practice_from_year" style="width:100%">
-                                                <option value="">Select an Option</option>
-                                                <?php for($i=Date('Y');$i>=1900;$i--): ?>
-                                                    <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
-                                                <?php endfor; ?>
-                                            </select>
-                                        </div>
-                                    </div>   
-                                    <div class="form-group">
-                                        <div class="col-xs-3">
-                                            <label>
-                                                To (Year)
-                                            </label>
-                                            <select class="form-control info-form-control select2 practice_to_year" style="width:100%">
-                                                <option value="">Select an Option</option>
-                                                <?php for($i=Date('Y');$i>=1900;$i--): ?>
-                                                    <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
-                                                <?php endfor; ?>
-                                            </select>
-                                        </div>
                                         <div class="col-xs-2">
-                                            <br>
+                                            <br/>
                                             <img src="<?php echo e(asset('images/details_open.png')); ?>" class="img_add_more_legal_practice" id="add_more_legal_practice">
                                         </div>
                                     </div>
@@ -336,31 +333,28 @@
          <div class="tab-pane" id="qualification_details">
             <div class="row">
                 <form class="form" action="##" method="">
+                    <br/>
                         <div class="div_add_more_qualification">
                             <div class="row">
-                                <div class="form-group">
-                                    <div class="col-xs-5"><br/>
-                                        <label>
-                                            Degree 
-                                        </label>
-                                        <select class="form-control info-form-control select2 degree_id" style="width:100%">
-                                            <option value="">Select an Option</option>
-                                            <?php echo $__env->make('qualifications.qualification_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                        </select>
-                                    </div>
+                                <div class="form-group required col-xs-3 col-xs-offset-1">
+                                    <label class="control-label">
+                                        Degree 
+                                    </label>
+                                    <select class="form-control info-form-control select2 degree_id" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        <?php echo $__env->make('qualifications.qualification_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                    </select>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-xs-3">
-                                        <label>
-                                            Year of Passing 
-                                        </label>
-                                        <select class="form-control info-form-control select2 yop" style="width:100%">
-                                            <option value="">Select an Option</option>
-                                            <?php for($i=Date('Y');$i>=1900;$i--): ?>
-                                                <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
-                                            <?php endfor; ?>
-                                        </select>
-                                    </div>
+                                <div class="form-group required col-xs-3">
+                                    <label class="control-label">
+                                        Year of Passing 
+                                    </label>
+                                    <select class="form-control info-form-control select2 yop" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        <?php for($i=Date('Y');$i>=1900;$i--): ?>
+                                            <option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
+                                        <?php endfor; ?>
+                                    </select>
                                 </div>   
                                 <div class="form-group">
                                     <div class="col-xs-2">
@@ -397,103 +391,99 @@
                     <form class="form" action="##" method=""> 
                         <div class="div_add_more_posting">
                             <div class="row"> 
-                                <div class="col-xs-3">
-                                    <label>
+                                <div class="form-group required col-xs-3">
+                                    <label class="control-label">
                                             Posting Mode 
                                     </label>
-                                    <select class="form-control info-form-control posting_select2 mode_id select2" style="width:100%">
+                                    <select class="form-control info-form-control posting_select2 select2" id="mode_id" style="width:100%">
                                         <option value="">Select an Option</option>
                                         <?php echo $__env->make('modes.mode_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
                                 </div>
-                                <div class="col-xs-3">
-                                    <label>
+                                <div class="form-group required col-xs-3">
+                                    <label class="control-label">
                                             Grade / Rank 
                                     </label>
-                                    <select class="form-control info-form-control rank select2" style="width:100%">
+                                    <select class="form-control info-form-control select2" id="rank" style="width:100%">
                                         <option value="">Select an Option</option>
-                                        <?php echo $__env->make('ranks.rank_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
                                 </div>
                                 <div class="mode_permanent_div">
-                                    <div class="col-xs-3">
-                                        <label>
+                                    <div class="form-group required col-xs-3">
+                                        <label class="control-label">
                                                 Designation 
                                         </label>
-                                        <select class="form-control info-form-control posting_select2 designation_id select2" style="width:100%">
+                                        <select class="form-control info-form-control posting_select2 select2" id="designation_id" style="width:100%">
                                             <option value="">Select an Option</option>
-                                            <?php echo $__env->make('designations.designation_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                         </select>
-                                    </div>                                
-                                    <div class="col-xs-3">
-                                        <label>
-                                                Court 
-                                        </label>
-                                        <select class="form-control info-form-control posting_select2 court_id select2" style="width:100%">
-                                            <option value="">Select an Option</option>
-                                            <?php echo $__env->make('courts.court_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                        </select>
-                                    </div>    
+                                    </div>  
                                 </div>
                                 <div class="mode_deputation_div" style="display:none">
-                                    <div class="col-xs-3">
-                                        <label>
+                                    <div class="form-group required col-xs-3">
+                                        <label class="control-label">
                                                 Designation 
                                         </label>
-                                        <input type="text" class="form-control other_designation" placeholder="Designation of Deputation">
+                                        <input type="text" class="form-control" id="other_designation" placeholder="Designation of Deputation">
                                     </div>                                
-                                    <div class="col-xs-3">
-                                        <label>
+                                    <div class="form-group required col-xs-3">
+                                        <label class="control-label">
                                                 Place of Posting 
                                         </label>
-                                        <input type="text" class="form-control other_place_posting" placeholder="Deputation Place">
+                                        <input type="text" class="form-control" id="other_place_posting" placeholder="Deputation Place">
                                     </div>    
                                 </div>                              
                             </div><br/>
-                            <div class="row"> 
+                            <div class="row">                                 
                                 <div class="col-xs-3 permanent_reporting_officer_div">
                                     <label>
                                             Reporting Officer 
                                     </label>
-                                    <select class="form-control info-form-control posting_select2 reporting_officer_id select2" style="width:100%">
+                                    <select class="form-control info-form-control posting_select2 select2" id="reporting_officer_id" style="width:100%">
                                         <option value="">Select an Option</option>
                                         <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     </select>
                                 </div>
+
+                                <div class="form-group required col-xs-2 deputation_reporting_officer_div" style="display:none">
+                                    <label class="control-label">
+                                            Zone 
+                                    </label>
+                                    <select class="form-control info-form-control select2" id="zone" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        <?php echo $__env->make('zones.zone_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                    </select>
+                                </div>
+
                                 <div class="col-xs-3 deputation_reporting_officer_div" style="display:none">
                                     <label>
                                             Reporting Officer 
                                     </label>
-                                    <input type="text" class="form-control other_reporting_officer" placeholder="Deputation Reporting Officer">
+                                    <input type="text" class="form-control" id="other_reporting_officer" placeholder="Deputation Reporting Officer">
                                 </div>
-                                <div class="col-xs-3 deputation_reporting_officer_div" style="display:none">
-                                    <label>
+                                <div class="form-group col-xs-3 deputation_reporting_officer_div" style="display:none">
+                                    <label class="control-label">
                                             Designation 
                                     </label>
-                                    <input type="text" class="form-control other_reporting_officer_designation" placeholder="Of Reporting Officer">
+                                    <input type="text" class="form-control" id="other_reporting_officer_designation" placeholder="Of Reporting Officer">
                                 </div>
-                                <div class="col-xs-2">
-                                    <label>
-                                            From Date 
+                                <div class="form-group required col-xs-2">
+                                    <label class="control-label">
+                                            From Date  
                                     </label>
-                                    <input type="text" class="form-control date from_date" placeholder="dd-mm-yyyy">
+                                    <input type="text" class="form-control date" id="from_date" placeholder="dd-mm-yyyy">
                                 </div>
-                                <div class="col-xs-2">
-                                    <label>
+                                <div class="form-group col-xs-2">
+                                    <label class="control-label">
                                             To Date 
                                     </label>
-                                    <input type="text" class="form-control date to_date" placeholder="dd-mm-yyyy">
+                                    <input type="text" class="form-control date" id="to_date" placeholder="dd-mm-yyyy">
                                 </div>
                                 <div class="col-xs-3">
                                     <label>
                                             Remark
                                     </label>
-                                    <textarea class="form-control posting_remark" placeholder="if any"></textarea>
-                                </div>                                
-                                <div class="col-xs-1">
-                                    <br>
-                                    <img src="<?php echo e(asset('images/details_open.png')); ?>" class="img_add_more_posting" id="add_more_posting">
-                                </div>
+                                    <textarea class="form-control" id="posting_remark" placeholder="if any"></textarea>
+                                </div> 
                             </div> 
                             <hr>
                         </div>                     
@@ -523,7 +513,8 @@
 
                     <div class="text-center">  
                         <img src="<?php echo e(asset('images/FacelessMan.png')); ?>" class="avatar img-circle img-thumbnail" alt="avatar" style="height:30%;width:20%">
-                        <h6>Upload Photo...</h6>
+                        <h6><span style="color:red">*</span>Supported Image File Type: jpeg / png / jpg / gif</h6>
+                        <h6><span style="color:red">*</span>Max File Size: 50 KB</h6>
                         <input type="file" id="profile_image" name="profile_image" class="text-center center-block file-upload" accept="image/png, image/jpg, image/jpeg, image/gif">                                      
                     </div>
                 </form>
@@ -579,7 +570,6 @@
                         <th>JO Name</th>
                         <th>DOB</th>
                         <th>DOR</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
             </table>
@@ -599,8 +589,7 @@
 <script src="<?php echo e(asset('js/jquery/jquery.min.js')); ?>"></script>
 
 <script>
-   $(document).ready(function() { 
-        var clone_element_posting = $(".div_add_more_posting").clone();
+   $(document).ready(function() {         
         var clone_element_qualification = $(".div_add_more_qualification").clone();
         var clone_element_legal_practice = $(".div_add_more_legal_practice").clone();
 
@@ -637,6 +626,7 @@
             orientation: "auto",
             endDate: '+0d',
         });
+
          // Datepicker Initialization for Superannuation
         $(".date1").datepicker({
             format: "dd-mm-yyyy",
@@ -671,22 +661,42 @@
             }, 1000);
         });
 
-        //Other State Option :: START
-        $(document).on("change","#home_state", function(){
-            var state = $("#home_state").val();
-            if(state == "other"){
-                $("#div_home_district").hide();
-                $("#div_home_other_district").show();
-            }
-            else{
-                $("#div_home_district").show();
-                $("#div_home_other_district").hide();
-            }
-        })        
-        //Other State Option :: END
+
+        // Recruitment Batch :: START
+        $(document).on("change","#recruitment_batch_id",function(){
+            var batch_id = $("#recruitment_batch_id option:selected").val();
+            var batch_name = $("#recruitment_batch_id option:selected").text();
+
+            $.ajax({
+                url:"<?php echo e(route('fetch_rank_designation')); ?>",
+                type:"post",
+                data:{
+                    _token: $('meta[name="_token"]').attr('content'),
+                    batch_id:batch_id,
+                    batch_name:batch_name
+                },
+                success:function(response){ 
+                    $("#rank").children('option:not(:first)').remove();
+                    $.each(response.ranks,function(index,value){							
+                        $("#rank").append('<option value="'+value.id+'">'+value.rank_name+'</option>');											
+                    })
+
+                    $("#designation_id").children('option:not(:first)').remove();
+                    $.each(response.designations,function(index,value){							
+                        $("#designation_id").append('<option value="'+value.id+'" data-zone_id="'+value.zone_id+'">'+value.designation_name+'</option>');											
+                    })
+                },
+                error:function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                }
+            })
+        })
+        // Recruitment Batch :: END
+        
 
         //Deputation :: START
-        $(document).on("change",".mode_id", function(){
+        var flag_mode;
+        $(document).on("change","#mode_id", function(){
             var option = $(this).find('option:selected').text();
 
             if(option=='deputation' || option=='Deputation'){
@@ -694,12 +704,14 @@
                  $(this).parent().parent().parent().find(".permanent_reporting_officer_div").hide();
                  $(this).parent().parent().find(".mode_deputation_div").show();
                  $(this).parent().parent().parent().find(".deputation_reporting_officer_div").show();
+                 flag_mode = 'deputation';
             }
             else{
                 $(this).parent().parent().parent().find(".mode_permanent_div").show();
                 $(this).parent().parent().parent().find(".permanent_reporting_officer_div").show();
                 $(this).parent().parent().parent().find(".mode_deputation_div").hide();
                 $(this).parent().parent().parent().find(".deputation_reporting_officer_div").hide();
+                flag_mode = 'regular';
             }
         })
         //Deputation :: END
@@ -726,8 +738,6 @@
                                 {"data": "officer_name"},
                                 {"data": "date_of_birth"},
                                 {"data": "date_of_retirement"},
-                                {"data": "action",
-                                "orderable": "false"}
                             ]
                         }); 
 
@@ -790,34 +800,7 @@
         })
         // For JO Details PDF :: END
         
-        /*If multiple posting details added :: STARTS*/
-		$(document).on("click","#add_more_posting", function(){           
-            var clone_element2 = clone_element_posting.clone();
-            clone_element2.insertAfter(".div_add_more_posting:last");  
-
-            // Select2 Re-initialization
-            $(".select2").select2();  
-
-            // Datepicker Re-initialization
-            $(".date").datepicker({
-                format: "dd-mm-yyyy",
-                endDate:'0',
-                autoclose: true,   
-                orientation: "auto",
-            });               
-
-            
-            $(".img_add_more_posting:last").attr({src:"images/details_close.png",
-                                                    class:"remove_posting", 
-                                                    alt:"remove_posting"
-                                                });
-            $(".remove_posting:last").removeAttr("id");        
-			
-		})
-	    /*If multiple posting details added :: ENDS*/   
-
-
-
+        
         /*If any posting details row needs to remove :: STARTS*/
         $(document).on("click",".remove_posting", function(){
 			$(this).closest(".div_add_more_posting").remove();
@@ -856,20 +839,15 @@
             var from_year = $(".div_add_more_legal_practice:last").find(".practice_from_year").val();
             var to_year = $(".div_add_more_legal_practice:last").find(".practice_to_year").val();
             
-            if(subdivision_id!="" && from_year!="" && to_year!=""){
-                var clone_element3 = clone_element_legal_practice.clone();                
-                clone_element3.insertAfter(".div_add_more_legal_practice:last");
-                $(".img_add_more_legal_practice:last").attr({src:"images/details_close.png",
-                                                        class:"remove_legal_practice", 
-                                                        alt:"remove_legal_practice"
-                                                    });
-                $(".remove_legal_practice").removeAttr("id");
-                $(".select2").select2();
-            }
-            else{
-                swal("Invalid Entry","Entry all the fields before adding a new legal experience details","error");
-                return false;
-            }
+            var clone_element3 = clone_element_legal_practice.clone();                
+            clone_element3.insertAfter(".div_add_more_legal_practice:last");
+            $(".img_add_more_legal_practice:last").attr({src:"images/details_close.png",
+                                                    class:"remove_legal_practice", 
+                                                    alt:"remove_legal_practice"
+                                                });
+            $(".remove_legal_practice").removeAttr("id");
+            $(".select2").select2();
+        
 			
 		})
 	    /*If multiple Legal Practice details added :: ENDS*/  
@@ -883,11 +861,16 @@
         /*If any Legal Practice row needs to remove :: ENDS*/
 
 
-
         /*Fetch corresponding Districts of selected State :: STARTS*/
+        var state_flag;
         $(document).on("change","#home_state",function(){
             var home_state = $(this).val();
-            if(home_state!=""){
+            var state = $("#home_state option:selected").text();
+            if(state == "West Bengal" || state == "WEST BENGAL" || state == "west bengal"){
+                $("#div_home_district").show();
+                $("#div_home_other_district").hide();
+                state_flag = 'west_bengal';
+
                 $.ajax({
                     url:"<?php echo e(route('fetch_district')); ?>",
                     type:"post",
@@ -906,6 +889,11 @@
                     }
                 })
             }
+            else{
+                $("#div_home_district").hide();
+                $("#div_home_other_district").show();
+                state_flag = 'other';
+            }
         })
 
         /*Fetch corresponding Districts of selected State :: ENDS*/
@@ -922,91 +910,31 @@
         });
         /*Current Address is Same As Permanenet Address :: ENDS*/
 
-        function ajax_data(type){
+        function ajax_data(type){           
             //Profile Image Validation
-            if($("#profile_image").val()==""){
-                swal("Select Profile Image","","error");
-                return false;
+            if($("#profile_image").val()!=""){
+                var ext = $('#profile_image').val().split('.').pop().toLowerCase();
+
+                if ($.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
+                    swal("Unsupported Image Type","Use gif / png / jpg / jpeg","error");
+                    return false;
+                }
+
+                var picsize = ($("#profile_image")[0].files[0].size);
+
+                if (picsize > 51200){
+                    swal("Oversized Image","Image should be less than 50 KB","error");
+                    return false;
+                } 
             }
 
-            var ext = $('#profile_image').val().split('.').pop().toLowerCase();
-
-            if ($.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
-                swal("Unsupported Image Type","Use gif / png / jpg / jpeg","error");
-                return false;
-            }
-
-            var picsize = ($("#profile_image")[0].files[0].size);
-            if (picsize > 51200){
-                swal("Oversized Image","Image should be less than 50KB","error");
-                return false;
-            }
-            var designation_id = new Array();
-            var deputation_designation = new Array();
-            var court_id = new Array();
-            var zone_id = new Array();
-            var deputation_posting_place = new Array();
-            var mode_id = new Array();            
             var qualification_id = new Array();
-            var passing_year = new Array();
-            var reporting_officer_id = new Array();
-            var other_reporting_officer_name = new Array();
-            var other_reporting_officer_designation = new Array();
-            var from_date = new Array();
-            var to_date = new Array();
+            var passing_year = new Array();            
             var subdivision_id = new Array();
             var from_year = new Array();
             var to_year = new Array();
-            var posting_remark = new Array();
 
-            designation_id = [];
-            $(".designation_id").each(function(){
-                designation_id.push($(this).val());
-            })
-
-            deputation_designation = [];
-            $(".other_designation").each(function(){
-                deputation_designation.push($(this).val());
-            })
-
-            mode_id = [];
-            $(".mode_id").each(function(){
-                mode_id.push($(this).val());
-            })
-
-            court_id = [];   
-            zone_id = [];         
-            $(".court_id option:selected").each(function(){
-                court_id.push($(this).val()); 
-                zone_id.push($(this).attr('data-zone_id'));               
-            })
-
-            deputation_posting_place = [];
-            $(".other_place_posting").each(function(){
-                deputation_posting_place.push($(this).val());
-            })
-
-           
-            reporting_officer_id = [];
-            $(".reporting_officer_id").each(function(){
-                reporting_officer_id.push($(this).val());
-            })
-
-            other_reporting_officer_name = [];
-            $(".other_reporting_officer").each(function(){
-                other_reporting_officer_name.push($(this).val());
-            })
-
-            other_reporting_officer_designation = [];
-            $(".other_reporting_officer_designation").each(function(){
-                other_reporting_officer_designation.push($(this).val());
-            })
-
-            posting_remark = [];
-            $(".posting_remark").each(function(){
-                posting_remark.push($(this).val());
-            })
-
+            
             qualification_id = [];
             $(".degree_id").each(function(){
                 qualification_id.push($(this).val());
@@ -1017,16 +945,7 @@
                 passing_year.push($(this).val());
             })
 
-            from_date = [];
-            $(".from_date").each(function(){
-                from_date.push($(this).val());
-            })
-
-            to_date = [];
-            $(".to_date").each(function(){
-                to_date.push($(this).val());
-            })
-
+            
             subdivision_id = [];
             $(".subdivision_id").each(function(){
                 subdivision_id.push($(this).val());
@@ -1071,21 +990,18 @@
                     spouse:$("#spouse_name").val(),
                     date_of_birth:$("#dob").val(),
                     home_state_id:$("#home_state").val(),
+                    state_flag:state_flag,
                     home_district_id:$("#home_district").val(),
+                    other_home_district:$("#home_other_district").val(),                                        
                     hometown:$("#home_town").val(),
                     present_address:$("#current_address").val(),
-                    permanent_address:$("#permanent_address").val(),                    
-                    category_id:$("#category_id").val(),
-                    blood_group:$("#blood_group").val(),
-                    identification_mark:$("#identification_mark").val(),
-                    aadhaar_no:$("#aadhar_no").val(),
-                    pan_no:$("#pan_no").val(),
-                    gpf_no:$("#gpf_no").val(),
+                    permanent_address:$("#permanent_address").val(),                                        
                     mobile_no_1:$("#ph_no_1").val(),
                     mobile_no_2:$("#ph_no_2").val(),
                     email_id_1:$("#email_id_1").val(),
                     email_id_2:$("#email_id_2").val(),
                     recruitment_batch_id:$("#recruitment_batch_id").val(),
+                    recruitment_batch_year: $("#recruitment_batch_year").val(),
                     date_of_joining:$("#doj").val(),
                     date_of_confirmation:$("#doc").val(),
                     date_of_retirement:$("#dor").val(),
@@ -1094,52 +1010,60 @@
                     subdivision_id:subdivision_id,
                     from_year:from_year,
                     to_year:to_year,
-                    designation_id:designation_id,
-                    deputation_designation:deputation_designation,
-                    reporting_officer_id:reporting_officer_id,
-                    other_reporting_officer_name:other_reporting_officer_name,
-                    other_reporting_officer_designation:other_reporting_officer_designation,
-                    court_id:court_id,
-                    zone_id:zone_id,
-                    deputation_posting_place:deputation_posting_place,
-                    mode_id:mode_id,
-                    from_date:from_date,
-                    to_date:to_date,
-                    posting_remark:posting_remark,
+                    designation_id:$("#designation_id").val(),
+                    deputation_designation:$("#other_designation").val(),
+                    reporting_officer_id:$("#reporting_officer_id").val(),
+                    other_reporting_officer_name:$("#other_reporting_officer").val(),
+                    other_reporting_officer_designation:$("#other_reporting_officer_designation").val(),                    
+                    zone_id:$("#designation_id option:selected").data('zone_id'),
+                    deputation_zone:$("#zone").val(),
+                    deputation_posting_place:$("#other_place_posting").val(),
+                    mode_id:$("#mode_id").val(),
+                    flag_mode:flag_mode,
+                    rank_id:$("#rank").val(),
+                    from_date:$("#from_date").val(),
+                    to_date:$("#to_date").val(),
+                    posting_remark:$("#posting_remark").val(),
                     _token: $('meta[name="csrf-token"]').attr('content'),
                 },
                 success: function (data, textStatus, jqXHR) {
-                    if(data.judicial_officer!=null){
+                    if(data.judicial_officer!=null){                        
+                        if($("#profile_image").val()==""){
+                            swal("Judicial Officer"+operated+" Successfully","","success");
+                            return false;
+                        }
+                        else{
+                            // image upload :: START
+                            $.ajax({
+                                url:"<?php echo e(route('jo_image_upload')); ?>",
+                                method:"POST",
+                                data: new FormData($("#form_image")[0]),
+                                dataType:'JSON',
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function(data, textStatus, jqXHR){
+                                    swal("Judicial Officer"+operated+" Successfully","","success");
+                                    $("form").trigger("reset");   
+                                    $(".select2").val('').trigger('change');
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    if(jqXHR.status!=422 && jqXHR.status!=400){
+                                        swal("Failed to "+operation+" Judicial Officer's Image",errorThrown,"error");
+                                    }
+                                    else{
+                                        msg = "";
+                                        $.each(jqXHR.responseJSON.errors, function(key,value) {
+                                            msg+=value+"\n";						
+                                        });
 
-                        // image upload :: START
-                        $.ajax({
-                            url:"<?php echo e(route('jo_image_upload')); ?>",
-                            method:"POST",
-                            data: new FormData($("#form_image")[0]),
-                            dataType:'JSON',
-                            contentType: false,
-                            cache: false,
-                            processData: false,
-                            success: function(data, textStatus, jqXHR){
-                                swal("Judicial Officer"+operated+" Successfully","","success");
-                                $("form").trigger("reset");   
-                                $(".select2").val('').trigger('change');
-                            },
-                            error: function (jqXHR, textStatus, errorThrown) {
-                                if(jqXHR.status!=422 && jqXHR.status!=400){
-                                    swal("Failed to "+operation+" Judicial Officer",errorThrown,"error");
+                                        swal("Failed to "+operation+" Judicial Officer's Image",msg,"error");
+                                    }
                                 }
-                                else{
-                                    msg = "";
-                                    $.each(jqXHR.responseJSON.errors, function(key,value) {
-                                        msg+=value+"\n";						
-                                    });
-
-                                    swal("Failed to "+operation+" Judicial Officer",msg,"error");
-                                }
-                            }
-                        })
-                        // image upload :: END
+                            })
+                            // image upload :: END
+                        }                        
+                        
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {

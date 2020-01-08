@@ -60,7 +60,7 @@ class JoEntryRequest extends FormRequest
             'flag_mode' => 'nullable|alpha|max:30|in:regular,deputation',
             'mode_id' => 'nullable|required_with:flag_mode,rank_id,from_date|integer|max:1000|exists:modes,id',
             'rank_id' => 'nullable|required_with:mode_id,rank_id,flag_mode|integer|max:50|exists:ranks,id',
-            'designation_id' => 'nullable|required_if:flag_mode,==,regular|integer|max:500|exists:courts,id',
+            'designation_id' => 'nullable|required_if:flag_mode,==,regular|integer|max:500|exists:designations,id',
             'deputation_designation' => 'nullable|required_if:flag_mode,==,deputation|string|max:500',
             'reporting_officer_id' => 'nullable|integer|max:999999|exists:judicial_officers,id',   
             'other_reporting_officer_name' => 'nullable|string|max:100|regex:/^[\pL\s\-]+$/u',

@@ -385,10 +385,11 @@ class JoEntryFormController extends Controller
 
     public function fetch_rank_designation(Request $request){
         $this->validate( $request, [ 
-            'batch' => 'required|max:20|exists:batches,id'
+            'batch_id' => 'required|max:20|exists:recruitment_batches,id',
+            'batch_name' => 'required|max:20',
         ]);
 
-        $batch = $request->input('batch');
+        $batch = $request->input('batch_name');
 
         if($batch == 'PSC' || $batch == 'psc'){
             $data['ranks'] = Rank::where('rank_order', 1)->get();
@@ -399,7 +400,10 @@ class JoEntryFormController extends Controller
 
         $rank = $data['ranks']['0']->id;
 
-        $data['designations'] = Designation::where('rank_id',$rank)->get();
+        $data['designations'] = Designation::join('subdivisions','designations.subdivision_id', '=','subdivisions.id')
+                                            ->where('rank_id',$rank)
+                                            ->select('designations.*', 'subdivisions.zone_id')
+                                            ->get();
 
         return response()->json($data);
     }
@@ -557,22 +561,39 @@ class JoEntryFormController extends Controller
         $request['date_of_birth']=Carbon::parse($request['date_of_birth'])->format('Y-m-d');
         $request['date_of_joining']=Carbon::parse($request['date_of_joining'])->format('Y-m-d');
 
+        if(empty($request['spouse']))
+            $request['spouse'] = null;
+
         if(!empty($request['date_of_confirmation']))
             $request['date_of_confirmation']=Carbon::parse($request['date_of_confirmation'])->format('Y-m-d');
         else
             $request['date_of_confirmation']=null;
 
         $request['date_of_retirement']=Carbon::parse($request['date_of_retirement'])->format('Y-m-d');
-                    
+        
+        // spouse detachment
+        if($request['spouse']==null){
+            $spouse = JudicialOfficer::where([
+                                ['id',$request->id],
+                            ])->max('spouse');
+
+            JudicialOfficer::where([
+                ['id',$spouse],
+            ])->update(['spouse'=>null]);
+        }
+
+        // basic details update
         JudicialOfficer::where('id',$request->id)
                         ->update($request->except(['id','_token']));
 
-        // Spouse Update in other side
-        if($request['spouse'] != null){
+        // spouse attachment
+        if($request['spouse']!=null){        
             JudicialOfficer::where([
                 ['id',$request['spouse']],
             ])->update(['spouse'=>$request->id]);
         }
+        
+        
 
         return 1;
     }
@@ -641,13 +662,13 @@ class JoEntryFormController extends Controller
             'flag_mode' => 'required|array',
             'flag_mode.*' => 'required|alpha|max:30|in:regular,deputation',
             'mode_id' => 'required|array',
-            'mode_id.*' => 'required|required_with:flag_mode,rank_id,from_date|integer|max:1000|exists:modes,id',
+            'mode_id.*' => 'required|required_with:flag_mode.*,rank_id.*,from_date.*|integer|max:1000|exists:modes,id',
             'rank_id' => 'required|array',
-            'rank_id.*' => 'required|required_with:mode_id,rank_id,flag_mode|integer|max:50|exists:ranks,id',
+            'rank_id.*' => 'required|required_with:mode_id.*,rank_id.*,flag_mode.*|integer|max:50|exists:ranks,id',
             'designation_id' => 'required|array',
-            'designation_id.*' => 'nullable|required_if:flag_mode,==,regular|integer|max:500|exists:courts,id',
+            'designation_id.*' => 'nullable|required_if:flag_mode.*,==,regular|integer|max:500|exists:designations,id',
             'deputation_designation' => 'required|array',
-            'deputation_designation.*' => 'nullable|required_if:flag_mode,==,deputation|string|max:500',
+            'deputation_designation.*' => 'nullable|required_if:flag_mode.*,==,deputation|string|max:500',
             'reporting_officer_id' => 'required|array',
             'reporting_officer_id.*' => 'nullable|integer|max:999999|exists:judicial_officers,id',   
             'other_reporting_officer_name' => 'required|array',
@@ -655,13 +676,13 @@ class JoEntryFormController extends Controller
             'other_reporting_officer_designation' => 'required|array',
             'other_reporting_officer_designation.*' => 'nullable|string|max:100|regex:/^[\pL\s\-]+$/u',
             'zone_id' => 'required|array',
-            'zone_id.*' => 'nullable|required_if:flag_mode,==,regular|integer|max:500|exists:zones,id',
+            'zone_id.*' => 'nullable|required_if:flag_mode.*,==,regular|integer|max:500|exists:zones,id',
             'deputation_zone' => 'required|array',
-            'deputation_zone.*' => 'nullable|required_if:flag_mode,==,deputation|integer|max:500|exists:zones,id',
+            'deputation_zone.*' => 'nullable|required_if:flag_mode.*,==,deputation|integer|max:500|exists:zones,id',
             'deputation_posting_place' => 'required|array',
-            'deputation_posting_place.*' => 'nullable|required_if:flag_mode,==,deputation|string|max:255',
+            'deputation_posting_place.*' => 'nullable|required_if:flag_mode.*,==,deputation|string|max:255',
             'from_date' => 'required|array',
-            'from_date.*' => 'required|required_with:mode_id,rank_id,flag_mode|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),
+            'from_date.*' => 'required|required_with:mode_id.*,rank_id.*,flag_mode.*|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),
             'to_date' => 'required|array',
             'to_date.*' => 'nullable|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),                     
             'posting_remark' => 'required|array',
@@ -674,11 +695,12 @@ class JoEntryFormController extends Controller
         try{
             DB::beginTransaction(); 
             
-            
             $jo_posting_code = JudicialOfficerPosting::where('judicial_officer_id',$request->input('id'))->get();
             foreach($jo_posting_code as $posting_id){
                 JoReporting::where('posting_id',$posting_id->id)->delete();
-            }            
+            }    
+
+            JudicialOfficerPosting::where('judicial_officer_id',$request->input('id'))->delete();                                
             
             JudicialOfficerPosting::where('judicial_officer_id',$request->input('id'))->delete();
 
@@ -690,19 +712,19 @@ class JoEntryFormController extends Controller
                 if($request->flag_mode[$i]=='deputation'){
                     $jo_posting->designation_id = null;
                     $posting_zone = $request->deputation_zone[$i];
+                    $jo_posting->deputation_designation = $request->deputation_designation[$i];
+                    $jo_posting->deputation_posting_place = $request->deputation_posting_place[$i];
                 }
                 else if($request->flag_mode[$i]=='regular'){
                     $jo_posting->designation_id = $request->designation_id[$i];
                     $posting_zone = $request->zone_id[$i];
-                    // $request->deputation_designation[$i] = '';
-                    // $request->deputation_posting_place[$i] = '';
+                    $jo_posting->deputation_designation = '';
+                    $jo_posting->deputation_posting_place = '';
                 }
 
                 $jo_posting->judicial_officer_id = $request->id;                        
                 $jo_posting->mode_id = $request->mode_id[$i];
-                $jo_posting->rank_id = $request->rank_id[$i];
-                $jo_posting->deputation_designation = $request->deputation_designation[$i];
-                $jo_posting->deputation_posting_place = $request->deputation_posting_place[$i];
+                $jo_posting->rank_id = $request->rank_id[$i];                
                 $jo_posting->from_date = Carbon::parse($request->from_date[$i])->format('Y-m-d');
 
                 if(!empty($request->to_date[$i]))
@@ -715,23 +737,24 @@ class JoEntryFormController extends Controller
                 $posting_details = $jo_posting->save();
 
                 /*JO Reporting Details :: START*/  
-                if(!empty($request->reporting_officer_id[$i]) || !empty($request->other_reporting_officer_name[$i])){
-                    // if($request->flag_mode[$i] == 'deputation'){
-                    //     $request->reporting_officer_id[$i] = null;
-                    // }
-                    // else if($request->flag_mode[$i] == 'regular'){
-                    //     $request->other_reporting_officer_name[$i] = '';
-                    //     $request->other_reporting_officer_designation[$i] = '';
-                    // }
-
+                if(!empty($request->reporting_officer_id[$i]) || !empty($request->other_reporting_officer_name[$i])){                    
                     $posting_id = JudicialOfficerPosting::max('id');
                     
                     $jo_reporting = new JoReporting;
+                    
+                    if($request->flag_mode[$i] == 'deputation'){
+                        $jo_reporting->reporting_officer_id = null;
+                        $jo_reporting->other_reporting_officer_name = $request->other_reporting_officer_name[$i];
+                        $jo_reporting->other_reporting_officer_designation = $request->other_reporting_officer_designation[$i];
+                    }
+                    else if($request->flag_mode[$i] == 'regular'){
+                        $jo_reporting->reporting_officer_id = $request->reporting_officer_id[$i];
+                        $jo_reporting->other_reporting_officer_name = '';
+                        $jo_reporting->other_reporting_officer_designation = '';                    
+                    }
+                    
                     $jo_reporting->judicial_officer_id = $request->id;
-                    $jo_reporting->posting_id = $posting_id;
-                    $jo_reporting->reporting_officer_id = $request->reporting_officer_id[$i];
-                    $jo_reporting->other_reporting_officer_name = $request->other_reporting_officer_name[$i];
-                    $jo_reporting->other_reporting_officer_designation = $request->other_reporting_officer_designation[$i];
+                    $jo_reporting->posting_id = $posting_id;                    
 
                     $reporting_details = $jo_reporting->save();
                 }
@@ -794,6 +817,102 @@ class JoEntryFormController extends Controller
             DB::commit();
 
         } catch (\Exception $e) {
+            DB::rollBack(); 
+            $response = array(
+                'exception' => true,
+                'exception_message' => $e->getMessage()
+            );           
+            $statusCode = 400;
+        } finally {
+            return response()->json($response, $statusCode);
+        }
+    }
+
+    public function update_practice_details(Request $request){
+        $this->validate($request,[
+            'id' => 'required|max:99999|exists:judicial_officers,id',
+            'subdivision_id' => 'array',
+            'subdivision_id.*' => 'required_with:from_year.*,to_year.*|nullable|integer|exists:subdivisions,id|max:1000',
+            'from_year' => 'array',
+            'from_year.*' => 'required_with:subdivision_id.*,to_year.*|nullable|integer|min:1900|max:'.date('Y'),
+            'to_year' => 'array',
+            'to_year.*' => 'required_with:subdivision_id.*,from_year.*|nullable|integer|min:1900|max:'.date('Y'),            
+        ]);
+
+        $response = array();    
+        $statusCode = 200;
+
+        try{
+            DB::beginTransaction(); 
+
+            JoLegalExperience::where('judicial_officer_id',$request->input('id'))->delete(); 
+
+            for($i=0;$i<sizeof($request['subdivision_id']);$i++){
+                $jo_legal_experience = new JoLegalExperience;
+
+                if(!empty($request->subdivision_id[$i])){
+                    $jo_legal_experience->judicial_officer_id = $request->id;                       
+                    $jo_legal_experience->subdivision_id = $request->subdivision_id[$i];
+                    $jo_legal_experience->from_year = $request->from_year[$i];
+                    $jo_legal_experience->to_year = $request->to_year[$i];
+
+                    $jo_legal_experience_details[$i] = $jo_legal_experience->save();
+                }
+                else{
+                    $jo_legal_experience_details = null;
+                }
+            }
+
+            DB::commit();
+        }
+        catch (\Exception $e) {
+            DB::rollBack(); 
+            $response = array(
+                'exception' => true,
+                'exception_message' => $e->getMessage()
+            );           
+            $statusCode = 400;
+        } finally {
+            return response()->json($response, $statusCode);
+        }
+    }
+
+
+    public function update_qualification_details(Request $request){
+        $this->validate($request,[
+            'id' => 'required|max:99999|exists:judicial_officers,id',
+            'qualification_id' => 'array',
+            'qualification_id.*' => 'required_with:passing_year.*|nullable|integer|exists:qualifications,id|max:500',
+            'passing_year' => 'array',
+            'passing_year.*' => 'required_with:qualification_id.*|nullable|integer|min:1900|max:'.date('Y'),
+        ]);
+
+        $response = array();    
+        $statusCode = 200;
+
+        try{
+            DB::beginTransaction(); 
+
+            JudicialOfficerQualification::where('judicial_officer_id',$request->input('id'))->delete(); 
+
+            for($i=0;$i<sizeof($request->qualification_id);$i++){
+                $jo_qualification = new JudicialOfficerQualification;
+
+                if(!empty($request->qualification_id[$i])){
+                    $jo_qualification->judicial_officer_id = $request->id;
+                    $jo_qualification->qualification_id = $request->qualification_id[$i];
+                    $jo_qualification->passing_year = $request->passing_year[$i];                        
+
+                    $qualification_details[$i] = $jo_qualification->save();
+                }
+                else{
+                    $qualification_details = null;
+                }
+            }
+
+            DB::commit();
+        }
+        catch (\Exception $e) {
             DB::rollBack(); 
             $response = array(
                 'exception' => true,

@@ -1,3 +1,3 @@
-@foreach(App\Designation::orderBy('designation_name', 'asc')->get() as $designations)
-	<option value="{{$designations->id }}" @if (old('designations') == $designations->designation_name) selected="selected" @endif>{{$designations->designation_name}}</option>
+@foreach(App\Designation::join('subdivisions','designations.subdivision_id','=','subdivisions.id')->select('designations.id','subdivisions.zone_id','designation_name')->orderBy('designation_name', 'asc')->get() as $designations)
+    <option value="{{$designations->id }}" data-zone_id="{{$designations->zone_id}}" @if (old('designations') == $designations->designation_name) selected="selected" @endif>{{$designations->designation_name}}</option>
 @endforeach

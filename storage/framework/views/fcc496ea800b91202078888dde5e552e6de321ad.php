@@ -1,6 +1,12 @@
  
+
 <?php $__env->startSection('content'); ?>
 <!-- Main content -->
+
+<link rel="stylesheet" href="<?php echo e(asset('css/rowReordering_css/rowReorder.dataTables.min.css')); ?>">
+<!-- <link rel="stylesheet" href="<?php echo e(asset('css/rowReordering_css/editor.dataTables.min.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/rowReordering_css/jquery.dataTables.min.css')); ?>"> -->
+<link rel="stylesheet" href="<?php echo e(asset('css/rowReordering_css/select.dataTables.min.css')); ?>">
 
 <style>
 .reorder {
@@ -21,8 +27,6 @@
     height:2px;
     text-align:left;
 }
-
-
 
 </style>
 
@@ -80,7 +84,7 @@
     <div class="jo_grade_div" id="jo_grade_div" name="jo_grade_div" style="display:none;" >
             <div id="info-panel2" class="panel panel-default">    
             <div id="datatable-panel-heading" class="panel-heading clearfix">       
-                <div class="panel-title pull-left">List of Judicial Officers. . . </div>
+                <div class="panel-title pull-left" id="list_header" name="list_header">List of Judicial Officers. . . </div>
             </div>
 
             <div class="panel-body box-body" style="overflow-x: auto;">
@@ -191,11 +195,106 @@
         });
 
 
+        var status;
+
+        var table;
+
+
+        //Fetch status and current date from server on the given date and rank: start
+        $(this).one('change', '#date_of_gradation', function(e) {
+
+            var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
+            var date_of_gradation= $("#date_of_gradation").val();
+
+            if(jo_grade_rank_id != "" && date_of_gradation !="")
+            {
+                //access status using JOGradeController@jo_list_info 
+                $.ajax({
+                        "url":  "<?php echo e(route('jo_list_info')); ?>",
+                        "type": "POST",                        
+                        "data":{ _token: $('meta[name="csrf-token"]').attr('content'),
+                                    rank_id:jo_grade_rank_id,
+                                    date_of_gradation:date_of_gradation
+                                },                         
+                        success:function(response){
+                            if(response['status'] == "Finalized")
+                            {
+                                swal("Grade List already Finalized", "of "+date_of_gradation, "error");    
+                                $("#jo_grade_rank_id").attr("disabled", "disabled");  
+                                $("#date_of_gradation").attr("disabled", "disabled");
+                                $(".submit").hide();
+                                $("#jo_grade_div").hide();    
+                                return false;
+                            }
+                            else if(response['status'] == "Draft")
+                            {                                
+                                status= response['status'];
+                                $("#list_header").html($("#list_header").html() +'('+response['status']+')');
+                                swal("View/ Modify Drafted List", "of "+date_of_gradation , "");   
+                            }
+                            else
+                            {
+                                status= response['status'];
+                                $("#list_header").html($("#list_header").html() +'(New)');
+                            }
+                        }
+
+                }); //end of ajax
+
+            } //end of  if(jo_grade_rank_id != "" && date_of_gradation !="")                
+
+        }); //end of  $(this).on('change', '#date_of_gradation', function(e) {
+
+
+        $(this).one('change', '#jo_grade_rank_id', function(e) {
+
+        var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
+        var date_of_gradation= $("#date_of_gradation").val();
+
+        if(jo_grade_rank_id != "" && date_of_gradation !="")
+        {
+            //access status using JOGradeController@jo_list_info 
+            $.ajax({
+                    "url":  "<?php echo e(route('jo_list_info')); ?>",
+                    "type": "POST",                        
+                    "data":{ _token: $('meta[name="csrf-token"]').attr('content'),
+                                rank_id:jo_grade_rank_id,
+                                date_of_gradation:date_of_gradation
+                            },                         
+                    success:function(response){
+                        if(response['status'] == "Finalized")
+                        {
+                            swal("Grade List already Finalized", "of "+date_of_gradation, "error");    
+                            $("#jo_grade_rank_id").attr("disabled", "disabled");  
+                            $("#date_of_gradation").attr("disabled", "disabled");
+                            $(".submit").hide();
+                            $("#jo_grade_div").hide();    
+                            return false;
+                        
+                        }
+                        else if(response['status'] == "Draft")
+                        {
+                            status= response['status'];
+                            $("#list_header").html($("#list_header").html() +'('+response['status']+')');
+                            swal("View/ Modify Drafted List", "of "+date_of_gradation , "");   
+                        }
+                        else
+                        {
+                            status= response['status'];
+                            $("#list_header").html($("#list_header").html() +'(New)');
+                        }
+                    }
+
+                }); //end of ajax
+
+            } //end of  if(jo_grade_rank_id != "" && date_of_gradation !="")                
+
+        }); //end of  $(this).on('change', '#date_of_gradation', function(e) {
+        //Fetch status and current date from server on the given date and rank: end
 
 
 
-         var table;
-                 
+
             //Create list to arrange :start
            $(document).on("click","#submit", function() {
 
@@ -222,6 +321,7 @@
                                 "processing": false,
                                 "serverSide": false, 
                                 "bPaginate": false, 
+                                "stateSave": true,
                                 "ajax":{
                                         "url": "<?php echo e(route('rank_wise_jo_list')); ?>",
                                         "dataType": "json",
@@ -267,11 +367,11 @@
                                             orderable: false,
                                             targets: 1,
                                         }
-                                ],
+                                ],                               
                                 "initComplete": function(settings, json) {
                                     if(json.recordsTotal ==-1)
                                     {
-                                        swal("Grade List already Finalized", "on the given date", "error");   
+                                        swal("Grade List already Finalized", "of "+date_of_gradation, "error");   
                                         $("#jo_grade_div").hide();    
                                         return false;
                                     }
@@ -492,6 +592,14 @@
             //Data Updation Code end
 
 
+//delete datatable row
+// $('#id tbody').on('click', function(){
+//     table
+//         .row($(this).parents('tr'))
+//         .remove()
+//         .draw();
+// });
+
             $(document).on("click","#reset", function() {
                 $("#jo_grade_table").DataTable().destroy();
                 $("#jo_grade_div").hide();
@@ -502,16 +610,92 @@
 
             $(document).on("click","#draft", function() {
 
-                //fecth all rows including remark
-                var graded_jo_list = table.rows( { order: 'applied' } ).data().toArray();
+                save_status_as="Draft";
+                save_ordered_list(save_status_as);                   
 
-                var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
+            });// end of $(document).on("click","#save", function() {
+
+
+            $(document).on("click","#finalized", function() {
+
+                save_status_as="Finalized";
+                save_ordered_list(save_status_as);
+                
+            });// end of $(document).on("click","#finalized", function() {
+
+
+            //*** Importent :counter to point to the row while accessing all_datatable_data[count]['judicial_officer_id']
+            var count=0;
+
+            function save_ordered_list(save_status_as)
+            {
+                var row_count = table.rows().count();
                 var date_of_gradation= $("#date_of_gradation").val();
-                var status="Draft";
+                var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
 
-                    swal({
-                    title: "Draft ready ?",
-                    text: "This will draft the arranged grade list",
+                //fetch all rows in datatable (**but without 'remark')
+                var all_datatable_data= table.rows().data().toArray();
+
+                var graded_jo_list = [];
+                //headers need to send
+                var headers = ['judicial_officer_id','grade','remark'];
+                
+                //to fetch all headers present in table
+                // $('#jo_grade_table th').each(function(index, item) {
+                //     headers[index] = $(item).html();
+                // });
+                
+                //create arrey to send via ajax including judicial_officer_id, grade, remark
+                $('#jo_grade_table tr').has('td').each(function() {
+                    var temp_row = {}; // to temporay create a single row
+                    
+                    //iterate to the selected td fetch currently added/edited grade & remark  
+                    $('td', $(this)).each(function(index, item) {
+
+                        if(index == 0) //0th position is grade
+                        {   //add judicial_officer_id
+                            temp_row[headers[0]]=all_datatable_data[count]['judicial_officer_id'];
+
+                            //add grade/position
+                            temp_row[headers[1]]=$(item).html();      
+
+                            count++;                                       
+                        }                            
+                        else if(index == 8) //starting from 0, 8th column is ramrk 
+                        {   //add remark
+                            temp_row[headers[2]] = $(item).html();
+                        }
+                            
+                    });
+
+                    //push the created row in the arrey
+                    graded_jo_list.push(temp_row);
+
+                });
+
+                //*** Importent: re-initialize  counter to point to the first row again
+                count=0;
+               
+
+                var message_title, message_text, result;
+
+                if(save_status_as == "Draft")
+                {
+                    message_title= "Draft ready ?";
+                    message_text= "This will draft the arranged grade list";
+                    result= "Arranged grade drafted Successfully";
+                }
+                else if(save_status_as == "Finalized" )
+                {
+                    message_title= "Grading Final ?";
+                    message_text= "This will finalized the arranged grade list";
+                    result= "Arranged grade Finalized Successfully";
+                }
+
+
+                swal({
+                    title: message_title,
+                    text: message_text,
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -525,12 +709,12 @@
                                     graded_jo_list:graded_jo_list,
                                     rank_id:jo_grade_rank_id,
                                     date_of_gradation:date_of_gradation,
-                                    status: status
+                                    status: save_status_as
                                 },
                                 success:function(response){
-                                    swal("Arranged grade drafted Successfully","","success");
+                                    swal(result,"of "+date_of_gradation,"success");
                                     $("#jo_grade_div").hide();
-                                    location.reload();
+                                    //location.reload();
                                 },
                                 error:function(response) {  
 
@@ -552,71 +736,13 @@
                         }
                     });
 
-                });// end of $(document).on("click","#save", function() {
-
-
-                $(document).on("click","#finalized", function() {
-
-                    //fecth all rows including remark
-                    var graded_jo_list = table.rows( { order: 'applied' } ).data().toArray();
-
-                    var jo_grade_rank_id= $("#jo_grade_rank_id option:selected").val();
-                    var date_of_gradation= $("#date_of_gradation").val();
-                    var status="Finalized";
-
-                        swal({
-                        title: "Grading Final?",
-                        text: "This will finalized the arranged grade list",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                        })
-                        .then((willDelete) => {
-                            if (willDelete) {
-                                $.ajax({
-                                    url:"<?php echo e(route('save_jo_grade')); ?>",
-                                    type:"POST",
-                                    data:{
-                                        graded_jo_list:graded_jo_list,
-                                        rank_id:jo_grade_rank_id,
-                                        date_of_gradation:date_of_gradation,
-                                        status: status
-                                    },
-                                    success:function(response){
-                                        swal("Arranged grade set Successfully","","success");
-                                        $("#jo_grade_div").hide();
-                                        location.reload();
-                                    },
-                                    error:function(response) {  
-
-                                            if(jqXHR.status!=422 && jqXHR.status!=400){
-                                                swal("Failed to "+operation+" Judicial Officer grading",errorThrown,"error");
-                                            }
-                                            else{
-                                                msg = "";
-                                                $.each(jqXHR.responseJSON.errors, function(key,value) {
-                                                    msg+=value+"\n";						
-                                                });
-
-                                                swal("Failed to "+operation+" Judicial Officer grading",msg,"error");
-                                            }
-
-                                        }
-
-                                })
-                            }
-                        });
-
-
-
-                 });// end of $(document).on("click","#finalized", function() {
-
-
+            }//end of function save_ordered_list(graded_jo_list, jo_grade_rank_id, date_of_gradation, status)
 
    });
 //end of $(document).ready(function() { 
 </script>
 
 <?php $__env->stopSection(); ?>
+
 
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH F:\laragon\www\judicial-service\resources\views/jo_grade/index.blade.php ENDPATH**/ ?>

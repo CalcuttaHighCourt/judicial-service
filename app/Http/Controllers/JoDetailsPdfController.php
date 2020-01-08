@@ -194,7 +194,7 @@ class JoDetailsPdfController extends Controller
                         <tr>
                             <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">Sl No.</th>
                             <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">Posting Mode</th>
-                            <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">Designation</th>
+                            <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">Posted As</th>
                             <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">From Date</th>
                             <th style=\"font-size: 1.17em; border-collapse:collapse;\">To Date</th>
                         </tr>
@@ -213,15 +213,20 @@ class JoDetailsPdfController extends Controller
             else
                 $to_date = Carbon::parse($jo_posting->to_date)->format('d-m-Y');
 
+            if($jo_posting->designation_id !=null)
+                $posted_as = $jo_posting->designation_name;
+            else
+                $posted_as = $jo_posting->deputation_designation.' At '.$jo_posting->deputation_posting_place;
+
             $content.="<tr>
-                        <td align=\"left\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
+                        <td align=\"left\" style=\" width:auto; font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
                             ++$key.  
                         "</td>
                         <td align=\"left\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
                             $jo_posting->posting_mode.  
                         "</td>
                         <td align=\"left\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
-                            $jo_posting->designation_name.  
+                            $posted_as.  
                         "</td>                        
                         <td align=\"left\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
                             Carbon::parse($jo_posting->from_date)->format('d-m-Y').  

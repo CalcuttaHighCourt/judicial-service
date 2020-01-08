@@ -18,17 +18,7 @@
     <!-- Data Table -->
     <link rel="stylesheet" href="{{asset('css/dataTables.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/responsive.bootstrap.min.css')}}">
-
-
-
-    
-    <link rel="stylesheet" href="{{asset('css/rowReordering_css/rowReorder.dataTables.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/rowReordering_css/editor.dataTables.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/rowReordering_css/jquery.dataTables.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/rowReordering_css/select.dataTables.min.css')}}">
-
-
-
+  
     <!-- Select-2 -->
     <link rel="stylesheet" href="{{asset('css/select2.min.css')}}">
     
