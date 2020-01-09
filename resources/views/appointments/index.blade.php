@@ -83,25 +83,9 @@
    
     $(".select2").select2(); 
   
-    var table = $("#details_for_posting_preference").DataTable({  
-                            "processing": true,
-                            "serverSide": true,
-                            "ajax":{
-                                    "url": "show_details_for_posting_preference",
-                                    "dataType": "json",
-                                    "type": "POST",
-                                    "data":{ _token: $('meta[name="csrf-token"]').attr('content')},                                    
-                                    },
-                            "columns": [                
-                                {"data": "sl_no" },
-                                {"data": "jo_name" },
-                                {"data": "jo_code" },
-                                {"data": "posted_as" },
-                                {"data": "station_preference" },
-                                {"data": "jo_remarks" },
-                                {"data": "other_info" }
-                            ]
-                        }); 
+    $.ajax({
+        
+    })
                         
      
    /*Cloning of Year and Grades */

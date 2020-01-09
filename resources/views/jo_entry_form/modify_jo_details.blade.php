@@ -459,14 +459,21 @@
                                                             @include('designations.designation_options')
                                                         </select>
                                                     </div>  
+                                                    <div class="form-group col-xs-3">
+                                                        <label class="control-label">
+                                                                Additional Charge 
+                                                        </label>
+                                                        <input type="text" class="form-control additional_designation" placeholder="Additional Designations (if any)">
+                                                    </div>  
                                                 </div>
+                                                
                                                 <div class="mode_deputation_div" style="display:none">
                                                     <div class="form-group required col-xs-3">
                                                         <label class="control-label">
                                                                 Designation 
                                                         </label>
                                                         <input type="text" class="form-control other_designation" placeholder="Designation of Deputation">
-                                                    </div>                                
+                                                    </div>                                                                                  
                                                     <div class="form-group required col-xs-3">
                                                         <label class="control-label">
                                                                 Place of Posting 
@@ -475,7 +482,16 @@
                                                     </div>    
                                                 </div>                              
                                             </div><br/>
-                                            <div class="row">                                 
+                                            <div class="row">     
+                                                <div class="form-group required col-xs-2">                                                    
+                                                    <label class="control-label">
+                                                            Zone 
+                                                    </label>
+                                                    <select class="form-control info-form-control select2 zone" style="width:100%">
+                                                        <option value="">Select an Option</option>
+                                                        @include('zones.zone_options')
+                                                    </select>                                                    
+                                                </div>                            
                                                 <div class="col-xs-3 permanent_reporting_officer_div">
                                                     <label>
                                                             Reporting Officer 
@@ -484,17 +500,7 @@
                                                         <option value="">Select an Option</option>
                                                         @include('judicial_officers.judicial_officer_options')
                                                     </select>
-                                                </div>
-                
-                                                <div class="form-group required col-xs-2 deputation_reporting_officer_div deputation_zone" style="display:none">                                                    
-                                                    <label class="control-label">
-                                                            Zone 
-                                                    </label>
-                                                    <select class="form-control info-form-control select2 zone" style="width:100%">
-                                                        <option value="">Select an Option</option>
-                                                        @include('zones.zone_options')
-                                                    </select>                                                    
-                                                </div>
+                                                </div>            
                 
                                                 <div class="col-xs-3 deputation_reporting_officer_div" style="display:none">
                                                     <label>
@@ -878,6 +884,7 @@
                     $(".mode_id:last").val(val.mode_id);
                     $(".rank:last").val(val.rank_id);
                     $(".designation_id:last").val(val.designation_id);
+                    $(".additional_designation:last").val(val.additional_designation);
                     $(".other_designation:last").val(val.deputation_designation);
                     $(".other_place_posting:last").val(val.deputation_posting_place);
                     $(".from_date:last").val(val.from_date);
@@ -887,7 +894,7 @@
                     $(".reporting_officer_id:last").val(val.reporting_officer_id);
                     $(".other_reporting_officer:last").val(val.other_reporting_officer_name);
                     $(".other_reporting_officer_designation:last").val(val.other_reporting_officer_designation);
-                    $(".zone:last").val(val.deputation_zone);
+                    $(".zone:last").val(val.zone_id);
                     
 
                     $(".select2").trigger("change");
@@ -1049,9 +1056,9 @@
             //update posting details
             else if($(this).val()=='update_posting_details'){
                 var designation_id = new Array();
+                var additional_designation = new Array();
                 var deputation_designation = new Array();
                 var zone_id = new Array();
-                var deputation_zone = new Array();
                 var deputation_posting_place = new Array();
                 var mode_id = new Array();
                 var flag_mode = new Array();
@@ -1083,20 +1090,20 @@
                 $(".rank").each(function(){
                     rank_id.push($(this).val());
                 })
-
-                zone_id = [];   
+                
                 designation_id = [];
                 $(".designation_id").each(function(){
-                    designation_id.push($(this).val()); 
-                    if($(this).val()!="")
-                        zone_id.push($(this).find('option:selected').attr('data-zone_id'));  
-                    else
-                        zone_id.push("");                        
+                    designation_id.push($(this).val());         
                 })
 
-                deputation_zone = [];         
+                additional_designation = [];
+                $(".additional_designation").each(function(){
+                    additional_designation.push($(this).val());         
+                })
+
+                zone_id = [];         
                 $(".zone").each(function(){
-                    deputation_zone.push($(this).val());           
+                    zone_id.push($(this).val());           
                 })
 
                 deputation_posting_place = [];
@@ -1141,11 +1148,11 @@
                         id:$("#fetch_id").val(),
                         designation_id:designation_id,
                         deputation_designation:deputation_designation,
+                        additional_designation:additional_designation,
                         mode_id:mode_id,
                         flag_mode:flag_mode,
                         rank_id:rank_id,
-                        zone_id:zone_id,                                        
-                        deputation_zone:deputation_zone,
+                        zone_id:zone_id,
                         deputation_posting_place:deputation_posting_place,
                         reporting_officer_id:reporting_officer_id,                                        
                         other_reporting_officer_name:other_reporting_officer_name,

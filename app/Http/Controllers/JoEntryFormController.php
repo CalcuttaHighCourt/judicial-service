@@ -166,15 +166,19 @@ class JoEntryFormController extends Controller
                 if(!empty($request['flag_mode'])){
                     $jo_posting = new JudicialOfficerPosting;
 
-                    if($request->flag_mode=='deputation'){
+                    
+                    if($request->designation_id = "")
                         $jo_posting->designation_id = null;
-                        $posting_zone = $request->deputation_zone;
+                    else{    
+                        if($request->flag_mode=='deputation'){
+                            $jo_posting->designation_id = null;
+                        }
+                        else if($request->flag_mode=='regular'){
+                            $jo_posting->designation_id = $request->designation_id;                        
+                        }
                     }
-                    else if($request->flag_mode=='regular'){
-                        $jo_posting->designation_id = $request->designation_id;
-                        $posting_zone = $request->zone_id;
-                    }
-
+                    $jo_posting->zone_id = $request->zone_id;
+                    $posting_zone = $request->zone_id;
                     $jo_posting->judicial_officer_id = $judicial_officer;                        
                     $jo_posting->mode_id = $request->mode_id;
                     $jo_posting->rank_id = $request->rank_id;
@@ -400,9 +404,7 @@ class JoEntryFormController extends Controller
 
         $rank = $data['ranks']['0']->id;
 
-        $data['designations'] = Designation::join('subdivisions','designations.subdivision_id', '=','subdivisions.id')
-                                            ->where('rank_id',$rank)
-                                            ->select('designations.*', 'subdivisions.zone_id')
+        $data['designations'] = Designation::where('rank_id',$rank)
                                             ->get();
 
         return response()->json($data);
@@ -517,27 +519,12 @@ class JoEntryFormController extends Controller
                                                                 ->get();
 
         foreach($jo_details['posting_details'] as $key => $jo_posting){
-            if($jo_posting->to_date==null)
-                $jo_posting->to_date = "";
-            else
-                $jo_posting->to_date = Carbon::parse($jo_posting->to_date)->format('d-m-Y');
-
-            $jo_posting->deputation_zone = JoZoneTenure::where([
-                                            ['judicial_officer_id',$request->jo_id],
-                                            ['from_date','<=',$jo_posting->from_date],
-                                            ['from_date','>=',$jo_posting->from_date],
-                                        ])
-                                        ->orwhere([
-                                            ['judicial_officer_id',$request->jo_id],
-                                            ['from_date','<=',$jo_posting->from_date],
-                                            ['from_date','=',null],
-                                        ])
-                                        ->max('zone_id');
-
+            if($jo_posting->to_date!=null)
+                $jo_posting->to_date = Carbon::parse($jo_posting->to_date)->format('d-m-Y');            
+             
             $jo_posting->from_date = Carbon::parse($jo_posting->from_date)->format('d-m-Y');
-
         }
-            
+         
         return $jo_details;
     }
 
@@ -667,6 +654,8 @@ class JoEntryFormController extends Controller
             'rank_id.*' => 'required|required_with:mode_id.*,rank_id.*,flag_mode.*|integer|max:50|exists:ranks,id',
             'designation_id' => 'required|array',
             'designation_id.*' => 'nullable|required_if:flag_mode.*,==,regular|integer|max:500|exists:designations,id',
+            'additional_designation' => 'required|array',
+            'additional_designation.*' => 'nullable|string|max:250',
             'deputation_designation' => 'required|array',
             'deputation_designation.*' => 'nullable|required_if:flag_mode.*,==,deputation|string|max:500',
             'reporting_officer_id' => 'required|array',
@@ -676,9 +665,7 @@ class JoEntryFormController extends Controller
             'other_reporting_officer_designation' => 'required|array',
             'other_reporting_officer_designation.*' => 'nullable|string|max:100|regex:/^[\pL\s\-]+$/u',
             'zone_id' => 'required|array',
-            'zone_id.*' => 'nullable|required_if:flag_mode.*,==,regular|integer|max:500|exists:zones,id',
-            'deputation_zone' => 'required|array',
-            'deputation_zone.*' => 'nullable|required_if:flag_mode.*,==,deputation|integer|max:500|exists:zones,id',
+            'zone_id.*' => 'required|integer|max:500|exists:zones,id',            
             'deputation_posting_place' => 'required|array',
             'deputation_posting_place.*' => 'nullable|required_if:flag_mode.*,==,deputation|string|max:255',
             'from_date' => 'required|array',
@@ -722,7 +709,9 @@ class JoEntryFormController extends Controller
                     $jo_posting->deputation_posting_place = '';
                 }
 
-                $jo_posting->judicial_officer_id = $request->id;                        
+                $jo_posting->judicial_officer_id = $request->id;  
+                $jo_posting->additional_designation = $request->additional_designation[$i];                      
+                $jo_posting->zone_id = $request->zone_id[$i];                      
                 $jo_posting->mode_id = $request->mode_id[$i];
                 $jo_posting->rank_id = $request->rank_id[$i];                
                 $jo_posting->from_date = Carbon::parse($request->from_date[$i])->format('Y-m-d');
