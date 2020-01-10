@@ -520,7 +520,7 @@
                 } 
                 else if( to_grade > row_count )
                 {
-                    swal("Cannot Update grade!", "Grade doesn't exist, maximum grade: "+row_count, "error");        
+                    swal("Cannot Update grade!", "Grade doesn't exist, Maximum grade: "+row_count, "error");        
                     element.closest("tr").find(".to_grade").text(current_to_grade);                                   
                     return false;
                 } 
