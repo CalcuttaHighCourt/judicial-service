@@ -213,8 +213,12 @@ class JoDetailsPdfController extends Controller
             else
                 $to_date = Carbon::parse($jo_posting->to_date)->format('d-m-Y');
 
-            if($jo_posting->designation_id !=null)
+            if($jo_posting->designation_id !=null){
                 $posted_as = $jo_posting->designation_name;
+                if($jo_posting->additional_designation!=""){
+                    $posted_as = $posted_as. " \n and ".$jo_posting->additional_designation;
+                }
+            }
             else
                 $posted_as = $jo_posting->deputation_designation.' At '.$jo_posting->deputation_posting_place;
 

@@ -120,7 +120,7 @@ class DesignationController extends Controller
         $designation = null;
 
         $this->validate($request, [
-            'designation_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:designations,designation_name'),
+            'designation_name' => array('required', 'max:75', 'unique:designations,designation_name'),
             'rank_id' => array('required')
             ]);
 

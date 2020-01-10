@@ -55,7 +55,7 @@ class QualificationController extends Controller
             $qualification = null;
 
             $this->validate ( $request, [ 
-                    'qualification_name' => array('required','max:75','regex:/^[\pL\d\s]+$/u','unique:qualifications,qualification_name') 
+                    'qualification_name' => array('required','max:75','unique:qualifications,qualification_name') 
             ] );
 
             try {
@@ -170,12 +170,17 @@ class QualificationController extends Controller
          */
         public function update(Request $request, $id)
         {
+
             $response = [ 
                 'qualification' => [ ] 
             ];
             $statusCode = 200;
             $qualification = null;
 
+            $this->validate ( $request, [ 
+                'qualification_name' => array('required','max:75','unique:qualifications,qualification_name') 
+            ] );
+            
             if(!ctype_digit(strval($id))){
                 $response = array (
                     'exception' => true,

@@ -1,12 +1,12 @@
-@extends('layouts.app') 
+ 
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <!-- Main content -->
 
-<link rel="stylesheet" href="{{asset('css/rowReordering_css/rowReorder.dataTables.min.css')}}">
-<!-- <link rel="stylesheet" href="{{asset('css/rowReordering_css/editor.dataTables.min.css')}}">
-<link rel="stylesheet" href="{{asset('css/rowReordering_css/jquery.dataTables.min.css')}}"> -->
-<link rel="stylesheet" href="{{asset('css/rowReordering_css/select.dataTables.min.css')}}">
+<link rel="stylesheet" href="<?php echo e(asset('css/rowReordering_css/rowReorder.dataTables.min.css')); ?>">
+<!-- <link rel="stylesheet" href="<?php echo e(asset('css/rowReordering_css/editor.dataTables.min.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/rowReordering_css/jquery.dataTables.min.css')); ?>"> -->
+<link rel="stylesheet" href="<?php echo e(asset('css/rowReordering_css/select.dataTables.min.css')); ?>">
 
 <style>
 .reorder {
@@ -46,7 +46,7 @@
 
                 <select id="jo_grade_rank_id" class="form-control info-form-control select2" name="jo_grade_rank_id" style="width:100%">
                     <option value="">Select an Option</option>
-                    @include('ranks.rank_options')
+                    <?php echo $__env->make('ranks.rank_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                 </select>
             </div>
 
@@ -167,7 +167,7 @@
 
 
 
-<meta name="_token" content="{!! csrf_token() !!}" />
+<meta name="_token" content="<?php echo csrf_token(); ?>" />
 
 <!--Closing that has been openned in the header.blade.php -->
 </section>
@@ -175,7 +175,7 @@
 </div>
 <!-- /.content-wrapper -->
 
-<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
+<script src="<?php echo e(asset('js/jquery/jquery.min.js')); ?>"></script>
 
 <script>
     var editor; // use a global for the submit and return data rendering in the examples
@@ -210,7 +210,7 @@
             {
                 //access status using JOGradeController@jo_list_info 
                 $.ajax({
-                        "url":  "{{route('jo_list_info')}}",
+                        "url":  "<?php echo e(route('jo_list_info')); ?>",
                         "type": "POST",                        
                         "data":{ _token: $('meta[name="csrf-token"]').attr('content'),
                                     rank_id:jo_grade_rank_id,
@@ -255,7 +255,7 @@
         {
             //access status using JOGradeController@jo_list_info 
             $.ajax({
-                    "url":  "{{route('jo_list_info')}}",
+                    "url":  "<?php echo e(route('jo_list_info')); ?>",
                     "type": "POST",                        
                     "data":{ _token: $('meta[name="csrf-token"]').attr('content'),
                                 rank_id:jo_grade_rank_id,
@@ -323,7 +323,7 @@
                                 "bPaginate": false, 
                                 "stateSave": true,
                                 "ajax":{
-                                        "url": "{{route('rank_wise_jo_list')}}",
+                                        "url": "<?php echo e(route('rank_wise_jo_list')); ?>",
                                         "dataType": "json",
                                         "type": "POST",
                                         "data":
@@ -710,7 +710,7 @@
                     .then((willDelete) => {
                         if (willDelete) {
                             $.ajax({
-                                url:"{{route('save_jo_grade')}}",
+                                url:"<?php echo e(route('save_jo_grade')); ?>",
                                 type:"POST",
                                 data:{
                                     graded_jo_list:graded_jo_list,
@@ -749,5 +749,7 @@
 //end of $(document).ready(function() { 
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH F:\laragon\www\judicial-service\resources\views/jo_grade/index.blade.php ENDPATH**/ ?>

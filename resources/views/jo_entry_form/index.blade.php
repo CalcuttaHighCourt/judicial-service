@@ -433,18 +433,8 @@
                                     </div>    
                                 </div>                              
                             </div><br/>
-                            <div class="row">                                 
-                                <div class="col-xs-3 permanent_reporting_officer_div">
-                                    <label>
-                                            Reporting Officer 
-                                    </label>
-                                    <select class="form-control info-form-control posting_select2 select2" id="reporting_officer_id" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        @include('judicial_officers.judicial_officer_options')
-                                    </select>
-                                </div>
-
-                                <div class="form-group required col-xs-2 deputation_reporting_officer_div" style="display:none">
+                            <div class="row">   
+                                <div class="form-group required col-xs-2">
                                     <label class="control-label">
                                             Zone 
                                     </label>
@@ -453,6 +443,16 @@
                                         @include('zones.zone_options')
                                     </select>
                                 </div>
+
+                                <div class="col-xs-3 permanent_reporting_officer_div">
+                                    <label>
+                                            Reporting Officer 
+                                    </label>
+                                    <select class="form-control info-form-control posting_select2 select2" id="reporting_officer_id" style="width:100%">
+                                        <option value="">Select an Option</option>
+                                        @include('judicial_officers.judicial_officer_options')
+                                    </select>
+                                </div>                                
 
                                 <div class="col-xs-3 deputation_reporting_officer_div" style="display:none">
                                     <label>
@@ -682,7 +682,7 @@
 
                     $("#designation_id").children('option:not(:first)').remove();
                     $.each(response.designations,function(index,value){							
-                        $("#designation_id").append('<option value="'+value.id+'" data-zone_id="'+value.zone_id+'">'+value.designation_name+'</option>');											
+                        $("#designation_id").append('<option value="'+value.id+'">'+value.designation_name+'</option>');											
                     })
                 },
                 error:function (jqXHR, textStatus, errorThrown) {
@@ -1014,8 +1014,7 @@
                     reporting_officer_id:$("#reporting_officer_id").val(),
                     other_reporting_officer_name:$("#other_reporting_officer").val(),
                     other_reporting_officer_designation:$("#other_reporting_officer_designation").val(),                    
-                    zone_id:$("#designation_id option:selected").data('zone_id'),
-                    deputation_zone:$("#zone").val(),
+                    zone_id:$("#zone").val(),
                     deputation_posting_place:$("#other_place_posting").val(),
                     mode_id:$("#mode_id").val(),
                     flag_mode:flag_mode,
