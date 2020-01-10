@@ -1,3 +1,0 @@
-<?php $__currentLoopData = App\LcrDepartment::orderBy('lcr_department_name', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lcr_dept): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-	<option value="<?php echo e($lcr_dept->id); ?>" <?php if(old('lcr_dept') == $lcr_dept->lcr_department_name): ?> selected="selected" <?php endif; ?>><?php echo e($lcr_dept->lcr_department_name); ?></option>
-<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php /**PATH F:\laragon\www\judicial-service\resources\views/lcr_departments/lcr_department_options.blade.php ENDPATH**/ ?>
