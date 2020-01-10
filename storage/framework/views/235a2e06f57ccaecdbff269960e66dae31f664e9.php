@@ -1,3 +1,0 @@
-<?php $__currentLoopData = App\District::orderBy('district_name', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $district): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-	<option value="<?php echo e($district->id); ?>" <?php if(old('district') == $district->district_name): ?> selected="selected" <?php endif; ?>><?php echo e($district->district_name); ?></option>
-<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php /**PATH F:\laragon\www\judicial-service\resources\views/districts/district_options.blade.php ENDPATH**/ ?>

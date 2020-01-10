@@ -27,15 +27,13 @@
             <div style="overflow-x:auto;">
                 <table class="table table-bordered table-striped" id="details_for_posting_preference" style="width: 100%;white-space: nowrap;">
                     <thead>
-                        <tr>
-                            <th></th>
-                            <th>SL NO</th>
+                        <tr>                            
+                            <th>SL NO.</th>
                             <th>JO NAME</th>
-                            <th>JO CODE</th>
                             <th>POSTED AS</th>
                             <th>STATION PREFERENCE</th>
-                            <th>JO REMARKS</th>
-                            <th>OTHER INFO</th>
+                            <th>PREFERENCE REMARK</th>
+                            <th>OTHER INFO.</th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
@@ -83,26 +81,50 @@
    
     $(".select2").select2(); 
   
-    var table = $("#details_for_posting_preference").DataTable({  
-                            "processing": true,
-                            "serverSide": true,
-                            "ajax":{
-                                    "url": "show_details_for_posting_preference",
-                                    "dataType": "json",
-                                    "type": "POST",
-                                    "data":{ _token: $('meta[name="csrf-token"]').attr('content')},                                    
-                                    },
-                            "columns": [                
-                                {"data": "sl_no" },
-                                {"data": "jo_name" },
-                                {"data": "jo_code" },
-                                {"data": "posted_as" },
-                                {"data": "station_preference" },
-                                {"data": "jo_remarks" },
-                                {"data": "other_info" }
-                            ]
-                        }); 
-                        
+    $.ajax({
+            type: "POST",
+            url: "show_details_for_posting_preference",                
+            data:{_token: $('meta[name="csrf-token"]').attr('content')
+            },
+        success:function(response){
+                var obj = $.parseJSON(response);
+                console.log(obj);
+                var i;
+                var str="";
+                for(i=0;  i < 2; i++){
+                    str+="<tr>"+
+                            "<td>"+(i+1)+"</td>"+
+                            "<td>"+obj.display_pref_for_jo[i].officer_name+" | "+obj.display_pref_for_jo[i].jo_code+"</td>";
+                            var j;
+                            for(j=0; j < obj.posted_as[i].length; j++)
+                            {
+                                str+="<td>"+obj.posted_as[i][j].designation_name+"</td>";
+                            }
+                            str+="<td>";
+                            for(j=0; j < obj.preference_details[i].length; j++)
+                            {
+                                str+=(j+1)+"."+obj.preference_details[i][j].station_name+"<br>\n";                      
+                            }
+                            str+="</td>";
+                            str+="<td>"+obj.preference_details[i]['0'].remarks+"</td>";                              
+                            
+                            //zone tenure details
+                            str+="<td>";
+                            for(j=0;j < obj.zone_tenure[i].length; j++){
+                                str+=obj.zone_tenure[i][j];
+                            }
+                            str+="<br>\n";
+                            //practice subdivisions
+                            for(j=0; j < obj.practice_subdivision[i].length; j++){
+                                str+=obj.practice_subdivision[i][j].subdivision_name;
+                            }
+                            str+="</td>"+"</tr>"; 
+                }
+            console.log(str);       
+                
+            }
+        }); 
+    
      
    /*Cloning of Year and Grades */
    

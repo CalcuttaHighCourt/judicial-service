@@ -1,3 +1,0 @@
-<?php $__currentLoopData = App\UserType::orderBy('type_name', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user_type): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-	<option value="<?php echo e($user_type->id); ?>" <?php if(old('user_type') == $user_type->type_name): ?> selected="selected" <?php endif; ?>><?php echo e($user_type->type_name); ?></option>
-<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php /**PATH F:\laragon\www\judicial-service\resources\views/user_types/user_type_options.blade.php ENDPATH**/ ?>

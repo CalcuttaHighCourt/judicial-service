@@ -221,9 +221,7 @@
                 designation:designation
             },
             success:function(response)
-            {                       
-                console.log(response);
-                        
+            {           
                 var d = new Date();
                     var month = d.getMonth()+1;
                     var day = d.getDate();
