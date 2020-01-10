@@ -512,7 +512,13 @@
                     element.closest("tr").find(".to_grade").text(current_to_grade);                                   
                     return false;
                 } 
-                else if( to_grade <= 0  ||  to_grade > row_count )
+                else if( to_grade <= 0)
+                {
+                    swal("Cannot Update grade!", "Grade must be greater than zero(0)", "error");        
+                    element.closest("tr").find(".to_grade").text(current_to_grade);                                   
+                    return false;
+                } 
+                else if( to_grade > row_count )
                 {
                     swal("Cannot Update grade!", "Grade doesn't exist", "error");        
                     element.closest("tr").find(".to_grade").text(current_to_grade);                                   
@@ -642,7 +648,8 @@
 
                 //fetch all rows in datatable (**but without 'remark')
                 var all_datatable_data= table.rows().data().toArray();
-
+                console.log(all_datatable_data);
+                
                 var graded_jo_list = [];
                 //headers need to send
                 var headers = ['judicial_officer_id','grade','remark'];
