@@ -463,7 +463,7 @@
                                                         <label class="control-label">
                                                                 Additional Charge 
                                                         </label>
-                                                        <input type="text" class="form-control additional_designation" placeholder="Additional Designations (if any)">
+                                                        <textarea class="form-control additional_designation" placeholder="Additional Designations with its time period (if any)"></textarea>                                                        
                                                     </div>  
                                                 </div>
                                                 
@@ -532,12 +532,13 @@
                                                     </label>
                                                     <textarea class="form-control posting_remark" placeholder="if any"></textarea>
                                                 </div>
-                                                <div class="col-xs-1">
-                                                    <br/>
+                                                <div class="form-group col-xs-12">
+                                                    
+                                                    
                                                     <img src="<?php echo e(asset('images/details_open.png')); ?>" class="img_add_more_posting" id="add_more_posting">
-                                                </div>
+                                                </div>                                                
                                             </div>                                             
-                                            <hr>
+                                            <hr style="border: 2px solid chocolate;border-radius: 5px;">
                                         </div>                     
                                     </form>
                                 </div>
@@ -591,6 +592,14 @@
         </div>
     </div>
 </div>
+
+<!--loader starts-->
+<div class="col-md-offset-5 col-md-3" id="wait" style="display:none;">
+    <img src='images/loader.gif'width="25%" height="10%" />
+      <br>Loading..
+</div>
+
+<!--loader starts-->
 
 <meta name="_token" content="<?php echo csrf_token(); ?>" />
 
@@ -661,6 +670,17 @@
         // Select2 initialization
         $(".select2").select2();
 
+
+        /*LOADER*/
+        $(document).ajaxStart(function() {
+            $("#wait").css("display", "block");
+        });
+        
+        $(document).ajaxComplete(function() {
+            $("#wait").css("display", "none");
+        });
+        /*LOADER*/
+
         
         /*If multiple Qualification details added :: STARTS*/
 		$(document).on("click","#add_more_qualification", function(){           
@@ -728,10 +748,10 @@
             });               
 
             
-            $(".img_add_more_posting:last").attr({src:"images/details_close.png",
-                                                    class:"remove_posting", 
-                                                    alt:"remove_posting"
-                                                });
+            $(this).attr({src:"images/details_close.png",
+                            class:"remove_posting", 
+                            alt:"remove_posting"
+                        });
             $(".remove_posting:last").removeAttr("id");        
 			
 		})
@@ -904,6 +924,11 @@
                     //$(".remove_posting").remove();
                 })
                 $(".div_add_more_posting:last").remove();
+                $(".remove_posting:last").attr({src:"images/details_open.png",
+                                                class:"add_posting", 
+                                                alt:"add_posting",
+                                                id:"add_more_posting"
+                                            });
             }            
         }
 
