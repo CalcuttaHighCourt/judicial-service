@@ -20,10 +20,12 @@ class CreateJudicialOfficerPostingPreferencesTable extends Migration
             $table->text('station_name');
             $table->text('remarks')->nullable();
             $table->string('final_submission');
+            $table->string('posting_tracking_no')->nullable();
             $table->bigInteger('created_by')->nullable();
             $table->timestamps();
 
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
+            $table->foreign('posting_tracking_no')->references('preference_tracking_no')->on('judicial_officer_postings');
             $table->foreign('zone_id')->references('id')->on('zones');            
         });
     }

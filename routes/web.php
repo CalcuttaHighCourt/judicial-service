@@ -349,11 +349,22 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 			return view ( 'appointments.index' );
 		} );
 
+		Route::get ( 'appointment', function () {
+			return view ( 'appointments.index' );
+		} );
+
+		Route::get ( 'pref_windows', function () {
+			return view ( 'appointments.preference_window_open' );
+		} );
+		
+
 		Route::get ('jo_grade', function () {
 			return view ('jo_grade.index');
 		});
 
 		Route::post('show_details_for_posting_preference', 'JudicialOfficerPostingPreferenceController@preference_display_for_appointment');
+
+		//Route::post('show_details_for_posting_preference', 'JudicialOfficerPostingPreferenceController@preference_display_for_appointment');
 
 		Route::post('jo_grade/rank_wise_jo_list', 'JoGradeController@rank_wise_jo_list')->name('rank_wise_jo_list');
 

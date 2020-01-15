@@ -410,10 +410,6 @@ public function zone_pref_content(Request $request) {
                     }                 
                 }
            
-            // echo "<pre>";
-            // print_r($zone_options);         
-            // exit;
-
             return view('zone_pref_jr.index',compact('zone_options'));
         }
 
@@ -432,35 +428,120 @@ public function zone_pref_content(Request $request) {
                                                                                                                     ['final_submission','=','Y'],
                                                                                                                     ['judicial_officer_id','=',$station_pref->id]
                                                                                                                 ])->select('station_name','remarks')->get();
-                        
+                      
+                        //Current Posting Details
                         $judicial_officer_details['posted_as'][$key] = JudicialOfficerPosting::join('judicial_officers','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
-                                                                                        ->join('designations','judicial_officer_postings.designation_id','=','designations.id')
+                                                                                        ->leftJoin('designations','judicial_officer_postings.designation_id','=','designations.id')
                                                                                         ->where('judicial_officers.id','=',$station_pref->id)
-                                                                                        ->select('designations.designation_name','judicial_officer_postings.from_date')
                                                                                         ->orderBy('judicial_officer_postings.from_date','DESC')
                                                                                         ->limit(1)
-                                                                                        ->get();
+                                                                                        ->get();                           
+                                                                                       
+                        if($judicial_officer_details['posted_as'][$key]['0']['designation_id'] == null){
+                            $judicial_officer_details['posted_as'][$key]['0']['designation_name']="Currently Deputed as ".$judicial_officer_details['posted_as'][$key]['0']['deputation_designation']." At ".$judicial_officer_details['posted_as'][$key]['0']['deputation_posting_place']." From ". Carbon::parse($judicial_officer_details['posted_as'][$key]['0']['from_date'])->format('d-m-Y');
+                            
+                        }
+                        else if($judicial_officer_details['posted_as'][$key]['0']['additional_designation'] != null){
+                            $judicial_officer_details['posted_as'][$key]['0']['designation_name']="Currently Posted as ".$judicial_officer_details['posted_as'][$key]['0']['designation_name']." From ". Carbon::parse($judicial_officer_details['posted_as'][$key]['0']['from_date'])->format('d-m-Y')." And ".$judicial_officer_details['posted_as'][$key]['0']['additional_designation'];
+                           
+                        }
+                        else{
+                            $judicial_officer_details['posted_as'][$key]['0']['designation_name']="Currently Posted as ".$judicial_officer_details['posted_as'][$key]['0']['designation_name']." From ". Carbon::parse($judicial_officer_details['posted_as'][$key]['0']['from_date'])->format('d-m-Y');
+                            
+                        }
+                        
+                        //Zone wise Posting Details
+                        $zones = Zone::orderBy('zone_name')->get();
 
+                       $str = " ";
+
+                        foreach($zones as $key4=>$zone){
+                            $judicial_officer_details['posting_details'][$key][$key4]=  JudicialOfficerPosting :: leftjoin('designations','judicial_officer_postings.designation_id','designations.id')
+                                                                                                                ->leftjoin('zones','judicial_officer_postings.zone_id','=','zones.id')                                                                                      
+                                                                                                                ->where([
+                                                                                                                            ['judicial_officer_postings.judicial_officer_id','=',$station_pref->id],
+                                                                                                                            ['judicial_officer_postings.zone_id','=',$zone->id]
+                                                                                                                        ])->orderBy('judicial_officer_postings.from_date','ASC')
+                                                                                                                        ->select('judicial_officer_postings.judicial_officer_id','designations.designation_name',
+                                                                                                                        'judicial_officer_postings.deputation_designation','judicial_officer_postings.deputation_posting_place',
+                                                                                                                        'judicial_officer_postings.from_date','judicial_officer_postings.to_date','zones.zone_name')->get();
+                           // print_r($judicial_officer_details['posting_details'][$key][$key4]);
+                            if(sizeof($judicial_officer_details['posting_details'][$key][$key4])>0){
+
+                                foreach($judicial_officer_details['posting_details'][$key][$key4] as $key5=>$posting){
+                                   
+                                    if( $posting['designation_name']==null){
+                                        $str += "Zone ".$posting['designation_name']." : "."Deputed as ".$posting['deputation_designation']. "At ".$posting['deputation_posting_place']." From ".$posting['from_date']." To ".$posting['to_date'];
+                                    }
+                                    else if( $posting['additional_designation'] !=null){
+                                        $str += "Additional Posting ".$posting['additional_designation'];
+                                    }
+                                    else{
+                                        if($posting['to_date'] != null){
+        
+                                            $str += "Posted as ".$posting['designation_name']." From ".$posting['from_date']." To ".$posting['to_date'];
+                                        }
+                                        else{
+                                            $str += "Posted as ".$posting['designation_name']." From ".$posting['from_date']." Till Date ";
+                                        }
+                                    }
+                                }
+                            }
+                            else{
+                                $str =" Yet To Be Posted in this zone ";
+                            }
+                            
+
+                            print_r( $judicial_officer_details['posting_details']);
+                        }
+                        $judicial_officer_details['posting_details']=$str;
+                        
+
+                        //Legal Practice Subdivisions
                         $judicial_officer_details['practice_subdivision'][$key] = JoLegalExperience::join('judicial_officers','jo_legal_experiences.judicial_officer_id','=','judicial_officers.id')
                                                                                                     ->join('subdivisions','jo_legal_experiences.subdivision_id','=','subdivisions.id')
                                                                                                     ->where('judicial_officers.id','=',$station_pref->id)
-                                                                                                    ->select('subdivisions.subdivision_name')
                                                                                                     ->get();
 
-                        if( $judicial_officer_details['practice_subdivision'][$key]==null){
-                            $judicial_officer_details['practice_subdivision'][$key]='NA';
+                   
+                        if(sizeof($judicial_officer_details['practice_subdivision'][$key])>0){
+                            
+                            $judicial_officer_details['practice_subdivision'][$key]['0']['subdivision_name']=$judicial_officer_details['practice_subdivision'][$key]['0']['subdivision_name']." From ".$judicial_officer_details['practice_subdivision'][$key]['0']['from_year']." To ".$judicial_officer_details['practice_subdivision'][$key]['0']['to_year'];
                         }
-                                                                                                    
-                        $judicial_officer_details['spouse_name_if_jo'][$key] = JudicialOfficer::join('judicial_officers as jo1','judicial_officers.id','=','jo1.spouse')
-                                                                                                ->join('judicial_officer_postings','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
-                                                                                                ->join('designations','judicial_officer_postings.designation_id','=','designations.id')
-                                                                                                ->where('judicial_officers.id','=',$station_pref->id)
-                                                                                                ->select('designations.designation_name','judicial_officer_postings.from_date','jo1.id','jo1.officer_name as spouse')
-                                                                                                ->orderBy('judicial_officer_postings.from_date','DESC')
-                                                                                                ->limit(1)
-                                                                                                ->get();
 
-                       $zones = Zone::orderBy('zone_name')->get();
+                        //spouse details
+                        $judicial_officer_details['spouse_details'][$key] = JudicialOfficer::join('judicial_officers as jo1','judicial_officers.id','=','jo1.spouse')
+                                                                                            ->where('judicial_officers.id','=',$station_pref->id)
+                                                                                            ->select('judicial_officers.spouse')
+                                                                                            ->get();
+                                                          
+                                                
+                        foreach($judicial_officer_details['spouse_details'][$key] as  $key3=>$spouse_detail){
+
+                            $judicial_officer_details['spouse_details'][$key][$key3] = JudicialOfficerPosting::join('judicial_officers','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                                                                            ->leftJoin('designations','judicial_officer_postings.designation_id','=','designations.id')
+                                                                            ->where('judicial_officers.id','=',$spouse_detail->spouse)
+                                                                            ->orderBy('from_date','DESC')
+                                                                            ->limit(1)
+                                                                            ->get();     
+                       }
+
+                        if(sizeof($judicial_officer_details['spouse_details'][$key][$key3])>0){
+                        
+                            if($judicial_officer_details['spouse_details'][$key][$key3]['0']['designation_id'] == null){
+                                $judicial_officer_details['spouse_details'][$key][$key3]['0']['designation_name']="Deputed as ".$judicial_officer_details['spouse_details'][$key][$key3]['0']['deputation_designation']." At ".$judicial_officer_details['spouse_details'][$key][$key3]['0']['deputation_posting_place']." From ". Carbon::parse($judicial_officer_details['spouse_details'][$key][$key3]['0']['from_date'])->format('d-m-Y');
+                            }
+                            else if($judicial_officer_details['spouse_details'][$key][$key3]['0']['additional_designation'] != null){
+                                $judicial_officer_details['spouse_details'][$key][$key3]['0']['designation_name']="Posted as ".$judicial_officer_details['spouse_details'][$key][$key3]['0']['designation_name']." From ". Carbon::parse($judicial_officer_details['posted_as'][$key]['0']['from_date'])->format('d-m-Y')." And ".$judicial_officer_details['spouse_details'][$key][$key3]['0']['additional_designation'];
+                            }
+                            else{
+                                $judicial_officer_details['spouse_details'][$key][$key3]['0']['designation_name']="Posted as ".$judicial_officer_details['spouse_details'][$key][$key3]['0']['designation_name']." From ". Carbon::parse($judicial_officer_details['spouse_details'][$key][$key3]['0']['from_date'])->format('d-m-Y');
+                            }
+                        }
+
+                        //print_r($judicial_officer_details['spouse_details'][$key]['0']['designation_name']);exit;
+
+                        
                        
                        foreach ($zones as $key2=>$zone){
                            $diff_days = 0;
@@ -521,7 +602,7 @@ public function zone_pref_content(Request $request) {
                        }
 
                     }
-
+                   
                 } 
                
                 echo json_encode($judicial_officer_details);                

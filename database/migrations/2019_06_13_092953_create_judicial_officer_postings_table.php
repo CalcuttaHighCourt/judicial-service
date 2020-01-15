@@ -34,6 +34,7 @@ class CreateJudicialOfficerPostingsTable extends Migration
             $table->date('dj_se_doc')->nullable();
             $table->string('dj_st')->nullable();
             $table->date('dj_st_doc')->nullable();
+            $table->string('preference_tracking_no')->nullable()->unique();
             $table->timestamps();
 
 

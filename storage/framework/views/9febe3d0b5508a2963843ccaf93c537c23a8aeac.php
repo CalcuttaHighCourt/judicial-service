@@ -186,7 +186,7 @@
                                     <span>Posting Preference</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="#">Switch on the Window</a></li>
+                                    <li><a href="<?php echo e(url('pref_windows')); ?>">Switch on the Window</a></li>
                                     <li><a href="<?php echo e(url('appointment')); ?>"> List of Preference</a></li>
                                 </ul>
                             </li>      
