@@ -533,8 +533,6 @@
                                                     <textarea class="form-control posting_remark" placeholder="if any"></textarea>
                                                 </div>
                                                 <div class="form-group col-xs-12">
-                                                    
-                                                    
                                                     <img src="<?php echo e(asset('images/details_open.png')); ?>" class="img_add_more_posting" id="add_more_posting">
                                                 </div>                                                
                                             </div>                                             

@@ -25,16 +25,7 @@ class CreateJudicialOfficerPostingsTable extends Migration
             $table->string('deputation_posting_place')->nullable();            
             $table->date('from_date');
             $table->date('to_date')->nullable();
-            $table->text('posting_remark')->nullable();
-            $table->string('acp_1')->nullable();
-            $table->date('acp_1_doc')->nullable();
-            $table->string('acp_2')->nullable();
-            $table->date('acp_2_doc')->nullable();
-            $table->string('dj_se')->nullable();
-            $table->date('dj_se_doc')->nullable();
-            $table->string('dj_st')->nullable();
-            $table->date('dj_st_doc')->nullable();
-            $table->string('preference_tracking_no')->nullable()->unique();
+            $table->text('posting_remark')->nullable();            
             $table->timestamps();
 
 

@@ -533,32 +533,6 @@
                                                     <textarea class="form-control posting_remark" placeholder="if any"></textarea>
                                                 </div>
                                                 <div class="form-group col-xs-12">
-                                                    {{-- <label class="checkbox-inline acp_1" style="display:none">
-                                                        <input type="checkbox" value="acp_1">ACP-I
-                                                    </label>
-                                                    <label class="checkbox-inline acp_2"  style="display:none">
-                                                        <input type="checkbox" value="acp_2">ACP-II
-                                                    </label>
-                                                    <label class="checkbox-inline dj_sg" style="display:none">
-                                                        <input type="checkbox" value="dj_sg">DJ(SG)
-                                                    </label>
-                                                    <label class="checkbox-inline dj_st" style="display:none">
-                                                        <input type="checkbox" value="dj_st">DJ(ST)
-                                                    </label>
-                                                    
-                                                    <label class="control-label acp_1" style="display:none">Date of Confirmation
-                                                        <input type="text" class="form-control date acp_1" placeholder="dd-mm-yyyy" id="acp_1_doc">
-                                                    </label>
-                                                    <label class="control-label acp_2" style="display:none">Date of Confirmation
-                                                        <input type="text" class="form-control date acp_2" placeholder="dd-mm-yyyy" id="acp_2_doc">
-                                                    </label>
-                                                    <label class="control-label dj_sg" style="display:none">Date of Confirmation
-                                                        <input type="text" class="form-control date dj_sg" placeholder="dd-mm-yyyy" id="dj_sg_doc">
-                                                    </label>
-                                                    <label class="control-label dj_st" style="display:none">Date of Confirmation
-                                                        <input type="text" class="form-control date dj_st" placeholder="dd-mm-yyyy" id="dj_st_doc">
-                                                    </label> --}}
-                                                    
                                                     <img src="{{asset('images/details_open.png')}}" class="img_add_more_posting" id="add_more_posting">
                                                 </div>                                                
                                             </div>                                             
