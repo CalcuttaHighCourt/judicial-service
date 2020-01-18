@@ -572,21 +572,27 @@
                                                     </label>
                                                     <select class="form-control info-form-control select2 career_progression_rank" style="width:100%">
                                                         <option value="">Select an Option</option>
-                                                        @include('ranks.rank_options')
+                                                        @include('ranks.rank_options') 
                                                     </select>
                                                 </div>
-                                                <div class="form-group required col-xs-4">
+                                                <div class="form-group required col-xs-3">
                                                     <label class="control-label">
                                                         Career Progression Stages
                                                     </label>
                                                     <select class="form-control info-form-control select2 career_progression_stage" style="width:100%">
-                                                        <option value="">Select an Option</option>                                                        
+                                                        <option value="">Select an Option</option>                                                                                                               
                                                     </select>
-                                                </div>   
+                                                </div> 
+                                                <div class="form-group col-xs-2">
+                                                    <label class="control-label">
+                                                            Date of Confirmation
+                                                    </label>
+                                                    <input type="text" class="form-control date cp_date" placeholder="dd-mm-yyyy">
+                                                </div>  
                                                 <div class="form-group">
                                                     <div class="col-xs-2">
                                                         <br/>
-                                                        <img src="{{asset('images/details_open.png')}}" class="img_add_more_career_progression" id="img_add_more_career_progression">
+                                                        <img src="{{asset('images/details_open.png')}}" class="img_add_more_career_progression" id="add_more_career_progression">
                                                     </div>
                                                 </div>
                                             </div>                          
@@ -818,6 +824,28 @@
         /*If any posting details row needs to remove :: ENDS*/
 
 
+        /*If multiple Career Progression details added :: STARTS*/
+		$(document).on("click","#add_more_career_progression", function(){           
+            var clone_element4 = clone_element_career_progression.clone();                
+            clone_element4.insertAfter(".div_add_more_career_progression:last");
+            $(".img_add_more_career_progression:last").attr({
+                                                    src:"images/details_close.png",
+                                                    class:"remove_career_progression", 
+                                                    alt:"remove_career_progression"
+                                                });
+            $(".remove_career_progression").removeAttr("id");
+            $(".select2").select2(); 
+		})
+	    /*If multiple Career Progression details added :: ENDS*/    
+
+
+
+        /*If any Career Progression details row needs to remove :: STARTS*/
+        $(document).on("click",".remove_career_progression", function(){
+			$(this).closest(".div_add_more_career_progression").remove();
+		}) 
+        /*If any Career Progression details row needs to remove :: ENDS*/
+
         //Deputation :: START
         var flag_mode;
         $(document).on("change",".mode_id", function(){
@@ -982,6 +1010,11 @@
                                                 id:"add_more_posting"
                                             });
             }            
+        }
+
+        // Populating Career Progress Details
+        function populateJoCareerProgressDetails(data){
+            
         }
 
         // Get JO Details
