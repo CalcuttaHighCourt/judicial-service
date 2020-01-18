@@ -16,10 +16,16 @@ class CreateJoCareerProgressionsTable extends Migration
         Schema::create('jo_career_progressions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('judicial_officer_id');
-            $table->json('career_progression');
+            $table->integer('rank_id');
+            $table->integer('progression_stage_id');
+            $table->date('date_of_confirmation');
             $table->timestamps();
 
+            $table->unique(['rank_id','progression_stage_id']);
+
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
+            $table->foreign('rank_id')->references('id')->on('ranks');
+            $table->foreign('progression_stage_id')->references('id')->on('career_progression_stages');
         });
     }
 

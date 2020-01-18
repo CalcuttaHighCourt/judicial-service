@@ -412,6 +412,7 @@ class ComposerStaticInit07af5e08e846a4b79226eba5db9aa7c4
 
     public static $classMap = array (
         'App\\AcrHistory' => __DIR__ . '/../..' . '/app/AcrHistory.php',
+        'App\\CareerProgressionStage' => __DIR__ . '/../..' . '/app/CareerProgressionStage.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Court' => __DIR__ . '/../..' . '/app/Court.php',
         'App\\Department' => __DIR__ . '/../..' . '/app/Department.php',

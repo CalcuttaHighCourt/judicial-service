@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JoCareerProgression extends Model
+class CareerProgressionStage extends Model
 {
     public $timestamps = true;
+
 }
