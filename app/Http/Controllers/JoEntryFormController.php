@@ -167,7 +167,7 @@ class JoEntryFormController extends Controller
                     $jo_posting = new JudicialOfficerPosting;
 
                     
-                    if($request->designation_id = "")
+                    if($request->designation_id == "")
                         $jo_posting->designation_id = null;
                     else{    
                         if($request->flag_mode=='deputation'){
@@ -534,7 +534,7 @@ class JoEntryFormController extends Controller
             'id' => 'required|max:99999|exists:judicial_officers,id',
             'jo_code' => 'nullable|string|alpha_num|max:50',
             'registration_no' => 'required|integer|max:99999',
-            'officer_name' => 'required|string|regex:/^[\pL\s\-]+$/u|max:100',
+            'officer_name' => 'required|string|max:100',
             'gender' => 'required|string|alpha|in:M,F,O|max:10',
             'spouse' => 'nullable|integer|exists:judicial_officers,id|max:999999',
             'date_of_birth' => 'required|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),

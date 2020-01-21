@@ -122,15 +122,15 @@
                     
                     //other info
                     //zone tenure details
-                    str+="<td><u>Zone-wise Posting history</u>";
+                    str+="<td><strong>Zone-wise Posting history</strong>";
                     for(j=0;j < obj.zone_tenure[i].length; j++){
                         str+=obj.zone_tenure[i][j];
                     }
                     if( obj.practice_subdivision[i].length>0){
-                        str+="<br><br>\n\n";
+                        str+="<br><br>\n\n<strong>Legal Expeirence at :</strong><br>";
                         //practice subdivisions
                         for(j=0; j < obj.practice_subdivision[i].length; j++){
-                            str+="<u>Legal Expeirence at :</u> "+obj.practice_subdivision[i][j].subdivision_name;
+                            str+=(j+1)+"."+obj.practice_subdivision[i][j].subdivision_name+"<br>\n";
                         }
                     }
                     else{
@@ -139,12 +139,8 @@
 
                     //spouse info
                     if(obj.spouse_details[i].length>0){
-                        str+="<br>\n";
-                        for(j=0;j < obj.spouse_details[i].length; j++){
-                            for(k=0 ; k < obj.spouse_details[j].length; k++){
-                                str+="<u>Spouse : </u>"+obj.spouse_details[i][j][k].officer_name+"<br>\n"+obj.spouse_details[i][j][k].designation_name;
-                            }
-                        }
+                        str+="<br><br>\n\n";                        
+                        str+="<br><strong>Spouse : </strong>"+obj.spouse_details[i]['0'].officer_name+"<br>\n"+obj.spouse_details[i]['0'].designation_name;                                            
                     }
                     else{
                         str+="";
