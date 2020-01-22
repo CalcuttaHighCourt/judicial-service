@@ -55,7 +55,7 @@
 <!--  -->
 <script>
    $(document).ready(function() {
-   
+    
    /*LOADER*/
    
    	    $(document).ajaxStart(function() {
@@ -78,7 +78,9 @@
                 offstyle: 'danger'
             }); // Toggle button initialization
 
-   
+//    $(document).on("change","#display_flag",function(){
+
+//    });
     
      
    /*Cloning of Year and Grades */
