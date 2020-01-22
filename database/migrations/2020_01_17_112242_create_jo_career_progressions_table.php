@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJudicialOfficerPostingPreferencesTable extends Migration
+class CreateJoCareerProgressionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,19 @@ class CreateJudicialOfficerPostingPreferencesTable extends Migration
      */
     public function up()
     {
-        Schema::create('judicial_officer_posting_preferences', function (Blueprint $table) {
+        Schema::create('jo_career_progressions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('judicial_officer_id');
-            $table->integer('zone_id');
-            $table->text('station_name');
-            $table->text('remarks')->nullable();
-            $table->string('final_submission');
-            $table->bigInteger('created_by')->nullable();
+            $table->integer('rank_id');
+            $table->integer('progression_stage_id');
+            $table->date('date_of_confirmation');
             $table->timestamps();
 
+            $table->unique(['rank_id','progression_stage_id']);
+
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
-            $table->foreign('zone_id')->references('id')->on('zones');            
+            $table->foreign('rank_id')->references('id')->on('ranks');
+            $table->foreign('progression_stage_id')->references('id')->on('career_progression_stages');
         });
     }
 
@@ -35,6 +36,6 @@ class CreateJudicialOfficerPostingPreferencesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('judicial_officer_posting_preferences');
+        Schema::dropIfExists('jo_career_progressions');
     }
 }

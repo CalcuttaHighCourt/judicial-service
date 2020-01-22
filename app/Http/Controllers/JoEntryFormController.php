@@ -17,6 +17,8 @@ use App\User;
 use App\UserType;
 use App\Rank;
 use App\Designation;
+use App\CareerProgressionStage;
+use App\JoCareerProgression;
 use Auth;
 use DB;
 use Carbon\Carbon;
@@ -523,6 +525,23 @@ class JoEntryFormController extends Controller
                 $jo_posting->to_date = Carbon::parse($jo_posting->to_date)->format('d-m-Y');            
              
             $jo_posting->from_date = Carbon::parse($jo_posting->from_date)->format('d-m-Y');
+        }
+
+
+        // Career Progression Details
+        $jo_details['ranks'] = JudicialOfficerPosting::leftJoin('ranks','judicial_officer_postings.rank_id','=','ranks.id')
+                                                        ->where('judicial_officer_postings.judicial_officer_id',$request->jo_id)
+                                                        ->select('ranks.id','rank_name','rank_order')
+                                                        ->orderBy('rank_order','asc')
+                                                        ->distinct()
+                                                        ->get();
+
+        $jo_details['career_progression'] = JoCareerProgression::where('judicial_officer_id',$request->jo_id)
+                                                                ->orderBy('date_of_confirmation')
+                                                                ->get();
+
+        foreach($jo_details['career_progression'] as $key => $jo_career_progression){
+            $jo_career_progression->date_of_confirmation = Carbon::parse($jo_career_progression->date_of_confirmation)->format('d-m-Y');
         }
          
         return $jo_details;
