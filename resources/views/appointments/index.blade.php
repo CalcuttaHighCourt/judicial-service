@@ -12,18 +12,12 @@
 <div id="info-panel-heading" class="panel-heading"><h2>Station Preference Details</h2></div>
 <!-- IIIIIIIIIII -->
 <div class="panel-body">
-<br><br>
-<!-- New Task Form -->
-
 <div class="form-group required row">
-    <div class="form-group required row">
-        
-    </div>
       <div id="table_header" class="panel-body">
-         <div class="row generate_pdf" id="generate_pdf" >
-            <button type="submit" class="col-sm-2 col-sm-offset-1 btn btn-primary" id="download_pdf">PDF</button>
-            <br>
-         </div>  
+         <div class="row">
+            <a href="download_posting_preferences">
+                <input type="button" class="btn btn-primary" id="download_report" value="Download Report">
+            </a>
         </div>   
         <div id="view_details" class="panel-body">  
          <div class="table-responsive">
@@ -87,7 +81,8 @@
     $.ajax({
             type: "POST",
             url: "show_details_for_posting_preference",                
-            data:{_token: $('meta[name="csrf-token"]').attr('content')
+            data:{
+                _token: $('meta[name="csrf-token"]').attr('content')
             },
         success:function(response){
                 var obj = $.parseJSON(response);
@@ -129,7 +124,7 @@
                     //other info
                     //zone tenure details
                     str+="<td><strong>Zone-wise Posting history</strong>";
-                    for(j=0;j < obj.zone_tenure[i].length; j++){
+                    for(j=0; j < obj.zone_tenure[i].length; j++){
                         str+=obj.zone_tenure[i][j];
                     }
                     //hometown
@@ -184,20 +179,7 @@
             //console.log(str);       
                 
             }
-        }); 
-    
-        $(document).on("click","#district",function(){
-
-            $.ajax({
-                type:"POST",
-                        url:"jop_pdf/fetch_jo_preference_details_pdf",
-                        data:{
-                            _token: $('meta[name="csrf-token"]').attr('content'),
-                            //registration_no:registration_no
-                        },
-            });
-        });
-         
+        });     
          
    });
 </script>

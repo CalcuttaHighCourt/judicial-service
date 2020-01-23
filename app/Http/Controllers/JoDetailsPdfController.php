@@ -8,9 +8,13 @@ use App\JudicialOfficer;
 use App\JudicialOfficerQualification;
 use App\JoLegalExperience;
 use App\JudicialOfficerPosting;
+use App\JudicialOfficerPostingPreference;
 use App\JoReporting;
 use App\JoZoneTenure;
 use App\State;
+use App\District;
+use App\Subdivision;
+use App\Zone;
 use App\User;
 use App\UserType;
 use Auth;
@@ -265,7 +269,7 @@ class JoDetailsPdfController extends Controller
 
     
 
-    public function fetch_jo_preference_details_pdf(Request $request){
+    public function download_posting_preferences(){
 
         $mpdf = new \Mpdf\Mpdf(['format' => 'Legal']);
 
@@ -294,7 +298,7 @@ class JoDetailsPdfController extends Controller
                 }
 
 
-                $judicial_officer_details['officer_name'][$key] =$str1 ;
+                $station_pref->officer_name =$str1 ;
 
                 $judicial_officer_details['preference_details'][$key] = JudicialOfficerPostingPreference::where([
                                                                             ['final_submission','=','Y'],
@@ -474,9 +478,9 @@ class JoDetailsPdfController extends Controller
 
         }
 
-        $content.= "<table width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" align=\"center\" border=\"0\">
+        $content= "<table width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" align=\"center\" border=\"0\">
                         <tr>                            
-                            <td align=left style=\"padding-top: 7%;\"><h2>Posting Preference along with Posting Details</h2></td>
+                            <td align=center style=\"padding-top: 7%;\"><h2>JO Posting Preference along with Posting Details</h2></td>
                         </tr>
                         <tr>
                             <td colspan='6'><hr/></td>
@@ -489,84 +493,76 @@ class JoDetailsPdfController extends Controller
                                 <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">JO NAME</th>
                                 <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">STATION PREFERENCE</th>
                                 <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">PREFERENCE REMARK</th>
-                                <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">OTHER INFOe</th>
-                                <th style=\"font-size: 1.17em; border-collapse:collapse;\">To Date</th>
+                                <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">OTHER INFO.</th>
                             </tr>
                         </thead>
                         <tbody>";
 
-        // $content="<tr>
-        //             <td colspan='2' align=center><h1>SL NO</h1></td>
-        //             <td colspan='2' align=center><h1>JO NAME</h1></td>
-        //             <td colspan='2' align=center><h1>POSTED AS</h1></td>
-        //             <td colspan='2' align=center><h1>STATION PREFERENCE</h1></td>
-        //             <td colspan='2' align=center><h1>PREFERENCE REMARK</h1></td>
-        //             <td colspan='2' align=center><h1>OTHER INFO</h1></td>
-        //         </tr>";
                 
-                    foreach($judicial_officer_details['display_pref_for_jo'] as  $key=>$station_pref){
-                        //officer name/jo code/profile image
-                        $content.="<tr>
-                                        <td colspan='2' align=center><h2>".($key+1)."</h2></td>
-                                        colspan='2' align=center><h2>". $judicial_officer_details['officer_name'][$key]."</td>";
-                        //current posting/posting details
-                        foreach($judicial_officer_details['posted_as'][$key] as $key1=>$posted_as){
-                            $content.="<td colspan='2' align=center><h2>". $judicial_officer_details['posted_as'][$key][$key1]['designation_name']."</td>";
-                        }
-                        //posting preference/ jo preference remarks
-                        if(sizeof($judicial_officer_details['preference_details'][$key])>0){
-                            foreach($judicial_officer_details['preference_details'][$key] as $key2=>$preference_details){
-                                $content.="<td colspan='2' align=center><h2>".$judicial_officer_details['preference_details'][$key][$key2]['station_name']."</td>";
-                                $content.="<td colspan='2' align=center><h2>".$judicial_officer_details['preference_details'][$key]['0']['remarks']."</td>";
-                            }
-                        }
-                        else{
-                            $content.="<td colspan='2'></td>";
-                            $content.="<td colspan='2'></td>";
-                        }
-                        //other info->zone wise posting history/place of practice/home station/spouse details
-                        //zone wise posting history
-                        foreach($judicial_officer_details['zone_tenure'][$key] as $key3=>$zone_tenure){
-                            $content.="<td colspan='2' align=center><h2><strong><u>Zone-wise Posting History</u></strong><br>".$judicial_officer_details['zone_tenure'][$key][$key3]."<br>\n";
-                        }
-                        $content.="<h2><strong><u>Hometown: </u></strong>".$judicial_officer_details['display_pref_for_jo']['hometown'].",<strong><u>State: </u></strong>". $judicial_officer_details['home_state']['0'][$key]['state_name']."<br>\n";
-                        //place of practice
-                        if(sizeof($judicial_officer_details['practice_subdivision'][$key])>0){
-                            foreach($judicial_officer_details['practice_subdivision'][$key] as $key4=>$place_of_practice){
-                                $content.="<h2><strong><u>Place of Practice</u></strong><br>".$judicial_officer_details['practice_subdivision'][$key][$key4]['subdivision_name']."<br>\n";
-                            }
-                        }
-                        else{
-                            $content.="";
-                        }
-                        //spouse details
-                        if(sizeof($judicial_officer_details['spouse_details'][$key])>0)
-                            $content.="<h2><strong><u>Spouse: </u></strong></h2><br>".$judicial_officer_details['spouse_details'][$key]['officer_name'].['0']."<br>\n".$judicial_officer_details['spouse_details'][$key]['designation_name']."</td>";
-                        else
-                        $content.="</tr>";
-                    }
-                    $content.="</tbody></table>";
+        for($i=0;  $i < sizeof($judicial_officer_details['display_pref_for_jo']); $i++){
+            $content.="<tr>
+                        <td>".($i+1)."</td>
+                        <td>".$judicial_officer_details['display_pref_for_jo'][$i]['officer_name']."</td>
+                        <td>".$judicial_officer_details['posted_as'][$i]['0']['designation_name']."</td>";
 
-                    $mpdf->SetHTMLFooter('Report Generated by the IIMS - Calcutta High Court on '.Carbon::now());
             
-                   $mpdf->WriteHTML($content);
+            $content.="<td>";
+            if(sizeof($judicial_officer_details['preference_details'][$i]) > 0){
+                for($j=0; $j<sizeof($judicial_officer_details['preference_details'][$i]); $j++)
+                {   
+                    $content.=($j+1).$judicial_officer_details['preference_details'][$i][$j]['station_name']."<br>";                      
+                }
+            }
+            else{
+                $content.="Station preference not yet given";
+            }
+            
+            $content.="</td>";
 
-                   if (!is_dir(base_path().'/public/jo_preferences/'. $judicial_officer_details['display_pref_for_jo']['0']->registration_no)) 
-                   {
-                       mkdir(base_path().'/public/jo_preferences/'.$judicial_officer_details['display_pref_for_jo']['0']->registration_no, 0777, true);       
-                   }
-                   
-                   if(file_exists(base_path().'/public/jo_preferences/'.$judicial_officer_details['display_pref_for_jo']['0']->registration_no.'/'.$judicial_officer_details['display_pref_for_jo']['0']->registration_no."_jo_pref_details.pdf"))
-                   {
-                       unlink(base_path().'/public/jo_preferences/'.$judicial_officer_details['display_pref_for_jo']['0']->registration_no.'/'.$judicial_officer_details['display_pref_for_jo']['0']->registration_no."_jo_pref_details.pdf");
-                   }
-                   
-                   $mpdf->Output(base_path().'/public/jo_preferences/'.$jo_details['0']->registration_no.'/'.$judicial_officer_details['display_pref_for_jo']['0']->registration_no."_jo_pref_details.pdf");
-                   $mpdf->close();
+            
+            if(sizeof($judicial_officer_details['preference_details'][$i]) > 0)
+                $content.="<td>".$judicial_officer_details['preference_details'][$i]['0']['remarks']."</td>";                    
+            else                              
+                $content.="<td></td>";
+
+            
+            $content.="<td><strong>Zone-wise Posting history</strong>";
+            for($j=0; $j<sizeof($judicial_officer_details['zone_tenure'][$i]); $j++){
+                $content.=$judicial_officer_details['zone_tenure'][$i][$j];
+            }
            
-                   return asset('jo_preferences/'.$judicial_officer_details['display_pref_for_jo']['0']->registration_no.'/'.$judicial_officer_details['display_pref_for_jo']['0']->registration_no."_jo_pref_details.pdf");
-                        
-                     
-    
+            $content.= "<br><strong>Hometown</strong> : ".$judicial_officer_details['display_pref_for_jo'][$i]['hometown'].", <strong>State</strong>: ".$judicial_officer_details['home_state']['0'][$i]['state_name'] ;
+           
+        //     if( obj.practice_subdivision[i].length>0){
+        //         str+="<br><br>\n\n<strong>Place of Practice :</strong><br>";
+        //         //practice subdivisions
+        //         for(j=0; j < obj.practice_subdivision[i].length; j++){
+        //             str+=(j+1)+"."+obj.practice_subdivision[i][j].subdivision_name+"<br>\n";
+        //         }
+        //     }
+        //     else{
+        //         str+="";
+        //     }
+
+        //     //spouse info
+        //     if(obj.spouse_details[i].length>0){
+        //         str+="<br><br>\n\n";                        
+        //         str+="<br><strong>Spouse : </strong>"+obj.spouse_details[i]['0'].officer_name+"<br>\n"+obj.spouse_details[i]['0'].designation_name;                                            
+        //     }
+        //     else{
+        //         str+="";
+        //     }
+            $content.="</td></tr>"; 
+         }
+
+
+        $content.="</tbody></table>";
+
+        $mpdf->SetHTMLFooter('Report Generated by the IIMS - Calcutta High Court on '.Carbon::now());
+
+        $mpdf->WriteHTML($content);
+        $mpdf->Output('jo_posting_pref.pdf','D');
+
+                
     }
 }
