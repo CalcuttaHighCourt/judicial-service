@@ -480,10 +480,10 @@ class JoDetailsPdfController extends Controller
 
         $content= "<table width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" align=\"center\" border=\"0\">
                         <tr>                            
-                            <td align=center style=\"padding-top: 7%;\"><h2>JO Posting Preference along with Posting Details</h2></td>
+                            <td align=center style=\"padding-top: 7%;\"><h2>Posting Preference of Judicial Officers</h2></td>
                         </tr>
                         <tr>
-                            <td colspan='6'><hr/></td>
+                            <td><br></td>
                         </tr>
                     </table>
                     <table width=\"100%\" style=\"border: 4px solid #ddd;\">
@@ -491,9 +491,10 @@ class JoDetailsPdfController extends Controller
                             <tr>
                                 <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">Sl No.</th>
                                 <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">JO NAME</th>
+                                <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">POSTED AS</th>
                                 <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">STATION PREFERENCE</th>
                                 <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">PREFERENCE REMARK</th>
-                                <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">OTHER INFO.</th>
+                                <th style=\"font-size: 1.17em; border-collapse:collapse;\">OTHER INFO.</th>
                             </tr>
                         </thead>
                         <tbody>";
@@ -501,12 +502,12 @@ class JoDetailsPdfController extends Controller
                 
         for($i=0;  $i < sizeof($judicial_officer_details['display_pref_for_jo']); $i++){
             $content.="<tr>
-                        <td>".($i+1)."</td>
-                        <td>".$judicial_officer_details['display_pref_for_jo'][$i]['officer_name']."</td>
-                        <td>".$judicial_officer_details['posted_as'][$i]['0']['designation_name']."</td>";
+                        <td align=\"left\" style=\" width:auto; font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".($i+1)."</td>
+                        <td align=\"left\" style=\" width:auto; font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".$judicial_officer_details['display_pref_for_jo'][$i]['officer_name']."</td>
+                        <td align=\"left\" style=\"  font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".$judicial_officer_details['posted_as'][$i]['0']['designation_name']."</td>";
 
             
-            $content.="<td>";
+            $content.="<td align=\"left\" style=\" width:auto; font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">";
             if(sizeof($judicial_officer_details['preference_details'][$i]) > 0){
                 for($j=0; $j<sizeof($judicial_officer_details['preference_details'][$i]); $j++)
                 {   
@@ -521,37 +522,36 @@ class JoDetailsPdfController extends Controller
 
             
             if(sizeof($judicial_officer_details['preference_details'][$i]) > 0)
-                $content.="<td>".$judicial_officer_details['preference_details'][$i]['0']['remarks']."</td>";                    
+                $content.="<td align=\"left\" style=\" width:auto; font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".$judicial_officer_details['preference_details'][$i]['0']['remarks']."</td>";                    
             else                              
-                $content.="<td></td>";
+                $content.="<td align=\"left\" style=\" width:auto; font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\"></td>";
 
             
-            $content.="<td><strong>Zone-wise Posting history</strong>";
+            $content.="<td align=\"left\" style=\" width:auto; font-size: 1.17em; border-collapse:collapse; border-top: 4px solid #ddd;\"><strong>Zone-wise Posting history</strong>";
             for($j=0; $j<sizeof($judicial_officer_details['zone_tenure'][$i]); $j++){
                 $content.=$judicial_officer_details['zone_tenure'][$i][$j];
             }
            
-            $content.= "<br><strong>Hometown</strong> : ".$judicial_officer_details['display_pref_for_jo'][$i]['hometown'].", <strong>State</strong>: ".$judicial_officer_details['home_state']['0'][$i]['state_name'] ;
+            $content.= "<br><br><strong>Hometown</strong> : ".$judicial_officer_details['display_pref_for_jo'][$i]['hometown'].", ".$judicial_officer_details['home_state']['0'][$i]['state_name'] ;
            
-        //     if( obj.practice_subdivision[i].length>0){
-        //         str+="<br><br>\n\n<strong>Place of Practice :</strong><br>";
-        //         //practice subdivisions
-        //         for(j=0; j < obj.practice_subdivision[i].length; j++){
-        //             str+=(j+1)+"."+obj.practice_subdivision[i][j].subdivision_name+"<br>\n";
-        //         }
-        //     }
-        //     else{
-        //         str+="";
-        //     }
+            if(sizeof($judicial_officer_details['practice_subdivision'][$i])>0){
+                $content.="<br><br><strong>Place of Practice :</strong><br>";                
+                for($j=0; $j < sizeof($judicial_officer_details['practice_subdivision'][$i]); $j++){
+                    $content.=($j+1).". ".$judicial_officer_details['practice_subdivision'][$i][$j]['subdivision_name']."<br>";
+                }
+            }
+            else{
+                $content.="";
+            }
+            
+            if(sizeof($judicial_officer_details['spouse_details'][$i]) > 0){
+                $content.="<br><br><strong>Spouse : </strong>".$judicial_officer_details['spouse_details'][$i]['0']['officer_name'].
+                            "<br>".$judicial_officer_details['spouse_details'][$i]['0']['designation_name'];
+            }
+            else{
+                $content.="";
+            }
 
-        //     //spouse info
-        //     if(obj.spouse_details[i].length>0){
-        //         str+="<br><br>\n\n";                        
-        //         str+="<br><strong>Spouse : </strong>"+obj.spouse_details[i]['0'].officer_name+"<br>\n"+obj.spouse_details[i]['0'].designation_name;                                            
-        //     }
-        //     else{
-        //         str+="";
-        //     }
             $content.="</td></tr>"; 
          }
 
@@ -562,7 +562,6 @@ class JoDetailsPdfController extends Controller
 
         $mpdf->WriteHTML($content);
         $mpdf->Output('jo_posting_pref.pdf','D');
-
                 
     }
 }
