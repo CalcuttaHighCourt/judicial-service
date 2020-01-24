@@ -27,7 +27,7 @@ class JoEntryRequest extends FormRequest
         return [
             'jo_code' => 'nullable|unique:judicial_officers,jo_code|string|alpha_num|max:50',
             'registration_no' => 'required|unique:judicial_officers,registration_no|integer|max:99999',
-            'officer_name' => 'required|string|regex:/^[\pL\s\-]+$/u|max:100',
+            'officer_name' => 'required|string|max:100',
             'gender' => 'required|string|alpha|in:M,F,O|max:10',
             'spouse' => 'nullable|integer|exists:judicial_officers,id|max:999999',
             'date_of_birth' => 'required|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),

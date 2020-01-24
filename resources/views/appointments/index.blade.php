@@ -12,17 +12,14 @@
 <div id="info-panel-heading" class="panel-heading"><h2>Station Preference Details</h2></div>
 <!-- IIIIIIIIIII -->
 <div class="panel-body">
-<br><br>
-<!-- New Task Form -->
-
 <div class="form-group required row">
-    <div class="form-group required row">
-        
-    </div>
-      <div id="view_details" class="panel-body">
-         <div class="row place_of_posting" id="place_of_posting" style="display:none;">
-            <span class="col-sm-5 col-sm-offset-4"><strong>Current Place of Posting:</strong>&nbsp;&nbsp;<span id="current_place_of_posting" style="color:red"></span></span>
-         </div>
+      <div id="table_header" class="panel-body">
+         <div class="row">
+            <a href="download_posting_preferences">
+                <input type="button" class="btn btn-primary" id="download_report" value="Download Report">
+            </a>
+        </div>   
+        <div id="view_details" class="panel-body">  
          <div class="table-responsive">
             <div style="overflow-x:auto;">
                 <table class="table table-bordered table-striped" id="details_for_posting_preference" style="width: 100%;white-space: nowrap;">
@@ -84,51 +81,105 @@
     $.ajax({
             type: "POST",
             url: "show_details_for_posting_preference",                
-            data:{_token: $('meta[name="csrf-token"]').attr('content')
+            data:{
+                _token: $('meta[name="csrf-token"]').attr('content')
             },
         success:function(response){
                 var obj = $.parseJSON(response);
                 console.log(obj);
                 var i;
                 var str="";
-                for(i=0;  i < 2; i++){
+                for(i=0;  i < obj.display_pref_for_jo.length; i++){
                     str+="<tr>"+
-                            "<td>"+(i+1)+"</td>"+
-                            "<td>"+obj.display_pref_for_jo[i].officer_name+" | "+obj.display_pref_for_jo[i].jo_code+"</td>";
-                            var j;
-                            for(j=0; j < obj.posted_as[i].length; j++)
-                            {
-                                str+="<td>"+obj.posted_as[i][j].designation_name+"</td>";
-                            }
-                            str+="<td>";
-                            for(j=0; j < obj.preference_details[i].length; j++)
-                            {
-                                str+=(j+1)+"."+obj.preference_details[i][j].station_name+"<br>\n";                      
-                            }
-                            str+="</td>";
-                            str+="<td>"+obj.preference_details[i]['0'].remarks+"</td>";                              
-                            
-                            //zone tenure details
-                            str+="<td>";
-                            for(j=0;j < obj.zone_tenure[i].length; j++){
-                                str+=obj.zone_tenure[i][j];
-                            }
-                            str+="<br>\n";
-                            //practice subdivisions
-                            for(j=0; j < obj.practice_subdivision[i].length; j++){
-                                str+=obj.practice_subdivision[i][j].subdivision_name;
-                            }
-                            str+="</td>"+"</tr>"; 
+                    //sl no
+                    "<td>"+(i+1)+"</td>"+
+                    //jo_name | jo_code
+                    "<td>"+obj.officer_name[i]+"</td>";
+                    //posted as
+                    var j;
+                    for(j=0; j < obj.posted_as[i].length; j++)
+                    {
+                        str+="<td>"+obj.posted_as[i][j].designation_name+"</td>";
+                    }
+                    //Station preference
+                    str+="<td>";
+                    if( obj.preference_details[i].length > 0){
+                        for(j=0; j < obj.preference_details[i].length; j++)
+                        {   
+                            str+=(j+1)+"."+obj.preference_details[i][j].station_name+"<br>\n";                      
+                        }
+                    }
+                    else{
+                        str+="Station preference not yet given";
+                    }
+                    
+                    str+="</td>";
+
+                    //JO Remarks
+                    if( obj.preference_details[i].length > 0)
+                        str+="<td>"+obj.preference_details[i]['0'].remarks+"</td>";                    
+                    else                              
+                      str+="<td></td>";
+
+                    //other info
+                    //zone tenure details
+                    str+="<td><strong>Zone-wise Posting history</strong>";
+                    for(j=0; j < obj.zone_tenure[i].length; j++){
+                        str+=obj.zone_tenure[i][j];
+                    }
+                    //hometown
+                   
+                    str+= "<br>\n<strong>Hometown</strong> : "+obj.display_pref_for_jo[i].hometown+",<strong>State</strong>: "+obj.home_state['0'][i].state_name ;
+                   
+                    if( obj.practice_subdivision[i].length>0){
+                        str+="<br><br>\n\n<strong>Place of Practice :</strong><br>";
+                        //practice subdivisions
+                        for(j=0; j < obj.practice_subdivision[i].length; j++){
+                            str+=(j+1)+"."+obj.practice_subdivision[i][j].subdivision_name+"<br>\n";
+                        }
+                    }
+                    else{
+                        str+="";
+                    }
+
+                    //spouse info
+                    if(obj.spouse_details[i].length>0){
+                        str+="<br><br>\n\n";                        
+                        str+="<br><strong>Spouse : </strong>"+obj.spouse_details[i]['0'].officer_name+"<br>\n"+obj.spouse_details[i]['0'].designation_name;                                            
+                    }
+                    else{
+                        str+="";
+                    }
+                    str+="</td>"+"</tr>"; 
                 }
-            console.log(str);       
+
+                $("#tbody").html(str);
+                $(".table").DataTable({
+                    // dom: 'Bfrtip',
+                    // buttons: [
+                    //     {
+                    //         extend: 'pdfHtml5',
+                    //         orientation: 'landscape',
+                    //         pageSize: 'LEGAL',
+                    //         exportOptions: {
+                    //             columns: ':visible',
+                    //             stripNewlines: false
+                    //         },
+                    //     title: 'High Court At Calcutta',
+                    //     messageTop: function () {
+                                       
+                    //           return 'Posting Preference Details of The Judicial Officers who have submitted their Choice of posting';
+                    //     },
+                        
+                        
+                    //     }
+                    // ]
+                });
+   
+            //console.log(str);       
                 
             }
-        }); 
-    
-     
-   /*Cloning of Year and Grades */
-   
-         
+        });     
          
    });
 </script>

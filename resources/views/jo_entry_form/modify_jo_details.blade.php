@@ -463,7 +463,7 @@
                                                         <label class="control-label">
                                                                 Additional Charge 
                                                         </label>
-                                                        <input type="text" class="form-control additional_designation" placeholder="Additional Designations (if any)">
+                                                        <textarea class="form-control additional_designation" placeholder="Additional Designations with its time period (if any)"></textarea>                                                        
                                                     </div>  
                                                 </div>
                                                 
@@ -532,12 +532,11 @@
                                                     </label>
                                                     <textarea class="form-control posting_remark" placeholder="if any"></textarea>
                                                 </div>
-                                                <div class="col-xs-1">
-                                                    <br/>
+                                                <div class="form-group col-xs-12">
                                                     <img src="{{asset('images/details_open.png')}}" class="img_add_more_posting" id="add_more_posting">
-                                                </div>
+                                                </div>                                                
                                             </div>                                             
-                                            <hr>
+                                            <hr style="border: 2px solid chocolate;border-radius: 5px;">
                                         </div>                     
                                     </form>
                                 </div>
@@ -546,6 +545,66 @@
                                     <div class="col-sm-12">
                                         <div class="col-sm-4 col-sm-offset-4 text-center">
                                             <button class="btn btn-success update" value="update_posting_details"><i class="glyphicon glyphicon-ok-sign"></i> UPDATE</button>
+                                        </div>
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingSeven">
+                            <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                Career Progression
+                            </a>
+                            </h4>
+                        </div>
+                        <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <br/>
+                                    <form class="form" action="##" method="">                                        
+                                        <div class="div_add_more_career_progression">
+                                            <div class="row">
+                                                <div class="form-group required col-xs-3 col-xs-offset-1">
+                                                    <label class="control-label">
+                                                        Rank 
+                                                    </label>
+                                                    <select class="form-control info-form-control select2 career_progression_rank" style="width:100%">
+                                                        <option value="">Select an Option</option>
+                                                        @include('ranks.rank_options') 
+                                                    </select>
+                                                </div>
+                                                <div class="form-group required col-xs-3">
+                                                    <label class="control-label">
+                                                        Career Progression Stages
+                                                    </label>
+                                                    <select class="form-control info-form-control select2 career_progression_stage" style="width:100%">
+                                                        <option value="">Select an Option</option>                                                                                                               
+                                                    </select>
+                                                </div> 
+                                                <div class="form-group col-xs-2">
+                                                    <label class="control-label">
+                                                            Date of Confirmation
+                                                    </label>
+                                                    <input type="text" class="form-control date cp_date" placeholder="dd-mm-yyyy">
+                                                </div>  
+                                                <div class="form-group">
+                                                    <div class="col-xs-2">
+                                                        <br/>
+                                                        <img src="{{asset('images/details_open.png')}}" class="img_add_more_career_progression" id="add_more_career_progression">
+                                                    </div>
+                                                </div>
+                                            </div>                          
+                                            <hr/>                     
+                                        </div> 
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <br/>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-4 col-sm-offset-4 text-center">
+                                            <button class="btn btn-success update" value="update_career_progression_details"><i class="glyphicon glyphicon-ok-sign"></i> UPDATE</button>
                                         </div>
                                     </div>    
                                 </div>
@@ -591,6 +650,14 @@
     </div>
 </div>
 
+<!--loader starts-->
+<div class="col-md-offset-5 col-md-3" id="wait" style="display:none;">
+    <img src='images/loader.gif'width="25%" height="10%" />
+      <br>Loading..
+</div>
+
+<!--loader starts-->
+
 <meta name="_token" content="{!! csrf_token() !!}" />
 
 <!--Closing that has been openned in the header.blade.php -->
@@ -606,6 +673,7 @@
         var clone_element_qualification = $(".div_add_more_qualification").clone();
         var clone_element_legal_practice = $(".div_add_more_legal_practice").clone();
         var clone_element_posting = $(".div_add_more_posting").clone();
+        var clone_element_career_progression = $(".div_add_more_career_progression").clone();
 
    
         $('.panel-collapse').on('show.bs.collapse', function () {
@@ -659,6 +727,17 @@
 
         // Select2 initialization
         $(".select2").select2();
+
+
+        /*LOADER*/
+        $(document).ajaxStart(function() {
+            $("#wait").css("display", "block");
+        });
+        
+        $(document).ajaxComplete(function() {
+            $("#wait").css("display", "none");
+        });
+        /*LOADER*/
 
         
         /*If multiple Qualification details added :: STARTS*/
@@ -727,10 +806,10 @@
             });               
 
             
-            $(".img_add_more_posting:last").attr({src:"images/details_close.png",
-                                                    class:"remove_posting", 
-                                                    alt:"remove_posting"
-                                                });
+            $(this).attr({src:"images/details_close.png",
+                            class:"remove_posting", 
+                            alt:"remove_posting"
+                        });
             $(".remove_posting:last").removeAttr("id");        
 			
 		})
@@ -744,6 +823,28 @@
 		}) 
         /*If any posting details row needs to remove :: ENDS*/
 
+
+        /*If multiple Career Progression details added :: STARTS*/
+		$(document).on("click","#add_more_career_progression", function(){           
+            var clone_element4 = clone_element_career_progression.clone();                
+            clone_element4.insertAfter(".div_add_more_career_progression:last");
+            $(".img_add_more_career_progression:last").attr({
+                                                    src:"images/details_close.png",
+                                                    class:"remove_career_progression", 
+                                                    alt:"remove_career_progression"
+                                                });
+            $(".remove_career_progression").removeAttr("id");
+            $(".select2").select2(); 
+		})
+	    /*If multiple Career Progression details added :: ENDS*/    
+
+
+
+        /*If any Career Progression details row needs to remove :: STARTS*/
+        $(document).on("click",".remove_career_progression", function(){
+			$(this).closest(".div_add_more_career_progression").remove();
+		}) 
+        /*If any Career Progression details row needs to remove :: ENDS*/
 
         //Deputation :: START
         var flag_mode;
@@ -903,7 +1004,17 @@
                     //$(".remove_posting").remove();
                 })
                 $(".div_add_more_posting:last").remove();
+                $(".remove_posting:last").attr({src:"images/details_open.png",
+                                                class:"add_posting", 
+                                                alt:"add_posting",
+                                                id:"add_more_posting"
+                                            });
             }            
+        }
+
+        // Populating Career Progress Details
+        function populateJoCareerProgressDetails(data){
+            
         }
 
         // Get JO Details
