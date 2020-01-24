@@ -92,7 +92,7 @@
                 for(i=0;  i < obj.display_pref_for_jo.length; i++){
                     str+="<tr>"+
                     //sl no
-                    "<td>"+(i+1)+"</td>"+
+                    "<td><strong>"+(i+1)+".</strong></td>"+
                     //jo_name | jo_code
                     "<td>"+obj.officer_name[i]+"</td>";
                     //posted as
@@ -106,7 +106,7 @@
                     if( obj.preference_details[i].length > 0){
                         for(j=0; j < obj.preference_details[i].length; j++)
                         {   
-                            str+=(j+1)+"."+obj.preference_details[i][j].station_name+"<br>\n";                      
+                            str+="<strong>"+(j+1)+".</strong>"+obj.preference_details[i][j].station_name+"<br>\n";                      
                         }
                     }
                     else{
@@ -135,7 +135,7 @@
                         str+="<br><br>\n\n<strong>Place of Practice :</strong><br>";
                         //practice subdivisions
                         for(j=0; j < obj.practice_subdivision[i].length; j++){
-                            str+=(j+1)+"."+obj.practice_subdivision[i][j].subdivision_name+"<br>\n";
+                            str+="<strong>"+(j+1)+".</strong>"+obj.practice_subdivision[i][j].subdivision_name+"<br>\n";
                         }
                     }
                     else{

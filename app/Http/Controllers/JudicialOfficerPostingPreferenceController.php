@@ -501,13 +501,13 @@ public function zone_pref_content(Request $request) {
                                     $posting['from_date'] = Carbon::parse($posting['from_date'])->format('d-m-Y');  
 
                                     if($posting['designation_name']==null){
-                                        $str.= ($key5+1).". Deputed as ".$posting['deputation_designation']. "At ".$posting['deputation_posting_place']." From ".$posting['from_date']." To ".$posting['to_date'];
+                                        $str.= "<strong>".($key5+1).".</strong> Deputed as ".$posting['deputation_designation']. "At ".$posting['deputation_posting_place']." From ".$posting['from_date']." To ".$posting['to_date'];
                                     }
                                     else if( $posting['additional_designation'] !=null){
-                                        $str.= ($key5+1).". Posted as ".$posting['designation_name']." From ".$posting['from_date']." To ".$posting['to_date']." And ".$posting['additional_designation'];
+                                        $str.= "<strong>".($key5+1).".</strong> Posted as ".$posting['designation_name']." From ".$posting['from_date']." To ".$posting['to_date']." And ".$posting['additional_designation'];
                                     }
                                     else{
-                                        $str.= ($key5+1).". Posted as ".$posting['designation_name']." From ".$posting['from_date']." To ".$posting['to_date'];
+                                        $str.= "<strong>".($key5+1).". </strong> Posted as ".$posting['designation_name']." From ".$posting['from_date']." To ".$posting['to_date'];
                                     }
                                 }
                             }
