@@ -520,7 +520,7 @@
                 } 
                 else if( to_grade > row_count )
                 {
-                    swal("Cannot Update grade!", "Grade doesn't exist, maximum grade: "+row_count, "error");        
+                    swal("Cannot Update grade!", "Grade doesn't exist, Maximum grade: "+row_count, "error");        
                     element.closest("tr").find(".to_grade").text(current_to_grade);                                   
                     return false;
                 } 
@@ -648,7 +648,7 @@
 
                 //fetch all rows in datatable (**but without 'remark')
                 var all_datatable_data= table.rows().data().toArray();
-                console.log(all_datatable_data[count]['judicial_officer_id']);
+                //console.log(all_datatable_data);
 
                 var graded_jo_list = [];
                 //headers need to send
@@ -665,6 +665,7 @@
                     
                     //iterate to the selected td fetch currently added/edited grade & remark  
                     $('td', $(this)).each(function(index, item) {
+                         
 
                         if(index == 0 && $(item).html() == all_datatable_data[count]['grade'] ) //0th position is grade
                         {   //add judicial_officer_id
@@ -675,7 +676,7 @@
 
                             count++;                                       
                         }                            
-                        else if(index == 8 && $(item).html() == all_datatable_data[count]['remark']  ) //starting from 0, 8th column is ramrk 
+                        else if(index == 8 ) //starting from 0, 8th column is ramrk         && $(item).html() == all_datatable_data[count]['remark'] 
                         {   //add remark
                             temp_row[headers[2]] = $(item).html();
                         }
