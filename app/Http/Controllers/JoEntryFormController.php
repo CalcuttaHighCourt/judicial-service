@@ -932,4 +932,9 @@ class JoEntryFormController extends Controller
         }
     }
 
+
+    public function rank_wise_career_progression_stages(Request $request){
+
+    }
+
 }
