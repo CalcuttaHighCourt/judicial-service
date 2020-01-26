@@ -405,6 +405,8 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 		
 		Route::post('fetch_jo_details','JoEntryFormController@fetch_jo_details')->name('fetch_jo_details');
 
+		Route::post('fetch_rankwise_career_progression_stages','JoEntryFormController@fetch_rankwise_career_progression_stages')->name('fetch_rankwise_career_progression_stages');
+
 		Route::post('update_basic_details','JoEntryFormController@update_basic_details')->name('update_basic_details');
 
 		Route::post('update_contact_details','JoEntryFormController@update_contact_details')->name('update_contact_details');
@@ -416,6 +418,8 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 		Route::post('update_practice_details','JoEntryFormController@update_practice_details')->name('update_practice_details');
 
 		Route::post('update_qualification_details','JoEntryFormController@update_qualification_details')->name('update_qualification_details');
+
+		Route::post('update_career_progression_details','JoEntryFormController@update_career_progression_details')->name('update_career_progression_details');
 
 		Route::post('jo_posting/search', 'JudicialOfficerPostingController@jo_current_posting_details');
 

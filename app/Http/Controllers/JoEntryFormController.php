@@ -532,7 +532,7 @@ class JoEntryFormController extends Controller
         $jo_details['ranks'] = JudicialOfficerPosting::leftJoin('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                                         ->where('judicial_officer_postings.judicial_officer_id',$request->jo_id)
                                                         ->select('ranks.id','rank_name','rank_order')
-                                                        ->orderBy('rank_order','asc')
+                                                        ->orderBy('rank_order','desc')
                                                         ->distinct()
                                                         ->get();
 
@@ -545,6 +545,21 @@ class JoEntryFormController extends Controller
         }
          
         return $jo_details;
+    }
+
+
+    public function fetch_rankwise_career_progression_stages(Request $request){
+        $this->validate( $request, [ 
+            'rank_id' => 'required|integer|max:50|exists:ranks,id',
+        ]);
+
+        $career_progression_stages = CareerProgressionStage::where('rank_id',$request->rank_id)                                                            
+                                                            ->select('id','stage_name')
+                                                            ->orderBy('stage_name')
+                                                            ->get();
+
+        return $career_progression_stages;
+
     }
 
 
@@ -933,8 +948,50 @@ class JoEntryFormController extends Controller
     }
 
 
-    public function rank_wise_career_progression_stages(Request $request){
+    public function update_career_progression_details(Request $request){
+        $this->validate($request,[
+            'id' => 'required|max:99999|exists:judicial_officers,id',
+            'rank_id' => 'array',
+            'rank_id.*' => 'required|integer|max:50|exists:ranks,id',
+            'career_progression_stage' => 'array',
+            'career_progression_stage.*' => 'required|integer|max:50|exists:career_progression_stages,id',
+            'cp_date' => 'array',
+            'cp_date.*' => 'required|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),            
+        ]);
 
+        $response = array();    
+        $statusCode = 200;
+
+        try{
+            DB::beginTransaction(); 
+
+            JoCareerProgression::where('judicial_officer_id',$request->input('id'))->delete(); 
+
+            for($i=0;$i<sizeof($request['rank_id']);$i++){
+                $jo_career_progression = new JoCareerProgression;
+            
+                $jo_career_progression->judicial_officer_id = $request->id;                       
+                $jo_career_progression->rank_id = $request->rank_id[$i];
+                $jo_career_progression->progression_stage_id = $request->career_progression_stage[$i];
+                $doc = Carbon::parse($request->cp_date[$i])->format('Y-m-d');
+                $jo_career_progression->date_of_confirmation = $doc;
+
+                $jo_career_progression->save();
+                
+            }
+
+            DB::commit();
+        }
+        catch (\Exception $e) {
+            DB::rollBack(); 
+            $response = array(
+                'exception' => true,
+                'exception_message' => $e->getMessage()
+            );           
+            $statusCode = 400;
+        } finally {
+            return response()->json($response, $statusCode);
+        }
     }
 
 }

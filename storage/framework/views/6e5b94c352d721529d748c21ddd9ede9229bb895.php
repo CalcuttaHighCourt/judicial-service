@@ -570,20 +570,19 @@
                                                     <label class="control-label">
                                                         Rank 
                                                     </label>
-                                                    <select class="form-control info-form-control select2 career_progression_rank" style="width:100%">
-                                                        <option value="">Select an Option</option>
-                                                        <?php echo $__env->make('ranks.rank_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?> 
+                                                    <select class="form-control info-form-control career_progression career_progression_rank" style="width:100%">
+                                                        <option value="">Select an Option</option>                                                        
                                                     </select>
                                                 </div>
                                                 <div class="form-group required col-xs-3">
                                                     <label class="control-label">
                                                         Career Progression Stages
                                                     </label>
-                                                    <select class="form-control info-form-control select2 career_progression_stage" style="width:100%">
+                                                    <select class="form-control info-form-control career_progression career_progression_stage" style="width:100%">
                                                         <option value="">Select an Option</option>                                                                                                               
                                                     </select>
                                                 </div> 
-                                                <div class="form-group col-xs-2">
+                                                <div class="form-group required col-xs-2">
                                                     <label class="control-label">
                                                             Date of Confirmation
                                                     </label>
@@ -674,8 +673,7 @@
         var clone_element_qualification = $(".div_add_more_qualification").clone();
         var clone_element_legal_practice = $(".div_add_more_legal_practice").clone();
         var clone_element_posting = $(".div_add_more_posting").clone();
-        var clone_element_career_progression = $(".div_add_more_career_progression").clone();
-
+        var clone_element_career_progression;
    
         $('.panel-collapse').on('show.bs.collapse', function () {
             $(this).siblings('.panel-heading').addClass('active');
@@ -835,10 +833,21 @@
                                                     alt:"remove_career_progression"
                                                 });
             $(".remove_career_progression").removeAttr("id");
-            $(".select2").select2(); 
-		})
-	    /*If multiple Career Progression details added :: ENDS*/    
 
+            //select2 Re-initialization
+            $(".career_progression").select2(); 
+
+            // Datepicker Re-initialization
+            $(".date").datepicker({
+                format: "dd-mm-yyyy",
+                endDate:'0',
+                autoclose: true,   
+                orientation: "auto",
+            });               
+
+            
+		})
+	    /*If multiple Career Progression details added :: ENDS*/   
 
 
         /*If any Career Progression details row needs to remove :: STARTS*/
@@ -846,6 +855,36 @@
 			$(this).closest(".div_add_more_career_progression").remove();
 		}) 
         /*If any Career Progression details row needs to remove :: ENDS*/
+
+
+        /*Fetch corresponding Career Progression Stages for a Rank ::STARTS*/
+        $(document).on("change",".career_progression_rank",function(){
+            var element = $(this);
+            if(element.val()!=""){
+                $.ajax({
+                    type:"post",
+                    url:"<?php echo e(route('fetch_rankwise_career_progression_stages')); ?>", 
+                    async:false,
+                    data:{
+                        _token:$('meta[name="_token"]').attr('content'),
+                        rank_id:element.val(),
+                    },
+                    success:function(response){
+                        var target_element = element.parent().next().find(".career_progression_stage");
+                        target_element.children('option:not(:first)').remove();
+                        $.each(response, function(key,val){
+                            target_element.append($('<option>').val(val.id).text(val.stage_name));     
+                        });
+                    },
+                    error:function (jqXHR, textStatus, errorThrown) {
+                        swal("Server Error","","error");
+                    }
+                })
+            }
+        })
+        /*Fetch corresponding Career Progression Stages for a Rank ::ENDS*/
+
+
 
         //Deputation :: START
         var flag_mode;
@@ -1014,8 +1053,19 @@
         }
 
         // Populating Career Progress Details
-        function populateJoCareerProgressDetails(data){
-            
+        function populateJoCareerProgressionDetails(data){
+            if(data.length>0){
+                $.each(data, function(key,val){
+                    $(".career_progression_rank:last").val(val.rank_id);
+                    $(".career_progression_rank:last").trigger("change");
+                    $(".career_progression_stage:last").val(val.progression_stage_id);
+                    $(".career_progression_stage:last").trigger("change");
+                    $(".cp_date:last").val(val.date_of_confirmation);
+
+                    $("#add_more_career_progression").trigger('click');                    
+                })
+                $(".div_add_more_career_progression:last").remove();
+            }   
         }
 
         // Get JO Details
@@ -1038,12 +1088,19 @@
                         populateJoBasicDetails(response['basic_contact_details']);
                         populateJoQualificationDetails(response['qualification_details']);
                         populateJoPracticeDetails(response['practice_details']); 
-                        populateJoPostingDetails(response['posting_details']);                        
-                       
+                        populateJoPostingDetails(response['posting_details']);  
+
+                        $.each(response['ranks'], function(key,val){
+                            $(".career_progression_rank").append($('<option>').val(val.id).text(val.rank_name));     
+                        });
+                        clone_element_career_progression = $(".div_add_more_career_progression").clone();
+                        $(".career_progression").select2();
+                        populateJoCareerProgressionDetails(response['career_progression']);  
+
                         $("#details").show();
                     },
                     error:function (jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus);
+                        swal("Server Error","","error");
                     }
                 })
             }
@@ -1369,6 +1426,55 @@
                     },
                     success: function (data, textStatus, jqXHR) { 
                         swal("Qualification Details Updated Successfully","","success");
+                        return false;
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        if(jqXHR.status!=422 && jqXHR.status!=400){
+                            swal("Failed to Update Details",errorThrown,"error");
+                        }
+                        else{
+                            msg = "";
+                            $.each(jqXHR.responseJSON.errors, function(key,value) {
+                                msg+=value+"\n";						
+                            });
+                            swal("Failed to Update Details",msg,"error");
+                        }
+                    }
+                })
+            }
+            //update qualification details
+            else if($(this).val()=='update_career_progression_details'){
+                var rank_id = new Array();
+                var career_progression_stage = new Array();
+                var cp_date = new Array();     
+
+                rank_id = [];
+                $(".career_progression_rank").each(function(){
+                    rank_id.push($(this).val());
+                })
+
+                career_progression_stage = [];
+                $(".career_progression_stage").each(function(){
+                    career_progression_stage.push($(this).val());
+                })
+
+                cp_date = [];
+                $(".cp_date").each(function(){
+                    cp_date.push($(this).val());
+                })
+
+                $.ajax({
+                    type:"post",
+                    url:"<?php echo e(route('update_career_progression_details')); ?>",
+                    data:{
+                        id:$("#fetch_id").val(),
+                        rank_id:rank_id,
+                        career_progression_stage:career_progression_stage,
+                        cp_date:cp_date,
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    success: function (data, textStatus, jqXHR) { 
+                        swal("Career Progression Details Updated Successfully","","success");
                         return false;
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
