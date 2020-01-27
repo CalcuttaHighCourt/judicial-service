@@ -21,7 +21,7 @@
             <div id="judicial_officer-group" class="form-group our-form-group">
             <!-- IIIIIIIIIII -->
                 <select id="judicial_officer" class="form-control select2 info-form-control judicial_officer"
-                        name="judicial_officer"> 
+                        name="judicial_officer" mutiple="multiple"> 
                         <option value="">Select Judicial Officer</option>
                         <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                 </select>

@@ -21,7 +21,7 @@
             <div id="judicial_officer-group" class="form-group our-form-group">
             <!-- IIIIIIIIIII -->
                 <select id="judicial_officer" class="form-control select2 info-form-control judicial_officer"
-                        name="judicial_officer"> 
+                        name="judicial_officer" mutiple="multiple"> 
                         <option value="">Select Judicial Officer</option>
                         @include('judicial_officers.judicial_officer_options')
                 </select>
