@@ -211,8 +211,8 @@ $(document).ready(function(){
 
     /*For opening the posting tab:starts*/   
     $(document).on("click","#posting_details",function(){
-    $("#daily_diary").hide();
-    $("#postings").show();
+        $("#daily_diary").hide();
+        $("#postings").show();
     });
     /*For opening the posting tab:ends*/   
 
