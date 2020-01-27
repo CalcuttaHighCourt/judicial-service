@@ -362,6 +362,8 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 		Route::get('download_posting_preferences', 'JoDetailsPdfController@download_posting_preferences');
 		
+		Route::post('activate_window_for_jo_preference', 'JudicialOfficerPostingPreferenceController@activate_preference_window');
+		
 		Route::post('jo_grade/rank_wise_jo_list', 'JoGradeController@rank_wise_jo_list')->name('rank_wise_jo_list');
 
 		Route::post('jo_grade/save_jo_grade', 'JoGradeController@save_jo_grade')->name('save_jo_grade');

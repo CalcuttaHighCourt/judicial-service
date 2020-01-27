@@ -720,4 +720,56 @@ public function zone_pref_content(Request $request) {
             return response ()->json ( $response, $statusCode );
         }
     }   
+
+    //populate activate window page with valid judicial officers list
+    public function list_of_valid_judicial_officers(Request $request){
+
+        $judicial_officers= JudicialOfficer::where([
+                                                    ['date_of_retirement','>',Carbon::today()],
+                                                    ['posting_preference_window_flag','!=','Y']
+                                                  ])->select('id','officer_name')->get();
+        print_r($judicial_officers);exit;
+                
+    }
+
+
+    //Code for window openning for judicial officer's posting preference
+    public function activate_preference_window(Request $request){
+
+        $this->validate($request,[
+            'judicial_officer' => 'array|required',
+            'judicial_officer.*' => 'required|max:99999'
+        ]);
+
+        $response = array();    
+        $statusCode = 200;
+        $jo_list = $request->input('judicial_officer');
+
+        try{
+            DB::beginTransaction(); 
+
+            for($i=0;$i<sizeof($jo_list);$i++){
+
+                JudicialOfficer::where('id',$jo_list[$i])
+                                ->update([
+                                    'posting_preference_window_flag'=>'Y',
+                                    'posting_preference_window_open_on' =>Carbon::today(),
+                                    'updated_at'=>Carbon::today()
+                                ]);
+                                
+            }
+
+            DB::commit();
+
+        } catch (\Exception $e) {
+            DB::rollBack(); 
+            $response = array(
+                'exception' => true,
+                'exception_message' => $e->getMessage()
+            );           
+            $statusCode = 400;
+        } finally {
+            return response()->json($response, $statusCode);
+        }
+    }
 }
