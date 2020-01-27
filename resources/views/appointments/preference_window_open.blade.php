@@ -30,8 +30,11 @@
             <div id="judicial_officer-group" class="form-group our-form-group">
             <!-- IIIIIIIIIII -->
                 <select  id="judicial_officer" class="form-control select2 info-form-control judicial_officer"
-                        name="judicial_officer" multiple  style="width:300px;" > 
-                        @include('judicial_officers.judicial_officer_options')
+                        name="judicial_officer" multiple  style="width:300px;"  > 
+                        @foreach($judicial_officers  as $data)
+                        
+                            <option value="{{$data->id}}">{{$data->officer_name}} </option>
+                        @endforeach
                 </select>
             </div>
         </div>

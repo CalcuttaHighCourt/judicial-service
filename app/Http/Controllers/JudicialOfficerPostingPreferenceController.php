@@ -712,9 +712,13 @@ public function zone_pref_content(Request $request) {
 
         $judicial_officers= JudicialOfficer::where([
                                                     ['date_of_retirement','>',Carbon::today()],
-                                                    ['posting_preference_window_flag','!=','Y']
-                                                  ])->select('id','officer_name')->get();
-        print_r($judicial_officers);exit;
+                                                    ['posting_preference_window_flag','<>','Y']
+                                                  ])->select('id','officer_name','jo_code')->get();
+       // print_r($judicial_officers);exit;
+
+       print_r( $judicial_officers);exit();
+
+       return view('appointments.preference_window_open',compact('judicial_officers'));
                 
     }
 
@@ -757,5 +761,7 @@ public function zone_pref_content(Request $request) {
         } finally {
             return response()->json($response, $statusCode);
         }
+
+       
     }
 }

@@ -30,8 +30,11 @@
             <div id="judicial_officer-group" class="form-group our-form-group">
             <!-- IIIIIIIIIII -->
                 <select  id="judicial_officer" class="form-control select2 info-form-control judicial_officer"
-                        name="judicial_officer" multiple  style="width:300px;" > 
-                        <?php echo $__env->make('judicial_officers.judicial_officer_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                        name="judicial_officer" multiple  style="width:300px;"  > 
+                        <?php $__currentLoopData = $judicial_officers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        
+                            <option value="<?php echo e($data->id); ?>"><?php echo e($data->officer_name); ?> </option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
             </div>
         </div>

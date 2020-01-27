@@ -349,9 +349,12 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 			return view ( 'appointments.index' );
 		} );
 
-		Route::get ( 'pref_windows', function () {
-			return view ( 'appointments.preference_window_open' );
-		} );
+		// Route::get ( 'pref_windows', function () {
+		// 	return view ( 'appointments.preference_window_open' );
+		// } );
+
+		Route::get('jo_list_for_pref_window',
+		'JudicialOfficerPostingPreferenceController@list_of_valid_judicial_officers');
 		
 
 		Route::get ('jo_grade', function () {

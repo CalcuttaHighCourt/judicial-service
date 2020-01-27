@@ -184,7 +184,7 @@
                                     <span>Posting Preference</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="{{url('pref_windows')}}">Switch on the Window</a></li>
+                                    <li><a href="{{url('jo_list_for_pref_window')}}">Switch on the Window</a></li>
                                     <li><a href="{{url('appointment')}}"> List of Preference</a></li>
                                 </ul>
                             </li>      
