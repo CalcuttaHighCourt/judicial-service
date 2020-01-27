@@ -297,7 +297,7 @@ class JoDetailsPdfController extends Controller
                         }
                         
                         
-                        $judicial_officer_details['officer_name'][$key] =$str1 ;
+                        $station_pref->officer_name =$str1 ;
 
                         $judicial_officer_details['preference_details'][$key] = JudicialOfficerPostingPreference::where([
                                                                                                                     ['final_submission','=','Y'],
