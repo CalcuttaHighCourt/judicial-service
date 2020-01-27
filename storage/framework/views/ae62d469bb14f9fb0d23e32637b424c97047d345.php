@@ -21,7 +21,7 @@
         </div>   
         <div id="view_details" class="panel-body">  
          <div class="table-responsive">
-            <div style="overflow-x:auto;">
+            <div style="overflow-x:auto; overflow-y:auto; height:450px">
                 <table class="table table-bordered table-striped" id="details_for_posting_preference" style="width: 100%;white-space: nowrap;">
                     <thead>
                         <tr>                            
@@ -129,7 +129,7 @@
                     }
                     //hometown
                    
-                    str+= "<br>\n<strong>Hometown</strong> : "+obj.display_pref_for_jo[i].hometown+",<strong>State</strong>: "+obj.home_state['0'][i].state_name ;
+                    str+= "<br>\n<strong>Hometown</strong> : "+obj.display_pref_for_jo[i].hometown+", "+obj.home_state['0'][i].state_name ;
                    
                     if( obj.practice_subdivision[i].length>0){
                         str+="<br><br>\n\n<strong>Place of Practice :</strong><br>";
