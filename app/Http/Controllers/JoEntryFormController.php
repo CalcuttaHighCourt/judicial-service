@@ -573,7 +573,7 @@ class JoEntryFormController extends Controller
             'spouse' => 'nullable|integer|exists:judicial_officers,id|max:999999',
             'date_of_birth' => 'required|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),
             'recruitment_batch_id' => 'required|integer|exists:recruitment_batches,id|max:10000',
-            'recruitment_batch_year' => 'required|integer|min:1950|max:'.date('Y'),
+            'recruitment_batch_year' => 'nullable|integer|min:1950|max:'.date('Y'),
             'date_of_joining' => 'required|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),
             'date_of_confirmation' => 'nullable|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),
             'date_of_retirement' => 'required|date_format:d-m-Y|after:1900-01-01',  
@@ -626,13 +626,13 @@ class JoEntryFormController extends Controller
             'home_state_id' => 'required|integer|exists:states,id|max:10000',
             'state_flag' => 'required|string|max:20|in:west_bengal,other',
             'home_district_id' => 'required_if:state_flag,==,west_bengal|integer|exists:districts,id|max:200',
-            'other_home_district' => 'required_if:state_flag,==,other|string|regex:/^[\pL\s\-]+$/u|max:100',
-            'hometown' => 'required|string|regex:/^[\pL\s\-]+$/u|max:100',
+            'other_home_district' => 'required_if:state_flag,==,other|string|max:100',
+            'hometown' => 'nullable|string|max:100',
             'present_address' => 'required|string|max:255',
             'permanent_address' => 'required|string|max:255',
-            'mobile_no_1' => 'required|integer|max:9999999999',
+            'mobile_no_1' => 'nullable|integer|max:9999999999',
             'mobile_no_2' => 'nullable|integer|max:9999999999',
-            'email_id_1' => 'required|email:rfc,dns|max:100',
+            'email_id_1' => 'nullable|email:rfc,dns|max:100',
             'email_id_2' => 'nullable|email:rfc,dns|max:100',
         ]);
                 
@@ -697,7 +697,7 @@ class JoEntryFormController extends Controller
             'other_reporting_officer_name' => 'required|array',
             'other_reporting_officer_name.*' => 'nullable|string|max:100|regex:/^[\pL\s\-]+$/u',
             'other_reporting_officer_designation' => 'required|array',
-            'other_reporting_officer_designation.*' => 'nullable|string|max:100|regex:/^[\pL\s\-]+$/u',
+            'other_reporting_officer_designation.*' => 'nullable|string|max:100',
             'zone_id' => 'required|array',
             'zone_id.*' => 'required|integer|max:500|exists:zones,id',            
             'deputation_posting_place' => 'required|array',
@@ -857,9 +857,9 @@ class JoEntryFormController extends Controller
             'subdivision_id' => 'array',
             'subdivision_id.*' => 'required_with:from_year.*,to_year.*|nullable|integer|exists:subdivisions,id|max:1000',
             'from_year' => 'array',
-            'from_year.*' => 'required_with:subdivision_id.*,to_year.*|nullable|integer|min:1900|max:'.date('Y'),
+            'from_year.*' => 'required_with:to_year.*|nullable|integer|min:1900|max:'.date('Y'),
             'to_year' => 'array',
-            'to_year.*' => 'required_with:subdivision_id.*,from_year.*|nullable|integer|min:1900|max:'.date('Y'),            
+            'to_year.*' => 'required_with:from_year.*|nullable|integer|min:1900|max:'.date('Y'),           
         ]);
 
         $response = array();    
@@ -907,7 +907,7 @@ class JoEntryFormController extends Controller
             'qualification_id' => 'array',
             'qualification_id.*' => 'required_with:passing_year.*|nullable|integer|exists:qualifications,id|max:500',
             'passing_year' => 'array',
-            'passing_year.*' => 'required_with:qualification_id.*|nullable|integer|min:1900|max:'.date('Y'),
+            'passing_year.*' => 'nullable|integer|min:1900|max:'.date('Y'),
         ]);
 
         $response = array();    

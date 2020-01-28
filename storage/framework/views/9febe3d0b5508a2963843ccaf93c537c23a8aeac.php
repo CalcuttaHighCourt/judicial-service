@@ -7,7 +7,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"> 
     <meta name="Integrated Information Management System" content=" ">
     <meta name="Developer" content="Anabil Bhattacharya, Rupsa Bose">
-    <meta name="Guide" content="Shri Kallol Chattopadhyay, Shri Abhranil Neogi">
+    <meta name="Guide" content="Mr. Kallol Chattopadhyay, Mr. Abhranil Neogi, Mr. Partha Sarathi Ghosh, Mrs. Jaini Paul, Mr. Sankalpa Roy">
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>" />
     <title>IIMS</title>    
     

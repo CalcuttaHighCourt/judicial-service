@@ -17,7 +17,7 @@ class CreateJudicialOfficerQualificationsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('judicial_officer_id');
             $table->integer('qualification_id');
-            $table->integer('passing_year');
+            $table->integer('passing_year')->nullable();
             $table->timestamps();
 
             $table->unique(['judicial_officer_id', 'qualification_id']);

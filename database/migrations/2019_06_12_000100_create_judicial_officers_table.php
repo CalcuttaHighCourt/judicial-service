@@ -25,14 +25,15 @@ class CreateJudicialOfficersTable extends Migration
 			$table->integer('home_district_id')->nullable();
 			$table->string('other_home_district')->nullable();
 			$table->string('hometown')->nullable();
+			$table->string('additional_hometown')->nullable();
 			$table->text('present_address');
 			$table->text('permanent_address');						
-			$table->string('mobile_no_1')->unique();
+			$table->string('mobile_no_1')->nullable()->unique();
 			$table->string('mobile_no_2')->nullable()->unique();
-			$table->string('email_id_1')->unique();
+			$table->string('email_id_1')->nullable()->unique();
 			$table->string('email_id_2')->nullable()->unique();
 			$table->integer('recruitment_batch_id');			
-			$table->integer('recruitment_batch_year');
+			$table->integer('recruitment_batch_year')->nullable();
 			$table->date('date_of_joining');
 			$table->date('date_of_confirmation')->nullable();
 			$table->date('date_of_retirement');

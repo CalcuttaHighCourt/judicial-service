@@ -120,7 +120,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group required">
+                                    <div class="form-group">
                                         <div class="col-xs-2">
                                             <label for="recruitment_batch_year" class="control-label">
                                                 Batch Year 
@@ -187,7 +187,7 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <form class="form" action="##" method="">
-                                        <div class="form-group required">
+                                        <div class="form-group">
                                             <div class="col-xs-5">
                                                 <label for="email_id_1" class="control-label">
                                                     Primary Email ID 
@@ -203,7 +203,7 @@
                                                 <input type="email" class="form-control" name="email_id_2" id="email_id_2" placeholder="xyz@abc.com">
                                             </div>
                                         </div>
-                                        <div class="form-group required">
+                                        <div class="form-group">
                                             <div class="col-xs-5">
                                                 <label for="ph_no_1" class="control-label">
                                                     Primary Contact No. 
@@ -316,7 +316,7 @@
                                                         <?php echo $__env->make('qualifications.qualification_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                                     </select>
                                                 </div>
-                                                <div class="form-group required col-xs-3">
+                                                <div class="form-group col-xs-3">
                                                     <label class="control-label">
                                                         Year of Passing 
                                                     </label>
@@ -372,7 +372,7 @@
                                                         <?php echo $__env->make('subdivisions.subdivision_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                                     </select>
                                                 </div>
-                                                <div class="form-group required col-xs-3">
+                                                <div class="form-group col-xs-3">
                                                     <label class="control-label">
                                                         From (Year)
                                                     </label>
@@ -383,7 +383,7 @@
                                                         <?php endfor; ?>
                                                     </select>
                                                 </div>   
-                                                <div class="form-group required col-xs-3">
+                                                <div class="form-group col-xs-3">
                                                     <label class="control-label">
                                                         To (Year)
                                                     </label>
@@ -860,6 +860,8 @@
         /*Fetch corresponding Career Progression Stages for a Rank ::STARTS*/
         $(document).on("change",".career_progression_rank",function(){
             var element = $(this);
+            var target_element = element.parent().next().find(".career_progression_stage");
+
             if(element.val()!=""){
                 $.ajax({
                     type:"post",
@@ -870,7 +872,6 @@
                         rank_id:element.val(),
                     },
                     success:function(response){
-                        var target_element = element.parent().next().find(".career_progression_stage");
                         target_element.children('option:not(:first)').remove();
                         $.each(response, function(key,val){
                             target_element.append($('<option>').val(val.id).text(val.stage_name));     
@@ -880,6 +881,9 @@
                         swal("Server Error","","error");
                     }
                 })
+            }
+            else{
+                target_element.children('option:not(:first)').remove();
             }
         })
         /*Fetch corresponding Career Progression Stages for a Rank ::ENDS*/

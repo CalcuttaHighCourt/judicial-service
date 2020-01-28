@@ -10,8 +10,7 @@
     Calcutta High Court and its purpose is to monitor the flow of seizures of narcotic & psychotropic substance 
     and respective disposals all through the state.">
     <meta name="Developer" content="Anabil Bhattacharya, Rupsa Bose">
-    <meta name="Guide" content="Shri Kallol Chattopadhyay, Shri Abhranil Neogi">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="Guide" content="Mr. Kallol Chattopadhyay, Mr. Abhranil Neogi, Mr. Partha Sarathi Ghosh, Mrs. Jaini Paul, Mr. Sankalpa Roy">    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>IIMS</title>  
 
     <!-- Scripts -->
