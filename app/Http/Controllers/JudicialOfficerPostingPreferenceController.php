@@ -711,13 +711,17 @@ public function zone_pref_content(Request $request) {
     public function list_of_valid_judicial_officers(Request $request){
 
         $judicial_officers= JudicialOfficer::where([
-                                                    ['date_of_retirement','>',Carbon::today()],
-                                                    ['posting_preference_window_flag','<>','Y']
-                                                  ])->select('id','officer_name','jo_code')->get();
-       // print_r($judicial_officers);exit;
-
-       print_r( $judicial_officers);exit();
-
+                                                ['date_of_retirement','>',Carbon::today()],
+                                                ['posting_preference_window_flag','<>','Y']
+                                            ])
+                                            ->orWhere([
+                                                ['date_of_retirement','>',Carbon::today()],
+                                                ['posting_preference_window_flag','=', null]
+                                            ])
+                                            ->orderBy('registration_no')
+                                            ->select('id','officer_name','jo_code', 'registration_no')
+                                            ->get();
+       
        return view('appointments.preference_window_open',compact('judicial_officers'));
                 
     }
