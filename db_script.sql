@@ -5,7 +5,7 @@
 -- Dumped from database version 9.2.4
 -- Dumped by pg_dump version 11.1
 
--- Started on 2020-01-06 16:30:02
+-- Started on 2020-01-28 15:37:36
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,7 +18,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 252 (class 1255 OID 448495)
+-- TOC entry 256 (class 1255 OID 448495)
 -- Name: movedeleted(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -34,7 +34,7 @@ CREATE FUNCTION public.movedeleted() RETURNS trigger
 
 
 --
--- TOC entry 253 (class 1255 OID 448496)
+-- TOC entry 257 (class 1255 OID 448496)
 -- Name: moveupdated(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -82,12 +82,48 @@ CREATE SEQUENCE public.acr_histories_id_seq
 
 
 --
--- TOC entry 2498 (class 0 OID 0)
+-- TOC entry 2528 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: acr_histories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.acr_histories_id_seq OWNED BY public.acr_histories.id;
+
+
+--
+-- TOC entry 241 (class 1259 OID 468802)
+-- Name: career_progression_stages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.career_progression_stages (
+    id integer NOT NULL,
+    stage_name character varying(255) NOT NULL,
+    rank_id integer NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- TOC entry 240 (class 1259 OID 468800)
+-- Name: career_progression_stages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.career_progression_stages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2529 (class 0 OID 0)
+-- Dependencies: 240
+-- Name: career_progression_stages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.career_progression_stages_id_seq OWNED BY public.career_progression_stages.id;
 
 
 --
@@ -121,7 +157,7 @@ CREATE SEQUENCE public.courts_id_seq
 
 
 --
--- TOC entry 2499 (class 0 OID 0)
+-- TOC entry 2530 (class 0 OID 0)
 -- Dependencies: 182
 -- Name: courts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -156,7 +192,7 @@ CREATE SEQUENCE public.departments_id_seq
 
 
 --
--- TOC entry 2500 (class 0 OID 0)
+-- TOC entry 2531 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: departments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -175,8 +211,7 @@ CREATE TABLE public.designations (
     rank_id integer,
     created_by bigint,
     created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone,
-    subdivision_id integer
+    updated_at timestamp(0) without time zone
 );
 
 
@@ -194,7 +229,7 @@ CREATE SEQUENCE public.designations_id_seq
 
 
 --
--- TOC entry 2501 (class 0 OID 0)
+-- TOC entry 2532 (class 0 OID 0)
 -- Dependencies: 186
 -- Name: designations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -231,7 +266,7 @@ CREATE SEQUENCE public.diaries_id_seq
 
 
 --
--- TOC entry 2502 (class 0 OID 0)
+-- TOC entry 2533 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: diaries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -269,7 +304,7 @@ CREATE SEQUENCE public.districts_id_seq
 
 
 --
--- TOC entry 2503 (class 0 OID 0)
+-- TOC entry 2534 (class 0 OID 0)
 -- Dependencies: 178
 -- Name: districts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -304,7 +339,7 @@ CREATE SEQUENCE public.document_types_id_seq
 
 
 --
--- TOC entry 2504 (class 0 OID 0)
+-- TOC entry 2535 (class 0 OID 0)
 -- Dependencies: 234
 -- Name: document_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -340,7 +375,7 @@ CREATE SEQUENCE public.grade_details_id_seq
 
 
 --
--- TOC entry 2505 (class 0 OID 0)
+-- TOC entry 2536 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: grade_details_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -377,7 +412,7 @@ CREATE SEQUENCE public.hc_case_types_id_seq
 
 
 --
--- TOC entry 2506 (class 0 OID 0)
+-- TOC entry 2537 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: hc_case_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -412,7 +447,7 @@ CREATE SEQUENCE public.history_deleted_data_id_seq
 
 
 --
--- TOC entry 2507 (class 0 OID 0)
+-- TOC entry 2538 (class 0 OID 0)
 -- Dependencies: 226
 -- Name: history_deleted_data_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -447,12 +482,50 @@ CREATE SEQUENCE public.history_updated_data_id_seq
 
 
 --
--- TOC entry 2508 (class 0 OID 0)
+-- TOC entry 2539 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: history_updated_data_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.history_updated_data_id_seq OWNED BY public.history_updated_data.id;
+
+
+--
+-- TOC entry 243 (class 1259 OID 468817)
+-- Name: jo_career_progressions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.jo_career_progressions (
+    id bigint NOT NULL,
+    judicial_officer_id bigint NOT NULL,
+    rank_id integer NOT NULL,
+    progression_stage_id integer NOT NULL,
+    date_of_confirmation date NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- TOC entry 242 (class 1259 OID 468815)
+-- Name: jo_career_progressions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.jo_career_progressions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 2540 (class 0 OID 0)
+-- Dependencies: 242
+-- Name: jo_career_progressions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.jo_career_progressions_id_seq OWNED BY public.jo_career_progressions.id;
 
 
 --
@@ -484,7 +557,7 @@ CREATE SEQUENCE public.jo_documents_id_seq
 
 
 --
--- TOC entry 2509 (class 0 OID 0)
+-- TOC entry 2541 (class 0 OID 0)
 -- Dependencies: 236
 -- Name: jo_documents_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -524,7 +597,7 @@ CREATE SEQUENCE public.jo_grades_id_seq
 
 
 --
--- TOC entry 2510 (class 0 OID 0)
+-- TOC entry 2542 (class 0 OID 0)
 -- Dependencies: 238
 -- Name: jo_grades_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -562,7 +635,7 @@ CREATE SEQUENCE public.jo_legal_experiences_id_seq
 
 
 --
--- TOC entry 2511 (class 0 OID 0)
+-- TOC entry 2543 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: jo_legal_experiences_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -601,7 +674,7 @@ CREATE SEQUENCE public.jo_reportings_id_seq
 
 
 --
--- TOC entry 2512 (class 0 OID 0)
+-- TOC entry 2544 (class 0 OID 0)
 -- Dependencies: 200
 -- Name: jo_reportings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -639,7 +712,7 @@ CREATE SEQUENCE public.jo_zone_tenures_id_seq
 
 
 --
--- TOC entry 2513 (class 0 OID 0)
+-- TOC entry 2545 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: jo_zone_tenures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -679,7 +752,7 @@ CREATE SEQUENCE public.judicial_officer_posting_preferences_id_seq
 
 
 --
--- TOC entry 2514 (class 0 OID 0)
+-- TOC entry 2546 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: judicial_officer_posting_preferences_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -703,16 +776,10 @@ CREATE TABLE public.judicial_officer_postings (
     from_date date NOT NULL,
     to_date date,
     posting_remark text,
-    acp_1 character varying(255),
-    acp_1_doc date,
-    acp_2 character varying(255),
-    acp_2_doc date,
-    dj_se character varying(255),
-    dj_se_doc date,
-    dj_st character varying(255),
-    dj_st_doc date,
     created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone
+    updated_at timestamp(0) without time zone,
+    additional_designation character varying(255),
+    zone_id integer
 );
 
 
@@ -730,7 +797,7 @@ CREATE SEQUENCE public.judicial_officer_postings_id_seq
 
 
 --
--- TOC entry 2515 (class 0 OID 0)
+-- TOC entry 2547 (class 0 OID 0)
 -- Dependencies: 198
 -- Name: judicial_officer_postings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -747,7 +814,7 @@ CREATE TABLE public.judicial_officer_qualifications (
     id bigint NOT NULL,
     judicial_officer_id bigint NOT NULL,
     qualification_id integer NOT NULL,
-    passing_year integer NOT NULL,
+    passing_year integer,
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone
 );
@@ -767,7 +834,7 @@ CREATE SEQUENCE public.judicial_officer_qualifications_id_seq
 
 
 --
--- TOC entry 2516 (class 0 OID 0)
+-- TOC entry 2548 (class 0 OID 0)
 -- Dependencies: 194
 -- Name: judicial_officer_qualifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -793,12 +860,12 @@ CREATE TABLE public.judicial_officers (
     hometown character varying(255),
     present_address text NOT NULL,
     permanent_address text NOT NULL,
-    mobile_no_1 character varying(255) NOT NULL,
+    mobile_no_1 character varying(255),
     mobile_no_2 character varying(255),
-    email_id_1 character varying(255) NOT NULL,
+    email_id_1 character varying(255),
     email_id_2 character varying(255),
     recruitment_batch_id integer NOT NULL,
-    recruitment_batch_year integer NOT NULL,
+    recruitment_batch_year integer,
     date_of_joining date NOT NULL,
     date_of_confirmation date,
     date_of_retirement date NOT NULL,
@@ -807,7 +874,8 @@ CREATE TABLE public.judicial_officers (
     updated_at timestamp(0) without time zone,
     other_home_district character varying(255),
     posting_preference_window_flag character varying(1),
-    posting_preference_window_open_on date
+    posting_preference_window_open_on date,
+    additional_hometown character varying(255)
 );
 
 
@@ -825,7 +893,7 @@ CREATE SEQUENCE public.judicial_officers_id_seq
 
 
 --
--- TOC entry 2517 (class 0 OID 0)
+-- TOC entry 2549 (class 0 OID 0)
 -- Dependencies: 192
 -- Name: judicial_officers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -860,7 +928,7 @@ CREATE SEQUENCE public.lcr_departments_id_seq
 
 
 --
--- TOC entry 2518 (class 0 OID 0)
+-- TOC entry 2550 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: lcr_departments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -906,7 +974,7 @@ CREATE SEQUENCE public.lcr_hc_ends_id_seq
 
 
 --
--- TOC entry 2519 (class 0 OID 0)
+-- TOC entry 2551 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: lcr_hc_ends_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -946,7 +1014,7 @@ CREATE SEQUENCE public.lcr_lc_details_id_seq
 
 
 --
--- TOC entry 2520 (class 0 OID 0)
+-- TOC entry 2552 (class 0 OID 0)
 -- Dependencies: 208
 -- Name: lcr_lc_details_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -984,7 +1052,7 @@ CREATE SEQUENCE public.lcr_status_checks_id_seq
 
 
 --
--- TOC entry 2521 (class 0 OID 0)
+-- TOC entry 2553 (class 0 OID 0)
 -- Dependencies: 222
 -- Name: lcr_status_checks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1020,7 +1088,7 @@ CREATE SEQUENCE public.lower_case_types_id_seq
 
 
 --
--- TOC entry 2522 (class 0 OID 0)
+-- TOC entry 2554 (class 0 OID 0)
 -- Dependencies: 212
 -- Name: lower_case_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1054,7 +1122,7 @@ CREATE SEQUENCE public.migrations_id_seq
 
 
 --
--- TOC entry 2523 (class 0 OID 0)
+-- TOC entry 2555 (class 0 OID 0)
 -- Dependencies: 169
 -- Name: migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1089,7 +1157,7 @@ CREATE SEQUENCE public.modes_id_seq
 
 
 --
--- TOC entry 2524 (class 0 OID 0)
+-- TOC entry 2556 (class 0 OID 0)
 -- Dependencies: 196
 -- Name: modes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1137,7 +1205,7 @@ CREATE SEQUENCE public.qualifications_id_seq
 
 
 --
--- TOC entry 2525 (class 0 OID 0)
+-- TOC entry 2557 (class 0 OID 0)
 -- Dependencies: 188
 -- Name: qualifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1173,7 +1241,7 @@ CREATE SEQUENCE public.ranks_id_seq
 
 
 --
--- TOC entry 2526 (class 0 OID 0)
+-- TOC entry 2558 (class 0 OID 0)
 -- Dependencies: 184
 -- Name: ranks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1209,7 +1277,7 @@ CREATE SEQUENCE public.recruitment_batches_id_seq
 
 
 --
--- TOC entry 2527 (class 0 OID 0)
+-- TOC entry 2559 (class 0 OID 0)
 -- Dependencies: 190
 -- Name: recruitment_batches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1245,7 +1313,7 @@ CREATE SEQUENCE public.states_id_seq
 
 
 --
--- TOC entry 2528 (class 0 OID 0)
+-- TOC entry 2560 (class 0 OID 0)
 -- Dependencies: 174
 -- Name: states_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1283,7 +1351,7 @@ CREATE SEQUENCE public.subdivisions_id_seq
 
 
 --
--- TOC entry 2529 (class 0 OID 0)
+-- TOC entry 2561 (class 0 OID 0)
 -- Dependencies: 180
 -- Name: subdivisions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1318,7 +1386,7 @@ CREATE SEQUENCE public.user_types_id_seq
 
 
 --
--- TOC entry 2530 (class 0 OID 0)
+-- TOC entry 2562 (class 0 OID 0)
 -- Dependencies: 171
 -- Name: user_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1363,7 +1431,7 @@ CREATE SEQUENCE public.users_id_seq
 
 
 --
--- TOC entry 2531 (class 0 OID 0)
+-- TOC entry 2563 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1400,7 +1468,7 @@ CREATE SEQUENCE public.zones_id_seq
 
 
 --
--- TOC entry 2532 (class 0 OID 0)
+-- TOC entry 2564 (class 0 OID 0)
 -- Dependencies: 176
 -- Name: zones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1409,7 +1477,7 @@ ALTER SEQUENCE public.zones_id_seq OWNED BY public.zones.id;
 
 
 --
--- TOC entry 2123 (class 2604 OID 451929)
+-- TOC entry 2135 (class 2604 OID 451929)
 -- Name: acr_histories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1417,7 +1485,15 @@ ALTER TABLE ONLY public.acr_histories ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 2106 (class 2604 OID 451616)
+-- TOC entry 2147 (class 2604 OID 468805)
+-- Name: career_progression_stages id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.career_progression_stages ALTER COLUMN id SET DEFAULT nextval('public.career_progression_stages_id_seq'::regclass);
+
+
+--
+-- TOC entry 2118 (class 2604 OID 451616)
 -- Name: courts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1425,7 +1501,7 @@ ALTER TABLE ONLY public.courts ALTER COLUMN id SET DEFAULT nextval('public.court
 
 
 --
--- TOC entry 2129 (class 2604 OID 452049)
+-- TOC entry 2141 (class 2604 OID 452049)
 -- Name: departments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1433,7 +1509,7 @@ ALTER TABLE ONLY public.departments ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 2108 (class 2604 OID 451641)
+-- TOC entry 2120 (class 2604 OID 451641)
 -- Name: designations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1441,7 +1517,7 @@ ALTER TABLE ONLY public.designations ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 2117 (class 2604 OID 451829)
+-- TOC entry 2129 (class 2604 OID 451829)
 -- Name: diaries id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1449,7 +1525,7 @@ ALTER TABLE ONLY public.diaries ALTER COLUMN id SET DEFAULT nextval('public.diar
 
 
 --
--- TOC entry 2104 (class 2604 OID 451576)
+-- TOC entry 2116 (class 2604 OID 451576)
 -- Name: districts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1457,7 +1533,7 @@ ALTER TABLE ONLY public.districts ALTER COLUMN id SET DEFAULT nextval('public.di
 
 
 --
--- TOC entry 2132 (class 2604 OID 452085)
+-- TOC entry 2144 (class 2604 OID 452085)
 -- Name: document_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1465,7 +1541,7 @@ ALTER TABLE ONLY public.document_types ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 2122 (class 2604 OID 451919)
+-- TOC entry 2134 (class 2604 OID 451919)
 -- Name: grade_details id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1473,7 +1549,7 @@ ALTER TABLE ONLY public.grade_details ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 2120 (class 2604 OID 451894)
+-- TOC entry 2132 (class 2604 OID 451894)
 -- Name: hc_case_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1481,7 +1557,7 @@ ALTER TABLE ONLY public.hc_case_types ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 2128 (class 2604 OID 452032)
+-- TOC entry 2140 (class 2604 OID 452032)
 -- Name: history_deleted_data id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1489,7 +1565,7 @@ ALTER TABLE ONLY public.history_deleted_data ALTER COLUMN id SET DEFAULT nextval
 
 
 --
--- TOC entry 2127 (class 2604 OID 452021)
+-- TOC entry 2139 (class 2604 OID 452021)
 -- Name: history_updated_data id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1497,7 +1573,15 @@ ALTER TABLE ONLY public.history_updated_data ALTER COLUMN id SET DEFAULT nextval
 
 
 --
--- TOC entry 2133 (class 2604 OID 452093)
+-- TOC entry 2148 (class 2604 OID 468820)
+-- Name: jo_career_progressions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jo_career_progressions ALTER COLUMN id SET DEFAULT nextval('public.jo_career_progressions_id_seq'::regclass);
+
+
+--
+-- TOC entry 2145 (class 2604 OID 452093)
 -- Name: jo_documents id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1505,7 +1589,7 @@ ALTER TABLE ONLY public.jo_documents ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 2134 (class 2604 OID 452167)
+-- TOC entry 2146 (class 2604 OID 452167)
 -- Name: jo_grades id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1513,7 +1597,7 @@ ALTER TABLE ONLY public.jo_grades ALTER COLUMN id SET DEFAULT nextval('public.jo
 
 
 --
--- TOC entry 2130 (class 2604 OID 452057)
+-- TOC entry 2142 (class 2604 OID 452057)
 -- Name: jo_legal_experiences id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1521,7 +1605,7 @@ ALTER TABLE ONLY public.jo_legal_experiences ALTER COLUMN id SET DEFAULT nextval
 
 
 --
--- TOC entry 2115 (class 2604 OID 451780)
+-- TOC entry 2127 (class 2604 OID 451780)
 -- Name: jo_reportings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1529,7 +1613,7 @@ ALTER TABLE ONLY public.jo_reportings ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 2124 (class 2604 OID 451949)
+-- TOC entry 2136 (class 2604 OID 451949)
 -- Name: jo_zone_tenures id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1537,7 +1621,7 @@ ALTER TABLE ONLY public.jo_zone_tenures ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
--- TOC entry 2116 (class 2604 OID 451808)
+-- TOC entry 2128 (class 2604 OID 451808)
 -- Name: judicial_officer_posting_preferences id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1545,7 +1629,7 @@ ALTER TABLE ONLY public.judicial_officer_posting_preferences ALTER COLUMN id SET
 
 
 --
--- TOC entry 2114 (class 2604 OID 451749)
+-- TOC entry 2126 (class 2604 OID 451749)
 -- Name: judicial_officer_postings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1553,7 +1637,7 @@ ALTER TABLE ONLY public.judicial_officer_postings ALTER COLUMN id SET DEFAULT ne
 
 
 --
--- TOC entry 2112 (class 2604 OID 451719)
+-- TOC entry 2124 (class 2604 OID 451719)
 -- Name: judicial_officer_qualifications id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1561,7 +1645,7 @@ ALTER TABLE ONLY public.judicial_officer_qualifications ALTER COLUMN id SET DEFA
 
 
 --
--- TOC entry 2111 (class 2604 OID 451674)
+-- TOC entry 2123 (class 2604 OID 451674)
 -- Name: judicial_officers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1569,7 +1653,7 @@ ALTER TABLE ONLY public.judicial_officers ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
--- TOC entry 2131 (class 2604 OID 452075)
+-- TOC entry 2143 (class 2604 OID 452075)
 -- Name: lcr_departments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1577,7 +1661,7 @@ ALTER TABLE ONLY public.lcr_departments ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
--- TOC entry 2118 (class 2604 OID 451845)
+-- TOC entry 2130 (class 2604 OID 451845)
 -- Name: lcr_hc_ends id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1585,7 +1669,7 @@ ALTER TABLE ONLY public.lcr_hc_ends ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 2119 (class 2604 OID 451878)
+-- TOC entry 2131 (class 2604 OID 451878)
 -- Name: lcr_lc_details id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1593,7 +1677,7 @@ ALTER TABLE ONLY public.lcr_lc_details ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 2126 (class 2604 OID 452005)
+-- TOC entry 2138 (class 2604 OID 452005)
 -- Name: lcr_status_checks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1601,7 +1685,7 @@ ALTER TABLE ONLY public.lcr_status_checks ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
--- TOC entry 2121 (class 2604 OID 451909)
+-- TOC entry 2133 (class 2604 OID 451909)
 -- Name: lower_case_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1609,7 +1693,7 @@ ALTER TABLE ONLY public.lower_case_types ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 2100 (class 2604 OID 451533)
+-- TOC entry 2112 (class 2604 OID 451533)
 -- Name: migrations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1617,7 +1701,7 @@ ALTER TABLE ONLY public.migrations ALTER COLUMN id SET DEFAULT nextval('public.m
 
 
 --
--- TOC entry 2113 (class 2604 OID 451739)
+-- TOC entry 2125 (class 2604 OID 451739)
 -- Name: modes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1625,7 +1709,7 @@ ALTER TABLE ONLY public.modes ALTER COLUMN id SET DEFAULT nextval('public.modes_
 
 
 --
--- TOC entry 2109 (class 2604 OID 451654)
+-- TOC entry 2121 (class 2604 OID 451654)
 -- Name: qualifications id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1633,7 +1717,7 @@ ALTER TABLE ONLY public.qualifications ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 2107 (class 2604 OID 451631)
+-- TOC entry 2119 (class 2604 OID 451631)
 -- Name: ranks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1641,7 +1725,7 @@ ALTER TABLE ONLY public.ranks ALTER COLUMN id SET DEFAULT nextval('public.ranks_
 
 
 --
--- TOC entry 2110 (class 2604 OID 451664)
+-- TOC entry 2122 (class 2604 OID 451664)
 -- Name: recruitment_batches id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1649,7 +1733,7 @@ ALTER TABLE ONLY public.recruitment_batches ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- TOC entry 2102 (class 2604 OID 451556)
+-- TOC entry 2114 (class 2604 OID 451556)
 -- Name: states id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1657,7 +1741,7 @@ ALTER TABLE ONLY public.states ALTER COLUMN id SET DEFAULT nextval('public.state
 
 
 --
--- TOC entry 2105 (class 2604 OID 451596)
+-- TOC entry 2117 (class 2604 OID 451596)
 -- Name: subdivisions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1665,7 +1749,7 @@ ALTER TABLE ONLY public.subdivisions ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 2101 (class 2604 OID 451541)
+-- TOC entry 2113 (class 2604 OID 451541)
 -- Name: user_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1673,7 +1757,7 @@ ALTER TABLE ONLY public.user_types ALTER COLUMN id SET DEFAULT nextval('public.u
 
 
 --
--- TOC entry 2125 (class 2604 OID 451969)
+-- TOC entry 2137 (class 2604 OID 451969)
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1681,7 +1765,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- TOC entry 2103 (class 2604 OID 451566)
+-- TOC entry 2115 (class 2604 OID 451566)
 -- Name: zones id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1689,7 +1773,7 @@ ALTER TABLE ONLY public.zones ALTER COLUMN id SET DEFAULT nextval('public.zones_
 
 
 --
--- TOC entry 2470 (class 0 OID 451926)
+-- TOC entry 2496 (class 0 OID 451926)
 -- Dependencies: 217
 -- Data for Name: acr_histories; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1697,70 +1781,84 @@ ALTER TABLE ONLY public.zones ALTER COLUMN id SET DEFAULT nextval('public.zones_
 
 
 --
--- TOC entry 2436 (class 0 OID 451613)
+-- TOC entry 2520 (class 0 OID 468802)
+-- Dependencies: 241
+-- Data for Name: career_progression_stages; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+INSERT INTO public.career_progression_stages (id, stage_name, rank_id, created_at, updated_at) VALUES (1, 'ACP-I', 1, '2020-01-24 00:00:00', '2020-01-24 00:00:00');
+INSERT INTO public.career_progression_stages (id, stage_name, rank_id, created_at, updated_at) VALUES (2, 'ACP-II', 1, '2020-01-24 00:00:00', '2020-01-24 00:00:00');
+INSERT INTO public.career_progression_stages (id, stage_name, rank_id, created_at, updated_at) VALUES (3, 'ACP-I', 2, '2020-01-24 00:00:00', '2020-01-24 00:00:00');
+INSERT INTO public.career_progression_stages (id, stage_name, rank_id, created_at, updated_at) VALUES (4, 'ACP-II', 2, '2020-01-24 00:00:00', '2020-01-24 00:00:00');
+INSERT INTO public.career_progression_stages (id, stage_name, rank_id, created_at, updated_at) VALUES (5, 'DJ (SG)', 3, '2020-01-24 00:00:00', '2020-01-24 00:00:00');
+INSERT INTO public.career_progression_stages (id, stage_name, rank_id, created_at, updated_at) VALUES (6, 'DJ (ST)', 3, '2020-01-24 00:00:00', '2020-01-24 00:00:00');
+
+
+--
+-- TOC entry 2462 (class 0 OID 451613)
 -- Dependencies: 183
 -- Data for Name: courts; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (59, 'civil judge sr  div bishnupur', 76, NULL, NULL, 11, '2019-11-15 17:20:52', '2019-11-15 17:20:52');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (60, 'acjm bishnupur', 76, NULL, NULL, 11, '2019-11-15 17:21:23', '2019-11-15 17:21:23');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (8, 'bardhaman 1st court', 51, NULL, NULL, 11, '2019-06-17 06:27:05', '2019-08-03 09:27:25');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (61, 'civil judge jr  div court bishnupur', 76, NULL, NULL, 11, '2019-11-15 17:22:00', '2019-11-15 17:22:00');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (62, 'jm 2nd court bishnupur', 76, NULL, NULL, 11, '2019-11-15 17:22:25', '2019-11-15 17:22:25');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (13, 'howrah 2nd court', 77, NULL, NULL, 11, '2019-06-17 06:27:05', '2019-08-03 09:30:49');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (14, 'howrah 1st court', 80, NULL, NULL, 11, '2019-06-17 06:27:05', '2019-08-03 09:29:36');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (24, 'north dinajpur 1st court', 56, NULL, NULL, 11, '2019-06-17 06:27:06', '2019-08-03 09:22:33');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (25, 'bankura 1 st court', 67, NULL, NULL, 11, '2019-06-17 06:27:06', '2019-08-03 09:25:14');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (27, 'south dinajpore', 81, NULL, NULL, 11, '2019-06-17 06:27:06', '2019-08-03 09:23:52');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (63, 'jm 3rd court bishnupur', 76, NULL, NULL, 11, '2019-11-15 17:22:53', '2019-11-15 17:22:53');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (30, 'district judge bankura', 75, NULL, NULL, 11, '2019-06-17 06:27:06', '2019-11-15 16:52:38');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (35, 'cjm  bankura', 75, NULL, NULL, 11, '2019-11-15 16:54:32', '2019-11-15 16:55:50');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (36, 'cjsd bankura', 75, NULL, NULL, 11, '2019-11-15 16:56:34', '2019-11-15 16:56:34');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (38, 'civil judge jr div i bankura', 75, NULL, NULL, 11, '2019-11-15 17:00:54', '2019-11-15 17:00:54');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (37, 'civil judge sr div  additional  court  bankura', 75, NULL, NULL, 11, '2019-11-15 16:58:42', '2019-11-15 17:02:20');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (39, 'civil judge jr div ii bankura', 75, NULL, NULL, 11, '2019-11-15 17:02:58', '2019-11-15 17:02:58');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (40, 'civil judge jr div additional court bankura', 75, NULL, NULL, 11, '2019-11-15 17:03:41', '2019-11-15 17:03:41');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (41, 'jm 3rd court bankura', 75, NULL, NULL, 11, '2019-11-15 17:04:13', '2019-11-15 17:04:13');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (42, 'jm 4th court bankura', 75, NULL, NULL, 11, '2019-11-15 17:04:33', '2019-11-15 17:04:33');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (43, 'jm 5th court bankura', 75, NULL, NULL, 11, '2019-11-15 17:04:47', '2019-11-15 17:04:47');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (44, 'jm 6th court bankura', 75, NULL, NULL, 11, '2019-11-15 17:05:13', '2019-11-15 17:05:13');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (45, 'jm 7th court bankura', 75, NULL, NULL, 11, '2019-11-15 17:05:44', '2019-11-15 17:05:44');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (48, 'adj 2nd court bankura', 75, NULL, NULL, 11, '2019-11-15 17:07:40', '2019-11-15 17:07:40');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (49, 'adj 3rd court bankura', 75, NULL, NULL, 11, '2019-11-15 17:08:14', '2019-11-15 17:08:14');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (50, 'adj re designated court bankura', 75, NULL, NULL, 11, '2019-11-15 17:08:55', '2019-11-15 17:08:55');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (51, 'adj fast track court  bankura', 75, NULL, NULL, 11, '2019-11-15 17:10:22', '2019-11-15 17:10:22');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (52, 'adj  khatra', 77, NULL, NULL, 11, '2019-11-15 17:12:57', '2019-11-15 17:12:57');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (53, 'civil judge sr  div khatra', 77, NULL, NULL, 11, '2019-11-15 17:13:49', '2019-11-15 17:15:41');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (54, 'civil judge jr  div 1st court khatra', 77, NULL, NULL, 11, '2019-11-15 17:16:33', '2019-11-15 17:16:33');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (46, 'adj 1st court bankura', 75, NULL, NULL, 11, '2019-11-15 17:06:11', '2019-11-15 17:17:38');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (55, 'civil judge jr  div 2nd court khatra', 77, NULL, NULL, 11, '2019-11-15 17:19:00', '2019-11-15 17:19:00');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (56, 'acjm khatra', 77, NULL, NULL, 11, '2019-11-15 17:19:35', '2019-11-15 17:19:35');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (57, 'jm khatra', 77, NULL, NULL, 11, '2019-11-15 17:19:54', '2019-11-15 17:19:54');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (58, 'adj bishnupur', 76, NULL, NULL, 11, '2019-11-15 17:20:23', '2019-11-15 17:20:23');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (64, 'district judge birbhum', 78, NULL, NULL, 11, '2019-11-15 17:23:43', '2019-11-15 17:25:11');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (65, 'adj 1st court birbhum', 78, NULL, NULL, 11, '2019-11-15 17:25:48', '2019-11-15 17:25:48');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (66, 'adj 2nd court birbhum', 78, NULL, NULL, 11, '2019-11-15 17:26:50', '2019-11-15 17:26:50');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (67, 'adj 3rd court birbhum', 78, NULL, NULL, 11, '2019-11-15 17:27:21', '2019-11-15 17:27:21');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (68, 'adj 4th court birbhum', 78, NULL, NULL, 11, '2019-11-15 17:27:42', '2019-11-15 17:27:42');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (69, 'adj ftc court birbhum', 78, NULL, NULL, 11, '2019-11-15 17:28:20', '2019-11-15 17:28:40');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (70, 'cjm birbhum', 78, NULL, NULL, 11, '2019-11-15 17:29:02', '2019-11-15 17:29:02');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (71, 'acjm birbhum', 78, NULL, NULL, 11, '2019-11-15 17:29:17', '2019-11-15 17:29:17');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (72, ' civil judge sr div birbhum', 78, NULL, NULL, 11, '2019-11-15 17:30:10', '2019-11-15 17:30:10');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (73, 'civil judge jr div sadar court birbhum', 78, NULL, NULL, 11, '2019-11-15 17:31:20', '2019-11-15 17:31:20');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (74, 'civil judge jr div additional court birbhum', 78, NULL, NULL, 11, '2019-11-15 17:32:52', '2019-11-15 17:32:52');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (75, 'jm 1st court birbhum', 78, NULL, NULL, 11, '2019-11-15 17:33:18', '2019-11-15 17:33:18');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (76, 'jm 2nd court birbhum', 78, NULL, NULL, 11, '2019-11-15 17:34:00', '2019-11-15 17:34:00');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (77, 'jm 3rd court birbhum', 78, NULL, NULL, 11, '2019-11-15 17:34:18', '2019-11-15 17:34:18');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (78, 'secretary dlsa birbhum', 78, NULL, NULL, 11, '2019-11-15 17:34:37', '2019-11-15 17:34:37');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (79, 'adj ftc dubrajpur birbhum', 81, NULL, NULL, 11, '2019-11-15 17:35:06', '2019-11-15 17:35:35');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (80, 'civil judge jr div court dubrajpur birbhum', 81, NULL, NULL, 11, '2019-11-15 17:37:19', '2019-11-15 17:37:19');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (81, 'jm dubrajpur birbhum', 81, NULL, NULL, 11, '2019-11-15 17:37:57', '2019-11-15 17:37:57');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (1, 'darjeeling 1st court', 118, NULL, NULL, 11, '2019-06-17 06:27:05', '2019-08-03 09:28:11');
-INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (3, 'calcutta city court', 51, NULL, NULL, 11, '2019-06-17 06:27:05', '2019-08-03 09:19:41');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (59, 'CIVIL JUDGE SR  DIV BISHNUPUR', 76, NULL, NULL, 11, '2019-11-15 17:20:52', '2019-11-15 17:20:52');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (60, 'ACJM BISHNUPUR', 76, NULL, NULL, 11, '2019-11-15 17:21:23', '2019-11-15 17:21:23');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (8, 'BARDHAMAN 1ST COURT', 51, NULL, NULL, 11, '2019-06-17 06:27:05', '2019-08-03 09:27:25');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (61, 'CIVIL JUDGE JR  DIV COURT BISHNUPUR', 76, NULL, NULL, 11, '2019-11-15 17:22:00', '2019-11-15 17:22:00');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (62, 'JM 2ND COURT BISHNUPUR', 76, NULL, NULL, 11, '2019-11-15 17:22:25', '2019-11-15 17:22:25');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (13, 'HOWRAH 2ND COURT', 77, NULL, NULL, 11, '2019-06-17 06:27:05', '2019-08-03 09:30:49');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (14, 'HOWRAH 1ST COURT', 80, NULL, NULL, 11, '2019-06-17 06:27:05', '2019-08-03 09:29:36');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (24, 'NORTH DINAJPUR 1ST COURT', 56, NULL, NULL, 11, '2019-06-17 06:27:06', '2019-08-03 09:22:33');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (25, 'BANKURA 1 ST COURT', 67, NULL, NULL, 11, '2019-06-17 06:27:06', '2019-08-03 09:25:14');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (27, 'SOUTH DINAJPORE', 81, NULL, NULL, 11, '2019-06-17 06:27:06', '2019-08-03 09:23:52');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (63, 'JM 3RD COURT BISHNUPUR', 76, NULL, NULL, 11, '2019-11-15 17:22:53', '2019-11-15 17:22:53');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (30, 'DISTRICT JUDGE BANKURA', 75, NULL, NULL, 11, '2019-06-17 06:27:06', '2019-11-15 16:52:38');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (35, 'CJM  BANKURA', 75, NULL, NULL, 11, '2019-11-15 16:54:32', '2019-11-15 16:55:50');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (36, 'CJSD BANKURA', 75, NULL, NULL, 11, '2019-11-15 16:56:34', '2019-11-15 16:56:34');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (38, 'CIVIL JUDGE JR DIV I BANKURA', 75, NULL, NULL, 11, '2019-11-15 17:00:54', '2019-11-15 17:00:54');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (37, 'CIVIL JUDGE SR DIV  ADDITIONAL  COURT  BANKURA', 75, NULL, NULL, 11, '2019-11-15 16:58:42', '2019-11-15 17:02:20');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (39, 'CIVIL JUDGE JR DIV II BANKURA', 75, NULL, NULL, 11, '2019-11-15 17:02:58', '2019-11-15 17:02:58');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (40, 'CIVIL JUDGE JR DIV ADDITIONAL COURT BANKURA', 75, NULL, NULL, 11, '2019-11-15 17:03:41', '2019-11-15 17:03:41');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (41, 'JM 3RD COURT BANKURA', 75, NULL, NULL, 11, '2019-11-15 17:04:13', '2019-11-15 17:04:13');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (42, 'JM 4TH COURT BANKURA', 75, NULL, NULL, 11, '2019-11-15 17:04:33', '2019-11-15 17:04:33');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (43, 'JM 5TH COURT BANKURA', 75, NULL, NULL, 11, '2019-11-15 17:04:47', '2019-11-15 17:04:47');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (44, 'JM 6TH COURT BANKURA', 75, NULL, NULL, 11, '2019-11-15 17:05:13', '2019-11-15 17:05:13');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (45, 'JM 7TH COURT BANKURA', 75, NULL, NULL, 11, '2019-11-15 17:05:44', '2019-11-15 17:05:44');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (48, 'ADJ 2ND COURT BANKURA', 75, NULL, NULL, 11, '2019-11-15 17:07:40', '2019-11-15 17:07:40');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (49, 'ADJ 3RD COURT BANKURA', 75, NULL, NULL, 11, '2019-11-15 17:08:14', '2019-11-15 17:08:14');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (50, 'ADJ RE DESIGNATED COURT BANKURA', 75, NULL, NULL, 11, '2019-11-15 17:08:55', '2019-11-15 17:08:55');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (51, 'ADJ FAST TRACK COURT  BANKURA', 75, NULL, NULL, 11, '2019-11-15 17:10:22', '2019-11-15 17:10:22');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (52, 'ADJ  KHATRA', 77, NULL, NULL, 11, '2019-11-15 17:12:57', '2019-11-15 17:12:57');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (53, 'CIVIL JUDGE SR  DIV KHATRA', 77, NULL, NULL, 11, '2019-11-15 17:13:49', '2019-11-15 17:15:41');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (54, 'CIVIL JUDGE JR  DIV 1ST COURT KHATRA', 77, NULL, NULL, 11, '2019-11-15 17:16:33', '2019-11-15 17:16:33');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (46, 'ADJ 1ST COURT BANKURA', 75, NULL, NULL, 11, '2019-11-15 17:06:11', '2019-11-15 17:17:38');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (55, 'CIVIL JUDGE JR  DIV 2ND COURT KHATRA', 77, NULL, NULL, 11, '2019-11-15 17:19:00', '2019-11-15 17:19:00');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (56, 'ACJM KHATRA', 77, NULL, NULL, 11, '2019-11-15 17:19:35', '2019-11-15 17:19:35');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (57, 'JM KHATRA', 77, NULL, NULL, 11, '2019-11-15 17:19:54', '2019-11-15 17:19:54');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (58, 'ADJ BISHNUPUR', 76, NULL, NULL, 11, '2019-11-15 17:20:23', '2019-11-15 17:20:23');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (64, 'DISTRICT JUDGE BIRBHUM', 78, NULL, NULL, 11, '2019-11-15 17:23:43', '2019-11-15 17:25:11');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (65, 'ADJ 1ST COURT BIRBHUM', 78, NULL, NULL, 11, '2019-11-15 17:25:48', '2019-11-15 17:25:48');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (66, 'ADJ 2ND COURT BIRBHUM', 78, NULL, NULL, 11, '2019-11-15 17:26:50', '2019-11-15 17:26:50');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (67, 'ADJ 3RD COURT BIRBHUM', 78, NULL, NULL, 11, '2019-11-15 17:27:21', '2019-11-15 17:27:21');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (68, 'ADJ 4TH COURT BIRBHUM', 78, NULL, NULL, 11, '2019-11-15 17:27:42', '2019-11-15 17:27:42');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (69, 'ADJ FTC COURT BIRBHUM', 78, NULL, NULL, 11, '2019-11-15 17:28:20', '2019-11-15 17:28:40');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (70, 'CJM BIRBHUM', 78, NULL, NULL, 11, '2019-11-15 17:29:02', '2019-11-15 17:29:02');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (71, 'ACJM BIRBHUM', 78, NULL, NULL, 11, '2019-11-15 17:29:17', '2019-11-15 17:29:17');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (72, ' CIVIL JUDGE SR DIV BIRBHUM', 78, NULL, NULL, 11, '2019-11-15 17:30:10', '2019-11-15 17:30:10');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (73, 'CIVIL JUDGE JR DIV SADAR COURT BIRBHUM', 78, NULL, NULL, 11, '2019-11-15 17:31:20', '2019-11-15 17:31:20');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (74, 'CIVIL JUDGE JR DIV ADDITIONAL COURT BIRBHUM', 78, NULL, NULL, 11, '2019-11-15 17:32:52', '2019-11-15 17:32:52');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (75, 'JM 1ST COURT BIRBHUM', 78, NULL, NULL, 11, '2019-11-15 17:33:18', '2019-11-15 17:33:18');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (76, 'JM 2ND COURT BIRBHUM', 78, NULL, NULL, 11, '2019-11-15 17:34:00', '2019-11-15 17:34:00');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (77, 'JM 3RD COURT BIRBHUM', 78, NULL, NULL, 11, '2019-11-15 17:34:18', '2019-11-15 17:34:18');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (78, 'SECRETARY DLSA BIRBHUM', 78, NULL, NULL, 11, '2019-11-15 17:34:37', '2019-11-15 17:34:37');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (79, 'ADJ FTC DUBRAJPUR BIRBHUM', 81, NULL, NULL, 11, '2019-11-15 17:35:06', '2019-11-15 17:35:35');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (80, 'CIVIL JUDGE JR DIV COURT DUBRAJPUR BIRBHUM', 81, NULL, NULL, 11, '2019-11-15 17:37:19', '2019-11-15 17:37:19');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (81, 'JM DUBRAJPUR BIRBHUM', 81, NULL, NULL, 11, '2019-11-15 17:37:57', '2019-11-15 17:37:57');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (1, 'DARJEELING 1ST COURT', 118, NULL, NULL, 11, '2019-06-17 06:27:05', '2019-08-03 09:28:11');
+INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, created_by, created_at, updated_at) VALUES (3, 'CALCUTTA CITY COURT', 51, NULL, NULL, 11, '2019-06-17 06:27:05', '2019-08-03 09:19:41');
 
 
 --
--- TOC entry 2482 (class 0 OID 452046)
+-- TOC entry 2508 (class 0 OID 452046)
 -- Dependencies: 229
 -- Data for Name: departments; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1768,25 +1866,57 @@ INSERT INTO public.courts (id, court_name, subdivision_id, latitude, longitude, 
 
 
 --
--- TOC entry 2440 (class 0 OID 451638)
+-- TOC entry 2466 (class 0 OID 451638)
 -- Dependencies: 187
 -- Data for Name: designations; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at, subdivision_id) VALUES (4, 'civil judge sr  div bishnupur', 2, 11, '2019-11-26 15:43:35', '2019-11-26 15:43:35', 76);
-INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at, subdivision_id) VALUES (2, 'acjm bishnupur', 1, 11, '2019-11-26 15:42:01', '2019-11-26 15:43:14', 76);
-INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at, subdivision_id) VALUES (1, 'adj bardhaman 1st court', 2, 2, '2019-11-22 18:04:31', '2019-11-22 18:04:31', 67);
-INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at, subdivision_id) VALUES (3, 'civil judge jr  div court bishnupur', 3, 11, '2019-11-26 15:43:22', '2019-11-26 15:43:22', 51);
-INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at, subdivision_id) VALUES (5, 'cjsd bankura', 2, 11, '2019-11-26 15:43:22', '2019-11-26 15:43:22', 65);
-INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at, subdivision_id) VALUES (6, 'civil judge jr div i bankura', 1, 11, '2019-11-26 15:43:22', '2019-11-26 15:43:22', 65);
-INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at, subdivision_id) VALUES (7, 'jm 3rd court bankura', 1, 11, '2019-11-26 15:43:22', '2019-11-26 15:43:22', 65);
-INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at, subdivision_id) VALUES (8, 'adj fast track court  bankura', 2, 11, '2019-11-26 15:43:22', '2019-11-26 15:43:22', 71);
-INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at, subdivision_id) VALUES (9, 'adj 1st court birbhum', 2, 11, '2019-11-26 15:43:22', '2019-11-26 15:43:22', 56);
-INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at, subdivision_id) VALUES (10, 'adj ftc dubrajpur birbhum', 2, 11, '2019-11-26 15:43:22', '2019-11-26 15:43:22', 80);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (3, 'Munsif Additional Court, Asansol', 1, 1, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (4, 'JM, 5th Court, Asansol', 1, 1, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (5, 'JM 3rd Court, Beherampur', 1, 1, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (6, 'Munsif, 2nd Court, Arambag', 1, 1, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (7, 'JM, 2nd Court, Arambag', 1, 1, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (8, 'JM, 2n Court, Purulia', 1, 1, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (9, 'On Probation', 1, 1, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (10, 'JM, 5th Court, Burdwan Sadar', 1, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (13, 'Leave Reserve Officer,Hoogly Sadar', 2, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (12, 'JM,Jhargram', 1, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (15, 'Additional District & Sessions Judge,2nd Court,Jhargram', 3, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (14, 'Additional District and Session Judge, F.T.C-1,Dinhata', 3, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (16, 'Additional District & Sessions Judge,3rd Court,Darjeeling Sadar', 3, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (17, 'Civil Judge (Sr.Div),Dinhata', 2, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (18, 'Additional District And Sessions Judge 2nd F.T.C,Diamond Harbour', 3, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (19, 'Additional District and Sessions Judge,F.T.C, Baruipur', 3, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (11, 'Civil Judge(Jr. Div) 1st Additional Court,Contai', 1, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (20, 'JM 1st  Court,Contai', 1, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (21, 'Civil Judge(Jr.Div),Contai', 1, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (22, 'Civil Judge(Sr.Div),Hoogly Sadar', 2, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (26, 'Civil Judge(Jr Div) 4th Court,Howrah Sadar', 1, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (25, 'JM 4th  Court,Burdwan Sadar', 1, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (27, 'Civil Judge(Jr Div) 2nd Court,Contai', 1, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (28, 'Civil Judge(Jr Div)1st Court,Contai', 1, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (29, 'Additional Chief Judicial magistrate,Serampore', 2, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (30, 'Civil Judge(Sr. Div),Jhargram', 2, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (31, 'Additional Chief Judicial Magistrate, Jhargram', 2, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (33, 'Additional District & Sessions Judge F.T.C,Baruipur', 2, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (32, 'Additional District & Sessions Judge F.T.C 2nd Court,Dinhata ', 2, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (34, 'Additional District & Sessions Judge,Baruipur', 3, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (35, 'Additional District & Sessions Judge 1st Court,Jhargram', 3, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (36, 'Additional District & Sessions Judge, 1st Court , Darjeeling Sadar', 3, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (37, 'Registrar,District Judge,Purba Bardhaman', 2, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (38, 'Registrar,District Judge,Howrah', 2, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (39, 'Registrar,City Civil Court,Calcutta', 2, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (40, 'Registrar,City Sessions Court, Calcutta', 2, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (41, 'Registrar,District Judge,Barasat,North 24-Parganas', 2, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (42, 'Registrar,District Judge,Paschim Medinipur ', 2, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (43, 'Registrar,District Judge, Alipore,North 24-Parganas', 2, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (24, 'Registrar,MM 7th Court,Bankshall Court', 1, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (44, 'Registrar,Bankshall Court', 2, NULL, NULL, NULL);
+INSERT INTO public.designations (id, designation_name, rank_id, created_by, created_at, updated_at) VALUES (45, 'Registrar,Presidency Small Cause Court,Calcutta', 1, NULL, NULL, NULL);
 
 
 --
--- TOC entry 2458 (class 0 OID 451826)
+-- TOC entry 2484 (class 0 OID 451826)
 -- Dependencies: 205
 -- Data for Name: diaries; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1794,40 +1924,40 @@ INSERT INTO public.designations (id, designation_name, rank_id, created_by, crea
 
 
 --
--- TOC entry 2432 (class 0 OID 451573)
+-- TOC entry 2458 (class 0 OID 451573)
 -- Dependencies: 179
 -- Data for Name: districts; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (48, 'jalpaiguri', 51, 8, 11, '2019-11-11 13:42:40', '2019-11-11 13:42:40');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (50, 'andaman and nicobar island', 75, 8, 11, '2019-11-11 14:07:53', '2019-11-11 14:07:53');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (44, 'murshidabad', 51, 7, 11, '2019-11-11 13:20:46', '2019-11-11 13:20:46');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (45, 'purba medinipur', 51, 6, 11, '2019-11-11 13:30:59', '2019-11-11 13:30:59');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (46, 'nadia', 51, 6, 11, '2019-11-11 13:31:32', '2019-11-11 13:31:32');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (47, 'cooch behar', 51, 8, 11, '2019-11-11 13:32:34', '2019-11-11 13:32:34');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (5, 'purulia', 7, 7, 11, '2019-06-17 06:27:05', '2019-08-05 05:48:47');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (7, 'kalimpong', 11, 8, 11, '2019-06-17 06:27:05', '2019-08-05 05:56:54');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (6, 'malda', 8, 7, 11, '2019-06-17 06:27:05', '2019-08-05 05:51:22');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (10, 'darjeeling', 17, 8, 11, '2019-06-17 06:27:05', '2019-08-05 05:55:27');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (8, 'south dinajpur', 11, 8, 11, '2019-06-17 06:27:05', '2019-08-05 05:50:41');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (14, 'west burdwan', 24, 6, 11, '2019-06-17 06:27:05', '2019-08-05 05:47:25');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (13, 'south 24 parganas', 24, 4, 11, '2019-06-17 06:27:05', '2019-11-11 12:28:19');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (25, 'bankura', 44, 7, 11, '2019-06-17 06:27:06', '2019-08-05 05:48:21');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (22, 'alipure duar', 38, 8, 11, '2019-06-17 06:27:06', '2019-08-05 05:54:08');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (27, 'birbhum', 44, 7, 11, '2019-06-17 06:27:06', '2019-08-05 05:49:09');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (26, 'howrah', 44, 4, 11, '2019-06-17 06:27:06', '2019-08-05 05:47:53');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (29, 'north dinajpur', 48, 8, 11, '2019-06-17 06:27:06', '2019-11-11 13:54:30');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (28, 'hoogly', 48, 4, 11, '2019-06-17 06:27:06', '2019-08-05 05:48:03');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (38, 'north 24 parganas', 51, 4, 11, '2019-11-11 12:26:13', '2019-11-11 12:26:13');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (36, 'kolkata', 51, 4, 11, '2019-07-10 06:27:59', '2019-07-10 06:27:59');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (41, 'paschim bardhaman', 51, 6, 11, '2019-11-11 13:19:29', '2019-11-11 13:19:29');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (40, 'purba bardhaman', 51, 6, 11, '2019-11-11 13:19:11', '2019-11-11 13:19:11');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (43, 'paschim medinipur', 51, 6, 11, '2019-11-11 13:20:14', '2019-11-11 13:20:14');
-INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (42, 'jhargram', 51, 6, 11, '2019-11-11 13:19:58', '2019-11-11 13:19:58');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (48, 'JALPAIGURI', 51, 8, 11, '2019-11-11 13:42:40', '2019-11-11 13:42:40');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (50, 'ANDAMAN AND NICOBAR ISLAND', 75, 8, 11, '2019-11-11 14:07:53', '2019-11-11 14:07:53');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (44, 'MURSHIDABAD', 51, 7, 11, '2019-11-11 13:20:46', '2019-11-11 13:20:46');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (45, 'PURBA MEDINIPUR', 51, 6, 11, '2019-11-11 13:30:59', '2019-11-11 13:30:59');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (46, 'NADIA', 51, 6, 11, '2019-11-11 13:31:32', '2019-11-11 13:31:32');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (47, 'COOCH BEHAR', 51, 8, 11, '2019-11-11 13:32:34', '2019-11-11 13:32:34');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (14, 'WEST BURDWAN', 24, 6, 11, '2019-06-17 06:27:05', '2019-08-05 05:47:25');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (38, 'NORTH 24 PARGANAS', 51, 4, 11, '2019-11-11 12:26:13', '2019-11-11 12:26:13');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (36, 'KOLKATA', 51, 4, 11, '2019-07-10 06:27:59', '2019-07-10 06:27:59');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (41, 'PASCHIM BARDHAMAN', 51, 6, 11, '2019-11-11 13:19:29', '2019-11-11 13:19:29');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (40, 'PURBA BARDHAMAN', 51, 6, 11, '2019-11-11 13:19:11', '2019-11-11 13:19:11');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (43, 'PASCHIM MEDINIPUR', 51, 6, 11, '2019-11-11 13:20:14', '2019-11-11 13:20:14');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (42, 'JHARGRAM', 51, 6, 11, '2019-11-11 13:19:58', '2019-11-11 13:19:58');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (28, 'HOOGLY', 51, 4, 11, '2019-06-17 06:27:06', '2019-08-05 05:48:03');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (27, 'BIRBHUM', 51, 7, 11, '2019-06-17 06:27:06', '2019-08-05 05:49:09');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (29, 'NORTH DINAJPUR', 51, 8, 11, '2019-06-17 06:27:06', '2019-11-11 13:54:30');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (6, 'MALDA', 51, 7, 11, '2019-06-17 06:27:05', '2019-08-05 05:51:22');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (5, 'PURULIA', 51, 7, 11, '2019-06-17 06:27:05', '2019-08-05 05:48:47');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (8, 'SOUTH DINAJPUR', 51, 8, 11, '2019-06-17 06:27:05', '2019-08-05 05:50:41');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (13, 'SOUTH 24 PARGANAS', 51, 4, 11, '2019-06-17 06:27:05', '2019-11-11 12:28:19');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (10, 'DARJEELING', 51, 8, 11, '2019-06-17 06:27:05', '2019-08-05 05:55:27');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (22, 'ALIPURE DUAR', 51, 8, 11, '2019-06-17 06:27:06', '2019-08-05 05:54:08');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (26, 'HOWRAH', 51, 4, 11, '2019-06-17 06:27:06', '2019-08-05 05:47:53');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (25, 'BANKURA', 51, 7, 11, '2019-06-17 06:27:06', '2019-08-05 05:48:21');
+INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, created_at, updated_at) VALUES (7, 'KALIMPONG', 51, 8, 11, '2019-06-17 06:27:05', '2019-08-05 05:56:54');
 
 
 --
--- TOC entry 2488 (class 0 OID 452082)
+-- TOC entry 2514 (class 0 OID 452082)
 -- Dependencies: 235
 -- Data for Name: document_types; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1835,7 +1965,7 @@ INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, 
 
 
 --
--- TOC entry 2468 (class 0 OID 451916)
+-- TOC entry 2494 (class 0 OID 451916)
 -- Dependencies: 215
 -- Data for Name: grade_details; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1848,7 +1978,7 @@ INSERT INTO public.grade_details (id, grade_name, created_by, created_at, update
 
 
 --
--- TOC entry 2464 (class 0 OID 451891)
+-- TOC entry 2490 (class 0 OID 451891)
 -- Dependencies: 211
 -- Data for Name: hc_case_types; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1955,7 +2085,7 @@ INSERT INTO public.hc_case_types (id, type_name, full_form, created_by, created_
 
 
 --
--- TOC entry 2480 (class 0 OID 452029)
+-- TOC entry 2506 (class 0 OID 452029)
 -- Dependencies: 227
 -- Data for Name: history_deleted_data; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1996,10 +2126,162 @@ INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_t
 INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (62, 'judicial_officer_postings', '{"id":46,"judicial_officer_id":18,"mode_id":1,"rank_id":1,"designation_id":1,"deputation_designation":"","deputation_posting_place":"","from_date":"1993-05-24","to_date":"1994-04-05","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-06 15:53:11","updated_at":"2020-01-06 15:53:11"}', '2020-01-05 10:34:02');
 INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (63, 'judicial_officer_postings', '{"id":47,"judicial_officer_id":18,"mode_id":1,"rank_id":1,"designation_id":8,"deputation_designation":"","deputation_posting_place":"","from_date":"1994-05-24","to_date":"1994-04-05","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-06 15:53:11","updated_at":"2020-01-06 15:53:11"}', '2020-01-05 10:34:02');
 INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (64, 'judicial_officer_postings', '{"id":48,"judicial_officer_id":18,"mode_id":1,"rank_id":3,"designation_id":3,"deputation_designation":"","deputation_posting_place":"","from_date":"1994-04-16","to_date":"1997-01-24","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-06 15:53:11","updated_at":"2020-01-06 15:53:11"}', '2020-01-05 10:34:02');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (65, 'judicial_officers', '{"id":18,"registration_no":"208","jo_code":"WB208","officer_name":"Sukhendu Das","gender":"M","spouse":null,"date_of_birth":"1970-08-30","home_state_id":51,"home_district_id":47,"hometown":"balurghat","present_address":"balurghat","permanent_address":"balurghat","mobile_no_1":"9474699490","mobile_no_2":null,"email_id_1":"sukhendu@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1990,"date_of_joining":"1991-08-31","date_of_confirmation":null,"date_of_retirement":"2020-08-31","profile_image":null,"created_at":null,"updated_at":null,"other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":null}', '2020-01-07 07:58:02');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (66, 'judicial_officers', '{"id":11,"registration_no":"1567","jo_code":"WB1567","officer_name":"XYZ","gender":"M","spouse":null,"date_of_birth":"1990-12-29","home_state_id":1,"home_district_id":null,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"abc@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2019,"date_of_joining":"2018-09-13","date_of_confirmation":null,"date_of_retirement":"2045-09-18","profile_image":"1567_1576521000.jpg","created_at":null,"updated_at":"2019-12-19 15:51:30","other_home_district":"Test District","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2019-09-30"}', '2020-01-07 07:58:02');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (67, 'judicial_officers', '{"id":2,"registration_no":"321","jo_code":"WB321","officer_name":"ANABIL BHATTACHARYA","gender":"Male","spouse":null,"date_of_birth":"1990-12-29","home_state_id":1,"home_district_id":13,"hometown":"Belghoria","present_address":"21/2/1 B.N. Road","permanent_address":"21/2/1 B.N. Road","mobile_no_1":"9830983011","mobile_no_2":null,"email_id_1":"banabil90@gmail.com","email_id_2":null,"recruitment_batch_id":2,"recruitment_batch_year":2015,"date_of_joining":"2019-09-18","date_of_confirmation":"2018-09-20","date_of_retirement":"2081-09-18","profile_image":"Rupsa.jpg","created_at":null,"updated_at":null,"other_home_district":null,"posting_preference_window_flag":"Y","posting_preference_window_open_on":"2019-12-12"}', '2020-01-07 07:58:02');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (68, 'judicial_officers', '{"id":17,"registration_no":"2912","jo_code":"WB2912","officer_name":"Bhatt Anabil","gender":"M","spouse":null,"date_of_birth":"1990-12-29","home_state_id":51,"home_district_id":38,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"7605893512","mobile_no_2":null,"email_id_1":"banabil89@gmail.com","email_id_2":null,"recruitment_batch_id":2,"recruitment_batch_year":2019,"date_of_joining":"2018-09-18","date_of_confirmation":null,"date_of_retirement":"2040-12-29","profile_image":null,"created_at":null,"updated_at":null,"other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":null}', '2020-01-07 07:58:02');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (69, 'judicial_officers', '{"id":12,"registration_no":"150","jo_code":"WB150","officer_name":"Arpan Kr Roy","gender":"M","spouse":null,"date_of_birth":"1990-12-29","home_state_id":46,"home_district_id":null,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"1234567891","mobile_no_2":null,"email_id_1":"abcd@gmail.com","email_id_2":null,"recruitment_batch_id":2,"recruitment_batch_year":2019,"date_of_joining":"2018-09-12","date_of_confirmation":null,"date_of_retirement":"2040-12-18","profile_image":null,"created_at":null,"updated_at":"2019-12-30 12:44:35","other_home_district":"Test District","posting_preference_window_flag":null,"posting_preference_window_open_on":null}', '2020-01-07 07:58:02');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (70, 'judicial_officers', '{"id":3,"registration_no":"1234","jo_code":"WB1234","officer_name":"ABC","gender":"M","spouse":null,"date_of_birth":"1990-12-29","home_state_id":51,"home_district_id":48,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"8981660218","mobile_no_2":null,"email_id_1":"banabil901@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2015,"date_of_joining":"2018-09-18","date_of_confirmation":"2018-09-18","date_of_retirement":"2040-09-18","profile_image":null,"created_at":null,"updated_at":"2020-01-07 11:24:29","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2019-12-31"}', '2020-01-07 07:58:02');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (71, 'judicial_officers', '{"id":1,"registration_no":"123","jo_code":"WB123","officer_name":"Rupsa Bose","gender":"F","spouse":9,"date_of_birth":"1989-03-05","home_state_id":1,"home_district_id":36,"hometown":"Maniktala","present_address":"Amherst Row","permanent_address":"Amherst Row","mobile_no_1":"9830982611","mobile_no_2":null,"email_id_1":"rupsa@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2013,"date_of_joining":"2018-09-18","date_of_confirmation":"2018-09-20","date_of_retirement":"2079-09-18","profile_image":"rohini.jpg","created_at":null,"updated_at":"2020-01-08 11:59:51","other_home_district":null,"posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-04"}', '2020-01-07 07:58:02');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (72, 'judicial_officers', '{"id":9,"registration_no":"126","jo_code":"WB126","officer_name":"Abhisek Gayen","gender":"M","spouse":1,"date_of_birth":"1990-12-29","home_state_id":1,"home_district_id":44,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Row\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Row\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"8981660215","mobile_no_2":"","email_id_1":"banabil9012@gmail.com","email_id_2":"","recruitment_batch_id":2,"recruitment_batch_year":2019,"date_of_joining":"2019-12-19","date_of_confirmation":"2019-12-20","date_of_retirement":"2045-12-29","profile_image":"126_1578249000.jpg","created_at":null,"updated_at":"2020-01-08 11:59:51","other_home_district":"Test District","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-02"}', '2020-01-07 07:58:02');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (73, 'judicial_officer_postings', '{"id":2,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":2,"deputation_designation":"","deputation_posting_place":"","from_date":"1991-08-30","to_date":"1992-05-16","posting_remark":"Prob. Munsif","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:10:09","updated_at":"2020-01-08 15:10:09"}', '2020-01-07 09:47:40');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (74, 'judicial_officer_postings', '{"id":7,"judicial_officer_id":3,"mode_id":1,"rank_id":1,"designation_id":4,"deputation_designation":"","deputation_posting_place":"","from_date":"2000-01-20","to_date":"2003-03-06","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:21:45","updated_at":"2020-01-08 15:21:45"}', '2020-01-07 09:56:49');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (75, 'judicial_officer_postings', '{"id":8,"judicial_officer_id":3,"mode_id":1,"rank_id":1,"designation_id":4,"deputation_designation":"","deputation_posting_place":"","from_date":"2000-01-20","to_date":"2003-03-06","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:22:34","updated_at":"2020-01-08 15:22:34"}', '2020-01-07 09:57:27');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (76, 'judicial_officer_postings', '{"id":9,"judicial_officer_id":3,"mode_id":1,"rank_id":1,"designation_id":7,"deputation_designation":"","deputation_posting_place":"","from_date":"2004-08-09","to_date":"2005-06-20","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:22:34","updated_at":"2020-01-08 15:22:34"}', '2020-01-07 09:57:27');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (77, 'judicial_officer_postings', '{"id":3,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":2,"deputation_designation":"","deputation_posting_place":"","from_date":"1991-08-30","to_date":"1992-05-16","posting_remark":"Prob. Munsif","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:13:25","updated_at":"2020-01-08 15:13:25"}', '2020-01-07 09:58:18');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (78, 'judicial_officer_postings', '{"id":4,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":3,"deputation_designation":"","deputation_posting_place":"","from_date":"1992-05-18","to_date":"1993-01-29","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:13:25","updated_at":"2020-01-08 15:13:25"}', '2020-01-07 09:58:18');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (79, 'judicial_officer_postings', '{"id":5,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":4,"deputation_designation":"","deputation_posting_place":"","from_date":"1992-05-18","to_date":"1993-01-29","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:13:25","updated_at":"2020-01-08 15:13:25"}', '2020-01-07 09:58:18');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (80, 'judicial_officer_postings', '{"id":6,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":6,"deputation_designation":"","deputation_posting_place":"","from_date":"1993-01-30","to_date":"1993-05-14","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:13:25","updated_at":"2020-01-08 15:13:25"}', '2020-01-07 09:58:18');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (81, 'judicial_officer_postings', '{"id":14,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":4,"deputation_designation":"","deputation_posting_place":"","from_date":"1992-05-18","to_date":"1993-01-29","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:24:03","updated_at":"2020-01-08 15:24:03","additional_designation":null,"zone_id":6}', '2020-01-08 11:05:23');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (82, 'judicial_officer_postings', '{"id":15,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":3,"deputation_designation":"","deputation_posting_place":"","from_date":"1992-05-18","to_date":"1993-01-29","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:24:03","updated_at":"2020-01-08 15:24:03","additional_designation":null,"zone_id":6}', '2020-01-08 11:05:23');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (83, 'judicial_officer_postings', '{"id":16,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":6,"deputation_designation":"","deputation_posting_place":"","from_date":"1993-01-30","to_date":"1993-05-14","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:24:03","updated_at":"2020-01-08 15:24:03","additional_designation":null,"zone_id":6}', '2020-01-08 11:05:23');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (84, 'judicial_officer_postings', '{"id":13,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":2,"deputation_designation":"","deputation_posting_place":"","from_date":"1991-08-30","to_date":"1992-05-16","posting_remark":"Prob. Munsif","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:24:03","updated_at":"2020-01-08 15:24:03","additional_designation":null,"zone_id":6}', '2020-01-08 11:05:23');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (85, 'judicial_officer_postings', '{"id":17,"judicial_officer_id":2,"mode_id":1,"rank_id":2,"designation_id":5,"deputation_designation":"","deputation_posting_place":"","from_date":"1995-07-20","to_date":null,"posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:24:03","updated_at":"2020-01-08 15:24:03","additional_designation":null,"zone_id":7}', '2020-01-08 11:05:23');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (86, 'judicial_officer_postings', '{"id":18,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":2,"deputation_designation":"","deputation_posting_place":"","from_date":"1991-08-30","to_date":"1992-05-16","posting_remark":"Prob. Munsif","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:32:32","updated_at":"2020-01-09 16:32:32","additional_designation":null,"zone_id":6}', '2020-01-08 11:05:41');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (87, 'judicial_officer_postings', '{"id":19,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":3,"deputation_designation":"","deputation_posting_place":"","from_date":"1992-05-18","to_date":"1993-01-29","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:32:32","updated_at":"2020-01-09 16:32:32","additional_designation":null,"zone_id":6}', '2020-01-08 11:05:41');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (88, 'judicial_officer_postings', '{"id":20,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":4,"deputation_designation":"","deputation_posting_place":"","from_date":"1992-05-18","to_date":"1993-01-29","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:32:32","updated_at":"2020-01-09 16:32:32","additional_designation":null,"zone_id":6}', '2020-01-08 11:05:41');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (89, 'judicial_officer_postings', '{"id":21,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":6,"deputation_designation":"","deputation_posting_place":"","from_date":"1993-01-30","to_date":"1993-05-14","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:32:32","updated_at":"2020-01-09 16:32:32","additional_designation":null,"zone_id":6}', '2020-01-08 11:05:41');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (90, 'judicial_officer_postings', '{"id":22,"judicial_officer_id":2,"mode_id":1,"rank_id":2,"designation_id":5,"deputation_designation":"","deputation_posting_place":"","from_date":"1995-07-20","to_date":null,"posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:32:32","updated_at":"2020-01-09 16:32:32","additional_designation":null,"zone_id":6}', '2020-01-08 11:05:41');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (91, 'judicial_officer_postings', '{"id":23,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":2,"deputation_designation":"","deputation_posting_place":"","from_date":"1991-08-30","to_date":"1992-05-16","posting_remark":"Prob. Munsif","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:32:49","updated_at":"2020-01-09 16:32:49","additional_designation":null,"zone_id":6}', '2020-01-08 11:21:57');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (92, 'judicial_officer_postings', '{"id":24,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":4,"deputation_designation":"","deputation_posting_place":"","from_date":"1992-05-18","to_date":"1993-01-29","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:32:49","updated_at":"2020-01-09 16:32:49","additional_designation":null,"zone_id":6}', '2020-01-08 11:21:57');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (93, 'judicial_officer_postings', '{"id":25,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":3,"deputation_designation":"","deputation_posting_place":"","from_date":"1992-05-18","to_date":"1993-01-29","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:32:49","updated_at":"2020-01-09 16:32:49","additional_designation":null,"zone_id":6}', '2020-01-08 11:21:57');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (94, 'judicial_officer_postings', '{"id":26,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":6,"deputation_designation":"","deputation_posting_place":"","from_date":"1993-01-30","to_date":"1993-05-14","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:32:49","updated_at":"2020-01-09 16:32:49","additional_designation":null,"zone_id":6}', '2020-01-08 11:21:57');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (95, 'judicial_officer_postings', '{"id":27,"judicial_officer_id":2,"mode_id":1,"rank_id":2,"designation_id":5,"deputation_designation":"","deputation_posting_place":"","from_date":"1995-07-20","to_date":null,"posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:32:49","updated_at":"2020-01-09 16:32:49","additional_designation":null,"zone_id":7}', '2020-01-08 11:21:57');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (96, 'judicial_officer_postings', '{"id":28,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":2,"deputation_designation":"","deputation_posting_place":"","from_date":"1991-08-30","to_date":"1992-05-16","posting_remark":"Prob. Munsif","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:49:05","updated_at":"2020-01-09 16:49:05","additional_designation":"abc","zone_id":6}', '2020-01-08 11:22:20');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (97, 'judicial_officer_postings', '{"id":29,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":3,"deputation_designation":"","deputation_posting_place":"","from_date":"1992-05-18","to_date":"1993-01-29","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:49:05","updated_at":"2020-01-09 16:49:05","additional_designation":"","zone_id":6}', '2020-01-08 11:22:20');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (98, 'judicial_officer_postings', '{"id":30,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":4,"deputation_designation":"","deputation_posting_place":"","from_date":"1992-05-18","to_date":"1993-01-29","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:49:05","updated_at":"2020-01-09 16:49:05","additional_designation":"","zone_id":6}', '2020-01-08 11:22:20');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (99, 'judicial_officer_postings', '{"id":31,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":6,"deputation_designation":"","deputation_posting_place":"","from_date":"1993-01-30","to_date":"1993-05-14","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:49:05","updated_at":"2020-01-09 16:49:05","additional_designation":"","zone_id":6}', '2020-01-08 11:22:20');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (100, 'judicial_officer_postings', '{"id":32,"judicial_officer_id":2,"mode_id":1,"rank_id":2,"designation_id":5,"deputation_designation":"","deputation_posting_place":"","from_date":"1995-07-20","to_date":null,"posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:49:05","updated_at":"2020-01-09 16:49:05","additional_designation":"","zone_id":7}', '2020-01-08 11:22:20');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (101, 'judicial_officer_postings', '{"id":33,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":2,"deputation_designation":"","deputation_posting_place":"","from_date":"1991-08-30","to_date":"1992-05-16","posting_remark":"Prob. Munsif","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:49:28","updated_at":"2020-01-09 16:49:28","additional_designation":"","zone_id":6}', '2020-01-08 11:32:22');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (102, 'judicial_officer_postings', '{"id":34,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":4,"deputation_designation":"","deputation_posting_place":"","from_date":"1992-05-18","to_date":"1993-01-29","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:49:28","updated_at":"2020-01-09 16:49:28","additional_designation":"","zone_id":6}', '2020-01-08 11:32:22');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (103, 'judicial_officer_postings', '{"id":35,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":3,"deputation_designation":"","deputation_posting_place":"","from_date":"1992-05-18","to_date":"1993-01-29","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:49:28","updated_at":"2020-01-09 16:49:28","additional_designation":"","zone_id":6}', '2020-01-08 11:32:22');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (104, 'judicial_officer_postings', '{"id":36,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":6,"deputation_designation":"","deputation_posting_place":"","from_date":"1993-01-30","to_date":"1993-05-14","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:49:28","updated_at":"2020-01-09 16:49:28","additional_designation":"","zone_id":6}', '2020-01-08 11:32:22');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (105, 'judicial_officer_postings', '{"id":37,"judicial_officer_id":2,"mode_id":1,"rank_id":2,"designation_id":5,"deputation_designation":"","deputation_posting_place":"","from_date":"1995-07-20","to_date":null,"posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:49:28","updated_at":"2020-01-09 16:49:28","additional_designation":"","zone_id":7}', '2020-01-08 11:32:22');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (106, 'judicial_officer_postings', '{"id":43,"judicial_officer_id":10,"mode_id":1,"rank_id":1,"designation_id":4,"deputation_designation":"","deputation_posting_place":"","from_date":"2020-01-01","to_date":null,"posting_remark":"","created_at":"2020-01-18 15:36:19","updated_at":"2020-01-18 15:36:19","additional_designation":null,"zone_id":4}', '2020-01-17 10:10:24');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (107, 'judicial_officers', '{"id":10,"registration_no":"123","jo_code":"WB123","officer_name":"ABC","gender":"M","spouse":null,"date_of_birth":"2019-01-16","home_state_id":51,"home_district_id":48,"hometown":"ggg","present_address":"sadasd","permanent_address":"sadasd","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"abcd@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2020,"date_of_joining":"2020-01-01","date_of_confirmation":"2020-01-03","date_of_retirement":"2020-01-07","profile_image":null,"created_at":null,"updated_at":null,"other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":null}', '2020-01-17 10:11:26');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (108, 'judicial_officer_postings', '{"id":44,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":11,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-10-16","to_date":"2004-06-30","posting_remark":"","created_at":"2020-01-18 16:26:27","updated_at":"2020-01-18 16:26:27","additional_designation":null,"zone_id":6}', '2020-01-17 11:14:27');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (109, 'judicial_officer_postings', '{"id":45,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":11,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-10-16","to_date":"2004-06-30","posting_remark":"","created_at":"2020-01-18 16:42:28","updated_at":"2020-01-18 16:42:28","additional_designation":"","zone_id":6}', '2020-01-17 11:19:12');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (110, 'judicial_officer_postings', '{"id":46,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":12,"deputation_designation":"","deputation_posting_place":"","from_date":"2004-07-05","to_date":"2005-10-16","posting_remark":"","created_at":"2020-01-18 16:42:28","updated_at":"2020-01-18 16:42:28","additional_designation":"","zone_id":6}', '2020-01-17 11:19:12');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (111, 'judicial_officer_postings', '{"id":47,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":13,"deputation_designation":"","deputation_posting_place":"","from_date":"2009-07-27","to_date":"2011-02-02","posting_remark":"","created_at":"2020-01-18 16:42:28","updated_at":"2020-01-18 16:42:28","additional_designation":"","zone_id":4}', '2020-01-17 11:19:12');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (112, 'judicial_officer_postings', '{"id":48,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":15,"deputation_designation":"","deputation_posting_place":"","from_date":"2016-01-11","to_date":"2018-10-04","posting_remark":"","created_at":"2020-01-18 16:42:28","updated_at":"2020-01-18 16:42:28","additional_designation":"","zone_id":6}', '2020-01-17 11:19:12');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (113, 'judicial_officer_postings', '{"id":49,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":16,"deputation_designation":"","deputation_posting_place":"","from_date":"2018-10-11","to_date":null,"posting_remark":"","created_at":"2020-01-18 16:42:28","updated_at":"2020-01-18 16:42:28","additional_designation":"","zone_id":8}', '2020-01-17 11:19:12');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (114, 'judicial_officer_postings', '{"id":50,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":11,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-10-16","to_date":"2004-06-30","posting_remark":"","created_at":"2020-01-18 16:47:13","updated_at":"2020-01-18 16:47:13","additional_designation":"","zone_id":6}', '2020-01-19 06:56:33');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (115, 'judicial_officer_postings', '{"id":51,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":12,"deputation_designation":"","deputation_posting_place":"","from_date":"2004-07-05","to_date":"2005-10-16","posting_remark":"","created_at":"2020-01-18 16:47:13","updated_at":"2020-01-18 16:47:13","additional_designation":"","zone_id":6}', '2020-01-19 06:56:33');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (116, 'judicial_officer_postings', '{"id":52,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":13,"deputation_designation":"","deputation_posting_place":"","from_date":"2009-07-27","to_date":"2011-02-02","posting_remark":"","created_at":"2020-01-18 16:47:13","updated_at":"2020-01-18 16:47:13","additional_designation":"","zone_id":4}', '2020-01-19 06:56:33');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (117, 'judicial_officer_postings', '{"id":53,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":15,"deputation_designation":"","deputation_posting_place":"","from_date":"2016-01-11","to_date":"2018-10-04","posting_remark":"","created_at":"2020-01-18 16:47:13","updated_at":"2020-01-18 16:47:13","additional_designation":"","zone_id":6}', '2020-01-19 06:56:33');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (118, 'judicial_officer_postings', '{"id":54,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":16,"deputation_designation":"","deputation_posting_place":"","from_date":"2018-10-11","to_date":null,"posting_remark":"","created_at":"2020-01-18 16:47:13","updated_at":"2020-01-18 16:47:13","additional_designation":"","zone_id":8}', '2020-01-19 06:56:33');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (119, 'judicial_officer_postings', '{"id":55,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":14,"deputation_designation":"","deputation_posting_place":"","from_date":"2011-02-04","to_date":"2013-02-08","posting_remark":"","created_at":"2020-01-18 16:47:13","updated_at":"2020-01-18 16:47:13","additional_designation":"","zone_id":8}', '2020-01-19 06:56:33');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (120, 'judicial_officer_postings', '{"id":56,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":11,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-10-16","to_date":"2004-06-30","posting_remark":"","created_at":"2020-01-20 12:24:33","updated_at":"2020-01-20 12:24:33","additional_designation":"JM 1st Court,Contai","zone_id":6}', '2020-01-19 07:10:12');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (121, 'judicial_officer_postings', '{"id":57,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":21,"deputation_designation":"","deputation_posting_place":"","from_date":"2004-07-05","to_date":"2005-10-16","posting_remark":"","created_at":"2020-01-20 12:24:33","updated_at":"2020-01-20 12:24:33","additional_designation":"JM,Jhargram","zone_id":6}', '2020-01-19 07:10:12');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (122, 'judicial_officer_postings', '{"id":58,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":13,"deputation_designation":"","deputation_posting_place":"","from_date":"2009-07-27","to_date":"2011-02-02","posting_remark":"","created_at":"2020-01-20 12:24:33","updated_at":"2020-01-20 12:24:33","additional_designation":"","zone_id":4}', '2020-01-19 07:10:12');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (123, 'judicial_officer_postings', '{"id":59,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":14,"deputation_designation":"","deputation_posting_place":"","from_date":"2011-02-04","to_date":"2013-02-08","posting_remark":"","created_at":"2020-01-20 12:24:33","updated_at":"2020-01-20 12:24:33","additional_designation":"","zone_id":8}', '2020-01-19 07:10:12');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (124, 'judicial_officer_postings', '{"id":60,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":15,"deputation_designation":"","deputation_posting_place":"","from_date":"2016-01-11","to_date":"2018-10-04","posting_remark":"","created_at":"2020-01-20 12:24:33","updated_at":"2020-01-20 12:24:33","additional_designation":"","zone_id":6}', '2020-01-19 07:10:12');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (125, 'judicial_officer_postings', '{"id":61,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":16,"deputation_designation":"","deputation_posting_place":"","from_date":"2018-10-11","to_date":null,"posting_remark":"","created_at":"2020-01-20 12:24:33","updated_at":"2020-01-20 12:24:33","additional_designation":"","zone_id":8}', '2020-01-19 07:10:12');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (126, 'judicial_officer_postings', '{"id":62,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":11,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-10-16","to_date":"2004-06-30","posting_remark":"","created_at":"2020-01-20 12:38:12","updated_at":"2020-01-20 12:38:12","additional_designation":"JM 1st Court,Contai","zone_id":6}', '2020-01-19 07:12:00');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (127, 'judicial_officer_postings', '{"id":63,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":21,"deputation_designation":"","deputation_posting_place":"","from_date":"2004-07-05","to_date":"2005-10-16","posting_remark":"","created_at":"2020-01-20 12:38:12","updated_at":"2020-01-20 12:38:12","additional_designation":"JM,Jhargram","zone_id":6}', '2020-01-19 07:12:00');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (128, 'judicial_officer_postings', '{"id":64,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":13,"deputation_designation":"","deputation_posting_place":"","from_date":"2009-07-27","to_date":"2011-02-02","posting_remark":"","created_at":"2020-01-20 12:38:12","updated_at":"2020-01-20 12:38:12","additional_designation":"","zone_id":4}', '2020-01-19 07:12:00');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (129, 'judicial_officer_postings', '{"id":65,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":14,"deputation_designation":"","deputation_posting_place":"","from_date":"2011-02-04","to_date":"2013-02-08","posting_remark":"","created_at":"2020-01-20 12:38:12","updated_at":"2020-01-20 12:38:12","additional_designation":"","zone_id":8}', '2020-01-19 07:12:00');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (130, 'judicial_officer_postings', '{"id":66,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":15,"deputation_designation":"","deputation_posting_place":"","from_date":"2016-01-11","to_date":"2018-10-04","posting_remark":"","created_at":"2020-01-20 12:38:12","updated_at":"2020-01-20 12:38:12","additional_designation":"","zone_id":6}', '2020-01-19 07:12:00');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (131, 'judicial_officer_postings', '{"id":67,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":16,"deputation_designation":"","deputation_posting_place":"","from_date":"2018-10-11","to_date":null,"posting_remark":"","created_at":"2020-01-20 12:38:12","updated_at":"2020-01-20 12:38:12","additional_designation":"","zone_id":8}', '2020-01-19 07:12:00');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (132, 'judicial_officer_postings', '{"id":68,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":11,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-10-16","to_date":"2004-06-30","posting_remark":"","created_at":"2020-01-20 12:39:59","updated_at":"2020-01-20 12:39:59","additional_designation":"JM 1st Court,Contai","zone_id":6}', '2020-01-19 07:18:19');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (133, 'judicial_officer_postings', '{"id":69,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":21,"deputation_designation":"","deputation_posting_place":"","from_date":"2004-07-05","to_date":"2005-10-16","posting_remark":"","created_at":"2020-01-20 12:39:59","updated_at":"2020-01-20 12:39:59","additional_designation":"JM,Jhargram","zone_id":6}', '2020-01-19 07:18:19');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (134, 'judicial_officer_postings', '{"id":70,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":14,"deputation_designation":"","deputation_posting_place":"","from_date":"2011-02-04","to_date":"2013-02-08","posting_remark":"","created_at":"2020-01-20 12:39:59","updated_at":"2020-01-20 12:39:59","additional_designation":"","zone_id":8}', '2020-01-19 07:18:19');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (135, 'judicial_officer_postings', '{"id":71,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":15,"deputation_designation":"","deputation_posting_place":"","from_date":"2016-01-11","to_date":"2018-10-04","posting_remark":"","created_at":"2020-01-20 12:39:59","updated_at":"2020-01-20 12:39:59","additional_designation":"","zone_id":6}', '2020-01-19 07:18:19');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (136, 'judicial_officer_postings', '{"id":72,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":16,"deputation_designation":"","deputation_posting_place":"","from_date":"2018-10-11","to_date":null,"posting_remark":"","created_at":"2020-01-20 12:39:59","updated_at":"2020-01-20 12:39:59","additional_designation":"","zone_id":8}', '2020-01-19 07:18:19');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (137, 'judicial_officer_postings', '{"id":73,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":11,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-10-16","to_date":"2004-06-30","posting_remark":"","created_at":"2020-01-20 12:46:19","updated_at":"2020-01-20 12:46:19","additional_designation":"JM 1st Court,Contai","zone_id":6}', '2020-01-19 07:39:10');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (138, 'judicial_officer_postings', '{"id":74,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":21,"deputation_designation":"","deputation_posting_place":"","from_date":"2004-07-05","to_date":"2005-10-16","posting_remark":"","created_at":"2020-01-20 12:46:19","updated_at":"2020-01-20 12:46:19","additional_designation":"JM,Jhargram","zone_id":6}', '2020-01-19 07:39:10');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (139, 'judicial_officer_postings', '{"id":75,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":17,"deputation_designation":"","deputation_posting_place":"","from_date":"2011-02-04","to_date":"2011-11-08","posting_remark":"","created_at":"2020-01-20 12:46:19","updated_at":"2020-01-20 12:46:19","additional_designation":"Additional District & Sessions Judge F.T.C Court - 1,DInhata From 8.11.2011(FN) to 8.02.2013 (FN)","zone_id":8}', '2020-01-19 07:39:10');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (140, 'judicial_officer_postings', '{"id":76,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":15,"deputation_designation":"","deputation_posting_place":"","from_date":"2016-01-11","to_date":"2018-10-04","posting_remark":"","created_at":"2020-01-20 12:46:19","updated_at":"2020-01-20 12:46:19","additional_designation":"","zone_id":6}', '2020-01-19 07:39:10');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (141, 'judicial_officer_postings', '{"id":77,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":16,"deputation_designation":"","deputation_posting_place":"","from_date":"2018-10-11","to_date":null,"posting_remark":"","created_at":"2020-01-20 12:46:19","updated_at":"2020-01-20 12:46:19","additional_designation":"","zone_id":8}', '2020-01-19 07:39:10');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (142, 'judicial_officer_postings', '{"id":78,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":11,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-10-16","to_date":"2004-06-30","posting_remark":"","created_at":"2020-01-20 13:07:09","updated_at":"2020-01-20 13:07:09","additional_designation":"JM 1st Court,Contai","zone_id":6}', '2020-01-19 07:44:14');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (143, 'judicial_officer_postings', '{"id":79,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":21,"deputation_designation":"","deputation_posting_place":"","from_date":"2004-07-05","to_date":"2005-10-16","posting_remark":"","created_at":"2020-01-20 13:07:09","updated_at":"2020-01-20 13:07:09","additional_designation":"JM,Jhargram","zone_id":6}', '2020-01-19 07:44:14');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (144, 'judicial_officer_postings', '{"id":80,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":17,"deputation_designation":"","deputation_posting_place":"","from_date":"2011-02-04","to_date":"2011-11-08","posting_remark":"","created_at":"2020-01-20 13:07:09","updated_at":"2020-01-20 13:07:09","additional_designation":"Additional District & Sessions Judge F.T.C Court - 1,DInhata From 8.11.2011(FN) to 8.02.2013 (FN)","zone_id":8}', '2020-01-19 07:44:14');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (145, 'judicial_officer_postings', '{"id":81,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":15,"deputation_designation":"","deputation_posting_place":"","from_date":"2016-01-11","to_date":"2018-10-04","posting_remark":"","created_at":"2020-01-20 13:07:09","updated_at":"2020-01-20 13:07:09","additional_designation":"","zone_id":6}', '2020-01-19 07:44:14');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (146, 'judicial_officer_postings', '{"id":82,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":16,"deputation_designation":"","deputation_posting_place":"","from_date":"2018-10-11","to_date":null,"posting_remark":"","created_at":"2020-01-20 13:07:09","updated_at":"2020-01-20 13:07:09","additional_designation":"","zone_id":8}', '2020-01-19 07:44:14');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (147, 'judicial_officer_postings', '{"id":83,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":24,"deputation_designation":"","deputation_posting_place":"","from_date":"2007-06-26","to_date":"2009-07-27","posting_remark":"","created_at":"2020-01-20 13:07:10","updated_at":"2020-01-20 13:07:10","additional_designation":"Registrar and Principal Magistrate,Juvenile Justice Board,Bankshall Court From 26.06.2007 To 27.07.2009","zone_id":4}', '2020-01-19 07:44:14');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (148, 'judicial_officer_postings', '{"id":84,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":11,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-10-16","to_date":"2004-06-30","posting_remark":"","created_at":"2020-01-20 13:12:14","updated_at":"2020-01-20 13:12:14","additional_designation":"JM 1st Court,Contai","zone_id":6}', '2020-01-19 07:53:39');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (149, 'judicial_officer_postings', '{"id":85,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":21,"deputation_designation":"","deputation_posting_place":"","from_date":"2004-07-05","to_date":"2005-10-16","posting_remark":"","created_at":"2020-01-20 13:12:14","updated_at":"2020-01-20 13:12:14","additional_designation":"JM,Jhargram","zone_id":6}', '2020-01-19 07:53:39');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (150, 'judicial_officer_postings', '{"id":86,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":17,"deputation_designation":"","deputation_posting_place":"","from_date":"2011-02-04","to_date":"2011-11-08","posting_remark":"","created_at":"2020-01-20 13:12:14","updated_at":"2020-01-20 13:12:14","additional_designation":"Additional District & Sessions Judge F.T.C Court - 1,DInhata From 8.11.2011(FN) to 8.02.2013 (FN)","zone_id":8}', '2020-01-19 07:53:39');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (151, 'judicial_officer_postings', '{"id":87,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":15,"deputation_designation":"","deputation_posting_place":"","from_date":"2016-01-11","to_date":"2018-10-04","posting_remark":"","created_at":"2020-01-20 13:12:14","updated_at":"2020-01-20 13:12:14","additional_designation":"","zone_id":6}', '2020-01-19 07:53:39');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (152, 'judicial_officer_postings', '{"id":88,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":16,"deputation_designation":"","deputation_posting_place":"","from_date":"2018-10-11","to_date":null,"posting_remark":"","created_at":"2020-01-20 13:12:14","updated_at":"2020-01-20 13:12:14","additional_designation":"","zone_id":8}', '2020-01-19 07:53:39');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (153, 'judicial_officer_postings', '{"id":89,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":24,"deputation_designation":"","deputation_posting_place":"","from_date":"2007-06-26","to_date":"2009-07-27","posting_remark":"","created_at":"2020-01-20 13:12:14","updated_at":"2020-01-20 13:12:14","additional_designation":"Registrar and Principal Magistrate,Juvenile Justice Board,Bankshall Court From 26.06.2007 To 27.07.2009","zone_id":4}', '2020-01-19 07:53:39');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (154, 'judicial_officer_postings', '{"id":90,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":22,"deputation_designation":"","deputation_posting_place":"","from_date":"2009-07-27","to_date":"2011-02-02","posting_remark":"","created_at":"2020-01-20 13:12:14","updated_at":"2020-01-20 13:12:14","additional_designation":"Leave Reserve Officer,Hoogly Sadar","zone_id":4}', '2020-01-19 07:53:39');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (155, 'judicial_officer_postings', '{"id":99,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":9,"deputation_designation":"","deputation_posting_place":"","from_date":"1997-11-28","to_date":"1998-07-17","posting_remark":"Posted at Hoogly Sadar","created_at":"2020-01-20 13:57:33","updated_at":"2020-01-20 13:57:33","additional_designation":null,"zone_id":4}', '2020-01-19 10:00:55');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (156, 'judicial_officer_postings', '{"id":100,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":9,"deputation_designation":"","deputation_posting_place":"","from_date":"1997-11-28","to_date":"1998-07-17","posting_remark":"Posted at Hoogly Sadar","created_at":"2020-01-20 15:28:55","updated_at":"2020-01-20 15:28:55","additional_designation":"","zone_id":4}', '2020-01-19 10:04:32');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (157, 'judicial_officer_postings', '{"id":101,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":25,"deputation_designation":"","deputation_posting_place":"","from_date":"1998-07-23","to_date":"2001-06-06","posting_remark":"","created_at":"2020-01-20 15:28:55","updated_at":"2020-01-20 15:28:55","additional_designation":"","zone_id":6}', '2020-01-19 10:04:32');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (158, 'judicial_officer_postings', '{"id":102,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":9,"deputation_designation":"","deputation_posting_place":"","from_date":"1997-11-28","to_date":"1998-07-17","posting_remark":"Posted at Hoogly Sadar","created_at":"2020-01-20 15:32:32","updated_at":"2020-01-20 15:32:32","additional_designation":"","zone_id":4}', '2020-01-19 10:07:53');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (159, 'judicial_officer_postings', '{"id":103,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":25,"deputation_designation":"","deputation_posting_place":"","from_date":"1998-07-23","to_date":"2001-06-06","posting_remark":"","created_at":"2020-01-20 15:32:32","updated_at":"2020-01-20 15:32:32","additional_designation":"","zone_id":6}', '2020-01-19 10:07:53');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (160, 'judicial_officer_postings', '{"id":104,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":26,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-06-16","to_date":"2001-11-21","posting_remark":"","created_at":"2020-01-20 15:32:32","updated_at":"2020-01-20 15:32:32","additional_designation":"","zone_id":4}', '2020-01-19 10:07:53');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (161, 'judicial_officer_postings', '{"id":105,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":27,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-11-29","to_date":"2002-08-07","posting_remark":"","created_at":"2020-01-20 15:32:32","updated_at":"2020-01-20 15:32:32","additional_designation":"","zone_id":6}', '2020-01-19 10:07:53');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (162, 'judicial_officer_postings', '{"id":106,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":28,"deputation_designation":"","deputation_posting_place":"","from_date":"2002-08-07","to_date":"2004-06-29","posting_remark":"","created_at":"2020-01-20 15:32:32","updated_at":"2020-01-20 15:32:32","additional_designation":"","zone_id":6}', '2020-01-19 10:07:53');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (163, 'judicial_officer_postings', '{"id":107,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":9,"deputation_designation":"","deputation_posting_place":"","from_date":"1997-11-28","to_date":"1998-07-17","posting_remark":"Posted at Hoogly Sadar","created_at":"2020-01-20 15:35:52","updated_at":"2020-01-20 15:35:52","additional_designation":"","zone_id":4}', '2020-01-19 10:14:07');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (164, 'judicial_officer_postings', '{"id":108,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":25,"deputation_designation":"","deputation_posting_place":"","from_date":"1998-07-23","to_date":"2001-06-06","posting_remark":"","created_at":"2020-01-20 15:35:52","updated_at":"2020-01-20 15:35:52","additional_designation":"","zone_id":6}', '2020-01-19 10:14:07');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (165, 'judicial_officer_postings', '{"id":109,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":26,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-06-16","to_date":"2001-11-21","posting_remark":"","created_at":"2020-01-20 15:35:52","updated_at":"2020-01-20 15:35:52","additional_designation":"","zone_id":4}', '2020-01-19 10:14:07');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (166, 'judicial_officer_postings', '{"id":110,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":27,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-11-29","to_date":"2002-08-07","posting_remark":"","created_at":"2020-01-20 15:35:52","updated_at":"2020-01-20 15:35:52","additional_designation":"","zone_id":6}', '2020-01-19 10:14:07');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (167, 'judicial_officer_postings', '{"id":111,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":28,"deputation_designation":"","deputation_posting_place":"","from_date":"2002-08-07","to_date":"2004-06-29","posting_remark":"","created_at":"2020-01-20 15:35:52","updated_at":"2020-01-20 15:35:52","additional_designation":"","zone_id":6}', '2020-01-19 10:14:07');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (168, 'judicial_officer_postings', '{"id":112,"judicial_officer_id":12,"mode_id":1,"rank_id":2,"designation_id":31,"deputation_designation":"","deputation_posting_place":"","from_date":"2004-07-08","to_date":"2006-06-07","posting_remark":"","created_at":"2020-01-20 15:35:52","updated_at":"2020-01-20 15:35:52","additional_designation":"","zone_id":6}', '2020-01-19 10:14:07');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (169, 'judicial_officer_postings', '{"id":113,"judicial_officer_id":12,"mode_id":1,"rank_id":2,"designation_id":30,"deputation_designation":"","deputation_posting_place":"","from_date":"2006-06-07","to_date":"2007-06-28","posting_remark":"","created_at":"2020-01-20 15:35:52","updated_at":"2020-01-20 15:35:52","additional_designation":"","zone_id":6}', '2020-01-19 10:14:07');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (170, 'judicial_officer_postings', '{"id":114,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":9,"deputation_designation":"","deputation_posting_place":"","from_date":"1997-11-28","to_date":"1998-07-17","posting_remark":"Posted at Hoogly Sadar","created_at":"2020-01-20 15:42:07","updated_at":"2020-01-20 15:42:07","additional_designation":"","zone_id":4}', '2020-01-19 10:15:44');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (171, 'judicial_officer_postings', '{"id":115,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":25,"deputation_designation":"","deputation_posting_place":"","from_date":"1998-07-23","to_date":"2001-06-06","posting_remark":"","created_at":"2020-01-20 15:42:07","updated_at":"2020-01-20 15:42:07","additional_designation":"","zone_id":6}', '2020-01-19 10:15:44');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (172, 'judicial_officer_postings', '{"id":116,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":26,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-06-16","to_date":"2001-11-21","posting_remark":"","created_at":"2020-01-20 15:42:07","updated_at":"2020-01-20 15:42:07","additional_designation":"","zone_id":4}', '2020-01-19 10:15:44');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (173, 'judicial_officer_postings', '{"id":117,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":27,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-11-29","to_date":"2002-08-07","posting_remark":"","created_at":"2020-01-20 15:42:07","updated_at":"2020-01-20 15:42:07","additional_designation":"","zone_id":6}', '2020-01-19 10:15:44');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (174, 'judicial_officer_postings', '{"id":118,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":28,"deputation_designation":"","deputation_posting_place":"","from_date":"2002-08-07","to_date":"2004-06-29","posting_remark":"","created_at":"2020-01-20 15:42:07","updated_at":"2020-01-20 15:42:07","additional_designation":"","zone_id":6}', '2020-01-19 10:15:44');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (175, 'judicial_officer_postings', '{"id":119,"judicial_officer_id":12,"mode_id":1,"rank_id":2,"designation_id":31,"deputation_designation":"","deputation_posting_place":"","from_date":"2004-07-08","to_date":"2006-06-07","posting_remark":"","created_at":"2020-01-20 15:42:07","updated_at":"2020-01-20 15:42:07","additional_designation":"","zone_id":6}', '2020-01-19 10:15:44');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (176, 'judicial_officer_postings', '{"id":120,"judicial_officer_id":12,"mode_id":1,"rank_id":2,"designation_id":30,"deputation_designation":"","deputation_posting_place":"","from_date":"2006-06-07","to_date":"2007-06-28","posting_remark":"","created_at":"2020-01-20 15:42:07","updated_at":"2020-01-20 15:42:07","additional_designation":"","zone_id":6}', '2020-01-19 10:15:44');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (177, 'judicial_officer_postings', '{"id":121,"judicial_officer_id":12,"mode_id":1,"rank_id":2,"designation_id":29,"deputation_designation":"","deputation_posting_place":"","from_date":"2007-07-04","to_date":"2011-01-05","posting_remark":"","created_at":"2020-01-20 15:42:07","updated_at":"2020-01-20 15:42:07","additional_designation":"","zone_id":4}', '2020-01-19 10:15:44');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (178, 'judicial_officer_postings', '{"id":122,"judicial_officer_id":12,"mode_id":1,"rank_id":2,"designation_id":32,"deputation_designation":"","deputation_posting_place":"","from_date":"2011-01-07","to_date":"2013-01-22","posting_remark":"","created_at":"2020-01-20 15:42:07","updated_at":"2020-01-20 15:42:07","additional_designation":"","zone_id":8}', '2020-01-19 10:15:44');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (179, 'judicial_officer_postings', '{"id":123,"judicial_officer_id":12,"mode_id":1,"rank_id":2,"designation_id":19,"deputation_designation":"","deputation_posting_place":"","from_date":"2013-01-24","to_date":"2013-04-01","posting_remark":"","created_at":"2020-01-20 15:42:07","updated_at":"2020-01-20 15:42:07","additional_designation":"","zone_id":4}', '2020-01-19 10:15:44');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (180, 'judicial_officer_postings', '{"id":124,"judicial_officer_id":12,"mode_id":1,"rank_id":3,"designation_id":34,"deputation_designation":"","deputation_posting_place":"","from_date":"2013-04-01","to_date":"2016-01-29","posting_remark":"","created_at":"2020-01-20 15:42:07","updated_at":"2020-01-20 15:42:07","additional_designation":"","zone_id":4}', '2020-01-19 10:15:44');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (181, 'judicial_officer_postings', '{"id":125,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":9,"deputation_designation":"","deputation_posting_place":"","from_date":"1997-11-28","to_date":"1998-07-17","posting_remark":"Posted at Hoogly Sadar","created_at":"2020-01-20 15:43:44","updated_at":"2020-01-20 15:43:44","additional_designation":"","zone_id":4}', '2020-01-19 10:16:49');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (182, 'judicial_officer_postings', '{"id":126,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":25,"deputation_designation":"","deputation_posting_place":"","from_date":"1998-07-23","to_date":"2001-06-06","posting_remark":"","created_at":"2020-01-20 15:43:44","updated_at":"2020-01-20 15:43:44","additional_designation":"","zone_id":6}', '2020-01-19 10:16:49');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (183, 'judicial_officer_postings', '{"id":127,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":26,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-06-16","to_date":"2001-11-21","posting_remark":"","created_at":"2020-01-20 15:43:44","updated_at":"2020-01-20 15:43:44","additional_designation":"","zone_id":4}', '2020-01-19 10:16:49');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (184, 'judicial_officer_postings', '{"id":128,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":27,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-11-29","to_date":"2002-08-07","posting_remark":"","created_at":"2020-01-20 15:43:44","updated_at":"2020-01-20 15:43:44","additional_designation":"","zone_id":6}', '2020-01-19 10:16:49');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (185, 'judicial_officer_postings', '{"id":129,"judicial_officer_id":12,"mode_id":1,"rank_id":1,"designation_id":28,"deputation_designation":"","deputation_posting_place":"","from_date":"2002-08-07","to_date":"2004-06-29","posting_remark":"","created_at":"2020-01-20 15:43:44","updated_at":"2020-01-20 15:43:44","additional_designation":"","zone_id":6}', '2020-01-19 10:16:49');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (186, 'judicial_officer_postings', '{"id":130,"judicial_officer_id":12,"mode_id":1,"rank_id":2,"designation_id":31,"deputation_designation":"","deputation_posting_place":"","from_date":"2004-07-08","to_date":"2006-06-07","posting_remark":"","created_at":"2020-01-20 15:43:44","updated_at":"2020-01-20 15:43:44","additional_designation":"","zone_id":6}', '2020-01-19 10:16:49');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (187, 'judicial_officer_postings', '{"id":131,"judicial_officer_id":12,"mode_id":1,"rank_id":2,"designation_id":30,"deputation_designation":"","deputation_posting_place":"","from_date":"2006-06-07","to_date":"2007-06-28","posting_remark":"","created_at":"2020-01-20 15:43:44","updated_at":"2020-01-20 15:43:44","additional_designation":"","zone_id":6}', '2020-01-19 10:16:49');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (188, 'judicial_officer_postings', '{"id":132,"judicial_officer_id":12,"mode_id":1,"rank_id":2,"designation_id":29,"deputation_designation":"","deputation_posting_place":"","from_date":"2007-07-04","to_date":"2011-01-05","posting_remark":"","created_at":"2020-01-20 15:43:44","updated_at":"2020-01-20 15:43:44","additional_designation":"","zone_id":4}', '2020-01-19 10:16:49');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (189, 'judicial_officer_postings', '{"id":133,"judicial_officer_id":12,"mode_id":1,"rank_id":2,"designation_id":32,"deputation_designation":"","deputation_posting_place":"","from_date":"2011-01-07","to_date":"2013-01-22","posting_remark":"","created_at":"2020-01-20 15:43:44","updated_at":"2020-01-20 15:43:44","additional_designation":"","zone_id":8}', '2020-01-19 10:16:49');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (190, 'judicial_officer_postings', '{"id":134,"judicial_officer_id":12,"mode_id":1,"rank_id":2,"designation_id":19,"deputation_designation":"","deputation_posting_place":"","from_date":"2013-01-24","to_date":"2013-04-01","posting_remark":"","created_at":"2020-01-20 15:43:44","updated_at":"2020-01-20 15:43:44","additional_designation":"","zone_id":4}', '2020-01-19 10:16:49');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (191, 'judicial_officer_postings', '{"id":135,"judicial_officer_id":12,"mode_id":1,"rank_id":3,"designation_id":34,"deputation_designation":"","deputation_posting_place":"","from_date":"2013-04-01","to_date":"2016-01-29","posting_remark":"","created_at":"2020-01-20 15:43:44","updated_at":"2020-01-20 15:43:44","additional_designation":"","zone_id":4}', '2020-01-19 10:16:49');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (192, 'judicial_officer_postings', '{"id":136,"judicial_officer_id":12,"mode_id":1,"rank_id":3,"designation_id":35,"deputation_designation":"","deputation_posting_place":"","from_date":"2016-02-05","to_date":"2018-10-04","posting_remark":"","created_at":"2020-01-20 15:43:44","updated_at":"2020-01-20 15:43:44","additional_designation":"","zone_id":6}', '2020-01-19 10:16:49');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (193, 'judicial_officer_postings', '{"id":91,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":11,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-10-16","to_date":"2004-06-30","posting_remark":"","created_at":"2020-01-20 13:21:39","updated_at":"2020-01-20 13:21:39","additional_designation":"JM 1st Court,Contai","zone_id":6}', '2020-01-20 08:14:04');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (194, 'judicial_officer_postings', '{"id":92,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":21,"deputation_designation":"","deputation_posting_place":"","from_date":"2004-07-05","to_date":"2005-10-16","posting_remark":"","created_at":"2020-01-20 13:21:39","updated_at":"2020-01-20 13:21:39","additional_designation":"JM,Jhargram","zone_id":6}', '2020-01-20 08:14:04');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (195, 'judicial_officer_postings', '{"id":93,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":17,"deputation_designation":"","deputation_posting_place":"","from_date":"2011-02-04","to_date":"2011-11-08","posting_remark":"","created_at":"2020-01-20 13:21:39","updated_at":"2020-01-20 13:21:39","additional_designation":"Additional District & Sessions Judge F.T.C Court - 1,DInhata From 8.11.2011(FN) to 8.02.2013 (FN)","zone_id":8}', '2020-01-20 08:14:04');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (196, 'judicial_officer_postings', '{"id":94,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":15,"deputation_designation":"","deputation_posting_place":"","from_date":"2016-01-11","to_date":"2018-10-04","posting_remark":"","created_at":"2020-01-20 13:21:39","updated_at":"2020-01-20 13:21:39","additional_designation":"","zone_id":6}', '2020-01-20 08:14:04');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (197, 'judicial_officer_postings', '{"id":95,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":16,"deputation_designation":"","deputation_posting_place":"","from_date":"2018-10-11","to_date":null,"posting_remark":"","created_at":"2020-01-20 13:21:39","updated_at":"2020-01-20 13:21:39","additional_designation":"","zone_id":8}', '2020-01-20 08:14:04');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (198, 'judicial_officer_postings', '{"id":96,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":24,"deputation_designation":"","deputation_posting_place":"","from_date":"2007-06-26","to_date":"2009-07-27","posting_remark":"","created_at":"2020-01-20 13:21:39","updated_at":"2020-01-20 13:21:39","additional_designation":"Registrar and Principal Magistrate,Juvenile Justice Board,Bankshall Court From 26.06.2007 To 27.07.2009","zone_id":4}', '2020-01-20 08:14:04');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (199, 'judicial_officer_postings', '{"id":97,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":22,"deputation_designation":"","deputation_posting_place":"","from_date":"2009-07-27","to_date":"2011-02-02","posting_remark":"","created_at":"2020-01-20 13:21:39","updated_at":"2020-01-20 13:21:39","additional_designation":"Leave Reserve Officer,Hoogly Sadar","zone_id":4}', '2020-01-20 08:14:04');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (200, 'judicial_officer_postings', '{"id":98,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":18,"deputation_designation":"","deputation_posting_place":"","from_date":"2013-02-11","to_date":"2014-02-06","posting_remark":"","created_at":"2020-01-20 13:21:39","updated_at":"2020-01-20 13:21:39","additional_designation":"Additional District & Sessions Judge F.T.C,Baruipur From 06.02.2014 To 04.01.2016","zone_id":4}', '2020-01-20 08:14:04');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (201, 'judicial_officer_postings', '{"id":150,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":11,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-10-16","to_date":"2004-06-30","posting_remark":"","created_at":"2020-01-21 13:42:02","updated_at":"2020-01-21 13:42:02","additional_designation":"JM 1st Court,Contai","zone_id":6}', '2020-01-20 08:22:08');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (202, 'judicial_officer_postings', '{"id":151,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":21,"deputation_designation":"","deputation_posting_place":"","from_date":"2004-07-05","to_date":"2005-10-16","posting_remark":"","created_at":"2020-01-21 13:42:02","updated_at":"2020-01-21 13:42:02","additional_designation":"JM,Jhargram","zone_id":6}', '2020-01-20 08:22:08');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (203, 'judicial_officer_postings', '{"id":152,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":24,"deputation_designation":"","deputation_posting_place":"","from_date":"2007-06-26","to_date":"2009-07-27","posting_remark":"","created_at":"2020-01-21 13:42:02","updated_at":"2020-01-21 13:42:02","additional_designation":"Registrar Bankshall Court from 26.06.2007 and Principal Magistrate,Juvenile Justice Board,Bankshall Court From 26.06.2007 To 27.07.2009","zone_id":4}', '2020-01-20 08:22:08');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (204, 'judicial_officer_postings', '{"id":153,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":22,"deputation_designation":"","deputation_posting_place":"","from_date":"2009-07-27","to_date":"2011-02-02","posting_remark":"","created_at":"2020-01-21 13:42:02","updated_at":"2020-01-21 13:42:02","additional_designation":"Leave Reserve Officer,Hoogly Sadar","zone_id":4}', '2020-01-20 08:22:08');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (205, 'judicial_officer_postings', '{"id":154,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":17,"deputation_designation":"","deputation_posting_place":"","from_date":"2011-02-04","to_date":"2011-11-08","posting_remark":"","created_at":"2020-01-21 13:42:02","updated_at":"2020-01-21 13:42:02","additional_designation":"Additional District & Sessions Judge F.T.C Court - 1,DInhata From 8.11.2011(FN) to 8.02.2013 (FN)","zone_id":8}', '2020-01-20 08:22:08');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (206, 'judicial_officer_postings', '{"id":155,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":18,"deputation_designation":"","deputation_posting_place":"","from_date":"2013-02-11","to_date":"2014-02-06","posting_remark":"","created_at":"2020-01-21 13:42:03","updated_at":"2020-01-21 13:42:03","additional_designation":"Additional District & Sessions Judge F.T.C,Baruipur From 06.02.2014 To 04.01.2016","zone_id":4}', '2020-01-20 08:22:08');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (207, 'judicial_officer_postings', '{"id":156,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":15,"deputation_designation":"","deputation_posting_place":"","from_date":"2016-01-11","to_date":"2018-10-04","posting_remark":"","created_at":"2020-01-21 13:42:03","updated_at":"2020-01-21 13:42:03","additional_designation":"","zone_id":6}', '2020-01-20 08:22:08');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (208, 'judicial_officer_postings', '{"id":157,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":16,"deputation_designation":"","deputation_posting_place":"","from_date":"2018-10-11","to_date":null,"posting_remark":"","created_at":"2020-01-21 13:42:03","updated_at":"2020-01-21 13:42:03","additional_designation":"","zone_id":8}', '2020-01-20 08:22:08');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (209, 'judicial_officer_postings', '{"id":158,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":11,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-10-16","to_date":"2004-06-30","posting_remark":"","created_at":"2020-01-21 13:50:06","updated_at":"2020-01-21 13:50:06","additional_designation":"JM 1st Court,Contai","zone_id":6}', '2020-01-20 10:27:36');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (210, 'judicial_officer_postings', '{"id":159,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":21,"deputation_designation":"","deputation_posting_place":"","from_date":"2004-07-05","to_date":"2005-10-16","posting_remark":"","created_at":"2020-01-21 13:50:06","updated_at":"2020-01-21 13:50:06","additional_designation":"JM,Jhargram","zone_id":6}', '2020-01-20 10:27:36');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (211, 'judicial_officer_postings', '{"id":160,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":24,"deputation_designation":"","deputation_posting_place":"","from_date":"2007-06-26","to_date":"2009-07-27","posting_remark":"","created_at":"2020-01-21 13:50:06","updated_at":"2020-01-21 13:50:06","additional_designation":"Registrar,Bankshall Court from 26.06.2007 To 27.07.2009 And\nPrincipal Magistrate,Juvenile Justice Board,Bankshall Court From 11.06.2008 To 27.07.2009","zone_id":4}', '2020-01-20 10:27:36');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (212, 'judicial_officer_postings', '{"id":161,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":22,"deputation_designation":"","deputation_posting_place":"","from_date":"2009-07-27","to_date":"2011-02-02","posting_remark":"","created_at":"2020-01-21 13:50:07","updated_at":"2020-01-21 13:50:07","additional_designation":"Leave Reserve Officer,Hoogly Sadar","zone_id":4}', '2020-01-20 10:27:36');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (213, 'judicial_officer_postings', '{"id":162,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":17,"deputation_designation":"","deputation_posting_place":"","from_date":"2011-02-04","to_date":"2011-11-08","posting_remark":"","created_at":"2020-01-21 13:50:07","updated_at":"2020-01-21 13:50:07","additional_designation":"Additional District & Sessions Judge F.T.C Court - 1,DInhata From 8.11.2011(FN) to 8.02.2013 (FN)","zone_id":8}', '2020-01-20 10:27:36');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (214, 'judicial_officer_postings', '{"id":163,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":18,"deputation_designation":"","deputation_posting_place":"","from_date":"2013-02-11","to_date":"2014-02-06","posting_remark":"","created_at":"2020-01-21 13:50:07","updated_at":"2020-01-21 13:50:07","additional_designation":"Additional District & Sessions Judge F.T.C,Baruipur From 06.02.2014 To 04.01.2016","zone_id":4}', '2020-01-20 10:27:36');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (215, 'judicial_officer_postings', '{"id":164,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":15,"deputation_designation":"","deputation_posting_place":"","from_date":"2016-01-11","to_date":"2018-10-04","posting_remark":"","created_at":"2020-01-21 13:50:07","updated_at":"2020-01-21 13:50:07","additional_designation":"","zone_id":6}', '2020-01-20 10:27:36');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (216, 'judicial_officer_postings', '{"id":165,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":16,"deputation_designation":"","deputation_posting_place":"","from_date":"2018-10-11","to_date":null,"posting_remark":"","created_at":"2020-01-21 13:50:07","updated_at":"2020-01-21 13:50:07","additional_designation":"","zone_id":8}', '2020-01-20 10:27:36');
 
 
 --
--- TOC entry 2478 (class 0 OID 452018)
+-- TOC entry 2504 (class 0 OID 452018)
 -- Dependencies: 225
 -- Data for Name: history_updated_data; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2059,10 +2341,109 @@ INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_t
 INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (58, 'judicial_officers', '{"id":11,"registration_no":"1567","jo_code":"WB1567","officer_name":"XYZ","gender":"M","spouse":17,"date_of_birth":"1990-12-29","home_state_id":1,"home_district_id":null,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"abc@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2019,"date_of_joining":"2018-09-13","date_of_confirmation":null,"date_of_retirement":"2045-09-18","profile_image":"1567_1576521000.jpg","created_at":null,"updated_at":"2019-12-19 15:51:30","other_home_district":"Test District","posting_preference_window_flag":null,"posting_preference_window_open_on":null}', '2020-01-05 07:18:44');
 INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (59, 'judicial_officer_postings', '{"id":36,"judicial_officer_id":9,"mode_id":1,"rank_id":1,"designation_id":56,"deputation_designation":"","deputation_posting_place":"","from_date":"2018-01-01","to_date":"2020-01-01","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-06 11:55:04","updated_at":"2020-01-06 11:55:04"}', '2020-01-05 09:04:26');
 INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (60, 'judicial_officer_postings', '{"id":37,"judicial_officer_id":9,"mode_id":1,"rank_id":1,"designation_id":71,"deputation_designation":"","deputation_posting_place":"","from_date":"2020-01-01","to_date":"2020-01-01","posting_remark":"abc","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-06 11:55:04","updated_at":"2020-01-06 11:55:04"}', '2020-01-05 09:04:34');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (61, 'judicial_officer_postings', '{"id":52,"judicial_officer_id":18,"mode_id":1,"rank_id":3,"designation_id":3,"deputation_designation":"","deputation_posting_place":"","from_date":"1994-04-16","to_date":"1997-01-24","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-06 15:59:50","updated_at":"2020-01-06 15:59:50"}', '2020-01-05 11:50:41');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (62, 'judicial_officer_postings', '{"id":54,"judicial_officer_id":18,"mode_id":1,"rank_id":4,"designation_id":4,"deputation_designation":"","deputation_posting_place":"","from_date":"1994-04-06","to_date":null,"posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-06 15:59:50","updated_at":"2020-01-06 15:59:50"}', '2020-01-05 11:50:41');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (63, 'judicial_officers', '{"id":3,"registration_no":"1234","jo_code":"WB1234","officer_name":"ABC","gender":"M","spouse":9,"date_of_birth":"1990-12-29","home_state_id":51,"home_district_id":48,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"8981660218","mobile_no_2":null,"email_id_1":"banabil901@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2015,"date_of_joining":"2018-09-18","date_of_confirmation":"2018-09-18","date_of_retirement":"2040-09-18","profile_image":null,"created_at":null,"updated_at":"2019-12-30 12:46:04","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2019-12-31"}', '2020-01-06 05:46:18');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (64, 'judicial_officers', '{"id":9,"registration_no":"126","jo_code":"WB126","officer_name":"Abhisek Gayen","gender":"M","spouse":3,"date_of_birth":"1990-12-29","home_state_id":1,"home_district_id":44,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Row\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Row\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"8981660215","mobile_no_2":"","email_id_1":"banabil9012@gmail.com","email_id_2":"","recruitment_batch_id":2,"recruitment_batch_year":2019,"date_of_joining":"2019-12-19","date_of_confirmation":"2019-12-20","date_of_retirement":"2045-12-29","profile_image":"126_1578249000.jpg","created_at":null,"updated_at":"2020-01-06 10:48:24","other_home_district":"Test District","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-02"}', '2020-01-06 05:48:24');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (65, 'judicial_officers', '{"id":3,"registration_no":"1234","jo_code":"WB1234","officer_name":"ABC","gender":"M","spouse":null,"date_of_birth":"1990-12-29","home_state_id":51,"home_district_id":48,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"8981660218","mobile_no_2":null,"email_id_1":"banabil901@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2015,"date_of_joining":"2018-09-18","date_of_confirmation":"2018-09-18","date_of_retirement":"2040-09-18","profile_image":null,"created_at":null,"updated_at":"2020-01-07 11:13:28","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2019-12-31"}', '2020-01-06 05:48:24');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (66, 'judicial_officers', '{"id":3,"registration_no":"1234","jo_code":"WB1234","officer_name":"ABC","gender":"M","spouse":9,"date_of_birth":"1990-12-29","home_state_id":51,"home_district_id":48,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"8981660218","mobile_no_2":null,"email_id_1":"banabil901@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2015,"date_of_joining":"2018-09-18","date_of_confirmation":"2018-09-18","date_of_retirement":"2040-09-18","profile_image":null,"created_at":null,"updated_at":"2020-01-07 11:15:35","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2019-12-31"}', '2020-01-06 05:48:41');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (67, 'judicial_officers', '{"id":3,"registration_no":"1234","jo_code":"WB1234","officer_name":"ABC","gender":"M","spouse":null,"date_of_birth":"1990-12-29","home_state_id":51,"home_district_id":48,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"8981660218","mobile_no_2":null,"email_id_1":"banabil901@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2015,"date_of_joining":"2018-09-18","date_of_confirmation":"2018-09-18","date_of_retirement":"2040-09-18","profile_image":null,"created_at":null,"updated_at":"2020-01-07 11:15:51","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2019-12-31"}', '2020-01-06 05:55:49');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (68, 'judicial_officers', '{"id":9,"registration_no":"126","jo_code":"WB126","officer_name":"Abhisek Gayen","gender":"M","spouse":3,"date_of_birth":"1990-12-29","home_state_id":1,"home_district_id":44,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Row\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Row\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"8981660215","mobile_no_2":"","email_id_1":"banabil9012@gmail.com","email_id_2":"","recruitment_batch_id":2,"recruitment_batch_year":2019,"date_of_joining":"2019-12-19","date_of_confirmation":"2019-12-20","date_of_retirement":"2045-12-29","profile_image":"126_1578249000.jpg","created_at":null,"updated_at":"2020-01-07 11:15:35","other_home_district":"Test District","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-02"}', '2020-01-06 05:55:49');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (69, 'judicial_officers', '{"id":3,"registration_no":"1234","jo_code":"WB1234","officer_name":"ABC","gender":"M","spouse":9,"date_of_birth":"1990-12-29","home_state_id":51,"home_district_id":48,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"8981660218","mobile_no_2":null,"email_id_1":"banabil901@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2015,"date_of_joining":"2018-09-18","date_of_confirmation":"2018-09-18","date_of_retirement":"2040-09-18","profile_image":null,"created_at":null,"updated_at":"2020-01-07 11:22:59","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2019-12-31"}', '2020-01-06 05:56:02');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (70, 'judicial_officers', '{"id":3,"registration_no":"1234","jo_code":"WB1234","officer_name":"ABC","gender":"M","spouse":null,"date_of_birth":"1990-12-29","home_state_id":51,"home_district_id":48,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"8981660218","mobile_no_2":null,"email_id_1":"banabil901@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2015,"date_of_joining":"2018-09-18","date_of_confirmation":"2018-09-18","date_of_retirement":"2040-09-18","profile_image":null,"created_at":null,"updated_at":"2020-01-07 11:23:13","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2019-12-31"}', '2020-01-06 05:56:57');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (71, 'judicial_officers', '{"id":9,"registration_no":"126","jo_code":"WB126","officer_name":"Abhisek Gayen","gender":"M","spouse":3,"date_of_birth":"1990-12-29","home_state_id":1,"home_district_id":44,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Row\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Row\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"8981660215","mobile_no_2":"","email_id_1":"banabil9012@gmail.com","email_id_2":"","recruitment_batch_id":2,"recruitment_batch_year":2019,"date_of_joining":"2019-12-19","date_of_confirmation":"2019-12-20","date_of_retirement":"2045-12-29","profile_image":"126_1578249000.jpg","created_at":null,"updated_at":"2020-01-07 11:23:00","other_home_district":"Test District","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-02"}', '2020-01-06 05:56:57');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (72, 'judicial_officers', '{"id":3,"registration_no":"1234","jo_code":"WB1234","officer_name":"ABC","gender":"M","spouse":null,"date_of_birth":"1990-12-29","home_state_id":51,"home_district_id":48,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"8981660218","mobile_no_2":null,"email_id_1":"banabil901@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2015,"date_of_joining":"2018-09-18","date_of_confirmation":"2018-09-18","date_of_retirement":"2040-09-18","profile_image":null,"created_at":null,"updated_at":"2020-01-07 11:24:07","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2019-12-31"}', '2020-01-06 05:57:05');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (73, 'judicial_officers', '{"id":9,"registration_no":"126","jo_code":"WB126","officer_name":"Abhisek Gayen","gender":"M","spouse":null,"date_of_birth":"1990-12-29","home_state_id":1,"home_district_id":44,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Row\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Row\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"8981660215","mobile_no_2":"","email_id_1":"banabil9012@gmail.com","email_id_2":"","recruitment_batch_id":2,"recruitment_batch_year":2019,"date_of_joining":"2019-12-19","date_of_confirmation":"2019-12-20","date_of_retirement":"2045-12-29","profile_image":"126_1578249000.jpg","created_at":null,"updated_at":"2020-01-07 11:24:07","other_home_district":"Test District","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-02"}', '2020-01-06 05:57:05');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (74, 'judicial_officers', '{"id":9,"registration_no":"126","jo_code":"WB126","officer_name":"Abhisek Gayen","gender":"M","spouse":3,"date_of_birth":"1990-12-29","home_state_id":1,"home_district_id":44,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Row\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Row\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"8981660215","mobile_no_2":"","email_id_1":"banabil9012@gmail.com","email_id_2":"","recruitment_batch_id":2,"recruitment_batch_year":2019,"date_of_joining":"2019-12-19","date_of_confirmation":"2019-12-20","date_of_retirement":"2045-12-29","profile_image":"126_1578249000.jpg","created_at":null,"updated_at":"2020-01-07 11:24:15","other_home_district":"Test District","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-02"}', '2020-01-06 05:57:19');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (75, 'judicial_officers', '{"id":3,"registration_no":"1234","jo_code":"WB1234","officer_name":"ABC","gender":"M","spouse":9,"date_of_birth":"1990-12-29","home_state_id":51,"home_district_id":48,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"8981660218","mobile_no_2":null,"email_id_1":"banabil901@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2015,"date_of_joining":"2018-09-18","date_of_confirmation":"2018-09-18","date_of_retirement":"2040-09-18","profile_image":null,"created_at":null,"updated_at":"2020-01-07 11:24:15","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2019-12-31"}', '2020-01-06 05:57:19');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (76, 'judicial_officers', '{"id":1,"registration_no":"123","jo_code":"WB123","officer_name":"Rupsa Bose","gender":"Female","spouse":null,"date_of_birth":"1989-03-05","home_state_id":1,"home_district_id":36,"hometown":"Maniktala","present_address":"Amherst Row","permanent_address":"Amherst Row","mobile_no_1":"9830982611","mobile_no_2":null,"email_id_1":"rupsa@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2013,"date_of_joining":"2018-09-18","date_of_confirmation":"2018-09-20","date_of_retirement":"2079-09-18","profile_image":"rohini.jpg","created_at":null,"updated_at":null,"other_home_district":null,"posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-04"}', '2020-01-07 06:26:02');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (78, 'judicial_officers', '{"id":1,"registration_no":"123","jo_code":"WB123","officer_name":"Rupsa Bose","gender":"F","spouse":9,"date_of_birth":"1989-03-05","home_state_id":1,"home_district_id":36,"hometown":"Maniktala","present_address":"Amherst Row","permanent_address":"Amherst Row","mobile_no_1":"9830982611","mobile_no_2":null,"email_id_1":"rupsa@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2013,"date_of_joining":"2018-09-18","date_of_confirmation":"2018-09-20","date_of_retirement":"2079-09-18","profile_image":"rohini.jpg","created_at":null,"updated_at":"2020-01-08 11:54:12","other_home_district":null,"posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-04"}', '2020-01-07 06:28:44');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (80, 'judicial_officers', '{"id":1,"registration_no":"123","jo_code":"WB123","officer_name":"Rupsa Bose","gender":"F","spouse":9,"date_of_birth":"1989-03-05","home_state_id":1,"home_district_id":36,"hometown":"Maniktala","present_address":"Amherst Row","permanent_address":"Amherst Row","mobile_no_1":"9830982611","mobile_no_2":null,"email_id_1":"rupsa@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2013,"date_of_joining":"2018-09-18","date_of_confirmation":"2018-09-20","date_of_retirement":"2079-09-18","profile_image":"rohini.jpg","created_at":null,"updated_at":"2020-01-08 11:56:54","other_home_district":null,"posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-04"}', '2020-01-07 06:29:10');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (82, 'judicial_officers', '{"id":1,"registration_no":"123","jo_code":"WB123","officer_name":"Rupsa Bose","gender":"F","spouse":9,"date_of_birth":"1989-03-05","home_state_id":1,"home_district_id":36,"hometown":"Maniktala","present_address":"Amherst Row","permanent_address":"Amherst Row","mobile_no_1":"9830982611","mobile_no_2":null,"email_id_1":"rupsa@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2013,"date_of_joining":"2018-09-18","date_of_confirmation":"2018-09-20","date_of_retirement":"2079-09-18","profile_image":"rohini.jpg","created_at":null,"updated_at":"2020-01-08 11:57:20","other_home_district":null,"posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-04"}', '2020-01-07 06:29:31');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (84, 'judicial_officers', '{"id":11,"registration_no":"1567","jo_code":"WB1567","officer_name":"XYZ","gender":"M","spouse":17,"date_of_birth":"1990-12-29","home_state_id":1,"home_district_id":null,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"abc@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2019,"date_of_joining":"2018-09-13","date_of_confirmation":null,"date_of_retirement":"2045-09-18","profile_image":"1567_1576521000.jpg","created_at":null,"updated_at":"2019-12-19 15:51:30","other_home_district":"Test District","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2019-09-30"}', '2020-01-07 06:30:59');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (96, 'judicial_officer_postings', '{"id":13,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":2,"deputation_designation":"","deputation_posting_place":"","from_date":"1991-08-30","to_date":"1992-05-16","posting_remark":"Prob. Munsif","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:24:03","updated_at":"2020-01-08 15:24:03","additional_designation":null,"zone_id":null}', '2020-01-08 10:52:06');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (85, 'judicial_officers', '{"id":17,"registration_no":"2912","jo_code":"WB2912","officer_name":"Bhatt Anabil","gender":"M","spouse":11,"date_of_birth":"1990-12-29","home_state_id":51,"home_district_id":38,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"7605893512","mobile_no_2":null,"email_id_1":"banabil89@gmail.com","email_id_2":null,"recruitment_batch_id":2,"recruitment_batch_year":2019,"date_of_joining":"2018-09-18","date_of_confirmation":null,"date_of_retirement":"2040-12-29","profile_image":null,"created_at":null,"updated_at":null,"other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":null}', '2020-01-07 06:30:59');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (86, 'judicial_officers', '{"id":12,"registration_no":"150","jo_code":"WB150","officer_name":"Arpan Kr Roy","gender":"M","spouse":1,"date_of_birth":"1990-12-29","home_state_id":46,"home_district_id":null,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Road\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"1234567891","mobile_no_2":null,"email_id_1":"abcd@gmail.com","email_id_2":null,"recruitment_batch_id":2,"recruitment_batch_year":2019,"date_of_joining":"2018-09-12","date_of_confirmation":null,"date_of_retirement":"2040-12-18","profile_image":null,"created_at":null,"updated_at":"2019-12-30 12:44:35","other_home_district":"Test District","posting_preference_window_flag":null,"posting_preference_window_open_on":null}', '2020-01-07 06:30:59');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (87, 'judicial_officers', '{"id":1,"registration_no":"123","jo_code":"WB123","officer_name":"Rupsa Bose","gender":"F","spouse":9,"date_of_birth":"1989-03-05","home_state_id":1,"home_district_id":36,"hometown":"Maniktala","present_address":"Amherst Row","permanent_address":"Amherst Row","mobile_no_1":"9830982611","mobile_no_2":null,"email_id_1":"rupsa@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2013,"date_of_joining":"2018-09-18","date_of_confirmation":"2018-09-20","date_of_retirement":"2079-09-18","profile_image":"rohini.jpg","created_at":null,"updated_at":"2020-01-08 11:56:41","other_home_district":null,"posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-04"}', '2020-01-07 06:31:04');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (88, 'judicial_officers', '{"id":1,"registration_no":"123","jo_code":"WB123","officer_name":"Rupsa Bose","gender":"F","spouse":null,"date_of_birth":"1989-03-05","home_state_id":1,"home_district_id":36,"hometown":"Maniktala","present_address":"Amherst Row","permanent_address":"Amherst Row","mobile_no_1":"9830982611","mobile_no_2":null,"email_id_1":"rupsa@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2013,"date_of_joining":"2018-09-18","date_of_confirmation":"2018-09-20","date_of_retirement":"2079-09-18","profile_image":"rohini.jpg","created_at":null,"updated_at":"2020-01-08 11:56:41","other_home_district":null,"posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-04"}', '2020-01-07 06:31:41');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (89, 'judicial_officers', '{"id":9,"registration_no":"126","jo_code":"WB126","officer_name":"Abhisek Gayen","gender":"M","spouse":null,"date_of_birth":"1990-12-29","home_state_id":1,"home_district_id":44,"hometown":"Belghoria","present_address":"21/2/1, B.N.Ghosal Row\nRajani Apartment, Flat-3\nBelghoria","permanent_address":"21/2/1, B.N.Ghosal Row\nRajani Apartment, Flat-3\nBelghoria","mobile_no_1":"8981660215","mobile_no_2":"","email_id_1":"banabil9012@gmail.com","email_id_2":"","recruitment_batch_id":2,"recruitment_batch_year":2019,"date_of_joining":"2019-12-19","date_of_confirmation":"2019-12-20","date_of_retirement":"2045-12-29","profile_image":"126_1578249000.jpg","created_at":null,"updated_at":"2020-01-07 11:24:29","other_home_district":"Test District","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-02"}', '2020-01-07 06:31:41');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (90, 'judicial_officers', '{"id":3,"registration_no":"621","jo_code":"WB621","officer_name":"Syed Neyazuddin Azad","gender":"M","spouse":null,"date_of_birth":"1964-01-02","home_state_id":51,"home_district_id":41,"hometown":"Burnpur","present_address":"Rahmat nagar","permanent_address":"Rahmat nagar","mobile_no_1":"9400000001","mobile_no_2":null,"email_id_1":"neyazuddin @gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1981,"date_of_joining":"1980-01-02","date_of_confirmation":null,"date_of_retirement":"2024-03-03","profile_image":null,"created_at":null,"updated_at":null,"other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":null}', '2020-01-07 11:38:17');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (91, 'judicial_officers', '{"id":2,"registration_no":"208","jo_code":"WB208","officer_name":"Sukhendu Das","gender":"M","spouse":null,"date_of_birth":"1960-01-10","home_state_id":51,"home_district_id":44,"hometown":"Bisnupur","present_address":"Bisnupur","permanent_address":"Bisnupur","mobile_no_1":"9400000000","mobile_no_2":null,"email_id_1":"sukhendu@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1990,"date_of_joining":"1991-08-30","date_of_confirmation":null,"date_of_retirement":"2020-01-31","profile_image":null,"created_at":null,"updated_at":null,"other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":null}', '2020-01-07 11:38:17');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (92, 'judicial_officer_postings', '{"id":14,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":4,"deputation_designation":"","deputation_posting_place":"","from_date":"1992-05-18","to_date":"1993-01-29","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:24:03","updated_at":"2020-01-08 15:24:03","additional_designation":null,"zone_id":null}', '2020-01-08 10:42:33');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (93, 'judicial_officer_postings', '{"id":15,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":3,"deputation_designation":"","deputation_posting_place":"","from_date":"1992-05-18","to_date":"1993-01-29","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:24:03","updated_at":"2020-01-08 15:24:03","additional_designation":null,"zone_id":null}', '2020-01-08 10:42:33');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (94, 'judicial_officer_postings', '{"id":16,"judicial_officer_id":2,"mode_id":1,"rank_id":1,"designation_id":6,"deputation_designation":"","deputation_posting_place":"","from_date":"1993-01-30","to_date":"1993-05-14","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:24:03","updated_at":"2020-01-08 15:24:03","additional_designation":null,"zone_id":null}', '2020-01-08 10:42:33');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (95, 'judicial_officer_postings', '{"id":17,"judicial_officer_id":2,"mode_id":1,"rank_id":2,"designation_id":5,"deputation_designation":"","deputation_posting_place":"","from_date":"1995-07-20","to_date":null,"posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:24:03","updated_at":"2020-01-08 15:24:03","additional_designation":null,"zone_id":null}', '2020-01-08 10:42:33');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (97, 'judicial_officer_postings', '{"id":17,"judicial_officer_id":2,"mode_id":1,"rank_id":2,"designation_id":5,"deputation_designation":"","deputation_posting_place":"","from_date":"1995-07-20","to_date":null,"posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:24:03","updated_at":"2020-01-08 15:24:03","additional_designation":null,"zone_id":6}', '2020-01-08 10:52:18');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (98, 'judicial_officer_postings', '{"id":10,"judicial_officer_id":3,"mode_id":1,"rank_id":1,"designation_id":4,"deputation_designation":"","deputation_posting_place":"","from_date":"2000-01-20","to_date":"2003-03-06","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:23:12","updated_at":"2020-01-08 15:23:12","additional_designation":null,"zone_id":null}', '2020-01-08 10:54:38');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (99, 'judicial_officer_postings', '{"id":11,"judicial_officer_id":3,"mode_id":1,"rank_id":1,"designation_id":7,"deputation_designation":"","deputation_posting_place":"","from_date":"2004-08-09","to_date":"2005-06-20","posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:23:12","updated_at":"2020-01-08 15:23:12","additional_designation":null,"zone_id":null}', '2020-01-08 10:54:38');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (100, 'judicial_officer_postings', '{"id":12,"judicial_officer_id":3,"mode_id":1,"rank_id":2,"designation_id":8,"deputation_designation":"","deputation_posting_place":"","from_date":"2005-12-09","to_date":null,"posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-08 15:23:12","updated_at":"2020-01-08 15:23:12","additional_designation":null,"zone_id":null}', '2020-01-08 10:54:38');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (101, 'judicial_officer_postings', '{"id":42,"judicial_officer_id":2,"mode_id":1,"rank_id":2,"designation_id":5,"deputation_designation":"","deputation_posting_place":"","from_date":"1995-07-20","to_date":null,"posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:59:31","updated_at":"2020-01-09 16:59:31","additional_designation":"","zone_id":7}', '2020-01-09 06:50:13');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (102, 'judicial_officers', '{"id":2,"registration_no":"208","jo_code":"WB208","officer_name":"Sukhendu Das","gender":"M","spouse":null,"date_of_birth":"1960-01-10","home_state_id":51,"home_district_id":44,"hometown":"Bisnupur","present_address":"Bisnupur","permanent_address":"Bisnupur","mobile_no_1":"9400000000","mobile_no_2":null,"email_id_1":"sukhendu@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1990,"date_of_joining":"1991-08-30","date_of_confirmation":null,"date_of_retirement":"2020-01-31","profile_image":null,"created_at":null,"updated_at":null,"other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-09 06:52:32');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (103, 'judicial_officers', '{"id":3,"registration_no":"621","jo_code":"WB621","officer_name":"Syed Neyazuddin Azad","gender":"M","spouse":null,"date_of_birth":"1964-01-02","home_state_id":51,"home_district_id":41,"hometown":"Burnpur","present_address":"Rahmat nagar","permanent_address":"Rahmat nagar","mobile_no_1":"9400000001","mobile_no_2":null,"email_id_1":"neyazuddin @gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1981,"date_of_joining":"1980-01-02","date_of_confirmation":null,"date_of_retirement":"2024-03-03","profile_image":null,"created_at":null,"updated_at":null,"other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-09 06:52:32');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (104, 'judicial_officer_postings', '{"id":42,"judicial_officer_id":2,"mode_id":1,"rank_id":2,"designation_id":5,"deputation_designation":"","deputation_posting_place":"","from_date":"1995-07-20","to_date":null,"posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:59:31","updated_at":"2020-01-09 16:59:31","additional_designation":"Test Designation","zone_id":7}', '2020-01-09 07:10:56');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (105, 'judicial_officer_postings', '{"id":42,"judicial_officer_id":2,"mode_id":1,"rank_id":2,"designation_id":5,"deputation_designation":"test","deputation_posting_place":"writters","from_date":"1995-07-20","to_date":null,"posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:59:31","updated_at":"2020-01-09 16:59:31","additional_designation":null,"zone_id":7}', '2020-01-09 07:12:54');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (106, 'judicial_officer_postings', '{"id":42,"judicial_officer_id":2,"mode_id":1,"rank_id":2,"designation_id":null,"deputation_designation":"test","deputation_posting_place":"writters","from_date":"1995-07-20","to_date":null,"posting_remark":"","acp_1":null,"acp_1_doc":null,"acp_2":null,"acp_2_doc":null,"dj_se":null,"dj_se_doc":null,"dj_st":null,"dj_st_doc":null,"created_at":"2020-01-09 16:59:31","updated_at":"2020-01-09 16:59:31","additional_designation":null,"zone_id":7}', '2020-01-12 10:04:57');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (107, 'judicial_officers', '{"id":3,"registration_no":"621","jo_code":"WB621","officer_name":"Syed Neyazuddin Azad","gender":"M","spouse":2,"date_of_birth":"1964-01-02","home_state_id":51,"home_district_id":41,"hometown":"Burnpur","present_address":"Rahmat nagar","permanent_address":"Rahmat nagar","mobile_no_1":"9400000001","mobile_no_2":null,"email_id_1":"neyazuddin @gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1981,"date_of_joining":"1980-01-02","date_of_confirmation":null,"date_of_retirement":"2024-03-03","profile_image":null,"created_at":null,"updated_at":"2020-01-10 12:20:40","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-13 06:20:10');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (108, 'judicial_officers', '{"id":3,"registration_no":"621","jo_code":"WB621","officer_name":"Syed Neyazuddin Azad","gender":"M","spouse":2,"date_of_birth":"1964-01-02","home_state_id":51,"home_district_id":41,"hometown":"Burnpur","present_address":"Rahmat nagar","permanent_address":"Rahmat nagar","mobile_no_1":"9400000001","mobile_no_2":null,"email_id_1":"neyazuddin @gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1981,"date_of_joining":"1980-01-02","date_of_confirmation":null,"date_of_retirement":"2024-03-03","profile_image":null,"created_at":null,"updated_at":"2020-01-10 12:20:40","other_home_district":"","posting_preference_window_flag":"N","posting_preference_window_open_on":"2020-01-01"}', '2020-01-13 06:20:36');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (109, 'judicial_officers', '{"id":3,"registration_no":"621","jo_code":"WB621","officer_name":"Syed Neyazuddin Azad","gender":"M","spouse":2,"date_of_birth":"1964-01-02","home_state_id":51,"home_district_id":41,"hometown":"Burnpur","present_address":"Rahmat nagar","permanent_address":"Rahmat nagar","mobile_no_1":"9400000001","mobile_no_2":null,"email_id_1":"neyazuddin @gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1981,"date_of_joining":"1980-01-02","date_of_confirmation":null,"date_of_retirement":"2024-03-03","profile_image":null,"created_at":null,"updated_at":"2020-01-10 12:20:40","other_home_district":"","posting_preference_window_flag":"n","posting_preference_window_open_on":"2020-01-01"}', '2020-01-13 06:20:48');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (110, 'judicial_officers', '{"id":2,"registration_no":"208","jo_code":"WB208","officer_name":"Sukhendu Das","gender":"M","spouse":3,"date_of_birth":"1960-01-10","home_state_id":51,"home_district_id":44,"hometown":"Bisnupur","present_address":"Bisnupur","permanent_address":"Bisnupur","mobile_no_1":"9400000000","mobile_no_2":null,"email_id_1":"sukhendu@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1990,"date_of_joining":"1991-08-30","date_of_confirmation":null,"date_of_retirement":"2020-01-31","profile_image":null,"created_at":null,"updated_at":"2020-01-10 12:20:40","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-13 06:21:05');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (111, 'judicial_officers', '{"id":2,"registration_no":"208","jo_code":"WB208","officer_name":"Sukhendu Das","gender":"M","spouse":3,"date_of_birth":"1960-01-10","home_state_id":51,"home_district_id":44,"hometown":"Bisnupur","present_address":"Bisnupur","permanent_address":"Bisnupur","mobile_no_1":"9400000000","mobile_no_2":null,"email_id_1":"sukhendu@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1990,"date_of_joining":"1991-08-30","date_of_confirmation":null,"date_of_retirement":"2020-01-31","profile_image":null,"created_at":null,"updated_at":"2020-01-10 12:20:40","other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":"2020-01-01"}', '2020-01-13 06:21:34');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (112, 'judicial_officers', '{"id":3,"registration_no":"621","jo_code":"WB621","officer_name":"Syed Neyazuddin Azad","gender":"M","spouse":2,"date_of_birth":"1964-01-02","home_state_id":51,"home_district_id":41,"hometown":"Burnpur","present_address":"Rahmat nagar","permanent_address":"Rahmat nagar","mobile_no_1":"9400000001","mobile_no_2":null,"email_id_1":"neyazuddin @gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1981,"date_of_joining":"1980-01-02","date_of_confirmation":null,"date_of_retirement":"2024-03-03","profile_image":null,"created_at":null,"updated_at":"2020-01-10 12:20:40","other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":"2020-01-01"}', '2020-01-13 06:21:47');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (113, 'judicial_officers', '{"id":2,"registration_no":"208","jo_code":"WB208","officer_name":"Sukhendu Das","gender":"M","spouse":3,"date_of_birth":"1960-01-10","home_state_id":51,"home_district_id":44,"hometown":"Bisnupur","present_address":"Bisnupur","permanent_address":"Bisnupur","mobile_no_1":"9400000000","mobile_no_2":null,"email_id_1":"sukhendu@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1990,"date_of_joining":"1991-08-30","date_of_confirmation":null,"date_of_retirement":"2020-01-31","profile_image":null,"created_at":null,"updated_at":"2020-01-10 12:20:40","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-13 06:56:50');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (114, 'judicial_officers', '{"id":2,"registration_no":"208","jo_code":"WB208","officer_name":"Sukhendu Das","gender":"M","spouse":3,"date_of_birth":"1960-01-10","home_state_id":51,"home_district_id":44,"hometown":"Bisnupur","present_address":"Bisnupur","permanent_address":"Bisnupur","mobile_no_1":"9400000000","mobile_no_2":null,"email_id_1":"sukhendu@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1990,"date_of_joining":"1991-08-30","date_of_confirmation":null,"date_of_retirement":"2020-01-31","profile_image":null,"created_at":null,"updated_at":"2020-01-10 12:20:40","other_home_district":"","posting_preference_window_flag":"N","posting_preference_window_open_on":"2020-01-01"}', '2020-01-13 07:06:41');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (115, 'judicial_officers', '{"id":3,"registration_no":"621","jo_code":"WB621","officer_name":"Syed Neyazuddin Azad","gender":"M","spouse":2,"date_of_birth":"1964-01-02","home_state_id":51,"home_district_id":41,"hometown":"Burnpur","present_address":"Rahmat nagar","permanent_address":"Rahmat nagar","mobile_no_1":"9400000001","mobile_no_2":null,"email_id_1":"neyazuddin @gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1981,"date_of_joining":"1980-01-02","date_of_confirmation":null,"date_of_retirement":"2024-03-03","profile_image":null,"created_at":null,"updated_at":"2020-01-10 12:20:40","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-16 09:54:40');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (116, 'judicial_officers', '{"id":2,"registration_no":"208","jo_code":"WB208","officer_name":"Sukhendu Das","gender":"M","spouse":3,"date_of_birth":"1960-01-10","home_state_id":51,"home_district_id":44,"hometown":"Bisnupur","present_address":"Bisnupur","permanent_address":"Bisnupur","mobile_no_1":"9400000000","mobile_no_2":null,"email_id_1":"sukhendu@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1990,"date_of_joining":"1991-08-30","date_of_confirmation":null,"date_of_retirement":"2020-01-31","profile_image":null,"created_at":null,"updated_at":"2020-01-10 12:20:40","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-16 09:54:40');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (117, 'judicial_officers', '{"id":3,"registration_no":"621","jo_code":"WB621","officer_name":"Syed Neyazuddin Azad","gender":"M","spouse":2,"date_of_birth":"1964-01-02","home_state_id":51,"home_district_id":41,"hometown":"Burnpur","present_address":"Rahmat nagar","permanent_address":"Rahmat nagar","mobile_no_1":"9400000001","mobile_no_2":null,"email_id_1":"neyazuddin @gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1981,"date_of_joining":"1980-01-02","date_of_confirmation":null,"date_of_retirement":"2019-03-03","profile_image":null,"created_at":null,"updated_at":"2020-01-17 15:21:38","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-16 10:10:11');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (118, 'judicial_officers', '{"id":2,"registration_no":"208","jo_code":"WB208","officer_name":"Sukhendu Das","gender":"M","spouse":3,"date_of_birth":"1960-01-10","home_state_id":51,"home_district_id":44,"hometown":"Bisnupur","present_address":"Bisnupur","permanent_address":"Bisnupur","mobile_no_1":"9400000000","mobile_no_2":null,"email_id_1":"sukhendu@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1990,"date_of_joining":"1991-08-30","date_of_confirmation":null,"date_of_retirement":"2020-01-31","profile_image":null,"created_at":null,"updated_at":"2020-01-17 15:21:38","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-16 10:10:11');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (119, 'judicial_officers', '{"id":2,"registration_no":"208","jo_code":"WB208","officer_name":"Sukhendu Das","gender":"M","spouse":3,"date_of_birth":"1960-01-10","home_state_id":51,"home_district_id":44,"hometown":"Bisnupur","present_address":"Bisnupur","permanent_address":"Bisnupur","mobile_no_1":"9400000000","mobile_no_2":null,"email_id_1":"sukhendu@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1990,"date_of_joining":"1991-08-30","date_of_confirmation":null,"date_of_retirement":"2020-01-31","profile_image":null,"created_at":null,"updated_at":"2020-01-17 15:37:09","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-16 10:10:23');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (120, 'judicial_officers', '{"id":3,"registration_no":"621","jo_code":"WB621","officer_name":"Syed Neyazuddin Azad","gender":"M","spouse":2,"date_of_birth":"1964-01-02","home_state_id":51,"home_district_id":41,"hometown":"Burnpur","present_address":"Rahmat nagar","permanent_address":"Rahmat nagar","mobile_no_1":"9400000001","mobile_no_2":null,"email_id_1":"neyazuddin @gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1981,"date_of_joining":"1980-01-02","date_of_confirmation":null,"date_of_retirement":"2024-03-03","profile_image":null,"created_at":null,"updated_at":"2020-01-17 15:37:09","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-16 10:10:23');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (121, 'judicial_officers', '{"id":3,"registration_no":"621","jo_code":"WB621","officer_name":"Syed Neyazuddin Azad","gender":"M","spouse":null,"date_of_birth":"1964-01-02","home_state_id":51,"home_district_id":41,"hometown":"Burnpur","present_address":"Rahmat nagar","permanent_address":"Rahmat nagar","mobile_no_1":"9400000001","mobile_no_2":null,"email_id_1":"neyazuddin @gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1981,"date_of_joining":"1980-01-02","date_of_confirmation":null,"date_of_retirement":"2024-03-03","profile_image":null,"created_at":null,"updated_at":"2020-01-17 15:37:21","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-16 10:10:51');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (122, 'judicial_officers', '{"id":3,"registration_no":"621","jo_code":"WB621","officer_name":"Syed Neyazuddin Azad","gender":"M","spouse":3,"date_of_birth":"1964-01-02","home_state_id":51,"home_district_id":41,"hometown":"Burnpur","present_address":"Rahmat nagar","permanent_address":"Rahmat nagar","mobile_no_1":"9400000001","mobile_no_2":null,"email_id_1":"neyazuddin @gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1981,"date_of_joining":"1980-01-02","date_of_confirmation":null,"date_of_retirement":"2024-03-03","profile_image":null,"created_at":null,"updated_at":"2020-01-17 15:37:49","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-16 10:10:51');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (123, 'judicial_officers', '{"id":11,"registration_no":"702","jo_code":"WB702","officer_name":"BIBHAS CHATTERJEE","gender":"M","spouse":null,"date_of_birth":"1967-01-25","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","permanent_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","mobile_no_1":"9830123456","mobile_no_2":null,"email_id_1":"bibhas@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2000,"date_of_joining":"2001-03-22","date_of_confirmation":null,"date_of_retirement":"2027-01-31","profile_image":null,"created_at":null,"updated_at":null,"other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":null}', '2020-01-17 10:58:27');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (124, 'judicial_officers', '{"id":11,"registration_no":"702","jo_code":"WB702","officer_name":"BIBHAS CHATTERJEE","gender":"M","spouse":null,"date_of_birth":"1967-01-25","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","permanent_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","mobile_no_1":"9830123456","mobile_no_2":null,"email_id_1":"bibhas@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2000,"date_of_joining":"2001-03-22","date_of_confirmation":null,"date_of_retirement":"2027-01-31","profile_image":"702_1579285800.jpg","created_at":null,"updated_at":"2020-01-18 16:26:28","other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":null}', '2020-01-19 08:29:33');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (125, 'judicial_officers', '{"id":12,"registration_no":"580","jo_code":"WB580","officer_name":"SMT SUDESHNA DE (CHATTERJEE)","gender":"F","spouse":11,"date_of_birth":"1968-10-27","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","permanent_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"sudeshna@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1997,"date_of_joining":"1997-11-28","date_of_confirmation":null,"date_of_retirement":"2028-10-31","profile_image":null,"created_at":null,"updated_at":null,"other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":null}', '2020-01-19 08:29:33');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (126, 'judicial_officers', '{"id":12,"registration_no":"580","jo_code":"WB580","officer_name":"SMT SUDESHNA DE (CHATTERJEE)","gender":"F","spouse":11,"date_of_birth":"1968-10-27","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","permanent_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"sudeshna@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1997,"date_of_joining":"1997-11-28","date_of_confirmation":null,"date_of_retirement":"2028-10-31","profile_image":"580_1579458600.jpg","created_at":null,"updated_at":"2020-01-20 13:57:33","other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":null}', '2020-01-19 10:19:27');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (127, 'judicial_officers', '{"id":2,"registration_no":"208","jo_code":"WB208","officer_name":"Sukhendu Das","gender":"M","spouse":null,"date_of_birth":"1960-01-10","home_state_id":51,"home_district_id":44,"hometown":"Bisnupur","present_address":"Bisnupur","permanent_address":"Bisnupur","mobile_no_1":"9400000000","mobile_no_2":null,"email_id_1":"sukhendu@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1990,"date_of_joining":"1991-08-30","date_of_confirmation":null,"date_of_retirement":"2020-01-31","profile_image":null,"created_at":null,"updated_at":"2020-01-17 15:37:21","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-20 05:56:57');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (128, 'judicial_officers', '{"id":3,"registration_no":"621","jo_code":"WB621","officer_name":"Syed Neyazuddin Azad","gender":"M","spouse":3,"date_of_birth":"1964-01-02","home_state_id":51,"home_district_id":41,"hometown":"Burnpur","present_address":"Rahmat nagar","permanent_address":"Rahmat nagar","mobile_no_1":"9400000001","mobile_no_2":null,"email_id_1":"neyazuddin @gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1981,"date_of_joining":"1980-01-02","date_of_confirmation":null,"date_of_retirement":"2024-03-03","profile_image":null,"created_at":null,"updated_at":"2020-01-17 15:37:49","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-20 06:06:35');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (129, 'judicial_officers', '{"id":11,"registration_no":"702","jo_code":"WB702","officer_name":"BIBHAS CHATTERJEE","gender":"M","spouse":12,"date_of_birth":"1967-01-25","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","permanent_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","mobile_no_1":"9830123456","mobile_no_2":null,"email_id_1":"bibhas@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2000,"date_of_joining":"2001-03-22","date_of_confirmation":null,"date_of_retirement":"2027-01-31","profile_image":"702_1579285800.jpg","created_at":null,"updated_at":"2020-01-20 13:57:33","other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":null}', '2020-01-20 06:06:35');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (130, 'judicial_officers', '{"id":3,"registration_no":"621","jo_code":"WB621","officer_name":"Syed Neyazuddin Azad","gender":"M","spouse":3,"date_of_birth":"1964-01-02","home_state_id":51,"home_district_id":41,"hometown":"Burnpur","present_address":"Rahmat nagar","permanent_address":"Rahmat nagar","mobile_no_1":"9400000001","mobile_no_2":null,"email_id_1":"neyazuddin @gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1981,"date_of_joining":"1980-01-02","date_of_confirmation":null,"date_of_retirement":"2024-03-03","profile_image":null,"created_at":null,"updated_at":"2020-01-17 15:37:49","other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":"2020-01-01"}', '2020-01-20 06:09:01');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (131, 'judicial_officers', '{"id":3,"registration_no":"621","jo_code":"WB621","officer_name":"Syed Neyazuddin Azad","gender":"M","spouse":3,"date_of_birth":"1964-01-02","home_state_id":51,"home_district_id":41,"hometown":"Burnpur","present_address":"Rahmat nagar","permanent_address":"Rahmat nagar","mobile_no_1":"9400000001","mobile_no_2":null,"email_id_1":"neyazuddin @gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1981,"date_of_joining":"1980-01-02","date_of_confirmation":null,"date_of_retirement":"2024-03-03","profile_image":null,"created_at":null,"updated_at":"2020-01-17 15:37:49","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-20 06:19:58');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (132, 'judicial_officers', '{"id":2,"registration_no":"208","jo_code":"WB208","officer_name":"Sukhendu Das","gender":"M","spouse":null,"date_of_birth":"1960-01-10","home_state_id":51,"home_district_id":44,"hometown":"Bisnupur","present_address":"Bisnupur","permanent_address":"Bisnupur","mobile_no_1":"9400000000","mobile_no_2":null,"email_id_1":"sukhendu@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1990,"date_of_joining":"1991-08-30","date_of_confirmation":null,"date_of_retirement":"2020-01-31","profile_image":null,"created_at":null,"updated_at":"2020-01-17 15:37:21","other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":"2020-01-01"}', '2020-01-20 06:33:20');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (133, 'judicial_officers', '{"id":11,"registration_no":"702","jo_code":"WB702","officer_name":"BIBHAS CHATTERJEE","gender":"M","spouse":12,"date_of_birth":"1967-01-25","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","permanent_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","mobile_no_1":"9830123456","mobile_no_2":null,"email_id_1":"bibhas@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2000,"date_of_joining":"2001-03-22","date_of_confirmation":null,"date_of_retirement":"2027-01-31","profile_image":"702_1579285800.jpg","created_at":null,"updated_at":"2020-01-20 13:57:33","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":null}', '2020-01-26 10:00:57');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (134, 'judicial_officers', '{"id":12,"registration_no":"580","jo_code":"WB580","officer_name":"SMT SUDESHNA DE (CHATTERJEE)","gender":"F","spouse":11,"date_of_birth":"1968-10-27","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","permanent_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"sudeshna@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1997,"date_of_joining":"1997-11-28","date_of_confirmation":null,"date_of_retirement":"2028-10-31","profile_image":"580_1579458600.jpg","created_at":null,"updated_at":"2020-01-20 13:57:33","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":null}', '2020-01-26 10:00:57');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (135, 'judicial_officers', '{"id":11,"registration_no":"702","jo_code":"WB702","officer_name":"BIBHAS CHATTERJEE","gender":"M","spouse":12,"date_of_birth":"1967-01-25","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","permanent_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","mobile_no_1":"9830123456","mobile_no_2":null,"email_id_1":"bibhas@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2000,"date_of_joining":"2001-03-22","date_of_confirmation":null,"date_of_retirement":"2027-01-31","profile_image":"702_1579285800.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:01:51');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (136, 'judicial_officers', '{"id":12,"registration_no":"580","jo_code":"WB580","officer_name":"SMT SUDESHNA DE (CHATTERJEE)","gender":"F","spouse":11,"date_of_birth":"1968-10-27","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","permanent_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"sudeshna@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1997,"date_of_joining":"1997-11-28","date_of_confirmation":null,"date_of_retirement":"2028-10-31","profile_image":"580_1579458600.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:01:51');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (137, 'judicial_officers', '{"id":11,"registration_no":"702","jo_code":"WB702","officer_name":"BIBHAS CHATTERJEE","gender":"M","spouse":12,"date_of_birth":"1967-01-25","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","permanent_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","mobile_no_1":"9830123456","mobile_no_2":null,"email_id_1":"bibhas@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2000,"date_of_joining":"2001-03-22","date_of_confirmation":null,"date_of_retirement":"2027-01-31","profile_image":"702_1579285800.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:08:07');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (138, 'judicial_officers', '{"id":12,"registration_no":"580","jo_code":"WB580","officer_name":"SMT SUDESHNA DE (CHATTERJEE)","gender":"F","spouse":11,"date_of_birth":"1968-10-27","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","permanent_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"sudeshna@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1997,"date_of_joining":"1997-11-28","date_of_confirmation":null,"date_of_retirement":"2028-10-31","profile_image":"580_1579458600.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:11:58');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (139, 'judicial_officers', '{"id":3,"registration_no":"621","jo_code":"WB621","officer_name":"Syed Neyazuddin Azad","gender":"M","spouse":3,"date_of_birth":"1964-01-02","home_state_id":51,"home_district_id":41,"hometown":"Burnpur","present_address":"Rahmat nagar","permanent_address":"Rahmat nagar","mobile_no_1":"9400000001","mobile_no_2":null,"email_id_1":"neyazuddin @gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1981,"date_of_joining":"1980-01-02","date_of_confirmation":null,"date_of_retirement":"2024-03-03","profile_image":null,"created_at":null,"updated_at":"2020-01-17 15:37:49","other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":"2020-01-01"}', '2020-01-26 10:11:58');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (140, 'judicial_officers', '{"id":12,"registration_no":"580","jo_code":"WB580","officer_name":"SMT SUDESHNA DE (CHATTERJEE)","gender":"F","spouse":11,"date_of_birth":"1968-10-27","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","permanent_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"sudeshna@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1997,"date_of_joining":"1997-11-28","date_of_confirmation":null,"date_of_retirement":"2028-10-31","profile_image":"580_1579458600.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:13:01');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (141, 'judicial_officers', '{"id":11,"registration_no":"702","jo_code":"WB702","officer_name":"BIBHAS CHATTERJEE","gender":"M","spouse":12,"date_of_birth":"1967-01-25","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","permanent_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","mobile_no_1":"9830123456","mobile_no_2":null,"email_id_1":"bibhas@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2000,"date_of_joining":"2001-03-22","date_of_confirmation":null,"date_of_retirement":"2027-01-31","profile_image":"702_1579285800.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:13:01');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (142, 'judicial_officers', '{"id":11,"registration_no":"702","jo_code":"WB702","officer_name":"BIBHAS CHATTERJEE","gender":"M","spouse":12,"date_of_birth":"1967-01-25","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","permanent_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","mobile_no_1":"9830123456","mobile_no_2":null,"email_id_1":"bibhas@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2000,"date_of_joining":"2001-03-22","date_of_confirmation":null,"date_of_retirement":"2027-01-31","profile_image":"702_1579285800.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:13:14');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (143, 'judicial_officers', '{"id":12,"registration_no":"580","jo_code":"WB580","officer_name":"SMT SUDESHNA DE (CHATTERJEE)","gender":"F","spouse":11,"date_of_birth":"1968-10-27","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","permanent_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"sudeshna@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1997,"date_of_joining":"1997-11-28","date_of_confirmation":null,"date_of_retirement":"2028-10-31","profile_image":"580_1579458600.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:13:14');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (144, 'judicial_officers', '{"id":12,"registration_no":"580","jo_code":"WB580","officer_name":"SMT SUDESHNA DE (CHATTERJEE)","gender":"F","spouse":11,"date_of_birth":"1968-10-27","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","permanent_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"sudeshna@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1997,"date_of_joining":"1997-11-28","date_of_confirmation":null,"date_of_retirement":"2028-10-31","profile_image":"580_1579458600.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:17:18');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (145, 'judicial_officers', '{"id":11,"registration_no":"702","jo_code":"WB702","officer_name":"BIBHAS CHATTERJEE","gender":"M","spouse":12,"date_of_birth":"1967-01-25","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","permanent_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","mobile_no_1":"9830123456","mobile_no_2":null,"email_id_1":"bibhas@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2000,"date_of_joining":"2001-03-22","date_of_confirmation":null,"date_of_retirement":"2027-01-31","profile_image":"702_1579285800.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:17:18');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (146, 'judicial_officers', '{"id":11,"registration_no":"702","jo_code":"WB702","officer_name":"BIBHAS CHATTERJEE","gender":"M","spouse":12,"date_of_birth":"1967-01-25","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","permanent_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","mobile_no_1":"9830123456","mobile_no_2":null,"email_id_1":"bibhas@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2000,"date_of_joining":"2001-03-22","date_of_confirmation":null,"date_of_retirement":"2027-01-31","profile_image":"702_1579285800.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:17:31');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (147, 'judicial_officers', '{"id":12,"registration_no":"580","jo_code":"WB580","officer_name":"SMT SUDESHNA DE (CHATTERJEE)","gender":"F","spouse":11,"date_of_birth":"1968-10-27","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","permanent_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"sudeshna@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1997,"date_of_joining":"1997-11-28","date_of_confirmation":null,"date_of_retirement":"2028-10-31","profile_image":"580_1579458600.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:17:31');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (148, 'judicial_officers', '{"id":11,"registration_no":"702","jo_code":"WB702","officer_name":"BIBHAS CHATTERJEE","gender":"M","spouse":12,"date_of_birth":"1967-01-25","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","permanent_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","mobile_no_1":"9830123456","mobile_no_2":null,"email_id_1":"bibhas@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2000,"date_of_joining":"2001-03-22","date_of_confirmation":null,"date_of_retirement":"2027-01-31","profile_image":"702_1579285800.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:22:51');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (149, 'judicial_officers', '{"id":12,"registration_no":"580","jo_code":"WB580","officer_name":"SMT SUDESHNA DE (CHATTERJEE)","gender":"F","spouse":11,"date_of_birth":"1968-10-27","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","permanent_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"sudeshna@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1997,"date_of_joining":"1997-11-28","date_of_confirmation":null,"date_of_retirement":"2028-10-31","profile_image":"580_1579458600.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:22:51');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (150, 'judicial_officers', '{"id":11,"registration_no":"702","jo_code":"WB702","officer_name":"BIBHAS CHATTERJEE","gender":"M","spouse":12,"date_of_birth":"1967-01-25","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","permanent_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","mobile_no_1":"9830123456","mobile_no_2":null,"email_id_1":"bibhas@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2000,"date_of_joining":"2001-03-22","date_of_confirmation":null,"date_of_retirement":"2027-01-31","profile_image":"702_1579285800.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:24:06');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (151, 'judicial_officers', '{"id":12,"registration_no":"580","jo_code":"WB580","officer_name":"SMT SUDESHNA DE (CHATTERJEE)","gender":"F","spouse":11,"date_of_birth":"1968-10-27","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","permanent_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"sudeshna@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1997,"date_of_joining":"1997-11-28","date_of_confirmation":null,"date_of_retirement":"2028-10-31","profile_image":"580_1579458600.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:24:06');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (152, 'judicial_officers', '{"id":12,"registration_no":"580","jo_code":"WB580","officer_name":"SMT SUDESHNA DE (CHATTERJEE)","gender":"F","spouse":11,"date_of_birth":"1968-10-27","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","permanent_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"sudeshna@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1997,"date_of_joining":"1997-11-28","date_of_confirmation":null,"date_of_retirement":"2028-10-31","profile_image":"580_1579458600.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:26:34');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (153, 'judicial_officers', '{"id":12,"registration_no":"580","jo_code":"WB580","officer_name":"SMT SUDESHNA DE (CHATTERJEE)","gender":"F","spouse":11,"date_of_birth":"1968-10-27","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","permanent_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"sudeshna@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1997,"date_of_joining":"1997-11-28","date_of_confirmation":null,"date_of_retirement":"2028-10-31","profile_image":"580_1579458600.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:43:46');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (154, 'judicial_officers', '{"id":3,"registration_no":"621","jo_code":"WB621","officer_name":"Syed Neyazuddin Azad","gender":"M","spouse":3,"date_of_birth":"1964-01-02","home_state_id":51,"home_district_id":41,"hometown":"Burnpur","present_address":"Rahmat nagar","permanent_address":"Rahmat nagar","mobile_no_1":"9400000001","mobile_no_2":null,"email_id_1":"neyazuddin @gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1981,"date_of_joining":"1980-01-02","date_of_confirmation":null,"date_of_retirement":"2024-03-03","profile_image":null,"created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27"}', '2020-01-26 10:58:32');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (155, 'judicial_officers', '{"id":2,"registration_no":"208","jo_code":"WB208","officer_name":"Sukhendu Das","gender":"M","spouse":null,"date_of_birth":"1960-01-10","home_state_id":51,"home_district_id":44,"hometown":"Bisnupur","present_address":"Bisnupur","permanent_address":"Bisnupur","mobile_no_1":"9400000000","mobile_no_2":null,"email_id_1":"sukhendu@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1990,"date_of_joining":"1991-08-30","date_of_confirmation":null,"date_of_retirement":"2020-01-31","profile_image":null,"created_at":null,"updated_at":"2020-01-17 15:37:21","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-26 11:35:25');
 
 
 --
--- TOC entry 2490 (class 0 OID 452090)
+-- TOC entry 2522 (class 0 OID 468817)
+-- Dependencies: 243
+-- Data for Name: jo_career_progressions; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+
+
+--
+-- TOC entry 2516 (class 0 OID 452090)
 -- Dependencies: 237
 -- Data for Name: jo_documents; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2070,153 +2451,162 @@ INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_t
 
 
 --
--- TOC entry 2492 (class 0 OID 452164)
+-- TOC entry 2518 (class 0 OID 452164)
 -- Dependencies: 239
 -- Data for Name: jo_grades; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.jo_grades (id, judicial_officer_id, rank_id, grade, date_of_gradation, remark, status, created_at, updated_at) VALUES (101, 9, 1, 1, '2019-12-03', '', 'Finalized', NULL, '2020-01-03 11:25:14');
-INSERT INTO public.jo_grades (id, judicial_officer_id, rank_id, grade, date_of_gradation, remark, status, created_at, updated_at) VALUES (102, 2, 1, 2, '2019-12-03', '', 'Finalized', NULL, '2020-01-03 11:25:14');
-INSERT INTO public.jo_grades (id, judicial_officer_id, rank_id, grade, date_of_gradation, remark, status, created_at, updated_at) VALUES (103, 1, 1, 3, '2019-12-03', '', 'Finalized', NULL, '2020-01-03 11:25:14');
-INSERT INTO public.jo_grades (id, judicial_officer_id, rank_id, grade, date_of_gradation, remark, status, created_at, updated_at) VALUES (104, 11, 1, 4, '2019-12-03', '', 'Finalized', NULL, '2020-01-03 11:25:14');
-INSERT INTO public.jo_grades (id, judicial_officer_id, rank_id, grade, date_of_gradation, remark, status, created_at, updated_at) VALUES (105, 17, 1, 5, '2019-12-03', '', 'Finalized', NULL, '2020-01-03 11:25:14');
-INSERT INTO public.jo_grades (id, judicial_officer_id, rank_id, grade, date_of_gradation, remark, status, created_at, updated_at) VALUES (107, 12, 2, 1, '2019-12-04', '', 'Draft', NULL, NULL);
-INSERT INTO public.jo_grades (id, judicial_officer_id, rank_id, grade, date_of_gradation, remark, status, created_at, updated_at) VALUES (108, 9, 2, 2, '2019-12-04', '', 'Draft', NULL, NULL);
+INSERT INTO public.jo_grades (id, judicial_officer_id, rank_id, grade, date_of_gradation, remark, status, created_at, updated_at) VALUES (3, 2, 2, 1, '2019-12-05', 'test1', 'Finalized', NULL, '2020-01-08 15:27:36');
+INSERT INTO public.jo_grades (id, judicial_officer_id, rank_id, grade, date_of_gradation, remark, status, created_at, updated_at) VALUES (2, 3, 2, 2, '2019-12-05', '', 'Finalized', NULL, '2020-01-08 15:27:36');
+INSERT INTO public.jo_grades (id, judicial_officer_id, rank_id, grade, date_of_gradation, remark, status, created_at, updated_at) VALUES (4, 2, 2, 1, '2019-12-03', '', 'Draft', NULL, NULL);
+INSERT INTO public.jo_grades (id, judicial_officer_id, rank_id, grade, date_of_gradation, remark, status, created_at, updated_at) VALUES (5, 3, 2, 2, '2019-12-03', '', 'Draft', NULL, NULL);
+INSERT INTO public.jo_grades (id, judicial_officer_id, rank_id, grade, date_of_gradation, remark, status, created_at, updated_at) VALUES (6, 12, 3, 1, '2019-12-03', 'cc', 'Draft', NULL, NULL);
+INSERT INTO public.jo_grades (id, judicial_officer_id, rank_id, grade, date_of_gradation, remark, status, created_at, updated_at) VALUES (7, 11, 3, 2, '2019-12-03', '', 'Draft', NULL, NULL);
+INSERT INTO public.jo_grades (id, judicial_officer_id, rank_id, grade, date_of_gradation, remark, status, created_at, updated_at) VALUES (8, 11, 3, 1, '2019-12-04', '', 'Draft', NULL, NULL);
+INSERT INTO public.jo_grades (id, judicial_officer_id, rank_id, grade, date_of_gradation, remark, status, created_at, updated_at) VALUES (9, 12, 3, 2, '2019-12-04', '', 'Draft', NULL, NULL);
+INSERT INTO public.jo_grades (id, judicial_officer_id, rank_id, grade, date_of_gradation, remark, status, created_at, updated_at) VALUES (10, 11, 3, 1, '2019-12-05', '', 'Draft', NULL, NULL);
+INSERT INTO public.jo_grades (id, judicial_officer_id, rank_id, grade, date_of_gradation, remark, status, created_at, updated_at) VALUES (11, 12, 3, 2, '2019-12-05', '', 'Draft', NULL, NULL);
 
 
 --
--- TOC entry 2484 (class 0 OID 452054)
+-- TOC entry 2510 (class 0 OID 452054)
 -- Dependencies: 231
 -- Data for Name: jo_legal_experiences; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.jo_legal_experiences (id, judicial_officer_id, subdivision_id, from_year, to_year, created_at, updated_at) VALUES (1, 3, 68, 2018, 2019, '2019-12-17 16:46:47', '2019-12-17 16:46:47');
-INSERT INTO public.jo_legal_experiences (id, judicial_officer_id, subdivision_id, from_year, to_year, created_at, updated_at) VALUES (3, 11, 129, 2017, 2019, '2019-12-17 17:12:14', '2019-12-17 17:12:14');
-INSERT INTO public.jo_legal_experiences (id, judicial_officer_id, subdivision_id, from_year, to_year, created_at, updated_at) VALUES (4, 12, 57, 2017, 2018, '2019-12-18 13:02:42', '2019-12-18 13:02:42');
-INSERT INTO public.jo_legal_experiences (id, judicial_officer_id, subdivision_id, from_year, to_year, created_at, updated_at) VALUES (6, 17, 129, 2017, 2019, '2019-12-19 15:51:30', '2019-12-19 15:51:30');
-INSERT INTO public.jo_legal_experiences (id, judicial_officer_id, subdivision_id, from_year, to_year, created_at, updated_at) VALUES (9, 9, 61, 2016, 2018, '2020-01-06 11:42:30', '2020-01-06 11:42:30');
+INSERT INTO public.jo_legal_experiences (id, judicial_officer_id, subdivision_id, from_year, to_year, created_at, updated_at) VALUES (4, 2, 57, 1990, 1997, '2020-01-17 13:34:20', '2020-01-17 13:34:20');
+INSERT INTO public.jo_legal_experiences (id, judicial_officer_id, subdivision_id, from_year, to_year, created_at, updated_at) VALUES (5, 2, 61, 1985, 1990, '2020-01-17 13:34:20', '2020-01-17 13:34:20');
 
 
 --
--- TOC entry 2454 (class 0 OID 451777)
+-- TOC entry 2480 (class 0 OID 451777)
 -- Dependencies: 201
 -- Data for Name: jo_reportings; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.jo_reportings (id, judicial_officer_id, posting_id, reporting_officer_id, other_reporting_officer_name, other_reporting_officer_designation, created_at, updated_at) VALUES (1, 11, 7, NULL, 'Test Officer                                                                                                                                                                                                                                                   ', 'Test Designation                                                                                                                                                                                                                                               ', '2019-12-17 17:12:14', '2019-12-17 17:12:14');
-INSERT INTO public.jo_reportings (id, judicial_officer_id, posting_id, reporting_officer_id, other_reporting_officer_name, other_reporting_officer_designation, created_at, updated_at) VALUES (2, 17, 10, 9, '                                                                                                                                                                                                                                                               ', '                                                                                                                                                                                                                                                               ', '2019-12-19 15:51:30', '2019-12-19 15:51:30');
-INSERT INTO public.jo_reportings (id, judicial_officer_id, posting_id, reporting_officer_id, other_reporting_officer_name, other_reporting_officer_designation, created_at, updated_at) VALUES (15, 9, 36, 2, '                                                                                                                                                                                                                                                               ', '                                                                                                                                                                                                                                                               ', '2020-01-06 11:55:04', '2020-01-06 11:55:04');
-INSERT INTO public.jo_reportings (id, judicial_officer_id, posting_id, reporting_officer_id, other_reporting_officer_name, other_reporting_officer_designation, created_at, updated_at) VALUES (16, 9, 37, 2, '                                                                                                                                                                                                                                                               ', '                                                                                                                                                                                                                                                               ', '2020-01-06 11:55:04', '2020-01-06 11:55:04');
-INSERT INTO public.jo_reportings (id, judicial_officer_id, posting_id, reporting_officer_id, other_reporting_officer_name, other_reporting_officer_designation, created_at, updated_at) VALUES (17, 9, 38, NULL, '                                                                                                                                                                                                                                                               ', '                                                                                                                                                                                                                                                               ', '2020-01-06 11:55:04', '2020-01-06 11:55:04');
+INSERT INTO public.jo_reportings (id, judicial_officer_id, posting_id, reporting_officer_id, other_reporting_officer_name, other_reporting_officer_designation, created_at, updated_at) VALUES (3, 3, 11, 2, '                                                                                                                                                                                                                                                               ', '                                                                                                                                                                                                                                                               ', '2020-01-08 15:23:12', '2020-01-08 15:23:12');
 
 
 --
--- TOC entry 2472 (class 0 OID 451946)
+-- TOC entry 2498 (class 0 OID 451946)
 -- Dependencies: 219
 -- Data for Name: jo_zone_tenures; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (1, 1, 7, '2018-09-19', '2019-09-19', NULL, NULL);
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (2, 1, 8, '2019-09-20', NULL, NULL, NULL);
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (4, 11, 7, '2018-08-01', NULL, NULL, NULL);
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (5, 12, 6, '2009-01-02', NULL, NULL, NULL);
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (6, 17, 7, '2019-02-01', NULL, NULL, NULL);
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (22, 9, 7, '2018-01-01', '2020-01-01', NULL, '2020-01-06 11:55:04');
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (23, 9, 8, '2020-01-04', NULL, NULL, NULL);
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (33, 18, 7, '1991-08-30', '1993-05-14', NULL, '2020-01-06 15:59:50');
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (34, 18, 4, '1992-05-18', '1994-04-05', NULL, '2020-01-06 15:59:50');
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (35, 18, 6, '1993-05-24', '1997-01-24', NULL, '2020-01-06 15:59:50');
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (36, 18, 4, '1994-04-16', '1997-01-24', NULL, '2020-01-06 15:59:50');
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (37, 18, 7, '1994-04-06', NULL, NULL, NULL);
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (6, 3, 6, '2000-01-20', '2005-06-20', NULL, '2020-01-08 15:23:12');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (7, 3, 7, '2005-12-09', NULL, NULL, NULL);
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (88, 12, 4, '1997-11-28', '2001-06-06', NULL, '2020-01-20 15:44:49');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (17, 2, 6, '1991-08-30', '1993-05-14', NULL, '2020-01-09 16:59:31');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (18, 2, 7, '1995-07-20', NULL, NULL, NULL);
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (89, 12, 6, '1998-07-23', '2001-11-21', NULL, '2020-01-20 15:44:49');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (90, 12, 4, '2001-06-16', '2002-08-07', NULL, '2020-01-20 15:44:49');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (91, 12, 6, '2001-11-29', '2011-01-05', NULL, '2020-01-20 15:44:49');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (92, 12, 4, '2007-07-04', '2013-01-22', NULL, '2020-01-20 15:44:49');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (93, 12, 8, '2011-01-07', '2013-04-01', NULL, '2020-01-20 15:44:49');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (94, 12, 4, '2013-01-24', '2018-10-04', NULL, '2020-01-20 15:44:49');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (95, 12, 6, '2016-02-05', '2018-10-04', NULL, '2020-01-20 15:44:49');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (96, 12, 8, '2018-10-11', NULL, NULL, NULL);
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (109, 11, 6, '2001-10-16', '2009-07-27', NULL, '2020-01-21 15:55:34');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (110, 11, 4, '2007-06-26', '2011-11-08', NULL, '2020-01-21 15:55:34');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (111, 11, 8, '2011-02-04', '2014-02-06', NULL, '2020-01-21 15:55:34');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (112, 11, 4, '2013-02-11', '2018-10-04', NULL, '2020-01-21 15:55:34');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (113, 11, 6, '2016-01-11', '2018-10-04', NULL, '2020-01-21 15:55:34');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (114, 11, 8, '2018-10-11', NULL, NULL, NULL);
 
 
 --
--- TOC entry 2456 (class 0 OID 451805)
+-- TOC entry 2482 (class 0 OID 451805)
 -- Dependencies: 203
 -- Data for Name: judicial_officer_posting_preferences; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (12, 1, 4, 'north 24 parganas
- except :basirhat , bongaon', '', 'Y', 2, '2020-01-04 15:57:51', '2020-01-04 15:57:51');
-INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (13, 1, 6, 'paschim bardhaman', '', 'Y', 2, '2020-01-04 15:57:51', '2020-01-04 15:57:51');
-INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (14, 9, 8, 'south dinajpur', 'First pref Zone A', 'Y', 7, '2020-01-04 16:23:08', '2020-01-04 16:23:08');
-INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (15, 9, 6, 'bongaon', 'First pref Zone A', 'Y', 7, '2020-01-04 16:23:08', '2020-01-04 16:23:08');
-INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (16, 9, 4, 'south 24 parganas', 'First pref Zone A', 'Y', 7, '2020-01-04 16:23:08', '2020-01-04 16:23:08');
+INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (2, 2, 8, 'ANDAMAN AND NICOBAR ISLAND', 'Zone d is most prefered', 'Y', 5, '2020-01-09 13:01:41', '2020-01-09 13:01:41');
+INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (3, 2, 4, 'SOUTH 24 PARGANAS', 'Zone d is most prefered', 'Y', 5, '2020-01-09 13:01:41', '2020-01-09 13:01:41');
+INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (4, 2, 4, 'KALYANI', 'Zone d is most prefered', 'Y', 5, '2020-01-09 13:01:41', '2020-01-09 13:01:41');
+INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (8, 3, 8, 'COOCH BEHAR', '', 'Y', 6, '2020-01-09 13:07:43', '2020-01-09 13:07:43');
+INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (7, 3, 4, 'HOOGLY
+ Except :ARAMBAGH', '', 'Y', 6, '2020-01-09 13:07:43', '2020-01-09 13:07:43');
+INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (20, 12, 4, 'NORTH 24 PARGANAS
+ except :BASIRHAT , BONGAON', '', 'Y', 15, '2020-01-27 12:00:22', '2020-01-27 12:00:22');
 
 
 --
--- TOC entry 2452 (class 0 OID 451746)
+-- TOC entry 2478 (class 0 OID 451746)
 -- Dependencies: 199
 -- Data for Name: judicial_officer_postings; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, acp_1, acp_1_doc, acp_2, acp_2_doc, dj_se, dj_se_doc, dj_st, dj_st_doc, created_at, updated_at) VALUES (1, 1, 1, 1, 1, NULL, NULL, '2018-09-19', '2019-09-19', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, acp_1, acp_1_doc, acp_2, acp_2_doc, dj_se, dj_se_doc, dj_st, dj_st_doc, created_at, updated_at) VALUES (8, 12, 3, 2, NULL, 'Test Designation 2', 'Demo Place 2', '2009-01-02', NULL, 'sadasdasd', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-12-18 13:02:42', '2019-12-18 13:02:42');
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, acp_1, acp_1_doc, acp_2, acp_2_doc, dj_se, dj_se_doc, dj_st, dj_st_doc, created_at, updated_at) VALUES (2, 2, 1, 1, 1, NULL, NULL, '2019-09-20', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, acp_1, acp_1_doc, acp_2, acp_2_doc, dj_se, dj_se_doc, dj_st, dj_st_doc, created_at, updated_at) VALUES (10, 17, 1, 1, 71, '', '', '2019-02-01', '2019-02-01', 'Test Remark 1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-12-19 15:51:30', '2019-12-19 15:51:30');
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, acp_1, acp_1_doc, acp_2, acp_2_doc, dj_se, dj_se_doc, dj_st, dj_st_doc, created_at, updated_at) VALUES (7, 11, 3, 1, NULL, 'Test Designation', 'Kolkata', '2018-08-01', NULL, 'Test Remark', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-12-17 17:12:14', '2019-12-17 17:12:14');
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, acp_1, acp_1_doc, acp_2, acp_2_doc, dj_se, dj_se_doc, dj_st, dj_st_doc, created_at, updated_at) VALUES (38, 9, 3, 3, NULL, 'lkjlkj', 'dsfsdf', '2020-01-04', NULL, 'dsfdsfsdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-06 11:55:04', '2020-01-06 11:55:04');
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, acp_1, acp_1_doc, acp_2, acp_2_doc, dj_se, dj_se_doc, dj_st, dj_st_doc, created_at, updated_at) VALUES (36, 9, 1, 1, 1, '', '', '2018-01-01', '2020-01-01', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-06 11:55:04', '2020-01-06 11:55:04');
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, acp_1, acp_1_doc, acp_2, acp_2_doc, dj_se, dj_se_doc, dj_st, dj_st_doc, created_at, updated_at) VALUES (37, 9, 1, 1, 2, '', '', '2020-01-01', '2020-01-01', 'abc', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-06 11:55:04', '2020-01-06 11:55:04');
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, acp_1, acp_1_doc, acp_2, acp_2_doc, dj_se, dj_se_doc, dj_st, dj_st_doc, created_at, updated_at) VALUES (49, 18, 1, 1, 2, '', '', '1991-08-30', '1992-05-17', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-06 15:59:50', '2020-01-06 15:59:50');
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, acp_1, acp_1_doc, acp_2, acp_2_doc, dj_se, dj_se_doc, dj_st, dj_st_doc, created_at, updated_at) VALUES (50, 18, 1, 1, 9, '', '', '1992-05-18', '1993-05-14', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-06 15:59:50', '2020-01-06 15:59:50');
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, acp_1, acp_1_doc, acp_2, acp_2_doc, dj_se, dj_se_doc, dj_st, dj_st_doc, created_at, updated_at) VALUES (51, 18, 1, 1, 1, '', '', '1993-05-24', '1994-04-05', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-06 15:59:50', '2020-01-06 15:59:50');
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, acp_1, acp_1_doc, acp_2, acp_2_doc, dj_se, dj_se_doc, dj_st, dj_st_doc, created_at, updated_at) VALUES (52, 18, 1, 3, 3, '', '', '1994-04-16', '1997-01-24', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-06 15:59:50', '2020-01-06 15:59:50');
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, acp_1, acp_1_doc, acp_2, acp_2_doc, dj_se, dj_se_doc, dj_st, dj_st_doc, created_at, updated_at) VALUES (53, 18, 1, 1, 8, '', '', '1994-05-24', '1994-04-05', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-06 15:59:50', '2020-01-06 15:59:50');
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, acp_1, acp_1_doc, acp_2, acp_2_doc, dj_se, dj_se_doc, dj_st, dj_st_doc, created_at, updated_at) VALUES (54, 18, 1, 4, 4, '', '', '1994-04-06', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-06 15:59:50', '2020-01-06 15:59:50');
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (137, 12, 1, 1, 9, '', '', '1997-11-28', '1998-07-17', 'Posted at Hoogly Sadar', '2020-01-20 15:44:49', '2020-01-20 15:44:49', '', 4);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (138, 12, 1, 1, 25, '', '', '1998-07-23', '2001-06-06', '', '2020-01-20 15:44:49', '2020-01-20 15:44:49', '', 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (139, 12, 1, 1, 26, '', '', '2001-06-16', '2001-11-21', '', '2020-01-20 15:44:49', '2020-01-20 15:44:49', '', 4);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (140, 12, 1, 1, 27, '', '', '2001-11-29', '2002-08-07', '', '2020-01-20 15:44:49', '2020-01-20 15:44:49', '', 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (141, 12, 1, 1, 28, '', '', '2002-08-07', '2004-06-29', '', '2020-01-20 15:44:49', '2020-01-20 15:44:49', '', 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (142, 12, 1, 2, 31, '', '', '2004-07-08', '2006-06-07', '', '2020-01-20 15:44:49', '2020-01-20 15:44:49', '', 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (143, 12, 1, 2, 30, '', '', '2006-06-07', '2007-06-28', '', '2020-01-20 15:44:49', '2020-01-20 15:44:49', '', 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (10, 3, 1, 1, 4, '', '', '2000-01-20', '2003-03-06', '', '2020-01-08 15:23:12', '2020-01-08 15:23:12', NULL, 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (11, 3, 1, 1, 7, '', '', '2004-08-09', '2005-06-20', '', '2020-01-08 15:23:12', '2020-01-08 15:23:12', NULL, 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (12, 3, 1, 2, 8, '', '', '2005-12-09', NULL, '', '2020-01-08 15:23:12', '2020-01-08 15:23:12', NULL, 7);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (144, 12, 1, 2, 29, '', '', '2007-07-04', '2011-01-05', '', '2020-01-20 15:44:49', '2020-01-20 15:44:49', '', 4);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (145, 12, 1, 2, 32, '', '', '2011-01-07', '2013-01-22', '', '2020-01-20 15:44:49', '2020-01-20 15:44:49', '', 8);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (146, 12, 1, 2, 19, '', '', '2013-01-24', '2013-04-01', '', '2020-01-20 15:44:49', '2020-01-20 15:44:49', '', 4);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (147, 12, 1, 3, 34, '', '', '2013-04-01', '2016-01-29', '', '2020-01-20 15:44:49', '2020-01-20 15:44:49', '', 4);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (148, 12, 1, 3, 35, '', '', '2016-02-05', '2018-10-04', '', '2020-01-20 15:44:49', '2020-01-20 15:44:49', '', 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (149, 12, 1, 3, 36, '', '', '2018-10-11', NULL, '', '2020-01-20 15:44:49', '2020-01-20 15:44:49', '', 8);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (38, 2, 1, 1, 2, '', '', '1991-08-30', '1992-05-16', 'Prob. Munsif', '2020-01-09 16:59:31', '2020-01-09 16:59:31', 'Test Designation', 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (39, 2, 1, 1, 4, '', '', '1992-05-18', '1993-01-29', '', '2020-01-09 16:59:31', '2020-01-09 16:59:31', '', 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (40, 2, 1, 1, 3, '', '', '1992-05-18', '1993-01-29', '', '2020-01-09 16:59:31', '2020-01-09 16:59:31', '', 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (41, 2, 1, 1, 6, '', '', '1993-01-30', '1993-05-14', '', '2020-01-09 16:59:31', '2020-01-09 16:59:31', '', 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (42, 2, 1, 2, NULL, 'test', 'writters building', '1995-07-20', NULL, '', '2020-01-09 16:59:31', '2020-01-09 16:59:31', NULL, 7);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (166, 11, 1, 1, 11, '', '', '2001-10-16', '2004-06-30', '', '2020-01-21 15:55:34', '2020-01-21 15:55:34', 'JM 1st Court,Contai', 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (167, 11, 1, 1, 21, '', '', '2004-07-05', '2005-10-16', '', '2020-01-21 15:55:34', '2020-01-21 15:55:34', 'JM,Jhargram', 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (168, 11, 1, 1, 24, '', '', '2007-06-26', '2009-07-27', '', '2020-01-21 15:55:34', '2020-01-21 15:55:34', 'Principal Magistrate,Juvenile Justice Board,Bankshall Court From 11.06.2008 To 27.07.2009', 4);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (169, 11, 1, 2, 22, '', '', '2009-07-27', '2011-02-02', '', '2020-01-21 15:55:34', '2020-01-21 15:55:34', 'Leave Reserve Officer,Hoogly Sadar', 4);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (170, 11, 1, 2, 17, '', '', '2011-02-04', '2011-11-08', '', '2020-01-21 15:55:34', '2020-01-21 15:55:34', 'Additional District & Sessions Judge F.T.C Court - 1,DInhata From 8.11.2011(FN) to 8.02.2013 (FN)', 8);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (171, 11, 1, 2, 18, '', '', '2013-02-11', '2014-02-06', '', '2020-01-21 15:55:34', '2020-01-21 15:55:34', 'Additional District & Sessions Judge F.T.C,Baruipur From 06.02.2014 To 04.01.2016', 4);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (172, 11, 1, 3, 15, '', '', '2016-01-11', '2018-10-04', '', '2020-01-21 15:55:34', '2020-01-21 15:55:34', '', 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (173, 11, 1, 3, 16, '', '', '2018-10-11', NULL, '', '2020-01-21 15:55:34', '2020-01-21 15:55:34', '', 8);
 
 
 --
--- TOC entry 2448 (class 0 OID 451716)
+-- TOC entry 2474 (class 0 OID 451716)
 -- Dependencies: 195
 -- Data for Name: judicial_officer_qualifications; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qualification_id, passing_year, created_at, updated_at) VALUES (1, 3, 8, 2018, '2019-12-17 16:46:47', '2019-12-17 16:46:47');
-INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qualification_id, passing_year, created_at, updated_at) VALUES (3, 11, 7, 2019, '2019-12-17 17:12:14', '2019-12-17 17:12:14');
-INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qualification_id, passing_year, created_at, updated_at) VALUES (6, 17, 10, 2019, '2019-12-19 15:51:30', '2019-12-19 15:51:30');
-INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qualification_id, passing_year, created_at, updated_at) VALUES (7, 17, 5, 2017, '2019-12-19 15:51:30', '2019-12-19 15:51:30');
-INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qualification_id, passing_year, created_at, updated_at) VALUES (11, 9, 7, 2019, '2020-01-06 11:51:41', '2020-01-06 11:51:41');
+INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qualification_id, passing_year, created_at, updated_at) VALUES (2, 2, 7, 1981, '2020-01-08 15:10:09', '2020-01-08 15:10:09');
+INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qualification_id, passing_year, created_at, updated_at) VALUES (3, 2, 5, 1983, '2020-01-08 15:10:09', '2020-01-08 15:10:09');
+INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qualification_id, passing_year, created_at, updated_at) VALUES (4, 3, 7, 1976, '2020-01-08 15:21:45', '2020-01-08 15:21:45');
+INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qualification_id, passing_year, created_at, updated_at) VALUES (5, 3, 5, 1978, '2020-01-08 15:21:45', '2020-01-08 15:21:45');
+INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qualification_id, passing_year, created_at, updated_at) VALUES (14, 11, 3, 1997, '2020-01-18 16:26:27', '2020-01-18 16:26:27');
+INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qualification_id, passing_year, created_at, updated_at) VALUES (15, 11, 5, 2000, '2020-01-18 16:26:27', '2020-01-18 16:26:27');
+INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qualification_id, passing_year, created_at, updated_at) VALUES (16, 12, 1, 1993, '2020-01-20 13:57:33', '2020-01-20 13:57:33');
+INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qualification_id, passing_year, created_at, updated_at) VALUES (17, 12, 5, 1996, '2020-01-20 13:57:33', '2020-01-20 13:57:33');
 
 
 --
--- TOC entry 2446 (class 0 OID 451671)
+-- TOC entry 2472 (class 0 OID 451671)
 -- Dependencies: 193
 -- Data for Name: judicial_officers; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on) VALUES (11, '1567', 'WB1567', 'XYZ', 'M', 17, '1990-12-29', 1, NULL, 'Belghoria', '21/2/1, B.N.Ghosal Road
-Rajani Apartment, Flat-3
-Belghoria', '21/2/1, B.N.Ghosal Road
-Rajani Apartment, Flat-3
-Belghoria', '1234567890', NULL, 'abc@gmail.com', NULL, 1, 2019, '2018-09-13', NULL, '2045-09-18', '1567_1576521000.jpg', NULL, '2019-12-19 15:51:30', 'Test District', 'Y', '2019-09-30');
-INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on) VALUES (17, '2912', 'WB2912', 'Bhatt Anabil', 'M', 11, '1990-12-29', 51, 38, 'Belghoria', '21/2/1, B.N.Ghosal Road
-Rajani Apartment, Flat-3
-Belghoria', '21/2/1, B.N.Ghosal Road
-Rajani Apartment, Flat-3
-Belghoria', '7605893512', NULL, 'banabil89@gmail.com', NULL, 2, 2019, '2018-09-18', NULL, '2040-12-29', NULL, NULL, NULL, '', NULL, NULL);
-INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on) VALUES (18, '208', 'WB208', 'Sukhendu Das', 'M', NULL, '1970-08-30', 51, 47, 'balurghat', 'balurghat', 'balurghat', '9474699490', NULL, 'sukhendu@gmail.com', NULL, 1, 1990, '1991-08-31', NULL, '2020-08-31', NULL, NULL, NULL, '', NULL, NULL);
-INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on) VALUES (12, '150', 'WB150', 'Arpan Kr Roy', 'M', 1, '1990-12-29', 46, NULL, 'Belghoria', '21/2/1, B.N.Ghosal Road
-Rajani Apartment, Flat-3
-Belghoria', '21/2/1, B.N.Ghosal Road
-Rajani Apartment, Flat-3
-Belghoria', '1234567891', NULL, 'abcd@gmail.com', NULL, 2, 2019, '2018-09-12', NULL, '2040-12-18', NULL, NULL, '2019-12-30 12:44:35', 'Test District', NULL, NULL);
-INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on) VALUES (1, '123', 'WB123', 'Rupsa Bose', 'Female', NULL, '1989-03-05', 1, 36, 'Maniktala', 'Amherst Row', 'Amherst Row', '9830982611', NULL, 'rupsa@gmail.com', NULL, 1, 2013, '2018-09-18', '2018-09-20', '2079-09-18', 'rohini.jpg', NULL, NULL, NULL, 'Y', '2020-01-04');
-INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on) VALUES (2, '321', 'WB321', 'ANABIL BHATTACHARYA', 'Male', NULL, '1990-12-29', 1, 13, 'Belghoria', '21/2/1 B.N. Road', '21/2/1 B.N. Road', '9830983011', NULL, 'banabil90@gmail.com', NULL, 2, 2015, '2019-09-18', '2018-09-20', '2081-09-18', 'Rupsa.jpg', NULL, NULL, NULL, 'Y', '2019-12-12');
-INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on) VALUES (9, '126', 'WB126', 'Abhisek Gayen', 'M', 3, '1990-12-29', 1, 44, 'Belghoria', '21/2/1, B.N.Ghosal Row
-Rajani Apartment, Flat-3
-Belghoria', '21/2/1, B.N.Ghosal Row
-Rajani Apartment, Flat-3
-Belghoria', '8981660215', '', 'banabil9012@gmail.com', '', 2, 2019, '2019-12-19', '2019-12-20', '2045-12-29', '126_1578249000.jpg', NULL, '2020-01-06 10:48:24', 'Test District', 'Y', '2020-01-02');
-INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on) VALUES (3, '1234', 'WB1234', 'ABC', 'M', 9, '1990-12-29', 51, 48, 'Belghoria', '21/2/1, B.N.Ghosal Road
-Rajani Apartment, Flat-3
-Belghoria', '21/2/1, B.N.Ghosal Road
-Rajani Apartment, Flat-3
-Belghoria', '8981660218', NULL, 'banabil901@gmail.com', NULL, 1, 2015, '2018-09-18', '2018-09-18', '2040-09-18', NULL, NULL, '2019-12-30 12:46:04', '', 'Y', '2019-12-31');
+INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on, additional_hometown) VALUES (12, '580', 'WB580', 'SMT SUDESHNA DE (CHATTERJEE)', 'F', 11, '1968-10-27', 51, 28, 'Chandannagar', 'C/O BIBHAS CHATTERJEE,
+BARAL BAGAN, BAGBAZAR,
+P.O. + P.S. - CHANDANNAGAR, 
+DIST - HOOGHLY, PIN - 712136', 'C/O BIBHAS CHATTERJEE,
+BARAL BAGAN, BAGBAZAR,
+P.O. + P.S. - CHANDANNAGAR, 
+DIST - HOOGHLY, PIN - 712136', '1234567890', NULL, 'sudeshna@gmail.com', NULL, 1, 1997, '1997-11-28', NULL, '2028-10-31', '580_1579458600.jpg', NULL, '2020-01-27 00:00:00', '', 'Y', '2020-01-27', NULL);
+INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on, additional_hometown) VALUES (3, '621', 'WB621', 'Syed Neyazuddin Azad', 'M', 3, '1964-01-02', 51, 41, 'Burnpur', 'Rahmat nagar', 'Rahmat nagar', '9400000001', NULL, 'neyazuddin @gmail.com', NULL, 1, 1981, '1980-01-02', NULL, '2024-03-03', NULL, NULL, '2020-01-27 00:00:00', '', NULL, '2020-01-27', NULL);
+INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on, additional_hometown) VALUES (2, '208', 'WB208', 'Sukhendu Das', 'M', NULL, '1960-01-10', 51, 44, 'Bisnupur', 'Bisnupur', 'Bisnupur', '9400000000', NULL, 'sukhendu@gmail.com', NULL, 1, 1990, '1991-08-30', NULL, '2020-01-31', NULL, NULL, '2020-01-17 15:37:21', '', NULL, '2020-01-01', NULL);
+INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on, additional_hometown) VALUES (11, '702', 'WB702', 'BIBHAS CHATTERJEE', 'M', 12, '1967-01-25', 51, 28, 'Chandannagar', 'BARALBAGAN 2ND LANE, BAGBAZAR,
+PO & P.S. - CHANDANNAGAR,
+DIST : HOOGHLY, PIN - 712136', 'BARALBAGAN 2ND LANE, BAGBAZAR,
+PO & P.S. - CHANDANNAGAR,
+DIST : HOOGHLY, PIN - 712136', '9830123456', NULL, 'bibhas@gmail.com', NULL, 1, 2000, '2001-03-22', NULL, '2027-01-31', '702_1579285800.jpg', NULL, '2020-01-27 00:00:00', '', 'Y', '2020-01-27', NULL);
 
 
 --
--- TOC entry 2486 (class 0 OID 452072)
+-- TOC entry 2512 (class 0 OID 452072)
 -- Dependencies: 233
 -- Data for Name: lcr_departments; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2224,7 +2614,7 @@ Belghoria', '8981660218', NULL, 'banabil901@gmail.com', NULL, 1, 2015, '2018-09-
 
 
 --
--- TOC entry 2460 (class 0 OID 451842)
+-- TOC entry 2486 (class 0 OID 451842)
 -- Dependencies: 207
 -- Data for Name: lcr_hc_ends; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2232,7 +2622,7 @@ Belghoria', '8981660218', NULL, 'banabil901@gmail.com', NULL, 1, 2015, '2018-09-
 
 
 --
--- TOC entry 2462 (class 0 OID 451875)
+-- TOC entry 2488 (class 0 OID 451875)
 -- Dependencies: 209
 -- Data for Name: lcr_lc_details; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2240,7 +2630,7 @@ Belghoria', '8981660218', NULL, 'banabil901@gmail.com', NULL, 1, 2015, '2018-09-
 
 
 --
--- TOC entry 2476 (class 0 OID 452002)
+-- TOC entry 2502 (class 0 OID 452002)
 -- Dependencies: 223
 -- Data for Name: lcr_status_checks; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2248,7 +2638,7 @@ Belghoria', '8981660218', NULL, 'banabil901@gmail.com', NULL, 1, 2015, '2018-09-
 
 
 --
--- TOC entry 2466 (class 0 OID 451906)
+-- TOC entry 2492 (class 0 OID 451906)
 -- Dependencies: 213
 -- Data for Name: lower_case_types; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2313,7 +2703,7 @@ INSERT INTO public.lower_case_types (id, type_name, created_by, created_at, upda
 
 
 --
--- TOC entry 2423 (class 0 OID 451530)
+-- TOC entry 2449 (class 0 OID 451530)
 -- Dependencies: 170
 -- Data for Name: migrations; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2354,10 +2744,12 @@ INSERT INTO public.migrations (id, migration, batch) VALUES (33, '2019_12_05_120
 INSERT INTO public.migrations (id, migration, batch) VALUES (34, '2019_12_05_151849_create_document_types_table', 1);
 INSERT INTO public.migrations (id, migration, batch) VALUES (35, '2019_12_05_151936_create_jo_documents_table', 1);
 INSERT INTO public.migrations (id, migration, batch) VALUES (38, '2019_12_12_140136_create_jo_grades_table', 2);
+INSERT INTO public.migrations (id, migration, batch) VALUES (44, '2020_01_17_112241_create_career_progression_stages_table', 3);
+INSERT INTO public.migrations (id, migration, batch) VALUES (45, '2020_01_17_112242_create_jo_career_progressions_table', 3);
 
 
 --
--- TOC entry 2450 (class 0 OID 451736)
+-- TOC entry 2476 (class 0 OID 451736)
 -- Dependencies: 197
 -- Data for Name: modes; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2368,7 +2760,7 @@ INSERT INTO public.modes (id, posting_mode, created_at, updated_at) VALUES (3, '
 
 
 --
--- TOC entry 2426 (class 0 OID 451544)
+-- TOC entry 2452 (class 0 OID 451544)
 -- Dependencies: 173
 -- Data for Name: password_resets; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2376,32 +2768,37 @@ INSERT INTO public.modes (id, posting_mode, created_at, updated_at) VALUES (3, '
 
 
 --
--- TOC entry 2442 (class 0 OID 451651)
+-- TOC entry 2468 (class 0 OID 451651)
 -- Dependencies: 189
 -- Data for Name: qualifications; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.qualifications (id, qualification_name, created_by, created_at, updated_at) VALUES (5, 'bcom', 11, '2019-06-25 07:18:30', '2019-06-25 07:18:30');
-INSERT INTO public.qualifications (id, qualification_name, created_by, created_at, updated_at) VALUES (7, 'ma llb', 11, '2019-06-25 07:18:47', '2019-06-25 07:18:47');
-INSERT INTO public.qualifications (id, qualification_name, created_by, created_at, updated_at) VALUES (8, 'ba llb', 11, '2019-06-28 09:50:19', '2019-07-01 10:14:25');
-INSERT INTO public.qualifications (id, qualification_name, created_by, created_at, updated_at) VALUES (10, 'm.sc', 11, '2019-07-01 11:25:58', '2019-07-01 11:27:09');
+INSERT INTO public.qualifications (id, qualification_name, created_by, created_at, updated_at) VALUES (1, 'B.Sc (Hons.)', 1, '2020-01-08 14:14:29', '2020-01-08 14:17:18');
+INSERT INTO public.qualifications (id, qualification_name, created_by, created_at, updated_at) VALUES (2, 'B.Sc', 1, '2020-01-08 14:17:33', '2020-01-08 14:17:33');
+INSERT INTO public.qualifications (id, qualification_name, created_by, created_at, updated_at) VALUES (3, 'B.Com (Hons.)', 1, '2020-01-08 14:17:47', '2020-01-08 14:17:47');
+INSERT INTO public.qualifications (id, qualification_name, created_by, created_at, updated_at) VALUES (4, 'B.Com', 1, '2020-01-08 14:18:01', '2020-01-08 14:18:01');
+INSERT INTO public.qualifications (id, qualification_name, created_by, created_at, updated_at) VALUES (5, 'LL.B', 1, '2020-01-08 14:18:19', '2020-01-08 14:18:19');
+INSERT INTO public.qualifications (id, qualification_name, created_by, created_at, updated_at) VALUES (6, 'B.A (Hons.)', 1, '2020-01-08 14:18:33', '2020-01-08 14:18:33');
+INSERT INTO public.qualifications (id, qualification_name, created_by, created_at, updated_at) VALUES (7, 'B.A', 1, '2020-01-08 14:18:38', '2020-01-08 14:18:38');
+INSERT INTO public.qualifications (id, qualification_name, created_by, created_at, updated_at) VALUES (8, 'M.A', 1, '2020-01-08 14:18:46', '2020-01-08 14:18:46');
+INSERT INTO public.qualifications (id, qualification_name, created_by, created_at, updated_at) VALUES (9, 'M.Com', 1, '2020-01-08 14:18:52', '2020-01-08 14:18:52');
+INSERT INTO public.qualifications (id, qualification_name, created_by, created_at, updated_at) VALUES (10, 'M.Sc', 1, '2020-01-08 14:18:57', '2020-01-08 14:18:57');
+INSERT INTO public.qualifications (id, qualification_name, created_by, created_at, updated_at) VALUES (11, 'LL.M', 1, '2020-01-08 14:19:18', '2020-01-08 14:19:18');
 
 
 --
--- TOC entry 2438 (class 0 OID 451628)
+-- TOC entry 2464 (class 0 OID 451628)
 -- Dependencies: 185
 -- Data for Name: ranks; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.ranks (id, rank_name, created_at, updated_at, rank_order) VALUES (1, 'CJJD', '2019-12-15 00:00:00', '2019-12-15 00:00:00', 1);
 INSERT INTO public.ranks (id, rank_name, created_at, updated_at, rank_order) VALUES (2, 'CJSD', '2019-12-15 00:00:00', '2019-12-15 00:00:00', 2);
-INSERT INTO public.ranks (id, rank_name, created_at, updated_at, rank_order) VALUES (3, 'DJ (EL)', '2019-12-15 00:00:00', '2019-12-15 00:00:00', 3);
-INSERT INTO public.ranks (id, rank_name, created_at, updated_at, rank_order) VALUES (4, 'DJ (SG)', '2019-12-15 00:00:00', '2019-12-15 00:00:00', 4);
-INSERT INTO public.ranks (id, rank_name, created_at, updated_at, rank_order) VALUES (5, 'DJ (ST)', '2019-12-15 00:00:00', '2019-12-15 00:00:00', 5);
+INSERT INTO public.ranks (id, rank_name, created_at, updated_at, rank_order) VALUES (3, 'DJ(EL)', '2019-12-15 00:00:00', '2019-12-15 00:00:00', 1);
+INSERT INTO public.ranks (id, rank_name, created_at, updated_at, rank_order) VALUES (1, 'CJJD/MUNSIF', '2019-12-15 00:00:00', '2019-12-15 00:00:00', 3);
 
 
 --
--- TOC entry 2444 (class 0 OID 451661)
+-- TOC entry 2470 (class 0 OID 451661)
 -- Dependencies: 191
 -- Data for Name: recruitment_batches; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2411,125 +2808,125 @@ INSERT INTO public.recruitment_batches (id, recruitment_batch_desc, created_by, 
 
 
 --
--- TOC entry 2428 (class 0 OID 451553)
+-- TOC entry 2454 (class 0 OID 451553)
 -- Dependencies: 175
 -- Data for Name: states; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (51, 'west bengal', 11, '2019-06-18 10:06:22', '2019-06-18 10:06:22');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (52, 'bihar', 11, '2019-06-18 10:10:49', '2019-06-18 10:10:49');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (7, 'odisha', 11, '2019-06-17 06:27:05', '2019-08-05 05:57:55');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (31, 'andhra pradesh', 11, '2019-06-17 06:27:06', '2019-08-05 05:59:14');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (68, 'himachal pradesh', 11, '2019-08-05 06:03:19', '2019-08-05 06:03:19');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (69, 'madhya pradesh', 11, '2019-08-05 06:03:30', '2019-08-05 06:03:30');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (11, 'maharastra', 11, '2019-06-17 06:27:05', '2019-08-05 06:03:46');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (28, 'kerala', 11, '2019-06-17 06:27:05', '2019-08-05 06:04:55');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (1, 'rajasthan', 11, '2019-06-17 06:27:04', '2019-08-05 06:05:07');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (46, 'tamilnadu', 11, '2019-06-17 06:27:06', '2019-08-05 06:07:52');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (25, 'karntaka', 11, '2019-06-17 06:27:05', '2019-08-05 06:16:44');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (44, 'hyderabad', 11, '2019-06-17 06:27:06', '2019-08-05 06:17:30');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (42, 'jammu and kahmir', 11, '2019-06-17 06:27:06', '2019-08-05 06:17:59');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (70, 'punjab', 11, '2019-08-05 06:18:05', '2019-08-05 06:18:05');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (71, 'hariyana', 11, '2019-08-05 06:18:12', '2019-08-05 06:18:12');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (72, 'jharkhand', 11, '2019-08-05 06:18:28', '2019-08-05 06:18:28');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (73, 'chattishgarh', 11, '2019-08-05 06:18:43', '2019-08-05 06:18:43');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (75, 'andaman and nicobar island', 11, '2019-11-11 14:04:17', '2019-11-11 14:04:17');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (17, 'Gujrat', 11, '2019-06-17 06:27:05', '2019-11-22 15:57:57');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (2, 'illinois', 11, '2019-06-17 06:27:04', '2019-06-17 06:27:04');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (24, 'west virginia', 11, '2019-06-17 06:27:05', '2019-06-17 06:27:05');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (48, 'massachusetts', 11, '2019-06-17 06:27:06', '2019-06-17 06:27:06');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (38, 'kentucky', 11, '2019-06-17 06:27:06', '2019-06-17 06:27:06');
-INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (8, 'wyoming', 11, '2019-06-17 06:27:05', '2019-06-17 06:27:05');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (51, 'WEST BENGAL', 11, '2019-06-18 10:06:22', '2019-06-18 10:06:22');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (52, 'BIHAR', 11, '2019-06-18 10:10:49', '2019-06-18 10:10:49');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (7, 'ODISHA', 11, '2019-06-17 06:27:05', '2019-08-05 05:57:55');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (31, 'ANDHRA PRADESH', 11, '2019-06-17 06:27:06', '2019-08-05 05:59:14');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (68, 'HIMACHAL PRADESH', 11, '2019-08-05 06:03:19', '2019-08-05 06:03:19');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (69, 'MADHYA PRADESH', 11, '2019-08-05 06:03:30', '2019-08-05 06:03:30');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (11, 'MAHARASTRA', 11, '2019-06-17 06:27:05', '2019-08-05 06:03:46');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (28, 'KERALA', 11, '2019-06-17 06:27:05', '2019-08-05 06:04:55');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (1, 'RAJASTHAN', 11, '2019-06-17 06:27:04', '2019-08-05 06:05:07');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (46, 'TAMILNADU', 11, '2019-06-17 06:27:06', '2019-08-05 06:07:52');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (25, 'KARNTAKA', 11, '2019-06-17 06:27:05', '2019-08-05 06:16:44');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (44, 'HYDERABAD', 11, '2019-06-17 06:27:06', '2019-08-05 06:17:30');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (42, 'JAMMU AND KAHMIR', 11, '2019-06-17 06:27:06', '2019-08-05 06:17:59');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (70, 'PUNJAB', 11, '2019-08-05 06:18:05', '2019-08-05 06:18:05');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (71, 'HARIYANA', 11, '2019-08-05 06:18:12', '2019-08-05 06:18:12');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (72, 'JHARKHAND', 11, '2019-08-05 06:18:28', '2019-08-05 06:18:28');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (73, 'CHATTISHGARH', 11, '2019-08-05 06:18:43', '2019-08-05 06:18:43');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (75, 'ANDAMAN AND NICOBAR ISLAND', 11, '2019-11-11 14:04:17', '2019-11-11 14:04:17');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (17, 'GUJRAT', 11, '2019-06-17 06:27:05', '2019-11-22 15:57:57');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (2, 'ILLINOIS', 11, '2019-06-17 06:27:04', '2019-06-17 06:27:04');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (24, 'WEST VIRGINIA', 11, '2019-06-17 06:27:05', '2019-06-17 06:27:05');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (48, 'MASSACHUSETTS', 11, '2019-06-17 06:27:06', '2019-06-17 06:27:06');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (38, 'KENTUCKY', 11, '2019-06-17 06:27:06', '2019-06-17 06:27:06');
+INSERT INTO public.states (id, state_name, created_by, created_at, updated_at) VALUES (8, 'WYOMING', 11, '2019-06-17 06:27:05', '2019-06-17 06:27:05');
 
 
 --
--- TOC entry 2434 (class 0 OID 451593)
+-- TOC entry 2460 (class 0 OID 451593)
 -- Dependencies: 181
 -- Data for Name: subdivisions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (152, 'campvell bay', 50, 8, 11, '2019-11-15 13:28:21', '2019-11-15 13:28:21');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (133, 'mayabunder', 50, 8, 11, '2019-11-11 14:08:37', '2019-11-11 14:08:37');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (132, 'car nicobar', 50, 8, 11, '2019-11-11 14:08:27', '2019-11-11 14:08:27');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (131, 'port blair', 50, 8, 11, '2019-11-11 14:08:16', '2019-11-11 14:08:16');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (130, 'mal', 48, 8, 11, '2019-11-11 14:02:42', '2019-11-11 14:02:42');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (129, 'alipurduar', 48, 8, 11, '2019-11-11 14:02:34', '2019-11-11 14:02:34');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (128, 'jalpaiguri sadar', 48, 8, 11, '2019-11-11 14:02:08', '2019-11-11 14:02:08');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (127, 'buniadpur', 8, 8, 11, '2019-11-11 14:01:48', '2019-11-11 14:01:48');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (125, 'balurghat', 8, 8, 11, '2019-11-11 14:01:02', '2019-11-11 14:01:02');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (124, 'gorubathan', 7, 8, 11, '2019-11-11 13:59:52', '2019-11-11 13:59:52');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (123, 'kalimpong sadar', 7, 8, 11, '2019-11-11 13:59:32', '2019-11-11 13:59:32');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (122, 'mungpoo', 10, 8, 11, '2019-11-11 13:59:14', '2019-11-11 13:59:14');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (121, 'mirik', 10, 8, 11, '2019-11-11 13:59:04', '2019-11-11 13:59:04');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (120, 'kurseong', 10, 8, 11, '2019-11-11 13:58:55', '2019-11-11 13:58:55');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (119, 'siliguri', 10, 8, 11, '2019-11-11 13:58:43', '2019-11-11 13:58:43');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (118, 'darjeeling sadar', 10, 8, 11, '2019-11-11 13:58:19', '2019-11-11 13:58:19');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (117, 'mekhligunj', 47, 8, 11, '2019-11-11 13:57:57', '2019-11-11 13:57:57');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (116, 'mathabhanga', 47, 8, 11, '2019-11-11 13:57:43', '2019-11-11 13:57:43');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (115, 'tufangunj', 47, 8, 11, '2019-11-11 13:57:27', '2019-11-11 13:57:27');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (113, 'dinhata', 47, 8, 11, '2019-11-11 13:56:39', '2019-11-11 13:56:39');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (112, 'cooch behar sadar', 47, 8, 11, '2019-11-11 13:56:24', '2019-11-11 13:56:24');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (111, 'islampur', 29, 8, 11, '2019-11-11 13:56:03', '2019-11-11 13:56:03');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (110, 'raiganj', 29, 8, 11, '2019-11-11 13:55:49', '2019-11-11 13:55:49');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (109, 'lalbagh', 44, 7, 11, '2019-11-11 13:53:14', '2019-11-11 13:53:14');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (108, 'kandi', 44, 7, 11, '2019-11-11 13:52:34', '2019-11-11 13:52:34');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (106, 'berhampore', 44, 7, 11, '2019-11-11 13:52:11', '2019-11-11 13:52:11');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (107, 'jangipur', 44, 7, 11, '2019-11-11 13:52:25', '2019-11-11 13:52:25');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (105, 'haldia', 43, 6, 11, '2019-11-11 13:51:34', '2019-11-11 13:51:34');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (104, 'contai', 43, 6, 11, '2019-11-11 13:48:53', '2019-11-11 13:48:53');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (103, 'tamluk', 45, 6, 11, '2019-11-11 13:48:14', '2019-11-11 13:48:33');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (102, 'nabadwip', 46, 6, 11, '2019-11-11 13:47:28', '2019-11-11 13:47:28');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (101, 'tehatta', 46, 6, 11, '2019-11-11 13:47:06', '2019-11-11 13:47:06');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (100, 'ranaghat', 46, 6, 11, '2019-11-11 13:46:53', '2019-11-11 13:46:53');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (99, 'kalyani', 46, 4, 11, '2019-11-11 13:46:33', '2019-11-11 13:46:33');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (98, 'krishnanagar', 46, 6, 11, '2019-11-11 13:46:17', '2019-11-11 13:46:17');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (97, 'kharagpur', 43, 6, 11, '2019-11-11 13:28:42', '2019-11-11 13:28:42');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (96, 'garbeta', 43, 6, 11, '2019-11-11 13:28:13', '2019-11-11 13:28:13');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (95, 'dantan', 43, 6, 11, '2019-11-11 13:27:47', '2019-11-11 13:27:47');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (94, 'ghatal', 43, 6, 11, '2019-11-11 13:27:28', '2019-11-11 13:27:28');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (93, 'paschim medinipur sadar', 43, 6, 11, '2019-11-11 13:27:14', '2019-11-11 13:27:14');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (92, 'durgapur', 41, 6, 11, '2019-11-11 13:24:04', '2019-11-11 13:24:04');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (91, 'asansol', 41, 6, 11, '2019-11-11 13:23:34', '2019-11-11 13:23:34');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (90, 'jhargram', 42, 6, 11, '2019-11-11 13:23:05', '2019-11-11 13:23:05');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (89, 'katwa', 40, 6, 11, '2019-11-11 13:22:40', '2019-11-11 13:22:40');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (88, 'kalna', 40, 6, 11, '2019-11-11 13:22:20', '2019-11-11 13:22:20');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (87, 'purba bardhaman sadar', 40, 6, 11, '2019-11-11 13:22:06', '2019-11-11 13:22:06');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (86, 'raghunathpur', 5, 7, 11, '2019-11-11 13:07:24', '2019-11-11 13:07:24');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (85, 'purulia sadar', 5, 7, 11, '2019-11-11 13:07:06', '2019-11-11 13:07:06');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (83, 'chanchal', 6, 7, 11, '2019-11-11 13:04:39', '2019-11-11 13:04:39');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (82, 'malda sadar', 6, 7, 11, '2019-11-11 13:04:24', '2019-11-11 13:04:24');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (81, 'dubrajpur', 27, 7, 11, '2019-11-11 13:04:02', '2019-11-11 13:04:02');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (80, 'rampurhat', 27, 7, 11, '2019-11-11 13:03:39', '2019-11-11 13:03:39');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (79, 'bolpur', 27, 7, 11, '2019-11-11 13:03:21', '2019-11-11 13:03:21');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (78, 'birbhum sadar', 27, 7, 11, '2019-11-11 13:03:09', '2019-11-11 13:03:09');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (77, 'khatra', 25, 7, 11, '2019-11-11 13:02:41', '2019-11-11 13:02:41');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (76, 'bishnupur', 25, 7, 11, '2019-11-11 13:02:30', '2019-11-11 13:02:30');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (75, 'bankura sadar', 25, 7, 11, '2019-11-11 13:02:17', '2019-11-11 13:02:17');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (74, 'sealdah', 13, 4, 11, '2019-11-11 12:56:33', '2019-11-11 12:56:33');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (71, 'kakdwip', 13, 4, 11, '2019-11-11 12:39:24', '2019-11-11 12:39:24');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (70, 'diamond harbour', 13, 4, 11, '2019-11-11 12:38:53', '2019-11-11 12:38:53');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (69, 'baruipore', 13, 4, 11, '2019-11-11 12:38:32', '2019-11-11 12:38:32');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (68, 'alipore', 13, 4, 11, '2019-11-11 12:38:18', '2019-11-15 14:35:01');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (67, 'basirhat', 38, 6, 11, '2019-11-11 12:37:43', '2019-11-11 12:37:43');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (66, 'bongaon', 38, 6, 11, '2019-11-11 12:37:28', '2019-11-11 12:37:28');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (65, 'sealdah', 38, 4, 11, '2019-11-11 12:37:00', '2019-11-11 12:37:00');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (64, 'bidhannagar', 38, 4, 11, '2019-11-11 12:36:40', '2019-11-11 12:36:40');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (63, 'barrackpore', 38, 4, 11, '2019-11-11 12:36:18', '2019-11-11 12:36:18');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (62, 'barasat', 38, 4, 11, '2019-11-11 12:35:41', '2019-11-11 12:35:41');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (61, 'amta', 26, 4, 11, '2019-11-11 12:25:28', '2019-11-11 12:25:28');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (60, 'uluberia', 26, 4, 11, '2019-11-11 12:25:19', '2019-11-11 12:25:19');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (58, 'howrah sadar', 26, 4, 11, '2019-11-11 12:24:01', '2019-11-11 12:24:01');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (57, 'arambagh', 28, 6, 11, '2019-11-11 12:18:01', '2019-11-11 12:18:01');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (56, 'chandannagar', 28, 4, 11, '2019-11-11 12:17:46', '2019-11-11 12:17:46');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (55, 'serampore', 28, 4, 11, '2019-11-11 12:17:18', '2019-11-11 12:17:18');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (54, 'hoogly sadar', 28, 4, 11, '2019-11-11 12:16:48', '2019-11-11 12:24:53');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (53, 'provincial  small causes court (pscc)', 36, 4, 11, '2019-11-11 12:14:15', '2019-11-11 12:15:22');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (52, 'city civil court', 36, 4, 11, '2019-11-11 12:14:01', '2019-11-11 12:14:01');
-INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (51, 'city sessions court', 36, 4, 11, '2019-11-11 12:13:44', '2019-11-11 12:13:44');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (152, 'CAMPVELL BAY', 50, 8, 11, '2019-11-15 13:28:21', '2019-11-15 13:28:21');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (133, 'MAYABUNDER', 50, 8, 11, '2019-11-11 14:08:37', '2019-11-11 14:08:37');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (132, 'CAR NICOBAR', 50, 8, 11, '2019-11-11 14:08:27', '2019-11-11 14:08:27');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (131, 'PORT BLAIR', 50, 8, 11, '2019-11-11 14:08:16', '2019-11-11 14:08:16');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (130, 'MAL', 48, 8, 11, '2019-11-11 14:02:42', '2019-11-11 14:02:42');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (129, 'ALIPURDUAR', 48, 8, 11, '2019-11-11 14:02:34', '2019-11-11 14:02:34');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (128, 'JALPAIGURI SADAR', 48, 8, 11, '2019-11-11 14:02:08', '2019-11-11 14:02:08');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (127, 'BUNIADPUR', 8, 8, 11, '2019-11-11 14:01:48', '2019-11-11 14:01:48');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (125, 'BALURGHAT', 8, 8, 11, '2019-11-11 14:01:02', '2019-11-11 14:01:02');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (124, 'GORUBATHAN', 7, 8, 11, '2019-11-11 13:59:52', '2019-11-11 13:59:52');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (123, 'KALIMPONG SADAR', 7, 8, 11, '2019-11-11 13:59:32', '2019-11-11 13:59:32');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (122, 'MUNGPOO', 10, 8, 11, '2019-11-11 13:59:14', '2019-11-11 13:59:14');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (121, 'MIRIK', 10, 8, 11, '2019-11-11 13:59:04', '2019-11-11 13:59:04');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (120, 'KURSEONG', 10, 8, 11, '2019-11-11 13:58:55', '2019-11-11 13:58:55');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (119, 'SILIGURI', 10, 8, 11, '2019-11-11 13:58:43', '2019-11-11 13:58:43');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (118, 'DARJEELING SADAR', 10, 8, 11, '2019-11-11 13:58:19', '2019-11-11 13:58:19');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (117, 'MEKHLIGUNJ', 47, 8, 11, '2019-11-11 13:57:57', '2019-11-11 13:57:57');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (116, 'MATHABHANGA', 47, 8, 11, '2019-11-11 13:57:43', '2019-11-11 13:57:43');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (115, 'TUFANGUNJ', 47, 8, 11, '2019-11-11 13:57:27', '2019-11-11 13:57:27');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (113, 'DINHATA', 47, 8, 11, '2019-11-11 13:56:39', '2019-11-11 13:56:39');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (112, 'COOCH BEHAR SADAR', 47, 8, 11, '2019-11-11 13:56:24', '2019-11-11 13:56:24');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (111, 'ISLAMPUR', 29, 8, 11, '2019-11-11 13:56:03', '2019-11-11 13:56:03');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (110, 'RAIGANJ', 29, 8, 11, '2019-11-11 13:55:49', '2019-11-11 13:55:49');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (109, 'LALBAGH', 44, 7, 11, '2019-11-11 13:53:14', '2019-11-11 13:53:14');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (108, 'KANDI', 44, 7, 11, '2019-11-11 13:52:34', '2019-11-11 13:52:34');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (106, 'BERHAMPORE', 44, 7, 11, '2019-11-11 13:52:11', '2019-11-11 13:52:11');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (107, 'JANGIPUR', 44, 7, 11, '2019-11-11 13:52:25', '2019-11-11 13:52:25');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (105, 'HALDIA', 43, 6, 11, '2019-11-11 13:51:34', '2019-11-11 13:51:34');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (104, 'CONTAI', 43, 6, 11, '2019-11-11 13:48:53', '2019-11-11 13:48:53');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (103, 'TAMLUK', 45, 6, 11, '2019-11-11 13:48:14', '2019-11-11 13:48:33');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (102, 'NABADWIP', 46, 6, 11, '2019-11-11 13:47:28', '2019-11-11 13:47:28');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (101, 'TEHATTA', 46, 6, 11, '2019-11-11 13:47:06', '2019-11-11 13:47:06');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (100, 'RANAGHAT', 46, 6, 11, '2019-11-11 13:46:53', '2019-11-11 13:46:53');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (99, 'KALYANI', 46, 4, 11, '2019-11-11 13:46:33', '2019-11-11 13:46:33');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (98, 'KRISHNANAGAR', 46, 6, 11, '2019-11-11 13:46:17', '2019-11-11 13:46:17');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (97, 'KHARAGPUR', 43, 6, 11, '2019-11-11 13:28:42', '2019-11-11 13:28:42');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (96, 'GARBETA', 43, 6, 11, '2019-11-11 13:28:13', '2019-11-11 13:28:13');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (95, 'DANTAN', 43, 6, 11, '2019-11-11 13:27:47', '2019-11-11 13:27:47');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (94, 'GHATAL', 43, 6, 11, '2019-11-11 13:27:28', '2019-11-11 13:27:28');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (93, 'PASCHIM MEDINIPUR SADAR', 43, 6, 11, '2019-11-11 13:27:14', '2019-11-11 13:27:14');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (92, 'DURGAPUR', 41, 6, 11, '2019-11-11 13:24:04', '2019-11-11 13:24:04');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (91, 'ASANSOL', 41, 6, 11, '2019-11-11 13:23:34', '2019-11-11 13:23:34');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (90, 'JHARGRAM', 42, 6, 11, '2019-11-11 13:23:05', '2019-11-11 13:23:05');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (89, 'KATWA', 40, 6, 11, '2019-11-11 13:22:40', '2019-11-11 13:22:40');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (88, 'KALNA', 40, 6, 11, '2019-11-11 13:22:20', '2019-11-11 13:22:20');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (87, 'PURBA BARDHAMAN SADAR', 40, 6, 11, '2019-11-11 13:22:06', '2019-11-11 13:22:06');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (86, 'RAGHUNATHPUR', 5, 7, 11, '2019-11-11 13:07:24', '2019-11-11 13:07:24');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (85, 'PURULIA SADAR', 5, 7, 11, '2019-11-11 13:07:06', '2019-11-11 13:07:06');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (83, 'CHANCHAL', 6, 7, 11, '2019-11-11 13:04:39', '2019-11-11 13:04:39');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (82, 'MALDA SADAR', 6, 7, 11, '2019-11-11 13:04:24', '2019-11-11 13:04:24');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (81, 'DUBRAJPUR', 27, 7, 11, '2019-11-11 13:04:02', '2019-11-11 13:04:02');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (80, 'RAMPURHAT', 27, 7, 11, '2019-11-11 13:03:39', '2019-11-11 13:03:39');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (79, 'BOLPUR', 27, 7, 11, '2019-11-11 13:03:21', '2019-11-11 13:03:21');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (78, 'BIRBHUM SADAR', 27, 7, 11, '2019-11-11 13:03:09', '2019-11-11 13:03:09');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (77, 'KHATRA', 25, 7, 11, '2019-11-11 13:02:41', '2019-11-11 13:02:41');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (76, 'BISHNUPUR', 25, 7, 11, '2019-11-11 13:02:30', '2019-11-11 13:02:30');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (75, 'BANKURA SADAR', 25, 7, 11, '2019-11-11 13:02:17', '2019-11-11 13:02:17');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (74, 'SEALDAH', 13, 4, 11, '2019-11-11 12:56:33', '2019-11-11 12:56:33');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (71, 'KAKDWIP', 13, 4, 11, '2019-11-11 12:39:24', '2019-11-11 12:39:24');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (70, 'DIAMOND HARBOUR', 13, 4, 11, '2019-11-11 12:38:53', '2019-11-11 12:38:53');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (69, 'BARUIPORE', 13, 4, 11, '2019-11-11 12:38:32', '2019-11-11 12:38:32');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (68, 'ALIPORE', 13, 4, 11, '2019-11-11 12:38:18', '2019-11-15 14:35:01');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (67, 'BASIRHAT', 38, 6, 11, '2019-11-11 12:37:43', '2019-11-11 12:37:43');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (66, 'BONGAON', 38, 6, 11, '2019-11-11 12:37:28', '2019-11-11 12:37:28');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (65, 'SEALDAH', 38, 4, 11, '2019-11-11 12:37:00', '2019-11-11 12:37:00');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (64, 'BIDHANNAGAR', 38, 4, 11, '2019-11-11 12:36:40', '2019-11-11 12:36:40');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (63, 'BARRACKPORE', 38, 4, 11, '2019-11-11 12:36:18', '2019-11-11 12:36:18');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (62, 'BARASAT', 38, 4, 11, '2019-11-11 12:35:41', '2019-11-11 12:35:41');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (61, 'AMTA', 26, 4, 11, '2019-11-11 12:25:28', '2019-11-11 12:25:28');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (60, 'ULUBERIA', 26, 4, 11, '2019-11-11 12:25:19', '2019-11-11 12:25:19');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (58, 'HOWRAH SADAR', 26, 4, 11, '2019-11-11 12:24:01', '2019-11-11 12:24:01');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (57, 'ARAMBAGH', 28, 6, 11, '2019-11-11 12:18:01', '2019-11-11 12:18:01');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (56, 'CHANDANNAGAR', 28, 4, 11, '2019-11-11 12:17:46', '2019-11-11 12:17:46');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (55, 'SERAMPORE', 28, 4, 11, '2019-11-11 12:17:18', '2019-11-11 12:17:18');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (54, 'HOOGLY SADAR', 28, 4, 11, '2019-11-11 12:16:48', '2019-11-11 12:24:53');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (53, 'PROVINCIAL  SMALL CAUSES COURT (PSCC)', 36, 4, 11, '2019-11-11 12:14:15', '2019-11-11 12:15:22');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (52, 'CITY CIVIL COURT', 36, 4, 11, '2019-11-11 12:14:01', '2019-11-11 12:14:01');
+INSERT INTO public.subdivisions (id, subdivision_name, district_id, zone_id, created_by, created_at, updated_at) VALUES (51, 'CITY SESSIONS COURT', 36, 4, 11, '2019-11-11 12:13:44', '2019-11-11 12:13:44');
 
 
 --
--- TOC entry 2425 (class 0 OID 451538)
+-- TOC entry 2451 (class 0 OID 451538)
 -- Dependencies: 172
 -- Data for Name: user_types; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -2544,37 +2941,34 @@ INSERT INTO public.user_types (id, type_name, created_at, updated_at) VALUES (9,
 
 
 --
--- TOC entry 2474 (class 0 OID 451966)
+-- TOC entry 2500 (class 0 OID 451966)
 -- Dependencies: 221
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (30, 'court1', 'Court', 6, 3, NULL, NULL, NULL, 'court1@court1.court1', NULL, '$2y$10$aBAFK1T59AzcJVKBGLkV4uMOHGSxxYUkuFR0IE84imZjK55wryJ2u', NULL, '2019-09-16 10:59:20', '2019-09-16 10:59:20');
-INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (12, 'appt', 'Appointment Section', 9, NULL, NULL, NULL, NULL, 'app@gmail.com', NULL, '$2y$10$aBAFK1T59AzcJVKBGLkV4uMOHGSxxYUkuFR0IE84imZjK55wryJ2u', NULL, '2019-06-19 06:00:07', '2019-06-19 06:00:07');
-INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (2, 'Rupsa Bose', 'Rupsa Bose', 2, NULL, 1, 'WB123', NULL, 'rupsa@gmail.com', NULL, '$2y$10$aBAFK1T59AzcJVKBGLkV4uMOHGSxxYUkuFR0IE84imZjK55wryJ2u', NULL, '2019-06-19 06:00:07', '2019-06-19 06:00:07');
-INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (11, 'admin', 'Administrator', 1, 1, NULL, NULL, NULL, 'admin@admin.admin', NULL, '$2y$10$aBAFK1T59AzcJVKBGLkV4uMOHGSxxYUkuFR0IE84imZjK55wryJ2u', '6yufRqnAWFVOdEvHX9wUk0MZ3a7ZeKZwtrCFAdASgrR2zGdVPRYZ8SxIMhrv', '2019-06-19 06:00:07', '2019-06-19 06:00:07');
-INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (1, 'jo00003', 'ABC', 2, NULL, 3, NULL, NULL, 'banabil901@gmail.com', NULL, '$2y$10$AbBmKAN7tTbjwkNateT9b.TBs58wdJv4eIU7EF5EcQV2t.1s6378K', NULL, '2019-12-17 16:46:47', '2019-12-17 16:46:47');
-INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (7, 'jo00009', 'Abhisek Gayen', 2, NULL, 9, NULL, NULL, 'banabil9012@gmail.com', NULL, '$2y$10$/M6tCd.l6bHTq/vYOtd0p..l7WyVwMSt1N.ed5Bp3IHOQMqwFVypS', NULL, '2019-12-17 16:59:47', '2019-12-17 16:59:47');
-INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (9, 'jo00011', 'XYZ', 2, NULL, 11, NULL, NULL, 'abc@gmail.com', NULL, '$2y$10$qHZ7HvUNzhpGkMNzxbh3j.apZwgvxbyTBcSnorILWJGieAMnJljQW', NULL, '2019-12-17 17:12:14', '2019-12-17 17:12:14');
-INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (10, 'jo00012', 'Arpan Kr Roy', 2, NULL, 12, NULL, NULL, 'abcd@gmail.com', NULL, '$2y$10$.qfHv2kNWl0l8qA4PNylQOyXEYQ2wdK5A6VUYH51PsoAwPTE6CxRG', NULL, '2019-12-18 13:02:42', '2019-12-18 13:02:42');
-INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (14, 'jo00017', 'Anabil Bhattacharya', 2, NULL, 17, NULL, NULL, 'banabil89@gmail.com', NULL, '$2y$10$1oY58B.vRF8D.U/nUsw.MupXf.IZL8DHLkfps5JYicT8BFYUvGNLu', NULL, '2019-12-19 15:51:30', '2019-12-19 15:51:30');
-INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (15, 'jo00018', 'Sukhendu Das', 2, NULL, 18, NULL, NULL, 'sukhendu@gmail.com', NULL, '$2y$10$1t.3BPftUSNXYrHY0IYtbu8Xb0GVc9/xiYfUK7m/4TXwRG9BexGy.', NULL, '2020-01-06 15:40:23', '2020-01-06 15:40:23');
+INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (14, 'jo00011', 'BIBHAS CHATTERJEE', 2, NULL, 11, NULL, NULL, 'bibhas@gmail.com', NULL, '$2y$10$TwN7i5cA5UgC.8Y1x0UjN.WKPQ8JKe2ieOy3rT2kCA1wCb.Lu/Lvm', NULL, '2020-01-18 16:26:27', '2020-01-18 16:26:27');
+INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (2, 'appt', 'Appointment Section', 9, NULL, NULL, NULL, NULL, 'app@gmail.com', NULL, '$2y$10$aBAFK1T59AzcJVKBGLkV4uMOHGSxxYUkuFR0IE84imZjK55wryJ2u', NULL, '2019-06-19 06:00:07', '2019-06-19 06:00:07');
+INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (3, 'court1', 'Court', 6, 3, NULL, NULL, NULL, 'court1@court1.court1', NULL, '$2y$10$aBAFK1T59AzcJVKBGLkV4uMOHGSxxYUkuFR0IE84imZjK55wryJ2u', NULL, '2019-09-16 10:59:20', '2019-09-16 10:59:20');
+INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (15, 'jo00012', 'SMT SUDESHNA DE (CHATTERJEE)', 2, NULL, 12, NULL, NULL, 'sudeshna@gmail.com', NULL, '$2y$10$7rO8yiUlPyFlLy3i8NmsUeo6WwprwNJnSWa1KrD.keNdxbYbBIOwG', NULL, '2020-01-20 13:57:33', '2020-01-20 13:57:33');
+INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (5, 'jo00002', 'Sukhendu Das', 2, NULL, 2, NULL, NULL, 'sukhendu@gmail.com', NULL, '$2y$10$ZKGSBBN0zEOzPvIjj.wP3OQ959nnGwrVzXk3vSvINEhl4t.XCY8a6', NULL, '2020-01-08 15:10:09', '2020-01-08 15:10:09');
+INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (6, 'jo00003', 'Syed Neyazuddin Azad', 2, NULL, 3, NULL, NULL, 'neyazuddin@gmail.com', NULL, '$2y$10$35GZkej/RM0ctJHtBcp3Mu7bAyssLhyuNS7537YDBOav0sBgDrM4C', NULL, '2020-01-08 15:21:45', '2020-01-08 15:21:45');
+INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (1, 'admin', 'Administrator', 1, 1, NULL, NULL, NULL, 'admin@admin.admin', NULL, '$2y$10$aBAFK1T59AzcJVKBGLkV4uMOHGSxxYUkuFR0IE84imZjK55wryJ2u', 'i6Nq7P98RWuKAsGuFgAdbcjuy4scRvYeAecFXPBkUpyghfaji6ZQy6ZlfqIu', '2019-06-19 06:00:07', '2019-06-19 06:00:07');
 
 
 --
--- TOC entry 2430 (class 0 OID 451563)
+-- TOC entry 2456 (class 0 OID 451563)
 -- Dependencies: 177
 -- Data for Name: zones; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.zones (id, zone_name, min_service_days, created_by, created_at, updated_at) VALUES (4, 'a', 1095, 11, '2019-11-13 00:00:00', '2019-11-13 00:00:00');
-INSERT INTO public.zones (id, zone_name, min_service_days, created_by, created_at, updated_at) VALUES (6, 'b', 1095, 11, '2019-11-13 00:00:00', '2019-11-13 00:00:00');
-INSERT INTO public.zones (id, zone_name, min_service_days, created_by, created_at, updated_at) VALUES (8, 'd', 730, 11, '2019-11-13 00:00:00', '2019-11-13 00:00:00');
-INSERT INTO public.zones (id, zone_name, min_service_days, created_by, created_at, updated_at) VALUES (7, 'c', 1095, 11, '2019-11-13 00:00:00', '2019-11-15 11:31:20');
+INSERT INTO public.zones (id, zone_name, min_service_days, created_by, created_at, updated_at) VALUES (4, 'A', 1095, 11, '2019-11-13 00:00:00', '2019-11-13 00:00:00');
+INSERT INTO public.zones (id, zone_name, min_service_days, created_by, created_at, updated_at) VALUES (6, 'B', 1095, 11, '2019-11-13 00:00:00', '2019-11-13 00:00:00');
+INSERT INTO public.zones (id, zone_name, min_service_days, created_by, created_at, updated_at) VALUES (8, 'D', 730, 11, '2019-11-13 00:00:00', '2019-11-13 00:00:00');
+INSERT INTO public.zones (id, zone_name, min_service_days, created_by, created_at, updated_at) VALUES (7, 'C', 1095, 11, '2019-11-13 00:00:00', '2019-11-15 11:31:20');
 
 
 --
--- TOC entry 2533 (class 0 OID 0)
+-- TOC entry 2565 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: acr_histories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2583,7 +2977,16 @@ SELECT pg_catalog.setval('public.acr_histories_id_seq', 1, false);
 
 
 --
--- TOC entry 2534 (class 0 OID 0)
+-- TOC entry 2566 (class 0 OID 0)
+-- Dependencies: 240
+-- Name: career_progression_stages_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.career_progression_stages_id_seq', 6, true);
+
+
+--
+-- TOC entry 2567 (class 0 OID 0)
 -- Dependencies: 182
 -- Name: courts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2592,7 +2995,7 @@ SELECT pg_catalog.setval('public.courts_id_seq', 1, false);
 
 
 --
--- TOC entry 2535 (class 0 OID 0)
+-- TOC entry 2568 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: departments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2601,16 +3004,16 @@ SELECT pg_catalog.setval('public.departments_id_seq', 1, false);
 
 
 --
--- TOC entry 2536 (class 0 OID 0)
+-- TOC entry 2569 (class 0 OID 0)
 -- Dependencies: 186
 -- Name: designations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.designations_id_seq', 2, true);
+SELECT pg_catalog.setval('public.designations_id_seq', 8, true);
 
 
 --
--- TOC entry 2537 (class 0 OID 0)
+-- TOC entry 2570 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: diaries_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2619,7 +3022,7 @@ SELECT pg_catalog.setval('public.diaries_id_seq', 1, false);
 
 
 --
--- TOC entry 2538 (class 0 OID 0)
+-- TOC entry 2571 (class 0 OID 0)
 -- Dependencies: 178
 -- Name: districts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2628,7 +3031,7 @@ SELECT pg_catalog.setval('public.districts_id_seq', 1, false);
 
 
 --
--- TOC entry 2539 (class 0 OID 0)
+-- TOC entry 2572 (class 0 OID 0)
 -- Dependencies: 234
 -- Name: document_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2637,7 +3040,7 @@ SELECT pg_catalog.setval('public.document_types_id_seq', 1, false);
 
 
 --
--- TOC entry 2540 (class 0 OID 0)
+-- TOC entry 2573 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: grade_details_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2646,7 +3049,7 @@ SELECT pg_catalog.setval('public.grade_details_id_seq', 1, false);
 
 
 --
--- TOC entry 2541 (class 0 OID 0)
+-- TOC entry 2574 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: hc_case_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2655,25 +3058,34 @@ SELECT pg_catalog.setval('public.hc_case_types_id_seq', 1, false);
 
 
 --
--- TOC entry 2542 (class 0 OID 0)
+-- TOC entry 2575 (class 0 OID 0)
 -- Dependencies: 226
 -- Name: history_deleted_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.history_deleted_data_id_seq', 64, true);
+SELECT pg_catalog.setval('public.history_deleted_data_id_seq', 216, true);
 
 
 --
--- TOC entry 2543 (class 0 OID 0)
+-- TOC entry 2576 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: history_updated_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.history_updated_data_id_seq', 60, true);
+SELECT pg_catalog.setval('public.history_updated_data_id_seq', 155, true);
 
 
 --
--- TOC entry 2544 (class 0 OID 0)
+-- TOC entry 2577 (class 0 OID 0)
+-- Dependencies: 242
+-- Name: jo_career_progressions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.jo_career_progressions_id_seq', 1, false);
+
+
+--
+-- TOC entry 2578 (class 0 OID 0)
 -- Dependencies: 236
 -- Name: jo_documents_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2682,79 +3094,79 @@ SELECT pg_catalog.setval('public.jo_documents_id_seq', 1, false);
 
 
 --
--- TOC entry 2545 (class 0 OID 0)
+-- TOC entry 2579 (class 0 OID 0)
 -- Dependencies: 238
 -- Name: jo_grades_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.jo_grades_id_seq', 108, true);
+SELECT pg_catalog.setval('public.jo_grades_id_seq', 11, true);
 
 
 --
--- TOC entry 2546 (class 0 OID 0)
+-- TOC entry 2580 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: jo_legal_experiences_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.jo_legal_experiences_id_seq', 9, true);
+SELECT pg_catalog.setval('public.jo_legal_experiences_id_seq', 5, true);
 
 
 --
--- TOC entry 2547 (class 0 OID 0)
+-- TOC entry 2581 (class 0 OID 0)
 -- Dependencies: 200
 -- Name: jo_reportings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.jo_reportings_id_seq', 17, true);
+SELECT pg_catalog.setval('public.jo_reportings_id_seq', 3, true);
 
 
 --
--- TOC entry 2548 (class 0 OID 0)
+-- TOC entry 2582 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: jo_zone_tenures_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.jo_zone_tenures_id_seq', 37, true);
+SELECT pg_catalog.setval('public.jo_zone_tenures_id_seq', 114, true);
 
 
 --
--- TOC entry 2549 (class 0 OID 0)
+-- TOC entry 2583 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: judicial_officer_posting_preferences_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.judicial_officer_posting_preferences_id_seq', 16, true);
+SELECT pg_catalog.setval('public.judicial_officer_posting_preferences_id_seq', 20, true);
 
 
 --
--- TOC entry 2550 (class 0 OID 0)
+-- TOC entry 2584 (class 0 OID 0)
 -- Dependencies: 198
 -- Name: judicial_officer_postings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.judicial_officer_postings_id_seq', 54, true);
+SELECT pg_catalog.setval('public.judicial_officer_postings_id_seq', 173, true);
 
 
 --
--- TOC entry 2551 (class 0 OID 0)
+-- TOC entry 2585 (class 0 OID 0)
 -- Dependencies: 194
 -- Name: judicial_officer_qualifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.judicial_officer_qualifications_id_seq', 11, true);
+SELECT pg_catalog.setval('public.judicial_officer_qualifications_id_seq', 17, true);
 
 
 --
--- TOC entry 2552 (class 0 OID 0)
+-- TOC entry 2586 (class 0 OID 0)
 -- Dependencies: 192
 -- Name: judicial_officers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.judicial_officers_id_seq', 18, true);
+SELECT pg_catalog.setval('public.judicial_officers_id_seq', 12, true);
 
 
 --
--- TOC entry 2553 (class 0 OID 0)
+-- TOC entry 2587 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: lcr_departments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2763,7 +3175,7 @@ SELECT pg_catalog.setval('public.lcr_departments_id_seq', 1, false);
 
 
 --
--- TOC entry 2554 (class 0 OID 0)
+-- TOC entry 2588 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: lcr_hc_ends_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2772,7 +3184,7 @@ SELECT pg_catalog.setval('public.lcr_hc_ends_id_seq', 1, false);
 
 
 --
--- TOC entry 2555 (class 0 OID 0)
+-- TOC entry 2589 (class 0 OID 0)
 -- Dependencies: 208
 -- Name: lcr_lc_details_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2781,7 +3193,7 @@ SELECT pg_catalog.setval('public.lcr_lc_details_id_seq', 1, false);
 
 
 --
--- TOC entry 2556 (class 0 OID 0)
+-- TOC entry 2590 (class 0 OID 0)
 -- Dependencies: 222
 -- Name: lcr_status_checks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2790,7 +3202,7 @@ SELECT pg_catalog.setval('public.lcr_status_checks_id_seq', 1, false);
 
 
 --
--- TOC entry 2557 (class 0 OID 0)
+-- TOC entry 2591 (class 0 OID 0)
 -- Dependencies: 212
 -- Name: lower_case_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2799,16 +3211,16 @@ SELECT pg_catalog.setval('public.lower_case_types_id_seq', 1, false);
 
 
 --
--- TOC entry 2558 (class 0 OID 0)
+-- TOC entry 2592 (class 0 OID 0)
 -- Dependencies: 169
 -- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.migrations_id_seq', 38, true);
+SELECT pg_catalog.setval('public.migrations_id_seq', 45, true);
 
 
 --
--- TOC entry 2559 (class 0 OID 0)
+-- TOC entry 2593 (class 0 OID 0)
 -- Dependencies: 196
 -- Name: modes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2817,16 +3229,16 @@ SELECT pg_catalog.setval('public.modes_id_seq', 1, false);
 
 
 --
--- TOC entry 2560 (class 0 OID 0)
+-- TOC entry 2594 (class 0 OID 0)
 -- Dependencies: 188
 -- Name: qualifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.qualifications_id_seq', 1, false);
+SELECT pg_catalog.setval('public.qualifications_id_seq', 11, true);
 
 
 --
--- TOC entry 2561 (class 0 OID 0)
+-- TOC entry 2595 (class 0 OID 0)
 -- Dependencies: 184
 -- Name: ranks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2835,7 +3247,7 @@ SELECT pg_catalog.setval('public.ranks_id_seq', 1, false);
 
 
 --
--- TOC entry 2562 (class 0 OID 0)
+-- TOC entry 2596 (class 0 OID 0)
 -- Dependencies: 190
 -- Name: recruitment_batches_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2844,7 +3256,7 @@ SELECT pg_catalog.setval('public.recruitment_batches_id_seq', 1, false);
 
 
 --
--- TOC entry 2563 (class 0 OID 0)
+-- TOC entry 2597 (class 0 OID 0)
 -- Dependencies: 174
 -- Name: states_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2853,7 +3265,7 @@ SELECT pg_catalog.setval('public.states_id_seq', 1, false);
 
 
 --
--- TOC entry 2564 (class 0 OID 0)
+-- TOC entry 2598 (class 0 OID 0)
 -- Dependencies: 180
 -- Name: subdivisions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2862,7 +3274,7 @@ SELECT pg_catalog.setval('public.subdivisions_id_seq', 1, false);
 
 
 --
--- TOC entry 2565 (class 0 OID 0)
+-- TOC entry 2599 (class 0 OID 0)
 -- Dependencies: 171
 -- Name: user_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2871,7 +3283,7 @@ SELECT pg_catalog.setval('public.user_types_id_seq', 1, false);
 
 
 --
--- TOC entry 2566 (class 0 OID 0)
+-- TOC entry 2600 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2880,7 +3292,7 @@ SELECT pg_catalog.setval('public.users_id_seq', 15, true);
 
 
 --
--- TOC entry 2567 (class 0 OID 0)
+-- TOC entry 2601 (class 0 OID 0)
 -- Dependencies: 176
 -- Name: zones_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -2889,7 +3301,7 @@ SELECT pg_catalog.setval('public.zones_id_seq', 1, false);
 
 
 --
--- TOC entry 2229 (class 2606 OID 451933)
+-- TOC entry 2243 (class 2606 OID 451933)
 -- Name: acr_histories acr_histories_judicial_officer_id_year_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2898,7 +3310,7 @@ ALTER TABLE ONLY public.acr_histories
 
 
 --
--- TOC entry 2231 (class 2606 OID 451931)
+-- TOC entry 2245 (class 2606 OID 451931)
 -- Name: acr_histories acr_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2907,7 +3319,25 @@ ALTER TABLE ONLY public.acr_histories
 
 
 --
--- TOC entry 2157 (class 2606 OID 451625)
+-- TOC entry 2285 (class 2606 OID 468807)
+-- Name: career_progression_stages career_progression_stages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.career_progression_stages
+    ADD CONSTRAINT career_progression_stages_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2287 (class 2606 OID 468809)
+-- Name: career_progression_stages career_progression_stages_stage_name_rank_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.career_progression_stages
+    ADD CONSTRAINT career_progression_stages_stage_name_rank_id_unique UNIQUE (stage_name, rank_id);
+
+
+--
+-- TOC entry 2171 (class 2606 OID 451625)
 -- Name: courts courts_court_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2916,7 +3346,7 @@ ALTER TABLE ONLY public.courts
 
 
 --
--- TOC entry 2159 (class 2606 OID 451618)
+-- TOC entry 2173 (class 2606 OID 451618)
 -- Name: courts courts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2925,7 +3355,7 @@ ALTER TABLE ONLY public.courts
 
 
 --
--- TOC entry 2255 (class 2606 OID 452051)
+-- TOC entry 2269 (class 2606 OID 452051)
 -- Name: departments departments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2934,7 +3364,7 @@ ALTER TABLE ONLY public.departments
 
 
 --
--- TOC entry 2165 (class 2606 OID 451643)
+-- TOC entry 2179 (class 2606 OID 451643)
 -- Name: designations designations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2943,7 +3373,7 @@ ALTER TABLE ONLY public.designations
 
 
 --
--- TOC entry 2207 (class 2606 OID 451834)
+-- TOC entry 2221 (class 2606 OID 451834)
 -- Name: diaries diaries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2952,7 +3382,7 @@ ALTER TABLE ONLY public.diaries
 
 
 --
--- TOC entry 2149 (class 2606 OID 451590)
+-- TOC entry 2163 (class 2606 OID 451590)
 -- Name: districts districts_district_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2961,7 +3391,7 @@ ALTER TABLE ONLY public.districts
 
 
 --
--- TOC entry 2151 (class 2606 OID 451578)
+-- TOC entry 2165 (class 2606 OID 451578)
 -- Name: districts districts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2970,7 +3400,7 @@ ALTER TABLE ONLY public.districts
 
 
 --
--- TOC entry 2263 (class 2606 OID 452087)
+-- TOC entry 2277 (class 2606 OID 452087)
 -- Name: document_types document_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2979,7 +3409,7 @@ ALTER TABLE ONLY public.document_types
 
 
 --
--- TOC entry 2225 (class 2606 OID 451923)
+-- TOC entry 2239 (class 2606 OID 451923)
 -- Name: grade_details grade_details_grade_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2988,7 +3418,7 @@ ALTER TABLE ONLY public.grade_details
 
 
 --
--- TOC entry 2227 (class 2606 OID 451921)
+-- TOC entry 2241 (class 2606 OID 451921)
 -- Name: grade_details grade_details_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2997,7 +3427,7 @@ ALTER TABLE ONLY public.grade_details
 
 
 --
--- TOC entry 2215 (class 2606 OID 451903)
+-- TOC entry 2229 (class 2606 OID 451903)
 -- Name: hc_case_types hc_case_types_full_form_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3006,7 +3436,7 @@ ALTER TABLE ONLY public.hc_case_types
 
 
 --
--- TOC entry 2217 (class 2606 OID 451899)
+-- TOC entry 2231 (class 2606 OID 451899)
 -- Name: hc_case_types hc_case_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3015,7 +3445,7 @@ ALTER TABLE ONLY public.hc_case_types
 
 
 --
--- TOC entry 2219 (class 2606 OID 451901)
+-- TOC entry 2233 (class 2606 OID 451901)
 -- Name: hc_case_types hc_case_types_type_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3024,7 +3454,7 @@ ALTER TABLE ONLY public.hc_case_types
 
 
 --
--- TOC entry 2253 (class 2606 OID 452037)
+-- TOC entry 2267 (class 2606 OID 452037)
 -- Name: history_deleted_data history_deleted_data_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3033,7 +3463,7 @@ ALTER TABLE ONLY public.history_deleted_data
 
 
 --
--- TOC entry 2251 (class 2606 OID 452026)
+-- TOC entry 2265 (class 2606 OID 452026)
 -- Name: history_updated_data history_updated_data_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3042,7 +3472,25 @@ ALTER TABLE ONLY public.history_updated_data
 
 
 --
--- TOC entry 2265 (class 2606 OID 452095)
+-- TOC entry 2289 (class 2606 OID 468822)
+-- Name: jo_career_progressions jo_career_progressions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jo_career_progressions
+    ADD CONSTRAINT jo_career_progressions_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2291 (class 2606 OID 468824)
+-- Name: jo_career_progressions jo_career_progressions_rank_id_progression_stage_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jo_career_progressions
+    ADD CONSTRAINT jo_career_progressions_rank_id_progression_stage_id_unique UNIQUE (rank_id, progression_stage_id);
+
+
+--
+-- TOC entry 2279 (class 2606 OID 452095)
 -- Name: jo_documents jo_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3051,7 +3499,7 @@ ALTER TABLE ONLY public.jo_documents
 
 
 --
--- TOC entry 2267 (class 2606 OID 452174)
+-- TOC entry 2281 (class 2606 OID 452174)
 -- Name: jo_grades jo_grades_judicial_officer_id_rank_id_grade_date_of_gradation_u; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3060,7 +3508,7 @@ ALTER TABLE ONLY public.jo_grades
 
 
 --
--- TOC entry 2269 (class 2606 OID 452172)
+-- TOC entry 2283 (class 2606 OID 452172)
 -- Name: jo_grades jo_grades_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3069,7 +3517,7 @@ ALTER TABLE ONLY public.jo_grades
 
 
 --
--- TOC entry 2257 (class 2606 OID 452059)
+-- TOC entry 2271 (class 2606 OID 452059)
 -- Name: jo_legal_experiences jo_legal_experiences_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3078,7 +3526,7 @@ ALTER TABLE ONLY public.jo_legal_experiences
 
 
 --
--- TOC entry 2201 (class 2606 OID 451787)
+-- TOC entry 2215 (class 2606 OID 451787)
 -- Name: jo_reportings jo_reportings_judicial_officer_id_posting_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3087,7 +3535,7 @@ ALTER TABLE ONLY public.jo_reportings
 
 
 --
--- TOC entry 2203 (class 2606 OID 451785)
+-- TOC entry 2217 (class 2606 OID 451785)
 -- Name: jo_reportings jo_reportings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3096,7 +3544,7 @@ ALTER TABLE ONLY public.jo_reportings
 
 
 --
--- TOC entry 2233 (class 2606 OID 451953)
+-- TOC entry 2247 (class 2606 OID 451953)
 -- Name: jo_zone_tenures jo_zone_tenures_judicial_officer_id_zone_id_from_date_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3105,7 +3553,7 @@ ALTER TABLE ONLY public.jo_zone_tenures
 
 
 --
--- TOC entry 2235 (class 2606 OID 451951)
+-- TOC entry 2249 (class 2606 OID 451951)
 -- Name: jo_zone_tenures jo_zone_tenures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3114,7 +3562,7 @@ ALTER TABLE ONLY public.jo_zone_tenures
 
 
 --
--- TOC entry 2205 (class 2606 OID 451813)
+-- TOC entry 2219 (class 2606 OID 451813)
 -- Name: judicial_officer_posting_preferences judicial_officer_posting_preferences_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3123,7 +3571,7 @@ ALTER TABLE ONLY public.judicial_officer_posting_preferences
 
 
 --
--- TOC entry 2199 (class 2606 OID 451754)
+-- TOC entry 2213 (class 2606 OID 451754)
 -- Name: judicial_officer_postings judicial_officer_postings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3132,7 +3580,7 @@ ALTER TABLE ONLY public.judicial_officer_postings
 
 
 --
--- TOC entry 2191 (class 2606 OID 451723)
+-- TOC entry 2205 (class 2606 OID 451723)
 -- Name: judicial_officer_qualifications judicial_officer_qualifications_judicial_officer_id_qualificati; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3141,7 +3589,7 @@ ALTER TABLE ONLY public.judicial_officer_qualifications
 
 
 --
--- TOC entry 2193 (class 2606 OID 451721)
+-- TOC entry 2207 (class 2606 OID 451721)
 -- Name: judicial_officer_qualifications judicial_officer_qualifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3150,7 +3598,7 @@ ALTER TABLE ONLY public.judicial_officer_qualifications
 
 
 --
--- TOC entry 2175 (class 2606 OID 451711)
+-- TOC entry 2189 (class 2606 OID 451711)
 -- Name: judicial_officers judicial_officers_email_id_1_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3159,7 +3607,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2177 (class 2606 OID 451713)
+-- TOC entry 2191 (class 2606 OID 451713)
 -- Name: judicial_officers judicial_officers_email_id_2_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3168,7 +3616,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2179 (class 2606 OID 451703)
+-- TOC entry 2193 (class 2606 OID 451703)
 -- Name: judicial_officers judicial_officers_jo_code_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3177,7 +3625,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2181 (class 2606 OID 451707)
+-- TOC entry 2195 (class 2606 OID 451707)
 -- Name: judicial_officers judicial_officers_mobile_no_1_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3186,7 +3634,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2183 (class 2606 OID 451709)
+-- TOC entry 2197 (class 2606 OID 451709)
 -- Name: judicial_officers judicial_officers_mobile_no_2_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3195,7 +3643,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2185 (class 2606 OID 451679)
+-- TOC entry 2199 (class 2606 OID 451679)
 -- Name: judicial_officers judicial_officers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3204,7 +3652,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2187 (class 2606 OID 451701)
+-- TOC entry 2201 (class 2606 OID 451701)
 -- Name: judicial_officers judicial_officers_registration_no_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3213,7 +3661,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2189 (class 2606 OID 451705)
+-- TOC entry 2203 (class 2606 OID 451705)
 -- Name: judicial_officers judicial_officers_spouse_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3222,7 +3670,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2259 (class 2606 OID 452079)
+-- TOC entry 2273 (class 2606 OID 452079)
 -- Name: lcr_departments lcr_departments_lcr_department_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3231,7 +3679,7 @@ ALTER TABLE ONLY public.lcr_departments
 
 
 --
--- TOC entry 2261 (class 2606 OID 452077)
+-- TOC entry 2275 (class 2606 OID 452077)
 -- Name: lcr_departments lcr_departments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3240,7 +3688,7 @@ ALTER TABLE ONLY public.lcr_departments
 
 
 --
--- TOC entry 2209 (class 2606 OID 451852)
+-- TOC entry 2223 (class 2606 OID 451852)
 -- Name: lcr_hc_ends lcr_hc_ends_memo_no_memo_date_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3249,7 +3697,7 @@ ALTER TABLE ONLY public.lcr_hc_ends
 
 
 --
--- TOC entry 2211 (class 2606 OID 451850)
+-- TOC entry 2225 (class 2606 OID 451850)
 -- Name: lcr_hc_ends lcr_hc_ends_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3258,7 +3706,7 @@ ALTER TABLE ONLY public.lcr_hc_ends
 
 
 --
--- TOC entry 2213 (class 2606 OID 451883)
+-- TOC entry 2227 (class 2606 OID 451883)
 -- Name: lcr_lc_details lcr_lc_details_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3267,7 +3715,7 @@ ALTER TABLE ONLY public.lcr_lc_details
 
 
 --
--- TOC entry 2249 (class 2606 OID 452010)
+-- TOC entry 2263 (class 2606 OID 452010)
 -- Name: lcr_status_checks lcr_status_checks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3276,7 +3724,7 @@ ALTER TABLE ONLY public.lcr_status_checks
 
 
 --
--- TOC entry 2221 (class 2606 OID 451911)
+-- TOC entry 2235 (class 2606 OID 451911)
 -- Name: lower_case_types lower_case_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3285,7 +3733,7 @@ ALTER TABLE ONLY public.lower_case_types
 
 
 --
--- TOC entry 2223 (class 2606 OID 451913)
+-- TOC entry 2237 (class 2606 OID 451913)
 -- Name: lower_case_types lower_case_types_type_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3294,7 +3742,7 @@ ALTER TABLE ONLY public.lower_case_types
 
 
 --
--- TOC entry 2136 (class 2606 OID 451535)
+-- TOC entry 2150 (class 2606 OID 451535)
 -- Name: migrations migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3303,7 +3751,7 @@ ALTER TABLE ONLY public.migrations
 
 
 --
--- TOC entry 2195 (class 2606 OID 451741)
+-- TOC entry 2209 (class 2606 OID 451741)
 -- Name: modes modes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3312,7 +3760,7 @@ ALTER TABLE ONLY public.modes
 
 
 --
--- TOC entry 2197 (class 2606 OID 451743)
+-- TOC entry 2211 (class 2606 OID 451743)
 -- Name: modes modes_posting_mode_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3321,7 +3769,7 @@ ALTER TABLE ONLY public.modes
 
 
 --
--- TOC entry 2167 (class 2606 OID 451656)
+-- TOC entry 2181 (class 2606 OID 451656)
 -- Name: qualifications qualifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3330,7 +3778,7 @@ ALTER TABLE ONLY public.qualifications
 
 
 --
--- TOC entry 2169 (class 2606 OID 451658)
+-- TOC entry 2183 (class 2606 OID 451658)
 -- Name: qualifications qualifications_qualification_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3339,7 +3787,7 @@ ALTER TABLE ONLY public.qualifications
 
 
 --
--- TOC entry 2161 (class 2606 OID 451633)
+-- TOC entry 2175 (class 2606 OID 451633)
 -- Name: ranks ranks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3348,7 +3796,7 @@ ALTER TABLE ONLY public.ranks
 
 
 --
--- TOC entry 2163 (class 2606 OID 451635)
+-- TOC entry 2177 (class 2606 OID 451635)
 -- Name: ranks ranks_rank_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3357,7 +3805,7 @@ ALTER TABLE ONLY public.ranks
 
 
 --
--- TOC entry 2171 (class 2606 OID 451666)
+-- TOC entry 2185 (class 2606 OID 451666)
 -- Name: recruitment_batches recruitment_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3366,7 +3814,7 @@ ALTER TABLE ONLY public.recruitment_batches
 
 
 --
--- TOC entry 2173 (class 2606 OID 451668)
+-- TOC entry 2187 (class 2606 OID 451668)
 -- Name: recruitment_batches recruitment_batches_recruitment_batch_desc_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3375,7 +3823,7 @@ ALTER TABLE ONLY public.recruitment_batches
 
 
 --
--- TOC entry 2141 (class 2606 OID 451558)
+-- TOC entry 2155 (class 2606 OID 451558)
 -- Name: states states_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3384,7 +3832,7 @@ ALTER TABLE ONLY public.states
 
 
 --
--- TOC entry 2143 (class 2606 OID 451560)
+-- TOC entry 2157 (class 2606 OID 451560)
 -- Name: states states_state_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3393,7 +3841,7 @@ ALTER TABLE ONLY public.states
 
 
 --
--- TOC entry 2153 (class 2606 OID 451598)
+-- TOC entry 2167 (class 2606 OID 451598)
 -- Name: subdivisions subdivisions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3402,7 +3850,7 @@ ALTER TABLE ONLY public.subdivisions
 
 
 --
--- TOC entry 2155 (class 2606 OID 451600)
+-- TOC entry 2169 (class 2606 OID 451600)
 -- Name: subdivisions subdivisions_subdivision_name_district_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3411,7 +3859,7 @@ ALTER TABLE ONLY public.subdivisions
 
 
 --
--- TOC entry 2138 (class 2606 OID 451543)
+-- TOC entry 2152 (class 2606 OID 451543)
 -- Name: user_types user_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3420,7 +3868,7 @@ ALTER TABLE ONLY public.user_types
 
 
 --
--- TOC entry 2237 (class 2606 OID 451991)
+-- TOC entry 2251 (class 2606 OID 451991)
 -- Name: users users_court_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3429,7 +3877,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2239 (class 2606 OID 451997)
+-- TOC entry 2253 (class 2606 OID 451997)
 -- Name: users users_department_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3438,7 +3886,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2241 (class 2606 OID 451999)
+-- TOC entry 2255 (class 2606 OID 451999)
 -- Name: users users_email_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3447,7 +3895,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2243 (class 2606 OID 451995)
+-- TOC entry 2257 (class 2606 OID 451995)
 -- Name: users users_jo_code_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3456,7 +3904,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2245 (class 2606 OID 451993)
+-- TOC entry 2259 (class 2606 OID 451993)
 -- Name: users users_judicial_officer_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3465,7 +3913,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2247 (class 2606 OID 451974)
+-- TOC entry 2261 (class 2606 OID 451974)
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3474,7 +3922,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2145 (class 2606 OID 451568)
+-- TOC entry 2159 (class 2606 OID 451568)
 -- Name: zones zones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3483,7 +3931,7 @@ ALTER TABLE ONLY public.zones
 
 
 --
--- TOC entry 2147 (class 2606 OID 451570)
+-- TOC entry 2161 (class 2606 OID 451570)
 -- Name: zones zones_zone_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3492,7 +3940,7 @@ ALTER TABLE ONLY public.zones
 
 
 --
--- TOC entry 2139 (class 1259 OID 451550)
+-- TOC entry 2153 (class 1259 OID 451550)
 -- Name: password_resets_email_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3500,7 +3948,7 @@ CREATE INDEX password_resets_email_index ON public.password_resets USING btree (
 
 
 --
--- TOC entry 2310 (class 2620 OID 452038)
+-- TOC entry 2336 (class 2620 OID 452038)
 -- Name: judicial_officers movedeleted; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -3508,7 +3956,7 @@ CREATE TRIGGER movedeleted BEFORE DELETE ON public.judicial_officers FOR EACH RO
 
 
 --
--- TOC entry 2312 (class 2620 OID 452040)
+-- TOC entry 2338 (class 2620 OID 452040)
 -- Name: judicial_officer_qualifications movedeleted; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -3516,7 +3964,7 @@ CREATE TRIGGER movedeleted BEFORE DELETE ON public.judicial_officer_qualificatio
 
 
 --
--- TOC entry 2314 (class 2620 OID 452042)
+-- TOC entry 2340 (class 2620 OID 452042)
 -- Name: judicial_officer_postings movedeleted; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -3524,7 +3972,7 @@ CREATE TRIGGER movedeleted BEFORE DELETE ON public.judicial_officer_postings FOR
 
 
 --
--- TOC entry 2311 (class 2620 OID 452039)
+-- TOC entry 2337 (class 2620 OID 452039)
 -- Name: judicial_officers moveupdated; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -3532,7 +3980,7 @@ CREATE TRIGGER moveupdated BEFORE UPDATE ON public.judicial_officers FOR EACH RO
 
 
 --
--- TOC entry 2313 (class 2620 OID 452041)
+-- TOC entry 2339 (class 2620 OID 452041)
 -- Name: judicial_officer_qualifications moveupdated; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -3540,7 +3988,7 @@ CREATE TRIGGER moveupdated BEFORE UPDATE ON public.judicial_officer_qualificatio
 
 
 --
--- TOC entry 2315 (class 2620 OID 452043)
+-- TOC entry 2341 (class 2620 OID 452043)
 -- Name: judicial_officer_postings moveupdated; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -3548,7 +3996,7 @@ CREATE TRIGGER moveupdated BEFORE UPDATE ON public.judicial_officer_postings FOR
 
 
 --
--- TOC entry 2297 (class 2606 OID 451939)
+-- TOC entry 2319 (class 2606 OID 451939)
 -- Name: acr_histories acr_histories_grade_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3557,7 +4005,7 @@ ALTER TABLE ONLY public.acr_histories
 
 
 --
--- TOC entry 2296 (class 2606 OID 451934)
+-- TOC entry 2318 (class 2606 OID 451934)
 -- Name: acr_histories acr_histories_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3566,7 +4014,16 @@ ALTER TABLE ONLY public.acr_histories
 
 
 --
--- TOC entry 2274 (class 2606 OID 451619)
+-- TOC entry 2332 (class 2606 OID 468810)
+-- Name: career_progression_stages career_progression_stages_rank_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.career_progression_stages
+    ADD CONSTRAINT career_progression_stages_rank_id_foreign FOREIGN KEY (rank_id) REFERENCES public.ranks(id);
+
+
+--
+-- TOC entry 2296 (class 2606 OID 451619)
 -- Name: courts courts_subdivision_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3575,7 +4032,7 @@ ALTER TABLE ONLY public.courts
 
 
 --
--- TOC entry 2275 (class 2606 OID 451644)
+-- TOC entry 2297 (class 2606 OID 451644)
 -- Name: designations designations_rank_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3584,7 +4041,7 @@ ALTER TABLE ONLY public.designations
 
 
 --
--- TOC entry 2290 (class 2606 OID 451835)
+-- TOC entry 2312 (class 2606 OID 451835)
 -- Name: diaries diaries_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3593,7 +4050,7 @@ ALTER TABLE ONLY public.diaries
 
 
 --
--- TOC entry 2270 (class 2606 OID 451579)
+-- TOC entry 2292 (class 2606 OID 451579)
 -- Name: districts districts_state_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3602,7 +4059,7 @@ ALTER TABLE ONLY public.districts
 
 
 --
--- TOC entry 2271 (class 2606 OID 451584)
+-- TOC entry 2293 (class 2606 OID 451584)
 -- Name: districts districts_zone_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3611,7 +4068,34 @@ ALTER TABLE ONLY public.districts
 
 
 --
--- TOC entry 2307 (class 2606 OID 452101)
+-- TOC entry 2333 (class 2606 OID 468825)
+-- Name: jo_career_progressions jo_career_progressions_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jo_career_progressions
+    ADD CONSTRAINT jo_career_progressions_judicial_officer_id_foreign FOREIGN KEY (judicial_officer_id) REFERENCES public.judicial_officers(id);
+
+
+--
+-- TOC entry 2335 (class 2606 OID 468835)
+-- Name: jo_career_progressions jo_career_progressions_progression_stage_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jo_career_progressions
+    ADD CONSTRAINT jo_career_progressions_progression_stage_id_foreign FOREIGN KEY (progression_stage_id) REFERENCES public.career_progression_stages(id);
+
+
+--
+-- TOC entry 2334 (class 2606 OID 468830)
+-- Name: jo_career_progressions jo_career_progressions_rank_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.jo_career_progressions
+    ADD CONSTRAINT jo_career_progressions_rank_id_foreign FOREIGN KEY (rank_id) REFERENCES public.ranks(id);
+
+
+--
+-- TOC entry 2329 (class 2606 OID 452101)
 -- Name: jo_documents jo_documents_document_type_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3620,7 +4104,7 @@ ALTER TABLE ONLY public.jo_documents
 
 
 --
--- TOC entry 2306 (class 2606 OID 452096)
+-- TOC entry 2328 (class 2606 OID 452096)
 -- Name: jo_documents jo_documents_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3629,7 +4113,7 @@ ALTER TABLE ONLY public.jo_documents
 
 
 --
--- TOC entry 2308 (class 2606 OID 452175)
+-- TOC entry 2330 (class 2606 OID 452175)
 -- Name: jo_grades jo_grades_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3638,7 +4122,7 @@ ALTER TABLE ONLY public.jo_grades
 
 
 --
--- TOC entry 2309 (class 2606 OID 452180)
+-- TOC entry 2331 (class 2606 OID 452180)
 -- Name: jo_grades jo_grades_rank_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3647,7 +4131,7 @@ ALTER TABLE ONLY public.jo_grades
 
 
 --
--- TOC entry 2304 (class 2606 OID 452060)
+-- TOC entry 2326 (class 2606 OID 452060)
 -- Name: jo_legal_experiences jo_legal_experiences_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3656,7 +4140,7 @@ ALTER TABLE ONLY public.jo_legal_experiences
 
 
 --
--- TOC entry 2305 (class 2606 OID 452065)
+-- TOC entry 2327 (class 2606 OID 452065)
 -- Name: jo_legal_experiences jo_legal_experiences_subdivision_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3665,7 +4149,7 @@ ALTER TABLE ONLY public.jo_legal_experiences
 
 
 --
--- TOC entry 2285 (class 2606 OID 451788)
+-- TOC entry 2307 (class 2606 OID 451788)
 -- Name: jo_reportings jo_reportings_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3674,7 +4158,7 @@ ALTER TABLE ONLY public.jo_reportings
 
 
 --
--- TOC entry 2287 (class 2606 OID 451798)
+-- TOC entry 2309 (class 2606 OID 451798)
 -- Name: jo_reportings jo_reportings_posting_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3683,7 +4167,7 @@ ALTER TABLE ONLY public.jo_reportings
 
 
 --
--- TOC entry 2286 (class 2606 OID 451793)
+-- TOC entry 2308 (class 2606 OID 451793)
 -- Name: jo_reportings jo_reportings_reporting_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3692,7 +4176,7 @@ ALTER TABLE ONLY public.jo_reportings
 
 
 --
--- TOC entry 2298 (class 2606 OID 451954)
+-- TOC entry 2320 (class 2606 OID 451954)
 -- Name: jo_zone_tenures jo_zone_tenures_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3701,7 +4185,7 @@ ALTER TABLE ONLY public.jo_zone_tenures
 
 
 --
--- TOC entry 2299 (class 2606 OID 451959)
+-- TOC entry 2321 (class 2606 OID 451959)
 -- Name: jo_zone_tenures jo_zone_tenures_zone_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3710,7 +4194,7 @@ ALTER TABLE ONLY public.jo_zone_tenures
 
 
 --
--- TOC entry 2288 (class 2606 OID 451814)
+-- TOC entry 2310 (class 2606 OID 451814)
 -- Name: judicial_officer_posting_preferences judicial_officer_posting_preferences_judicial_officer_id_foreig; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3719,7 +4203,7 @@ ALTER TABLE ONLY public.judicial_officer_posting_preferences
 
 
 --
--- TOC entry 2289 (class 2606 OID 451819)
+-- TOC entry 2311 (class 2606 OID 451819)
 -- Name: judicial_officer_posting_preferences judicial_officer_posting_preferences_zone_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3728,7 +4212,7 @@ ALTER TABLE ONLY public.judicial_officer_posting_preferences
 
 
 --
--- TOC entry 2282 (class 2606 OID 451755)
+-- TOC entry 2304 (class 2606 OID 451755)
 -- Name: judicial_officer_postings judicial_officer_postings_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3737,7 +4221,7 @@ ALTER TABLE ONLY public.judicial_officer_postings
 
 
 --
--- TOC entry 2284 (class 2606 OID 451770)
+-- TOC entry 2306 (class 2606 OID 451770)
 -- Name: judicial_officer_postings judicial_officer_postings_mode_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3746,7 +4230,7 @@ ALTER TABLE ONLY public.judicial_officer_postings
 
 
 --
--- TOC entry 2283 (class 2606 OID 451760)
+-- TOC entry 2305 (class 2606 OID 451760)
 -- Name: judicial_officer_postings judicial_officer_postings_rank_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3755,7 +4239,7 @@ ALTER TABLE ONLY public.judicial_officer_postings
 
 
 --
--- TOC entry 2280 (class 2606 OID 451724)
+-- TOC entry 2302 (class 2606 OID 451724)
 -- Name: judicial_officer_qualifications judicial_officer_qualifications_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3764,7 +4248,7 @@ ALTER TABLE ONLY public.judicial_officer_qualifications
 
 
 --
--- TOC entry 2281 (class 2606 OID 451729)
+-- TOC entry 2303 (class 2606 OID 451729)
 -- Name: judicial_officer_qualifications judicial_officer_qualifications_qualification_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3773,7 +4257,7 @@ ALTER TABLE ONLY public.judicial_officer_qualifications
 
 
 --
--- TOC entry 2276 (class 2606 OID 451680)
+-- TOC entry 2298 (class 2606 OID 451680)
 -- Name: judicial_officers judicial_officers_home_district_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3782,7 +4266,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2277 (class 2606 OID 451685)
+-- TOC entry 2299 (class 2606 OID 451685)
 -- Name: judicial_officers judicial_officers_home_state_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3791,7 +4275,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2278 (class 2606 OID 451690)
+-- TOC entry 2300 (class 2606 OID 451690)
 -- Name: judicial_officers judicial_officers_recruitment_batch_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3800,7 +4284,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2279 (class 2606 OID 451695)
+-- TOC entry 2301 (class 2606 OID 451695)
 -- Name: judicial_officers judicial_officers_spouse_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3809,7 +4293,7 @@ ALTER TABLE ONLY public.judicial_officers
 
 
 --
--- TOC entry 2291 (class 2606 OID 451853)
+-- TOC entry 2313 (class 2606 OID 451853)
 -- Name: lcr_hc_ends lcr_hc_ends_court_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3818,7 +4302,7 @@ ALTER TABLE ONLY public.lcr_hc_ends
 
 
 --
--- TOC entry 2294 (class 2606 OID 451868)
+-- TOC entry 2316 (class 2606 OID 451868)
 -- Name: lcr_hc_ends lcr_hc_ends_district_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3827,7 +4311,7 @@ ALTER TABLE ONLY public.lcr_hc_ends
 
 
 --
--- TOC entry 2292 (class 2606 OID 451858)
+-- TOC entry 2314 (class 2606 OID 451858)
 -- Name: lcr_hc_ends lcr_hc_ends_forwarding_court_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3836,7 +4320,7 @@ ALTER TABLE ONLY public.lcr_hc_ends
 
 
 --
--- TOC entry 2293 (class 2606 OID 451863)
+-- TOC entry 2315 (class 2606 OID 451863)
 -- Name: lcr_hc_ends lcr_hc_ends_subdivision_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3845,7 +4329,7 @@ ALTER TABLE ONLY public.lcr_hc_ends
 
 
 --
--- TOC entry 2295 (class 2606 OID 451884)
+-- TOC entry 2317 (class 2606 OID 451884)
 -- Name: lcr_lc_details lcr_lc_details_hc_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3854,7 +4338,7 @@ ALTER TABLE ONLY public.lcr_lc_details
 
 
 --
--- TOC entry 2303 (class 2606 OID 452011)
+-- TOC entry 2325 (class 2606 OID 452011)
 -- Name: lcr_status_checks lcr_status_checks_hc_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3863,7 +4347,7 @@ ALTER TABLE ONLY public.lcr_status_checks
 
 
 --
--- TOC entry 2272 (class 2606 OID 451601)
+-- TOC entry 2294 (class 2606 OID 451601)
 -- Name: subdivisions subdivisions_district_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3872,7 +4356,7 @@ ALTER TABLE ONLY public.subdivisions
 
 
 --
--- TOC entry 2273 (class 2606 OID 451606)
+-- TOC entry 2295 (class 2606 OID 451606)
 -- Name: subdivisions subdivisions_zone_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3881,7 +4365,7 @@ ALTER TABLE ONLY public.subdivisions
 
 
 --
--- TOC entry 2300 (class 2606 OID 451975)
+-- TOC entry 2322 (class 2606 OID 451975)
 -- Name: users users_court_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3890,7 +4374,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2301 (class 2606 OID 451980)
+-- TOC entry 2323 (class 2606 OID 451980)
 -- Name: users users_judicial_officer_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3899,7 +4383,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2302 (class 2606 OID 451985)
+-- TOC entry 2324 (class 2606 OID 451985)
 -- Name: users users_user_type_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3907,7 +4391,7 @@ ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_user_type_id_foreign FOREIGN KEY (user_type_id) REFERENCES public.user_types(id);
 
 
--- Completed on 2020-01-06 16:30:02
+-- Completed on 2020-01-28 15:37:37
 
 --
 -- PostgreSQL database dump complete

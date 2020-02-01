@@ -91,7 +91,7 @@
                     </div>
                  </div>
 
-                 <div class="form-group required">
+                 <div class="form-group">
                     <div class="col-xs-2">
                         <label for="recruitment_batch_year" class="control-label">
                             Batch Year 
@@ -154,7 +154,7 @@
             <div class="tab-pane" id="contact_details">
                 <div class="row">
                     <form class="form" action="##" method="">
-                            <div class="form-group required">
+                            <div class="form-group">
                                 <div class="col-xs-5">
                                     <label for="email_id_1" class="control-label">
                                         Primary Email ID 
@@ -171,7 +171,7 @@
                                 </div>
                             </div>  
                             
-                            <div class="form-group required">
+                            <div class="form-group">
                                 <div class="col-xs-5">
                                     <label for="ph_no_1" class="control-label">
                                         Primary Contact No. 
@@ -280,7 +280,7 @@
                                             @include('subdivisions.subdivision_options')
                                         </select>
                                     </div>
-                                    <div class="form-group required col-xs-3">
+                                    <div class="form-group col-xs-3">
                                         <label class="control-label">
                                             From (Year)
                                         </label>
@@ -291,7 +291,7 @@
                                             @endfor
                                         </select>
                                     </div>   
-                                    <div class="form-group required col-xs-3">
+                                    <div class="form-group col-xs-3">
                                         <label class="control-label">
                                             To (Year)
                                         </label>
@@ -345,7 +345,7 @@
                                         @include('qualifications.qualification_options')
                                     </select>
                                 </div>
-                                <div class="form-group required col-xs-3">
+                                <div class="form-group col-xs-3">
                                     <label class="control-label">
                                         Year of Passing 
                                     </label>
@@ -909,7 +909,7 @@
         });
         /*Current Address is Same As Permanenet Address :: ENDS*/
 
-        function ajax_data(type){           
+        function ajax_data(){           
             //Profile Image Validation
             if($("#profile_image").val()!=""){
                 var ext = $('#profile_image').val().split('.').pop().toLowerCase();
@@ -961,26 +961,9 @@
             })
             
 
-            ajax_url="";
-            operation="";
-            operated="";
-            request_type="POST";
-            if(type=="add"){                
-                ajax_url="jo_entry";       
-
-                operation="add";
-                operated="Added";
-            }
-            else if(type=="update"){                          
-                //ajax_url="jo_entry/"+formdata.registration_no;
-
-                operation="update";
-                operated="Updated";
-            } 
-
             $.ajax({
-                type: request_type,
-                url: ajax_url,
+                type: "POST",
+                url: "jo_entry",
                 data: {
                     jo_code:$("#jo_code").val(),
                     registration_no:$("#reg_no").val(),
@@ -1027,7 +1010,10 @@
                 success: function (data, textStatus, jqXHR) {
                     if(data.judicial_officer!=null){                        
                         if($("#profile_image").val()==""){
-                            swal("Judicial Officer"+operated+" Successfully","","success");
+                            swal("Judicial Officer Added Successfully","","success");
+                            $("form").trigger("reset");   
+                            $(".select2").val('').trigger('change');
+                            table.ajax.reload();
                             return false;
                         }
                         else{
@@ -1041,13 +1027,14 @@
                                 cache: false,
                                 processData: false,
                                 success: function(data, textStatus, jqXHR){
-                                    swal("Judicial Officer"+operated+" Successfully","","success");
+                                    swal("Judicial Officer Added Successfully","","success");
                                     $("form").trigger("reset");   
                                     $(".select2").val('').trigger('change');
+                                    table.ajax.reload();
                                 },
                                 error: function (jqXHR, textStatus, errorThrown) {
                                     if(jqXHR.status!=422 && jqXHR.status!=400){
-                                        swal("Failed to "+operation+" Judicial Officer's Image",errorThrown,"error");
+                                        swal("Failed to Add Judicial Officer's Image",errorThrown,"error");
                                     }
                                     else{
                                         msg = "";
@@ -1055,7 +1042,7 @@
                                             msg+=value+"\n";						
                                         });
 
-                                        swal("Failed to "+operation+" Judicial Officer's Image",msg,"error");
+                                        swal("Failed to Add Judicial Officer's Image",msg,"error");
                                     }
                                 }
                             })
@@ -1066,7 +1053,7 @@
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     if(jqXHR.status!=422 && jqXHR.status!=400){
-                        swal("Failed to "+operation+" Judicial Officer",errorThrown,"error");
+                        swal("Failed to Add Judicial Officer",errorThrown,"error");
                     }
                     else{
                         msg = "";
@@ -1074,7 +1061,7 @@
                             msg+=value+"\n";						
                         });
 
-                        swal("Failed to "+operation+" Judicial Officer",msg,"error");
+                        swal("Failed to Add Judicial Officer",msg,"error");
                     }
                 }
             })
@@ -1082,12 +1069,19 @@
 
 
         $(".submit").click(function(){
-            ajax_data('add');
+            swal({
+                    title: "Are you sure ?",
+                    text: "Please make sure you have put every right details",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        ajax_data();
+                    }
+                });
         })  
-
-        $("#update").click(function(){
-            ajax_data('update');
-        })    
         
    });
 

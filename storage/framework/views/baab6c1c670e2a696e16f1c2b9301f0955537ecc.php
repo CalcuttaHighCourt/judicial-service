@@ -30,10 +30,9 @@
             <div id="judicial_officer-group" class="form-group our-form-group">
             <!-- IIIIIIIIIII -->
                 <select  id="judicial_officer" class="form-control select2 info-form-control judicial_officer"
-                        name="judicial_officer" multiple  style="width:300px;"  > 
-                        <?php $__currentLoopData = $judicial_officers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        
-                            <option value="<?php echo e($data->id); ?>"><?php echo e($data->officer_name); ?> </option>
+                name="judicial_officer" multiple style="width:300px;"> 
+                        <?php $__currentLoopData = $judicial_officers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>                        
+                            <option value="<?php echo e($data->id); ?>"><?php echo e($data->officer_name); ?> |  <?php echo e($data->jo_code); ?></option>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
             </div>
@@ -67,73 +66,67 @@
 <script>
    $(document).ready(function() {
     
-   /*LOADER*/
-   
-   	    $(document).ajaxStart(function() {
+        /*LOADER*/
+    
+        $(document).ajaxStart(function() {
             $("#wait").css("display", "block");
         });
         $(document).ajaxComplete(function() {
             $("#wait").css("display", "none");
         });
-   
-    /*LOADER*/
-   
-    /* select2 initialisation */
-   
-    $(".select2").select2({
-        placeholder:"Select Judicial Officer"
-    }); 
-  
-    $('#display_flag').bootstrapToggle({
-                on: 'Activate',
-                off: 'Deactivate',
-                onstyle: 'success',
-                offstyle: 'danger'
-            }); // Toggle button initialization
+    
+        /*LOADER*/
+    
+        /* select2 initialisation */
+    
+        $(".select2").select2({
+            placeholder:"Select Judicial Officer"
+        }); 
+    
+        $('#display_flag').bootstrapToggle({
+            on: 'Activate',
+            off: 'Deactivate',
+            onstyle: 'success',
+            offstyle: 'danger'
+        }); // Toggle button initialization
 
-  $(document).on("change","#display_flag",function(){
 
-      if($(this).is(":checked")!=false){
-        var judicial_officer=$("#judicial_officer").val();
-        console.log(judicial_officer);
-       
-    $.ajax({
-        type:"POST",
-        url:"activate_window_for_jo_preference",
-        data:{
-            _token: $('meta[name="csrf-token"]').attr('content'), 
-            judicial_officer:judicial_officer
-            },
-            success:function(response){
-                $("#judicial_officer").val('');
-                $("#judicial_officer").val('').trigger('change');
-                swal("Successfull","Window has been opened successfully for the selected judicial officers","success");
-                $('#display_flag').bootstrapToggle('off'); 
-                //table.ajax.reload();  
-            },
-            error:function (jqXHR, textStatus, errorThrown) {
-                if(jqXHR.status!=422 && jqXHR.status!=400){
-                    swal("Server Error",errorThrown,"error");
-                }
-                else{								
-                    swal("Invalid Input","","error");
-                }
-            } 
-        });  
+        // Activating the preference window :: STARTS
+        $(document).on("change","#display_flag",function(){
 
-      }
-        
-       
+            if($(this).is(":checked")!=false){
+                var judicial_officer=$("#judicial_officer").val();
+            
+                $.ajax({
+                    type:"POST",
+                    url:"activate_window_for_jo_preference",
+                    data:{
+                        _token: $('meta[name="csrf-token"]').attr('content'), 
+                        judicial_officer:judicial_officer
+                    },
+                    success:function(response){
+                        $("#judicial_officer").val('');
+                        $("#judicial_officer").val('').trigger('change');
+                        swal("Successfull","Window has been opened successfully for the selected judicial officers","success");
+                        $('#display_flag').bootstrapToggle('off'); 
+                        //table.ajax.reload();  
+                    },
+                    error:function (jqXHR, textStatus, errorThrown) {
+                        if(jqXHR.status!=422 && jqXHR.status!=400){
+                            swal("Server Error",errorThrown,"error");
+                        }
+                        else{								
+                            swal("Invalid Input","","error");
+                        }
+                    } 
+                });  
+
+            }
+            
+        });
+        // Activating the preference window :: ENDS
+            
     });
-
-//console.log(judicial_officer);
-
-     
-   /*Cloning of Year and Grades */
-   
-         
-         
-   });
 </script>
 <?php $__env->stopSection(); ?>
 
