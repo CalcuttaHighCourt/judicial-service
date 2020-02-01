@@ -402,6 +402,8 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 		Route::post('jo_entry/upload_image', 'JoEntryFormController@jo_upload_image')->name('jo_image_upload');
 
+		Route::post('jo_entry/upload_document', 'JoEntryFormController@jo_upload_document')->name('upload_jo_document');
+
 		Route::post('jo_entry/show_all_jo', 'JoEntryFormController@show_all_jo')->name('list_of_jo');
 		
 		Route::get ('modify_jo_details', function () {

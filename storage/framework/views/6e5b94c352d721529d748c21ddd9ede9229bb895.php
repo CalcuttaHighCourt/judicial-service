@@ -611,6 +611,91 @@
                         </div>
                     </div>
                     <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingEight">
+                            <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                Document Upload
+                            </a>
+                            </h4>
+                        </div>
+                        <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+                            <div class="panel-body">                            
+                                <div class="row">
+                                    <br/>
+                                    <form class="form" action="##" method="" id="form_add_document" enctype="multipart/form-data">
+                                        <?php echo e(csrf_field()); ?>
+
+                                        <div class="div_add_more_jo_document">
+                                            <div class="row">
+                                                <div class="form-group required col-xs-3 col-xs-offset-1">
+                                                    <label class="control-label">
+                                                        Document Type 
+                                                    </label>
+                                                    <select class="form-control info-form-control select2" name="document_type[]" style="width:100%">
+                                                        <option value="">Select an Option</option>
+                                                        <?php echo $__env->make('document_types.document_types_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>                                                        
+                                                    </select>
+                                                </div>
+                                                <div class="form-group required col-xs-3">
+                                                    <label class="control-label">
+                                                        Document
+                                                    </label>                                                    
+                                                    <input type="file" name="document[]" class="text-center center-block document" accept="application/pdf">                                      
+                                                    <input type="integer" name="jo_id[]" style="display:none">        
+                                                    <h6><span style="color:red">*</span>Supported File Type: pdf; Max Size: 2 MB</h6>
+                                                </div>   
+                                                <div class="form-group col-xs-3">
+                                                    <label>
+                                                        Remark
+                                                    </label>
+                                                    <textarea class="form-control" name="document_remark[]" placeholder="if any"></textarea>
+                                                </div>                                               
+                                                <div class="form-group">
+                                                    <div class="col-xs-2">
+                                                        <br/>
+                                                        <img src="<?php echo e(asset('images/details_open.png')); ?>" class="img_add_more_document" id="add_more_document">
+                                                    </div>
+                                                </div>
+                                            </div>                   
+                                        </div> 
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <br/>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-4 col-sm-offset-4 text-center">
+                                            <button class="btn btn-success" id="add_jo_document"><i class="glyphicon glyphicon-ok-sign"></i> ADD</button>
+                                        </div>
+                                    </div>  
+                                </div>                         
+                                <br />
+                                <div id="info-panel2" class="panel panel-default">    
+                                    <div id="datatable-panel-heading" class="panel-heading clearfix">       
+                                        <div class="panel-title pull-left">List of Documents. . . </div>                                        
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped" 
+                                                id="datatable-documents" style="width: 100%;">                                                
+                                                <thead>
+                                                    <tr>        
+                                                        <th>Sl No.</th>                
+                                                        <th>Document Type</th>
+                                                        <th>Document</th>
+                                                        <th>Remarks</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbody">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingSix">
                             <h4 class="panel-title">
                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
@@ -673,6 +758,7 @@
         var clone_element_qualification = $(".div_add_more_qualification").clone();
         var clone_element_legal_practice = $(".div_add_more_legal_practice").clone();
         var clone_element_posting = $(".div_add_more_posting").clone();
+        var clone_element_document = $(".div_add_more_jo_document").clone();
         var clone_element_career_progression;
    
         $('.panel-collapse').on('show.bs.collapse', function () {
@@ -855,6 +941,33 @@
 			$(this).closest(".div_add_more_career_progression").remove();
 		}) 
         /*If any Career Progression details row needs to remove :: ENDS*/
+
+
+         /*If multiple documents added :: STARTS*/
+		$(document).on("click","#add_more_document", function(){           
+            var clone_element5 = clone_element_document.clone();
+            clone_element5.insertAfter(".div_add_more_jo_document:last");  
+
+            // Select2 Re-initialization
+            $(".select2").select2();  
+
+           
+            $(".img_add_more_document:last").attr({src:"images/details_close.png",
+                                                    class:"remove_document", 
+                                                    alt:"remove_document"
+                                                });
+            $(".remove_document:last").removeAttr("id");        
+			
+		})
+	    /*If multiple documents added :: ENDS*/   
+
+
+
+        /*If any documents row needs to remove :: STARTS*/
+        $(document).on("click",".remove_document", function(){
+			$(this).closest(".div_add_more_jo_document").remove();
+		}) 
+        /*If any documents row needs to remove :: ENDS*/
 
 
         /*Fetch corresponding Career Progression Stages for a Rank ::STARTS*/
@@ -1072,6 +1185,28 @@
             }   
         }
 
+        // Populating JO Documents
+        function populateJoDocuments(data){
+            var tbody="";
+            $.each(data, function(key,val){
+                tbody+="<tr>"+
+                            "<td>"+(key+1)+"</td>"+
+                            "<td>"+val.type_name+"</td>"+                            
+                            "<td>"+
+                                '<a href="'+val.document+'" target="_blank">'+
+                                    val.document_path+
+                                "</a>"+
+                            "</td>"+
+                            '</a>'+
+                            "<td>"+val.remark+"</td>"+
+                            "<td><i class='fa fa-trash delete' aria-hidden='true' title='Delete'></i></td>"+
+                        "</tr>";
+            });
+
+            $("#tbody").html(tbody);
+            $("#datatable-documents").DataTable();
+        }
+
         // Get JO Details
         $(document).on("click","#get_details", function(){
             if($("#fetch_id").val() !=""){
@@ -1080,6 +1215,8 @@
                 
                 // hidden id for profile image form
                 $("#id").val($("#fetch_id").val());
+                // hidden id for document form
+                $('[name="jo_id[]"]').val($("#fetch_id").val()); 
                 
                 $.ajax({
                     type:"post",
@@ -1100,6 +1237,8 @@
                         clone_element_career_progression = $(".div_add_more_career_progression").clone();
                         $(".career_progression").select2();
                         populateJoCareerProgressionDetails(response['career_progression']);  
+
+                        populateJoDocuments(response['documents']);
 
                         $("#details").show();
                     },
@@ -1497,6 +1636,38 @@
             }
         })
         // Data Updation :: end
+
+
+        // Add JO Documents :: START
+        $(document).on("click", "#add_jo_document", function(){
+            $.ajax({
+                method:"POST",
+                url:"<?php echo e(route('upload_jo_document')); ?>",
+                data: new FormData($("#form_add_document")[0]),
+                dataType:'JSON',
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success: function (data, textStatus, jqXHR) { 
+                    swal("Document Uploaded Successfully","","success");
+                    return false;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    if(jqXHR.status!=422 && jqXHR.status!=400){
+                        swal("Failed to Upload Document",errorThrown,"error");
+                    }
+                    else{
+                        msg = "";
+                        $.each(jqXHR.responseJSON.errors, function(key,value) {
+                            msg+=value+"\n";						
+                        });
+
+                        swal("Failed to Upload Document",msg,"error");
+                    }
+                }
+            })
+        })
+        // Add JO Documents :: END
 
     });
 

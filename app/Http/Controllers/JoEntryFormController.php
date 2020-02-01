@@ -19,6 +19,7 @@ use App\Rank;
 use App\Designation;
 use App\CareerProgressionStage;
 use App\JoCareerProgression;
+use App\JoDocument;
 use Auth;
 use DB;
 use Carbon\Carbon;
@@ -543,6 +544,18 @@ class JoEntryFormController extends Controller
         foreach($jo_details['career_progression'] as $key => $jo_career_progression){
             $jo_career_progression->date_of_confirmation = Carbon::parse($jo_career_progression->date_of_confirmation)->format('d-m-Y');
         }
+
+        // Uploaded Documents
+        $jo_details['documents'] = JoDocument::join('document_types','jo_documents.document_type_id','=','document_types.id')
+                                               ->where('judicial_officer_id',$request->jo_id)
+                                               ->orderBy('document_types.type_name')
+                                               ->orderBy('jo_documents.created_at')
+                                               ->get();
+
+        foreach($jo_details['documents'] as $key => $jo_document){
+            $file_path = asset('jo_documents/'.$jo_details['basic_contact_details']->registration_no.'/uploaded_documents');
+            $jo_document->document = $file_path."/".$jo_document->document_path;
+        }
          
         return $jo_details;
     }
@@ -646,10 +659,6 @@ class JoEntryFormController extends Controller
         $this->validate( $request, [ 
             'id' => 'required|max:99999|exists:judicial_officers,id',
             'profile_image' => 'required|file|mimes:jpeg,png,jpg,gif|max:50'            
-        ]);
-
-        $this->validate( $request, [ 
-            'profile_image' => 'required|file|mimes:jpeg,png,jpg,gif|max:50'
         ]);
         
         $jo_details = JudicialOfficer::where('id',$request->id)->get();
@@ -978,6 +987,67 @@ class JoEntryFormController extends Controller
 
                 $jo_career_progression->save();
                 
+            }
+
+            DB::commit();
+        }
+        catch (\Exception $e) {
+            DB::rollBack(); 
+            $response = array(
+                'exception' => true,
+                'exception_message' => $e->getMessage()
+            );           
+            $statusCode = 400;
+        } finally {
+            return response()->json($response, $statusCode);
+        }
+    }
+
+    public function jo_upload_document(Request $request){
+        $this->validate( $request, [ 
+            'document_type' => 'required|array',
+            'document_type.*' => 'required|max:100|exists:document_types,id',
+            'document' => 'required|array',
+            'document.*' => 'required|file|mimes:pdf|max:2000',
+            'jo_id' => 'required|array',
+            'jo_id.0' => 'required|max:99999|exists:judicial_officers,id',
+            'document_remark' => 'required|array',
+            'document_remark.*' => 'nullable|string'
+        ]);
+
+        $response = array();    
+        $statusCode = 200;
+
+        try{
+            DB::beginTransaction(); 
+
+            $jo_details = JudicialOfficer::where('id',$request->jo_id['0'])->get();
+
+            for($i=0; $i<sizeof($request->document_type); $i++){
+                $document = $request->file('document')[$i];
+
+                if(!is_dir(public_path('jo_documents/'.$jo_details['0']->registration_no.'/uploaded_documents'))) 
+                {
+                    mkdir(public_path('jo_documents/'.$jo_details['0']->registration_no.'/uploaded_documents'), 0777, true);       
+                }
+
+                $new_name = $jo_details['0']->registration_no.'_'.$request->document_type[$i]."_".strtotime(date('Y-m-d h:i:s'))."_".$i.'.'.$document->getClientOriginalExtension();
+
+                if(file_exists(public_path('jo_documents/'.$jo_details['0']->registration_no.'/uploaded_documents/'.$new_name)))
+                {
+                    unlink(public_path('jo_documents/'.$jo_details['0']->registration_no.'/uploaded_documents/'.$new_name));
+                }
+
+                $document->move(public_path('jo_documents/'.$jo_details['0']->registration_no.'/uploaded_documents/'), $new_name);
+
+                JoDocument::insert([
+                                'document_type_id' => $request->document_type[$i],
+                                'judicial_officer_id' => $request->jo_id['0'],
+                                'document_path' => $new_name,
+                                'remark' => $request->document_remark[$i],
+                                'created_at' => Carbon::now(),
+                                'updated_at' => Carbon::now(),
+                            ]);
             }
 
             DB::commit();
