@@ -154,30 +154,8 @@
                 }
 
                 $("#tbody").html(str);
-                $(".table").DataTable({
-                    // dom: 'Bfrtip',
-                    // buttons: [
-                    //     {
-                    //         extend: 'pdfHtml5',
-                    //         orientation: 'landscape',
-                    //         pageSize: 'LEGAL',
-                    //         exportOptions: {
-                    //             columns: ':visible',
-                    //             stripNewlines: false
-                    //         },
-                    //     title: 'High Court At Calcutta',
-                    //     messageTop: function () {
-                                       
-                    //           return 'Posting Preference Details of The Judicial Officers who have submitted their Choice of posting';
-                    //     },
-                        
-                        
-                    //     }
-                    // ]
-                });
-   
-            //console.log(str);       
-                
+                $(".table").DataTable();
+                   
             }
         });     
          

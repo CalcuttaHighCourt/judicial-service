@@ -682,6 +682,7 @@
                                                         <th>Sl No.</th>                
                                                         <th>Document Type</th>
                                                         <th>Document</th>
+                                                        <th>Uploaded On</th>
                                                         <th>Remarks</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -1197,9 +1198,9 @@
                                     val.document_path+
                                 "</a>"+
                             "</td>"+
-                            '</a>'+
+                            "<td>"+val.created_at+"</td>"+
                             "<td>"+val.remark+"</td>"+
-                            "<td><i class='fa fa-trash delete' aria-hidden='true' title='Delete'></i></td>"+
+                            "<td><i class='fa fa-trash delete' aria-hidden='true' title='Delete' style=\"cursor:pointer\"></i></td>"+
                         "</tr>";
             });
 

@@ -548,13 +548,17 @@ class JoEntryFormController extends Controller
         // Uploaded Documents
         $jo_details['documents'] = JoDocument::join('document_types','jo_documents.document_type_id','=','document_types.id')
                                                ->where('judicial_officer_id',$request->jo_id)
-                                               ->orderBy('document_types.type_name')
-                                               ->orderBy('jo_documents.created_at')
+                                               ->orderBy('document_types.type_name','asc')
+                                               ->orderBy('jo_documents.created_at','desc')
+                                               ->select('jo_documents.*','document_types.type_name')
                                                ->get();
 
         foreach($jo_details['documents'] as $key => $jo_document){
             $file_path = asset('jo_documents/'.$jo_details['basic_contact_details']->registration_no.'/uploaded_documents');
             $jo_document->document = $file_path."/".$jo_document->document_path;
+            $jo_document->document_path = "Download <i class='fa fa-download' aria-hidden='true' title='Download'></i>";
+            //$createdAt = Carbon::parse($jo_document['created_at']);
+            //$jo_document->created_at = $jo_document->created_at->format('d-m-Y');
         }
          
         return $jo_details;
