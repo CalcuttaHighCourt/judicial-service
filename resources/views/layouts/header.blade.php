@@ -129,7 +129,7 @@
                                         <li><a href="{{url('register')}}"> User Maintenance </a></li>
                                     @endif
 
-                                    @if(Auth::check() && (Auth::user()->user_type->type_name=="Appointment"))
+                                    <!-- @if(Auth::check() && (Auth::user()->user_type->type_name=="Appointment"))
                                         <li><a href="{{url('court')}}">Court Master</a></li>
                                         <li><a href="{{url('subdivision')}}"> Subdivision Master</a></li>
                                         <li><a href="{{url('district')}}"> District Master</a></li>
@@ -143,7 +143,7 @@
                                         <li><a  href="{{url('recruitmentbatch')}}"> Recruitment Batch </span></a></li>
                                         <li><a href="{{url('user_type')}}"> User Type </a></li>
                                         <li><a href="{{url('register')}}"> User Maintenance </a></li>
-                                    @endif
+                                    @endif -->
 
                                     @if(Auth::check() && (Auth::user()->user_type->type_name=="Department"))
                                         <li><a href="{{url('departments')}}"> Department for LCR </span></a></li>

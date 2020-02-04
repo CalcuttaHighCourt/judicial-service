@@ -42,6 +42,32 @@
             <input type="checkbox" name="pref_window_flag" id="display_flag" data-toggle="toggle" data-width="100px">
         </div>
     </div>
+    <div class="form-group required row">
+        <div class="box box-default" id="show_jo_pref_data">
+            <div class="box-header with-border">
+                <h3 class="box-title"> The List Of Judicial Officer With Acive Preference Window</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="box-body">
+            <table class="table table-striped table-bordered" id="show_jo_pref_details">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>OFFICER'S NAME</th>
+                        <th>WINDOW OPENNING DATE</th>
+                        <th>WINDOW STATUS</th>
+                        <th>ACTION</th>
+                        <tbody id="tbody">
+                        </tbody>
+                    </tr>
+                </thead>                    
+            </table>
+        </div>
+    </div>
 </div>    
 
 <!--loader starts-->
@@ -125,6 +151,24 @@
             
         });
         // Activating the preference window :: ENDS
+
+         var table = $("#show_jo_pref_details").DataTable({  
+                        "processing": true,
+                        "serverSide": true,
+                        "pageLength": "10",
+                        "ajax":{
+                                "url": "datatable_for_active_window",
+                                "dataType": "json",
+                                "type": "POST",
+                                "data":{ _token: $('meta[name="csrf-token"]').attr('content')}
+                            },
+        //                     "columns": [                
+        //                         {"data": "certifying_court_id" },
+        //                         {"data": "certifying_court_name" },
+        //                         {"data": "district_name" },
+        //                         {"data": "action" }
+        //                     ]
+        //                 });
             
     });
 </script>

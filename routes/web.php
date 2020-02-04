@@ -355,8 +355,11 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 		Route::get('jo_list_for_pref_window',
 		'JudicialOfficerPostingPreferenceController@list_of_valid_judicial_officers');
-		
 
+		
+		Route::get('datatable_for_active_window',
+		'JudicialOfficerPostingPreferenceController@detailed_table');
+		
 		Route::get ('jo_grade', function () {
 			return view ('jo_grade.index');
 		});

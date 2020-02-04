@@ -768,4 +768,13 @@ public function zone_pref_content(Request $request) {
 
        
     }
+
+    public function detailed_table(Request $request){
+
+        $data= array();
+        $data=JudicialOfficer::where('posting_preference_window_flag','Y')
+                            ->orderBy('officer_name')
+                            ->get();
+                       
+    }
 }

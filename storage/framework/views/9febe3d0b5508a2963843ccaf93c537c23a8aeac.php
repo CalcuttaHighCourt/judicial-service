@@ -131,7 +131,7 @@
                                         <li><a href="<?php echo e(url('register')); ?>"> User Maintenance </a></li>
                                     <?php endif; ?>
 
-                                    <?php if(Auth::check() && (Auth::user()->user_type->type_name=="Appointment")): ?>
+                                    <!-- <?php if(Auth::check() && (Auth::user()->user_type->type_name=="Appointment")): ?>
                                         <li><a href="<?php echo e(url('court')); ?>">Court Master</a></li>
                                         <li><a href="<?php echo e(url('subdivision')); ?>"> Subdivision Master</a></li>
                                         <li><a href="<?php echo e(url('district')); ?>"> District Master</a></li>
@@ -145,7 +145,7 @@
                                         <li><a  href="<?php echo e(url('recruitmentbatch')); ?>"> Recruitment Batch </span></a></li>
                                         <li><a href="<?php echo e(url('user_type')); ?>"> User Type </a></li>
                                         <li><a href="<?php echo e(url('register')); ?>"> User Maintenance </a></li>
-                                    <?php endif; ?>
+                                    <?php endif; ?> -->
 
                                     <?php if(Auth::check() && (Auth::user()->user_type->type_name=="Department")): ?>
                                         <li><a href="<?php echo e(url('departments')); ?>"> Department for LCR </span></a></li>
