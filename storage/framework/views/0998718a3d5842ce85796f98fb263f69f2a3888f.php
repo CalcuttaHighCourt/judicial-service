@@ -1,0 +1,3 @@
+<?php $__currentLoopData = App\DocumentType::orderBy('type_name', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $document): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+	<option value="<?php echo e($document->id); ?>" <?php if(old('document') == $document->type_name): ?> selected="selected" <?php endif; ?>><?php echo e($document->type_name); ?></option>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/document_types/document_types_options.blade.php ENDPATH**/ ?>

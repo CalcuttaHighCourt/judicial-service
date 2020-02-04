@@ -18,6 +18,8 @@ class CreateJoDocumentsTable extends Migration
             $table->integer('document_type_id');
             $table->bigInteger('judicial_officer_id');
             $table->string('document_path');
+            $table->text('remark')->nullable();           
+
             $table->timestamps();
 
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');
