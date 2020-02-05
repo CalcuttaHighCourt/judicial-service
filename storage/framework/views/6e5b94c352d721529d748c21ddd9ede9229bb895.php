@@ -678,7 +678,8 @@
                                             <table class="table table-bordered table-striped" 
                                                 id="datatable-documents" style="width: 100%;">                                                
                                                 <thead>
-                                                    <tr>        
+                                                    <tr>    
+                                                        <th>Hidden ID</th>    
                                                         <th>Sl No.</th>                
                                                         <th>Document Type</th>
                                                         <th>Document</th>
@@ -1191,6 +1192,7 @@
             var tbody="";
             $.each(data, function(key,val){
                 tbody+="<tr>"+
+                            "<td>"+val.id+"</td>"+
                             "<td>"+(key+1)+"</td>"+
                             "<td>"+val.type_name+"</td>"+                            
                             "<td>"+
