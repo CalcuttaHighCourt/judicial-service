@@ -588,12 +588,12 @@ class JoEntryFormController extends Controller
             'officer_name' => 'required|string|max:100',
             'gender' => 'required|string|alpha|in:M,F,O|max:10',
             'spouse' => 'nullable|integer|exists:judicial_officers,id|max:999999',
-            'date_of_birth' => 'required|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),
+            'date_of_birth' => 'required|date_format:d-m-Y|before:date_of_joining|before:date_of_confirmation|before:date_of_retirement',
             'recruitment_batch_id' => 'required|integer|exists:recruitment_batches,id|max:10000',
             'recruitment_batch_year' => 'nullable|integer|min:1950|max:'.date('Y'),
-            'date_of_joining' => 'required|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),
-            'date_of_confirmation' => 'nullable|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),
-            'date_of_retirement' => 'required|date_format:d-m-Y|after:1900-01-01',  
+            'date_of_joining' => 'required|date_format:d-m-Y|before_or_equal:date_of_confirmation|before:date_of_retirement|after:date_of_birth',
+            'date_of_confirmation' => 'nullable|date_format:d-m-Y|after:date_of_birth|after_or_equal:date_of_joining|before:date_of_retirement',
+            'date_of_retirement' => 'required|date_format:d-m-Y|after:date_of_birth|after:date_of_joining|after:date_of_confirmation',  
         ]);
         
         $request['date_of_birth']=Carbon::parse($request['date_of_birth'])->format('Y-m-d');
@@ -645,8 +645,8 @@ class JoEntryFormController extends Controller
             'home_district_id' => 'required_if:state_flag,==,west_bengal|integer|exists:districts,id|max:200',
             'other_home_district' => 'required_if:state_flag,==,other|string|max:100',
             'hometown' => 'nullable|string|max:100',
-            'present_address' => 'required|string|max:255',
-            'permanent_address' => 'required|string|max:255',
+            'present_address' => 'required|string',
+            'permanent_address' => 'required|string',
             'mobile_no_1' => 'nullable|integer|max:9999999999',
             'mobile_no_2' => 'nullable|integer|max:9999999999',
             'email_id_1' => 'nullable|email:rfc,dns|max:100',
@@ -716,9 +716,9 @@ class JoEntryFormController extends Controller
             'deputation_posting_place' => 'required|array',
             'deputation_posting_place.*' => 'nullable|required_if:flag_mode.*,==,deputation|string|max:255',
             'from_date' => 'required|array',
-            'from_date.*' => 'required|required_with:mode_id.*,rank_id.*,flag_mode.*|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),
+            'from_date.*' => 'required|date_format:d-m-Y|before_or_equal:to_date.*|before_or_equal'.date('Y-m-d'),
             'to_date' => 'required|array',
-            'to_date.*' => 'nullable|date_format:d-m-Y|after:1900-01-01|before:'.date('Y-m-d'),                     
+            'to_date.*' => 'nullable|date_format:d-m-Y|after_or_equal:from_date.*|before_or_equal:'.date('Y-m-d'),                     
             'posting_remark' => 'required|array',
             'posting_remark.*' => 'nullable|string',
         ]);
@@ -868,11 +868,11 @@ class JoEntryFormController extends Controller
         $this->validate($request,[
             'id' => 'required|max:99999|exists:judicial_officers,id',
             'subdivision_id' => 'array',
-            'subdivision_id.*' => 'required_with:from_year.*,to_year.*|nullable|integer|exists:subdivisions,id|max:1000',
+            'subdivision_id.*' => 'required|integer|exists:subdivisions,id|max:1000',
             'from_year' => 'array',
-            'from_year.*' => 'required_with:to_year.*|nullable|integer|min:1900|max:'.date('Y'),
+            'from_year.*' => 'nullable|required_with:to_year.*|integer|min:1900|max:to_year.*',
             'to_year' => 'array',
-            'to_year.*' => 'required_with:from_year.*|nullable|integer|min:1900|max:'.date('Y'),           
+            'to_year.*' => 'nullable|required_with:from_year.*|integer|min:from_year.*|max:'.date('Y'),            
         ]);
 
         $response = array();    
