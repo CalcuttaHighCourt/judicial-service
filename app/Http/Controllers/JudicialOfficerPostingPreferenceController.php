@@ -771,10 +771,105 @@ public function zone_pref_content(Request $request) {
 
     public function detailed_table(Request $request){
 
-        $data= array();
-        $data=JudicialOfficer::where('posting_preference_window_flag','Y')
-                            ->orderBy('officer_name')
-                            ->get();
-                       
+        
+        $this->validate( $request, [ 
+            'length' => 'required|integer|min:10|max:100',
+            'start' => 'required|integer|min:0|max:999',
+            'order.0.dir' => 'required|alpha|max:10|in:asc,desc',
+            'order.0.column' => 'required|integer|min:0|max:4',
+            'search.value' => 'nullable|string|regex:/^[-,\/.\w\s]+$/u|max:255',
+            'draw' => 'required|integer|min:1|max:999',
+  
+            'columns.*.searchable' => 'required|in:true,false',
+            'columns.*.orderable' => 'required|in:true,false',
+            'columns.*.search.value' => 'nullable|alpha_dash',
+            'columns.*.search.regex' => 'required|in:true,false',
+            'search.regex' => 'required|in:true,false'
+        ]);
+
+        $columns = array( 
+            0 => 'officer_name',
+            1 => 'window_openning_date',
+            2 => 'window_status',
+            3 => 'action'
+        );
+
+        $judicial_officer= array();
+       
+
+        $totalData =JudicialOfficer::where('posting_preference_window_flag','Y')
+                                    ->count();
+
+        $totalFiltered = $totalData; 
+
+        
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+
+        if(empty($request->input('search.value'))){
+            if(empty( $dir)){
+                $judicial_officers=JudicialOfficer::where('posting_preference_window_flag','Y')
+                                        ->orderBy('posting_preference_window_open_on','desc')
+                                        ->orderBy('officer_name')
+                                        ->select('jo_code','officer_name','posting_preference_window_open_on','posting_preference_window_flag')
+                                        ->get();
+
+                $totalData =JudicialOfficer::where('posting_preference_window_flag','Y')
+                                            ->count();
+    
+                $totalFiltered = $totalData; 
+            }
+            else{
+                $judicial_officers=JudicialOfficer::where('posting_preference_window_flag','Y')
+                                        ->orderBy('officer_name',$dir)
+                                        ->select('jo_code','officer_name','posting_preference_window_open_on','posting_preference_window_flag')
+                                        ->get();
+
+                
+                $totalData =JudicialOfficer::where('posting_preference_window_flag','Y')
+                                            ->count();
+
+                $totalFiltered = $totalData; 
+            }
+        }
+        else{
+
+            $search = $request->input('search.value');
+
+            $judicial_officers=JudicialOfficer::where([
+                                            ['posting_preference_window_flag','Y'],
+                                            ['officer_name','ilike',"%{$search}%"]
+                                        ])
+                                    ->orderBy('posting_preference_window_open_on','desc')
+                                    ->orderBy('officer_name')
+                                    ->select('officer_name','posting_preference_window_open_on','posting_preference_window_flag')
+                                    ->get();
+        }
+
+        if($judicial_officers){
+            foreach($judicial_officers as $jo){
+                $nestedData['officer_name'] = $jo->officer_name;
+                $nestedData['window_openning_date'] =  $jo->posting_preference_window_open_on;
+                $nestedData['window_status'] = $jo->posting_preference_window_flag;
+
+                $nestedData['action'] = "<i class='fa fa-ban' style='color:red' title='Disable'></i>";
+
+                $data[] = $nestedData;
+            }
+        }
+    
+                $json_data = array(
+                    "draw" => intval($request->input('draw')),
+                    "recordsTotal" => intval($totalData),
+                    "recordsFiltered" =>intval($totalFiltered),
+                    "data" => $data
+                );
+        
+                echo json_encode($json_data);
+        }
+
+
     }
-}
+        

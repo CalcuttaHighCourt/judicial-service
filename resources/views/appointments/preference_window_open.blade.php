@@ -38,10 +38,10 @@
             </div>
         </div>
         <div class="col-sm-offset-1 col-sm-3 form-group" id="pref_window_flag">
-            
             <input type="checkbox" name="pref_window_flag" id="display_flag" data-toggle="toggle" data-width="100px">
         </div>
     </div>
+</div>
     <div class="form-group required row">
         <div class="box box-default" id="show_jo_pref_data">
             <div class="box-header with-border">
@@ -51,24 +51,23 @@
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
                 </div>
             </div>
-        </div>
-        <div class="box-body">
-            <table class="table table-striped table-bordered" id="show_jo_pref_details">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>OFFICER'S NAME</th>
-                        <th>WINDOW OPENNING DATE</th>
-                        <th>WINDOW STATUS</th>
-                        <th>ACTION</th>
-                        <tbody id="tbody">
-                        </tbody>
-                    </tr>
-                </thead>                    
-            </table>
+            <div class="box-body">
+                <table class="table table-striped table-bordered" id="show_jo_pref_details">
+                    <thead>
+                        <tr>
+                            
+                            <th>OFFICER'S NAME</th>
+                            <th>WINDOW OPENNING DATE</th>
+                            <th>PREFEREENCE SUBMISSION STATUS</th>
+                            <th>DISABLE WINDOW</th>
+                            <tbody id="tbody"></tbody>
+                        </tr>
+                    </thead>                    
+                </table>
+            </div>
         </div>
     </div>
-</div>    
+
 
 <!--loader starts-->
 <div class="col-sm-offset-5 col-md-3" id="wait" style="display:none;">
@@ -155,21 +154,28 @@
          var table = $("#show_jo_pref_details").DataTable({  
                         "processing": true,
                         "serverSide": true,
-                        "pageLength": "10",
                         "ajax":{
                                 "url": "datatable_for_active_window",
                                 "dataType": "json",
                                 "type": "POST",
                                 "data":{ _token: $('meta[name="csrf-token"]').attr('content')}
                             },
-        //                     "columns": [                
-        //                         {"data": "certifying_court_id" },
-        //                         {"data": "certifying_court_name" },
-        //                         {"data": "district_name" },
-        //                         {"data": "action" }
-        //                     ]
-        //                 });
+                            "columns": [                
+                                {"data": "officer_name" },
+                                {"data": "window_openning_date" },
+                                {"data": "window_status" },
+                                {"data": "action" }
+                            ]
+                        });
+                     
+                        $.fn.dataTable.ext.errMode = 'none';
+ 
+                        $(".table").on( 'error.dt', function ( e, settings, techNote, message ) {
+                            swal("An error has been reported by DataTable","","error");
+                        }).DataTable();             
+
             
     });
+
 </script>
 @endsection
