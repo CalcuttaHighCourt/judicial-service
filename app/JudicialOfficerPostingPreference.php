@@ -10,7 +10,7 @@ class JudicialOfficerPostingPreference extends Model
         'station_name','judicial_officer_id','zone_id','remarks','created_by','final_submission'
     ];
 
-    public $timestamps = true;
+    
     
  /**
      * Get the court complex that owns the judicial officer posting preference.

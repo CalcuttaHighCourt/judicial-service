@@ -209,12 +209,6 @@ public function zone_pref_content(Request $request) {
         $judicial_officer_posting_preference = null;
         $request['created_by'] = Auth::user()->id;
 
-      
-
-        // $this->validate($request, [          
-        //     'zone_preference.*'=>array('required','exists:zones,id')
-        // ]);
-
        
             $station_name=  $request->input('station_name');
             $station_zone=  $request->input('station_zone');
@@ -236,6 +230,8 @@ public function zone_pref_content(Request $request) {
 
                 $request['zone_id']= $station_zone[$i];
                 $request['station_name']= $station_name[$i];
+                $request['created_at'] = Carbon::today();
+                $request['updated_at'] = Carbon::today();
                 $judicial_officer_posting_preference = JudicialOfficerPostingPreference::create($request->all());
             }
             exit;
@@ -769,9 +765,7 @@ public function zone_pref_content(Request $request) {
        
     }
 
-    public function detailed_table(Request $request){
-
-        
+    public function detailed_table(Request $request){        
         $this->validate( $request, [ 
             'length' => 'required|integer|min:10|max:100',
             'start' => 'required|integer|min:0|max:999',
@@ -794,7 +788,7 @@ public function zone_pref_content(Request $request) {
             3 => 'action'
         );
 
-        $judicial_officer= array();
+        $judicial_officers = array();
        
 
         $totalData =JudicialOfficer::where('posting_preference_window_flag','Y')
@@ -809,50 +803,65 @@ public function zone_pref_content(Request $request) {
         $dir = $request->input('order.0.dir');
 
         if(empty($request->input('search.value'))){
-            if(empty( $dir)){
-                $judicial_officers=JudicialOfficer::where('posting_preference_window_flag','Y')
-                                        ->orderBy('posting_preference_window_open_on','desc')
-                                        ->orderBy('officer_name')
-                                        ->select('jo_code','officer_name','posting_preference_window_open_on','posting_preference_window_flag')
-                                        ->get();
 
-                $totalData =JudicialOfficer::where('posting_preference_window_flag','Y')
-                                            ->count();
-    
-                $totalFiltered = $totalData; 
-            }
-            else{
-                $judicial_officers=JudicialOfficer::where('posting_preference_window_flag','Y')
-                                        ->orderBy('officer_name',$dir)
-                                        ->select('jo_code','officer_name','posting_preference_window_open_on','posting_preference_window_flag')
-                                        ->get();
+                $judicial_officers=JudicialOfficer::leftjoin('judicial_officer_posting_preferences','judicial_officers.id','=','judicial_officer_posting_preferences.judicial_officer_id')
+                                                    ->where('judicial_officers.posting_preference_window_flag','Y')
+                                                    ->orderBy('judicial_officers.officer_name',$dir)
+                                                    ->select('judicial_officers.jo_code','judicial_officers.officer_name','judicial_officers.posting_preference_window_open_on','judicial_officer_posting_preferences.final_submission','judicial_officer_posting_preferences.updated_at')
+                                                    ->distinct('judicial_officer_id')
+                                                    ->get();
+               
 
                 
-                $totalData =JudicialOfficer::where('posting_preference_window_flag','Y')
-                                            ->count();
+                $totalData = JudicialOfficer::leftjoin('judicial_officer_posting_preferences','judicial_officers.id','=','judicial_officer_posting_preferences.judicial_officer_id')
+                                                                ->where('judicial_officers.posting_preference_window_flag','Y')
+                                                                ->orderBy('judicial_officers.officer_name',$dir)
+                                                                ->select('judicial_officers.jo_code','judicial_officers.officer_name','judicial_officers.posting_preference_window_open_on','judicial_officer_posting_preferences.final_submission','judicial_officer_posting_preferences.updated_at')
+                                                                ->distinct('judicial_officer_id')
+                                                                ->count('judicial_officer_id');
 
                 $totalFiltered = $totalData; 
-            }
+            
         }
         else{
 
             $search = $request->input('search.value');
 
-            $judicial_officers=JudicialOfficer::where([
-                                            ['posting_preference_window_flag','Y'],
-                                            ['officer_name','ilike',"%{$search}%"]
-                                        ])
-                                    ->orderBy('posting_preference_window_open_on','desc')
-                                    ->orderBy('officer_name')
-                                    ->select('officer_name','posting_preference_window_open_on','posting_preference_window_flag')
-                                    ->get();
+            $judicial_officers=JudicialOfficer::leftjoin('judicial_officer_posting_preferences','judicial_officers.id','=','judicial_officer_posting_preferences.judicial_officer_id')
+                                                ->where([
+                                                            ['judicial_officers.posting_preference_window_flag','Y'],
+                                                            ['judicial_officers.officer_name','ilike',"%{$search}%"],
+                                                        ])
+                                                ->orderBy('judicial_officers.posting_preference_window_open_on','desc')
+                                                ->orderBy('judicial_officers.officer_name')
+                                                ->select('judicial_officers.jo_code','judicial_officers.officer_name','judicial_officers.posting_preference_window_open_on','judicial_officer_posting_preferences.final_submission','judicial_officer_posting_preferences.updated_at')
+                                                ->distict()
+                                                ->get();
         }
 
         if($judicial_officers){
             foreach($judicial_officers as $jo){
-                $nestedData['officer_name'] = $jo->officer_name;
-                $nestedData['window_openning_date'] =  $jo->posting_preference_window_open_on;
-                $nestedData['window_status'] = $jo->posting_preference_window_flag;
+                $nestedData['officer_name'] = $jo->officer_name.' / '.$jo->jo_code;
+                $nestedData['window_openning_date'] =  Carbon::parse($jo->posting_preference_window_open_on)->format('d-m-Y');
+
+                if($jo->updated_at!=null){
+                    if($jo->updated_at > $jo->posting_preference_window_open_on){
+                        if($jo->final_submission == 'Y'){
+                            $jo->final_submission = 'Preference has been submitted';
+                        }//Subimission has been done
+                        else if($jo->final_submission == 'N'){
+                            $jo->final_submission = 'Preference has not been submitted';
+                        }//either in draft mode or has done nothing preference window 
+                    }
+                    else{
+                        $jo->final_submission = 'Preference has not been submitted';
+                    }
+                }
+                else{
+                    $jo->final_submission = 'Preference has not been submitted';//When the jo has never given any posting preference 
+                }
+
+                $nestedData['window_status'] = $jo->final_submission;
 
                 $nestedData['action'] = "<i class='fa fa-ban' style='color:red' title='Disable'></i>";
 
@@ -860,16 +869,16 @@ public function zone_pref_content(Request $request) {
             }
         }
     
-                $json_data = array(
-                    "draw" => intval($request->input('draw')),
-                    "recordsTotal" => intval($totalData),
-                    "recordsFiltered" =>intval($totalFiltered),
-                    "data" => $data
-                );
-        
-                echo json_encode($json_data);
-        }
+        $json_data = array(
+            "draw" => intval($request->input('draw')),
+            "recordsTotal" => intval($totalData),
+            "recordsFiltered" =>intval($totalFiltered),
+            "data" => $data
+        );
 
-
+        echo json_encode($json_data);
     }
+
+
+}
         
