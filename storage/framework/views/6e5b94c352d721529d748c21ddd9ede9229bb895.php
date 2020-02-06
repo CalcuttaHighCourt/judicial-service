@@ -679,7 +679,7 @@
                                                 id="datatable-documents" style="width: 100%;">                                                
                                                 <thead>
                                                     <tr>    
-                                                        <th>Hidden ID</th>    
+                                                        <th style="display:none">Hidden ID</th>    
                                                         <th>Sl No.</th>                
                                                         <th>Document Type</th>
                                                         <th>Document</th>
@@ -1192,7 +1192,7 @@
             var tbody="";
             $.each(data, function(key,val){
                 tbody+="<tr>"+
-                            "<td>"+val.id+"</td>"+
+                            "<td class=\"document_id\" style=\"display:none\">"+val.id+"</td>"+
                             "<td>"+(key+1)+"</td>"+
                             "<td>"+val.type_name+"</td>"+                            
                             "<td>"+
@@ -1671,6 +1671,52 @@
             })
         })
         // Add JO Documents :: END
+
+        // Remove JO Document :: START
+        $(document).on("click",".delete", function(){
+            swal({
+                    title: "Are you sure ?",
+                    text: "This document will be removed permanently",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        var element = $(this);
+                        var row = element.parent().parent();
+
+                        var document_id = row.find('.document_id').text();
+                        
+                        $.ajax({
+                            method:"post",
+                            url:"<?php echo e(route('remove_jo_document')); ?>",
+                            data:{                    
+                                document_id:document_id,
+                                _token: $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            success:function(response){
+                                swal("Document Removed Successfully","","success");
+                                row.remove();
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                if(jqXHR.status!=422 && jqXHR.status!=400){
+                                    swal("Failed to Remove Document",errorThrown,"error");
+                                }
+                                else{
+                                    msg = "";
+                                    $.each(jqXHR.responseJSON.errors, function(key,value) {
+                                        msg+=value+"\n";						
+                                    });
+
+                                    swal("Failed to Remove Document",msg,"error");
+                                }
+                            }
+                        })
+                    }
+                });            
+        })
+        // Remove JO Document :: END
 
     });
 

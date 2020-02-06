@@ -103,7 +103,7 @@
                         <li class="header"></li>
                         <?php endif; ?>
                         
-                        <?php if(Auth::check() && Auth::user()->user_type->type_name=="Inspection"||Auth::user()->user_type->type_name=="Appointment"||Auth::user()->user_type->type_name=="Administrator"||Auth::user()->user_type->type_name=="Department"): ?>
+                        <?php if(Auth::user()->user_type->type_name=="Administrator"): ?>
                             <li class="treeview">
                                 <a href="#"><i class="fa fa-search-minus"></i>
                                     <span>Master Maintenance</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
@@ -173,12 +173,11 @@
                          <?php if(Auth::check() && Auth::user()->user_type->type_name=="Appointment"): ?>
                             <li class="treeview">
                                 <a href="#"><i class="fa fa-search-minus"></i>
-                                    <span>Judicial Officer Entry</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                                    <span>Judicial Officer Details</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="<?php echo e(url('jo_entry_form')); ?>"> Entry JO Details</a></li>
-                                    <li><a href="<?php echo e(url('modify_jo_details')); ?>"> Modify JO Details</a></li>
-                                    <li><a href="#"> Document Upload</a></li>
+                                    <li><a href="<?php echo e(url('jo_entry_form')); ?>"> Entry & Show JO Details</a></li>
+                                    <li><a href="<?php echo e(url('modify_jo_details')); ?>"> Modify JO Details</a></li>                                    
                                 </ul>
                             </li>  
                             <li class="treeview">
