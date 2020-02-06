@@ -12,17 +12,13 @@
 */
 
 Auth::routes();
-
-
-    // Route::get('/', function () {
-    //     return redirect()->route('login');
-	// });
 	
 Route::get('/', function () {
     return view('auth.login');
 });
 
 
+// Master Maintenance :: START
 Route::group(['middleware' => ['auth','role_manager:Administrator']],function (){
 
 	Route::resource('users', 'UserController')->except(['create', 'edit']);
@@ -30,8 +26,6 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 	Route::get ( 'dashboard/admin', function () {
 		return view ( 'departments.admin_dashboard' );
 	} );
-	
-
 
 
 	/*Court*/
@@ -65,41 +59,7 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 	Route::get ( 'user_type', function () {
 		return view ( 'user_types.index' );
 		} );
-
-
-	/*Judicial officer postings */
-
-	Route::resource('judicial_officer_postings', 'JudicialOfficerPostingController')
-	->except(['create', 'edit']);
-
-	Route::get ( 'Judicial_Officer_Posting-Datatable-Server-Side', 'JudicialOfficerPostingController@index_for_datatable' );
-
-	Route::get ( 'judicial_officer_posting', function () {
-		return view ( 'judicial_officer_postings.index' );
-	} );
-
-	Route::get ( 'jo_postings', function () {
-		return view ( 'jo_postings.index' );
-	} );
-
 	
-
-	
-	/*Judicial Officer */
-	
-	// Route::resource('judicial_officers', 'JudicialOfficerController')
-	// ->except(['create', 'edit']);
-
-	// Route::get ( 'JudicialOfficer-Datatable-Server-Side', 'JudicialOfficerController@index2' );
-
-	// Route::get ( 'judicial_officer', function () {
-	// 	return view ( 'judicial_officers.index' );
-	// } );
-
-
-
-	
-
 
 	/*Qualification*/
 
@@ -135,10 +95,6 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 	Route::get ( 'state', function () {
 		return view ( 'states.index' );
 	} );
-
-
-	
-
 	
 
 	/*Subdivision */
@@ -173,45 +129,13 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 		return view ( 'modes.index' );
 	} );
 
+
 	/*Lcr Department */
 
 	Route::resource('departments', 'LcrDepartmentController')->except(['create', 'edit']);
 
 	Route::post( 'Department-Datatable-Server-Side', 'LcrDepartmentController@index_for_datatable' );
 
-
-	/*Category */
-
-	Route::resource('Categories', 'CategoryController')->except(['create', 'edit']);
-
-	Route::get ( 'Category-Datatable-Server-Side', 'CategoryController@index2' );
-
-	Route::get ( 'Category', function () {
-		return view ( 'Categories.index' );
-	} );
-
-
-	/* Religion */
-
-	Route::resource('religions', 'ReligionController')->except(['create', 'edit']);
-
-	Route::get ( 'Religion-Datatable-Server-Side', 'ReligionController@index2' );
-
-	Route::get ( 'religion', function () {
-		return view ( 'religions.index' );
-	} );
-
-
-	/*Reporting Reviewing Officer */
-
-	Route::resource('jo_reporting_reviewings', 'JoReportingReviewingController')
-	->except(['create', 'edit']);
-
-	Route::get ( 'JoReportingReviewing-Datatable-Server-Side', 'JoReportingReviewingController@index2' );
-
-	Route::get ( 'jo_reporting_reviewing', function () {
-		return view ( 'jo_reporting_reviewings.index' );
-	} );
 
 	/*Designation*/
 
@@ -223,6 +147,7 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 		return view ( 'designations.index' );
 	} );
 
+
 	/*Register */
 
 	Route::get ( 'register', 'Auth\RegisterController@showRegistrationForm');
@@ -230,17 +155,13 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 	Route::post ( 'register', 'Auth\RegisterController@register' );
 
 
-
 });
-
+// Master Maintenance :: END
 
 
 Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function (){
 
-
 	/*Posting zone preference*/
-
-	//Route::post('zone_pref/submit', 'JudicialOfficerPostingPreferenceController@store');
 
 	Route::get ( 'dashboard/jo', function () {
 		return view ( 'jo_entry_form.jo_dashboard' );
@@ -278,10 +199,7 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 		return view ( 'judicial_officer_posting_preferences.index' );
 	} );
 
-	// Route::get ( 'zone_pref_jr', function () {
-	// 	return view ( 'zone_pref_jr.index' );
-	// } );
-
+	
 });
 
 	Route::group(['middleware' => ['auth','role_manager:Inspection|Administrator']],function (){
@@ -406,6 +324,8 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 		Route::post('jo_entry/upload_image', 'JoEntryFormController@jo_upload_image')->name('jo_image_upload');
 
 		Route::post('jo_entry/upload_document', 'JoEntryFormController@jo_upload_document')->name('upload_jo_document');
+
+		Route::post('jo_entry/remove_document', 'JoEntryFormController@remove_jo_document')->name('remove_jo_document');
 
 		Route::post('jo_entry/show_all_jo', 'JoEntryFormController@show_all_jo')->name('list_of_jo');
 		

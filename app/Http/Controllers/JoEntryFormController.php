@@ -978,7 +978,8 @@ class JoEntryFormController extends Controller
         try{
             DB::beginTransaction(); 
 
-            JoCareerProgression::where('judicial_officer_id',$request->input('id'))->delete(); 
+            JoCareerProgression::where('judicial_officer_id',$request->input('id'))
+                                ->delete(); 
 
             for($i=0;$i<sizeof($request['rank_id']);$i++){
                 $jo_career_progression = new JoCareerProgression;
@@ -1066,6 +1067,17 @@ class JoEntryFormController extends Controller
         } finally {
             return response()->json($response, $statusCode);
         }
+    }
+
+    public function remove_jo_document(Request $request){
+        $this->validate( $request, [ 
+            'document_id' => 'required|integer|max:99999|exists:jo_documents,id'
+        ]);
+
+        JoDocument::where('id',$request->input('document_id'))
+                    ->delete(); 
+
+        return 1;
     }
 
 }
