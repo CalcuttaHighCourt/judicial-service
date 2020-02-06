@@ -716,7 +716,7 @@ class JoEntryFormController extends Controller
             'deputation_posting_place' => 'required|array',
             'deputation_posting_place.*' => 'nullable|required_if:flag_mode.*,==,deputation|string|max:255',
             'from_date' => 'required|array',
-            'from_date.*' => 'required|date_format:d-m-Y|before_or_equal:to_date.*|before_or_equal'.date('Y-m-d'),
+            'from_date.*' => 'required|date_format:d-m-Y|before_or_equal:to_date.*|before_or_equal:'.date('Y-m-d'),
             'to_date' => 'required|array',
             'to_date.*' => 'nullable|date_format:d-m-Y|after_or_equal:from_date.*|before_or_equal:'.date('Y-m-d'),                     
             'posting_remark' => 'required|array',
