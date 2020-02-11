@@ -1,7 +1,6 @@
-@extends('layouts.app') 
-@section('content')
+ 
+<?php $__env->startSection('content'); ?>
 <!-- Main content -->
-	<!-- Bootstrap Boilerplate... -->
 	<div id="info-panel" class="panel panel-default">
 		<!-- IIIIIIIIIII -->
 		<div id="info-panel-heading" class="panel-heading">ADD NEW</div>
@@ -10,18 +9,19 @@
 
 			<!-- New Task Form -->
 			<form id="info-form" class="form-horizontal" role="form" method="POST"
-				action="{{ url('/admin/State') }}">
-				{{ csrf_field() }}
-				<input type="hidden" id="state-id">
-				<div id="state_name-group" class="form-group our-form-group">
+				action="<?php echo e(url('/admin/Qualification')); ?>">
+				<?php echo e(csrf_field()); ?>
+
+				<input type="hidden" id="Qualification-id">
+				<div id="qualification_name-group" class="form-group our-form-group">
 					<!-- IIIIIIIIIII -->
-					<label for="state_name" class="col-md-4 control-label">State</label>
+					<label for="qualification_name" class="col-md-4 control-label">Qualification</label>
 
 					<div class="col-md-6">
-						<input id="state_name" type="text"
-							class="form-control info-form-control" name="state_name"> <span
-							id="state_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-							<strong id="state_name-strong" class="our-error-message-strong"></strong>
+						<input id="qualification_name" type="text"
+							class="form-control info-form-control" name="qualification_name"> <span
+							id="qualification_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+							<strong id="qualification_name-strong" class="our-error-message-strong"></strong>
 							<!-- IIIIIIIIIII -->
 						</span>
 					</div>
@@ -32,7 +32,7 @@
 					<div class="col-md-6 col-md-offset-4">
 						<button id="add-button" type="submit"
 							class="btn btn-primary add-button info-form-button">
-							<i class="fa fa-btn fa-plus-circle"></i> Add State
+							<i class="fa fa-btn fa-plus-circle"></i> Add New Qualification
 						</button>
 						<button id="save-button" type="submit"
 							class="btn btn-warning save-button info-form-button">
@@ -48,7 +48,7 @@
 						</button>
 					</div>
 				</div>
-				{{--@foreach($errors->all() as $error) {{$error}}@endforeach--}}
+				
 				<div id="message-div" class="form-group">
 					<div class="col-md-6 col-md-offset-4">
 						<div id="message-success-div"
@@ -78,7 +78,7 @@
 
 	<div id="datatable-panel" class="panel panel-default">
 		<div id="datatable-panel-heading" class="panel-heading clearfix">
-			<div class="panel-title pull-left">State Master</div>
+			<div class="panel-title pull-left">Qualification Master</div>
 			<div class="pull-right">
 				<button id="add-new-button" type="submit" class="btn btn-primary add-new-button">
 					<i class="fa fa-plus-circle"></i> Add New
@@ -94,9 +94,10 @@
 					<thead>
 						<tr>
 							<th></th>
-							<th>State Name</th>
+							<th>Qualification Name</th>
 							<th>Action</th>
-							
+							<th></th>
+							<th></th>
 						</tr>
 
 					</thead>
@@ -105,9 +106,10 @@
 					<tfoot>
 						<tr>
 							<th></th>
-							<th>State Name</th>
+							<th>Qualification Name</th>
 							<th>Action</th>
-							
+							<th></th>
+							<th></th>
 						</tr>
 					</tfoot>
 				</table>
@@ -116,8 +118,8 @@
 		</div>
 	</div>
 
-<meta name="_token" content="{!! csrf_token() !!}" />
 
+<meta name="_token" content="<?php echo csrf_token(); ?>" />
 
 
 <!--Closing that has been openned in the header.blade.php -->
@@ -127,8 +129,7 @@
 <!-- /.content-wrapper -->
 
 
-<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
-
+<script src="<?php echo e(asset('js/jquery/jquery.min.js')); ?>"></script>
 
 <script type="text/javascript">
 var table="";
@@ -137,34 +138,34 @@ $(function() {
 		"processing": true,
 		"serverSide": true,
 		"ajax":{
-			url:"{{url('State')}}-Datatable-Server-Side",
-			dataSrc:"states"
+			url:"<?php echo e(url('Qualification')); ?>-Datatable-Server-Side",
+			dataSrc:"qualifications"
 		},
 
 		"columnDefs": 
 			[
 				{ className: "table-text", "targets": "_all" },
-				// {
-				// 	"targets": -3,
-				// 	"data": null,
-				// 	"searchable": false,
-				// 	"sortable":false,
-				// 	"defaultContent": '<button type="submit" class="btn btn-info view-button"><i class="fa fa-info"></i> View</button>',
-				// },
 				{
-					"targets": -1,
+					"targets": -3,
+					"data": null,
+					"searchable": false,
+					"sortable":false,
+					"defaultContent": '<button type="submit" class="btn btn-info view-button"><i class="fa fa-info"></i> View</button>',
+				},
+				{
+					"targets": -2,
 					"data": null,
 					"searchable": false,
 					"sortable":false,
 					"defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i> Edit</button>',
 				},
-				// {
-				// 	"targets": -1,
-				// 	"data": null,
-				// 	"searchable": false,
-				// 	"sortable":false,
-				// 	"defaultContent": '<button type="submit" class="btn btn-danger delete-button"><i class="fa fa-trash"></i> Delete</button>',
-				// }
+				{
+					"targets": -1,
+					"data": null,
+					"searchable": false,
+					"sortable":false,
+					"defaultContent": '<button type="submit" class="btn btn-danger delete-button"><i class="fa fa-trash"></i> Delete</button>',
+				}
 			],
 		"columns": 
 			[
@@ -175,17 +176,17 @@ $(function() {
 					"orderable": false,
 				},
 				{
-					"data": "state_name",
+					"data": "qualification_name",
 				},				
 				{
 					"data": null
 				},
-				// {
-				// 	"data": null
-				// },
-				// {
-				// 	"data": null
-				// },
+				{
+					"data": null
+				},
+				{
+					"data": null
+				},
 			],
 		"order": [[ 1, 'asc' ]]
 	});
@@ -232,6 +233,10 @@ $(function() {
 		$('.edit-button').click(function(){
 			var data = table.row( $(this).parents('tr') ).data();
 			view_data( data );
+
+			
+			
+			
 			show_button("close");
 			show_button("save");
 			make_active_button("save");
@@ -308,8 +313,8 @@ function info_buttons_hide(){
 	$(".info-form-button").hide();
 	$(".info-form-button").attr("disabled","disabled");
 	$(".info-form-button").removeClass("active");
-	//$(".info-form-button").addClass("disabled");
 }
+
 function messages_hide(){
 	$(".success-error-message").hide();
 	$("#message-div").hide();
@@ -325,11 +330,11 @@ function show_error(field,msg){
 	$("#"+field+"-group").addClass("has-error");
 }
 function populate_form(data){
-	$("#info-panel-heading").html("Displaying record of State: <strong>"+data.type+"</strong>");
+	$("#info-panel-heading").html("Displaying record of Qualification: <strong>"+data.type+"</strong>");
 
-	$("#state-id").val(data.id);
+	$("#Qualification-id").val(data.id);
 	
-	$("#state_name").val(data.state_name);
+	$("#qualification_name").val(data.qualification_name);
 }
 function show_button(type){
 	$("#"+type+"-button").show();
@@ -357,7 +362,8 @@ $(function(){
 });
 function send_ajax_and_set_errors_exceptions_success(type){
 	var formData = {
-			state_name: $('#state_name').val()			
+		qualification_name: $('#qualification_name').val()
+						
 	};
 	ajax_url="";
 	operation="";
@@ -366,8 +372,10 @@ function send_ajax_and_set_errors_exceptions_success(type){
 	if(type=="add"){
 		//request_type="POST";
 		formData["_method"]="POST";
-		ajax_url="{{ action('StateController@store') }}";
+		ajax_url="<?php echo e(action('QualificationController@store')); ?>";
+       
 
+		formData["qualification_name"]=$("#qualification_name").val();
 
 		operation="add";
 		operated="added";
@@ -376,18 +384,18 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		//request_type="PUT";
 		formData["_method"]="PUT";
 		
-		ajax_url="{{ action('StateController@update','') }}"+"/"+$("#state-id").val();
-		formData["id"]=$("#state-id").val();
+		ajax_url="<?php echo e(action('QualificationController@update','')); ?>"+"/"+$("#Qualification-id").val();
+		formData["id"]=$("#Qualification-id").val();
 
 		operation="update";
 		operated="updated";
 	}
 	else if(type=="delete-confirm"){
-		//request_type="DELETE";
 		formData["_method"]="DELETE";
+		formData["id"]=$("#Qualification-id").val();
+
+		ajax_url="<?php echo e(action('QualificationController@destroy','')); ?>"+"/"+$("#Qualification-id").val();
 		
-		ajax_url="{{ action('StateController@destroy','') }}"+"/"+$("#state-id").val();
-		formData["id"]=$("#state-id").val();
 
 		operation="delete";
 		operated="deleted";
@@ -400,48 +408,43 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		success: function (data, textStatus, jqXHR) {
 			reset_info(true);
 			msg="<strong>SUCCESS: </strong>";
-			if(!(data.state===null) && data.state.hasOwnProperty('state_name')){
-				//add and updattypeeDelete=> !(data.state===null)
-				msg+="State: <strong>"+data.state.state_name+"</strong> successfully "+operated+".";
+			if(!(data.qualification===null) && data.qualification.hasOwnProperty('qualification_name')){
+				
+				msg+="Qualification: <strong>"+data.qualification.qualification_name+"</strong> successfully "+operated+".";
 			}
 			else{
 				//delete case
-				if(!(data.state===null) && data.state>=1){
-					msg+="State: <strong>"+formData.state_name+"</strong> successfully "+operated+".";
+				if(!(data.qualification===null) && data.qualification>=1){
+					msg+="Qualification: <strong>"+formData.qualification_name+"</strong> successfully "+operated+".";
 				}
 				else{
-					msg+="State already "+operated+"!";
+					msg+="Qualification already "+operated+"!";
 				}
 			}
 			show_message_div("success",msg);
 			table.ajax.reload();
 
 			
-			
-			//setTimeout(function(){ scrollToElement($('#datatable-panel')); }, 200);
 			scrollToElement($('#message-div'));
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
-			//alert(JSON.stringify(jqXHR)+" : " + textStatus+" : "+errorThrown);
-			//alert(jqXHR.status);
+			
 			errors_reset();
 			messages_hide();
 			msg="<strong>Failed to "+operation+" data.</strong><br/>";
 			if(jqXHR.status!=422 && jqXHR.status!=400){
 				msg+="<strong>"+jqXHR.status+": "+errorThrown+"</strong>";
-				//show_message_div("error",msg);
 			}
 			else{
 				if(jqXHR.responseJSON.hasOwnProperty('exception')){
 					msg+="Exception: <strong>"+jqXHR.responseJSON.exception_message+"</strong>";
-					//show_message_div("error",msg);
 				}
 				else{
 					msg+="Error(s):<strong><ul>";
 					$.each(jqXHR.responseJSON.errors, function(key,value) {
 						msg+="<li>"+value+"</li>";
 						show_error(key,value);
-						//return (this != "four"); // will stop running to skip "five"
+						
 					});
 					msg+="</ul></strong>";
 					
@@ -452,16 +455,9 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		}
 	});
 }
-function update_notices_menu_section(){
-	$.ajax({
-		type: "GET",
-		url: "{{ url('/State-Menu') }}",
-		success: function (data, textStatus, jqXHR) {
-			$("#notifications-menu-dropdown").html(data);
-		}
-	});
-}
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
+<?php $__env->startSection('body_attributes'); ?> ##parent-placeholder-1fa5d88582eaf7c8fca74b6f4d35a679841c3cf9## class="" <?php $__env->stopSection(); ?>
 
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/qualifications/index.blade.php ENDPATH**/ ?>

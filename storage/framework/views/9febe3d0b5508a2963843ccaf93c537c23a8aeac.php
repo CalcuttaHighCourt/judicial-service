@@ -123,8 +123,7 @@
                                         <li><a href="<?php echo e(url('departments')); ?>"> Department for LCR </span></a></li>
                                         <li><a href="<?php echo e(url('designation')); ?>"> Designation </span></a></li>
                                         <li><a href="<?php echo e(url('mode')); ?>"> Posting Modes </span></a></li>
-                                        <li><a  href="<?php echo e(url('Category')); ?>"> Category </span></a></li>
-                                        <li><a  href="<?php echo e(url('religion')); ?>"> Religion </span></a></li>
+                                        <!-- <li><a  href="<?php echo e(url('religion')); ?>"> Religion </span></a></li> -->
                                         <li><a  href="<?php echo e(url('qualification')); ?>"> Qualification </span></a></li>
                                         <li><a  href="<?php echo e(url('recruitmentbatch')); ?>"> Recruitment Batch </span></a></li>
                                         <li><a href="<?php echo e(url('user_type')); ?>"> User Type </a></li>

@@ -1,5 +1,5 @@
-@extends('layouts.app') 
-@section('content')
+ 
+<?php $__env->startSection('content'); ?>
 <!-- Main content -->
 	<!-- Bootstrap Boilerplate... -->
 	<div id="info-panel" class="panel panel-default">
@@ -10,8 +10,9 @@
 
 			<!-- New Task Form -->
 			<form id="info-form" class="form-horizontal" role="form" method="POST"
-				action="{{ url('/admin/State') }}">
-				{{ csrf_field() }}
+				action="<?php echo e(url('/admin/State')); ?>">
+				<?php echo e(csrf_field()); ?>
+
 				<input type="hidden" id="state-id">
 				<div id="state_name-group" class="form-group our-form-group">
 					<!-- IIIIIIIIIII -->
@@ -48,7 +49,7 @@
 						</button>
 					</div>
 				</div>
-				{{--@foreach($errors->all() as $error) {{$error}}@endforeach--}}
+				
 				<div id="message-div" class="form-group">
 					<div class="col-md-6 col-md-offset-4">
 						<div id="message-success-div"
@@ -116,7 +117,7 @@
 		</div>
 	</div>
 
-<meta name="_token" content="{!! csrf_token() !!}" />
+<meta name="_token" content="<?php echo csrf_token(); ?>" />
 
 
 
@@ -127,7 +128,7 @@
 <!-- /.content-wrapper -->
 
 
-<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
+<script src="<?php echo e(asset('js/jquery/jquery.min.js')); ?>"></script>
 
 
 <script type="text/javascript">
@@ -137,7 +138,7 @@ $(function() {
 		"processing": true,
 		"serverSide": true,
 		"ajax":{
-			url:"{{url('State')}}-Datatable-Server-Side",
+			url:"<?php echo e(url('State')); ?>-Datatable-Server-Side",
 			dataSrc:"states"
 		},
 
@@ -366,7 +367,7 @@ function send_ajax_and_set_errors_exceptions_success(type){
 	if(type=="add"){
 		//request_type="POST";
 		formData["_method"]="POST";
-		ajax_url="{{ action('StateController@store') }}";
+		ajax_url="<?php echo e(action('StateController@store')); ?>";
 
 
 		operation="add";
@@ -376,7 +377,7 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		//request_type="PUT";
 		formData["_method"]="PUT";
 		
-		ajax_url="{{ action('StateController@update','') }}"+"/"+$("#state-id").val();
+		ajax_url="<?php echo e(action('StateController@update','')); ?>"+"/"+$("#state-id").val();
 		formData["id"]=$("#state-id").val();
 
 		operation="update";
@@ -386,7 +387,7 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		//request_type="DELETE";
 		formData["_method"]="DELETE";
 		
-		ajax_url="{{ action('StateController@destroy','') }}"+"/"+$("#state-id").val();
+		ajax_url="<?php echo e(action('StateController@destroy','')); ?>"+"/"+$("#state-id").val();
 		formData["id"]=$("#state-id").val();
 
 		operation="delete";
@@ -455,13 +456,15 @@ function send_ajax_and_set_errors_exceptions_success(type){
 function update_notices_menu_section(){
 	$.ajax({
 		type: "GET",
-		url: "{{ url('/State-Menu') }}",
+		url: "<?php echo e(url('/State-Menu')); ?>",
 		success: function (data, textStatus, jqXHR) {
 			$("#notifications-menu-dropdown").html(data);
 		}
 	});
 }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
 
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/states/index.blade.php ENDPATH**/ ?>

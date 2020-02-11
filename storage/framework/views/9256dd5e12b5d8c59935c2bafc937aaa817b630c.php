@@ -1,5 +1,5 @@
-@extends('layouts.app') 
-@section('content')
+ 
+<?php $__env->startSection('content'); ?>
 <!-- Main content -->
 	<div id="info-panel" class="panel panel-default">
 		<!-- IIIIIIIIIII -->
@@ -39,7 +39,7 @@
 							<i class="fa fa-btn fa-plus-circle"></i> Add New Document Types
 						</button>
 					</div>
-				{{--@foreach($errors->all() as $error) {{$error}}@endforeach--}}
+				
 			</div>
 		</div>
 
@@ -77,7 +77,7 @@
 	</div>
 
 
-<meta name="_token" content="{!! csrf_token() !!}" />
+<meta name="_token" content="<?php echo csrf_token(); ?>" />
 
 <!--Closing that has been openned in the header.blade.php -->
 </section>
@@ -85,7 +85,7 @@
 </div>
 <!-- /.content-wrapper -->
 
-<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
+<script src="<?php echo e(asset('js/jquery/jquery.min.js')); ?>"></script>
 
 <script>
 
@@ -99,7 +99,7 @@ var table="";
 			"processing": true,
 			"serverSide": true,
 			"ajax":{
-				"url":"{{url('Document')}}-Datatable-Server-Side",
+				"url":"<?php echo e(url('Document')); ?>-Datatable-Server-Side",
 				"dataType": "json",
 				"type": "POST",
 				"data":{ 
@@ -167,6 +167,8 @@ var table="";
 });
 
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
 
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/document_types/index.blade.php ENDPATH**/ ?>

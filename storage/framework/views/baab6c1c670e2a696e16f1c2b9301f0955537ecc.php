@@ -55,7 +55,7 @@
                 <table class="table table-striped table-bordered" id="show_jo_pref_details">
                     <thead>
                         <tr>
-                            
+                            <th>#</th>
                             <th>OFFICER'S NAME</th>
                             <th>WINDOW OPENNING DATE</th>
                             <th>PREFEREENCE SUBMISSION STATUS</th>
@@ -160,11 +160,12 @@
                                 "type": "POST",
                                 "data":{ _token: $('meta[name="csrf-token"]').attr('content')}
                             },
-                            "columns": [                
+                            "columns": [  
+                                {"data": "sl_no"},              
                                 {"data": "officer_name" },
                                 {"data": "window_openning_date" },
                                 {"data": "window_status" },
-                                {"data": "action" }
+                                {"data": "action"}
                             ]
                         });
                      
@@ -172,7 +173,28 @@
  
                         $(".table").on( 'error.dt', function ( e, settings, techNote, message ) {
                             swal("An error has been reported by DataTable","","error");
-                        }).DataTable();             
+                        }).DataTable();      
+
+        $(document).on("click",".disable",function(){
+            var data = table.row($(this).parents('tr')).data();
+            //console.log(data.id);
+            id=data.id;
+            $.ajax({
+                    url:"disable_window_for_jo_pref",
+                    type:"POST",
+                    data :{ 
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        id: id
+                    },
+                    success(response){
+                        swal("Successfull","disabled successfully","success");
+                    },
+                    error(response){
+                        swal("Error","disabled has not been done","error");
+                    }
+            })
+            
+        });  
 
             
     });

@@ -782,10 +782,12 @@ public function zone_pref_content(Request $request) {
         ]);
 
         $columns = array( 
-            0 => 'officer_name',
-            1 => 'window_openning_date',
-            2 => 'window_status',
-            3 => 'action'
+            0 => 'sl_no',
+            1 => 'id',
+            2 => 'officer_name',
+            3 => 'window_openning_date',
+            4 => 'window_status',
+            5 => 'action'
         );
 
         $judicial_officers = array();
@@ -807,7 +809,7 @@ public function zone_pref_content(Request $request) {
                 $judicial_officers=JudicialOfficer::leftjoin('judicial_officer_posting_preferences','judicial_officers.id','=','judicial_officer_posting_preferences.judicial_officer_id')
                                                     ->where('judicial_officers.posting_preference_window_flag','Y')
                                                     ->orderBy('judicial_officers.officer_name',$dir)
-                                                    ->select('judicial_officers.jo_code','judicial_officers.officer_name','judicial_officers.posting_preference_window_open_on','judicial_officer_posting_preferences.final_submission','judicial_officer_posting_preferences.updated_at')
+                                                    ->select('judicial_officers.id','judicial_officers.jo_code','judicial_officers.officer_name','judicial_officers.posting_preference_window_open_on','judicial_officer_posting_preferences.final_submission','judicial_officer_posting_preferences.updated_at')
                                                     ->distinct('judicial_officer_id')
                                                     ->get();
                
@@ -816,7 +818,7 @@ public function zone_pref_content(Request $request) {
                 $totalData = JudicialOfficer::leftjoin('judicial_officer_posting_preferences','judicial_officers.id','=','judicial_officer_posting_preferences.judicial_officer_id')
                                                                 ->where('judicial_officers.posting_preference_window_flag','Y')
                                                                 ->orderBy('judicial_officers.officer_name',$dir)
-                                                                ->select('judicial_officers.jo_code','judicial_officers.officer_name','judicial_officers.posting_preference_window_open_on','judicial_officer_posting_preferences.final_submission','judicial_officer_posting_preferences.updated_at')
+                                                                ->select('judicial_officers.id','judicial_officers.jo_code','judicial_officers.officer_name','judicial_officers.posting_preference_window_open_on','judicial_officer_posting_preferences.final_submission','judicial_officer_posting_preferences.updated_at')
                                                                 ->distinct('judicial_officer_id')
                                                                 ->count('judicial_officer_id');
 
@@ -834,13 +836,15 @@ public function zone_pref_content(Request $request) {
                                                         ])
                                                 ->orderBy('judicial_officers.posting_preference_window_open_on','desc')
                                                 ->orderBy('judicial_officers.officer_name')
-                                                ->select('judicial_officers.jo_code','judicial_officers.officer_name','judicial_officers.posting_preference_window_open_on','judicial_officer_posting_preferences.final_submission','judicial_officer_posting_preferences.updated_at')
+                                                ->select('judicial_officers.id','judicial_officers.jo_code','judicial_officers.officer_name','judicial_officers.posting_preference_window_open_on','judicial_officer_posting_preferences.final_submission','judicial_officer_posting_preferences.updated_at')
                                                 ->distict()
                                                 ->get();
         }
 
         if($judicial_officers){
-            foreach($judicial_officers as $jo){
+            foreach($judicial_officers as $key=>$jo){
+                $nestedData['sl_no'] = $key+1;
+                $nestedData['id'] = $jo->id;
                 $nestedData['officer_name'] = $jo->officer_name.' / '.$jo->jo_code;
                 $nestedData['window_openning_date'] =  Carbon::parse($jo->posting_preference_window_open_on)->format('d-m-Y');
 
@@ -863,7 +867,7 @@ public function zone_pref_content(Request $request) {
 
                 $nestedData['window_status'] = $jo->final_submission;
 
-                $nestedData['action'] = "<i class='fa fa-ban' style='color:red' title='Disable'></i>";
+                $nestedData['action'] = "<i class='fa fa-ban disable' style='color:red' title='Disable'></i>";
 
                 $data[] = $nestedData;
             }
@@ -879,6 +883,28 @@ public function zone_pref_content(Request $request) {
         echo json_encode($json_data);
     }
 
+    public function closing_window_jo_pref(Request $request){
+
+        $this->validate ( $request, [ 
+            'id' => 'integer|max:200|exists:judicial_officers,id',
+        ]);
+
+        $id = $request->input('id');
+
+        $data = [
+            'posting_preference_window_flag'=>'N',
+            'updated_at'=>Carbon::today()
+        ];
+
+        JudicialOfficer::where('id',$id)->update($data);
+        
+        return 1;
+    
+    }
+
 
 }
+
+
+
         
