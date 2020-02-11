@@ -5,7 +5,7 @@
 -- Dumped from database version 9.2.4
 -- Dumped by pg_dump version 11.1
 
--- Started on 2020-02-01 16:55:12
+-- Started on 2020-02-11 13:45:19
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1964,6 +1964,7 @@ INSERT INTO public.districts (id, district_name, state_id, zone_id, created_by, 
 --
 
 INSERT INTO public.document_types (id, type_name, created_at, updated_at) VALUES (1, 'Leave', '2020-02-01 00:00:00', '2020-02-01 00:00:00');
+INSERT INTO public.document_types (id, type_name, created_at, updated_at) VALUES (4, 'Home Loan', '2020-02-11 12:51:03', '2020-02-11 12:51:03');
 
 
 --
@@ -2280,6 +2281,14 @@ INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_t
 INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (214, 'judicial_officer_postings', '{"id":163,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":18,"deputation_designation":"","deputation_posting_place":"","from_date":"2013-02-11","to_date":"2014-02-06","posting_remark":"","created_at":"2020-01-21 13:50:07","updated_at":"2020-01-21 13:50:07","additional_designation":"Additional District & Sessions Judge F.T.C,Baruipur From 06.02.2014 To 04.01.2016","zone_id":4}', '2020-01-20 10:27:36');
 INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (215, 'judicial_officer_postings', '{"id":164,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":15,"deputation_designation":"","deputation_posting_place":"","from_date":"2016-01-11","to_date":"2018-10-04","posting_remark":"","created_at":"2020-01-21 13:50:07","updated_at":"2020-01-21 13:50:07","additional_designation":"","zone_id":6}', '2020-01-20 10:27:36');
 INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (216, 'judicial_officer_postings', '{"id":165,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":16,"deputation_designation":"","deputation_posting_place":"","from_date":"2018-10-11","to_date":null,"posting_remark":"","created_at":"2020-01-21 13:50:07","updated_at":"2020-01-21 13:50:07","additional_designation":"","zone_id":8}', '2020-01-20 10:27:36');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (217, 'judicial_officer_postings', '{"id":166,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":11,"deputation_designation":"","deputation_posting_place":"","from_date":"2001-10-16","to_date":"2004-06-30","posting_remark":"","created_at":"2020-01-21 15:55:34","updated_at":"2020-01-21 15:55:34","additional_designation":"JM 1st Court,Contai","zone_id":6}', '2020-02-06 05:26:53');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (218, 'judicial_officer_postings', '{"id":167,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":21,"deputation_designation":"","deputation_posting_place":"","from_date":"2004-07-05","to_date":"2005-10-16","posting_remark":"","created_at":"2020-01-21 15:55:34","updated_at":"2020-01-21 15:55:34","additional_designation":"JM,Jhargram","zone_id":6}', '2020-02-06 05:26:53');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (219, 'judicial_officer_postings', '{"id":168,"judicial_officer_id":11,"mode_id":1,"rank_id":1,"designation_id":24,"deputation_designation":"","deputation_posting_place":"","from_date":"2007-06-26","to_date":"2009-07-27","posting_remark":"","created_at":"2020-01-21 15:55:34","updated_at":"2020-01-21 15:55:34","additional_designation":"Principal Magistrate,Juvenile Justice Board,Bankshall Court From 11.06.2008 To 27.07.2009","zone_id":4}', '2020-02-06 05:26:53');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (220, 'judicial_officer_postings', '{"id":169,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":22,"deputation_designation":"","deputation_posting_place":"","from_date":"2009-07-27","to_date":"2011-02-02","posting_remark":"","created_at":"2020-01-21 15:55:34","updated_at":"2020-01-21 15:55:34","additional_designation":"Leave Reserve Officer,Hoogly Sadar","zone_id":4}', '2020-02-06 05:26:53');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (221, 'judicial_officer_postings', '{"id":170,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":17,"deputation_designation":"","deputation_posting_place":"","from_date":"2011-02-04","to_date":"2011-11-08","posting_remark":"","created_at":"2020-01-21 15:55:34","updated_at":"2020-01-21 15:55:34","additional_designation":"Additional District & Sessions Judge F.T.C Court - 1,DInhata From 8.11.2011(FN) to 8.02.2013 (FN)","zone_id":8}', '2020-02-06 05:26:53');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (222, 'judicial_officer_postings', '{"id":171,"judicial_officer_id":11,"mode_id":1,"rank_id":2,"designation_id":18,"deputation_designation":"","deputation_posting_place":"","from_date":"2013-02-11","to_date":"2014-02-06","posting_remark":"","created_at":"2020-01-21 15:55:34","updated_at":"2020-01-21 15:55:34","additional_designation":"Additional District & Sessions Judge F.T.C,Baruipur From 06.02.2014 To 04.01.2016","zone_id":4}', '2020-02-06 05:26:53');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (223, 'judicial_officer_postings', '{"id":172,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":15,"deputation_designation":"","deputation_posting_place":"","from_date":"2016-01-11","to_date":"2018-10-04","posting_remark":"","created_at":"2020-01-21 15:55:34","updated_at":"2020-01-21 15:55:34","additional_designation":"","zone_id":6}', '2020-02-06 05:26:53');
+INSERT INTO public.history_deleted_data (id, table_name, deleted_data, deleted_time) VALUES (224, 'judicial_officer_postings', '{"id":173,"judicial_officer_id":11,"mode_id":1,"rank_id":3,"designation_id":16,"deputation_designation":"","deputation_posting_place":"","from_date":"2018-10-11","to_date":null,"posting_remark":"","created_at":"2020-01-21 15:55:34","updated_at":"2020-01-21 15:55:34","additional_designation":"","zone_id":8}', '2020-02-06 05:26:53');
 
 
 --
@@ -2436,6 +2445,15 @@ INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_t
 INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (155, 'judicial_officers', '{"id":2,"registration_no":"208","jo_code":"WB208","officer_name":"Sukhendu Das","gender":"M","spouse":null,"date_of_birth":"1960-01-10","home_state_id":51,"home_district_id":44,"hometown":"Bisnupur","present_address":"Bisnupur","permanent_address":"Bisnupur","mobile_no_1":"9400000000","mobile_no_2":null,"email_id_1":"sukhendu@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1990,"date_of_joining":"1991-08-30","date_of_confirmation":null,"date_of_retirement":"2020-01-31","profile_image":null,"created_at":null,"updated_at":"2020-01-17 15:37:21","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-01"}', '2020-01-26 11:35:25');
 INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (156, 'judicial_officers', '{"id":11,"registration_no":"702","jo_code":"WB702","officer_name":"BIBHAS CHATTERJEE","gender":"M","spouse":12,"date_of_birth":"1967-01-25","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","permanent_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","mobile_no_1":"9830123456","mobile_no_2":null,"email_id_1":"bibhas@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2000,"date_of_joining":"2001-03-22","date_of_confirmation":null,"date_of_retirement":"2027-01-31","profile_image":"702_1579285800.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27","additional_hometown":null}', '2020-01-31 06:14:42');
 INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (157, 'judicial_officers', '{"id":11,"registration_no":"702","jo_code":"WB702","officer_name":"BIBHAS CHATTERJEE","gender":"M","spouse":12,"date_of_birth":"1967-01-25","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","permanent_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","mobile_no_1":"9830123456","mobile_no_2":null,"email_id_1":"bibhas@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2000,"date_of_joining":"2001-03-22","date_of_confirmation":null,"date_of_retirement":"2027-01-31","profile_image":"702_1579285800.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":"2020-01-27","additional_hometown":null}', '2020-01-31 06:14:56');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (158, 'judicial_officers', '{"id":13,"registration_no":"999","jo_code":"","officer_name":"Amol Kumar Haldar","gender":"M","spouse":null,"date_of_birth":"1992-01-01","home_state_id":51,"home_district_id":10,"hometown":"","present_address":"test address","permanent_address":"test address","mobile_no_1":"","mobile_no_2":null,"email_id_1":"amol@gmail.com","email_id_2":null,"recruitment_batch_id":2,"recruitment_batch_year":2019,"date_of_joining":"2019-02-01","date_of_confirmation":"2020-02-03","date_of_retirement":"2020-02-01","profile_image":null,"created_at":null,"updated_at":null,"other_home_district":"fdfdfdfdf","posting_preference_window_flag":null,"posting_preference_window_open_on":null,"additional_hometown":null}', '2020-02-03 06:55:52');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (159, 'judicial_officers', '{"id":13,"registration_no":"999","jo_code":"","officer_name":"Amol Kumar Haldar","gender":"M","spouse":null,"date_of_birth":"1992-01-01","home_state_id":51,"home_district_id":10,"hometown":"","present_address":"test address","permanent_address":"test address","mobile_no_1":"","mobile_no_2":null,"email_id_1":"amol@gmail.com","email_id_2":null,"recruitment_batch_id":2,"recruitment_batch_year":2019,"date_of_joining":"2019-02-01","date_of_confirmation":"2020-02-03","date_of_retirement":"2020-05-16","profile_image":null,"created_at":null,"updated_at":"2020-02-04 12:23:40","other_home_district":"fdfdfdfdf","posting_preference_window_flag":null,"posting_preference_window_open_on":null,"additional_hometown":null}', '2020-02-03 06:56:33');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (160, 'judicial_officers', '{"id":2,"registration_no":"208","jo_code":"WB208","officer_name":"Sukhendu Das","gender":"M","spouse":null,"date_of_birth":"1960-01-10","home_state_id":51,"home_district_id":44,"hometown":"Bisnupur","present_address":"Bisnupur","permanent_address":"Bisnupur","mobile_no_1":"9400000000","mobile_no_2":null,"email_id_1":"sukhendu@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1990,"date_of_joining":"1991-08-30","date_of_confirmation":null,"date_of_retirement":"2020-01-31","profile_image":null,"created_at":null,"updated_at":"2020-01-17 15:37:21","other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":"2020-01-01","additional_hometown":null}', '2020-02-03 11:08:12');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (161, 'judicial_officers', '{"id":2,"registration_no":"208","jo_code":"WB208","officer_name":"Sukhendu Das","gender":"M","spouse":null,"date_of_birth":"1960-01-10","home_state_id":51,"home_district_id":44,"hometown":"Bisnupur","present_address":"Bisnupur","permanent_address":"Bisnupur","mobile_no_1":"9400000000","mobile_no_2":null,"email_id_1":"sukhendu@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1990,"date_of_joining":"1991-08-30","date_of_confirmation":null,"date_of_retirement":"2030-01-31","profile_image":null,"created_at":null,"updated_at":"2020-01-17 15:37:21","other_home_district":"","posting_preference_window_flag":null,"posting_preference_window_open_on":"2020-01-01","additional_hometown":null}', '2020-02-03 11:08:35');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (162, 'judicial_officers', '{"id":11,"registration_no":"702","jo_code":"WB702","officer_name":"BIBHAS CHATTERJEE","gender":"M","spouse":12,"date_of_birth":"1967-01-25","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","permanent_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","mobile_no_1":"9830123456","mobile_no_2":null,"email_id_1":"bibhas@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2000,"date_of_joining":"2001-03-22","date_of_confirmation":null,"date_of_retirement":"2027-01-31","profile_image":"702_1579285800.jpg","created_at":null,"updated_at":"2020-02-01 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-02-01","additional_hometown":null}', '2020-02-04 09:55:41');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (163, 'judicial_officers', '{"id":12,"registration_no":"580","jo_code":"WB580","officer_name":"SMT SUDESHNA DE (CHATTERJEE)","gender":"F","spouse":11,"date_of_birth":"1968-10-27","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","permanent_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"sudeshna@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1997,"date_of_joining":"1997-11-28","date_of_confirmation":null,"date_of_retirement":"2028-10-31","profile_image":"580_1579458600.jpg","created_at":null,"updated_at":"2020-01-27 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27","additional_hometown":null}', '2020-02-04 09:55:41');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (164, 'judicial_officers', '{"id":11,"registration_no":"702","jo_code":"WB702","officer_name":"BIBHAS CHATTERJEE","gender":"M","spouse":12,"date_of_birth":"1967-01-25","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","permanent_address":"BARALBAGAN 2ND LANE, BAGBAZAR,\nPO & P.S. - CHANDANNAGAR,\nDIST : HOOGHLY, PIN - 712136","mobile_no_1":"9830123456","mobile_no_2":null,"email_id_1":"bibhas@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":2000,"date_of_joining":"2001-03-22","date_of_confirmation":"2001-03-22","date_of_retirement":"2027-01-31","profile_image":"702_1579285800.jpg","created_at":null,"updated_at":"2020-02-05 15:22:17","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-02-01","additional_hometown":null}', '2020-02-04 09:55:56');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (165, 'judicial_officers', '{"id":12,"registration_no":"580","jo_code":"WB580","officer_name":"SMT SUDESHNA DE (CHATTERJEE)","gender":"F","spouse":11,"date_of_birth":"1968-10-27","home_state_id":51,"home_district_id":28,"hometown":"Chandannagar","present_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","permanent_address":"C/O BIBHAS CHATTERJEE,\nBARAL BAGAN, BAGBAZAR,\nP.O. + P.S. - CHANDANNAGAR, \nDIST - HOOGHLY, PIN - 712136","mobile_no_1":"1234567890","mobile_no_2":null,"email_id_1":"sudeshna@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1997,"date_of_joining":"1997-11-28","date_of_confirmation":null,"date_of_retirement":"2028-10-31","profile_image":"580_1579458600.jpg","created_at":null,"updated_at":"2020-02-05 15:22:17","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-01-27","additional_hometown":null}', '2020-02-04 09:55:56');
+INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_time) VALUES (166, 'judicial_officers', '{"id":2,"registration_no":"208","jo_code":"WB208","officer_name":"Sukhendu Das","gender":"M","spouse":null,"date_of_birth":"1960-01-10","home_state_id":51,"home_district_id":44,"hometown":"Bisnupur","present_address":"Bisnupur","permanent_address":"Bisnupur","mobile_no_1":"9400000000","mobile_no_2":null,"email_id_1":"sukhendu@gmail.com","email_id_2":null,"recruitment_batch_id":1,"recruitment_batch_year":1990,"date_of_joining":"1991-08-30","date_of_confirmation":null,"date_of_retirement":"2030-01-31","profile_image":null,"created_at":null,"updated_at":"2020-02-04 00:00:00","other_home_district":"","posting_preference_window_flag":"Y","posting_preference_window_open_on":"2020-02-04","additional_hometown":null}', '2020-02-06 11:34:11');
 
 
 --
@@ -2452,8 +2470,7 @@ INSERT INTO public.history_updated_data (id, table_name, updated_data, updated_t
 -- Data for Name: jo_documents; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.jo_documents (id, document_type_id, judicial_officer_id, document_path, created_at, updated_at, remark) VALUES (2, 1, 11, '702_1_1580510853_0.pdf', '2020-02-01 16:17:33', '2020-02-01 16:17:33', '');
-INSERT INTO public.jo_documents (id, document_type_id, judicial_officer_id, document_path, created_at, updated_at, remark) VALUES (3, 1, 11, '702_1_1580512198_0.pdf', '2020-02-01 16:39:58', '2020-02-01 16:39:58', 'Test Remark');
+INSERT INTO public.jo_documents (id, document_type_id, judicial_officer_id, document_path, created_at, updated_at, remark) VALUES (4, 1, 11, '702_1_1580969128_0.pdf', '2020-02-06 11:35:28', '2020-02-06 11:35:28', 'Test Remark');
 
 
 --
@@ -2499,8 +2516,15 @@ INSERT INTO public.jo_reportings (id, judicial_officer_id, posting_id, reporting
 -- Data for Name: jo_zone_tenures; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (115, 13, 4, '2019-12-01', NULL, NULL, NULL);
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (116, 11, 6, '2001-10-16', '2009-07-27', NULL, '2020-02-07 10:53:28');
 INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (6, 3, 6, '2000-01-20', '2005-06-20', NULL, '2020-01-08 15:23:12');
 INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (7, 3, 7, '2005-12-09', NULL, NULL, NULL);
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (117, 11, 4, '2007-06-26', '2011-11-08', NULL, '2020-02-07 10:53:28');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (118, 11, 8, '2011-02-04', '2014-02-06', NULL, '2020-02-07 10:53:28');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (119, 11, 4, '2013-02-11', '2018-10-04', NULL, '2020-02-07 10:53:28');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (120, 11, 6, '2016-01-11', '2018-10-04', NULL, '2020-02-07 10:53:28');
+INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (121, 11, 8, '2018-10-11', NULL, NULL, NULL);
 INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (88, 12, 4, '1997-11-28', '2001-06-06', NULL, '2020-01-20 15:44:49');
 INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (17, 2, 6, '1991-08-30', '1993-05-14', NULL, '2020-01-09 16:59:31');
 INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (18, 2, 7, '1995-07-20', NULL, NULL, NULL);
@@ -2512,12 +2536,6 @@ INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date,
 INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (94, 12, 4, '2013-01-24', '2018-10-04', NULL, '2020-01-20 15:44:49');
 INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (95, 12, 6, '2016-02-05', '2018-10-04', NULL, '2020-01-20 15:44:49');
 INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (96, 12, 8, '2018-10-11', NULL, NULL, NULL);
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (109, 11, 6, '2001-10-16', '2009-07-27', NULL, '2020-01-21 15:55:34');
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (110, 11, 4, '2007-06-26', '2011-11-08', NULL, '2020-01-21 15:55:34');
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (111, 11, 8, '2011-02-04', '2014-02-06', NULL, '2020-01-21 15:55:34');
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (112, 11, 4, '2013-02-11', '2018-10-04', NULL, '2020-01-21 15:55:34');
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (113, 11, 6, '2016-01-11', '2018-10-04', NULL, '2020-01-21 15:55:34');
-INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date, to_date, created_at, updated_at) VALUES (114, 11, 8, '2018-10-11', NULL, NULL, NULL);
 
 
 --
@@ -2526,14 +2544,14 @@ INSERT INTO public.jo_zone_tenures (id, judicial_officer_id, zone_id, from_date,
 -- Data for Name: judicial_officer_posting_preferences; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (2, 2, 8, 'ANDAMAN AND NICOBAR ISLAND', 'Zone d is most prefered', 'Y', 5, '2020-01-09 13:01:41', '2020-01-09 13:01:41');
-INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (3, 2, 4, 'SOUTH 24 PARGANAS', 'Zone d is most prefered', 'Y', 5, '2020-01-09 13:01:41', '2020-01-09 13:01:41');
-INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (4, 2, 4, 'KALYANI', 'Zone d is most prefered', 'Y', 5, '2020-01-09 13:01:41', '2020-01-09 13:01:41');
-INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (8, 3, 8, 'COOCH BEHAR', '', 'Y', 6, '2020-01-09 13:07:43', '2020-01-09 13:07:43');
+INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (3, 2, 4, 'SOUTH 24 PARGANAS', 'Zone d is most prefered', 'N', 5, '2020-01-09 00:00:00', '2020-01-09 00:00:00');
+INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (2, 2, 8, 'ANDAMAN AND NICOBAR ISLAND', 'Zone d is most prefered', 'N', 5, '2020-01-09 00:00:00', '2020-01-09 00:00:00');
 INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (7, 3, 4, 'HOOGLY
- Except :ARAMBAGH', '', 'Y', 6, '2020-01-09 13:07:43', '2020-01-09 13:07:43');
+ Except :ARAMBAGH', '', 'Y', 6, '2020-01-09 00:00:00', '2020-01-09 00:00:00');
+INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (4, 2, 4, 'KALYANI', 'Zone d is most prefered', 'N', 5, '2020-01-09 00:00:00', '2020-01-09 00:00:00');
 INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (20, 12, 4, 'NORTH 24 PARGANAS
- except :BASIRHAT , BONGAON', '', 'Y', 15, '2020-01-27 12:00:22', '2020-01-27 12:00:22');
+ except :BASIRHAT , BONGAON', '', 'Y', 15, '2020-01-27 00:00:00', '2020-01-27 00:00:00');
+INSERT INTO public.judicial_officer_posting_preferences (id, judicial_officer_id, zone_id, station_name, remarks, final_submission, created_by, created_at, updated_at) VALUES (8, 3, 8, 'COOCH BEHAR', '', 'Y', 6, '2020-01-09 00:00:00', '2020-01-09 00:00:00');
 
 
 --
@@ -2563,14 +2581,15 @@ INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, 
 INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (40, 2, 1, 1, 3, '', '', '1992-05-18', '1993-01-29', '', '2020-01-09 16:59:31', '2020-01-09 16:59:31', '', 6);
 INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (41, 2, 1, 1, 6, '', '', '1993-01-30', '1993-05-14', '', '2020-01-09 16:59:31', '2020-01-09 16:59:31', '', 6);
 INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (42, 2, 1, 2, NULL, 'test', 'writters building', '1995-07-20', NULL, '', '2020-01-09 16:59:31', '2020-01-09 16:59:31', NULL, 7);
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (166, 11, 1, 1, 11, '', '', '2001-10-16', '2004-06-30', '', '2020-01-21 15:55:34', '2020-01-21 15:55:34', 'JM 1st Court,Contai', 6);
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (167, 11, 1, 1, 21, '', '', '2004-07-05', '2005-10-16', '', '2020-01-21 15:55:34', '2020-01-21 15:55:34', 'JM,Jhargram', 6);
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (168, 11, 1, 1, 24, '', '', '2007-06-26', '2009-07-27', '', '2020-01-21 15:55:34', '2020-01-21 15:55:34', 'Principal Magistrate,Juvenile Justice Board,Bankshall Court From 11.06.2008 To 27.07.2009', 4);
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (169, 11, 1, 2, 22, '', '', '2009-07-27', '2011-02-02', '', '2020-01-21 15:55:34', '2020-01-21 15:55:34', 'Leave Reserve Officer,Hoogly Sadar', 4);
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (170, 11, 1, 2, 17, '', '', '2011-02-04', '2011-11-08', '', '2020-01-21 15:55:34', '2020-01-21 15:55:34', 'Additional District & Sessions Judge F.T.C Court - 1,DInhata From 8.11.2011(FN) to 8.02.2013 (FN)', 8);
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (171, 11, 1, 2, 18, '', '', '2013-02-11', '2014-02-06', '', '2020-01-21 15:55:34', '2020-01-21 15:55:34', 'Additional District & Sessions Judge F.T.C,Baruipur From 06.02.2014 To 04.01.2016', 4);
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (172, 11, 1, 3, 15, '', '', '2016-01-11', '2018-10-04', '', '2020-01-21 15:55:34', '2020-01-21 15:55:34', '', 6);
-INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (173, 11, 1, 3, 16, '', '', '2018-10-11', NULL, '', '2020-01-21 15:55:34', '2020-01-21 15:55:34', '', 8);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (174, 13, 1, 1, 31, '', '', '2019-12-01', NULL, '', '2020-02-04 12:15:35', '2020-02-04 12:15:35', '', 4);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (175, 11, 1, 1, 11, '', '', '2001-10-16', '2004-06-30', '', '2020-02-07 10:53:28', '2020-02-07 10:53:28', 'JM 1st Court,Contai', 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (176, 11, 1, 1, 21, '', '', '2004-07-05', '2005-10-16', '', '2020-02-07 10:53:28', '2020-02-07 10:53:28', 'JM,Jhargram', 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (177, 11, 1, 1, 24, '', '', '2007-06-26', '2009-07-27', '', '2020-02-07 10:53:28', '2020-02-07 10:53:28', 'Principal Magistrate,Juvenile Justice Board,Bankshall Court From 11.06.2008 To 27.07.2009', 4);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (178, 11, 1, 2, 22, '', '', '2009-07-27', '2011-02-02', '', '2020-02-07 10:53:28', '2020-02-07 10:53:28', 'Leave Reserve Officer,Hoogly Sadar', 4);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (179, 11, 1, 2, 17, '', '', '2011-02-04', '2011-11-08', '', '2020-02-07 10:53:28', '2020-02-07 10:53:28', 'Additional District & Sessions Judge F.T.C Court - 1,DInhata From 8.11.2011(FN) to 8.02.2013 (FN)', 8);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (180, 11, 1, 2, 18, '', '', '2013-02-11', '2014-02-06', '', '2020-02-07 10:53:28', '2020-02-07 10:53:28', 'Additional District & Sessions Judge F.T.C,Baruipur From 06.02.2014 To 04.01.2016', 4);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (181, 11, 1, 3, 15, '', '', '2016-01-11', '2018-10-04', '', '2020-02-07 10:53:28', '2020-02-07 10:53:28', '', 6);
+INSERT INTO public.judicial_officer_postings (id, judicial_officer_id, mode_id, rank_id, designation_id, deputation_designation, deputation_posting_place, from_date, to_date, posting_remark, created_at, updated_at, additional_designation, zone_id) VALUES (182, 11, 1, 3, 16, '', '', '2018-10-11', NULL, '', '2020-02-07 10:53:28', '2020-02-07 10:53:28', '', 8);
 
 
 --
@@ -2595,20 +2614,21 @@ INSERT INTO public.judicial_officer_qualifications (id, judicial_officer_id, qua
 -- Data for Name: judicial_officers; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on, additional_hometown) VALUES (3, '621', 'WB621', 'Syed Neyazuddin Azad', 'M', 3, '1964-01-02', 51, 41, 'Burnpur', 'Rahmat nagar', 'Rahmat nagar', '9400000001', NULL, 'neyazuddin @gmail.com', NULL, 1, 1981, '1980-01-02', NULL, '2024-03-03', NULL, NULL, '2020-01-27 00:00:00', '', NULL, '2020-01-27', NULL);
+INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on, additional_hometown) VALUES (13, '999', '', 'Amol Kumar Haldar', 'M', NULL, '1992-01-01', 51, 10, '', 'test address', 'test address', '', NULL, 'amol@gmail.com', NULL, 2, 2019, '2019-02-01', '2020-02-03', '2020-02-01', NULL, NULL, '2020-02-04 12:24:21', 'fdfdfdfdf', NULL, NULL, NULL);
+INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on, additional_hometown) VALUES (11, '702', 'WB702', 'BIBHAS CHATTERJEE', 'M', 12, '1967-01-25', 51, 28, 'Chandannagar', 'BARALBAGAN 2ND LANE, BAGBAZAR,
+PO & P.S. - CHANDANNAGAR,
+DIST : HOOGHLY, PIN - 712136', 'BARALBAGAN 2ND LANE, BAGBAZAR,
+PO & P.S. - CHANDANNAGAR,
+DIST : HOOGHLY, PIN - 712136', '9830123456', NULL, 'bibhas@gmail.com', NULL, 1, 2000, '2001-03-22', NULL, '2027-01-31', '702_1579285800.jpg', NULL, '2020-02-05 15:22:32', '', 'Y', '2020-02-01', NULL);
 INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on, additional_hometown) VALUES (12, '580', 'WB580', 'SMT SUDESHNA DE (CHATTERJEE)', 'F', 11, '1968-10-27', 51, 28, 'Chandannagar', 'C/O BIBHAS CHATTERJEE,
 BARAL BAGAN, BAGBAZAR,
 P.O. + P.S. - CHANDANNAGAR, 
 DIST - HOOGHLY, PIN - 712136', 'C/O BIBHAS CHATTERJEE,
 BARAL BAGAN, BAGBAZAR,
 P.O. + P.S. - CHANDANNAGAR, 
-DIST - HOOGHLY, PIN - 712136', '1234567890', NULL, 'sudeshna@gmail.com', NULL, 1, 1997, '1997-11-28', NULL, '2028-10-31', '580_1579458600.jpg', NULL, '2020-01-27 00:00:00', '', 'Y', '2020-01-27', NULL);
-INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on, additional_hometown) VALUES (3, '621', 'WB621', 'Syed Neyazuddin Azad', 'M', 3, '1964-01-02', 51, 41, 'Burnpur', 'Rahmat nagar', 'Rahmat nagar', '9400000001', NULL, 'neyazuddin @gmail.com', NULL, 1, 1981, '1980-01-02', NULL, '2024-03-03', NULL, NULL, '2020-01-27 00:00:00', '', NULL, '2020-01-27', NULL);
-INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on, additional_hometown) VALUES (2, '208', 'WB208', 'Sukhendu Das', 'M', NULL, '1960-01-10', 51, 44, 'Bisnupur', 'Bisnupur', 'Bisnupur', '9400000000', NULL, 'sukhendu@gmail.com', NULL, 1, 1990, '1991-08-30', NULL, '2020-01-31', NULL, NULL, '2020-01-17 15:37:21', '', NULL, '2020-01-01', NULL);
-INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on, additional_hometown) VALUES (11, '702', 'WB702', 'BIBHAS CHATTERJEE', 'M', 12, '1967-01-25', 51, 28, 'Chandannagar', 'BARALBAGAN 2ND LANE, BAGBAZAR,
-PO & P.S. - CHANDANNAGAR,
-DIST : HOOGHLY, PIN - 712136', 'BARALBAGAN 2ND LANE, BAGBAZAR,
-PO & P.S. - CHANDANNAGAR,
-DIST : HOOGHLY, PIN - 712136', '9830123456', NULL, 'bibhas@gmail.com', NULL, 1, 2000, '2001-03-22', NULL, '2027-01-31', '702_1579285800.jpg', NULL, '2020-02-01 00:00:00', '', 'Y', '2020-02-01', NULL);
+DIST - HOOGHLY, PIN - 712136', '1234567890', NULL, 'sudeshna@gmail.com', NULL, 1, 1997, '1997-11-28', NULL, '2028-10-31', '580_1579458600.jpg', NULL, '2020-02-05 15:22:32', '', 'Y', '2020-01-27', NULL);
+INSERT INTO public.judicial_officers (id, registration_no, jo_code, officer_name, gender, spouse, date_of_birth, home_state_id, home_district_id, hometown, present_address, permanent_address, mobile_no_1, mobile_no_2, email_id_1, email_id_2, recruitment_batch_id, recruitment_batch_year, date_of_joining, date_of_confirmation, date_of_retirement, profile_image, created_at, updated_at, other_home_district, posting_preference_window_flag, posting_preference_window_open_on, additional_hometown) VALUES (2, '208', 'WB208', 'Sukhendu Das', 'M', NULL, '1960-01-10', 51, 44, 'Bisnupur', 'Bisnupur', 'Bisnupur', '9400000000', NULL, 'sukhendu@gmail.com', NULL, 1, 1990, '1991-08-30', NULL, '2030-01-31', NULL, NULL, '2020-02-07 00:00:00', '', 'N', '2020-02-04', NULL);
 
 
 --
@@ -2957,8 +2977,9 @@ INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_of
 INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (3, 'court1', 'Court', 6, 3, NULL, NULL, NULL, 'court1@court1.court1', NULL, '$2y$10$aBAFK1T59AzcJVKBGLkV4uMOHGSxxYUkuFR0IE84imZjK55wryJ2u', NULL, '2019-09-16 10:59:20', '2019-09-16 10:59:20');
 INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (15, 'jo00012', 'SMT SUDESHNA DE (CHATTERJEE)', 2, NULL, 12, NULL, NULL, 'sudeshna@gmail.com', NULL, '$2y$10$7rO8yiUlPyFlLy3i8NmsUeo6WwprwNJnSWa1KrD.keNdxbYbBIOwG', NULL, '2020-01-20 13:57:33', '2020-01-20 13:57:33');
 INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (5, 'jo00002', 'Sukhendu Das', 2, NULL, 2, NULL, NULL, 'sukhendu@gmail.com', NULL, '$2y$10$ZKGSBBN0zEOzPvIjj.wP3OQ959nnGwrVzXk3vSvINEhl4t.XCY8a6', NULL, '2020-01-08 15:10:09', '2020-01-08 15:10:09');
+INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (16, 'jo00013', 'Amol Kumar Haldar', 2, NULL, 13, NULL, NULL, 'amol@gmail.com', NULL, '$2y$10$fYdivg51Vn5CALgFJxcEIutmVo7bCZEnkkEJ9j0G40qIvjSLSYqja', NULL, '2020-02-04 12:05:00', '2020-02-04 12:05:00');
 INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (6, 'jo00003', 'Syed Neyazuddin Azad', 2, NULL, 3, NULL, NULL, 'neyazuddin@gmail.com', NULL, '$2y$10$35GZkej/RM0ctJHtBcp3Mu7bAyssLhyuNS7537YDBOav0sBgDrM4C', NULL, '2020-01-08 15:21:45', '2020-01-08 15:21:45');
-INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (1, 'admin', 'Administrator', 1, 1, NULL, NULL, NULL, 'admin@admin.admin', NULL, '$2y$10$aBAFK1T59AzcJVKBGLkV4uMOHGSxxYUkuFR0IE84imZjK55wryJ2u', 'i6Nq7P98RWuKAsGuFgAdbcjuy4scRvYeAecFXPBkUpyghfaji6ZQy6ZlfqIu', '2019-06-19 06:00:07', '2019-06-19 06:00:07');
+INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_officer_id, jo_code, department_id, email, email_verified_at, password, remember_token, created_at, updated_at) VALUES (1, 'admin', 'Administrator', 1, 1, NULL, NULL, NULL, 'admin@admin.admin', NULL, '$2y$10$aBAFK1T59AzcJVKBGLkV4uMOHGSxxYUkuFR0IE84imZjK55wryJ2u', '2YnvjnqLApTCf9k6f7ELRUCNLZV5DOMc7X6UvujgyAhDfBG4VyiqrucPmAKg', '2019-06-19 06:00:07', '2019-06-19 06:00:07');
 
 
 --
@@ -2967,10 +2988,10 @@ INSERT INTO public.users (id, user_id, name, user_type_id, court_id, judicial_of
 -- Data for Name: zones; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.zones (id, zone_name, min_service_days, created_by, created_at, updated_at) VALUES (4, 'A', 1095, 11, '2019-11-13 00:00:00', '2019-11-13 00:00:00');
 INSERT INTO public.zones (id, zone_name, min_service_days, created_by, created_at, updated_at) VALUES (6, 'B', 1095, 11, '2019-11-13 00:00:00', '2019-11-13 00:00:00');
 INSERT INTO public.zones (id, zone_name, min_service_days, created_by, created_at, updated_at) VALUES (8, 'D', 730, 11, '2019-11-13 00:00:00', '2019-11-13 00:00:00');
 INSERT INTO public.zones (id, zone_name, min_service_days, created_by, created_at, updated_at) VALUES (7, 'C', 1095, 11, '2019-11-13 00:00:00', '2019-11-15 11:31:20');
+INSERT INTO public.zones (id, zone_name, min_service_days, created_by, created_at, updated_at) VALUES (4, 'A', 1095, 1, '2019-11-13 00:00:00', '2020-02-11 12:00:42');
 
 
 --
@@ -2997,7 +3018,7 @@ SELECT pg_catalog.setval('public.career_progression_stages_id_seq', 6, true);
 -- Name: courts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.courts_id_seq', 1, false);
+SELECT pg_catalog.setval('public.courts_id_seq', 2, true);
 
 
 --
@@ -3033,7 +3054,7 @@ SELECT pg_catalog.setval('public.diaries_id_seq', 1, false);
 -- Name: districts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.districts_id_seq', 1, false);
+SELECT pg_catalog.setval('public.districts_id_seq', 1, true);
 
 
 --
@@ -3042,7 +3063,7 @@ SELECT pg_catalog.setval('public.districts_id_seq', 1, false);
 -- Name: document_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.document_types_id_seq', 1, true);
+SELECT pg_catalog.setval('public.document_types_id_seq', 4, true);
 
 
 --
@@ -3069,7 +3090,7 @@ SELECT pg_catalog.setval('public.hc_case_types_id_seq', 1, false);
 -- Name: history_deleted_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.history_deleted_data_id_seq', 216, true);
+SELECT pg_catalog.setval('public.history_deleted_data_id_seq', 224, true);
 
 
 --
@@ -3078,7 +3099,7 @@ SELECT pg_catalog.setval('public.history_deleted_data_id_seq', 216, true);
 -- Name: history_updated_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.history_updated_data_id_seq', 157, true);
+SELECT pg_catalog.setval('public.history_updated_data_id_seq', 166, true);
 
 
 --
@@ -3096,7 +3117,7 @@ SELECT pg_catalog.setval('public.jo_career_progressions_id_seq', 1, false);
 -- Name: jo_documents_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.jo_documents_id_seq', 3, true);
+SELECT pg_catalog.setval('public.jo_documents_id_seq', 4, true);
 
 
 --
@@ -3132,7 +3153,7 @@ SELECT pg_catalog.setval('public.jo_reportings_id_seq', 3, true);
 -- Name: jo_zone_tenures_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.jo_zone_tenures_id_seq', 114, true);
+SELECT pg_catalog.setval('public.jo_zone_tenures_id_seq', 121, true);
 
 
 --
@@ -3150,7 +3171,7 @@ SELECT pg_catalog.setval('public.judicial_officer_posting_preferences_id_seq', 2
 -- Name: judicial_officer_postings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.judicial_officer_postings_id_seq', 173, true);
+SELECT pg_catalog.setval('public.judicial_officer_postings_id_seq', 182, true);
 
 
 --
@@ -3168,7 +3189,7 @@ SELECT pg_catalog.setval('public.judicial_officer_qualifications_id_seq', 17, tr
 -- Name: judicial_officers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.judicial_officers_id_seq', 12, true);
+SELECT pg_catalog.setval('public.judicial_officers_id_seq', 13, true);
 
 
 --
@@ -3240,7 +3261,7 @@ SELECT pg_catalog.setval('public.modes_id_seq', 1, false);
 -- Name: qualifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.qualifications_id_seq', 11, true);
+SELECT pg_catalog.setval('public.qualifications_id_seq', 12, true);
 
 
 --
@@ -3276,7 +3297,7 @@ SELECT pg_catalog.setval('public.states_id_seq', 1, false);
 -- Name: subdivisions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.subdivisions_id_seq', 1, false);
+SELECT pg_catalog.setval('public.subdivisions_id_seq', 1, true);
 
 
 --
@@ -3294,7 +3315,7 @@ SELECT pg_catalog.setval('public.user_types_id_seq', 1, false);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 15, true);
+SELECT pg_catalog.setval('public.users_id_seq', 16, true);
 
 
 --
@@ -4397,7 +4418,7 @@ ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_user_type_id_foreign FOREIGN KEY (user_type_id) REFERENCES public.user_types(id);
 
 
--- Completed on 2020-02-01 16:55:12
+-- Completed on 2020-02-11 13:45:20
 
 --
 -- PostgreSQL database dump complete
