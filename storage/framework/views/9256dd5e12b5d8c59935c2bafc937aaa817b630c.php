@@ -8,28 +8,46 @@
 		    <div class="panel-body">
 
 			<!-- New Task Form -->
-			    <input type="hidden" id="type_name-id">
-				    <div id="type_name-group" class="form-group our-form-group">
+			   
+				    <div id="type_name-group" class="form-group our-form-group row">
                         <!-- IIIIIIIIIII -->
                         <label for="type_name" class="col-sm-2 col-sm-offset-1 control-label">Document Type</label>
-
-					<div class="col-sm-4">
-						<input id="type_name" type="text"
-							class="form-control info-form-control" name="type_name"> <span
-							id="type_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-							<strong id="type_name-strong" class="our-error-message-strong"></strong>
-							<!-- IIIIIIIIIII -->
-						</span>
+				
+						<div class="col-sm-4">
+							<input id="type_name" type="text"
+								class="form-control info-form-control" name="type_name"> <span
+								id="type_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+								<strong id="type_name-strong" class="our-error-message-strong"></strong>
+								<!-- IIIIIIIIIII -->
+							</span>
+						</div>
+					
+					
+					
+						<button id="save" type="submit"
+								class="btn btn-success save-button info-form-button">
+								<i class="fa fa-btn fa-floppy-o"></i> Save
+						</button>
+						<button id="edit" type="submit"
+								class="btn btn-warning edit info-form-button" style="display:none;">
+								<i class="fa fa-btn fa-floppy-o"></i> Edit
+						</button>
+						<button id="reset" type="reset"
+								class="btn btn-danger save-button info-form-button">
+								<i class="fa fa-btn fa-floppy-o"></i> Reset
+						</button>
 					</div>
-					<button id="save" type="submit"
-							class="btn btn-success save-button info-form-button">
-							<i class="fa fa-btn fa-floppy-o"></i> Save
-					</button>
-					<button id="reset" type="reset"
-							class="btn btn-danger save-button info-form-button">
-							<i class="fa fa-btn fa-floppy-o"></i> Reset
-					</button>
-				</div>
+					<div id="type_id-group" class="form-group our-form-group row" style="display:none;">
+						<label for="type_id" class="col-sm-2 col-sm-offset-1 control-label">Document id</label>
+						<div class="col-sm-4" >
+							<input id="type_id" type="text"
+								class="form-control info-form-control" name="type_id"> <span
+								id="type_id-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+								
+								<!-- IIIIIIIIIII -->
+							</span>
+						</div>
+					</div>
 				
 
 				<div id="info-panel-buttons" class="form-group hide">
@@ -147,23 +165,46 @@ var table="";
 		//alert("abc");
 	
 		var data = table.row( $(this).parents('tr')).data();
+		console.log(data);
 		$("#type_name").val(data.DOCUMENT_TYPE);
+		$("#type_id").val(data.ID);
 
-		$.ajax({
-				
+		$("#edit").show();
+		$("#save").hide();
+		$("#reset").hide();
+	
+	});
+	
 
-			});
-		});
-
-	// function view_data(data){
-	// 		populate_form(data);
-	// }
-
-	// function populate_form(data){
+	$(document).on("click","#edit",function(){
 		
-	// 	$("#type_name-id").val(data.id);
-	// 	$("#type_name").val(data.type_name);
-	// }
+
+		var data = table.row( $(this).parents('tr')).data();
+		
+		//console.log(data);
+		//alert("abc");
+		
+		var type_name=$("#type_name").val();
+		var type_id= $("#type_id").val();;
+		console.log(type_id);
+
+		//console.log(data.DOCUMENT_TYPE);
+		$.ajax({
+			type:"POST",
+			url:"document_edit",
+			data:{
+				_token: $('meta[name="csrf-token"]').attr('content'),
+				type_name:type_name,
+				id:type_id
+			},
+			success:function(response){
+				swal("Updated","document type  has been updated","success");
+			},
+			error:function(response){
+				swal("Not Updated","document type  has not been updated","error");
+			}
+		});
+	});
 
 });
 

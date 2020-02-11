@@ -240,6 +240,8 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 		Route::resource('document_types', 'DocumentTypeController')->except(['create', 'edit']);
 
+		Route::post('document_edit', 'DocumentTypeController@update_documents');
+
 		Route::post( 'Document-Datatable-Server-Side', 'DocumentTypeController@index_for_datatable' );
 
 	});

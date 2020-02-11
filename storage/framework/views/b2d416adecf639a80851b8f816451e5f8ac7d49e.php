@@ -1,7 +1,5 @@
-
-
-@extends('layouts.app') 
-@section('content')
+ 
+<?php $__env->startSection('content'); ?>
 <!-- Main content -->
 
                                
@@ -21,8 +19,9 @@
 
 			<!-- New Task Form -->
 			<form id="info-form" class="form-horizontal" role="form" method="POST"
-				action="{{ url('/admin/Zone') }}">
-				{{ csrf_field() }}
+				action="<?php echo e(url('/admin/Zone')); ?>">
+				<?php echo e(csrf_field()); ?>
+
 				<input type="hidden" id="Zone-id">
 				<div id="zone_name-group" class="form-group our-form-group">
 					<!-- IIIIIIIIIII -->
@@ -73,7 +72,7 @@
 						</button>
 					</div>
 				</div>
-				{{--@foreach($errors->all() as $error) {{$error}}@endforeach--}}
+				
 				<div id="message-div" class="form-group">
 					<div class="col-sm-4 col-sm-offset-4">
 						<div id="message-success-div"
@@ -133,7 +132,7 @@
 		</div>
 	</div>
 
-<meta name="_token" content="{!! csrf_token() !!}" />
+<meta name="_token" content="<?php echo csrf_token(); ?>" />
 
 
 
@@ -144,7 +143,7 @@
 <!-- /.content-wrapper -->
 
 
-<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
+<script src="<?php echo e(asset('js/jquery/jquery.min.js')); ?>"></script>
 
 <script type="text/javascript">
 
@@ -155,7 +154,7 @@
 			"processing": true,
 			"serverSide": true,
 			"ajax":{
-				url:"{{url('Zone')}}-Datatable-Server-Side",
+				url:"<?php echo e(url('Zone')); ?>-Datatable-Server-Side",
 				dataSrc:"zones"
 			},
 
@@ -233,6 +232,10 @@
 				$("#subdivision-group").hide();
 				var data = table.row( $(this).parents('tr') ).data();
 				view_data( data );
+
+				
+				
+				
 				show_button("close");
 				show_button("save");
 				make_active_button("save");
@@ -369,7 +372,7 @@
 		if(type=="add"){
 			//request_type="POST";
 			formData["_method"]="POST";
-			ajax_url="{{ action('ZoneController@store') }}";
+			ajax_url="<?php echo e(action('ZoneController@store')); ?>";
 	
 			operation="add";
 			operated="added";
@@ -378,7 +381,7 @@
 			//request_type="PUT";
 			formData["_method"]="PUT";
 			formData["id"]=$("#Zone-id").val();
-			ajax_url="{{ action('ZoneController@update','') }}"+"/"+$("#Zone-id").val();
+			ajax_url="<?php echo e(action('ZoneController@update','')); ?>"+"/"+$("#Zone-id").val();
 		
 			operation="update";
 			operated="updated";
@@ -388,7 +391,7 @@
 			formData["_method"]="DELETE";
 			formData["id"]=$("#Zone-id").val();
 
-			ajax_url="{{ action('ZoneController@destroy','') }}"+"/"+$("#Zone-id").val();
+			ajax_url="<?php echo e(action('ZoneController@destroy','')); ?>"+"/"+$("#Zone-id").val();
 			
 
 			operation="delete";
@@ -439,6 +442,8 @@
 }
 
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
 
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/zones/index.blade.php ENDPATH**/ ?>

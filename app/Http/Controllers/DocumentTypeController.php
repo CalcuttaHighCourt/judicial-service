@@ -88,7 +88,8 @@ class DocumentTypeController extends Controller
         $columns = array( 
 			0 =>'SL_NO', 
 			1 =>'DOCUMENT_TYPE',
-			2 =>'ACTION'
+            2 =>'ACTION',
+            3 =>'ID'
         );
         
         $totalData = DocumentType::count();
@@ -133,6 +134,7 @@ class DocumentTypeController extends Controller
                 $nestedData['SL_NO'] = ++$i;
                 $nestedData['DOCUMENT_TYPE'] = $document->type_name;
                 $nestedData['ACTION'] = "<i class='fa fa-edit edit-button' aria-hidden='true'></i>";
+                $nestedData['ID'] =  $document->id;
 
                 $data[] = $nestedData;
             }     
@@ -156,9 +158,51 @@ class DocumentTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update_documents(Request $request)
     {
-        //
+        $response = [ 
+            'document_type' => [ ] 
+        ];
+        $statusCode = 200;
+        $document_type = null;
+
+        $id=$request->id;
+
+        if(!ctype_digit(strval( $id))){
+            $response = array (
+                'exception' => true,
+                'exception_message' => 'Invalid Input'
+            );
+
+            $statusCode = 400;
+            return response ()->json ( $response, $statusCode );
+        }
+
+        
+        try {            
+            $document_type = DocumentType::find($id);
+            if(!$document_type){
+                throw new \Exception('Invalid Input');
+            }
+            
+            
+            $document_type->type_name = $request->type_name;
+            $document_type->id = $request->id;
+                       
+            $document_type->save();
+            
+            $response = array (
+                'document_type' => $document_type 
+            );
+        } catch ( \Exception $e ) {
+            $response = array (
+                    'exception' => true,
+                    'exception_message' => $e->getMessage () 
+            );
+            $statusCode = 400;
+        } finally{
+            return response ()->json ( $response, $statusCode );
+        }
     }
 
     /**

@@ -121,7 +121,6 @@
                                         <li><a href="{{url('departments')}}"> Department for LCR </span></a></li>
                                         <li><a href="{{url('designation')}}"> Designation </span></a></li>
                                         <li><a href="{{url('mode')}}"> Posting Modes </span></a></li>
-                                        <!-- <li><a  href="{{url('religion')}}"> Religion </span></a></li> -->
                                         <li><a  href="{{url('qualification')}}"> Qualification </span></a></li>
                                         <li><a  href="{{url('recruitmentbatch')}}"> Recruitment Batch </span></a></li>
                                         <li><a href="{{url('user_type')}}"> User Type </a></li>
