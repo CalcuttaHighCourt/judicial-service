@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Designation;
+use App\Rank;
 use Auth;
 
 
@@ -44,55 +45,55 @@ class DesignationController extends Controller
 
 
 
-    public function index2(Request $request) {
-        $response = [];
-        $statusCode = 200;
-        $designations = array();
+    // public function index2(Request $request) {
+    //     $response = [];
+    //     $statusCode = 200;
+    //     $designations = array();
 
-        try {
-            $draw = 1;
-            $records_total = 0;
+    //     try {
+    //         $draw = 1;
+    //         $records_total = 0;
 
-            // $designations = Designation::all();
-            // $records_total = $designations->count();
-            $records_total =Designation::count();
+    //         // $designations = Designation::all();
+    //         // $records_total = $designations->count();
+    //         $records_total =Designation::count();
 
-            $draw = $request->draw;
-            $offset = $request->start;
-            $length = $request->length;
-            $search = $request->search["value"];
+    //         $draw = $request->draw;
+    //         $offset = $request->start;
+    //         $length = $request->length;
+    //         $search = $request->search["value"];
 
-            $order = $request->order;
+    //         $order = $request->order;
 
-            $filtered = Designation::where('designation_name', 'ilike', '%' . $search . '%');
+    //         $filtered = Designation::where('designation_name', 'ilike', '%' . $search . '%');
 
-            $records_filtered_count = $filtered->count();
+    //         $records_filtered_count = $filtered->count();
 
-            $ordered = $filtered;
+    //         $ordered = $filtered;
 
-            for ($i = 0; $i < count($order); $i++) {
-                $ordered = $ordered->orderBy($request->columns[$order[$i]['column']]['data'], strtoupper($order[$i]['dir']));
-            }
+    //         for ($i = 0; $i < count($order); $i++) {
+    //             $ordered = $ordered->orderBy($request->columns[$order[$i]['column']]['data'], strtoupper($order[$i]['dir']));
+    //         }
 
-            $page_displayed = $ordered->get()->slice($offset, $length, true)->values();
+    //         $page_displayed = $ordered->get()->slice($offset, $length, true)->values();
 
-            $response = array(
-                "draw" => $draw,
-                "recordsTotal" => $records_total,
-                "recordsFiltered" => $records_filtered_count,
-                "designations" => $page_displayed,
-            );
-        } catch (\Exception $e) {
-            $response = array(
-                "draw" => $draw,
-                "recordsTotal" => $records_total,
-                "recordsFiltered" => 0,
-                "designations" => [],
-            );
-        } finally {
-            return response()->json($response, $statusCode);
-        }
-    }
+    //         $response = array(
+    //             "draw" => $draw,
+    //             "recordsTotal" => $records_total,
+    //             "recordsFiltered" => $records_filtered_count,
+    //             "designations" => $page_displayed,
+    //         );
+    //     } catch (\Exception $e) {
+    //         $response = array(
+    //             "draw" => $draw,
+    //             "recordsTotal" => $records_total,
+    //             "recordsFiltered" => 0,
+    //             "designations" => [],
+    //         );
+    //     } finally {
+    //         return response()->json($response, $statusCode);
+    //     }
+    // }
 
     
     /**
@@ -125,14 +126,14 @@ class DesignationController extends Controller
             ]);
 
 
-        try {            
+        try {     
             $request['created_by'] = Auth::user()->id;
-
-           //echo $request ; exit;
-            $designation = Designation::create($request->all());
+            $designation = Designation::create($request->all());       
+           
             $response = array(
                 'designation' => $designation
             );
+           
         } catch (\Exception $e) {
             $response = array(
                 'exception' => true,
@@ -145,53 +146,85 @@ class DesignationController extends Controller
     }
 
     public function index_for_datatable(Request $request) {
+
+        $columns = array( 
+			0 =>'SL_NO', 
+			1 =>'DESIGNATION_NAME',
+            2 =>'RANK',
+            3 =>'ACTION',
+            4 =>'ID',
+            5 =>'RANK_ID'
+        );
+
         $response = [ ];
         $statusCode = 200;
         $designations = array ();
         
-        try {
-            $draw=1;
-            $records_total=0;
-            
-            $designations = Designation::all();
-            $records_total=$designations->count();
-            
-            $draw=$request->draw;
-            $offset=$request->start;
-            $length=$request->length;
-            $search=$request->search["value"];
-            
-            $order=$request->order;
-            
-            $filtered = Designation::where('designation_name', 'ilike','%'.$search.'%');
-            
-            $records_filtered_count=$filtered->count();
-            
-            $ordered=$filtered;
-            
-            for($i=0;$i<count($order);$i++){
-                $ordered=$ordered->orderBy($request->columns[$order[$i]['column']]['data'],strtoupper($order[$i]['dir']));				
+        $totalData = Designation::count();
+
+        $totalFiltered = $totalData; 
+        
+        $limit = $request->input('length');
+		$start = $request->input('start');
+		$order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+
+        if(empty($request->input('search.value'))){
+            $designations = Designation::leftjoin('ranks','designations.rank_id','=','ranks.id')
+                                        ->offset($start)
+                                        ->limit($limit)
+                                        ->orderBy('designations.designation_name',$dir)
+                                        ->select('designations.*','ranks.rank_name')
+                                        ->get();
+                                
+             $totalFiltered = Designation::count();
+        }
+        else{
+			$search = $request->input('search.value');
+            $designations =Designation::leftjoin('ranks','designations.rank_id','=','rank.id')
+                                    ->where('designations.designation_name','ILIKE',"%{$search}%")
+                                    ->orWhere('ranks.rank_name')
+                                    ->offset($start)
+                                    ->limit($limit)
+                                    ->orderBy('designation_name',$dir)
+                                    ->select('designations.*','ranks.id as rank_id','ranks.rank_name')
+									->get();
+
+									
+
+			$totalFiltered = Designation::where('designations.designation_name',"%{$search}%")
+                                        ->limit($limit)
+                                        ->count();
+        }
+        
+        $data = array();
+
+        $i=0;
+
+        if($designations){
+            foreach($designations as $designation){
+                $nestedData['SL_NO'] = ++$i;
+                $nestedData['DESIGNATION_NAME'] = $designation->designation_name;
+                $nestedData['RANK'] = $designation->rank_name;
+                $nestedData['ACTION'] = "<i class='fa fa-edit edit-button' aria-hidden='true'></i>";
+                $nestedData['ID'] =  $designation->id;
+                $nestedData['RANK_ID'] =  $designation->rank_id;
+
+                $data[] = $nestedData;
             }
-            
-            $page_displayed=$ordered->get()->slice($offset,$length,true)->values();
-            
-            $response = array (
-                    "draw" => $draw,
-                    "recordsTotal" => $records_total,
-                    "recordsFiltered" => $records_filtered_count,
-                    "zones" => $page_displayed,
+
+            $json_data = array(
+                "draw" => intval($request->input('draw')),
+                "recordsTotal" => intval($totalData),
+                "recordsFiltered" =>intval($totalFiltered),
+                "data" => $data
             );
-        } catch ( \Exception $e ) {
-            $response = array (
-                    "draw" => $draw,
-                    "recordsTotal" => $records_total,
-                    "recordsFiltered" => 0,
-                    "zones" => [],					
-            );			
-        } finally{
-            return response ()->json ( $response, $statusCode );
+
+            echo json_encode($json_data);
+
         }
     }
+
 
     /**
      * Display the specified resource.

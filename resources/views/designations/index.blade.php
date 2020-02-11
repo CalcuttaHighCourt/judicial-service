@@ -78,7 +78,7 @@
 					<!-- Table Headings -->
 					<thead>
 						<tr>
-							<th></th>
+							<th>Sl No</th>
 							<th>Designation Name</th>
 							<th>Rank</th>
 							<th>Action</th>
@@ -107,40 +107,42 @@
 
 <script>
 
+var table="";
 
  $(document).ready(function(){
+
+
+
  //Datatable Code For Showing Data :: START
 
-// var table = $('#datatable-table').dataTable({
-// 		"processing": true,
-// 		"serverSide": true,
-// 		"ajax":{
-// 			"url":"{{url('Designation')}}-Datatable-Server-Side",
-// 			"dataType": "json",
-//             "type": "GET",
-// 			"data":{ 
-// 					_token: $('meta[name="csrf-token"]').attr('content')}
-//                 },      
-// 		 		"columns": [                
-// 						{"class": "sl_no",
-//                         "data": "SL NO" },
-// 						{"class": "designation_name",
-// 						"data": "DESIGNATION NAME" },
-// 						{"class": "rank_id",
-// 						"data": "RANK" },
-// 						{"class": "edit",
-// 						"data": "ACTION" }
-// 					]
+var table = $('#datatable-table').DataTable({
+		"processing": true,
+		"serverSide": true,
+		"ajax":{
+			"url":"{{url('Designation')}}-Datatable-Server-Side",
+			"dataType": "json",
+            "type": "POST",
+			"data":{ 
+					_token: $('meta[name="csrf-token"]').attr('content')}
+                },      
+		 		"columns": [                
+						{"data": "SL_NO"},
+						{"data": "DESIGNATION_NAME"},
+						{"data": "RANK"},
+						{"data": "ACTION"}
+					]
 
-// 				});
+				});
 
 
 
 
 	$(document).on("click","#save",function(){
-
-		var lcr_department_name= $("#designation_name").val();
+		
+		var designation_name= $("#designation_name").val();
 		var rank_id=$("#rank_id").val();
+
+		//console.log(designation_name);
 
 		$.ajax({
 			type:"POST",
@@ -153,7 +155,7 @@
 				success:function(response){
 
 					swal("Successfull","Department has been successfully added","success");
-					table.api().ajax.reload();
+					//table.api().ajax.reload();
 				
 				},
 				error:function(response){
@@ -164,6 +166,24 @@
 		});
 		
 	});
+
+	//event on clicking the edit pen in data table
+
+	$(document).on("click",".edit-button",function(){
+		
+	
+		 var data = table.row( $(this).parents('tr')).data();
+		 //alert("abc");
+		console.log(data);
+		 $("#designation_name").val(data.DESIGNATION_NAME);
+		 $("#rank_id").val(data.RANK_ID);
+
+		// $("#edit").show();
+		// $("#save").hide();
+		// $("#reset").hide();
+	
+	});
+	
 
 });
 

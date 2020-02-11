@@ -109,6 +109,7 @@
 
 var table="";
 
+
  $(document).ready(function(){
 
 	//Datatable Code For Showing Data :: START
@@ -197,6 +198,13 @@ var table="";
 			}
 		});
 	});
+
+//event on reset button
+	// $(document).on("click","#reset",function(){
+	// 	$("#type_name").val();
+	// 	$("#type_id").val();
+
+	// });
 
 });
 

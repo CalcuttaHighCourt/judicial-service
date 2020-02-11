@@ -159,7 +159,7 @@ var table="";
 		
 	});
 
-
+//event on clicking the edit pen in data table
 
 	$(document).on("click",".edit-button",function(){
 		//alert("abc");
@@ -175,20 +175,12 @@ var table="";
 	
 	});
 	
-
+// event on clicking edit button
 	$(document).on("click","#edit",function(){
-		
-
-		var data = table.row( $(this).parents('tr')).data();
-		
-		//console.log(data);
-		//alert("abc");
 		
 		var type_name=$("#type_name").val();
 		var type_id= $("#type_id").val();;
-		console.log(type_id);
-
-		//console.log(data.DOCUMENT_TYPE);
+	
 		$.ajax({
 			type:"POST",
 			url:"document_edit",
@@ -204,6 +196,13 @@ var table="";
 				swal("Not Updated","document type  has not been updated","error");
 			}
 		});
+	});
+
+//event on reset button
+	$(document).on("click","#reset",function(){
+		$("#type_name").val();
+		$("#type_id").val();
+
 	});
 
 });

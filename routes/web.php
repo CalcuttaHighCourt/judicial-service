@@ -141,7 +141,7 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	Route::resource('designations', 'DesignationController')->except(['create', 'edit']);
 
-	Route::get ( 'Designation-Datatable-Server-Side', 'DesignationController@index_for_datatable' );
+	Route::post ( 'Designation-Datatable-Server-Side', 'DesignationController@index_for_datatable' );
 
 	Route::get ( 'designation', function () {
 		return view ( 'designations.index' );
