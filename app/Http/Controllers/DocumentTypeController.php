@@ -86,8 +86,8 @@ class DocumentTypeController extends Controller
     {
         
         $columns = array( 
-			0 =>'SL NO', 
-			1 =>'DOCUMENT TYPE',
+			0 =>'SL_NO', 
+			1 =>'DOCUMENT_TYPE',
 			2 =>'ACTION'
         );
         
@@ -130,8 +130,8 @@ class DocumentTypeController extends Controller
 
         if($documents){
             foreach($documents as $document){
-                $nestedData['SL NO'] = ++$i;
-                $nestedData['DOCUMENT TYPE'] = $document->type_name;
+                $nestedData['SL_NO'] = ++$i;
+                $nestedData['DOCUMENT_TYPE'] = $document->type_name;
                 $nestedData['ACTION'] = "<i class='fa fa-edit edit-button' aria-hidden='true'></i>";
 
                 $data[] = $nestedData;

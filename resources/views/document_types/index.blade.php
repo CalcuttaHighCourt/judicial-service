@@ -106,8 +106,8 @@ var table="";
 						_token: $('meta[name="csrf-token"]').attr('content')}
 					},      
 					"columns": [                
-							{"data": "SL NO" },
-							{"data": "DOCUMENT TYPE" },
+							{"data": "SL_NO" },
+							{"data": "DOCUMENT_TYPE" },
 							{"data": "ACTION" }
 						]
 
@@ -147,11 +147,12 @@ var table="";
 		//alert("abc");
 	
 		var data = table.row( $(this).parents('tr')).data();
-		console.log(data.type_name);
-		$("#type_name-id").val(data.id);
-		$("#type_name").val(data.type_name);
-			// console.log(data);
-			// view_data( data );
+		$("#type_name").val(data.DOCUMENT_TYPE);
+
+		$.ajax({
+				
+
+			});
 		});
 
 	// function view_data(data){
