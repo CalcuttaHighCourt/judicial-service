@@ -46,7 +46,7 @@ class JoEntryRequest extends FormRequest
             'recruitment_batch_year' => 'nullable|integer|min:1950|max:'.date('Y'),
             'date_of_joining' => 'required|date_format:d-m-Y|before_or_equal:date_of_confirmation|before:date_of_retirement|after:date_of_birth',
             'date_of_confirmation' => 'nullable|date_format:d-m-Y|after:date_of_birth|after_or_equal:date_of_joining|before:date_of_retirement',
-            'date_of_retirement' => 'required|date_format:d-m-Y|after:date_of_birth|after:date_of_joining|after:date_of_confirmation',  
+            'date_of_retirement' => 'required|date_format:d-m-Y|after:date_of_birth|after:date_of_joining',  
             'qualification_id' => 'array',
             'qualification_id.*' => 'required_with:passing_year.*|nullable|integer|exists:qualifications,id|max:500',
             'passing_year' => 'array',
@@ -67,7 +67,7 @@ class JoEntryRequest extends FormRequest
             'other_reporting_officer_designation' => 'nullable|required_with:other_reporting_officer_name|string|max:100',
             'zone_id' => 'nullable|required_with:mode_id,rank_id,flag_mode|integer|max:500|exists:zones,id',            
             'deputation_posting_place' => 'nullable|required_if:flag_mode,==,deputation|string|max:255',
-            'from_date' => 'nullable|required_with:mode_id,rank_id,flag_mode|date_format:d-m-Y|after_or_equal:date_of_joining|before_or_equal:to_date|before_or_equal:'.date('Y-m-d'),
+            'from_date' => 'nullable|required_with:mode_id,rank_id,flag_mode|date_format:d-m-Y|after_or_equal:date_of_joining|before_or_equal:'.date('Y-m-d'),
             'to_date' => 'nullable|date_format:d-m-Y|after_or_equal:from_date|before:'.date('Y-m-d'),                     
             'posting_remark' => 'nullable|string',
         ];

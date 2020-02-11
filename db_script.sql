@@ -1409,7 +1409,7 @@ CREATE TABLE public.users (
     judicial_officer_id bigint,
     jo_code character varying(255),
     department_id integer,
-    email character varying(255) NOT NULL,
+    email character varying(255),
     email_verified_at timestamp(0) without time zone,
     password character varying(255) NOT NULL,
     remember_token character varying(100),
