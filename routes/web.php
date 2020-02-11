@@ -143,6 +143,8 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	Route::post ( 'Designation-Datatable-Server-Side', 'DesignationController@index_for_datatable' );
 
+	Route::post('designation_edit', 'DesignationController@update_designation');
+
 	Route::get ( 'designation', function () {
 		return view ( 'designations.index' );
 	} );

@@ -30,9 +30,24 @@
 						<select id="rank_id" class="form-control info-form-control"
 								name="rank_id"> @include('ranks.rank_options')
 						</select>
+						
 					</div>
 				</div>
 			</div>
+			<div class="row" style="display:none;">
+				<div id="designation_id-group" class="form-group our-form-group">
+					<label for="designation_id" class="col-sm-offset-1 col-sm-2 control-label">Designation Id</label>
+					<div class="col-sm-4">
+						<input id="designation_id" type="text"
+								class="form-control info-form-control" name="designation_id"> <span
+								id="designation_id-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+								
+								<!-- IIIIIIIIIII -->
+						</span>
+					</div>
+				</div>
+			</div>
+			
 			<div class="row">
 			<br>
 				<div id="button-group" class="form-group our-form-group col-sm-offset-4 col-sm-3">
@@ -40,6 +55,10 @@
 							class="btn btn-success save-button info-form-button">
 							<i class="fa fa-btn fa-floppy-o"></i> Save
 					</button>
+					<button id="edit" type="submit"
+								class="btn btn-warning edit info-form-button" style="display:none;">
+								<i class="fa fa-btn fa-floppy-o"></i> Edit
+						</button>
 					<button id="reset" type="reset"
 							class="btn btn-danger save-button info-form-button">
 							<i class="fa fa-btn fa-floppy-o"></i> Reset
@@ -171,17 +190,41 @@ var table = $('#datatable-table').DataTable({
 
 	$(document).on("click",".edit-button",function(){
 		
-	
 		 var data = table.row( $(this).parents('tr')).data();
 		 //alert("abc");
 		console.log(data);
 		 $("#designation_name").val(data.DESIGNATION_NAME);
 		 $("#rank_id").val(data.RANK_ID);
+		 $("#designation_id").val(data.ID);
 
-		// $("#edit").show();
-		// $("#save").hide();
-		// $("#reset").hide();
+		$("#edit").show();
+		$("#save").hide();
+		$("#reset").hide();
 	
+	});
+
+	$(document).on("click","#edit",function(){
+		
+		var designation_name=$("#designation_name").val();
+		var rank_id= $("#rank_id").val();
+		var designation_id= $("#designation_id").val();
+
+		$.ajax({
+			type:"POST",
+			url:"designation_edit",
+			data:{
+				_token: $('meta[name="csrf-token"]').attr('content'),
+				designation_name:designation_name,
+				rank_id:rank_id,
+				designation_id:designation_id
+			},
+			success:function(response){
+				swal("Updated","Designation has been updated","success");
+			},
+			error:function(response){
+				swal("Not Updated","Designation has not been updated","error");
+			}
+		});
 	});
 	
 

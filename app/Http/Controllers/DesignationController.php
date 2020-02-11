@@ -181,9 +181,8 @@ class DesignationController extends Controller
         }
         else{
 			$search = $request->input('search.value');
-            $designations =Designation::leftjoin('ranks','designations.rank_id','=','rank.id')
+            $designations =Designation::leftjoin('ranks','designations.rank_id','=','ranks.id')
                                     ->where('designations.designation_name','ILIKE',"%{$search}%")
-                                    ->orWhere('ranks.rank_name')
                                     ->offset($start)
                                     ->limit($limit)
                                     ->orderBy('designation_name',$dir)
@@ -192,7 +191,7 @@ class DesignationController extends Controller
 
 									
 
-			$totalFiltered = Designation::where('designations.designation_name',"%{$search}%")
+            $totalFiltered = Designation::where('designations.designation_name',"%{$search}%")
                                         ->limit($limit)
                                         ->count();
         }
@@ -277,15 +276,17 @@ class DesignationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update_designation(Request $request)
     {
         $response = [
             'designation' => []
         ];
         $statusCode = 200;
         $designation = null;
+
+        $designation_id=$request->designation_id;
         
-        if (!is_numeric($id) || intval($id) != $id || !ctype_digit(strval($id))) {
+        if (!ctype_digit(strval($designation_id))) {
             $response = array(
                 'exception' => true,
                 'exception_message' => 'Invalid Input'
@@ -295,17 +296,18 @@ class DesignationController extends Controller
             return response()->json($response, $statusCode);
         }
         
-        $this->validate($request, [
-            'designation_name' => array('required', 'max:75', 'regex:/^[\pL\d\s]+$/u', 'unique:designations,designation_name,'.$id.',id'),
-        ]);
+       
 
         try {
-            $designation = Designation::find($id);
+            $designation = Designation::find($designation_id);
             if (!$designation) {
                 throw new \Exception('Invalid Input');
             }
+
             $designation->designation_name = $request->designation_name;
+            $designation->rank_id = $request->rank_id;
             $designation->created_by = Auth::user()->id;
+            
             $designation->save();
 
             $response = array(
@@ -364,39 +366,5 @@ class DesignationController extends Controller
 
         return response()->json($response, $statusCode);
 
-        // try {
-        //     if (!is_numeric($id) || intval($id) != $id || !ctype_digit(strval($id))) {
-        //         throw new \Exception('Please check input');
-        //     }
-        //     $designation = Designation::find($id); // Should be changed #27
-
-           
-        //     //arpan
-        //     if ($designation->judicial_officer_postings->count() > 0) { //Should be changed #28
-        //         //child row exists
-        //         $response = array(
-        //             'exception' => true,
-        //             'exception_message' => "Records of designation: " . $designation->designation_name . " exists in Judicial Officers Posting table.", //Should be changed #29
-        //         );
-        //         $statusCode = 400;
-        //     } else {
-
-        //         if (!empty($designation)) { // Should be changed #30
-        //             $designation->delete();
-        //             //$designation = $designation->forceDelete ( $id ); // Should be changed #31 //only for admin elements.
-        //         }
-        //         $response = array(
-        //             'designation' => $designation
-        //         ); // Should be changed #32
-        //     }
-        // } catch (\Exception $e) {
-        //     $response = array(
-        //         'exception' => true,
-        //         'exception_message' => $e->getMessage()
-        //     );
-        //     $statusCode = 400;
-        // } finally {
-        //     return response()->json($response, $statusCode);
-        // }
     }
 }
