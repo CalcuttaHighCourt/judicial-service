@@ -1,39 +1,38 @@
  
 <?php $__env->startSection('content'); ?>
 <!-- Main content -->
-	<!-- Bootstrap Boilerplate... -->
+
 	<div id="info-panel" class="panel panel-default">
 		<!-- IIIIIIIIIII -->
-		<div id="info-panel-heading" class="panel-heading">ADD NEW</div>
+		<div id="info-panel-heading" class="panel-heading">ADD NEW USER TYPE</div>
 		<!-- IIIIIIIIIII -->
 		<div class="panel-body">
 
 			<!-- New Task Form -->
 			<form id="info-form" class="form-horizontal" role="form" method="POST"
-				action="<?php echo e(url('/admin/State')); ?>">
+				action="<?php echo e(url('/admin/User_type')); ?>">
 				<?php echo e(csrf_field()); ?>
 
-				<input type="hidden" id="state-id">
-				<div id="state_name-group" class="form-group our-form-group">
+				<input type="hidden" id="User_type-id">
+				<div id="User_type_name-group" class="form-group our-form-group">
 					<!-- IIIIIIIIIII -->
-					<label for="state_name" class="col-md-4 control-label">State</label>
+					<label for="type_name" class="col-md-4 control-label">User Type</label>
 
 					<div class="col-md-6">
-						<input id="state_name" type="text"
-							class="form-control info-form-control" name="state_name"> <span
-							id="state_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
-							<strong id="state_name-strong" class="our-error-message-strong"></strong>
+						<input id="type_name" type="text"
+							class="form-control info-form-control" name="type_name"> <span
+							id="type_name-span" class="help-block our-help-block"> <!-- IIIIIIIIIII -->
+							<strong id="type_name-strong" class="our-error-message-strong"></strong>
 							<!-- IIIIIIIIIII -->
 						</span>
 					</div>
 				</div>
 				
-
 				<div id="info-panel-buttons" class="form-group hide">
 					<div class="col-md-6 col-md-offset-4">
 						<button id="add-button" type="submit"
 							class="btn btn-primary add-button info-form-button">
-							<i class="fa fa-btn fa-plus-circle"></i> Add State
+							<i class="fa fa-btn fa-plus-circle"></i> Add New User_type
 						</button>
 						<button id="save-button" type="submit"
 							class="btn btn-warning save-button info-form-button">
@@ -79,7 +78,8 @@
 
 	<div id="datatable-panel" class="panel panel-default">
 		<div id="datatable-panel-heading" class="panel-heading clearfix">
-			<div class="panel-title pull-left">State Master</div>
+			<div class="panel-title pull-left">User Type Master</div>
+			
 			<div class="pull-right">
 				<button id="add-new-button" type="submit" class="btn btn-primary add-new-button">
 					<i class="fa fa-plus-circle"></i> Add New
@@ -94,9 +94,10 @@
 					<!-- Table Headings -->
 					<thead>
 						<tr>
-							<th></th>
-							<th>State Name</th>
-							<th>Action</th>
+							
+							<th>#</th>
+							<th>USER TYPE</th>
+							<th>ACTION</th>
 							
 						</tr>
 
@@ -105,9 +106,10 @@
 					<!-- Table Footer -->
 					<tfoot>
 						<tr>
-							<th></th>
-							<th>State Name</th>
-							<th>Action</th>
+							
+							<th>#</th>
+							<th>USER TYPE</th>
+							<th>ACTION</th>
 							
 						</tr>
 					</tfoot>
@@ -138,8 +140,8 @@ $(function() {
 		"processing": true,
 		"serverSide": true,
 		"ajax":{
-			url:"<?php echo e(url('State')); ?>-Datatable-Server-Side",
-			dataSrc:"states"
+			url:"<?php echo e(url('User_types')); ?>-Datatable-Server-Side",
+			dataSrc:"user_types"
 		},
 
 		"columnDefs": 
@@ -157,7 +159,7 @@ $(function() {
 					"data": null,
 					"searchable": false,
 					"sortable":false,
-					"defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i> </button>',
+					"defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i> Edit</button>',
 				},
 				// {
 				// 	"targets": -1,
@@ -175,9 +177,10 @@ $(function() {
 					"searchable": false,
 					"orderable": false,
 				},
+                
 				{
-					"data": "state_name",
-				},				
+					"data": "type_name",
+				},		
 				{
 					"data": null
 				},
@@ -326,11 +329,12 @@ function show_error(field,msg){
 	$("#"+field+"-group").addClass("has-error");
 }
 function populate_form(data){
-	$("#info-panel-heading").html("Displaying record of State: <strong>"+data.type+"</strong>");
+	$("#info-panel-heading").html("Displaying record of User type: <strong>"+data.type+"</strong>");
 
-	$("#state-id").val(data.id);
+	$("#User_type-id").val(data.id);
+	$("#district").val(data.district_id);
 	
-	$("#state_name").val(data.state_name);
+	$("#type_name").val(data.type_name);
 }
 function show_button(type){
 	$("#"+type+"-button").show();
@@ -358,7 +362,7 @@ $(function(){
 });
 function send_ajax_and_set_errors_exceptions_success(type){
 	var formData = {
-			state_name: $('#state_name').val()			
+						
 	};
 	ajax_url="";
 	operation="";
@@ -367,8 +371,10 @@ function send_ajax_and_set_errors_exceptions_success(type){
 	if(type=="add"){
 		//request_type="POST";
 		formData["_method"]="POST";
-		ajax_url="<?php echo e(action('StateController@store')); ?>";
+		ajax_url="<?php echo e(action('UserTypeController@store')); ?>";
+       
 
+		formData["type_name"]=$("#type_name").val();
 
 		operation="add";
 		operated="added";
@@ -377,18 +383,19 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		//request_type="PUT";
 		formData["_method"]="PUT";
 		
-		ajax_url="<?php echo e(action('StateController@update','')); ?>"+"/"+$("#state-id").val();
-		formData["id"]=$("#state-id").val();
-
+		ajax_url="<?php echo e(action('UserTypeController@update','')); ?>"+"/"+$("#User_type-id").val();
+		formData["id"]=$("#User_type-id").val();
+		formData["type_name"]=$("#type_name").val();
 		operation="update";
 		operated="updated";
 	}
 	else if(type=="delete-confirm"){
 		//request_type="DELETE";
 		formData["_method"]="DELETE";
+		formData["id"]=$("#User_type-id").val();
+
+		ajax_url="<?php echo e(action('UserTypeController@destroy','')); ?>"+"/"+$("#User_type-id").val();
 		
-		ajax_url="<?php echo e(action('StateController@destroy','')); ?>"+"/"+$("#state-id").val();
-		formData["id"]=$("#state-id").val();
 
 		operation="delete";
 		operated="deleted";
@@ -401,48 +408,45 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		success: function (data, textStatus, jqXHR) {
 			reset_info(true);
 			msg="<strong>SUCCESS: </strong>";
-			if(!(data.state===null) && data.state.hasOwnProperty('state_name')){
-				//add and updattypeeDelete=> !(data.state===null)
-				msg+="State: <strong>"+data.state.state_name+"</strong> successfully "+operated+".";
+			if(!(data.user_type===null) && data.user_type.hasOwnProperty('type_name')){
+				
+				msg+="user_type: <strong>"+data.user_type.type_name+"</strong> successfully "+operated+".";
+				
 			}
 			else{
 				//delete case
-				if(!(data.state===null) && data.state>=1){
-					msg+="State: <strong>"+formData.state_name+"</strong> successfully "+operated+".";
+				if(!(data.user_type===null) && data.user_type>=1){
+					msg+="User type: <strong>"+formData.type+"</strong> successfully "+operated+".";
+				
 				}
 				else{
-					msg+="State already "+operated+"!";
+					msg+="User type already "+operated+"!";
 				}
 			}
 			show_message_div("success",msg);
 			table.ajax.reload();
 
-			
-			
-			//setTimeout(function(){ scrollToElement($('#datatable-panel')); }, 200);
+	
 			scrollToElement($('#message-div'));
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
-			//alert(JSON.stringify(jqXHR)+" : " + textStatus+" : "+errorThrown);
-			//alert(jqXHR.status);
+			
 			errors_reset();
 			messages_hide();
 			msg="<strong>Failed to "+operation+" data.</strong><br/>";
 			if(jqXHR.status!=422 && jqXHR.status!=400){
 				msg+="<strong>"+jqXHR.status+": "+errorThrown+"</strong>";
-				//show_message_div("error",msg);
 			}
 			else{
 				if(jqXHR.responseJSON.hasOwnProperty('exception')){
 					msg+="Exception: <strong>"+jqXHR.responseJSON.exception_message+"</strong>";
-					//show_message_div("error",msg);
 				}
 				else{
 					msg+="Error(s):<strong><ul>";
 					$.each(jqXHR.responseJSON.errors, function(key,value) {
 						msg+="<li>"+value+"</li>";
 						show_error(key,value);
-						//return (this != "four"); // will stop running to skip "five"
+						
 					});
 					msg+="</ul></strong>";
 					
@@ -453,18 +457,8 @@ function send_ajax_and_set_errors_exceptions_success(type){
 		}
 	});
 }
-function update_notices_menu_section(){
-	$.ajax({
-		type: "GET",
-		url: "<?php echo e(url('/State-Menu')); ?>",
-		success: function (data, textStatus, jqXHR) {
-			$("#notifications-menu-dropdown").html(data);
-		}
-	});
-}
+
 </script>
 <?php $__env->stopSection(); ?>
 
-
-
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/states/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/user_types/index.blade.php ENDPATH**/ ?>

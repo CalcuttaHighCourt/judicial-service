@@ -192,6 +192,7 @@ var table="";
 			},
 			success:function(response){
 				swal("Updated","document type  has been updated","success");
+				table.ajax.reload();
 			},
 			error:function(response){
 				swal("Not Updated","document type  has not been updated","error");

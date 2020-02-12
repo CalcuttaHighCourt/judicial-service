@@ -109,6 +109,7 @@
 
 var table="";
 
+
  $(document).ready(function(){
 
 	//Datatable Code For Showing Data :: START
@@ -191,6 +192,7 @@ var table="";
 			},
 			success:function(response){
 				swal("Updated","document type  has been updated","success");
+				table.ajax.reload();
 			},
 			error:function(response){
 				swal("Not Updated","document type  has not been updated","error");
@@ -199,11 +201,11 @@ var table="";
 	});
 
 //event on reset button
-	$(document).on("click","#reset",function(){
-		$("#type_name").val();
-		$("#type_id").val();
+	// $(document).on("click","#reset",function(){
+	// 	$("#type_name").val();
+	// 	$("#type_id").val();
 
-	});
+	// });
 
 });
 

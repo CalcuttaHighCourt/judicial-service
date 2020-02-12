@@ -232,10 +232,6 @@
 				$("#subdivision-group").hide();
 				var data = table.row( $(this).parents('tr') ).data();
 				view_data( data );
-
-				
-				
-				
 				show_button("close");
 				show_button("save");
 				make_active_button("save");

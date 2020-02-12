@@ -120,7 +120,7 @@
                                         <li><a href="<?php echo e(url('zone')); ?>">  Zone Master</a></li>
                                         <li><a href="<?php echo e(url('state')); ?>">  State Master</a></li>
                                         <li><a href="<?php echo e(url('document_types')); ?>"> Document Type Master</a></li>
-                                        <li><a href="<?php echo e(url('departments')); ?>"> Department for LCR </span></a></li>
+                                        <!-- <li><a href="<?php echo e(url('departments')); ?>"> Department for LCR </span></a></li> -->
                                         <li><a href="<?php echo e(url('designation')); ?>"> Designation </span></a></li>
                                         <li><a href="<?php echo e(url('mode')); ?>"> Posting Modes </span></a></li>
                                         <li><a  href="<?php echo e(url('qualification')); ?>"> Qualification </span></a></li>

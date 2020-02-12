@@ -118,7 +118,7 @@
                                         <li><a href="{{url('zone')}}">  Zone Master</a></li>
                                         <li><a href="{{url('state')}}">  State Master</a></li>
                                         <li><a href="{{url('document_types')}}"> Document Type Master</a></li>
-                                        <li><a href="{{url('departments')}}"> Department for LCR </span></a></li>
+                                        <!-- <li><a href="{{url('departments')}}"> Department for LCR </span></a></li> -->
                                         <li><a href="{{url('designation')}}"> Designation </span></a></li>
                                         <li><a href="{{url('mode')}}"> Posting Modes </span></a></li>
                                         <li><a  href="{{url('qualification')}}"> Qualification </span></a></li>
