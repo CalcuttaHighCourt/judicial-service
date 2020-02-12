@@ -702,19 +702,21 @@
         $(document).on("change","#mode_id", function(){
             var option = $(this).find('option:selected').text();
 
-            if(option=='deputation' || option=='Deputation'){
-                 $(this).parent().parent().parent().find(".mode_permanent_div").hide();
-                 $(this).parent().parent().parent().find(".permanent_reporting_officer_div").hide();
-                 $(this).parent().parent().find(".mode_deputation_div").show();
-                 $(this).parent().parent().parent().find(".deputation_reporting_officer_div").show();
-                 flag_mode = 'deputation';
-            }
-            else{
-                $(this).parent().parent().parent().find(".mode_permanent_div").show();
-                $(this).parent().parent().parent().find(".permanent_reporting_officer_div").show();
-                $(this).parent().parent().parent().find(".mode_deputation_div").hide();
-                $(this).parent().parent().parent().find(".deputation_reporting_officer_div").hide();
-                flag_mode = 'regular';
+            if(option!=""){
+                if(option=='deputation' || option=='Deputation'){
+                    $(this).parent().parent().parent().find(".mode_permanent_div").hide();
+                    $(this).parent().parent().parent().find(".permanent_reporting_officer_div").hide();
+                    $(this).parent().parent().find(".mode_deputation_div").show();
+                    $(this).parent().parent().parent().find(".deputation_reporting_officer_div").show();
+                    flag_mode = 'deputation';
+                }
+                else{
+                    $(this).parent().parent().parent().find(".mode_permanent_div").show();
+                    $(this).parent().parent().parent().find(".permanent_reporting_officer_div").show();
+                    $(this).parent().parent().parent().find(".mode_deputation_div").hide();
+                    $(this).parent().parent().parent().find(".deputation_reporting_officer_div").hide();
+                    flag_mode = 'regular';
+                }
             }
         })
         //Deputation :: END

@@ -468,7 +468,7 @@ class JoEntryFormController extends Controller
 
         if($judicial_officers){
             foreach($judicial_officers as $judicial_officer){
-                $nestedData['more_details'] = '<img src="images/details_open.png" style="cursor:pointer" class="more_details" alt="More Details">';
+                $nestedData['more_details'] = '<img src="'.asset('images/details_open.png').'" style="cursor:pointer" class="more_details" alt="More Details">';
                 $nestedData['registration_no'] = $judicial_officer->registration_no;
                 $nestedData['jo_code'] = $judicial_officer->jo_code;
                 $nestedData['officer_name'] = $judicial_officer->officer_name;
