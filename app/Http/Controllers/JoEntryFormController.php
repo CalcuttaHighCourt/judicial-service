@@ -68,11 +68,19 @@ class JoEntryFormController extends Controller
                     $request['date_of_confirmation']=null;
 
                 $request['date_of_retirement']=Carbon::parse($request['date_of_retirement'])->format('Y-m-d');
-                         
+                
+                if(empty($request['jo_code']))
+                    $request['jo_code'] = null;
+                if(empty($request['email_id_1']))
+                    $request['email_id_1'] = null;
+                if(empty($request['mobile_no_1']))
+                    $request['mobile_no_1'] = null;
                 if(empty($request['email_id_2']))
                     $request['email_id_2'] = null;
                 if(empty($request['mobile_no_2']))
                     $request['mobile_no_2'] = null;
+                if(empty($request['recruitment_batch_year']))
+                    $request['recruitment_batch_year'] = null;
                 if(empty($request['spouse']))
                     $request['spouse'] = null;
                 if($request['state_flag']=='other'){
@@ -593,7 +601,7 @@ class JoEntryFormController extends Controller
             'recruitment_batch_year' => 'nullable|integer|min:1950|max:'.date('Y'),
             'date_of_joining' => 'required|date_format:d-m-Y|before_or_equal:date_of_confirmation|before:date_of_retirement|after:date_of_birth',
             'date_of_confirmation' => 'nullable|date_format:d-m-Y|after:date_of_birth|after_or_equal:date_of_joining|before:date_of_retirement',
-            'date_of_retirement' => 'required|date_format:d-m-Y|after:date_of_birth|after:date_of_joining|after:date_of_confirmation',  
+            'date_of_retirement' => 'required|date_format:d-m-Y|after:date_of_birth|after:date_of_joining',  
         ]);
         
         $request['date_of_birth']=Carbon::parse($request['date_of_birth'])->format('Y-m-d');
@@ -716,7 +724,7 @@ class JoEntryFormController extends Controller
             'deputation_posting_place' => 'required|array',
             'deputation_posting_place.*' => 'nullable|required_if:flag_mode.*,==,deputation|string|max:255',
             'from_date' => 'required|array',
-            'from_date.*' => 'required|date_format:d-m-Y|before_or_equal:to_date.*|before_or_equal:'.date('Y-m-d'),
+            'from_date.*' => 'required|date_format:d-m-Y|before_or_equal:'.date('Y-m-d'),
             'to_date' => 'required|array',
             'to_date.*' => 'nullable|date_format:d-m-Y|after_or_equal:from_date.*|before_or_equal:'.date('Y-m-d'),                     
             'posting_remark' => 'required|array',

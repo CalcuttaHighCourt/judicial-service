@@ -667,6 +667,9 @@
             var batch_id = $("#recruitment_batch_id option:selected").val();
             var batch_name = $("#recruitment_batch_id option:selected").text();
 
+            if(batch_id=="")
+                return false;
+                
             $.ajax({
                 url:"<?php echo e(route('fetch_rank_designation')); ?>",
                 type:"post",

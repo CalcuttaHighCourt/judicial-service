@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('judicial_officer_id')->nullable()->unique();
             $table->string('jo_code')->nullable()->unique();
             $table->integer('department_id')->nullable()->unique();
-            $table->string('email')->unique();
+            $table->string('email')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
