@@ -407,10 +407,10 @@ class JoEntryFormController extends Controller
         $batch = $request->input('batch_name');
 
         if($batch == 'PSC' || $batch == 'psc'){
-            $data['ranks'] = Rank::where('rank_order', 1)->get();
+            $data['ranks'] = Rank::where('rank_order','>', 1)->get();
         }
         else if($batch == 'Direct Entry' || $batch == 'direct entry'){
-            $data['ranks'] = Rank::where('rank_order', 3)->get();
+            $data['ranks'] = Rank::where('rank_order', 1)->get();
         }
 
         $rank = $data['ranks']['0']->id;
@@ -610,6 +610,12 @@ class JoEntryFormController extends Controller
         if(empty($request['spouse']))
             $request['spouse'] = null;
 
+        if(empty($request['jo_code']))
+            $request['jo_code'] = null;
+
+        if(empty($request['recruitment_batch_year']))
+            $request['recruitment_batch_year'] = null;
+
         if(!empty($request['date_of_confirmation']))
             $request['date_of_confirmation']=Carbon::parse($request['date_of_confirmation'])->format('Y-m-d');
         else
@@ -660,6 +666,19 @@ class JoEntryFormController extends Controller
             'email_id_1' => 'nullable|email:rfc,dns|max:100',
             'email_id_2' => 'nullable|email:rfc,dns|max:100',
         ]);
+
+        
+        if(empty($request['email_id_1']))
+            $request['email_id_1'] = null;
+        if(empty($request['mobile_no_1']))
+            $request['mobile_no_1'] = null;
+        if(empty($request['email_id_2']))
+            $request['email_id_2'] = null;
+        if(empty($request['mobile_no_2']))
+            $request['mobile_no_2'] = null;                
+        if($request['state_flag']=='other'){
+            $request['home_district_id'] = null;
+        }
                 
         JudicialOfficer::where('id',$request->id)
                         ->update($request->except(['id','state_flag','_token']));

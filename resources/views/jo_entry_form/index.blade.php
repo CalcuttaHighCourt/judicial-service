@@ -1016,10 +1016,9 @@
                     if(data.judicial_officer!=null){                        
                         if($("#profile_image").val()==""){
                             swal("Judicial Officer Added Successfully","","success");
-                            $("form").trigger("reset");   
-                            $(".select2").val('').trigger('change');
-                            table.ajax.reload();
-                            return false;
+                            setTimeout(function(){
+                                    window.location.reload(true);
+                            },1800);
                         }
                         else{
                             // image upload :: START
@@ -1033,9 +1032,9 @@
                                 processData: false,
                                 success: function(data, textStatus, jqXHR){
                                     swal("Judicial Officer Added Successfully","","success");
-                                    $("form").trigger("reset");   
-                                    $(".select2").val('').trigger('change');
-                                    table.ajax.reload();
+                                    setTimeout(function(){
+                                            window.location.reload(true);
+                                    },1800);
                                 },
                                 error: function (jqXHR, textStatus, errorThrown) {
                                     if(jqXHR.status!=422 && jqXHR.status!=400){

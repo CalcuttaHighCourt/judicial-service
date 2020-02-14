@@ -156,7 +156,7 @@ $(function() {
 					"data": null,
 					"searchable": false,
 					"sortable":false,
-					"defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i> </button>',
+					"defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i> Edit</button>',
 				},
 				// {
 				// 	"targets": -1,
