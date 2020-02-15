@@ -416,6 +416,16 @@
                                         <select class="form-control info-form-control posting_select2 select2" id="designation_id" style="width:100%">
                                             <option value="">Select an Option</option>
                                         </select>
+                                    </div> 
+                                    
+                                    <div class="form-group required col-xs-3">
+                                        <label class="control-label">
+                                                Place of Posting 
+                                        </label>
+                                        <select class="form-control info-form-control place_of_posting select2" id="place_of_posting" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            @include('place_of_posting.place_of_posting_option')
+                                        </select>
                                     </div>  
                                 </div>
                                 <div class="mode_deputation_div" style="display:none">
@@ -433,15 +443,17 @@
                                     </div>    
                                 </div>                              
                             </div><br/>
-                            <div class="row">   
-                                <div class="form-group required col-xs-2">
-                                    <label class="control-label">
-                                            Zone 
-                                    </label>
-                                    <select class="form-control info-form-control select2" id="zone" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        @include('zones.zone_options')
-                                    </select>
+                            <div class="row">
+                                <div class="zone_div" style="display:none">   
+                                    <div class="form-group required col-xs-2">
+                                        <label class="control-label">
+                                                Zone 
+                                        </label>
+                                        <select class="form-control info-form-control select2" id="zone" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            @include('zones.zone_options')
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div class="col-xs-3 permanent_reporting_officer_div">
@@ -706,6 +718,7 @@
                     $(this).parent().parent().parent().find(".mode_permanent_div").hide();
                     $(this).parent().parent().parent().find(".permanent_reporting_officer_div").hide();
                     $(this).parent().parent().find(".mode_deputation_div").show();
+                    $(this).parent().parent().parent().find(".zone_div").show();
                     $(this).parent().parent().parent().find(".deputation_reporting_officer_div").show();
                     flag_mode = 'deputation';
                 }
@@ -713,6 +726,7 @@
                     $(this).parent().parent().parent().find(".mode_permanent_div").show();
                     $(this).parent().parent().parent().find(".permanent_reporting_officer_div").show();
                     $(this).parent().parent().parent().find(".mode_deputation_div").hide();
+                    $(this).parent().parent().parent().find(".zone_div").hide();
                     $(this).parent().parent().parent().find(".deputation_reporting_officer_div").hide();
                     flag_mode = 'regular';
                 }
@@ -937,7 +951,6 @@
             var subdivision_id = new Array();
             var from_year = new Array();
             var to_year = new Array();
-
             
             qualification_id = [];
             $(".degree_id").each(function(){
@@ -964,6 +977,11 @@
             $(".practice_to_year").each(function(){
                 to_year.push($(this).val());
             })
+
+            if(flag_mode=='deputation')
+                zone_id = $("#zone").val();
+            else if(flag_mode=='regular')
+                zone_id = $("#place_of_posting option:selected").data('zone');
             
 
             $.ajax({
@@ -998,11 +1016,12 @@
                     from_year:from_year,
                     to_year:to_year,
                     designation_id:$("#designation_id").val(),
+                    place_of_posting:$("#place_of_posting").val(),
                     deputation_designation:$("#other_designation").val(),
                     reporting_officer_id:$("#reporting_officer_id").val(),
                     other_reporting_officer_name:$("#other_reporting_officer").val(),
                     other_reporting_officer_designation:$("#other_reporting_officer_designation").val(),                    
-                    zone_id:$("#zone").val(),
+                    zone_id:zone_id,
                     deputation_posting_place:$("#other_place_posting").val(),
                     mode_id:$("#mode_id").val(),
                     flag_mode:flag_mode,

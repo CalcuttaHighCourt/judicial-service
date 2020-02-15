@@ -431,7 +431,7 @@
                                     <form class="form" action="##" method=""> 
                                         <div class="div_add_more_posting col-xs-offset-1">
                                             <div class="row"> 
-                                                <div class="form-group required col-xs-3">
+                                                <div class="form-group required col-xs-2">
                                                     <label class="control-label">
                                                             Posting Mode 
                                                     </label>
@@ -440,7 +440,7 @@
                                                         @include('modes.mode_options')
                                                     </select>
                                                 </div>
-                                                <div class="form-group required col-xs-3">
+                                                <div class="form-group required col-xs-2">
                                                     <label class="control-label">
                                                             Grade / Rank 
                                                     </label>
@@ -458,7 +458,18 @@
                                                             <option value="">Select an Option</option>
                                                             @include('designations.designation_options')
                                                         </select>
+                                                    </div> 
+                                                    
+                                                    <div class="form-group required col-xs-2">
+                                                        <label class="control-label">
+                                                                Place of Posting 
+                                                        </label>
+                                                        <select class="form-control info-form-control place_of_posting select2" style="width:100%">
+                                                            <option value="">Select an Option</option>
+                                                            @include('place_of_posting.place_of_posting_option')
+                                                        </select>
                                                     </div>  
+
                                                     <div class="form-group col-xs-3">
                                                         <label class="control-label">
                                                                 Additional Charge 
@@ -483,7 +494,7 @@
                                                 </div>                              
                                             </div><br/>
                                             <div class="row">     
-                                                <div class="form-group required col-xs-2">                                                    
+                                                <div class="form-group zone_div required col-xs-2" style="display:none">                                                    
                                                     <label class="control-label">
                                                             Zone 
                                                     </label>
@@ -1011,6 +1022,7 @@
                  $(this).parent().parent().parent().find(".mode_permanent_div").hide();
                  $(this).parent().parent().parent().find(".permanent_reporting_officer_div").hide();
                  $(this).parent().parent().find(".mode_deputation_div").show();
+                 $(this).parent().parent().parent().find(".zone_div").show();
                  $(this).parent().parent().parent().find(".deputation_reporting_officer_div").show();
                  flag_mode = 'deputation';
             }
@@ -1018,6 +1030,7 @@
                 $(this).parent().parent().parent().find(".mode_permanent_div").show();
                 $(this).parent().parent().parent().find(".permanent_reporting_officer_div").show();
                 $(this).parent().parent().parent().find(".mode_deputation_div").hide();
+                $(this).parent().parent().parent().find(".zone_div").hide();
                 $(this).parent().parent().parent().find(".deputation_reporting_officer_div").hide();
                 flag_mode = 'regular';
             }
@@ -1141,6 +1154,7 @@
                     $(".mode_id:last").val(val.mode_id);
                     $(".rank:last").val(val.rank_id);
                     $(".designation_id:last").val(val.designation_id);
+                    $(".place_of_posting:last").val(val.place_of_posting);
                     $(".additional_designation:last").val(val.additional_designation);
                     $(".other_designation:last").val(val.deputation_designation);
                     $(".other_place_posting:last").val(val.deputation_posting_place);
@@ -1368,6 +1382,7 @@
             //update posting details
             else if($(this).val()=='update_posting_details'){
                 var designation_id = new Array();
+                var place_of_posting = new Array();
                 var additional_designation = new Array();
                 var deputation_designation = new Array();
                 var zone_id = new Array();
@@ -1392,10 +1407,12 @@
                 $(".mode_id").each(function(){
                     mode_id.push($(this).val());
 
-                    if($(this).find('option:selected').text()=='deputation' || $(this).find('option:selected').text()=='Deputation')
+                    if($(this).find('option:selected').text()=='deputation' || $(this).find('option:selected').text()=='Deputation'){
                         flag_mode.push('deputation');
-                    else
+                    }
+                    else{
                         flag_mode.push('regular');
+                    }
                 })
 
                 rank_id = [];

@@ -178,14 +178,18 @@ class JoEntryFormController extends Controller
                     $jo_posting = new JudicialOfficerPosting;
 
                     
-                    if($request->designation_id == "")
+                    if($request->designation_id == ""){
                         $jo_posting->designation_id = null;
+                        $jo_posting->place_of_posting = null;
+                    }
                     else{    
                         if($request->flag_mode=='deputation'){
                             $jo_posting->designation_id = null;
+                            $jo_posting->place_of_posting = null;
                         }
                         else if($request->flag_mode=='regular'){
-                            $jo_posting->designation_id = $request->designation_id;                        
+                            $jo_posting->designation_id = $request->designation_id;   
+                            $jo_posting->place_of_posting = $request->place_of_posting;
                         }
                     }
                     $jo_posting->zone_id = $request->zone_id;
@@ -564,9 +568,7 @@ class JoEntryFormController extends Controller
         foreach($jo_details['documents'] as $key => $jo_document){
             $file_path = asset('jo_documents/'.$jo_details['basic_contact_details']->registration_no.'/uploaded_documents');
             $jo_document->document = $file_path."/".$jo_document->document_path;
-            $jo_document->document_path = "Download <i class='fa fa-download' aria-hidden='true' title='Download'></i>";
-            //$createdAt = Carbon::parse($jo_document['created_at']);
-            //$jo_document->created_at = $jo_document->created_at->format('d-m-Y');
+            $jo_document->document_path = "Download <i class='fa fa-download' aria-hidden='true' title='Download'></i>";            
         }
          
         return $jo_details;
