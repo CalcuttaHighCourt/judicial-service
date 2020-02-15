@@ -118,7 +118,7 @@
                                         <li><a href="{{url('zone')}}">  Zone Master</a></li>
                                         <li><a href="{{url('state')}}">  State Master</a></li>
                                         <li><a href="{{url('document_types')}}"> Document Type Master</a></li>
-                                        <!-- <li><a href="{{url('departments')}}"> Department for LCR </span></a></li> -->
+                                        <li><a href="{{url('departments')}}"> Department for LCR </span></a></li>
                                         <li><a href="{{url('designation')}}"> Designation </span></a></li>
                                         <li><a href="{{url('mode')}}"> Posting Modes </span></a></li>
                                         <li><a  href="{{url('qualification')}}"> Qualification </span></a></li>
@@ -184,11 +184,9 @@
                                     <li><a href="{{url('jo_list_for_pref_window')}}">Switch on the Window</a></li>
                                     <li><a href="{{url('appointment')}}"> List of Preference</a></li>
                                 </ul>
-                            </li>      
+                            </li>   
                             
-                        @endif
-
-                        <li class="treeview">
+                            <li class="treeview">
                                 <a href="#"><i class="fa fa-search-minus"></i>
                                     <span>JO Grade</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
@@ -196,7 +194,11 @@
                                     <li><a href="{{url('jo_grade')}}">Create Grade List</a></li>
                                     <li><a href="{{url('show_grade_list')}}">Show Grade List</a></li>
                                 </ul>
-                            </li>     
+                            </li>  
+                            
+                        @endif
+
+                           
                             
                     @if(Auth::check() && Auth::user()->user_type->type_name=="Department")
                         <li class="header"></li>

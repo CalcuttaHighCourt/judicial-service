@@ -193,7 +193,7 @@ class ModeController extends Controller
                 throw new \Exception('Invalid Input');
             }
             $mode->posting_mode = $request->posting_mode;
-            //$mode->created_by = Auth::user()->id;
+            $mode->created_by = Auth::user()->id;
             $mode->save();
 
             $response = array(

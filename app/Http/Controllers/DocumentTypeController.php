@@ -133,7 +133,7 @@ class DocumentTypeController extends Controller
             foreach($documents as $document){
                 $nestedData['SL_NO'] = ++$i;
                 $nestedData['DOCUMENT_TYPE'] = $document->type_name;
-                $nestedData['ACTION'] = "<button type='submit' class='btn btn-warning edit-button'><i class='fa fa-pencil'></i> </button>";
+                $nestedData['ACTION'] = "<i class='fa fa-edit edit-button' aria-hidden='true'></i>";
                 $nestedData['ID'] =  $document->id;
 
                 $data[] = $nestedData;

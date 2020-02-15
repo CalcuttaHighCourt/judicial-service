@@ -186,11 +186,9 @@
                                     <li><a href="<?php echo e(url('jo_list_for_pref_window')); ?>">Switch on the Window</a></li>
                                     <li><a href="<?php echo e(url('appointment')); ?>"> List of Preference</a></li>
                                 </ul>
-                            </li>      
+                            </li>   
                             
-                        <?php endif; ?>
-
-                        <li class="treeview">
+                            <li class="treeview">
                                 <a href="#"><i class="fa fa-search-minus"></i>
                                     <span>JO Grade</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
@@ -198,7 +196,11 @@
                                     <li><a href="<?php echo e(url('jo_grade')); ?>">Create Grade List</a></li>
                                     <li><a href="<?php echo e(url('show_grade_list')); ?>">Show Grade List</a></li>
                                 </ul>
-                            </li>     
+                            </li>  
+                            
+                        <?php endif; ?>
+
+                           
                             
                     <?php if(Auth::check() && Auth::user()->user_type->type_name=="Department"): ?>
                         <li class="header"></li>

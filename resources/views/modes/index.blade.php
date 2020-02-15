@@ -95,6 +95,8 @@
 							<th></th>
 							<th>Mode Name</th>
 							<th>Action</th>
+							<th></th>
+							<th></th>
 						</tr>
 
 					</thead>
@@ -105,6 +107,8 @@
 							<th></th>
 							<th>Mode Name</th>
 							<th>Action</th>
+							<th></th>
+							<th></th>
 						</tr>
 					</tfoot>
 				</table>
@@ -139,15 +143,27 @@ $(function() {
 		"columnDefs": 
 			[
 				{ className: "table-text", "targets": "_all" },
-				
+				{
+					"targets": -3,
+					"data": null,
+					"searchable": false,
+					"sortable":false,
+					"defaultContent": '<button type="submit" class="btn btn-info view-button"><i class="fa fa-info"></i> View</button>',
+				},
+				{
+					"targets": -2,
+					"data": null,
+					"searchable": false,
+					"sortable":false,
+					"defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i> Edit</button>',
+				},
 				{
 					"targets": -1,
 					"data": null,
 					"searchable": false,
 					"sortable":false,
-					"defaultContent": '<button type="submit" class="btn btn-warning edit-button"><i class="fa fa-pencil"></i></button>',
-				},
-				
+					"defaultContent": '<button type="submit" class="btn btn-danger delete-button"><i class="fa fa-trash"></i> Delete</button>',
+				}
 			],
 		"columns": 
 			[
@@ -163,7 +179,12 @@ $(function() {
 				{
 					"data": null
 				},
-				
+				{
+					"data": null
+				},
+				{
+					"data": null
+				},
 			],
 		"order": [[ 1, 'asc' ]]
 	});

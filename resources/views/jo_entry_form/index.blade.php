@@ -701,19 +701,21 @@
         $(document).on("change","#mode_id", function(){
             var option = $(this).find('option:selected').text();
 
-            if(option=='deputation' || option=='Deputation'){
-                 $(this).parent().parent().parent().find(".mode_permanent_div").hide();
-                 $(this).parent().parent().parent().find(".permanent_reporting_officer_div").hide();
-                 $(this).parent().parent().find(".mode_deputation_div").show();
-                 $(this).parent().parent().parent().find(".deputation_reporting_officer_div").show();
-                 flag_mode = 'deputation';
-            }
-            else{
-                $(this).parent().parent().parent().find(".mode_permanent_div").show();
-                $(this).parent().parent().parent().find(".permanent_reporting_officer_div").show();
-                $(this).parent().parent().parent().find(".mode_deputation_div").hide();
-                $(this).parent().parent().parent().find(".deputation_reporting_officer_div").hide();
-                flag_mode = 'regular';
+            if(option!=""){
+                if(option=='deputation' || option=='Deputation'){
+                    $(this).parent().parent().parent().find(".mode_permanent_div").hide();
+                    $(this).parent().parent().parent().find(".permanent_reporting_officer_div").hide();
+                    $(this).parent().parent().find(".mode_deputation_div").show();
+                    $(this).parent().parent().parent().find(".deputation_reporting_officer_div").show();
+                    flag_mode = 'deputation';
+                }
+                else{
+                    $(this).parent().parent().parent().find(".mode_permanent_div").show();
+                    $(this).parent().parent().parent().find(".permanent_reporting_officer_div").show();
+                    $(this).parent().parent().parent().find(".mode_deputation_div").hide();
+                    $(this).parent().parent().parent().find(".deputation_reporting_officer_div").hide();
+                    flag_mode = 'regular';
+                }
             }
         })
         //Deputation :: END
@@ -791,7 +793,7 @@
             }
             else {
                
-                element.attr("src","images/details_close.png");
+                element.attr("src","{{asset('images/details_close.png')}}");
                
                 var child_string ='<div class="col-sm-12 text-center" id="show_jo_details_pdf">'+
 	                                    '<iframe id="iframe_jo_details_pdf" src='+url+' style="width:800px; height:400px;"></iframe>'+
@@ -1014,10 +1016,9 @@
                     if(data.judicial_officer!=null){                        
                         if($("#profile_image").val()==""){
                             swal("Judicial Officer Added Successfully","","success");
-                            $("form").trigger("reset");   
-                            $(".select2").val('').trigger('change');
-                            table.ajax.reload();
-                            return false;
+                            setTimeout(function(){
+                                    window.location.reload(true);
+                            },1800);
                         }
                         else{
                             // image upload :: START
@@ -1031,9 +1032,9 @@
                                 processData: false,
                                 success: function(data, textStatus, jqXHR){
                                     swal("Judicial Officer Added Successfully","","success");
-                                    $("form").trigger("reset");   
-                                    $(".select2").val('').trigger('change');
-                                    table.ajax.reload();
+                                    setTimeout(function(){
+                                            window.location.reload(true);
+                                    },1800);
                                 },
                                 error: function (jqXHR, textStatus, errorThrown) {
                                     if(jqXHR.status!=422 && jqXHR.status!=400){

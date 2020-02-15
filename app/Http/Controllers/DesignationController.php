@@ -121,7 +121,7 @@ class DesignationController extends Controller
         $designation = null;
 
         $this->validate($request, [
-            'designation_name' => array('required', 'max:75', 'unique:designations,designation_name'),
+            'designation_name' => array('required', 'max:255', 'unique:designations,designation_name'),
             'rank_id' => array('required')
             ]);
 
@@ -205,7 +205,7 @@ class DesignationController extends Controller
                 $nestedData['SL_NO'] = ++$i;
                 $nestedData['DESIGNATION_NAME'] = $designation->designation_name;
                 $nestedData['RANK'] = $designation->rank_name;
-                $nestedData['ACTION'] =  "<button type='submit' class='btn btn-warning edit-button'><i class='fa fa-pencil'></i> </button>";
+                $nestedData['ACTION'] = "<i class='fa fa-edit edit-button' aria-hidden='true'></i>";
                 $nestedData['ID'] =  $designation->id;
                 $nestedData['RANK_ID'] =  $designation->rank_id;
 
