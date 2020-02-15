@@ -205,7 +205,7 @@ class DesignationController extends Controller
                 $nestedData['SL_NO'] = ++$i;
                 $nestedData['DESIGNATION_NAME'] = $designation->designation_name;
                 $nestedData['RANK'] = $designation->rank_name;
-                $nestedData['ACTION'] = "<i class='fa fa-edit edit-button' aria-hidden='true'></i>";
+                $nestedData['ACTION'] = "<button type='submit' class='btn btn-warning edit-button'><i class='fa fa-pencil'></i></button>";
                 $nestedData['ID'] =  $designation->id;
                 $nestedData['RANK_ID'] =  $designation->rank_id;
 
