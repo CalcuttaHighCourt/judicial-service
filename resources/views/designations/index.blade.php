@@ -189,7 +189,7 @@ var table = $('#datatable-table').DataTable({
 	//event on clicking the edit pen in data table
 
 	$(document).on("click",".edit-button",function(){
-		
+		 scrollToElement($('#info-panel'));
 		 var data = table.row( $(this).parents('tr')).data();
 		 //alert("abc");
 		console.log(data);
@@ -208,6 +208,7 @@ var table = $('#datatable-table').DataTable({
 		var designation_name=$("#designation_name").val();
 		var rank_id= $("#rank_id").val();
 		var designation_id= $("#designation_id").val();
+		
 
 		$.ajax({
 			type:"POST",
@@ -220,6 +221,7 @@ var table = $('#datatable-table').DataTable({
 			},
 			success:function(response){
 				swal("Updated","Designation has been updated","success");
+				table.ajax.reload();
 			},
 			error:function(response){
 				swal("Not Updated","Designation has not been updated","error");
@@ -229,6 +231,14 @@ var table = $('#datatable-table').DataTable({
 	
 
 });
+
+function scrollToElement(ele) {
+// 	alert(ele.html());
+// 	$(window).scrollTop(ele.offset().top-60).scrollLeft(ele.offset().left);
+        $('html, body').animate({
+            scrollTop: ele.offset().top - 60,
+        }, 1000);
+    }
 
 </script>
 @endsection
