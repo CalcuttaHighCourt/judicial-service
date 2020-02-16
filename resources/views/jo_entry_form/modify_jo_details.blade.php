@@ -1404,15 +1404,20 @@
 
                 mode_id = [];
                 flag_mode = [];
+                zone_id = [];
                 $(".mode_id").each(function(){
                     mode_id.push($(this).val());
 
                     if($(this).find('option:selected').text()=='deputation' || $(this).find('option:selected').text()=='Deputation'){
                         flag_mode.push('deputation');
+                        var zone = $(this).parent().parent().parent().find(".zone_div").find(".zone").find("option:selected").val();
                     }
                     else{
                         flag_mode.push('regular');
+                        var zone = $(this).parent().next().next().find(".place_of_posting").find('option:selected').data('zone');
                     }
+
+                    zone_id.push(zone);
                 })
 
                 rank_id = [];
@@ -1425,14 +1430,14 @@
                     designation_id.push($(this).val());         
                 })
 
+                place_of_posting = [];
+                $(".place_of_posting").each(function(){
+                    place_of_posting.push($(this).val());         
+                })
+
                 additional_designation = [];
                 $(".additional_designation").each(function(){
                     additional_designation.push($(this).val());         
-                })
-
-                zone_id = [];         
-                $(".zone").each(function(){
-                    zone_id.push($(this).val());           
                 })
 
                 deputation_posting_place = [];
@@ -1476,6 +1481,7 @@
                     data:{
                         id:$("#fetch_id").val(),
                         designation_id:designation_id,
+                        place_of_posting:place_of_posting,
                         deputation_designation:deputation_designation,
                         additional_designation:additional_designation,
                         mode_id:mode_id,

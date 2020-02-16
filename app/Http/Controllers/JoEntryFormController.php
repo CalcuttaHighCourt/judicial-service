@@ -730,6 +730,8 @@ class JoEntryFormController extends Controller
             'rank_id.*' => 'required|required_with:mode_id.*,rank_id.*,flag_mode.*|integer|max:50|exists:ranks,id',
             'designation_id' => 'required|array',
             'designation_id.*' => 'nullable|required_if:flag_mode.*,==,regular|integer|max:500|exists:designations,id',
+            'place_of_posting' => 'required|array',
+            'place_of_posting.*' => 'nullable|required_if:flag_mode.*,==,regular|string|max:255',
             'additional_designation' => 'required|array',
             'additional_designation.*' => 'nullable|string|max:250',
             'deputation_designation' => 'required|array',
@@ -774,12 +776,14 @@ class JoEntryFormController extends Controller
 
                 if($request->flag_mode[$i]=='deputation'){
                     $jo_posting->designation_id = null;
+                    $jo_posting->place_of_posting = null;
                     $posting_zone = $request->deputation_zone[$i];
                     $jo_posting->deputation_designation = $request->deputation_designation[$i];
                     $jo_posting->deputation_posting_place = $request->deputation_posting_place[$i];
                 }
                 else if($request->flag_mode[$i]=='regular'){
                     $jo_posting->designation_id = $request->designation_id[$i];
+                    $jo_posting->place_of_posting = $request->place_of_posting[$i];
                     $posting_zone = $request->zone_id[$i];
                     $jo_posting->deputation_designation = '';
                     $jo_posting->deputation_posting_place = '';

@@ -494,7 +494,7 @@
                                                 </div>                              
                                             </div><br/>
                                             <div class="row">     
-                                                <div class="form-group required col-xs-2">                                                    
+                                                <div class="form-group zone_div required col-xs-2" style="display:none">                                                    
                                                     <label class="control-label">
                                                             Zone 
                                                     </label>
@@ -1024,6 +1024,7 @@
                  $(this).parent().parent().parent().find(".mode_permanent_div").hide();
                  $(this).parent().parent().parent().find(".permanent_reporting_officer_div").hide();
                  $(this).parent().parent().find(".mode_deputation_div").show();
+                 $(this).parent().parent().parent().find(".zone_div").show();
                  $(this).parent().parent().parent().find(".deputation_reporting_officer_div").show();
                  flag_mode = 'deputation';
             }
@@ -1031,6 +1032,7 @@
                 $(this).parent().parent().parent().find(".mode_permanent_div").show();
                 $(this).parent().parent().parent().find(".permanent_reporting_officer_div").show();
                 $(this).parent().parent().parent().find(".mode_deputation_div").hide();
+                $(this).parent().parent().parent().find(".zone_div").hide();
                 $(this).parent().parent().parent().find(".deputation_reporting_officer_div").hide();
                 flag_mode = 'regular';
             }
@@ -1382,6 +1384,7 @@
             //update posting details
             else if($(this).val()=='update_posting_details'){
                 var designation_id = new Array();
+                var place_of_posting = new Array();
                 var additional_designation = new Array();
                 var deputation_designation = new Array();
                 var zone_id = new Array();
@@ -1403,13 +1406,20 @@
 
                 mode_id = [];
                 flag_mode = [];
+                zone_id = [];
                 $(".mode_id").each(function(){
                     mode_id.push($(this).val());
 
-                    if($(this).find('option:selected').text()=='deputation' || $(this).find('option:selected').text()=='Deputation')
+                    if($(this).find('option:selected').text()=='deputation' || $(this).find('option:selected').text()=='Deputation'){
                         flag_mode.push('deputation');
-                    else
+                        var zone = $(this).parent().parent().parent().find(".zone_div").find(".zone").find("option:selected").val();
+                    }
+                    else{
                         flag_mode.push('regular');
+                        var zone = $(this).parent().next().next().find(".place_of_posting").find('option:selected').data('zone');
+                    }
+
+                    zone_id.push(zone);
                 })
 
                 rank_id = [];
@@ -1422,14 +1432,14 @@
                     designation_id.push($(this).val());         
                 })
 
+                place_of_posting = [];
+                $(".place_of_posting").each(function(){
+                    place_of_posting.push($(this).val());         
+                })
+
                 additional_designation = [];
                 $(".additional_designation").each(function(){
                     additional_designation.push($(this).val());         
-                })
-
-                zone_id = [];         
-                $(".zone").each(function(){
-                    zone_id.push($(this).val());           
                 })
 
                 deputation_posting_place = [];
@@ -1473,6 +1483,7 @@
                     data:{
                         id:$("#fetch_id").val(),
                         designation_id:designation_id,
+                        place_of_posting:place_of_posting,
                         deputation_designation:deputation_designation,
                         additional_designation:additional_designation,
                         mode_id:mode_id,
