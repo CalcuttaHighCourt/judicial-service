@@ -777,7 +777,7 @@ class JoEntryFormController extends Controller
                 if($request->flag_mode[$i]=='deputation'){
                     $jo_posting->designation_id = null;
                     $jo_posting->place_of_posting = null;
-                    $posting_zone = $request->deputation_zone[$i];
+                    $posting_zone = $request->zone_id[$i];
                     $jo_posting->deputation_designation = $request->deputation_designation[$i];
                     $jo_posting->deputation_posting_place = $request->deputation_posting_place[$i];
                 }

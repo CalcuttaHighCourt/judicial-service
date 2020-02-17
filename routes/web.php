@@ -147,15 +147,14 @@ Route::group(['middleware' => ['auth','role_manager:Administrator']],function ()
 
 	Route::get ( 'designation', function () {
 		return view ( 'designations.index' );
-	} );
-
+	});
+	
 
 	/*Register */
 
-	Route::get ( 'register', 'Auth\RegisterController@showRegistrationForm');
+	Route::get ('register', 'Auth\RegisterController@showRegistrationForm');
 
-	Route::post ( 'register', 'Auth\RegisterController@register' );
-
+	Route::post ('register', 'Auth\RegisterController@register');
 
 });
 // Master Maintenance :: END
