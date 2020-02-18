@@ -497,61 +497,65 @@ public function zone_pref_content(Request $request) {
 
                         $judicial_officer_details['posted_as'][$key]['0']['designation_name'].="<br><br>\n\n".$str;       
 
-                        foreach($zones as $key4=>$zone){                            
-                           $diff_days = 0;
+                        foreach($zones as $key4=>$zone){  
                            $zone_tenures = JoZoneTenure::where([ 
                                                                 ['judicial_officer_id','=',$station_pref->id],
                                                                 ['zone_id','=',$zone->id]
                                                             ])->select('from_date','to_date')->get();
-                            $str1="";
-
-                            foreach ($zone_tenures as $key3=>$zone_tenure){
-                                $from_date=Carbon::parse($zone_tenure->from_date);
-                                if($zone_tenure->to_date == null){
-                                    $to_date= Carbon::now();
-                                }
-                                else{
-                                    $to_date=Carbon::parse($zone_tenure->to_date);
-                                }
-                                    
-                                $diff_days += $from_date->diffInDays($to_date);                                
-                            }
-
-                            //Calculation and string creation for duration spend in a zone in Y-M-D format:start 
-                            $tenure="";                            
-                           
                             
-                            if( $diff_days >= 365){
-                                $years =  floor($diff_days/365);
-                                $days = fmod($diff_days,365);
-                                if($days > 30){
-                                    $months= floor($days/30);
-                                    $days = fmod($days,30);
+                            if(sizeof($zone_tenures)>0){
+                                $str1="";
+                                $diff_days = 0;
 
-                                    $tenure=$years." Y ".$months." M ".$days." D ";
+                                foreach ($zone_tenures as $key3=>$zone_tenure){
+                                    $from_date=Carbon::parse($zone_tenure->from_date);
+                                    if($zone_tenure->to_date == null){
+                                        $to_date= Carbon::now();
+                                    }
+                                    else{
+                                        $to_date=Carbon::parse($zone_tenure->to_date);
+                                    }
+                                        
+                                    $diff_days += $from_date->diffInDays($to_date);                                
                                 }
-                                else{
-                                    $tenure=$years." Y ".$days." D ";
-                                }                                
+
+                                //Calculation and string creation for duration spend in a zone in Y-M-D format:start 
+                                $tenure="";                            
+                            
+                                
+                                if($diff_days >= 365){
+                                    $years =  floor($diff_days/365);
+                                    $days = fmod($diff_days,365);
+                                    if($days > 30){
+                                        $months= floor($days/30);
+                                        $days = fmod($days,30);
+
+                                        $tenure=$years." Y ".$months." M ".$days." D ";
+                                    }
+                                    else{
+                                        $tenure=$years." Y ".$days." D ";
+                                    }                                
+                                }
+                                else if($diff_days >= 30){
+
+                                    $months = floor($diff_days,12);
+                                    $days = fmod($diff_days,12);
+
+                                    $tenure=$months." M ".$days." D ";
+                                }
+                                else if($diff_days > 0){
+
+                                    $tenure=$diff_days." D ";
+                                }
+                                
+                                $str1.="<br>\n Zone ".$zone->zone_name." : ".$tenure;
+
+                                //Calculation and string creation for duration spend in a zone in Y-M-D format:end
+                                $judicial_officer_details['zone_tenure'][$key][$key4]=$str1;
                             }
-                            else if($diff_days >= 30){
-
-                                $months = floor($diff_days,12);
-                                $days = fmod($diff_days,12);
-
-                                $tenure=$months." M ".$days." D ";
+                            else{
+                                $judicial_officer_details['zone_tenure'][$key][$key4] = 'Yet to be posted.';
                             }
-                            else if($diff_days > 0){
-
-                                $tenure=$diff_days." D ";
-                            }
-                            else
-                                $tenure="Yet to be posted.";
-
-                            $str1.="<br>\n Zone ".$zone->zone_name." : ".$tenure;
-
-                            //Calculation and string creation for duration spend in a zone in Y-M-D format:end
-                            $judicial_officer_details['zone_tenure'][$key][$key4]=$str1;
 
                         }    
                         

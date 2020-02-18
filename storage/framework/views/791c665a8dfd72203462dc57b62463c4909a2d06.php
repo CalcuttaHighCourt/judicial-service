@@ -979,6 +979,7 @@
                 to_year.push($(this).val());
             })
 
+            zone_id = "";
             if(flag_mode=='deputation')
                 zone_id = $("#zone").val();
             else if(flag_mode=='regular')
