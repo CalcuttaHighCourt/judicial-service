@@ -525,7 +525,7 @@
                     <div class="text-center">  
                         <img src="{{asset('images/FacelessMan.png')}}" class="avatar img-circle img-thumbnail" alt="avatar" style="height:30%;width:20%">
                         <h6><span style="color:red">*</span>Supported Image File Type: jpeg / png / jpg / gif</h6>
-                        <h6><span style="color:red">*</span>Max File Size: 50 KB</h6>
+                        <h6><span style="color:red">*</span>Max File Size: 2 MB</h6>
                         <input type="file" id="profile_image" name="profile_image" class="text-center center-block file-upload" accept="image/png, image/jpg, image/jpeg, image/gif">                                      
                     </div>
                 </form>
@@ -940,8 +940,8 @@
 
                 var picsize = ($("#profile_image")[0].files[0].size);
 
-                if (picsize > 51200){
-                    swal("Oversized Image","Image should be less than 50 KB","error");
+                if (picsize > 2097152){
+                    swal("Oversized Image","Image should be less than 2 MB","error");
                     return false;
                 } 
             }

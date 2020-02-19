@@ -140,10 +140,15 @@ class JoEntryFormController extends Controller
                 for($i=0;$i<sizeof($request->qualification_id);$i++){
                     $jo_qualification = new JudicialOfficerQualification;
 
+                    if(empty($request->passing_year[$i]))
+                        $passing_year = null;
+                    else
+                        $passing_year = $request->passing_year[$i];
+
                     if(!empty($request->qualification_id[$i])){
                         $jo_qualification->judicial_officer_id = $judicial_officer;
                         $jo_qualification->qualification_id = $request->qualification_id[$i];
-                        $jo_qualification->passing_year = $request->passing_year[$i];                        
+                        $jo_qualification->passing_year = $passing_year;                        
 
                         $qualification_details[$i] = $jo_qualification->save();
                     }
@@ -158,11 +163,21 @@ class JoEntryFormController extends Controller
                 for($i=0;$i<sizeof($request['subdivision_id']);$i++){
                     $jo_legal_experience = new JoLegalExperience;
 
+                    if(empty($request->from_year[$i]))
+                        $from_year = null;
+                    else
+                        $from_year = $request->from_year[$i];
+
+                    if(empty($request->to_year[$i]))
+                        $to_year = null;
+                    else
+                        $to_year = $request->to_year[$i];
+
                     if(!empty($request->subdivision_id[$i])){
                         $jo_legal_experience->judicial_officer_id = $judicial_officer;                       
                         $jo_legal_experience->subdivision_id = $request->subdivision_id[$i];
-                        $jo_legal_experience->from_year = $request->from_year[$i];
-                        $jo_legal_experience->to_year = $request->to_year[$i];
+                        $jo_legal_experience->from_year = $from_year;
+                        $jo_legal_experience->to_year = $to_year;
 
                         $jo_legal_experience_details[$i] = $jo_legal_experience->save();
                     }
@@ -315,7 +330,7 @@ class JoEntryFormController extends Controller
     // profile image upload
     public function jo_upload_image(Request $request){
         $this->validate( $request, [ 
-            'profile_image' => 'required|file|mimes:jpeg,png,jpg,gif|max:50'
+            'profile_image' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
         
         $jo_details = JudicialOfficer::orderBy('id','desc')->get();
@@ -515,7 +530,11 @@ class JoEntryFormController extends Controller
         else
             $jo_details['basic_contact_details']->date_of_confirmation = "";
 
-        $jo_details['basic_contact_details']->profile_image = asset('images/judicial_officers/'.$jo_details['basic_contact_details']->registration_no.'/'.$jo_details['basic_contact_details']->profile_image);
+        
+        if($jo_details['basic_contact_details']->profile_image != null || $jo_details['basic_contact_details']->profile_image != '')
+            $jo_details['basic_contact_details']->profile_image = asset('images/judicial_officers/'.$jo_details['basic_contact_details']->registration_no.'/'.$jo_details['basic_contact_details']->profile_image);
+        else
+            $jo_details['basic_contact_details']->profile_image = asset('images/FacelessMan.png');
 
         // Qualification Details
         $jo_details['qualification_details'] = JudicialOfficerQualification::where('judicial_officer_id',$request->jo_id)
@@ -691,7 +710,7 @@ class JoEntryFormController extends Controller
     public function update_profile_image(Request $request){
         $this->validate( $request, [ 
             'id' => 'required|max:99999|exists:judicial_officers,id',
-            'profile_image' => 'required|file|mimes:jpeg,png,jpg,gif|max:50'            
+            'profile_image' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048'            
         ]);
         
         $jo_details = JudicialOfficer::where('id',$request->id)->get();
@@ -905,7 +924,7 @@ class JoEntryFormController extends Controller
             'from_year' => 'array',
             'from_year.*' => 'nullable|required_with:to_year.*|integer|min:1900|max:to_year.*',
             'to_year' => 'array',
-            'to_year.*' => 'nullable|required_with:from_year.*|integer|min:from_year.*|max:'.date('Y'),            
+            'to_year.*' => 'nullable|required_with:from_year.*|integer|max:'.date('Y'),            
         ]);
 
         $response = array();    
@@ -919,11 +938,23 @@ class JoEntryFormController extends Controller
             for($i=0;$i<sizeof($request['subdivision_id']);$i++){
                 $jo_legal_experience = new JoLegalExperience;
 
+                if(empty($request->from_year[$i]))
+                    $from_year = null;
+                else
+                    $from_year = $request->from_year[$i];
+
+                
+                if(empty($request->to_year[$i]))
+                    $to_year = null;
+                else
+                    $to_year = $request->to_year[$i];
+
+
                 if(!empty($request->subdivision_id[$i])){
                     $jo_legal_experience->judicial_officer_id = $request->id;                       
                     $jo_legal_experience->subdivision_id = $request->subdivision_id[$i];
-                    $jo_legal_experience->from_year = $request->from_year[$i];
-                    $jo_legal_experience->to_year = $request->to_year[$i];
+                    $jo_legal_experience->from_year = $from_year;
+                    $jo_legal_experience->to_year = $to_year;
 
                     $jo_legal_experience_details[$i] = $jo_legal_experience->save();
                 }
@@ -967,10 +998,15 @@ class JoEntryFormController extends Controller
             for($i=0;$i<sizeof($request->qualification_id);$i++){
                 $jo_qualification = new JudicialOfficerQualification;
 
+                if(empty($request->passing_year[$i]))
+                    $passing_year = null;
+                else
+                    $passing_year = $request->passing_year[$i];
+
                 if(!empty($request->qualification_id[$i])){
                     $jo_qualification->judicial_officer_id = $request->id;
                     $jo_qualification->qualification_id = $request->qualification_id[$i];
-                    $jo_qualification->passing_year = $request->passing_year[$i];                        
+                    $jo_qualification->passing_year = $passing_year;                        
 
                     $qualification_details[$i] = $jo_qualification->save();
                 }

@@ -941,8 +941,8 @@
 
                 var picsize = ($("#profile_image")[0].files[0].size);
 
-                if (picsize > 51200){
-                    swal("Oversized Image","Image should be less than 50 KB","error");
+                if (picsize > 2097152){
+                    swal("Oversized Image","Image should be less than 2 MB","error");
                     return false;
                 } 
             }

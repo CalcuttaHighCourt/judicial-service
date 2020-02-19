@@ -410,9 +410,12 @@ public function zone_pref_content(Request $request) {
 
         public function preference_display_for_appointment(Request $request){
                
-                $judicial_officer_details['display_pref_for_jo'] = JudicialOfficer:: where('posting_preference_window_flag','=','Y')
-                                                                                    ->select('id','officer_name','jo_code','hometown','home_state_id','registration_no','profile_image')
-                                                                                    ->get();
+            $judicial_officer_details['display_pref_for_jo'] = JudicialOfficer::join('states','judicial_officers.home_state_id','=','states.id') 
+                                                                                ->where('posting_preference_window_flag','=','Y')
+                                                                                ->select('judicial_officers.id','officer_name','jo_code','hometown','home_state_id', 'state_name','registration_no','profile_image')
+                                                                                ->orderBy('date_of_joining')
+                                                                                ->orderBy('date_of_birth')
+                                                                                ->get();
 
                 $zones = Zone::orderBy('zone_name')->get();
                 
@@ -426,7 +429,7 @@ public function zone_pref_content(Request $request) {
 
                         if($judicial_officer_details['display_pref_for_jo'][$key]->profile_image!=null){
                         
-                            $str1 = $judicial_officer_details['display_pref_for_jo'][$key]->officer_name."/".$judicial_officer_details['display_pref_for_jo'][$key]->jo_code. "<br><br>\n\n<img src ='". $profile_image."' style ='height:18%' >";
+                            $str1 = $judicial_officer_details['display_pref_for_jo'][$key]->officer_name."/".$judicial_officer_details['display_pref_for_jo'][$key]->jo_code. "<br><br>\n\n<img src ='". $profile_image."' style ='height:80px' >";
                         }
                         else{
                             $str1= $judicial_officer_details['display_pref_for_jo'][$key]->officer_name."/".$judicial_officer_details['display_pref_for_jo'][$key]->jo_code;
@@ -448,17 +451,16 @@ public function zone_pref_content(Request $request) {
                                                                                         ->orderBy('judicial_officer_postings.from_date','DESC')
                                                                                         ->limit(1)
                                                                                         ->get();                           
-                                                                                       
                         if($judicial_officer_details['posted_as'][$key]['0']['designation_id'] == null){
                             $judicial_officer_details['posted_as'][$key]['0']['designation_name']="<strong>Currently Deputed as</strong> ".$judicial_officer_details['posted_as'][$key]['0']['deputation_designation']." At ".$judicial_officer_details['posted_as'][$key]['0']['deputation_posting_place']." From ". Carbon::parse($judicial_officer_details['posted_as'][$key]['0']['from_date'])->format('d-m-Y');
                             
                         }
                         else if($judicial_officer_details['posted_as'][$key]['0']['additional_designation'] != null){
-                            $judicial_officer_details['posted_as'][$key]['0']['designation_name']="<strong>Currently Posted as</strong> ".$judicial_officer_details['posted_as'][$key]['0']['designation_name']." From ". Carbon::parse($judicial_officer_details['posted_as'][$key]['0']['from_date'])->format('d-m-Y')." And ".$judicial_officer_details['posted_as'][$key]['0']['additional_designation'];
+                            $judicial_officer_details['posted_as'][$key]['0']['designation_name']="<strong>Currently Posted as</strong> ".$judicial_officer_details['posted_as'][$key]['0']['designation_name'].", ".$judicial_officer_details['posted_as'][$key]['0']['place_of_posting']." From ". Carbon::parse($judicial_officer_details['posted_as'][$key]['0']['from_date'])->format('d-m-Y')." And ".$judicial_officer_details['posted_as'][$key]['0']['additional_designation'];
                            
                         }
                         else{
-                            $judicial_officer_details['posted_as'][$key]['0']['designation_name']="<strong>Currently Posted as</strong> ".$judicial_officer_details['posted_as'][$key]['0']['designation_name']." From ". Carbon::parse($judicial_officer_details['posted_as'][$key]['0']['from_date'])->format('d-m-Y');
+                            $judicial_officer_details['posted_as'][$key]['0']['designation_name']="<strong>Currently Posted as</strong> ".$judicial_officer_details['posted_as'][$key]['0']['designation_name'].", ".$judicial_officer_details['posted_as'][$key]['0']['place_of_posting']." From ". Carbon::parse($judicial_officer_details['posted_as'][$key]['0']['from_date'])->format('d-m-Y');
                             
                         } 
                         
@@ -469,7 +471,7 @@ public function zone_pref_content(Request $request) {
                                                                                                             ->leftjoin('zones','judicial_officer_postings.zone_id','=','zones.id')                                                                                      
                                                                                                             ->where('judicial_officer_postings.judicial_officer_id','=',$station_pref->id)
                                                                                                             ->orderBy('judicial_officer_postings.from_date','ASC')
-                                                                                                            ->select('judicial_officer_postings.judicial_officer_id','designations.designation_name', 'judicial_officer_postings.additional_designation',
+                                                                                                            ->select('judicial_officer_postings.judicial_officer_id','designations.designation_name', 'place_of_posting', 'judicial_officer_postings.additional_designation',
                                                                                                                     'judicial_officer_postings.deputation_designation','judicial_officer_postings.deputation_posting_place',
                                                                                                                     'judicial_officer_postings.from_date','judicial_officer_postings.to_date','zones.zone_name')
                                                                                                             ->get();
@@ -484,13 +486,13 @@ public function zone_pref_content(Request $request) {
                             $posting['from_date'] = Carbon::parse($posting['from_date'])->format('d-m-Y');  
 
                             if($posting['designation_name']==null){
-                                $str.= "<strong>".($key5+1).".</strong> Deputed as ".$posting['deputation_designation']. "At ".$posting['deputation_posting_place']." From ".$posting['from_date']." To ".$posting['to_date'];
+                                $str.= "<strong>".($key5+1).".</strong> Deputed as ".$posting['deputation_designation']. " At ".$posting['deputation_posting_place']." From ".$posting['from_date']." To ".$posting['to_date'];
                             }
                             else if( $posting['additional_designation'] !=null){
-                                $str.= "<strong>".($key5+1).".</strong> Posted as ".$posting['designation_name']." From ".$posting['from_date']." To ".$posting['to_date']." And ".$posting['additional_designation'];
+                                $str.= "<strong>".($key5+1).".</strong> Posted as ".$posting['designation_name'].", ".$posting['place_of_posting']." From ".$posting['from_date']." To ".$posting['to_date']." And ".$posting['additional_designation'];
                             }
                             else{
-                                $str.= "<strong>".($key5+1).". </strong> Posted as ".$posting['designation_name']." From ".$posting['from_date']." To ".$posting['to_date'];
+                                $str.= "<strong>".($key5+1).". </strong> Posted as ".$posting['designation_name'].", ".$posting['place_of_posting']." From ".$posting['from_date']." To ".$posting['to_date'];
                             }
                             $str.=" <strong> (Zone: ".$posting->zone_name.") </strong>";
                         }
@@ -498,9 +500,11 @@ public function zone_pref_content(Request $request) {
                         $judicial_officer_details['posted_as'][$key]['0']['designation_name'].="<br><br>\n\n".$str;       
 
                         foreach($zones as $key4=>$zone){  
-                           $zone_tenures = JoZoneTenure::where([ 
+                           $zone_tenures = JudicialOfficerPosting::join('modes','judicial_officer_postings.mode_id','=','modes.id')
+                                                            ->where([ 
                                                                 ['judicial_officer_id','=',$station_pref->id],
-                                                                ['zone_id','=',$zone->id]
+                                                                ['zone_id','=',$zone->id],
+                                                                ['posting_mode','not ilike',"%On Probation%"]
                                                             ])->select('from_date','to_date')->get();
                             
                             if(sizeof($zone_tenures)>0){
@@ -523,47 +527,44 @@ public function zone_pref_content(Request $request) {
                                 $tenure="";                            
                             
                                 
-                                if($diff_days >= 365){
+                                if( $diff_days >= 365){
                                     $years =  floor($diff_days/365);
                                     $days = fmod($diff_days,365);
                                     if($days > 30){
                                         $months= floor($days/30);
                                         $days = fmod($days,30);
-
-                                        $tenure=$years." Y ".$months." M ".$days." D ";
+    
+                                        $tenure=$years." Year(s) ".$months." Month(s) ".$days." Day(s) ";
                                     }
                                     else{
-                                        $tenure=$years." Y ".$days." D ";
+                                        $tenure=$years." Year(s) ".$days." Day(s) ";
                                     }                                
                                 }
                                 else if($diff_days >= 30){
-
-                                    $months = floor($diff_days,12);
+    
+                                    $months = floor($diff_days/12);
                                     $days = fmod($diff_days,12);
-
-                                    $tenure=$months." M ".$days." D ";
+    
+                                    $tenure=$months." Month(s) ".$days." Day(s) ";
                                 }
                                 else if($diff_days > 0){
-
-                                    $tenure=$diff_days." D ";
+    
+                                    $tenure=$diff_days." Day(s) ";
                                 }
-                                
-                                $str1.="<br>\n Zone ".$zone->zone_name." : ".$tenure;
+                                else
+                                    $tenure="Yet to be posted.";
+    
+                                $str1.="<br><br>\n\n Zone ".$zone->zone_name." : ".$tenure;
 
                                 //Calculation and string creation for duration spend in a zone in Y-M-D format:end
                                 $judicial_officer_details['zone_tenure'][$key][$key4]=$str1;
                             }
                             else{
-                                $judicial_officer_details['zone_tenure'][$key][$key4] = 'Yet to be posted.';
+                                $judicial_officer_details['zone_tenure'][$key][$key4] = "<br>\n Zone ".$zone->zone_name." : Yet to be posted.";
                             }
 
-                        }    
+                        }   
                         
-                        //Home state 
-                        // $str.= "<br>\n";
-                        $judicial_officer_details['home_state'][$key] = JudicialOfficer::join('states','judicial_officers.home_state_id','=','states.id')  
-                                                                                    ->where('judicial_officers.home_state_id','=',$station_pref->home_state_id)  
-                                                                                    ->select('state_name')->get();
 
                         //Legal Practice Subdivisions
                         $judicial_officer_details['practice_subdivision'][$key] = JoLegalExperience::join('judicial_officers','jo_legal_experiences.judicial_officer_id','=','judicial_officers.id')

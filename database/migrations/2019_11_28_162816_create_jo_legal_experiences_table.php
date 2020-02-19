@@ -17,8 +17,8 @@ class CreateJoLegalExperiencesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('judicial_officer_id');
             $table->integer('subdivision_id');
-            $table->integer('from_year');
-            $table->integer('to_year');
+            $table->integer('from_year')->nullable();
+            $table->integer('to_year')->nullable();
             $table->timestamps();
 
             $table->foreign('judicial_officer_id')->references('id')->on('judicial_officers');

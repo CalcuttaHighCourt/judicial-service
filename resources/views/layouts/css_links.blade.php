@@ -1,10 +1,7 @@
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{asset('css/font-awesome/css/font-awesome.min.css')}}">
-    
-    <!-- Glyphicons -->
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/font-awesome/css/font-awesome.min.css')}}">    
     
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('css/AdminLTE.min.css')}}">

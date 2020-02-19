@@ -43,8 +43,8 @@
 
 <!--loader starts-->
 <div class="col-sm-offset-5 col-md-3" id="wait" style="display:none;">
-   <img src='images/loader.gif'width="25%" height="10%" />
-   <br>Loading..
+    <img src="<?php echo e(asset('images/loader.gif')); ?>" width="25%" height="10%" />
+    <br>Loading..
 </div>
 <!--loader ends-->
 

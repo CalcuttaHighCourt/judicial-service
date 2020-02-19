@@ -723,7 +723,7 @@
                                         <div class="text-center">  
                                             <img src="{{asset('images/FacelessMan.png')}}" class="avatar img-circle img-thumbnail" alt="avatar" style="height:20%;width:10%">
                                             <h6><span style="color:red">*</span>Supported Image File Type: jpeg / png / jpg / gif</h6>
-                                            <h6><span style="color:red">*</span>Max File Size: 50 KB</h6>
+                                            <h6><span style="color:red">*</span>Max File Size: 2 MB</h6>
                                             <input type="file" id="profile_image" name="profile_image" class="text-center center-block file-upload" accept="image/png, image/jpg, image/jpeg, image/gif">                                      
                                             <input type="integer" name="id" id="id" style="display:none">
                                         </div>
