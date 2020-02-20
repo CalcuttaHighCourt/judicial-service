@@ -2,7 +2,8 @@
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('css/font-awesome/css/font-awesome.min.css')}}">    
-    
+     {{-- <!-- Glaphicon -->
+     <link rel="stylesheet" href="{{asset('css/bootstrap-glaphycons.css')}}">  --}}
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('css/AdminLTE.min.css')}}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
