@@ -273,9 +273,12 @@ class JoDetailsPdfController extends Controller
 
         $mpdf = new \Mpdf\Mpdf(['orientation' => 'L']);
 
-        $judicial_officer_details['display_pref_for_jo'] = JudicialOfficer:: where('posting_preference_window_flag','=','Y')
-                                                                                    ->select('id','officer_name','jo_code','hometown','home_state_id','registration_no','profile_image')
-                                                                                    ->get();
+        $judicial_officer_details['display_pref_for_jo'] = JudicialOfficer::join('states','judicial_officers.home_state_id','=','states.id') 
+                                                                            ->where('posting_preference_window_flag','=','Y')
+                                                                            ->select('judicial_officers.id','officer_name','jo_code','hometown','home_state_id', 'state_name','registration_no','profile_image')
+                                                                            ->orderBy('date_of_joining')
+                                                                            ->orderBy('date_of_birth')
+                                                                            ->get();
 
                 $zones = Zone::orderBy('zone_name')->get();
                 
@@ -317,11 +320,11 @@ class JoDetailsPdfController extends Controller
                             
                         }
                         else if($judicial_officer_details['posted_as'][$key]['0']['additional_designation'] != null){
-                            $judicial_officer_details['posted_as'][$key]['0']['designation_name']="<strong>Currently Posted as</strong> ".$judicial_officer_details['posted_as'][$key]['0']['designation_name']." From ". Carbon::parse($judicial_officer_details['posted_as'][$key]['0']['from_date'])->format('d-m-Y')." And ".$judicial_officer_details['posted_as'][$key]['0']['additional_designation'];
+                            $judicial_officer_details['posted_as'][$key]['0']['designation_name']="<strong>Currently Posted as</strong> ".$judicial_officer_details['posted_as'][$key]['0']['designation_name'].", ".$judicial_officer_details['posted_as'][$key]['0']['place_of_posting']." From ". Carbon::parse($judicial_officer_details['posted_as'][$key]['0']['from_date'])->format('d-m-Y')." And ".$judicial_officer_details['posted_as'][$key]['0']['additional_designation'];
                            
                         }
                         else{
-                            $judicial_officer_details['posted_as'][$key]['0']['designation_name']="<strong>Currently Posted as</strong> ".$judicial_officer_details['posted_as'][$key]['0']['designation_name']." From ". Carbon::parse($judicial_officer_details['posted_as'][$key]['0']['from_date'])->format('d-m-Y');
+                            $judicial_officer_details['posted_as'][$key]['0']['designation_name']="<strong>Currently Posted as</strong> ".$judicial_officer_details['posted_as'][$key]['0']['designation_name'].", ".$judicial_officer_details['posted_as'][$key]['0']['place_of_posting']." From ". Carbon::parse($judicial_officer_details['posted_as'][$key]['0']['from_date'])->format('d-m-Y');
                             
                         } 
                         
@@ -332,7 +335,7 @@ class JoDetailsPdfController extends Controller
                                                                                                             ->leftjoin('zones','judicial_officer_postings.zone_id','=','zones.id')                                                                                      
                                                                                                             ->where('judicial_officer_postings.judicial_officer_id','=',$station_pref->id)
                                                                                                             ->orderBy('judicial_officer_postings.from_date','ASC')
-                                                                                                            ->select('judicial_officer_postings.judicial_officer_id','designations.designation_name', 'judicial_officer_postings.additional_designation',
+                                                                                                            ->select('judicial_officer_postings.judicial_officer_id','designations.designation_name', 'place_of_posting', 'judicial_officer_postings.additional_designation',
                                                                                                                     'judicial_officer_postings.deputation_designation','judicial_officer_postings.deputation_posting_place',
                                                                                                                     'judicial_officer_postings.from_date','judicial_officer_postings.to_date','zones.zone_name')
                                                                                                             ->get();
@@ -350,10 +353,10 @@ class JoDetailsPdfController extends Controller
                                 $str.= "<strong>".($key5+1).".</strong> Deputed as ".$posting['deputation_designation']. "At ".$posting['deputation_posting_place']." From ".$posting['from_date']." To ".$posting['to_date'];
                             }
                             else if( $posting['additional_designation'] !=null){
-                                $str.= "<strong>".($key5+1).".</strong> Posted as ".$posting['designation_name']." From ".$posting['from_date']." To ".$posting['to_date']." And ".$posting['additional_designation'];
+                                $str.= "<strong>".($key5+1).".</strong> Posted as ".$posting['designation_name'].", ".$posting['place_of_posting']." From ".$posting['from_date']." To ".$posting['to_date']." And ".$posting['additional_designation'];
                             }
                             else{
-                                $str.= "<strong>".($key5+1).". </strong> Posted as ".$posting['designation_name']." From ".$posting['from_date']." To ".$posting['to_date'];
+                                $str.= "<strong>".($key5+1).". </strong> Posted as ".$posting['designation_name'].", ".$posting['place_of_posting']." From ".$posting['from_date']." To ".$posting['to_date'];
                             }
                             $str.=" <strong> (Zone: ".$posting->zone_name.") </strong>";
                         }
@@ -362,10 +365,12 @@ class JoDetailsPdfController extends Controller
 
                         foreach($zones as $key4=>$zone){                            
                            $diff_days = 0;
-                           $zone_tenures = JoZoneTenure::where([ 
-                                                                ['judicial_officer_id','=',$station_pref->id],
-                                                                ['zone_id','=',$zone->id]
-                                                            ])->select('from_date','to_date')->get();
+                           $zone_tenures = JudicialOfficerPosting::join('modes','judicial_officer_postings.mode_id','=','modes.id')
+                                                                ->where([ 
+                                                                    ['judicial_officer_id','=',$station_pref->id],
+                                                                    ['zone_id','=',$zone->id],
+                                                                    ['posting_mode','not ilike',"%On Probation%"]
+                                                                ])->select('from_date','to_date')->get();
                             $str1="";
 
                             foreach ($zone_tenures as $key3=>$zone_tenure){
@@ -391,39 +396,34 @@ class JoDetailsPdfController extends Controller
                                     $months= floor($days/30);
                                     $days = fmod($days,30);
 
-                                    $tenure=$years." Y ".$months." M ".$days." D ";
+                                    $tenure=$years." Year(s) ".$months." Month(s) ".$days." Day(s) ";
                                 }
                                 else{
-                                    $tenure=$years." Y ".$days." D ";
+                                    $tenure=$years." Year(s) ".$days." Day(s) ";
                                 }                                
                             }
                             else if($diff_days >= 30){
 
-                                $months = floor($diff_days,12);
+                                $months = floor($diff_days/12);
                                 $days = fmod($diff_days,12);
 
-                                $tenure=$months." M ".$days." D ";
+                                $tenure=$months." Month(s) ".$days." Day(s) ";
                             }
                             else if($diff_days > 0){
 
-                                $tenure=$diff_days." D ";
+                                $tenure=$diff_days." Day(s) ";
                             }
                             else
                                 $tenure="Yet to be posted.";
 
-                            $str1.="<br>\n Zone ".$zone->zone_name." : ".$tenure;
+                            $str1.="<br><br>\n\n Zone ".$zone->zone_name." : ".$tenure;
 
                             //Calculation and string creation for duration spend in a zone in Y-M-D format:end
                             $judicial_officer_details['zone_tenure'][$key][$key4]=$str1;
 
                         }    
                         
-                        //Home state 
-                        // $str.= "<br>\n";
-                        $judicial_officer_details['home_state'][$key] = JudicialOfficer::join('states','judicial_officers.home_state_id','=','states.id')  
-                                                                                    ->where('judicial_officers.home_state_id','=',$station_pref->home_state_id)  
-                                                                                    ->select('state_name')->get();
-
+                     
                         //Legal Practice Subdivisions
                         $judicial_officer_details['practice_subdivision'][$key] = JoLegalExperience::join('judicial_officers','jo_legal_experiences.judicial_officer_id','=','judicial_officers.id')
                                                                                                     ->join('subdivisions','jo_legal_experiences.subdivision_id','=','subdivisions.id')
@@ -435,7 +435,7 @@ class JoDetailsPdfController extends Controller
                             foreach( $judicial_officer_details['practice_subdivision'][$key] as $key6=>$practice_details)
                             
                             $judicial_officer_details['practice_subdivision'][$key][$key6]['subdivision_name']=$judicial_officer_details['practice_subdivision'][$key][$key6]['subdivision_name']." From ".$judicial_officer_details['practice_subdivision'][$key][$key6]['from_year']." To ".$judicial_officer_details['practice_subdivision'][$key][$key6]['to_year'];
-                            //print_r()
+                            
                         }
 
                         //spouse details
@@ -521,7 +521,8 @@ class JoDetailsPdfController extends Controller
                 $content.=$judicial_officer_details['zone_tenure'][$i][$j];
             }
            
-            $content.= "<br><br><strong>Hometown</strong> : ".$judicial_officer_details['display_pref_for_jo'][$i]['hometown'].", ".$judicial_officer_details['home_state']['0'][$i]['state_name'] ;
+            if(!empty($judicial_officer_details['display_pref_for_jo'][$i]['hometown']))
+                $content.= "<br><br><strong>Hometown</strong> : ".$judicial_officer_details['display_pref_for_jo'][$i]['hometown'].", ".$judicial_officer_details['display_pref_for_jo'][$i]['state_name'];
            
             if(sizeof($judicial_officer_details['practice_subdivision'][$i])>0){
                 $content.="<br><br><strong>Place of Practice :</strong><br>";                

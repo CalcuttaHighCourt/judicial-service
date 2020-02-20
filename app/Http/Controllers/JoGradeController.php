@@ -103,7 +103,7 @@ class JoGradeController extends Controller
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->where('judicial_officer_postings.rank_id',"=",$rank_id)
                                             ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
-                                            ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                            ->whereDate('judicial_officers.date_of_retirement', ">=", $date_of_gradation )  
                                             ->count();  
         }
         else
@@ -120,7 +120,7 @@ class JoGradeController extends Controller
                                             )
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
-                                            ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                            ->whereDate('judicial_officers.date_of_retirement', ">=", $date_of_gradation )  
                                             ->where([
                                                         ['jo_grades.rank_id',$rank_id],
                                                         ['jo_grades.date_of_gradation',$date_of_gradation],
@@ -157,7 +157,7 @@ class JoGradeController extends Controller
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->where('judicial_officer_postings.rank_id',"=",$rank_id)
                                             ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
-                                            ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                            ->whereDate('judicial_officers.date_of_retirement', ">=", $date_of_gradation )  
                                             ->orderBy('judicial_officers.date_of_joining','desc')
                                             ->select('judicial_officers.id','judicial_officers.jo_code','judicial_officers.officer_name', 'judicial_officers.date_of_birth',  'judicial_officers.date_of_retirement','judicial_officer_postings.rank_id' ,'judicial_officers.date_of_joining', 'judicial_officer_postings.from_date' )                                    
                                             ->offset($start)
@@ -192,7 +192,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                                 ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                                 ->where('judicial_officer_postings.rank_id',"=",$rank_id)
                                                 ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
-                                                ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                                ->whereDate('judicial_officers.date_of_retirement', ">=", $date_of_gradation )  
                                                 ->orderBy('judicial_officers.date_of_joining','desc')
                                                 ->count();
 
@@ -212,7 +212,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->where('judicial_officer_postings.rank_id',"=",$rank_id)
                                             ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
-                                            ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                            ->whereDate('judicial_officers.date_of_retirement', ">=", $date_of_gradation )  
                                             ->where(function($query) use ($search){    
                                                 $query->orWhere('judicial_officers.officer_name','ilike',"%{$search}%");
                                                 $query->orWhere('judicial_officers.jo_code','ilike',"%{$search}%");                                                  
@@ -235,7 +235,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                                 ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                                 ->where('judicial_officer_postings.rank_id',"=",$rank_id)
                                                 ->whereDate('judicial_officer_postings.from_date', '<=', $date_of_gradation)
-                                                ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                                ->whereDate('judicial_officers.date_of_retirement', ">=", $date_of_gradation )  
                                                 ->where(function($query) use ($search){
                                                     $query->orWhere('judicial_officers.officer_name','ilike',"%{$search}%");
                                                     $query->orWhere('judicial_officers.jo_code','ilike',"%{$search}%");                                                          
@@ -263,7 +263,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                             )
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
-                                            ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                            ->whereDate('judicial_officers.date_of_retirement', ">=", $date_of_gradation )  
                                             ->where([
                                                         ['jo_grades.rank_id',$rank_id],
                                                         ['jo_grades.date_of_gradation',$date_of_gradation],
@@ -286,7 +286,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                                 )
                                                 ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                                 ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
-                                                ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                                ->whereDate('judicial_officers.date_of_retirement', ">=", $date_of_gradation )  
                                                 ->where([
                                                             ['jo_grades.rank_id',$rank_id],
                                                             ['jo_grades.date_of_gradation',$date_of_gradation],
@@ -309,7 +309,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                             )
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
-                                            ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                            ->whereDate('judicial_officers.date_of_retirement', ">=", $date_of_gradation )  
                                             ->where([
                                                         ['jo_grades.rank_id',$rank_id],
                                                         ['jo_grades.date_of_gradation',$date_of_gradation],
@@ -336,7 +336,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                                 )
                                                 ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                                 ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
-                                                ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                                ->whereDate('judicial_officers.date_of_retirement',">=",$date_of_gradation )  
                                                 ->where([
                                                             ['jo_grades.rank_id',$rank_id],
                                                             ['jo_grades.date_of_gradation',$date_of_gradation],
@@ -368,7 +368,11 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                    // $nestedData['year'] = "";
 
                     $nestedData['judicial_officer_id'] = $list->id;
-                    $nestedData['jo_name'] = $list->officer_name." || ".$list->jo_code;
+
+                    if( Carbon::today() > $list->date_of_retirement)
+                        $nestedData['jo_name'] = $list->officer_name." || ".$list->jo_code.'<br> <span class="badge badge-danger" style="background-color:blue">(Retired)</span>';
+                    else
+                        $nestedData['jo_name'] = $list->officer_name." || ".$list->jo_code;
                    
                     $nestedData['date_of_birth'] =Carbon::parse ($list->date_of_birth)->format('d-m-Y');
                     $nestedData['date_of_retirement'] = Carbon::parse ($list->date_of_retirement)->format('d-m-Y');
@@ -588,7 +592,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                         ) 
                                         ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                         ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
-                                        ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                        ->whereDate('judicial_officers.date_of_retirement', ">=", $date_of_gradation )  
                                         ->where([
                                                     ['jo_grades.rank_id',$rank_id],
                                                     ['jo_grades.date_of_gradation',$date_of_gradation]
@@ -614,7 +618,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                         )
                                         ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                         ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
-                                        ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                        ->whereDate('judicial_officers.date_of_retirement', ">=", $date_of_gradation )  
                                         ->where([
                                                     ['jo_grades.rank_id',$rank_id],
                                                     ['jo_grades.date_of_gradation',$date_of_gradation]
@@ -636,7 +640,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                             )
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
-                                            ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                            ->whereDate('judicial_officers.date_of_retirement', ">=", $date_of_gradation )  
                                             ->where([
                                                         ['jo_grades.rank_id',$rank_id],
                                                         ['jo_grades.date_of_gradation',$date_of_gradation]
@@ -660,7 +664,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                         )
                                         ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                         ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
-                                        ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                        ->whereDate('judicial_officers.date_of_retirement', ">=", $date_of_gradation )  
                                         ->where([
                                                     ['jo_grades.rank_id',$rank_id],
                                                     ['jo_grades.date_of_gradation',$date_of_gradation]
@@ -686,7 +690,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                                             )
                                             ->join('ranks','judicial_officer_postings.rank_id','=','ranks.id')
                                             ->join('jo_grades','judicial_officers.id','=','jo_grades.judicial_officer_id')
-                                            ->whereDate('judicial_officers.date_of_retirement', ">=", Carbon::today() )  
+                                            ->whereDate('judicial_officers.date_of_retirement', ">=", $date_of_gradation )  
                                             ->where([
                                                         ['jo_grades.rank_id',$rank_id],
                                                         ['jo_grades.date_of_gradation',$date_of_gradation]
@@ -725,6 +729,10 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
 
                         $nestedData['jo_name'] = $list->officer_name." || ".$list->jo_code. '<br> <span class="badge badge-danger" style="background-color:red">(Current Rank: '.$currnet_rank_name[0]->rank_name.')</span>';
                    }                       
+                   else if( Carbon::today() > $list->date_of_retirement)
+                   {
+                        $nestedData['jo_name'] = $list->officer_name." || ".$list->jo_code. '<br> <span class="badge badge-danger" style="background-color:blue">(Retired)</span>';
+                   }
                    else
                    {
                         $nestedData['jo_name'] = $list->officer_name." || ".$list->jo_code;
@@ -732,6 +740,7 @@ where judicial_officer_postings.rank_id = 1 and judicial_officer_postings.from_d
                         
                    
                     $nestedData['date_of_birth'] =Carbon::parse ($list->date_of_birth)->format('d-m-Y');
+
                     $nestedData['date_of_retirement'] = Carbon::parse ($list->date_of_retirement)->format('d-m-Y');
                     $nestedData['date_of_joining'] = Carbon::parse ($list->date_of_joining)->format('d-m-Y');
 

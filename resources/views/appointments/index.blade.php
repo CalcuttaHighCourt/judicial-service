@@ -43,8 +43,8 @@
 
 <!--loader starts-->
 <div class="col-sm-offset-5 col-md-3" id="wait" style="display:none;">
-   <img src='images/loader.gif'width="25%" height="10%" />
-   <br>Loading..
+    <img src="{{asset('images/loader.gif')}}" width="25%" height="10%" />
+    <br>Loading..
 </div>
 <!--loader ends-->
 
@@ -128,8 +128,9 @@
                         str+=obj.zone_tenure[i][j];
                     }
                     //hometown
-                   
-                    str+= "<br>\n<strong>Hometown</strong> : "+obj.display_pref_for_jo[i].hometown+", "+obj.home_state['0'][i].state_name ;
+                    
+                    if(obj.display_pref_for_jo[i].hometown!="" && obj.display_pref_for_jo[i].hometown!=null)
+                        str+= "<br>\n<strong>Hometown</strong> : "+obj.display_pref_for_jo[i].hometown+", "+obj.display_pref_for_jo[i].state_name ;
                    
                     if( obj.practice_subdivision[i].length>0){
                         str+="<br><br>\n\n<strong>Place of Practice :</strong><br>";

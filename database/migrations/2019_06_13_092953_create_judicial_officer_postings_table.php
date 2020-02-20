@@ -20,6 +20,7 @@ class CreateJudicialOfficerPostingsTable extends Migration
             $table->integer('rank_id');
             $table->integer('zone_id');
             $table->integer('designation_id')->nullable();
+            $table->string('place_of_posting')->nullable();
             $table->string('deputation_designation')->nullable();
             $table->string('additional_designation')->nullable();
             $table->string('deputation_posting_place')->nullable();            

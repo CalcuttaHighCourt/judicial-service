@@ -416,6 +416,16 @@
                                         <select class="form-control info-form-control posting_select2 select2" id="designation_id" style="width:100%">
                                             <option value="">Select an Option</option>
                                         </select>
+                                    </div> 
+                                    
+                                    <div class="form-group required col-xs-3">
+                                        <label class="control-label">
+                                                Place of Posting 
+                                        </label>
+                                        <select class="form-control info-form-control place_of_posting select2" id="place_of_posting" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            <?php echo $__env->make('place_of_posting.place_of_posting_option', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                        </select>
                                     </div>  
                                 </div>
                                 <div class="mode_deputation_div" style="display:none">
@@ -433,15 +443,17 @@
                                     </div>    
                                 </div>                              
                             </div><br/>
-                            <div class="row">   
-                                <div class="form-group required col-xs-2">
-                                    <label class="control-label">
-                                            Zone 
-                                    </label>
-                                    <select class="form-control info-form-control select2" id="zone" style="width:100%">
-                                        <option value="">Select an Option</option>
-                                        <?php echo $__env->make('zones.zone_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                                    </select>
+                            <div class="row">
+                                <div class="zone_div" style="display:none">   
+                                    <div class="form-group required col-xs-2">
+                                        <label class="control-label">
+                                                Zone 
+                                        </label>
+                                        <select class="form-control info-form-control select2" id="zone" style="width:100%">
+                                            <option value="">Select an Option</option>
+                                            <?php echo $__env->make('zones.zone_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div class="col-xs-3 permanent_reporting_officer_div">
@@ -698,7 +710,7 @@
         
 
         //Deputation :: START
-        var flag_mode="";
+        var flag_mode;
         $(document).on("change","#mode_id", function(){
             var option = $(this).find('option:selected').text();
 
@@ -707,6 +719,7 @@
                     $(this).parent().parent().parent().find(".mode_permanent_div").hide();
                     $(this).parent().parent().parent().find(".permanent_reporting_officer_div").hide();
                     $(this).parent().parent().find(".mode_deputation_div").show();
+                    $(this).parent().parent().parent().find(".zone_div").show();
                     $(this).parent().parent().parent().find(".deputation_reporting_officer_div").show();
                     flag_mode = 'deputation';
                 }
@@ -714,11 +727,11 @@
                     $(this).parent().parent().parent().find(".mode_permanent_div").show();
                     $(this).parent().parent().parent().find(".permanent_reporting_officer_div").show();
                     $(this).parent().parent().parent().find(".mode_deputation_div").hide();
+                    $(this).parent().parent().parent().find(".zone_div").hide();
                     $(this).parent().parent().parent().find(".deputation_reporting_officer_div").hide();
                     flag_mode = 'regular';
                 }
-            } 
-            
+            }
         })
         //Deputation :: END
                 
@@ -900,8 +913,6 @@
                 $("#div_home_other_district").show();
                 state_flag = 'other';
             }
-            alert(state_flag);
-            alert(flag_mode);
         })
 
         /*Fetch corresponding Districts of selected State :: ENDS*/
@@ -930,8 +941,8 @@
 
                 var picsize = ($("#profile_image")[0].files[0].size);
 
-                if (picsize > 51200){
-                    swal("Oversized Image","Image should be less than 50 KB","error");
+                if (picsize > 2097152){
+                    swal("Oversized Image","Image should be less than 2 MB","error");
                     return false;
                 } 
             }
@@ -941,7 +952,6 @@
             var subdivision_id = new Array();
             var from_year = new Array();
             var to_year = new Array();
-
             
             qualification_id = [];
             $(".degree_id").each(function(){
@@ -968,6 +978,12 @@
             $(".practice_to_year").each(function(){
                 to_year.push($(this).val());
             })
+
+            zone_id = "";
+            if(flag_mode=='deputation')
+                zone_id = $("#zone").val();
+            else if(flag_mode=='regular')
+                zone_id = $("#place_of_posting option:selected").data('zone');
             
 
             $.ajax({
@@ -1002,11 +1018,12 @@
                     from_year:from_year,
                     to_year:to_year,
                     designation_id:$("#designation_id").val(),
+                    place_of_posting:$("#place_of_posting").val(),
                     deputation_designation:$("#other_designation").val(),
                     reporting_officer_id:$("#reporting_officer_id").val(),
                     other_reporting_officer_name:$("#other_reporting_officer").val(),
                     other_reporting_officer_designation:$("#other_reporting_officer_designation").val(),                    
-                    zone_id:$("#zone").val(),
+                    zone_id:zone_id,
                     deputation_posting_place:$("#other_place_posting").val(),
                     mode_id:$("#mode_id").val(),
                     flag_mode:flag_mode,
@@ -1020,10 +1037,9 @@
                     if(data.judicial_officer!=null){                        
                         if($("#profile_image").val()==""){
                             swal("Judicial Officer Added Successfully","","success");
-                            $("form").trigger("reset");   
-                            $(".select2").val('').trigger('change');
-                            table.ajax.reload();
-                            return false;
+                            setTimeout(function(){
+                                    window.location.reload(true);
+                            },1800);
                         }
                         else{
                             // image upload :: START
@@ -1037,9 +1053,9 @@
                                 processData: false,
                                 success: function(data, textStatus, jqXHR){
                                     swal("Judicial Officer Added Successfully","","success");
-                                    $("form").trigger("reset");   
-                                    $(".select2").val('').trigger('change');
-                                    table.ajax.reload();
+                                    setTimeout(function(){
+                                            window.location.reload(true);
+                                    },1800);
                                 },
                                 error: function (jqXHR, textStatus, errorThrown) {
                                     if(jqXHR.status!=422 && jqXHR.status!=400){

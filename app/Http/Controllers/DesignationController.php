@@ -183,6 +183,7 @@ class DesignationController extends Controller
 			$search = $request->input('search.value');
             $designations =Designation::leftjoin('ranks','designations.rank_id','=','ranks.id')
                                     ->where('designations.designation_name','ILIKE',"%{$search}%")
+                                    ->orWhere('ranks.rank_name','ILIKE',"%{$search}%")
                                     ->offset($start)
                                     ->limit($limit)
                                     ->orderBy('designation_name',$dir)
@@ -191,8 +192,9 @@ class DesignationController extends Controller
 
 									
 
-            $totalFiltered = Designation::where('designations.designation_name',"%{$search}%")
-                                        ->limit($limit)
+            $totalFiltered = Designation::leftjoin('ranks','designations.rank_id','=','ranks.id')
+                                        ->where('designations.designation_name','ILIKE',"%{$search}%")
+                                        ->orWhere('ranks.rank_name','ILIKE',"%{$search}%")                                       
                                         ->count();
         }
         
