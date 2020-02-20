@@ -739,7 +739,7 @@
 
 <!--loader starts-->
 <div class="col-md-offset-5 col-md-3" id="wait" style="display:none;">
-    <img src='images/loader.gif'width="25%" height="10%" />
+    <img src="<?php echo e(asset('images/loader.gif')); ?>" width="25%" height="10%" />
       <br>Loading..
 </div>
 
@@ -831,7 +831,7 @@
 		$(document).on("click","#add_more_qualification", function(){           
             var clone_element2 = clone_element_qualification.clone();                
             clone_element2.insertAfter(".div_add_more_qualification:last");
-            $(".img_add_more_qualification:last").attr({src:"images/details_close.png",
+            $(".img_add_more_qualification:last").attr({src:"<?php echo e(asset('images/details_close.png')); ?>",
                                                     class:"remove_qualification", 
                                                     alt:"remove_qualification"
                                                 });
@@ -857,7 +857,7 @@
             
             var clone_element3 = clone_element_legal_practice.clone();                
             clone_element3.insertAfter(".div_add_more_legal_practice:last");
-            $(".img_add_more_legal_practice:last").attr({src:"images/details_close.png",
+            $(".img_add_more_legal_practice:last").attr({src:"<?php echo e(asset('images/details_close.png')); ?>",
                                                     class:"remove_legal_practice", 
                                                     alt:"remove_legal_practice"
                                                 });
@@ -893,7 +893,7 @@
             });               
 
             
-            $(this).attr({src:"images/details_close.png",
+            $(this).attr({src:"<?php echo e(asset('images/details_close.png')); ?>",
                             class:"remove_posting", 
                             alt:"remove_posting"
                         });
@@ -915,8 +915,7 @@
 		$(document).on("click","#add_more_career_progression", function(){           
             var clone_element4 = clone_element_career_progression.clone();                
             clone_element4.insertAfter(".div_add_more_career_progression:last");
-            $(".img_add_more_career_progression:last").attr({
-                                                    src:"images/details_close.png",
+            $(".img_add_more_career_progression:last").attr({src:"<?php echo e(asset('images/details_close.png')); ?>",
                                                     class:"remove_career_progression", 
                                                     alt:"remove_career_progression"
                                                 });
@@ -954,7 +953,7 @@
             $(".select2").select2();  
 
            
-            $(".img_add_more_document:last").attr({src:"images/details_close.png",
+            $(".img_add_more_document:last").attr({src:"<?php echo e(asset('images/details_close.png')); ?>",
                                                     class:"remove_document", 
                                                     alt:"remove_document"
                                                 });
@@ -1163,7 +1162,7 @@
                     //$(".remove_posting").remove();
                 })
                 $(".div_add_more_posting:last").remove();
-                $(".remove_posting:last").attr({src:"images/details_open.png",
+                $(".remove_posting:last").attr({src:"<?php echo e(asset('images/details_open.png')); ?>",
                                                 class:"add_posting", 
                                                 alt:"add_posting",
                                                 id:"add_more_posting"
