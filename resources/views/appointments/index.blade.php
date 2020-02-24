@@ -12,15 +12,25 @@
 <div id="info-panel-heading" class="panel-heading"><h2>Station Preference Details</h2></div>
 <!-- IIIIIIIIIII -->
 <div class="panel-body">
-<div class="form-group required row">
+<div class="form-group row">
       <div id="table_header" class="panel-body">
+        <div class="row col-sm-offset-3 ">
+            <label class="control-label">
+                    Grade / Rank 
+            </label>
+            <select class="form-control info-form-control select2" style="width:20%" id="rank_id">
+                <option value="">Select an Option</option>
+                @include('ranks.rank_options')
+            </select>      
+            <input type="button" class="btn btn-success" id="cadrewise_search" value="Cadrewise Search">
+        </div>
          <div class="row">
             <a href="download_posting_preferences">
                 <input type="button" class="btn btn-primary" id="download_report" value="Download Report">
             </a>
         </div>   
         <div id="view_details" class="panel-body">  
-         <div class="table-responsive">
+          <div class="table-responsive">
             <div style="overflow-x:auto; overflow-y:auto; height:450px">
                 <table class="table table-bordered table-striped" id="details_for_posting_preference" style="width: 100%;white-space: nowrap;">
                     <thead>
@@ -73,6 +83,13 @@
         });
    
     /*LOADER*/
+
+    /*Cadre Wise Search:start*/
+
+        $(document).on("click","#cadrewise_search",function(){
+            var rank = $("#rank_id option:selected").val();            
+        });
+    /*Cadre Wise Search:end*/
    
     /* select2 initialisation */
    
