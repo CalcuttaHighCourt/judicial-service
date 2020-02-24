@@ -128,8 +128,9 @@
                         str+=obj.zone_tenure[i][j];
                     }
                     //hometown
-                   
-                    str+= "<br>\n<strong>Hometown</strong> : "+obj.display_pref_for_jo[i].hometown+", "+obj.home_state['0'][i].state_name ;
+                    
+                    if(obj.display_pref_for_jo[i].hometown!="" && obj.display_pref_for_jo[i].hometown!=null)
+                        str+= "<br>\n<strong>Hometown</strong> : "+obj.display_pref_for_jo[i].hometown+", "+obj.display_pref_for_jo[i].state_name ;
                    
                     if( obj.practice_subdivision[i].length>0){
                         str+="<br><br>\n\n<strong>Place of Practice :</strong><br>";
