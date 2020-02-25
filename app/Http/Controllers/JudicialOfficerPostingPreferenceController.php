@@ -409,13 +409,34 @@ public function zone_pref_content(Request $request) {
         }
 
         public function preference_display_for_appointment(Request $request){
-               
-            $judicial_officer_details['display_pref_for_jo'] = JudicialOfficer::join('states','judicial_officers.home_state_id','=','states.id') 
-                                                                                ->where('posting_preference_window_flag','=','Y')
+
+            $this->validate($request, [
+                    'rank' => 'nullable|integer|max:200|exists:ranks,id'
+                ]);
+
+                if(empty($request->rank)){
+                    
+                    $judicial_officer_details['display_pref_for_jo'] = JudicialOfficer::join('states','judicial_officers.home_state_id','=','states.id') 
+                                                                                        ->where('posting_preference_window_flag','=','Y')
+                                                                                        ->select('judicial_officers.id','officer_name','jo_code','hometown','home_state_id', 'state_name','registration_no','profile_image')
+                                                                                        ->orderBy('date_of_joining')
+                                                                                        ->orderBy('date_of_birth')
+                                                                                        ->get();
+                }
+                else{
+                    $judicial_officer_details['display_pref_for_jo'] = JudicialOfficer::join('judicial_officer_postings','judicial_officers.id','=','judicial_officer_postings.judicial_officer_id')
+                                                                                ->join('states','judicial_officers.home_state_id','=','states.id') 
+                                                                                ->where([
+                                                                                    ['posting_preference_window_flag','=','Y'],
+                                                                                    ['rank_id',$request->rank],
+                                                                                    ['to_date',null]
+                                                                                ])                                                                                
                                                                                 ->select('judicial_officers.id','officer_name','jo_code','hometown','home_state_id', 'state_name','registration_no','profile_image')
                                                                                 ->orderBy('date_of_joining')
                                                                                 ->orderBy('date_of_birth')
                                                                                 ->get();
+
+                }
 
                 $zones = Zone::orderBy('zone_name')->get();
                 

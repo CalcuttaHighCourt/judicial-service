@@ -33,11 +33,11 @@ class JoDetailsPdfController extends Controller
         $mpdf = new \Mpdf\Mpdf(['format' => 'Legal']);
 
         $jo_details = JudicialOfficer::join('states','judicial_officers.home_state_id','states.id')
-                                        ->join('districts','judicial_officers.home_district_id','districts.id')
-                                        ->join('recruitment_batches','judicial_officers.recruitment_batch_id','recruitment_batches.id')
-                                        ->where('registration_no',$request->registration_no)
-                                        ->select('judicial_officers.*','states.state_name', 'districts.district_name','recruitment_batches.recruitment_batch_desc')
-                                        ->get();
+                                    ->join('districts','judicial_officers.home_district_id','districts.id')
+                                    ->join('recruitment_batches','judicial_officers.recruitment_batch_id','recruitment_batches.id')
+                                    ->where('registration_no',$request->registration_no)
+                                    ->select('judicial_officers.*','states.state_name', 'districts.district_name','recruitment_batches.recruitment_batch_desc')
+                                    ->get();
         
         $profile_image = asset('images/judicial_officers/'.$jo_details['0']->registration_no.'/'.$jo_details['0']->profile_image);
         
@@ -269,17 +269,34 @@ class JoDetailsPdfController extends Controller
 
     
 
-    public function download_posting_preferences(){
+    public function download_posting_preferences(Request $request){
 
         $mpdf = new \Mpdf\Mpdf(['orientation' => 'L']);
 
-        $judicial_officer_details['display_pref_for_jo'] = JudicialOfficer::join('states','judicial_officers.home_state_id','=','states.id') 
-                                                                            ->where('posting_preference_window_flag','=','Y')
-                                                                            ->select('judicial_officers.id','officer_name','jo_code','hometown','home_state_id', 'state_name','registration_no','profile_image')
-                                                                            ->orderBy('date_of_joining')
-                                                                            ->orderBy('date_of_birth')
-                                                                            ->get();
+        $rank= $request->route('rank');
+        if($rank==0){
+                  
+            $judicial_officer_details['display_pref_for_jo'] = JudicialOfficer::join('states','judicial_officers.home_state_id','=','states.id') 
+                                                                        ->where('posting_preference_window_flag','=','Y')
+                                                                        ->select('judicial_officers.id','officer_name','jo_code','hometown','home_state_id', 'state_name','registration_no','profile_image')
+                                                                        ->orderBy('date_of_joining')
+                                                                        ->orderBy('date_of_birth')
+                                                                        ->get();
+        }
+        else{
+            $judicial_officer_details['display_pref_for_jo'] = JudicialOfficer::join('judicial_officer_postings','judicial_officers.id','=','judicial_officer_postings.judicial_officer_id')
+                                                                        ->join('states','judicial_officers.home_state_id','=','states.id') 
+                                                                        ->where([
+                                                                            ['posting_preference_window_flag','=','Y'],
+                                                                            ['rank_id',$rank],
+                                                                            ['to_date',null]
+                                                                        ])                                                                                
+                                                                        ->select('judicial_officers.id','officer_name','jo_code','hometown','home_state_id', 'state_name','registration_no','profile_image')
+                                                                        ->orderBy('date_of_joining')
+                                                                        ->orderBy('date_of_birth')
+                                                                        ->get();
 
+        }
                 $zones = Zone::orderBy('zone_name')->get();
                 
                 if( sizeof($judicial_officer_details['display_pref_for_jo'])>0)

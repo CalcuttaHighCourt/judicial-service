@@ -289,7 +289,7 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 		Route::post('show_details_for_posting_preference', 'JudicialOfficerPostingPreferenceController@preference_display_for_appointment');
 
-		Route::get('download_posting_preferences', 'JoDetailsPdfController@download_posting_preferences');
+		Route::get('download_posting_preferences/{rank}', 'JoDetailsPdfController@download_posting_preferences');
 		
 		Route::post('activate_window_for_jo_preference', 'JudicialOfficerPostingPreferenceController@activate_preference_window');
 		

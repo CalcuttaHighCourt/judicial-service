@@ -1,3 +1,3 @@
-<?php $__currentLoopData = App\Rank::orderBy('id', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rank): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<?php $__currentLoopData = App\Rank::orderBy('rank_order', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rank): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 	<option data-rank_order="<?php echo e($rank->rank_order); ?>" value="<?php echo e($rank->id); ?>"><?php echo e($rank->rank_name); ?></option>
 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/ranks/rank_options.blade.php ENDPATH**/ ?>
