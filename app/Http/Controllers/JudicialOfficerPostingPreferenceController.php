@@ -860,13 +860,18 @@ public function zone_pref_content(Request $request) {
                                                             ['judicial_officers.posting_preference_window_flag','Y'],
                                                             ['judicial_officers.officer_name','ilike',"%{$search}%"],
                                                         ])
+                                                ->orWhere([
+                                                            ['judicial_officers.posting_preference_window_flag','Y'],
+                                                            ['judicial_officers.jo_code','ilike',"%{$search}%"],
+                                                        ])
                                                 ->orderBy('judicial_officers.posting_preference_window_open_on','desc')
                                                 ->orderBy('judicial_officers.officer_name')
                                                 ->select('judicial_officers.id','judicial_officers.jo_code','judicial_officers.officer_name','judicial_officers.posting_preference_window_open_on','judicial_officer_posting_preferences.final_submission','judicial_officer_posting_preferences.updated_at')
-                                                ->distict()
+                                                ->distinct()
                                                 ->get();
         }
 
+        $data = array();
         if($judicial_officers){
             foreach($judicial_officers as $key=>$jo){
                 $nestedData['sl_no'] = $key+1;
