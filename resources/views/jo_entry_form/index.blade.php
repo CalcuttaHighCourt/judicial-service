@@ -802,7 +802,7 @@
             }
 
             if(row.child.isShown() ) {
-                element.attr("src","images/details_open.png");
+                element.attr("src","{{asset('images/details_open.png')}}");
                 row.child.hide();
             }
             else {
