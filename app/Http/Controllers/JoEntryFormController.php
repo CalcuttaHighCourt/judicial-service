@@ -748,7 +748,7 @@ class JoEntryFormController extends Controller
             'rank_id' => 'required|array',
             'rank_id.*' => 'required|required_with:mode_id.*,rank_id.*,flag_mode.*|integer|max:50|exists:ranks,id',
             'designation_id' => 'required|array',
-            'designation_id.*' => 'nullable|required_if:flag_mode.*,==,regular|integer|max:500|exists:designations,id',
+            'designation_id.*' => 'nullable|required_if:flag_mode.*,==,regular|integer|max:5000|exists:designations,id',
             'place_of_posting' => 'required|array',
             'place_of_posting.*' => 'nullable|required_if:flag_mode.*,==,regular|string|max:255',
             'additional_designation' => 'required|array',
