@@ -863,7 +863,7 @@ public function zone_pref_content(Request $request) {
                                                 ->orderBy('judicial_officers.posting_preference_window_open_on','desc')
                                                 ->orderBy('judicial_officers.officer_name')
                                                 ->select('judicial_officers.id','judicial_officers.jo_code','judicial_officers.officer_name','judicial_officers.posting_preference_window_open_on','judicial_officer_posting_preferences.final_submission','judicial_officer_posting_preferences.updated_at')
-                                                ->distict()
+                                                ->distinct()
                                                 ->get();
         }
 
