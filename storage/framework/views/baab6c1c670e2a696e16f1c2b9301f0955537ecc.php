@@ -26,19 +26,34 @@
 
 <div class="form-group required row">
     <div class="form-group required row">
-        <div class="col-sm-offset-2 col-sm-3">
-            <div id="judicial_officer-group" class="form-group our-form-group">
-            <!-- IIIIIIIIIII -->
-                <select  id="judicial_officer" class="form-control select2 info-form-control judicial_officer"
-                name="judicial_officer" multiple style="width:300px;"> 
-                        <?php $__currentLoopData = $judicial_officers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>                        
-                            <option value="<?php echo e($data->id); ?>"><?php echo e($data->officer_name); ?> |  <?php echo e($data->jo_code); ?></option>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </select>
+            <div class="col-sm-offset-2 col-sm-3">
+                <div id="zone_name-group" class="form-group our-form-group">
+                <!-- IIIIIIIIIII -->
+                    <select class="form-control info-form-control select2" id="zone" >
+                        <option value="">Select an Option</option>
+                        <?php echo $__env->make('zones.zone_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-offset-1 col-sm-3 form-group" id="zone_wise_period_wise_search">
+                <input type="button" name="zone_wise_period_wise_search" id="zone_wise_period_wise_search" data-width="100px">
             </div>
         </div>
-        <div class="col-sm-offset-1 col-sm-3 form-group" id="pref_window_flag">
-            <input type="checkbox" name="pref_window_flag" id="display_flag" data-toggle="toggle" data-width="100px">
+        <div class="form-group required row">
+            <div class="col-sm-offset-2 col-sm-3">
+                <div id="judicial_officer-group" class="form-group our-form-group">
+                <!-- IIIIIIIIIII -->
+                    <select  id="judicial_officer" class="form-control select2 info-form-control judicial_officer"
+                    name="judicial_officer" multiple style="width:300px;"> 
+                            <?php $__currentLoopData = $judicial_officers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>                        
+                                <option value="<?php echo e($data->id); ?>"><?php echo e($data->officer_name); ?> |  <?php echo e($data->jo_code); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-offset-1 col-sm-3 form-group" id="pref_window_flag">
+                <input type="checkbox" name="pref_window_flag" id="display_flag" data-toggle="toggle" data-width="100px">
+            </div>
         </div>
     </div>
 </div>
