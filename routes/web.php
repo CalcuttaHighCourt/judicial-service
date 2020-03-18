@@ -279,9 +279,21 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 		Route::post('disable_window_for_jo_pref',
 		'JudicialOfficerPostingPreferenceController@closing_window_jo_pref');
+
 		
+
+		Route::post('disable_pref_window_for_all_active_jo',
+		'JudicialOfficerPostingPreferenceController@closing_preference_window_for_all_judicial_officers');
+
 		Route::post('datatable_for_active_window',
 		'JudicialOfficerPostingPreferenceController@detailed_table');
+
+		Route::post('datatable_for_zonewise_posting',
+		'JudicialOfficerPostingPreferenceController@zonewise_tenurewise_jo');
+
+		
+		// Route::post('zonewise_tenure_for_jo',
+		// 'JudicialOfficerPostingPreferenceController@zonewise_tenurewise_jo');
 		
 		Route::get ('jo_grade', function () {
 			return view ('jo_grade.index');

@@ -1,5 +1,5 @@
- 
-<?php $__env->startSection('content'); ?>
+@extends('layouts.app') 
+@section('content')
 <style>
    .select2-results__option{
    color:#d43c3c;
@@ -34,7 +34,7 @@
                         <select id="zone_name" class="form-control select2 info-form-control zone_name"
                             name="zone_name" style="width:100%;height:100%;"> 
                             <option value="">Select Zone</option>
-                            <?php echo $__env->make('zones.zone_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                            @include('zones.zone_options')
                         </select>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                         <select  id="cadre" class="form-control select2 info-form-control cadre"
                             name="cadre" style="width:100%;height:100%;">
                             <option value="">Select Cadre</option>
-                            <?php echo $__env->make('ranks.rank_options', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                            @include('ranks.rank_options')
                         </select>
                     </div>
                 </div>
@@ -61,9 +61,9 @@
                         <select  id="year" class="form-control select2 info-form-control year"
                             name="year" style="width:100%;height:100%;">
                             <option value="0">Select Year</option>
-                            <?php for($i=1;$i<=15;$i++): ?>
-								<option value="<?php echo e($i); ?>"><?php echo e($i); ?></option>
-							<?php endfor; ?>
+                            @for($i=1;$i<=15;$i++)
+								<option value="{{$i}}">{{$i}}</option>
+							@endfor
                         </select>
                     </div>
                 </div>
@@ -77,9 +77,9 @@
                         <select  id="month" class="form-control select2 info-form-control month"
                             name="month"style="width:100%;height:100%;">
                             <option value="0">Select Month</option>
-                            <?php for($j=0;$j<=12;$j++): ?>
-								<option value="<?php echo e($j); ?>"><?php echo e($j); ?></option>
-							<?php endfor; ?>
+                            @for($j=0;$j<=12;$j++)
+								<option value="{{$j}}">{{$j}}</option>
+							@endfor
                         </select>
                     </div>
                 </div>
@@ -92,9 +92,9 @@
                         <select  id="day" class="form-control select2 info-form-control day"
                             name="day"style="width:100%;height:100%;">
                             <option value="0">Select Day</option>
-                            <?php for($j=0;$j<=30;$j++): ?>
-								<option value="<?php echo e($j); ?>"><?php echo e($j); ?></option>
-							<?php endfor; ?>
+                            @for($j=0;$j<=30;$j++)
+								<option value="{{$j}}">{{$j}}</option>
+							@endfor
                         </select>
                     </div>
                 </div>
@@ -158,9 +158,9 @@
                         <!-- IIIIIIIIIII -->
                         <select  id="judicial_officer" class="form-control select2_multi info-form-control judicial_officer"
                         name="judicial_officer" multiple style="width:300px;"> 
-                            <?php $__currentLoopData = $judicial_officers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>                        
-                                <option value="<?php echo e($data->id); ?>"><?php echo e($data->officer_name); ?> |  <?php echo e($data->jo_code); ?></option>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            @foreach($judicial_officers  as $data)                        
+                                <option value="{{$data->id}}">{{$data->officer_name}} |  {{$data->jo_code}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -226,10 +226,10 @@
 </div>
 <!-- /.content-wrapper -->
 
-<script src="<?php echo e(asset('js/jquery/jquery.min.js')); ?>"></script>
+<script src="{{asset('js/jquery/jquery.min.js')}}"></script>
 
 
-<meta name="_token" content="<?php echo csrf_token(); ?>" />
+<meta name="_token" content="{!! csrf_token() !!}" />
 
 <!--  -->
 <script>
@@ -381,7 +381,7 @@
                    swal("Select Time Period","Please insert the Time period","error");
                }
                else{
-                   
+                   alert ('');
                 var table = $("#show_cadrewise_zonewise_table").DataTable({  
                         "processing": true,
                         "serverSide": true,
@@ -405,7 +405,6 @@
                                 {"data": "action"}
                             ]
                         });
-                        //alert ('ABC');
                     $("#cadre_wise_search_table").show();
                 }
            }
@@ -415,6 +414,4 @@
     });
 
 </script>
-<?php $__env->stopSection(); ?>
-
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/appointments/preference_window_open.blade.php ENDPATH**/ ?>
+@endsection
