@@ -1008,132 +1008,38 @@ public function zone_pref_content(Request $request) {
 
                 // if()
                 // if($jo_posting_detail->zone_name ){
-
-                }
-
-                if($jo_posting_detail->to_date == null){        //if to_day is null that is current posting                                
-                    if($jo_posting_detail->zone_id == $zone){
+                
+                if($jo_posting_detail->zone_id == $zone){
+                    if($jo_posting_detail->to_date == null){        //if to_day is null that is current posting                                
                         $to_date = Carbon::today();
-                        $latest_zone = $jo_posting_detail->zone_id;      
-                        $tenure = $to_date - $from_date;
-                    }
-                    else{
-                        break;
+                        $tenure =  $to_date->diffInDays($from_date);                     
                     }
                    
+                    else{
+                        $to_date=Carbon::parse($jo_posting_detail->to_date);
+                        $date_diff = $to_date->diffInDays($from_date);
+                        $tenure+= $date_diff;
+                    }
                 }
                 else{
-                    $to_date=Carbon::parse($jo_posting_detail->to_date);
-                    $tenure+= $to_date- $from_date;
-                }
-                
-        //         $current_zone = $jo_posting_detail->id;
-
-        //         if($current_zone==$zone){                                        
-        //             $zone_tenure_of_current_posting += $from_date->diffInDays($to_date);
-        //             $tenure_year = round($zone_tenure_of_current_posting / 365);
-        //             $tenure_day = $zone_tenure_of_current_posting % 365;
-        //             if($tenure_year<0){
-        //                 $tenure_year="";
-        //             }
-        //             else{
-        //                 if($tenure_day>=30){
-        //                     $tenure_month = $tenure_day / 30;
-        //                     $tenure_day = $tenure_day % 30;
-        //                 }
-        //                 else{
-        //                     $tenure_month = "";
-        //                 }                     
-        //             }
-
-        //         }
-        //         else{
-        //             break;
-        //         }
-               
-        //         if($tenure_year==""){
-        //             $nestedData['duration_in_last_zone'][$key1] = $jo_posting_detail->officer_name.','.$jo_posting_detail->zone_name.','.$tenure_month." Month(s)". $tenure_day." Day(s)";
-        //         }
-        //         elseif($tenure_month==""){
-        //             $nestedData['duration_in_last_zone'][$key1] = $jo_posting_detail->officer_name.','.$jo_posting_detail->zone_name.','.$tenure_year."year(s)". $tenure_day." Day(s)";
-        //         }
-            
-        //         elseif($tenure_day==""){
-        //             $nestedData['duration_in_last_zone'][$key1] = $jo_posting_detail->officer_name.','.$jo_posting_detail->zone_name.','.$tenure_year."year(s)".$tenure_month." Month(s)"; 
-        //         }
-        
-        //         else{
-        //             $nestedData['duration_in_last_zone'][$key1] = $jo_posting_detail->officer_name.','.$jo_posting_detail->zone_name.','.$tenure_year."year(s)".$tenure_month." Month(s)". $tenure_day." Day(s)";  
-        //         }
-
+                    break;
+                }            
             }
-
-           
-
-        //     $str ="";
-
-        //     $nestedData['posting_details'] =  JudicialOfficerPosting ::leftjoin('designations','judicial_officer_postings.designation_id','designations.id')
-        //                                                                                          ->leftjoin('zones','judicial_officer_postings.zone_id','=','zones.id')                                                                                      
-        //                                                                                          ->where([
-        //                                                                                              ['judicial_officer_postings.judicial_officer_id','=',$zonewise_officer->judicial_officer_id],
-        //                                                                                              ['judicial_officer_postings.zone_id','=',$zone]
-        //                                                                                              ])
-        //                                                                                          ->orderBy('judicial_officer_postings.from_date','ASC')
-        //                                                                                          ->select('judicial_officer_postings.judicial_officer_id','designations.designation_name', 'place_of_posting', 'judicial_officer_postings.additional_designation',
-        //                                                                                                  'judicial_officer_postings.deputation_designation','judicial_officer_postings.deputation_posting_place',
-        //                                                                                                  'judicial_officer_postings.from_date','judicial_officer_postings.to_date','zones.zone_name')
-        //                                                                                          ->get();
-
-        //     print_r( $data['posting_details']);
-
-        //     $posting[] = array();
-
-        //     foreach($nestedData['posting_details'] as $key3=>$posting){
-        //         $str.= "<br>";
-
-        //         if($posting['to_date'] != null)
-        //             $posting['to_date'] = Carbon::parse($posting['to_date'])->format('d-m-Y');
-        //         else
-        //             $posting['to_date'] = "Till Date";
-
-        //         $posting['from_date'] = Carbon::parse($posting['from_date'])->format('d-m-Y');  
-
-        //         if($posting['designation_name']==null){
-        //             $str.= "<strong>".($key3+1).".</strong> Deputed as ".$posting['deputation_designation']. " At ".$posting['deputation_posting_place']." From ".$posting['from_date']." To ".$posting['to_date'];
-        //         }
-        //         else if( $posting['additional_designation'] !=null){
-        //             $str.= "<strong>".($key3+1).".</strong> Posted as ".$posting['designation_name'].", ".$posting['place_of_posting']." From ".$posting['from_date']." To ".$posting['to_date']." And ".$posting['additional_designation'];
-        //         }
-        //         else{
-        //             $str.= "<strong>".($key3+1).". </strong> Posted as ".$posting['designation_name'].", ".$posting['place_of_posting']." From ".$posting['from_date']." To ".$posting['to_date'];
-        //         }
-        //         $str.=" <strong> (Zone: ".$posting->zone_name.") </strong>";
- 
-        //         //echo $str;
-
-        //         $nestedData['details'][$key] = $str;
-        //     }
-
-        //    print_r($data['details']);
-
+            $nestedData['sl_no'] = $key+1;
+            $nestedData['officer_name'] = $jo_posting_detail->officer_name;
+            $nestedData['current_zone_posting_details'] = 'not done';
+            if($tenure_in_days<=$tenure){
+                $nestedData['duration_in_last_zone'] = $tenure;
+            }
+            $nestedData['action'] = "<i class='fa fa-ban disable' style='color:red' title='Disable'></i>";
             
-        //     $nestedData['action'] = "<i class='fa fa-ban disable' style='color:red' title='Disable'></i>";
-
-        //     $data = $nestedData;
+            
+            $data[] = $nestedData;
         }
-       
-           
-        //     if(  $tenure_already_served >= $tenure_in_days ){
-
-        //     }
- 
-        // return $data;
-
+        return $data;
     }
-
-
-
 }
+
 
 
 

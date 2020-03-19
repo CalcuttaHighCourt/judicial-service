@@ -53,6 +53,17 @@
                     </div>
                 </div>
                 <div class="col-sm-2">
+                    <div id="terminal_date-group" class="form-group ">                   
+                        <label class="control-label">
+                            Terminal Date
+                        </label>
+                        <!-- IIIIIIIIIII -->
+                        <input type="text" class="form-control date" id="from_date" placeholder="dd-mm-yyyy">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2">
                     <div id="year-group" class="form-group">
                     <!-- IIIIIIIIIII -->
                          <label class="control-label">
@@ -255,6 +266,14 @@
             placeholder:"Select Judicial Officer"
         }); 
 
+
+        // Datepicker Initialization
+        $(".date").datepicker({
+            format: "dd-mm-yyyy",
+            autoclose: true,   
+            orientation: "auto",
+            endDate: '+0d',
+        });
        
         $('#display_flag').bootstrapToggle({
             on: 'Activate',
@@ -319,7 +338,7 @@
                             ]
                         });
                      
-        // $.fn.dataTable.ext.errMode = 'none';
+        // $.fn.DataTable.ext.errMode = 'none';
 
         // $(".table").on( 'error.dt', function ( e, settings, techNote, message ) {
         //     swal("An error has been reported by DataTable","","error");
