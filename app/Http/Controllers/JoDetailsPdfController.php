@@ -62,17 +62,41 @@ class JoDetailsPdfController extends Controller
         if($jo_details['0']->jo_code==null)
             $jo_details['0']->jo_code = 'Not Assigned';  
 
+        // Mobile No. 1
+        if($jo_details['0']->mobile_no_1!=null)
+            $mobile_no_1 = $jo_details['0']->mobile_no_1;
+        else
+            $mobile_no_1 = 'Not Available';
+
         // Mobile No. 2
         if($jo_details['0']->mobile_no_2!=null)
             $mobile_no_2 = "| ".$jo_details['0']->mobile_no_2;
         else
             $mobile_no_2 = '';
 
+        // Email ID 1
+        if($jo_details['0']->email_id_1!=null)
+            $email_id_1 = $jo_details['0']->email_id_1;
+        else
+            $email_id_1 = 'Not Available';
+
         // Email ID 2
         if($jo_details['0']->email_id_2!=null)
             $email_id_2 = "| ".$jo_details['0']->email_id_2;
         else
             $email_id_2 = '';
+
+        // Recruitment Batch Year
+        if($jo_details['0']->recruitment_batch_year!=null)
+            $recruitment_batch = $jo_details['0']->recruitment_batch_desc.', '.$jo_details['0']->recruitment_batch_year;
+        else
+            $recruitment_batch = $jo_details['0']->recruitment_batch_desc;
+
+        // Date of Confirmation
+        if($jo_details['0']->date_of_confirmation!=null)
+            $date_of_confirmation = Carbon::parse($jo_details['0']->date_of_confirmation)->format('d-m-Y');
+        else
+            $date_of_confirmation = 'Not Available';
         
         
         $content="<table width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" align=\"center\" border=\"0\">
@@ -92,12 +116,12 @@ class JoDetailsPdfController extends Controller
                     <tr>
                         <td style=\"padding-top: 1%;\"><h3>Permanent Address: ".$jo_details['0']->permanent_address." , ".$jo_details['0']->hometown.", ".$jo_details['0']->district_name.", ".$jo_details['0']->state_name."</h3></td>
                     
-                        <td align=left style=\"padding-left: 8%;\"><h3>Email ID: ".$jo_details['0']->email_id_1." ".$email_id_2."</h3></td>
+                        <td align=left style=\"padding-left: 8%;\"><h3>Email ID: ".$email_id_1." ".$email_id_2."</h3></td>
                     </tr>
                     <tr>
                         <td style=\"padding-top: 1%;\"><h3>Present Address: ".$jo_details['0']->present_address."</h3></td>
                     
-                        <td align=left style=\"padding-left: 8%;\"><h3>Contact No: ".$jo_details['0']->mobile_no_1." ".$mobile_no_2."</h3></td>
+                        <td align=left style=\"padding-left: 8%;\"><h3>Contact No: ".$mobile_no_1." ".$mobile_no_2."</h3></td>
                     </tr>
                 </table>
                 <table width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" align=\"center\" border=\"0\">
@@ -109,12 +133,11 @@ class JoDetailsPdfController extends Controller
                     </tr>
                     <tr>
                         <td style=\"padding-top: 1%;\"><h3>Gender: ".$gender."</h3></td>
-                        <td style=\"padding-top: 1%;\"><h3>Recruitment Batch: </h3><h3>".$jo_details['0']->recruitment_batch_desc."</h3></td>
-                        <td style=\"padding-top: 1%;\"><h3>Recruitment Batch Year: </h3><h3>".$jo_details['0']->recruitment_batch_year."</h3></td>
-                    </tr>
+                        <td style=\"padding-top: 1%;\"><h3>Recruitment Batch: </h3><h3>".$recruitment_batch."</h3></td>
+                        <td style=\"padding-top: 1%;\"><h3>Date of Birth: </h3><h3>".Carbon::parse($jo_details['0']->date_of_birth)->format('d-m-Y')."</h3></td>                    </tr>
                     <tr>
-                        <td style=\"padding-top: 1%;\"><h3>Date of Birth: </h3><h3>".Carbon::parse($jo_details['0']->date_of_birth)->format('d-m-Y')."</h3></td>
                         <td style=\"padding-top: 1%;\"><h3>Date of Joining: </h3><h3>".Carbon::parse($jo_details['0']->date_of_joining)->format('d-m-Y')."</h3></td>
+                        <td style=\"padding-top: 1%;\"><h3>Date of Confirmation: </h3><h3>".$date_of_confirmation."</h3></td>
                         <td style=\"padding-top: 1%;\"><h3>Date of Superannuation: </h3><h3>".Carbon::parse($jo_details['0']->date_of_retirement)->format('d-m-Y')."</h3></td>
                     </tr>                               
                 </table>
@@ -185,22 +208,18 @@ class JoDetailsPdfController extends Controller
                             </tr>";
                 }
 
-       $content.= "<tr>                            
-                        <td align=left style=\"padding-top: 7%;\"><h2>Posting Details</h2></td>
-                    </tr>
-                    <tr>
-                        <td colspan='6'><hr/></td>
-                    </tr>
-                </table>
-                
-                <table width=\"100%\" style=\"border: 4px solid #ddd;\">
+       $content.= "</table>
+                <pagebreak/>
+                <h2>Posting Details</h2>
+                <hr/>
+                <table width=\"100%\" style=\"border: 4px solid #ddd; page-break-inside:avoid\">
                     <thead>
                         <tr>
-                            <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">Sl No.</th>
+                            <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\"></th>
                             <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">Posting Mode</th>
                             <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">Posted As</th>
-                            <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">From Date</th>
-                            <th style=\"font-size: 1.17em; border-collapse:collapse;\">To Date</th>
+                            <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;\">Posting Tenure</th>
+                            <th style=\"font-size: 1.17em; border-collapse:collapse;\">Remark <br>(if any)</th>
                         </tr>
                     </thead>
                     <tbody>";
@@ -212,13 +231,20 @@ class JoDetailsPdfController extends Controller
                                                 ->get();
 
         foreach($jo_postings as $key => $jo_posting){
+            // To Date
             if($jo_posting->to_date==null)
                 $to_date = "Till Date";
             else
                 $to_date = Carbon::parse($jo_posting->to_date)->format('d-m-Y');
 
+            // Posting Remark
+            if($jo_posting->posting_remark!="")
+                $posting_remark = $jo_posting->posting_remark;
+            else
+                $posting_remark = 'NA';  
+
             if($jo_posting->designation_id !=null){
-                $posted_as = $jo_posting->designation_name;
+                $posted_as = $jo_posting->designation_name.', '.$jo_posting->place_of_posting;
                 if($jo_posting->additional_designation!=""){
                     $posted_as = $posted_as. " \n and ".$jo_posting->additional_designation;
                 }
@@ -237,17 +263,106 @@ class JoDetailsPdfController extends Controller
                             $posted_as.  
                         "</td>                        
                         <td align=\"left\" style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-top: 4px solid #ddd;\">".
-                            Carbon::parse($jo_posting->from_date)->format('d-m-Y').  
+                            Carbon::parse($jo_posting->from_date)->format('d-m-Y')." <br/>To <br/>".$to_date.  
                         "</td>
                         <td align=\"left\" style=\"font-size: 1.17em; border-collapse:collapse; border-top: 4px solid #ddd;\">".
-                            $to_date. 
+                            $posting_remark. 
                         "</td>
                     </tr>";
         }
 
-        $content.="</tbody></table>";
+        $content.="</tbody></table>
+                <table width=\"100%\" style=\"page-break-inside:avoid\">
+                <tr>                            
+                    <td align=left style=\"padding-top: 7%;\"><h2>Zone Wise Service</h2></td>
+                </tr>
+                <tr>
+                    <td colspan='6'><hr/></td>
+                </tr>";
 
-        $mpdf->SetHTMLFooter('Report Generated by the IIMS - Calcutta High Court on '.Carbon::now());
+        $zones = Zone::orderBy('zone_name')->get();
+
+        foreach($zones as $key4=>$zone){  
+            $content.="<tr>
+                        <td align=left style=\"font-size: 1.17em;\">";
+
+            $zone_tenures = JudicialOfficerPosting::join('modes','judicial_officer_postings.mode_id','=','modes.id')
+                                             ->where([ 
+                                                 ['judicial_officer_id','=',$jo_details['0']->id],
+                                                 ['zone_id','=',$zone->id],
+                                                 ['posting_mode','not ilike',"%On Probation%"]
+                                             ])->select('from_date','to_date')
+                                             ->get();
+             
+             if(sizeof($zone_tenures)>0){
+                 $str1="";
+                 $diff_days = 0;
+
+                 foreach ($zone_tenures as $key3=>$zone_tenure){
+                     $from_date=Carbon::parse($zone_tenure->from_date);
+                     if($zone_tenure->to_date == null){
+                         $to_date= Carbon::now();
+                     }
+                     else{
+                         $to_date=Carbon::parse($zone_tenure->to_date);
+                     }
+                         
+                     $diff_days += $from_date->diffInDays($to_date);                                
+                 }
+
+                 //Calculation and string creation for duration spend in a zone in Y-M-D format:start 
+                 $tenure="";                            
+             
+                 
+                if( $diff_days >= 365){
+                     $years =  floor($diff_days/365);
+                     $days = fmod($diff_days,365);
+                     if($days > 30){
+                         $months= floor($days/30);
+                         $days = fmod($days,30);
+
+                         $tenure=$years." Year(s) ".$months." Month(s) ".$days." Day(s) ";
+                     }
+                     else{
+                         $tenure=$years." Year(s) ".$days." Day(s) ";
+                     }                                
+                 }
+                 else if($diff_days >= 30){
+
+                     $months = floor($diff_days/30);
+                     $days = fmod($diff_days,30);
+
+                     $tenure=$months." Month(s) ".$days." Day(s) ";
+                 }
+                 else if($diff_days > 0){
+
+                     $tenure=$diff_days." Day(s) ";
+                 }
+                 else
+                     $tenure="Yet to be posted.";
+
+                if($key4>0)
+                    $str1.="<br><br><b>Zone ".$zone->zone_name." </b>: ".$tenure;
+                else
+                    $str1.="<b>Zone ".$zone->zone_name." </b>: ".$tenure;
+
+                 $content.=$str1;
+             }
+             else{    
+                if($key4>0)             
+                    $content.="<br><br><b> Zone ".$zone->zone_name." </b>: Yet to be posted.";
+                else
+                    $content.="<b> Zone ".$zone->zone_name." </b>: Yet to be posted.";
+            }
+
+            $content.="</td></tr>";
+
+        }   
+         
+         $content.="</table>";
+
+
+        $mpdf->SetHTMLFooter('Report Generated by the IIMS - Calcutta High Court on '.Carbon::now()->format('d-m-Y'));
 
        $mpdf->WriteHTML($content);
 
@@ -421,8 +536,8 @@ class JoDetailsPdfController extends Controller
                             }
                             else if($diff_days >= 30){
 
-                                $months = floor($diff_days/12);
-                                $days = fmod($diff_days,12);
+                                $months = floor($diff_days/30);
+                                $days = fmod($diff_days,30);
 
                                 $tenure=$months." Month(s) ".$days." Day(s) ";
                             }
@@ -479,10 +594,10 @@ class JoDetailsPdfController extends Controller
                                     $judicial_officer_details['spouse_details'][$key]['0']['designation_name']="Deputed as ".$judicial_officer_details['spouse_details'][$key]['0']['deputation_designation']." At ".$judicial_officer_details['spouse_details'][$key]['0']['deputation_posting_place']." From ". Carbon::parse($judicial_officer_details['spouse_details'][$key]['0']['from_date'])->format('d-m-Y');
                                 }
                                 else if($judicial_officer_details['spouse_details'][$key]['0']['additional_designation'] != null){
-                                    $judicial_officer_details['spouse_details'][$key]['0']['designation_name']="Posted as ".$judicial_officer_details['spouse_details'][$key]['0']['designation_name']." From ". Carbon::parse($judicial_officer_details['posted_as'][$key]['0']['from_date'])->format('d-m-Y')." And ".$judicial_officer_details['spouse_details'][$key]['0']['additional_designation'];
+                                    $judicial_officer_details['spouse_details'][$key]['0']['designation_name']="Posted as ".$judicial_officer_details['spouse_details'][$key]['0']['designation_name'].", ".$judicial_officer_details['spouse_details'][$key]['0']['place_of_posting']." From ". Carbon::parse($judicial_officer_details['posted_as'][$key]['0']['from_date'])->format('d-m-Y')." And ".$judicial_officer_details['spouse_details'][$key]['0']['additional_designation'];
                                 }
                                 else{
-                                    $judicial_officer_details['spouse_details'][$key]['0']['designation_name']="Posted as ".$judicial_officer_details['spouse_details'][$key]['0']['designation_name']." From ". Carbon::parse($judicial_officer_details['spouse_details'][$key]['0']['from_date'])->format('d-m-Y');
+                                    $judicial_officer_details['spouse_details'][$key]['0']['designation_name']="Posted as ".$judicial_officer_details['spouse_details'][$key]['0']['designation_name'].", ".$judicial_officer_details['spouse_details'][$key]['0']['place_of_posting']." From ". Carbon::parse($judicial_officer_details['spouse_details'][$key]['0']['from_date'])->format('d-m-Y');
                                 }
                             }
                         }
@@ -495,7 +610,7 @@ class JoDetailsPdfController extends Controller
 
         $content = "";    
         for($i=0;  $i < sizeof($judicial_officer_details['display_pref_for_jo']); $i++){
-            $content.= "<h2 align=\"center\">Posting Preference of Judicial Officer</h2>
+            $content.= "<p align=\"center\" style=\"font-size: 15px;font-weight: bold;\">Posting Preference of Judicial Officer</p>
                     <table width=\"100%\" style=\"border-right: 4px solid #ddd; border-left: 4px solid #ddd; border-top: 4px solid #ddd;page-break-inside:avoid\">
                         <thead>
                             <tr>                                
@@ -564,7 +679,7 @@ class JoDetailsPdfController extends Controller
          }
 
         
-        $mpdf->SetHTMLFooter('<hr>Report Generated by the IIMS - Calcutta High Court on '.Carbon::now().'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{PAGENO}');
+        $mpdf->SetHTMLFooter('<hr>Report Generated by the IIMS - Calcutta High Court on '.Carbon::now()->format('d-m-Y').'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{PAGENO}');
 
 
         $mpdf->WriteHTML($content);

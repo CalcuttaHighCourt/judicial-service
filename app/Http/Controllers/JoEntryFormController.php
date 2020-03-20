@@ -684,8 +684,8 @@ class JoEntryFormController extends Controller
             'permanent_address' => 'required|string',
             'mobile_no_1' => 'nullable|integer|max:9999999999',
             'mobile_no_2' => 'nullable|integer|max:9999999999',
-            'email_id_1' => 'nullable|email:rfc,dns|max:100',
-            'email_id_2' => 'nullable|email:rfc,dns|max:100',
+            'email_id_1' => 'nullable|email|max:100',
+            'email_id_2' => 'nullable|email|max:100',
         ]);
 
         

@@ -563,8 +563,8 @@ public function zone_pref_content(Request $request) {
                                 }
                                 else if($diff_days >= 30){
     
-                                    $months = floor($diff_days/12);
-                                    $days = fmod($diff_days,12);
+                                    $months = floor($diff_days/30);
+                                    $days = fmod($diff_days,30);
     
                                     $tenure=$months." Month(s) ".$days." Day(s) ";
                                 }
@@ -625,10 +625,10 @@ public function zone_pref_content(Request $request) {
                                     $judicial_officer_details['spouse_details'][$key]['0']['designation_name']="Deputed as ".$judicial_officer_details['spouse_details'][$key]['0']['deputation_designation']." At ".$judicial_officer_details['spouse_details'][$key]['0']['deputation_posting_place']." From ". Carbon::parse($judicial_officer_details['spouse_details'][$key]['0']['from_date'])->format('d-m-Y');
                                 }
                                 else if($judicial_officer_details['spouse_details'][$key]['0']['additional_designation'] != null){
-                                    $judicial_officer_details['spouse_details'][$key]['0']['designation_name']="Posted as ".$judicial_officer_details['spouse_details'][$key]['0']['designation_name']." From ". Carbon::parse($judicial_officer_details['posted_as'][$key]['0']['from_date'])->format('d-m-Y')." And ".$judicial_officer_details['spouse_details'][$key]['0']['additional_designation'];
+                                    $judicial_officer_details['spouse_details'][$key]['0']['designation_name']="Posted as ".$judicial_officer_details['spouse_details'][$key]['0']['designation_name'].", ".$judicial_officer_details['spouse_details'][$key]['0']['place_of_posting']." From ". Carbon::parse($judicial_officer_details['posted_as'][$key]['0']['from_date'])->format('d-m-Y')." And ".$judicial_officer_details['spouse_details'][$key]['0']['additional_designation'];
                                 }
                                 else{
-                                    $judicial_officer_details['spouse_details'][$key]['0']['designation_name']="Posted as ".$judicial_officer_details['spouse_details'][$key]['0']['designation_name']." From ". Carbon::parse($judicial_officer_details['spouse_details'][$key]['0']['from_date'])->format('d-m-Y');
+                                    $judicial_officer_details['spouse_details'][$key]['0']['designation_name']="Posted as ".$judicial_officer_details['spouse_details'][$key]['0']['designation_name'].", ".$judicial_officer_details['spouse_details'][$key]['0']['place_of_posting']." From ". Carbon::parse($judicial_officer_details['spouse_details'][$key]['0']['from_date'])->format('d-m-Y');
                                 }
                             }
                         }
