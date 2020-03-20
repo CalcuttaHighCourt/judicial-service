@@ -971,22 +971,25 @@ public function zone_pref_content(Request $request) {
         $jo_posting= array();
         $jo_details= array();
         $jo_info= array();
+        $final_tenure = array();
+        $data = array();
+        $nestedData = array();
+
         $tenure=0;
+        $tenure_year=0;
+        $posting_period="";
 
         $tenure_in_days = $year*365 + $month*30 + $day;
+        // print_r($tenure_in_days);
+        // exit;
     
         $current_postings = JudicialOfficerPosting::where([
                                                             ["zone_id",$zone],
                                                             ["to_date","=",null]
                                                         ])
                                                         ->select('judicial_officer_id')
-                                                        ->get();                                                       
-
-       $data = array();
-       $nestedData = array();
-
-
-
+                                                        ->get();    
+       
         foreach( $current_postings as $key=>$zonewise_officer){
             
             $zone_tenure_of_current_posting = 0;
@@ -1001,14 +1004,8 @@ public function zone_pref_content(Request $request) {
                                                                      
            // print_r($judicial_officer_posting_details);exit;
             foreach($judicial_officer_posting_details as $key1=>$jo_posting_detail){
-                // $nestedData['sl_no'] = $key1+1;
-                // $nestedData['officer_name'] = $jo_posting_detail->officer_name.' / '.$jo_posting_detail->jo_code;
-                
                 $from_date = Carbon::parse($jo_posting_detail->from_date);
 
-                // if()
-                // if($jo_posting_detail->zone_name ){
-                
                 if($jo_posting_detail->zone_id == $zone){
                     if($jo_posting_detail->to_date == null){        //if to_day is null that is current posting                                
                         $to_date = Carbon::today();
@@ -1020,23 +1017,46 @@ public function zone_pref_content(Request $request) {
                         $date_diff = $to_date->diffInDays($from_date);
                         $tenure+= $date_diff;
                     }
-                }
+                    if($tenure>=$tenure_in_days){
+                        $tenure_year = floor($tenure/365);
+                        $tenure_day = fmod($tenure,365);
+                        if($tenure_day>30){
+                            $tenure_month = floor($tenure_day/30);
+                            $tenure_day= fmod($tenure_month,30);
+                        }                      
+                    }
+                    else{   //if tenure is less than 1 year
+                        if($tenure<30)
+                            $tenure_day= $tenure;
+                        else{
+                            $tenure_month = floor($tenure/30);
+                            $tenure_day= fmod($tenure_month,30);
+                            
+                        }    
+                    }
+                    $posting_period = $tenure_year.' Year(s)'.$tenure_month.' Month(s)'.$tenure_day.' Day(s)';
+                   
+                }                     
                 else{
                     break;
-                }            
+                }      
             }
             $nestedData['sl_no'] = $key+1;
             $nestedData['officer_name'] = $jo_posting_detail->officer_name;
             $nestedData['current_zone_posting_details'] = 'not done';
             if($tenure_in_days<=$tenure){
-                $nestedData['duration_in_last_zone'] = $tenure;
+                $nestedData['duration_in_last_zone'] = $posting_period;
             }
-            $nestedData['action'] = "<i class='fa fa-ban disable' style='color:red' title='Disable'></i>";
-            
-            
+            $nestedData['action'] = "<i class='fa fa-window-restore' style='color:blue;' aria-hidden='true'></i>";
+                    
+                    
             $data[] = $nestedData;
-        }
-        return $data;
+        }   //outer loop ends
+        $json_data = array(
+            "draw" => intval($request->input('draw')),
+            "data" => $data
+        );
+        echo json_encode($json_data);
     }
 }
 
