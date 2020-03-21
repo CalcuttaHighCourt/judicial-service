@@ -58,7 +58,7 @@
                             Terminal Date
                         </label>
                         <!-- IIIIIIIIIII -->
-                        <input type="text" class="form-control date" id="from_date" placeholder="dd-mm-yyyy">
+                        <input type="text" class="form-control date" id="terminal_date" placeholder="dd-mm-yyyy">
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@
                 </div>
             </div>
             <div class="box-body">
-                <table class="table table-striped table-bordered" id="show_cadrewise_zonewise_table">
+                <table class="table1 table-striped table-bordered" id="show_cadrewise_zonewise_table">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -389,6 +389,7 @@
             var year = $("#year option:selected").val();
             var month = $("#month option:selected").val();
             var day = $("#day option:selected").val();
+            var terminal_date = $("#terminal_date").val();
 
             //console.log(cadre);
 
@@ -400,6 +401,7 @@
                    swal("Select Time Period","Please insert the Time period","error");
                }
                else{
+                $('.table1').DataTable().destroy();
                    
                 var table1 = $("#show_cadrewise_zonewise_table").DataTable({  
                         "processing": true,
@@ -413,7 +415,8 @@
                                         cadre:cadre,
                                         year:year,
                                         month:month,
-                                        day:day
+                                        day:day,
+                                        terminal_date:terminal_date
                                     }
                             },
                             "columns": [  

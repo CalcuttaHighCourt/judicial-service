@@ -978,6 +978,7 @@ public function zone_pref_content(Request $request) {
         $tenure=0;
         $tenure_year=0;
         $posting_period="";
+        $latest_zone_posting_details="";
 
         $tenure_in_days = $year*365 + $month*30 + $day;
         // print_r($tenure_in_days);
@@ -1009,7 +1010,8 @@ public function zone_pref_content(Request $request) {
                 if($jo_posting_detail->zone_id == $zone){
                     if($jo_posting_detail->to_date == null){        //if to_day is null that is current posting                                
                         $to_date = Carbon::today();
-                        $tenure =  $to_date->diffInDays($from_date);                     
+                        $tenure =  $to_date->diffInDays($from_date);   
+                                          
                     }
                    
                     else{

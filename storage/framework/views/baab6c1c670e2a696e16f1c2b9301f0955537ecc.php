@@ -138,7 +138,7 @@
                 </div>
             </div>
             <div class="box-body">
-                <table class="table table-striped table-bordered" id="show_cadrewise_zonewise_table">
+                <table class="table1 table-striped table-bordered" id="show_cadrewise_zonewise_table">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -400,6 +400,7 @@
                    swal("Select Time Period","Please insert the Time period","error");
                }
                else{
+                $('.table1').DataTable().destroy();
                    
                 var table1 = $("#show_cadrewise_zonewise_table").DataTable({  
                         "processing": true,
