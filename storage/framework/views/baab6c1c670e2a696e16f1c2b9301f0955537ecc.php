@@ -401,7 +401,7 @@
                }
                else{
                    
-                var table = $("#show_cadrewise_zonewise_table").DataTable({  
+                var table1 = $("#show_cadrewise_zonewise_table").DataTable({  
                         "processing": true,
                         "serverSide": true,
                         "ajax":{
@@ -424,7 +424,7 @@
                                 {"data": "action"}
                             ]
                         });
-                        //alert ('ABC');
+                    //alert ('ABC');
                     $("#cadre_wise_search_table").show();
                 }
            }
