@@ -967,6 +967,7 @@ public function zone_pref_content(Request $request) {
         $year = $request->input('year');
         $month = $request->input('month');
         $day = $request->input('day');
+        $terminal_date = $request->input('terminal_date');
 
         $jo_posting= array();
         $jo_details= array();
@@ -1011,7 +1012,7 @@ public function zone_pref_content(Request $request) {
                     if($jo_posting_detail->to_date == null){        //if to_day is null that is current posting                                
                         $to_date = Carbon::today();
                         $tenure =  $to_date->diffInDays($from_date);   
-                                          
+
                     }
                    
                     else{

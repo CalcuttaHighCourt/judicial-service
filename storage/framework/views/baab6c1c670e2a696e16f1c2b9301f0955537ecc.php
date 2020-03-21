@@ -58,7 +58,7 @@
                             Terminal Date
                         </label>
                         <!-- IIIIIIIIIII -->
-                        <input type="text" class="form-control date" id="from_date" placeholder="dd-mm-yyyy">
+                        <input type="text" class="form-control date" id="terminal_date" placeholder="dd-mm-yyyy">
                     </div>
                 </div>
             </div>
@@ -389,6 +389,7 @@
             var year = $("#year option:selected").val();
             var month = $("#month option:selected").val();
             var day = $("#day option:selected").val();
+            var terminal_date = $("#terminal_date").val();
 
             //console.log(cadre);
 
@@ -414,7 +415,8 @@
                                         cadre:cadre,
                                         year:year,
                                         month:month,
-                                        day:day
+                                        day:day,
+                                        terminal_date:terminal_date
                                     }
                             },
                             "columns": [  
