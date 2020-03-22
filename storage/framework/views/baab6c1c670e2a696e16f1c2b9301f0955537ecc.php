@@ -133,7 +133,7 @@
                         </label>
                     </div>
                     <div class="col-sm-3 form-group" id="enable_window_flag">
-                        <button class="btn btn-success diasble_display_flag" name="enable_window_flag" id="enable_window_flag" style="width: 100px; height: 34px;">ON</button>
+                        <button class="btn btn-success enable_window_flag" name="enable_window_flag" id="enable_window_flag" style="width: 100px; height: 34px;">ON</button>
                     </div>
                 </div>
             </div>
@@ -364,8 +364,10 @@
                     }
             })
             
-        }); 
+        });
 
+         
+        //disable window for all jo
         $(document).on("click","#diasble_display_flag",function(){
             $.ajax({
                 url:"disable_pref_window_for_all_active_jo",
@@ -382,6 +384,25 @@
                 }
             })
         });
+
+        //enable window for all jo
+        $(document).on("click","#enable_window_flag",function(){
+            $.ajax({
+                url:"enable_pref_window_for_all_active_jo",
+                type:"POST",
+                data :{ 
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                },
+                success(response){
+                    swal("Successfull","Windows for all judicial officers have been successfully enabled","success");
+                    table.ajax.reload(); 
+                },
+                error(response){
+                    swal("Error","Preference window can not be enabled","error");
+                }
+            })
+        });
+        
         $(document).on("click","#search",function(){
 
             var zone = $("#zone_name option:selected").val();
@@ -433,6 +454,30 @@
            }
             
         });
+
+        //enable window for individual jo
+        
+        $(document).on("click",".enable",function(){
+            var $tr = $(this).closest('tr');
+            var data = $('#show_cadrewise_zonewise_table').DataTable().row($tr).data();
+            id=data.id;
+            $.ajax({
+                    url:"enable_window_for_jo_pref",
+                    type:"POST",
+                    data :{ 
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                         id: id
+                    },
+                    success(response){
+                        swal("Successfull","Enabled Successfully","success");
+                        table.ajax.reload(); 
+                    },
+                    error(response){
+                        swal("Error","Enabled has not been done","error");
+                    }
+            })
+            
+        }); 
             
     });
 

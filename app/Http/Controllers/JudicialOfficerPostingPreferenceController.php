@@ -933,10 +933,29 @@ public function zone_pref_content(Request $request) {
     
     }
 
+    public function openning_individual_window(Request $request){
+
+        $this->validate ( $request, [ 
+            'id' => 'integer|max:9999|exists:judicial_officers,id',
+        ]);
+
+        $id = $request->input('id');
+
+        $data = [
+            'posting_preference_window_flag'=>'Y',
+            'updated_at'=>Carbon::today()
+        ];
+
+        JudicialOfficer::where('id',$id)->update($data);
+        
+        return 1;
+    
+    }
+
     public function closing_preference_window_for_all_judicial_officers(Request $request){
         $data = [
             'posting_preference_window_flag'=>'N',
-            'updated_at'=>null
+            'updated_at'=>Carbon::today()
         ];
 
         JudicialOfficer::where('posting_preference_window_flag','Y')->update($data);
@@ -944,6 +963,18 @@ public function zone_pref_content(Request $request) {
         return 1;
 
     }
+
+    // public function openning_preference_window_for_all_judicial_officers(Request $request){
+    //     $data = [
+    //         'posting_preference_window_flag'=>'Y',
+    //         'updated_at'=>Carbon::today()
+    //     ];
+
+    //     JudicialOfficer::where('posting_preference_window_flag','N')->update($data);
+        
+    //     return 1;
+
+    // }
 
     public function zonewise_tenurewise_jo(Request $request){
 
@@ -956,10 +987,11 @@ public function zone_pref_content(Request $request) {
 
         $columns = array( 
             0 => 'sl_no',
-            1 => 'officer_name',
-            2 => 'current_zone_posting_details',
-            3 => 'duration_in_last_zone',
-            4 => 'action'
+            1 => 'id',
+            2 => 'officer_name',
+            3 => 'current_zone_posting_details',
+            4 => 'duration_in_last_zone',
+            5 => 'action'
         );
 
         $zone = $request->input('zone');
@@ -1000,12 +1032,13 @@ public function zone_pref_content(Request $request) {
                                                                         ->leftjoin('designations','judicial_officer_postings.designation_id','=','designations.id')
                                                                         ->join('judicial_officers','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
                                                                         ->where('judicial_officer_id',$zonewise_officer->judicial_officer_id)
-                                                                        ->select('zones.id as zone_id','zones.zone_name','designations.designation_name','from_date','to_date','place_of_posting','judicial_officer_postings.judicial_officer_id','judicial_officers.officer_name','judicial_officers.jo_code')
+                                                                        //->select('zones.id as zone_id','zones.zone_name','designations.designation_name','from_date','to_date','place_of_posting','judicial_officer_postings.judicial_officer_id','judicial_officers.officer_name','judicial_officers.jo_code')
                                                                         ->orderBy('to_date','desc')
                                                                         ->get();
                                                                      
-           // print_r($judicial_officer_posting_details);exit;
+            //print_r($judicial_officer_posting_details);exit;
             foreach($judicial_officer_posting_details as $key1=>$jo_posting_detail){
+
                 $from_date = Carbon::parse($jo_posting_detail->from_date);
 
                 if($jo_posting_detail->zone_id == $zone){
@@ -1042,18 +1075,29 @@ public function zone_pref_content(Request $request) {
                 }                     
                 else{
                     break;
+                }
+                if($jo_posting_detail->posting_preference_window_flag == 'Y'){
+                    $nestedData['action'] = 'Window is already open';
+                   
                 }      
+                else{
+                    $nestedData['action'] = "<i class='fa fa-window-restore enable' style='color:blue;' aria-hidden='true'></i>";
+                }
             }
             $nestedData['sl_no'] = $key+1;
+            $nestedData['id'] = $jo_posting_detail->judicial_officer_id;
             $nestedData['officer_name'] = $jo_posting_detail->officer_name;
             $nestedData['current_zone_posting_details'] = 'not done';
             if($tenure_in_days<=$tenure){
                 $nestedData['duration_in_last_zone'] = $posting_period;
             }
-            $nestedData['action'] = "<i class='fa fa-window-restore' style='color:blue;' aria-hidden='true'></i>";
-                    
+            
+             
                     
             $data[] = $nestedData;
+            
+            //print_r($data);exit;
+        
         }   //outer loop ends
         $json_data = array(
             "draw" => intval($request->input('draw')),
