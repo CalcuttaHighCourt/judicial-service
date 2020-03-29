@@ -386,22 +386,22 @@
         });
 
         //enable window for all jo
-        // $(document).on("click","#enable_window_flag",function(){
-        //     $.ajax({
-        //         url:"enable_pref_window_for_all_active_jo",
-        //         type:"POST",
-        //         data :{ 
-        //             _token: $('meta[name="csrf-token"]').attr('content'),
-        //         },
-        //         success(response){
-        //             swal("Successfull","Windows for all judicial officers have been successfully enabled","success");
-        //             table.ajax.reload(); 
-        //         },
-        //         error(response){
-        //             swal("Error","Preference window can not be enabled","error");
-        //         }
-        //     })
-        // });
+        $(document).on("click","#enable_window_flag",function(){
+            $.ajax({
+                url:"enable_pref_window_for_all_active_jo",
+                type:"POST",
+                data :{ 
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                },
+                success(response){
+                    swal("Successfull","Windows for all judicial officers have been successfully enabled","success");
+                    table.ajax.reload(); 
+                },
+                error(response){
+                    swal("Error","Preference window can not be enabled","error");
+                }
+            })
+        });
         
         $(document).on("click","#search",function(){
 
@@ -470,6 +470,8 @@
                     },
                     success(response){
                         swal("Successfull","Enabled Successfully","success");
+                        //$("#show_jo_pref_details").ajax.reload();
+
                     },
                     error(response){
                         swal("Error","Enabled has not been done","error");
