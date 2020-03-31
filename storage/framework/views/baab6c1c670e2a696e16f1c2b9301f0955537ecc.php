@@ -132,7 +132,7 @@
                             <h4><strong><i class="fa fa-check-square-o" style="font-size:16px;color:green"></i>Enable The Window for all</strong></h4> 
                         </label>
                     </div>
-                    <div class="col-sm-3 form-group" id="enable_window_flag">
+                    <div class="col-sm-3 form-group">
                         <button class="btn btn-success enable_window_flag" name="enable_window_flag" id="enable_window_flag" style="width: 100px; height: 34px;">ON</button>
                     </div>
                 </div>
@@ -470,7 +470,7 @@
                     },
                     success(response){
                         swal("Successfull","Enabled Successfully","success");
-                        //$("#show_jo_pref_details").ajax.reload();
+                        $("#show_jo_pref_details").reload();
 
                     },
                     error(response){
