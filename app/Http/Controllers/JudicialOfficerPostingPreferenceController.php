@@ -1090,11 +1090,12 @@ public function zone_pref_content(Request $request) {
                                                                                 ->where('judicial_officer_id',$zonewise_officer->judicial_officer_id)
                                                                                 ->orderBy('to_date','desc')
                                                                                 ->get();
-                                                                                
+                        $latest_zone_posting_details = "";
+                        
                         //print_r($judicial_officer_posting_details);exit;
                         foreach($judicial_officer_posting_details as $key1=>$jo_posting_detail){
-                            $latest_zone_posting_details = "";
                             $i=$key1+1;
+                            $jo_posting[$key1] = ""; 
                             //$jo=$jo_posting_detail->officer_name;
                             if($jo_posting_detail->to_date == null){       //if to_day is null that is current posting    
                                 if($jo_posting_detail->zone_id == $zone){   //if zone is same as the given zone
