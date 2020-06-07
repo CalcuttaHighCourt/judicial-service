@@ -138,6 +138,9 @@
                 </div>
             </div>
             <div class="box-body">
+                <div class="col-sm-3 form-group">
+                        <button class="btn btn-primary download_searched_jo" name="download_searched_jo" id="download_searched_jo" style="width: 100px; height: 34px;">DOWNLOAD</button>
+                </div>
                 <table class="table1 table-striped table-bordered" id="show_cadrewise_zonewise_table">
                     <thead>
                         <tr>
@@ -454,6 +457,57 @@
            }
             
         });
+
+        //download zonewise tenurewise jo details download
+
+        /*pdf download:start*/
+        // var i=0;
+        // $(document).on("click","#download_searched_jo",function(){             
+        //     i++;
+        //     var x= "download_posting_preferences/";
+        //     x=x+i;
+        //     console.log(x);
+        //    //window.location.replace(x);
+     
+        // });
+
+        $(document).on("click","#download_searched_jo",function(){
+
+            var zone = $("#zone_name option:selected").val();
+            var cadre = $("#cadre option:selected").val();
+            var year = $("#year option:selected").val();
+            var month = $("#month option:selected").val();
+            var day = $("#day option:selected").val();
+            var terminal_date = $("#terminal_date").val();
+            if(zone == ""){
+                zone = 0;
+            }
+            if(cadre == ""){
+                cadre = 0;
+            }
+            if(year == ""){
+                year = 0;
+            }
+            if(month == ""){
+                month = 0;
+            }
+            if(day == ""){
+                day= 0;
+            }
+            if(terminal_date == ""){
+                terminal_date = 0;
+            }
+           // console.log(rank);
+            var x= "download_filtered_jo_details/";
+            //var y=rank;
+            x=x+zone+'/'+cadre+'/'+year+'/'+month+'/'+day+'/'+terminal_date;
+           console.log(x);
+            window.location.replace(x);
+
+
+     
+        });
+   /*pdf download:end*/
 
         //enable window for individual jo
         

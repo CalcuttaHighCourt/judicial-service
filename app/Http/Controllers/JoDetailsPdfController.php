@@ -686,4 +686,540 @@ class JoDetailsPdfController extends Controller
         $mpdf->Output('jo_posting_pref.pdf','D');
                 
     }
+    public function zonewise_tenurewise_jo_download(Request $request){
+
+        $mpdf = new \Mpdf\Mpdf(['orientation' => 'L']);
+
+        $zone = $request->route('zone');
+        if($zone==0){
+            $zone="";
+        }
+        $cadre = $request->route('cadre');
+        if($cadre==0){
+            $cadre="";
+        }
+        $year = $request->route('year');
+        
+        $month = $request->route('month');
+        
+        $day = $request->route('day');
+
+        $terminal_date = $request->route('terminal_date');
+        if($terminal_date==0){
+            $terminal_date="";
+        }
+
+        $jo_posting= array();
+        $jo_details= array();
+        $jo_info= array();
+        $final_tenure = array();
+        $data = array();
+        $nestedData = array();
+        $posting_details = array();
+       
+
+        //$duration = array();
+
+        $tenure=0;
+        $tenure_year=0;
+        $tenure_month=0;
+        $tenure_day=0;
+        $posting_period="";
+        $latest_zone_posting_details="";
+        $i=0;
+        $j=0;
+        $counter=0;
+        
+
+        $tenure_in_days = $year*365 + $month*30 + $day;
+              
+        
+            if($terminal_date==""){
+                         //terminal date is not given
+                if($cadre==""){            //cadre is not given
+                    $current_postings = JudicialOfficerPosting::where([
+                                                                        ["zone_id",$zone],
+                                                                        ["to_date","=",null]
+                                                                    ])
+                                                                    ->orderBy('judicial_officer_id')
+                                                                    ->get();    
+                   
+                
+                    foreach( $current_postings as $key=>$zonewise_officer){
+                        $judicial_officer_posting_details = JudicialOfficerPosting::leftjoin('zones','judicial_officer_postings.zone_id','=','zones.id')
+                                                                                ->leftjoin('designations','judicial_officer_postings.designation_id','=','designations.id')
+                                                                                ->leftjoin('judicial_officers','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                                                                                ->where('judicial_officer_id',$zonewise_officer->judicial_officer_id)
+                                                                                ->orderBy('to_date','desc')
+                                                                                ->get();
+                        $latest_zone_posting_details = "";
+                        $tenure = 0;
+                        $i=0;
+                        $posting_details= array(); 
+                        
+                        foreach($judicial_officer_posting_details as $key1=>$jo_posting_detail){
+                            ++$i;                           
+                            if($jo_posting_detail->zone_id == $zone){      //SAME ZONE
+                                if($jo_posting_detail->to_date == null){    //CURRENT POSTING
+                                    $from_date = Carbon::parse($jo_posting_detail->from_date);                   
+                                    $to_date = Carbon::today();                                  
+                                    if($jo_posting_detail->designation_id == null){
+                                        $nestedData['latest_posting'] = $i.'. '.$jo_posting_detail->deputation_designation.', '.$jo_posting_detail->deputation_posting_place;                                        
+                                        $latest_zone_posting_details = '<br>'.$i.'. '. $jo_posting_detail->deputation_designation.', deputed at '.$jo_posting_detail->deputation_posting_place.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To Till Date';
+                                    }
+                                    else{
+                                        $nestedData['latest_posting'] = $i.'. '.$jo_posting_detail->designation_name.', '.$jo_posting_detail->place_of_posting;
+                                        $latest_zone_posting_details= '<br>'. $i.'. '. $jo_posting_detail->designation_name.' posted as '.$jo_posting_detail->place_of_posting.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To Till Date';
+                                    }
+                                }
+                                else{       //PREVIOUS POSTINGS IN THE SAME ZONE 
+                                    $from_date = Carbon::parse($jo_posting_detail->from_date);           
+                                    if($jo_posting_detail->designation_id == null){
+                                        $latest_zone_posting_details = '<br>'.$i.'. '. $jo_posting_detail->deputation_designation.', deputed at '.$jo_posting_detail->deputation_posting_place.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To '.Carbon::parse($jo_posting_detail->to_date)->format('d-m-Y');
+                                    }
+                                    else{
+                                        $latest_zone_posting_details = '<br>'. $i.'. '. $jo_posting_detail->designation_name.' posted as '.$jo_posting_detail->place_of_posting.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To '.Carbon::parse($jo_posting_detail->to_date)->format('d-m-Y');
+                                    }
+                                }
+                                $tenure = $to_date->diffInDays($from_date);
+                                array_push($posting_details,$latest_zone_posting_details);
+                            }
+                            else{
+                                break;
+                            }
+                            
+                        }
+                        //print_r($tenure);exit;
+                        //Calculation and string creation for duration spend in a zone in Y-M-D format:start                         
+                        if($tenure>=$tenure_in_days){
+                            ++$counter;
+                            ++$i;
+                            if( $tenure >= 365){
+                                $years =  floor($tenure/365);
+                                $days = fmod($tenure,365);
+                                if($days > 30){
+                                    $months= floor($days/30);
+                                    $days = fmod($days,30);
+
+                                    $posting_period=$years." Year(s) ".$months." Month(s) ".$days." Day(s) ";
+                                }
+                                else{
+                                    $posting_period=$years." Year(s) ".$days." Day(s) ";
+                                }                                
+                            }
+                            else if($tenure >= 30){
+
+                                $months = floor($tenure/30);
+                                $days = fmod($tenure,30);
+
+                                $posting_period=$months." Month(s) ".$days." Day(s) ";
+                            }
+                            else if($tenure > 0){
+
+                                $posting_period=$tenure." Day(s) ";
+                            }
+                            else
+                                $posting_period="Yet to be posted.";
+                            
+          
+                            
+                            $nestedData['sl_no'] = $counter;
+                            $nestedData['id'] = $jo_posting_detail->judicial_officer_id;
+                            $nestedData['officer_name'] = $jo_posting_detail->officer_name.'/'.$jo_posting_detail->jo_code;
+                            $str = "";
+                            foreach($posting_details as $posting)
+                            {
+                                $str.= $posting;
+                            }
+
+                            $nestedData['current_zone_posting_details'] = $str;
+                            $nestedData['duration_in_last_zone'] = $posting_period;
+                            if($jo_posting_detail->posting_preference_window_flag == 'Y'){
+                                $nestedData['action'] = 'Window is already open';
+                            }      
+                            else{
+                                $nestedData['action'] = "<i class='fa fa-window-restore enable' style='color:blue;' aria-hidden='true'></i>";
+                            }
+                            
+                            $data[] = $nestedData;
+                        }
+                    }  
+                            
+                            
+                }
+                else{       //when cadre is given
+                    $current_postings = JudicialOfficerPosting::where([
+                                                                        ["zone_id",$zone],
+                                                                        ["to_date","=",null],
+                                                                        ["rank_id",$cadre]
+                                                                    ])
+                                                                    ->orderBy('judicial_officer_id')
+                                                                    ->get();    
+                    
+
+                    foreach( $current_postings as $key=>$zonewise_officer){
+                        $judicial_officer_posting_details = JudicialOfficerPosting::leftjoin('zones','judicial_officer_postings.zone_id','=','zones.id')
+                                                                                    ->leftjoin('designations','judicial_officer_postings.designation_id','=','designations.id')
+                                                                                    ->leftjoin('judicial_officers','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                                                                                    ->where('judicial_officer_id',$zonewise_officer->judicial_officer_id)
+                                                                                    ->orderBy('to_date','desc')
+                                                                                    ->get();
+                        $latest_zone_posting_details = "";
+                        $tenure = 0;
+                        $i=0;
+                        $posting_details= array(); 
+
+                        foreach($judicial_officer_posting_details as $key1=>$jo_posting_detail){
+                            ++$i;                           
+                            if($jo_posting_detail->zone_id == $zone){      //SAME ZONE
+                                if($jo_posting_detail->to_date == null){    //CURRENT POSTING
+                                    $from_date = Carbon::parse($jo_posting_detail->from_date);                   
+                                    $to_date = Carbon::today();                                  
+                                    if($jo_posting_detail->designation_id == null){
+                                        $nestedData['latest_posting'] = $i.'. '.$jo_posting_detail->deputation_designation.', '.$jo_posting_detail->deputation_posting_place;                                        
+                                        $latest_zone_posting_details = '<br>'.$i.'. '. $jo_posting_detail->deputation_designation.', deputed at '.$jo_posting_detail->deputation_posting_place.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To Till Date';
+                                    }
+                                    else{
+                                        $nestedData['latest_posting'] = $i.'. '.$jo_posting_detail->designation_name.', '.$jo_posting_detail->place_of_posting;
+                                        $latest_zone_posting_details= '<br>'. $i.'. '. $jo_posting_detail->designation_name.' posted as '.$jo_posting_detail->place_of_posting.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To Till Date';
+                                    }
+                                }
+                                else{       //PREVIOUS POSTINGS IN THE SAME ZONE 
+                                    $from_date = Carbon::parse($jo_posting_detail->from_date);           
+                                    if($jo_posting_detail->designation_id == null){
+                                        $latest_zone_posting_details = '<br>'.$i.'. '. $jo_posting_detail->deputation_designation.', deputed at '.$jo_posting_detail->deputation_posting_place.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To '.Carbon::parse($jo_posting_detail->to_date)->format('d-m-Y');
+                                    }
+                                    else{
+                                        $latest_zone_posting_details = '<br>'. $i.'. '. $jo_posting_detail->designation_name.' posted as '.$jo_posting_detail->place_of_posting.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To '.Carbon::parse($jo_posting_detail->to_date)->format('d-m-Y');
+                                    }
+                                }
+                                $tenure = $to_date->diffInDays($from_date);
+                                array_push($posting_details,$latest_zone_posting_details);
+                            }
+                            else{
+                                break;
+                            }
+
+                        }
+                        //print_r($tenure);exit;
+                        //Calculation and string creation for duration spend in a zone in Y-M-D format:start                         
+                        if($tenure>=$tenure_in_days){
+                            ++$counter;
+                            if( $tenure >= 365){
+                                $years =  floor($tenure/365);
+                                $days = fmod($tenure,365);
+                                if($days > 30){
+                                    $months= floor($days/30);
+                                    $days = fmod($days,30);
+
+                                    $posting_period=$years." Year(s) ".$months." Month(s) ".$days." Day(s) ";
+                                }
+                                else{
+                                    $posting_period=$years." Year(s) ".$days." Day(s) ";
+                                }                                
+                            }
+                            else if($tenure >= 30){
+
+                                $months = floor($tenure/30);
+                                $days = fmod($tenure,30);
+                                $posting_period=$months." Month(s) ".$days." Day(s) ";
+                            }
+                            else if($tenure > 0){
+
+                                $posting_period=$tenure." Day(s) ";
+                            }
+                            else
+                                $posting_period="Yet to be posted.";
+
+
+                            $nestedData['sl_no'] = $counter;
+                            $nestedData['id'] = $jo_posting_detail->judicial_officer_id;
+                            $nestedData['officer_name'] = $jo_posting_detail->officer_name.'/'.$jo_posting_detail->jo_code;
+                            $str = "";
+                            foreach($posting_details as $posting)
+                            {
+                                $str.= $posting;
+                            }
+
+                            $nestedData['current_zone_posting_details'] = $str;
+                            $nestedData['duration_in_last_zone'] = $posting_period;
+                            if($jo_posting_detail->posting_preference_window_flag == 'Y'){
+                                $nestedData['action'] = 'Window is already open';
+                            }      
+                            else{
+                                $nestedData['action'] = "<i class='fa fa-window-restore enable' style='color:blue;' aria-hidden='true'></i>";
+                            }
+
+                            $data[] = $nestedData;
+                            
+                        }
+                    }  
+
+                }
+            }
+            else{       //Terminal date is given
+                if($cadre==""){            //cadre is not given
+                    $current_postings = JudicialOfficerPosting::where([
+                                                                        ["zone_id",$zone],
+                                                                        ["to_date","=",null]
+                                                                    ])
+                                                                    ->orderBy('judicial_officer_id')
+                                                                    ->get();    
+                  
+                
+                    foreach( $current_postings as $key=>$zonewise_officer){
+                        $judicial_officer_posting_details = JudicialOfficerPosting::leftjoin('zones','judicial_officer_postings.zone_id','=','zones.id')
+                                                                                ->leftjoin('designations','judicial_officer_postings.designation_id','=','designations.id')
+                                                                                ->leftjoin('judicial_officers','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                                                                                ->where('judicial_officer_id',$zonewise_officer->judicial_officer_id)
+                                                                                ->orderBy('to_date','desc')
+                                                                                ->get();
+                        $latest_zone_posting_details = "";
+                        $tenure = 0;
+                        $i=0;
+                        $posting_details= array(); 
+                        
+                        foreach($judicial_officer_posting_details as $key1=>$jo_posting_detail){
+                            ++$i;                           
+                            if($jo_posting_detail->zone_id == $zone){      //SAME ZONE
+                                if($jo_posting_detail->to_date == null){    //CURRENT POSTING
+                                    $from_date = Carbon::parse($jo_posting_detail->from_date);                   
+                                    $to_date = Carbon::parse($terminal_date);                                  
+                                    if($jo_posting_detail->designation_id == null){
+                                        $nestedData['latest_posting'] = $i.'. '.$jo_posting_detail->deputation_designation.', '.$jo_posting_detail->deputation_posting_place;                                        
+                                        $latest_zone_posting_details = '<br>'.$i.'. '. $jo_posting_detail->deputation_designation.', deputed at '.$jo_posting_detail->deputation_posting_place.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To Till Date';
+                                    }
+                                    else{
+                                        $nestedData['latest_posting'] = $i.'. '.$jo_posting_detail->designation_name.', '.$jo_posting_detail->place_of_posting;
+                                        $latest_zone_posting_details= '<br>'. $i.'. '. $jo_posting_detail->designation_name.' posted as '.$jo_posting_detail->place_of_posting.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To Till Date';
+                                    }
+                                }
+                                else{       //PREVIOUS POSTINGS IN THE SAME ZONE 
+                                    $from_date = Carbon::parse($jo_posting_detail->from_date);           
+                                    if($jo_posting_detail->designation_id == null){
+                                        $latest_zone_posting_details = '<br>'.$i.'. '. $jo_posting_detail->deputation_designation.', deputed at '.$jo_posting_detail->deputation_posting_place.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To '.Carbon::parse($jo_posting_detail->to_date)->format('d-m-Y');
+                                    }
+                                    else{
+                                        $latest_zone_posting_details = '<br>'. $i.'. '. $jo_posting_detail->designation_name.' posted as '.$jo_posting_detail->place_of_posting.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To '.Carbon::parse($jo_posting_detail->to_date)->format('d-m-Y');
+                                    }
+                                }
+                                $tenure = $to_date->diffInDays($from_date);
+                                array_push($posting_details,$latest_zone_posting_details);
+                            }
+                            else{
+                                break;
+                            }
+                            
+                        }
+                        //print_r($tenure);exit;
+                        //Calculation and string creation for duration spend in a zone in Y-M-D format:start                         
+                        if($tenure>=$tenure_in_days){
+                            ++$counter;
+                            if( $tenure >= 365){
+                                $years =  floor($tenure/365);
+                                $days = fmod($tenure,365);
+                                if($days > 30){
+                                    $months= floor($days/30);
+                                    $days = fmod($days,30);
+
+                                    $posting_period=$years." Year(s) ".$months." Month(s) ".$days." Day(s) ";
+                                }
+                                else{
+                                    $posting_period=$years." Year(s) ".$days." Day(s) ";
+                                }                                
+                            }
+                            else if($tenure >= 30){
+
+                                $months = floor($tenure/30);
+                                $days = fmod($tenure,30);
+
+                                $posting_period=$months." Month(s) ".$days." Day(s) ";
+                            }
+                            else if($tenure > 0){
+
+                                $posting_period=$tenure." Day(s) ";
+                            }
+                            else
+                                $posting_period="Yet to be posted.";
+                            
+                            $nestedData['sl_no'] = $counter;
+                            $nestedData['id'] = $jo_posting_detail->judicial_officer_id;
+                            $nestedData['officer_name'] = $jo_posting_detail->officer_name.'/'.$jo_posting_detail->jo_code;
+                            $str = "";
+                            foreach($posting_details as $posting)
+                            {
+                                $str.= $posting;
+                            }
+
+                            $nestedData['current_zone_posting_details'] = $str;
+                            $nestedData['duration_in_last_zone'] = $posting_period;
+                            if($jo_posting_detail->posting_preference_window_flag == 'Y'){
+                                $nestedData['action'] = 'Window is already open';
+                            }      
+                            else{
+                                $nestedData['action'] = "<i class='fa fa-window-restore enable' style='color:blue;' aria-hidden='true'></i>";
+                            }
+                            
+                            $data[] = $nestedData;
+                           
+                        }
+                    }  
+                            
+                            
+                }
+                else{       //when terminal date and cadre is given
+                    $current_postings = JudicialOfficerPosting::where([
+                                                                        ["zone_id",$zone],
+                                                                        ["to_date","=",null],
+                                                                        ["rank_id",$cadre]
+                                                                    ])
+                                                                    ->orderBy('judicial_officer_id')
+                                                                    ->get();    
+                
+
+                    foreach( $current_postings as $key=>$zonewise_officer){
+                        $judicial_officer_posting_details = JudicialOfficerPosting::leftjoin('zones','judicial_officer_postings.zone_id','=','zones.id')
+                                                                                    ->leftjoin('designations','judicial_officer_postings.designation_id','=','designations.id')
+                                                                                    ->leftjoin('judicial_officers','judicial_officer_postings.judicial_officer_id','=','judicial_officers.id')
+                                                                                    ->where('judicial_officer_id',$zonewise_officer->judicial_officer_id)
+                                                                                    ->orderBy('to_date','desc')
+                                                                                    ->get();
+                        $latest_zone_posting_details = "";
+                        $tenure = 0;
+                        $i=0;
+                        $posting_details= array(); 
+
+                        foreach($judicial_officer_posting_details as $key1=>$jo_posting_detail){
+                            ++$i;                           
+                            if($jo_posting_detail->zone_id == $zone){      //SAME ZONE
+                                if($jo_posting_detail->to_date == null){    //CURRENT POSTING
+                                    $from_date = Carbon::parse($jo_posting_detail->from_date);                   
+                                    $to_date = Carbon::parse($terminal_date);                                 
+                                    if($jo_posting_detail->designation_id == null){
+                                        $nestedData['latest_posting'] = $i.'. '.$jo_posting_detail->deputation_designation.', '.$jo_posting_detail->deputation_posting_place;                                        
+                                        $latest_zone_posting_details = '<br>'.$i.'. '. $jo_posting_detail->deputation_designation.', deputed at '.$jo_posting_detail->deputation_posting_place.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To Till Date';
+                                    }
+                                    else{
+                                        $nestedData['latest_posting'] = $i.'. '.$jo_posting_detail->designation_name.', '.$jo_posting_detail->place_of_posting;
+                                        $latest_zone_posting_details= '<br>'. $i.'. '. $jo_posting_detail->designation_name.' posted as '.$jo_posting_detail->place_of_posting.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To Till Date';
+                                    }
+                                }
+                                else{       //PREVIOUS POSTINGS IN THE SAME ZONE 
+                                    $from_date = Carbon::parse($jo_posting_detail->from_date);           
+                                    if($jo_posting_detail->designation_id == null){
+                                        $latest_zone_posting_details = '<br>'.$i.'. '. $jo_posting_detail->deputation_designation.', deputed at '.$jo_posting_detail->deputation_posting_place.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To '.Carbon::parse($jo_posting_detail->to_date)->format('d-m-Y');
+                                    }
+                                    else{
+                                        $latest_zone_posting_details = '<br>'. $i.'. '. $jo_posting_detail->designation_name.' posted as '.$jo_posting_detail->place_of_posting.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To '.Carbon::parse($jo_posting_detail->to_date)->format('d-m-Y');
+                                    }
+                                }
+                                $tenure = $to_date->diffInDays($from_date);
+                                array_push($posting_details,$latest_zone_posting_details);
+                            }
+                            else{
+                                break;
+                            }
+
+
+                        }
+
+                        
+                        //print_r($tenure);exit;
+                        //Calculation and string creation for duration spend in a zone in Y-M-D format:start                         
+                        if($tenure>=$tenure_in_days){
+                            ++$counter;
+                            if( $tenure >= 365){
+                                $years =  floor($tenure/365);
+                                $days = fmod($tenure,365);
+                                if($days > 30){
+                                    $months= floor($days/30);
+                                    $days = fmod($days,30);
+
+                                    $posting_period=$years." Year(s) ".$months." Month(s) ".$days." Day(s) ";
+                                }
+                                else{
+                                    $posting_period=$years." Year(s) ".$days." Day(s) ";
+                                }                                
+                            }
+                            else if($tenure >= 30){
+
+                                $months = floor($tenure/30);
+                                $days = fmod($tenure,30);
+                                $posting_period=$months." Month(s) ".$days." Day(s) ";
+                            }
+                            else if($tenure > 0){
+
+                                $posting_period=$tenure." Day(s) ";
+                            }
+                            else
+                                $posting_period="Yet to be posted.";
+
+
+                            $nestedData['sl_no'] = $counter;
+                            $nestedData['id'] = $jo_posting_detail->judicial_officer_id;
+                            $nestedData['officer_name'] = $jo_posting_detail->officer_name.'/'.$jo_posting_detail->jo_code;
+
+                            $str = "";
+                            foreach($posting_details as $posting)
+                            {
+                                $str.= $posting;
+                            }
+
+                            $nestedData['current_zone_posting_details'] = $str;
+                            $nestedData['duration_in_last_zone'] = $posting_period;
+                            if($jo_posting_detail->posting_preference_window_flag == 'Y'){
+                                $nestedData['action'] = 'Window is already open';
+                            }      
+                            else{
+                                $nestedData['action'] = "<i class='fa fa-window-restore enable' style='color:blue;' aria-hidden='true'></i>";
+                            }
+
+                            $data[] = $nestedData;
+                            
+                        }
+                    }  
+
+                }
+            }
+        // echo "<pre>";
+        // print_r($data);exit;
+       
+        $content= "<p align=\"center\" style=\"font-size: 15px;font-weight: bold;\">Current Zone Posting Details of Judicial Officer</p>
+                        <table width=\"100%\" style=\"border-right: 4px solid #ddd; border-left: 4px solid #ddd; border-top: 4px solid #ddd;\">
+                            <thead>
+                                <tr>
+                                    <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd; border-bottom: 4px solid #ddd\">SL NO.</th>
+                                    <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd; border-bottom: 4px solid #ddd\">JO NAME|JOCODE</th>
+                                    <th style=\"font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd; border-bottom: 4px solid #ddd\">DURATION IN LAST ZONE</th>
+                                    <th style=\"font-size: 1.17em; border-collapse:collapse; border-bottom: 4px solid #ddd\">LATEST ZONE POSTING</th>
+                                   
+                                </tr>
+                            </thead>";
+    for($i=0;  $i < sizeof($data); $i++){
+        // echo $data[$i]['current_zone_posting_details']."<br/>";
+        
+        // // 
+
+        $content.="<tr>                       
+                            <td align=\"left\" style=\" width:auto; font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-bottom: 4px solid #ddd;\">".$data[$i]['sl_no']."</td>
+                            <td align=\"left\" style=\"  font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-bottom: 4px solid #ddd;\">".$data[$i]['officer_name']."</td>
+                            
+                            <td align=\"left\" style=\"  font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-bottom: 4px solid #ddd;\">".$data[$i]['duration_in_last_zone']."</td>";
+       
+        $content.= "<td align=\"left\" style=\"  font-size: 1.17em; border-collapse:collapse;border-bottom: 4px solid #ddd;\">".$data[$i]['current_zone_posting_details']."</td>";
+    
+        $content.="</tr>
+                        </tbody>
+                            ";
+       
+    }
+     $content.="</table>";
+    //exit;
+
+        $mpdf->SetHTMLFooter('<hr>Report Generated by the IIMS - Calcutta High Court on '.Carbon::now()->format('d-m-Y').'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{PAGENO}');
+
+
+        $mpdf->WriteHTML($content);
+        $mpdf->Output('cuurent_zonewise_posting_details.pdf','D');
+    }
 }

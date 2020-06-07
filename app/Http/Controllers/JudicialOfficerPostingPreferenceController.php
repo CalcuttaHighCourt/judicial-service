@@ -1178,7 +1178,7 @@ public function zone_pref_content(Request $request) {
                             //     $posting_period = 'Exceeded Time range';
                             // }                 
                             
-                            $nestedData['sl_no'] = $counter;
+                            $nestedData['sl_no'] = $j+1;$j++;
                             $nestedData['id'] = $jo_posting_detail->judicial_officer_id;
                             $nestedData['officer_name'] = $jo_posting_detail->officer_name.'/'.$jo_posting_detail->jo_code;
                             $nestedData['current_zone_posting_details'] = $posting_details;
@@ -1290,7 +1290,7 @@ public function zone_pref_content(Request $request) {
                                 $posting_period="Yet to be posted.";
 
 
-                            $nestedData['sl_no'] = $key+1;
+                            $nestedData['sl_no'] = $j+1;$j++;
                             $nestedData['id'] = $jo_posting_detail->judicial_officer_id;
                             $nestedData['officer_name'] = $jo_posting_detail->officer_name.'/'.$jo_posting_detail->jo_code;
                             $nestedData['current_zone_posting_details'] = $posting_details;
@@ -1345,11 +1345,11 @@ public function zone_pref_content(Request $request) {
                                     $to_date = Carbon::parse($terminal_date);                                  
                                     if($jo_posting_detail->designation_id == null){
                                         $nestedData['latest_posting'] = $i.'. '.$jo_posting_detail->deputation_designation.', '.$jo_posting_detail->deputation_posting_place;                                        
-                                        $latest_zone_posting_details = '<br>'.$i.'. '. $jo_posting_detail->deputation_designation.', deputed at '.$jo_posting_detail->deputation_posting_place.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To Till Date';
+                                        $latest_zone_posting_details = '<br>'.$i.'. '. $jo_posting_detail->deputation_designation.', deputed at '.$jo_posting_detail->deputation_posting_place.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' Till '.$terminal_date; //terminal_date
                                     }
                                     else{
                                         $nestedData['latest_posting'] = $i.'. '.$jo_posting_detail->designation_name.', '.$jo_posting_detail->place_of_posting;
-                                        $latest_zone_posting_details= '<br>'. $i.'. '. $jo_posting_detail->designation_name.' posted as '.$jo_posting_detail->place_of_posting.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To Till Date';
+                                        $latest_zone_posting_details= '<br>'. $i.'. '. $jo_posting_detail->designation_name.' posted as '.$jo_posting_detail->place_of_posting.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' Till '.$terminal_date;
                                     }
                                 }
                                 else{       //PREVIOUS POSTINGS IN THE SAME ZONE 
@@ -1400,7 +1400,7 @@ public function zone_pref_content(Request $request) {
                             else
                                 $posting_period="Yet to be posted.";
                             
-                            $nestedData['sl_no'] = $key+1;
+                            $nestedData['sl_no'] = $j+1;$j++;
                             $nestedData['id'] = $jo_posting_detail->judicial_officer_id;
                             $nestedData['officer_name'] = $jo_posting_detail->officer_name.'/'.$jo_posting_detail->jo_code;
                             $nestedData['current_zone_posting_details'] = $posting_details;
@@ -1457,11 +1457,11 @@ public function zone_pref_content(Request $request) {
                                     $to_date = Carbon::parse($terminal_date);                                 
                                     if($jo_posting_detail->designation_id == null){
                                         $nestedData['latest_posting'] = $i.'. '.$jo_posting_detail->deputation_designation.', '.$jo_posting_detail->deputation_posting_place;                                        
-                                        $latest_zone_posting_details = '<br>'.$i.'. '. $jo_posting_detail->deputation_designation.', deputed at '.$jo_posting_detail->deputation_posting_place.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To Till Date';
+                                        $latest_zone_posting_details = '<br>'.$i.'. '. $jo_posting_detail->deputation_designation.', deputed at '.$jo_posting_detail->deputation_posting_place.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' Till '.$terminal_date;
                                     }
                                     else{
                                         $nestedData['latest_posting'] = $i.'. '.$jo_posting_detail->designation_name.', '.$jo_posting_detail->place_of_posting;
-                                        $latest_zone_posting_details= '<br>'. $i.'. '. $jo_posting_detail->designation_name.' posted as '.$jo_posting_detail->place_of_posting.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To Till Date';
+                                        $latest_zone_posting_details= '<br>'. $i.'. '. $jo_posting_detail->designation_name.' posted as '.$jo_posting_detail->place_of_posting.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' Till '.$terminal_date;
                                     }
                                 }
                                 else{       //PREVIOUS POSTINGS IN THE SAME ZONE 
@@ -1484,7 +1484,7 @@ public function zone_pref_content(Request $request) {
                         //print_r($tenure);exit;
                         //Calculation and string creation for duration spend in a zone in Y-M-D format:start                         
                         if($tenure>=$tenure_in_days){
-                            ++$counter;
+                           // ++$counter;
                             if( $tenure >= 365){
                                 $years =  floor($tenure/365);
                                 $days = fmod($tenure,365);
@@ -1512,7 +1512,7 @@ public function zone_pref_content(Request $request) {
                                 $posting_period="Yet to be posted.";
 
 
-                            $nestedData['sl_no'] = $key+1;
+                            $nestedData['sl_no'] = $j+1;$j++;
                             $nestedData['id'] = $jo_posting_detail->judicial_officer_id;
                             $nestedData['officer_name'] = $jo_posting_detail->officer_name.'/'.$jo_posting_detail->jo_code;
                             $nestedData['current_zone_posting_details'] = $posting_details;
@@ -1855,11 +1855,11 @@ public function zone_pref_content(Request $request) {
                                     $to_date = Carbon::parse($terminal_date);                                  
                                     if($jo_posting_detail->designation_id == null){
                                         $nestedData['latest_posting'] = $i.'. '.$jo_posting_detail->deputation_designation.', '.$jo_posting_detail->deputation_posting_place;                                        
-                                        $latest_zone_posting_details = '<br>'.$i.'. '. $jo_posting_detail->deputation_designation.', deputed at '.$jo_posting_detail->deputation_posting_place.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To Till Date';
+                                        $latest_zone_posting_details = '<br>'.$i.'. '. $jo_posting_detail->deputation_designation.', deputed at '.$jo_posting_detail->deputation_posting_place.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' Till '.$terminal_date;
                                     }
                                     else{
                                         $nestedData['latest_posting'] = $i.'. '.$jo_posting_detail->designation_name.', '.$jo_posting_detail->place_of_posting;
-                                        $latest_zone_posting_details= '<br>'. $i.'. '. $jo_posting_detail->designation_name.' posted as '.$jo_posting_detail->place_of_posting.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' To Till Date';
+                                        $latest_zone_posting_details= '<br>'. $i.'. '. $jo_posting_detail->designation_name.' posted as '.$jo_posting_detail->place_of_posting.' From '.Carbon::parse($jo_posting_detail->from_date)->format('d-m-Y').' Till '.$terminal_date;
                                     }
                                 }
                                 else{       //PREVIOUS POSTINGS IN THE SAME ZONE 
