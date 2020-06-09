@@ -280,10 +280,14 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 		Route::post('disable_window_for_jo_pref',
 		'JudicialOfficerPostingPreferenceController@closing_window_jo_pref');
 
-		
+		Route::post('enable_window_for_jo_pref',
+		'JudicialOfficerPostingPreferenceController@openning_individual_window');
 
 		Route::post('disable_pref_window_for_all_active_jo',
 		'JudicialOfficerPostingPreferenceController@closing_preference_window_for_all_judicial_officers');
+
+		Route::post('enable_pref_window_for_all_active_jo',
+		'JudicialOfficerPostingPreferenceController@openning_preference_window_for_all_judicial_officers');
 
 		Route::post('datatable_for_active_window',
 		'JudicialOfficerPostingPreferenceController@detailed_table');
@@ -303,6 +307,8 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 		Route::get('download_posting_preferences/{rank}', 'JoDetailsPdfController@download_posting_preferences');
 		
+		Route::get('download_filtered_jo_details/{zone}/{cadre}/{year}/{month}/{day}/{terminal_date}', 'JoDetailsPdfController@zonewise_tenurewise_jo_download');
+
 		Route::post('activate_window_for_jo_preference', 'JudicialOfficerPostingPreferenceController@activate_preference_window');
 		
 		Route::post('jo_grade/rank_wise_jo_list', 'JoGradeController@rank_wise_jo_list')->name('rank_wise_jo_list');

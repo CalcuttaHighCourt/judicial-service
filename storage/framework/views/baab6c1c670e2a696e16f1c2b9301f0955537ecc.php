@@ -132,12 +132,15 @@
                             <h4><strong><i class="fa fa-check-square-o" style="font-size:16px;color:green"></i>Enable The Window for all</strong></h4> 
                         </label>
                     </div>
-                    <div class="col-sm-3 form-group" id="enable_window_flag">
-                        <button class="btn btn-success diasble_display_flag" name="enable_window_flag" id="enable_window_flag" style="width: 100px; height: 34px;">ON</button>
+                    <div class="col-sm-3 form-group">
+                        <button class="btn btn-success enable_window_flag" name="enable_window_flag" id="enable_window_flag" style="width: 100px; height: 34px;">ON</button>
                     </div>
                 </div>
             </div>
             <div class="box-body">
+                <div class="col-sm-3 form-group">
+                        <button class="btn btn-primary download_searched_jo" name="download_searched_jo" id="download_searched_jo" style="width: 100px; height: 34px;">DOWNLOAD</button>
+                </div>
                 <table class="table1 table-striped table-bordered" id="show_cadrewise_zonewise_table">
                     <thead>
                         <tr>
@@ -364,8 +367,10 @@
                     }
             })
             
-        }); 
+        });
 
+         
+        //disable window for all jo
         $(document).on("click","#diasble_display_flag",function(){
             $.ajax({
                 url:"disable_pref_window_for_all_active_jo",
@@ -382,6 +387,25 @@
                 }
             })
         });
+
+        //enable window for all jo
+        $(document).on("click","#enable_window_flag",function(){
+            $.ajax({
+                url:"enable_pref_window_for_all_active_jo",
+                type:"POST",
+                data :{ 
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                },
+                success(response){
+                    swal("Successfull","Windows for all judicial officers have been successfully enabled","success");
+                    table.ajax.reload(); 
+                },
+                error(response){
+                    swal("Error","Preference window can not be enabled","error");
+                }
+            })
+        });
+        
         $(document).on("click","#search",function(){
 
             var zone = $("#zone_name option:selected").val();
@@ -433,6 +457,82 @@
            }
             
         });
+
+        //download zonewise tenurewise jo details download
+
+        /*pdf download:start*/
+        // var i=0;
+        // $(document).on("click","#download_searched_jo",function(){             
+        //     i++;
+        //     var x= "download_posting_preferences/";
+        //     x=x+i;
+        //     console.log(x);
+        //    //window.location.replace(x);
+     
+        // });
+
+        $(document).on("click","#download_searched_jo",function(){
+
+            var zone = $("#zone_name option:selected").val();
+            var cadre = $("#cadre option:selected").val();
+            var year = $("#year option:selected").val();
+            var month = $("#month option:selected").val();
+            var day = $("#day option:selected").val();
+            var terminal_date = $("#terminal_date").val();
+            if(zone == ""){
+                zone = 0;
+            }
+            if(cadre == ""){
+                cadre = 0;
+            }
+            if(year == ""){
+                year = 0;
+            }
+            if(month == ""){
+                month = 0;
+            }
+            if(day == ""){
+                day= 0;
+            }
+            if(terminal_date == ""){
+                terminal_date = 0;
+            }
+           // console.log(rank);
+            var x= "download_filtered_jo_details/";
+            //var y=rank;
+            x=x+zone+'/'+cadre+'/'+year+'/'+month+'/'+day+'/'+terminal_date;
+           console.log(x);
+            window.location.replace(x);
+
+
+     
+        });
+   /*pdf download:end*/
+
+        //enable window for individual jo
+        
+        $(document).on("click",".enable",function(){
+            var $tr = $(this).closest('tr');
+            var data = $('#show_cadrewise_zonewise_table').DataTable().row($tr).data();
+            id=data.id;
+            $.ajax({
+                    url:"enable_window_for_jo_pref",
+                    type:"POST",
+                    data :{ 
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                         id: id
+                    },
+                    success(response){
+                        swal("Successfull","Enabled Successfully","success");
+                        $("#show_jo_pref_details").reload();
+
+                    },
+                    error(response){
+                        swal("Error","Enabled has not been done","error");
+                    }
+            })
+            
+        }); 
             
     });
 
