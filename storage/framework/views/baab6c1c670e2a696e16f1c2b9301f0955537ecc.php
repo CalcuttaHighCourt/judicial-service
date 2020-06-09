@@ -58,7 +58,7 @@
                             Terminal Date
                         </label>
                         <!-- IIIIIIIIIII -->
-                        <input type="text" class="form-control date" id="terminal_date" placeholder="dd-mm-yyyy">
+                        <input type="text" class="form-control date" style="color:black;"id="terminal_date" placeholder="dd-mm-yyyy">
                     </div>
                 </div>
             </div>
