@@ -167,32 +167,66 @@
                         @endif
 
                          @if(Auth::check() && Auth::user()->user_type->type_name=="Appointment")
+                            <li>
+                                <a href="{{url('search_jo_details')}}"><i class="fa fa-search-minus"></i>
+                                    <span>Composite Search</span>
+                                </a>
+                            </li>
                             <li class="treeview">
-                                <a href="#"><i class="fa fa-search-minus"></i>
+                                <a href="#"><i class="fa fa-address-book" aria-hidden="true"></i>
                                     <span>Judicial Officer Details</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="{{url('jo_entry_form')}}"> Entry & Show JO Details</a></li>
-                                    <li><a href="{{url('modify_jo_details')}}"> Modify JO Details</a></li>                                    
+                                    <li>
+                                        <a href="{{url('jo_entry_form')}}"> 
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            Entry & Show JO Details
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{url('modify_jo_details')}}"> 
+                                            <i class="fa fa-eraser" aria-hidden="true"></i>
+                                            Modify JO Details
+                                        </a>
+                                    </li>                                    
                                 </ul>
                             </li>  
                             <li class="treeview">
-                                <a href="#"><i class="fa fa-search-minus"></i>
+                                <a href="#"><i class="fa fa-university" aria-hidden="true"></i>
                                     <span>Posting Preference</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="{{url('jo_list_for_pref_window')}}">Switch on the Window</a></li>
-                                    <li><a href="{{url('appointment')}}"> List of Preference</a></li>
+                                    <li>
+                                        <a href="{{url('jo_list_for_pref_window')}}">
+                                            <i class="fa fa-key" aria-hidden="true"></i>
+                                            Switch on the Window
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{url('appointment')}}"> 
+                                            <i class="fa fa-list" aria-hidden="true"></i>
+                                            List of Preference
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>   
                             
                             <li class="treeview">
-                                <a href="#"><i class="fa fa-search-minus"></i>
+                                <a href="#"><i class="fa fa-list-ol" aria-hidden="true"></i>
                                     <span>JO Grade</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="{{url('jo_grade')}}">Create Grade List</a></li>
-                                    <li><a href="{{url('show_grade_list')}}">Show Grade List</a></li>
+                                    <li>
+                                        <a href="{{url('jo_grade')}}">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            Create Grade List
+                                        </a>
+                                    </li>
+                                    <li><a href="{{url('show_grade_list')}}">
+                                        <i class="fa fa-line-chart" aria-hidden="true"></i>
+                                        Show Grade List
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>  
                             
