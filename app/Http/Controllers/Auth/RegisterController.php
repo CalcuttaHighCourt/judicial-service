@@ -85,10 +85,20 @@ class RegisterController extends Controller
             $data['court'] =null;
         }
 
+       
+
         if(!empty($data['jo']))
         {
            $data['court'] =null;
            $data['department']=null;
+        }
+
+        
+        if(empty($data['court']) && empty($data['jo']) && empty($data['department']))
+        {
+            $data['jo'] =null;
+            $data['department']=null;
+            $data['court'] =null;
         }
 
         // else{

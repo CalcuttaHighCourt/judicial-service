@@ -1,0 +1,3 @@
+<?php $__currentLoopData = App\GradeDetail::orderBy('grade_name', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $grade): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+	<option value="<?php echo e($grade->id); ?>" <?php if(old('grade') == $grade->grade_name): ?> selected="selected" <?php endif; ?>><?php echo e($grade->grade_name); ?></option>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php /**PATH C:\laragon\www\judicial-service\resources\views/acr/grade_options.blade.php ENDPATH**/ ?>
