@@ -376,6 +376,10 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 		Route::post('jo_posting/search', 'JudicialOfficerPostingController@jo_current_posting_details');
 
+		Route::get ('search_jo_details', function () {
+			return view ('search.search_jo_details');
+		});
+
 	});
 
 	/*Court */
