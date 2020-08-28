@@ -52,8 +52,7 @@
                             <!-- IIIIIIIIIII -->
                                 <select id="assessment_year" class="form-control info-form-control assessment_year"
                                         name="assessment_year"> 
-                                        <option value="">Select Assessment Year</option>
-                                       
+                                        <option value="">Select Assessment Year</option>                                       
                                 </select>
                             </div>
                         </div>
@@ -181,16 +180,14 @@
                         judicial_id:judicial_id,
                     },
                     success:function(response)
-                    {
-                        console.log(response);
+                    {                        
                         $('.assessment_year').children('option:not(:first)').remove();
                         var i;                        
                         for(i=response[0].max_to_date;i>=response[0].min_from_date;i--){
                             $('.assessment_year').append($('<option>').val(i).text(i))
                         }
-
-                    }
-                    
+                        $("")
+                    }                    
 
                 });
             });
