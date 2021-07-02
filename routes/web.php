@@ -165,8 +165,8 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 	/*Posting zone preference*/
 
 	Route::get ( 'dashboard/jo', function () {
-		return view ( 'jo_entry_form.jo_dashboard' );
-	} );
+		return view ('jo_entry_form.jo_dashboard');
+	});
 
 	Route::get ('profile', 'JoEntryFormController@profile')->name('profile');
 
@@ -262,9 +262,7 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 	Route::group(['middleware' => ['auth','role_manager:Appointment']],function (){
 
-		Route::get ( 'dashboard/appointment', function () {
-			return view ( 'departments.appointment_dashboard' );
-		} );
+		Route::get ( 'dashboard/appointment', 'DashboardController@index');
 
 		Route::get ( 'appointment', function () {
 			return view ( 'appointments.index' );
@@ -379,6 +377,8 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 		Route::get ('search_jo_details', function () {
 			return view ('search.search_jo_details');
 		});
+
+		Route::post('search_jo_details', 'SearchController@search');
 
 	});
 

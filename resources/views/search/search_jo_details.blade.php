@@ -44,7 +44,7 @@
             <div class="col-sm-3">  
                 <br/>              
                 <label for="couple_officer" class="control-label">COUPLE OFFICER</label>                                 
-                <input class="form-check-input" type="checkbox" id="couple_officer"> 
+                <input class="form-check-input" type="checkbox" id="is_couple_officer"> 
             </div>
 
         </div>
@@ -71,10 +71,10 @@
             </div>
 
             <div class="col-xs-3">
-                <label for="recruitment_batch_id" class="control-label">
+                <label for="recruitment_batch" class="control-label">
                      RECRUITMENT BATCH 
                 </label>
-                <select id="recruitment_batch_id" class="form-control info-form-control select2" name="recruitment_batch_id" style="width:100%">
+                <select id="recruitment_batch" class="form-control info-form-control select2" name="recruitment_batch_id" style="width:100%">
                     <option value="">Select an Option</option>
                     @include('recruitmentbatches.recruitmentbatch_options')
                 </select>
@@ -96,21 +96,21 @@
         <div class="form-group row">
             <div class="col-md-3">
                 <div class="form-group">
-                    <label>JOINING DATE IN A RANGE</label>
+                    <label for="joining_date">JOINING DATE IN A RANGE</label>
                     <input type="text" class="form-control date_range" id="joining_date" placeholder="e.g.  22/05/2020 - 02/06/2020" autocomplete="false">
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="form-group">
-                    <label>CONFIRMATION DATE IN A RANGE</label>
+                    <label for="confirmation_date">CONFIRMATION DATE IN A RANGE</label>
                     <input type="text" class="form-control date_range" id="confirmation_date" placeholder="e.g. 19/03/2020 - 12/06/2020" autocomplete="false">
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="form-group">
-                    <label>SUPERANNUATION DATE IN A RANGE</label>
+                    <label for="superannuation_date">SUPERANNUATION DATE IN A RANGE</label>
                     <input type="text" class="form-control date_range" id="superannuation_date" placeholder="e.g. 22/05/2020 - 02/06/2020" autocomplete="false">
                 </div>
             </div>
@@ -119,16 +119,16 @@
         
         <div class="form-group row">  
             <div class="col-md-3">
-                <label>EDUCATIONAL QUALIFICATION</label>
-                <select class="form-control info-form-control select2 degree_id" style="width:100%">
+                <label for="qualification">EDUCATIONAL QUALIFICATION</label>
+                <select class="form-control info-form-control select2" id="qualification" style="width:100%">
                     <option value="">Select an Option</option>
                     @include('qualifications.qualification_options')
                 </select>
             </div>
 
             <div class="col-md-3">
-                <label>PLACE OF PRACTICE</label>
-                <select class="form-control info-form-control select2 subdivision_id" style="width:100%">
+                <label for="subdivision">PLACE OF PRACTICE</label>
+                <select class="form-control info-form-control select2" id="subdivision" style="width:100%">
                     <option value="">Select an Option</option>
                     @include('subdivisions.subdivision_options')
                 </select>
@@ -147,31 +147,31 @@
 
         <div class="form-group row">
             <div class="col-md-3">
-                <label>POSTING MODE</label>
-                <select class="form-control info-form-control posting_id select2" id="mode_id" style="width:100%">
+                <label for="posting_mode">POSTING MODE</label>
+                <select class="form-control info-form-control posting_id select2" id="posting_mode" style="width:100%">
                     <option value="">Select an Option</option>
                     @include('modes.mode_options')
                 </select>
             </div>
 
             <div class="col-md-3">
-                <label>GRADE / RANK</label>
-                <select class="form-control info-form-control select2 rank_id" style="width:100%">
+                <label for="rank">GRADE / RANK</label>
+                <select class="form-control info-form-control select2" id="rank" style="width:100%">
                     <option value="">Select an Option</option>
                     @include('ranks.rank_options')
                 </select>
             </div>
 
             <div class="col-md-3">
-                <label>DESIGNATION</label>
-                <select class="form-control info-form-control select2 designation_id" style="width:100%">
+                <label for="designation">DESIGNATION</label>
+                <select class="form-control info-form-control select2" id="designation" style="width:100%">
                     <option value="">Select an Option</option>
                     @include('designations.designation_options')
                 </select>
             </div>
 
             <div class="col-md-3">
-                <label>PLACE OF POSTING</label>
+                <label for="place_of_posting">PLACE OF POSTING</label>
                 <select class="form-control info-form-control place_of_posting select2" id="place_of_posting" style="width:100%">
                     <option value="">Select an Option</option>
                     @include('place_of_posting.place_of_posting_option')
@@ -182,7 +182,7 @@
 
         <div class="form-group row">
             <div class="col-md-3">
-                <label>DEPUTATION DESIGNATION</label>
+                <label for="deputation_designation">DEPUTATION DESIGNATION</label>
                 <select class="form-control info-form-control deputation_designation select2" id="deputation_designation" style="width:100%">
                     <option value="">Select an Option</option>
                     @foreach(App\JudicialOfficerPosting::where('deputation_designation','<>','')
@@ -202,8 +202,8 @@
             </div>
 
             <div class="col-md-3">
-                <label>ZONE OF POSTING</label>
-                <select class="form-control info-form-control zone_id select2" id="zone_id" style="width:100%">
+                <label for="posting_zone">ZONE OF POSTING</label>
+                <select class="form-control info-form-control zone_id select2" id="posting_zone" style="width:100%">
                     <option value="">Select an Option</option>
                     @include('zones.zone_options')
                 </select>
@@ -211,15 +211,15 @@
 
             <div class="col-sm-3">  
                 <br/>              
-                <label for="couple_officer" class="control-label">PRESENT POSTING</label>                                 
-                <input class="form-check-input" type="checkbox" id="present_posting"> 
+                <label for="is_present_posting" class="control-label">PRESENT POSTING</label>                                 
+                <input class="form-check-input" type="checkbox" id="is_present_posting"> 
             </div>
 
         </div>
 
         <div class="form-group row">
             <div class="col-md-3">
-                <label>CAREER PROGRESSION (ACP)</label>
+                <label for="career_progression">CAREER PROGRESSION (ACP)</label>
                 <select class="form-control info-form-control career_progression select2" id="career_progression" style="width:100%">
                     <option value="">Select an Option</option>
                     @include('career_progression_stages.career_progression_options')
@@ -233,6 +233,15 @@
                 </div>
             </div>
 
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-2 col-md-offset-4">
+                <button type="button" class="btn btn-lg btn-primary" id="search">SEARCH</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-lg btn-danger" id="reset">RESET</button>
+            </div>
         </div>
      
     </div>
@@ -359,8 +368,8 @@ $(document).ready(function(){
                 cancelLabel: 'Clear'
             }
         }, function(start, end, label) {
-            joining_from_date = start.format('YYYY-MM-DD');
-            joining_to_date = end.format('YYYY-MM-DD');
+            posting_from_date = start.format('YYYY-MM-DD');
+            posting_to_date = end.format('YYYY-MM-DD');
     });
 
     $("#posting_date").on('apply.daterangepicker', function(ev, picker) {
@@ -373,7 +382,7 @@ $(document).ready(function(){
     // For Posting Date Range Picker :: ENDS
 
 
-    // For CP Date Range Picker :: STARTS
+    // For Career Progression Date Range Picker :: STARTS
     var cp_from_date;
     var cp_to_date;
     $("#cp_date").daterangepicker({
@@ -386,8 +395,8 @@ $(document).ready(function(){
                 cancelLabel: 'Clear'
             }
         }, function(start, end, label) {
-            joining_from_date = start.format('YYYY-MM-DD');
-            joining_to_date = end.format('YYYY-MM-DD');
+            cp_from_date = start.format('YYYY-MM-DD');
+            cp_to_date = end.format('YYYY-MM-DD');
     });
 
     $("#cp_date").on('apply.daterangepicker', function(ev, picker) {
@@ -397,7 +406,42 @@ $(document).ready(function(){
     $("#cp_date").on('cancel.daterangepicker', function(ev, picker) {
         $(this).val('');
     });            
-    // For CP Date Range Picker :: ENDS
+    // For Career Progression Date Range Picker :: ENDS
+
+
+    // RESET button
+    $(document).on("click", "#reset", function(){
+        location.reload(true);
+    })
+
+
+    // SEARCH button
+    $(document).on("click", "#search", function(){
+        var jo_code = $("#jo_code").val();
+        var officer_name = trim($("#officer_name").val());
+        var gender = $("input[name='gender']:checked").val();
+        var is_couple_officer = $("#is_couple_officer").val();
+        var home_state = $("#home_state").val();
+        var home_district = $("#home_district").val();
+        var recruitment_batch = $("#recruitment_batch").val();
+        var recruitment_batch_year = $("#recruitment_batch_year").val();
+        var qualification = $("#qualification").val();
+        var subdivision = $("#subdivision").val();
+        var posting_mode = $("#posting_mode").val();
+        var rank = $("#rank").val();
+        var designation = $("#designation").val();
+        var place_of_posting = $("#place_of_posting").val();
+        var deputation_designation = $("#deputation_designation").val();
+        var posting_zone = $("#posting_zone").val();
+        var is_present_posting = $("#is_present_posting").val();
+        var career_progression = $("#career_progression").val();
+        
+        $.ajax({
+            url: "search_jo_details",
+            type: "post",
+            
+        })
+    })
 
 
 });

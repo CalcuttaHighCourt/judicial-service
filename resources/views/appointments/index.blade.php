@@ -39,8 +39,10 @@
                                 <th>SL NO.</th>
                                 <th>JO NAME</th>
                                 <th>POSTED AS</th>
+                            {{-- Commenting until it lives in the web and JO gives its preferences ::START                        
                                 <th>STATION PREFERENCE</th>
-                                <th>PREFERENCE REMARK</th>
+                                <th>PREFERENCE REMARK</th> --}}
+                                <th>System Suggested<br/>Next Posting</th>
                                 <th>OTHER INFO.</th>
                             </tr>
                         </thead>
@@ -126,6 +128,9 @@
                         {
                             str+="<td>"+obj.posted_as[i][j].designation_name+"</td>";
                         }
+
+                        /* Commenting until it lives in the web and JO gives its preferences ::START
+
                         //Station preference
                         str+="<td>";
                         if( obj.preference_details[i].length > 0){
@@ -146,12 +151,17 @@
                         else                              
                         str+="<td></td>";
 
+                        :: END */
+
+                        //System suggested next posting details
+                        str+="<td>"+obj.automatic_posting_details[i]+"</td>";
+
                         //other info
                         //zone tenure details
-                        str+="<td><strong>Zone-wise Posting history</strong>";
-                        for(j=0; j < obj.zone_tenure[i].length; j++){
-                            str+=obj.zone_tenure[i][j];
-                        }
+                        str+="<td><strong>Zone-wise Posting history</strong><br/>";                        
+                        str+=obj.zone_tenure[i];
+                        
+
                         //hometown
                         
                         if(obj.display_pref_for_jo[i].hometown!="" && obj.display_pref_for_jo[i].hometown!=null)

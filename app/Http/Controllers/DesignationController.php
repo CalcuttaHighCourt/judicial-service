@@ -278,7 +278,53 @@ class DesignationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update_designation(Request $request)
+    public function update(Request $request, $id) // for API
+    {
+        $response = [
+            'designation' => []
+        ];
+        $statusCode = 200;
+        $designation = null;
+
+        $designation_id=$id;
+        
+        if (!ctype_digit(strval($designation_id))) {
+            $response = array(
+                'exception' => true,
+                'exception_message' => 'Invalid Input'
+            );
+
+            $statusCode = 400;
+            return response()->json($response, $statusCode);
+        }
+
+        try {
+            $designation = Designation::find($designation_id);
+            if (!$designation) {
+                throw new \Exception('Invalid Input');
+            }
+
+            $designation->designation_name = $request->designation_name;
+            $designation->rank_id = $request->rank_id;
+            $designation->created_by = Auth::user()->id;
+            
+            $designation->save();
+
+            $response = array(
+                'designation' => $designation
+            );
+        } catch (\Exception $e) {
+            $response = array(
+                'exception' => true,
+                'exception_message' => $e->getMessage()
+            );
+            $statusCode = 400;
+        } finally {
+            return response()->json($response, $statusCode);
+        }
+    }
+
+    public function update_designation(Request $request) // for application
     {
         $response = [
             'designation' => []

@@ -13,6 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::post('login', 'PassportController@login');
+//Route::post('register', 'PassportController@register');
+
+Route::middleware('auth:api')->group(function () {
+    //For Admin :: START
+
+    // Designation Master
+    Route::resource('designations', 'DesignationController')->except(['create', 'edit']);
+
+    // Add JO Profile
+    Route::resource('jo_entry', 'JoEntryFormController')->except(['create', 'edit']);
+
+
+    //For Admin :: END
 });
