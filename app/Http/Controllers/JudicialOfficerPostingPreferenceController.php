@@ -597,7 +597,7 @@ public function zone_pref_content(Request $request) {
                                 $number = rand(0,2);  // this will decide among the the three zones in the shuffled array $other_zones, which one to pick.
                                 
 
-                                $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting is <strong>ZONE - ".$other_zones[$number]['zone_name']."</strong>";
+                                $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting Should Be In <br/>\n <strong>ZONE - ".$other_zones[$number]['zone_name']."</strong>";
 
                             }
                             else{
@@ -616,11 +616,11 @@ public function zone_pref_content(Request $request) {
                                 $next_posting_zone = $this->find_zone_for_next_posting($other_zones, $station_pref->id); 
 
                                 if(sizeof($next_posting_zone)==1){ // i.e. there is a single eligible zone to be posted in
-                                    $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting is <strong>ZONE - ".$next_posting_zone['0']->zone_name."</strong>";
+                                    $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting Should Be In <br/>\n <strong>ZONE - ".$next_posting_zone['0']->zone_name."</strong>";
                                 }
                                 else if(sizeof($next_posting_zone)==2){ // i.e. there is two eligible zone to be posted in, choose randomly among them
-                                    $number = rand(0,1);
-                                    $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting is <strong>ZONE - ".$next_posting_zone[$number]->zone_name."</strong>";
+                                    
+                                    $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting Should Be In <br/>\n1. <strong>ZONE - ".$next_posting_zone['0']->zone_name."</strong><br/>\nOR<br/>\n2.<strong> ZONE - ".$next_posting_zone['1']->zone_name."</strong>";
                                 }
                                 else if(sizeof($next_posting_zone)==0){ // no eligible zone found. need to look into the rest of the two zones
                                     $other_zones = DB::select('
@@ -636,11 +636,10 @@ public function zone_pref_content(Request $request) {
                                         $next_posting_zone = $this->find_zone_for_next_posting($other_zones, $station_pref->id); 
 
                                         if(sizeof($next_posting_zone)==1){ // i.e. there is a single eligible zone to be posted in
-                                            $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting is <strong>ZONE - ".$next_posting_zone['0']->zone_name."</strong>";
+                                            $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting Should Be In <br/>\n <strong>ZONE - ".$next_posting_zone['0']->zone_name."</strong>";
                                         }
                                         else if(sizeof($next_posting_zone)==2){ // i.e. there is two eligible zone to be posted in, choose randomly among them
-                                            $number = rand(0,1);
-                                            $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting is <strong>ZONE - ".$next_posting_zone[$number]->zone_name."</strong>";
+                                            $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting Should Be In <br/>\n1. <strong>ZONE - ".$next_posting_zone['0']->zone_name."</strong><br/>\nOR<br/>\n2.<strong>ZONE - ".$next_posting_zone['1']->zone_name."</strong>";
                                         }
                                         else{
                                             $judicial_officer_details['automatic_posting_details'][$key] = "System is Unable To Find Any Suitable Next Posting <br/>\nAs This Officer Has Completed Its <br/>\nIdeal Service Period In All Four Zones";
@@ -681,7 +680,7 @@ public function zone_pref_content(Request $request) {
                                 left join judicial_officers as jo on jop.judicial_officer_id = jo.id
                                 where zones.id in ('.$str_where.')
                                 group by zones.id, zone_name, date_of_retirement,date_of_joining,ratio_of_service_period
-                                order by zone_name
+                                order by serving_period asc
                             '
                         );
 
