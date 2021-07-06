@@ -210,8 +210,33 @@
                                     </li>
                                 </ul>
                             </li>   
-                            
                             <li class="treeview">
+                                <a href="#"><i class="fa fa-list-ol" aria-hidden="true"></i>
+                                    <span>Zone of Consideration</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li>
+                                        <a href="{{url('zone_of_consideration')}}">
+                                            <i class="fa fa-key" aria-hidden="true"></i>
+                                            Create Zone of<br/>Consideration List
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#"> 
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            Update Zone of<br/>Consideration List
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#"> 
+                                            <i class="fa fa-line-chart" aria-hidden="true"></i>
+                                            Generate System<br/>Suggested Posting
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>   
+                            
+                            {{-- <li class="treeview">
                                 <a href="#"><i class="fa fa-list-ol" aria-hidden="true"></i>
                                     <span>JO Grade</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
@@ -228,7 +253,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </li>  
+                            </li>   --}}
                             
                         @endif
 
