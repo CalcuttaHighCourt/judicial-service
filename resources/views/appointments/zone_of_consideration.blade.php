@@ -120,7 +120,7 @@
 
     <div class="box box-default" id="cadre_wise_search_table" style="display:none;">
         <div class="box-header with-border">
-            <h3 class="box-title"><h3><strong> List of Zone of Consideration </strong></h3>
+            <h3 class="box-title"><h3><strong> Zone of Consideration for Judicial Officers </strong></h3>
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
@@ -128,7 +128,11 @@
         </div>
         <div class="box-body">
             <div class="col-sm-3 form-group">
-                    <button class="btn btn-primary download_searched_jo" name="download_searched_jo" id="download_searched_jo" style="width: 100px; height: 34px;">DOWNLOAD</button>
+                <a id="download" target="_blank" rel="noopener noreferrer" href="#"
+						class="btn btn-primary add-button info-form-button" role="button">
+					    
+                        <button type="button" class="btn btn-primary" id="download_report">DOWNLOAD REPORT</button>
+                </a>
             </div>
             <table class="table1 table-striped table-bordered" id="show_cadrewise_zonewise_table">
                 <thead>
@@ -251,69 +255,21 @@
         });
 
         
-        $(document).on("click","#download_searched_jo",function(){
-
+        $(document).on("click","#download_report",function(){             
             var zone = $("#zone_name option:selected").val();
             var cadre = $("#cadre option:selected").val();
             var year = $("#year option:selected").val();
             var month = $("#month option:selected").val();
             var day = $("#day option:selected").val();
             var date_upto = $("#date_upto").val();
-            if(zone == ""){
-                zone = 0;
-            }
-            if(cadre == ""){
-                cadre = 0;
-            }
-            if(year == ""){
-                year = 0;
-            }
-            if(month == ""){
-                month = 0;
-            }
-            if(day == ""){
-                day= 0;
-            }
-            if(date_upto == ""){
-                date_upto = 0;
-            }
-           // console.log(rank);
-            var x= "download_filtered_jo_details/";
-            //var y=rank;
-            x=x+zone+'/'+cadre+'/'+year+'/'+month+'/'+day+'/'+date_upto;
-           console.log(x);
-            window.location.replace(x);
 
-
+            var download_url= "{{url('download_zone_of_consideration')}}/"+zone+"/"+cadre+"/"+year+"/"+month+"/"+day+"/"+date_upto;
+            console.log(download_url);
+            $("#download").attr("href", download_url);
+            return true;
      
         });
-   /*pdf download:end*/
-
-        //enable window for individual jo
         
-        $(document).on("click",".enable",function(){
-            var $tr = $(this).closest('tr');
-            var data = $('#show_cadrewise_zonewise_table').DataTable().row($tr).data();
-            id=data.id;
-            $.ajax({
-                    url:"enable_window_for_jo_pref",
-                    type:"POST",
-                    data :{ 
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                         id: id
-                    },
-                    success(response){
-                        swal("Successfull","Enabled Successfully","success");
-                        $("#show_jo_pref_details").reload();
-
-                    },
-                    error(response){
-                        swal("Error","Enabled has not been done","error");
-                    }
-            })
-            
-        }); 
-            
     });
 
 </script>

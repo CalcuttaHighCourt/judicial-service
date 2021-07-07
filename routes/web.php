@@ -324,7 +324,8 @@ Route::group(['middleware' => ['auth','role_manager:Judicial Officer']],function
 
 		// Zone of consideration :: START
 		Route::resource('zone_of_consideration', ZoneOfConsiderationController::class);
-		Route::post('search_for_zone_of_consideration', 'ZoneOfConsiderationController@search_for_zone_of_consideration');
+		Route::post('search_for_zone_of_consideration', 'ZoneOfConsiderationController@get_zone_of_consideration');
+		Route::get('download_zone_of_consideration/{zone}/{cadre}/{date_upto}/{year}/{month}/{day}', 'ZoneOfConsiderationController@download_zone_of_consideration');
 		// Zone of consideration :: END
 
 
