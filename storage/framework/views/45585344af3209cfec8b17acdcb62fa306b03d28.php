@@ -57,7 +57,7 @@
                             Considering Date Upto 
                         </label>
                         <!-- IIIIIIIIIII -->
-                        <input type="text" class="form-control date" style="color:black;"id="date_upto" placeholder="dd-mm-yyyy">
+                        <input type="text" class="form-control date" style="color:black;"id="date_upto" placeholder="dd-mm-yyyy" autocomplete="false">
                     </div>
                 </div>
             </div>
@@ -86,7 +86,6 @@
                     <!-- IIIIIIIIIII -->
                         <select  id="month" class="form-control select2 info-form-control month"
                             name="month"style="width:100%;height:100%;">
-                            <option value="0">Select Month</option>
                             <?php for($j=0;$j<=12;$j++): ?>
 								<option value="<?php echo e($j); ?>"><?php echo e($j); ?></option>
 							<?php endfor; ?>
@@ -101,7 +100,6 @@
                     <!-- IIIIIIIIIII -->
                         <select  id="day" class="form-control select2 info-form-control day"
                             name="day"style="width:100%;height:100%;">
-                            <option value="0">Select Day</option>
                             <?php for($j=0;$j<=30;$j++): ?>
 								<option value="<?php echo e($j); ?>"><?php echo e($j); ?></option>
 							<?php endfor; ?>
@@ -137,7 +135,7 @@
             <table class="table1 table-striped table-bordered" id="show_cadrewise_zonewise_table">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>Select All <br/><input type="checkbox" value="" id="select_all"></th>
                         <th>OFFICER'S NAME</th>                        
                         <th>POSTING HISTORY<br/>DURING THIS PERIOD</th>
                         <th>LAST CONTINUOUS POSTING<br/>IN THIS ZONE</th>
@@ -231,12 +229,11 @@
                     },
                     success:function(response){
                         obj = $.parseJSON(response);
-                        console.log(obj);
                         var str = "";
 
                         $.each(obj, function(key,val){
                             str+= "<tr>"+
-                                        "<td>"+(++key)+"</td>"+
+                                        "<td><input type=\"checkbox\" class=\"check_jo\" value=\""+val.officer_id+"\"></td>"+
                                         "<td>"+val.officer_name+"<br/>\n("+val.jo_code+")</td>"+
                                         "<td>"+val.posting_history+"</td>"+
                                         "<td>"+val.continuous_service_period+"<br/>\nSINCE "+val.from_date+"</td>"+
@@ -245,7 +242,10 @@
                         })
 
                         $("#tbody").html(str);
-                        $('.table1').DataTable();
+                        $('.table1').DataTable({
+                            "ordering": false,
+                            "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+                        });
                         $("#cadre_wise_search_table").show();
 
                     }
@@ -253,6 +253,7 @@
            }
             
         });
+        
 
         
         $(document).on("click","#download_report",function(){             
@@ -264,11 +265,21 @@
             var date_upto = $("#date_upto").val();
 
             var download_url= "<?php echo e(url('download_zone_of_consideration')); ?>/"+zone+"/"+cadre+"/"+year+"/"+month+"/"+day+"/"+date_upto;
-            console.log(download_url);
+            
             $("#download").attr("href", download_url);
-            return true;
      
         });
+
+
+        $(document).on("change","#select_all", function(){
+            var isCheck = $(this).is(':checked');
+            console.log(isCheck);
+
+            $(".check_jo").each(function(val){
+                $(this).prop("checked", isCheck);
+            })
+            
+        })
         
     });
 

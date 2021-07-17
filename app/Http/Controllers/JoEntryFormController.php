@@ -24,6 +24,8 @@ use Auth;
 use DB;
 use Carbon\Carbon;
 
+use Illuminate\Support\Facades\Cache;
+
 
 class JoEntryFormController extends Controller
 {
@@ -311,6 +313,8 @@ class JoEntryFormController extends Controller
                     'jo_legal_experience_details' => $jo_legal_experience_details,
                 ); 
                 DB::commit();
+
+                Cache::flush();
          
            
         } catch (\Exception $e) {
@@ -355,6 +359,9 @@ class JoEntryFormController extends Controller
                         ->update([
                             'profile_image' => $new_name,
                         ]);
+
+        Cache::flush();
+
     
         return response()->json([
             'image' => true,
@@ -666,6 +673,7 @@ class JoEntryFormController extends Controller
             ])->update(['spouse'=>$request->id]);
         }
         
+        Cache::flush();
         
 
         return 1;

@@ -591,39 +591,64 @@ class JoDetailsPdfController extends Controller
                         
                        // calling find_zone_for_next_posting function which will return 
                        //an automatic suitable zone (if any) among the given set for next posting for the given JO
-                        $next_posting_zone = $this->find_zone_for_next_posting($other_zones, $station_pref->id); 
+                        $next_posting_zone = Controller::find_zone_for_next_posting($other_zones, $station_pref->id); 
 
-                        if(sizeof($next_posting_zone)==1){ // i.e. there is a single eligible zone to be posted in
-                            $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting is <strong>ZONE - ".$next_posting_zone['0']->zone_name."</strong>";
+                         // to find the suitable designation in the system suggested zone
+                         //$next_posting_designation = Controller::find_designation_for_next_posting($next_posting_zone, $station_pref->id);
+                         //print_r($next_posting_designation);exit;
+                         if(sizeof($next_posting_zone)==1){ // i.e. there is a single eligible zone to be posted in
+                            $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting Should Be In <br/>\n 
+                            <strong>ZONE - ".$next_posting_zone['0']->zone_name."</strong>";
                         }
                         else if(sizeof($next_posting_zone)==2){ // i.e. there is two eligible zone to be posted in, choose randomly among them
-                            $number = rand(0,1);
-                            $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting is <strong>ZONE - ".$next_posting_zone[$number]->zone_name."</strong>";
+                    
+                            $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting Should Be In <br/>\n
+                            1. <strong>ZONE - ".$next_posting_zone['0']->zone_name."</strong>
+                            <br/><br/>\n\nOR<br/><br/>\n\n
+                            2.<strong> ZONE - ".$next_posting_zone['1']->zone_name."</strong>";
                         }
-                        else if(sizeof($next_posting_zone)==0){ // no eligible zone found. need to look into the rest of the two zones
-                            $other_zones = DB::select('
-                                                    select zone_id, zone_name, ratio_of_service_period from (
-                                                        select zone_id from (
-                                                            select *, row_number() over (partition by zone_id order by from_date desc) as rn from judicial_officer_postings where judicial_officer_id ='.$station_pref->id.' 
-                                                            order by from_date desc 
-                                                        ) as a where rn = 1 limit 2 )
-                                                ');
+                         else if(sizeof($next_posting_zone)==0){ // no eligible zone found. need to look into the rest of the two zones
+                             $other_zones = DB::select('
+                                                     select zone_id, zone_name, ratio_of_service_period from (
+                                                         select zone_id from (
+                                                             select *, row_number() over (partition by zone_id order by from_date desc) as rn from judicial_officer_postings where judicial_officer_id ='.$station_pref->id.' 
+                                                             order by from_date desc 
+                                                         ) as a where rn = 1 limit 2 )
+                                                 ');
 
-                                // calling find_zone_for_next_posting function which will return 
-                                //an automatic suitable zone (if any) among the given set for next posting for the given JO
-                                $next_posting_zone = $this->find_zone_for_next_posting($other_zones, $station_pref->id); 
+                                 // calling find_zone_for_next_posting function which will return 
+                                 //an automatic suitable zone (if any) among the given set for next posting for the given JO
+                                 //$next_posting_zone = Controller::find_zone_for_next_posting($other_zones, $station_pref->id); 
 
+                                //  if(sizeof($next_posting_zone)==1){ // i.e. there is a single eligible zone to be posted in
+                                //     $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting Should Be In <br/>\n 
+                                //     <strong>ZONE - ".$next_posting_zone['0']->zone_name."; <br/>\nDesignation: ".$next_posting_designation['0']['0']['present_posting'].";
+                                //     <br/>\nIn Place of ".$next_posting_designation['0']['0']['officer_name']."</strong>";
+                                // }
+                                // else if(sizeof($next_posting_zone)==2){ // i.e. there is two eligible zone to be posted in, choose randomly among them
+                                    
+                                //     $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting Should Be In <br/>\n
+                                //     1. <strong>ZONE - ".$next_posting_zone['0']->zone_name."; <br/>\nDesignation: ".$next_posting_designation['0']['0']['present_posting']."
+                                //     <br/>\nIn Place of ".$next_posting_designation['0']['0']['officer_name']."</strong>
+                                //     <br/><br/>\n\nOR<br/><br/>\n\n
+                                //     2.<strong> ZONE - ".$next_posting_zone['1']->zone_name."; <br/>\nDesignation: ".$next_posting_designation['1']['0']['present_posting'].";
+                                //     <br/>\nIn Place of ".$next_posting_designation['1']['0']['officer_name']."</strong>";
+                                // }
                                 if(sizeof($next_posting_zone)==1){ // i.e. there is a single eligible zone to be posted in
-                                    $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting is <strong>ZONE - ".$next_posting_zone['0']->zone_name."</strong>";
+                                    $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting Should Be In <br/>\n 
+                                    <strong>ZONE - ".$next_posting_zone['0']->zone_name."</strong>";
                                 }
                                 else if(sizeof($next_posting_zone)==2){ // i.e. there is two eligible zone to be posted in, choose randomly among them
-                                    $number = rand(0,1);
-                                    $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting is <strong>ZONE - ".$next_posting_zone[$number]->zone_name."</strong>";
+                            
+                                    $judicial_officer_details['automatic_posting_details'][$key] = "System Suggested Next  <br/>\nPosting Should Be In <br/>\n
+                                    1. <strong>ZONE - ".$next_posting_zone['0']->zone_name."</strong>
+                                    <br/><br/>\n\nOR<br/><br/>\n\n
+                                    2.<strong> ZONE - ".$next_posting_zone['1']->zone_name."</strong>";
                                 }
-                                else{
-                                    $judicial_officer_details['automatic_posting_details'][$key] = "System is Unable To Find Any Suitable Next Posting <br/>\nAs This Officer Has Completed Its <br/>\nIdeal Service Period In All Four Zones";
-                                }
-                        }
+                                 else{
+                                     $judicial_officer_details['automatic_posting_details'][$key] = "System is Unable To Find Any Suitable Next Posting <br/>\nAs This Officer Has Completed Its <br/>\nIdeal Service Period In All Four Zones";
+                                 }
+                         }
                     }
                     
 
@@ -651,8 +676,8 @@ class JoDetailsPdfController extends Controller
                         <tbody>";
 
             $content.="<tr>                       
-                        <td align=\"left\" style=\" width:auto; font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-bottom: 4px solid #ddd;\">".$judicial_officer_details['display_pref_for_jo'][$i]['officer_name']."</td>
-                        <td align=\"left\" style=\"  font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-bottom: 4px solid #ddd;\">".$judicial_officer_details['posted_as'][$i]['0']['designation_name']."</td>";
+                        <td align=\"left\" style=\" width:auto; font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-bottom: 4px solid #ddd;\">".$judicial_officer_details['officer_name'][$i]."</td>
+                        <td align=\"left\" style=\"  font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-bottom: 4px solid #ddd; width:300px; overflow-wrap: break-word;\">".$judicial_officer_details['posted_as'][$i]['0']['designation_name']."</td>";
 
             
             // $content.="<td align=\"left\" style=\" font-size: 1.17em; border-collapse:collapse; border-right: 4px solid #ddd;border-bottom: 4px solid #ddd;\">";
@@ -715,46 +740,7 @@ class JoDetailsPdfController extends Controller
     }
 
 
-    // this will receive a set of two zones for any JO and return a suitable zone (if any) as its next posting
-    public function find_zone_for_next_posting($zones, $jo_id){ 
-        
-        shuffle($zones); // randomizing among available two zones for the officer who already has two or more postings
-
-        $str_where = ""; // this string will be used inside the following sql statement inside the where clause
-        foreach($zones as $i=>$zone){
-            $str_where.=$zone->id;
-            if(sizeof($zones) - $i !=1){
-                $str_where.= ",";
-            }            
-        }
-
-       
-                    
-        $res = DB::select(
-                            '
-                                select zones.id, zone_name, COALESCE(sum(COALESCE(to_date,current_date)::date - from_date::date),0) as serving_period, COALESCE(ceil((date_of_retirement::date - date_of_joining::date)*ratio_of_service_period/10),1000) as ideal_service_period  from zones
-                                left join judicial_officer_postings as jop on zones.id = jop.zone_id and jop.judicial_officer_id ='.$jo_id.'
-                                left join judicial_officers as jo on jop.judicial_officer_id = jo.id
-                                where zones.id in ('.$str_where.')
-                                group by zones.id, zone_name, date_of_retirement,date_of_joining,ratio_of_service_period
-                                order by zone_name
-                            '
-                        );
-
-        // now checking whether their already done service in two zones is less than its ideal service period
-        
-        $eligible_zones = Array();
-        foreach($res as $r){
-            if($r->serving_period < $r->ideal_service_period){
-                array_push($eligible_zones, $r); // storing the eligible zone details
-            }
-        }
-
-        return $eligible_zones;        
-        
-    }
-
-
+   
 
     public function zonewise_tenurewise_jo_download(Request $request){
 
@@ -1290,6 +1276,6 @@ class JoDetailsPdfController extends Controller
 
 
         $mpdf->WriteHTML($content);
-        $mpdf->Output('cuurent_zonewise_posting_details.pdf','D');
+        $mpdf->Output('cuurent_zonewise_posting_details.pdf','I');
     }
 }
